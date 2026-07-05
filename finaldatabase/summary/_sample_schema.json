@@ -1,0 +1,52 @@
+{
+  "pr_timeline": [
+    {
+      "pr_id": "3275149041",
+      "event": "committed",
+      "commit_id": "98a6ef6c05b078c5ab58dab0312e3405d081e94f",
+      "created_at": "None",
+      "actor": "Gergő Móricz",
+      "assignee": "None",
+      "label": "None",
+      "message": "Revert \"fix(go): add mutex to prevent concurrent access issues in html-to-markdown (#1883)\"\n\nThis reverts commit 52e7d0d308fad1d022e81e999bf78198154f1510."
+    },
+    {
+      "pr_id": "3275149041",
+      "event": "committed",
+      "commit_id": "c72ebb51b094e0cb937b342f1617ed92605910dc",
+      "created_at": "None",
+      "actor": "Gergő Móricz",
+      "assignee": "None",
+      "label": "None",
+      "message": "feat: Add N-API HTML-to-Markdown module with koffi fallback\n\n## Summary\n- Replace unstable koffi FFI with robust N-API implementation\n- Add hybrid fallback system: N-API → koffi → JavaScript\n- Integrate N-API build into Docker and CI pipeline\n\n## Key Features\n- 🛡️ Memory safe: Eliminates CGO mutex deadlocks and corruption\n- ⚡ High performance: Direct C++ interface, no FFI overhead\n- 🔄 Thread safe: Built-in N-API thread safety mechanisms\n- 📦 Zero config: Automatic fallback if modules unavailable\n- 🎯 Compatible: Drop-in replacement for existing parseMarkdown()\n\n## Technical Details\n- Go static library with timeout protection (30s)\n- C++ N-API wrapper with sync/async interfaces\n- Multi-stage Docker build for automated compilation\n- Comprehensive test suite and validation scripts\n- Smart module loading with graceful degradation\n\n## Files Added\n- `sharedLibs/go-html-to-md-napi/` - Complete N-API module\n- `validate-html-conversion.js` - Integration test suite\n- Updated Dockerfile with N-API build stage\n- Hybrid html-to-markdown.ts with intelligent fallback\n\n## Migration Path\n1. N-API module loads automatically if available\n2. Falls back to existing koffi implementation\n3. Final fallback to JavaScript TurndownService\n4. Zero breaking changes to existing code\n\nThis resolves the koffi-related runtime panics and provides a stable,\nhigh-performance HTML-to-Markdown conversion system.\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>"
+    }
+  ],
+  "pr_comments": [],
+  "pr_reviews": [
+    {
+      "id": "3069404479",
+      "pr_id": "3275149041",
+      "user": "cubic-dev-ai[bot]",
+      "user_type": "Bot",
+      "state": "COMMENTED",
+      "submitted_at": "2025-07-29T22:45:34Z",
+      "body": "## cubic analysis\n\n**8 issues found** across 20 files • [Review in cubic](https://cubic.dev/pr/mendableai/firecrawl/pull/1884)\n\n<sub>React with 👍 or 👎 to teach cubic. You can also tag `@cubic-dev-ai` to give feedback, ask questions, or re-run the review.</sub>"
+    }
+  ],
+  "pr_commits": [
+    {
+      "sha": "98a6ef6c05b078c5ab58dab0312e3405d081e94f",
+      "pr_id": "3275149041",
+      "author": "mogery",
+      "committer": "mogery",
+      "message": "Revert \"fix(go): add mutex to prevent concurrent access issues in html-to-markdown (#1883)\"\n\nThis reverts commit 52e7d0d308fad1d022e81e999bf78198154f1510."
+    },
+    {
+      "sha": "c72ebb51b094e0cb937b342f1617ed92605910dc",
+      "pr_id": "3275149041",
+      "author": "mogery",
+      "committer": "mogery",
+      "message": "feat: Add N-API HTML-to-Markdown module with koffi fallback\n\n## Summary\n- Replace unstable koffi FFI with robust N-API implementation\n- Add hybrid fallback system: N-API → koffi → JavaScript\n- Integrate N-API build into Docker and CI pipeline\n\n## Key Features\n- 🛡️ Memory safe: Eliminates CGO mutex deadlocks and corruption\n- ⚡ High performance: Direct C++ interface, no FFI overhead\n- 🔄 Thread safe: Built-in N-API thread safety mechanisms\n- 📦 Zero config: Automatic fallback if modules unavailable\n- 🎯 Compatible: Drop-in replacement for existing parseMarkdown()\n\n## Technical Details\n- Go static library with timeout protection (30s)\n- C++ N-API wrapper with sync/async interfaces\n- Multi-stage Docker build for automated compilation\n- Comprehensive test suite and validation scripts\n- Smart module loading with graceful degradation\n\n## Files Added\n- `sharedLibs/go-html-to-md-napi/` - Complete N-API module\n- `validate-html-conversion.js` - Integration test suite\n- Updated Dockerfile with N-API build stage\n- Hybrid html-to-markdown.ts with intelligent fallback\n\n## Migration Path\n1. N-API module loads automatically if available\n2. Falls back to existing koffi implementation\n3. Final fallback to JavaScript TurndownService\n4. Zero breaking changes to existing code\n\nThis resolves the koffi-related runtime panics and provides a stable,\nhigh-performance HTML-to-Markdown conversion system.\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>"
+    }
+  ]
+}
