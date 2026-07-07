@@ -1,7 +1,7 @@
 # Few-shot 候选 PR 选取说明
 
 > 数据来源：`finaldatabase/`（1221 条 Agent 性能 PR，截至 2026-06-21）  
-> 选取目标：6 条代表性 PR，用于毕业设计 few-shot 标注与 RQ2/RQ4 试点分析
+> 选取目标：8 条代表性 PR（A 组 4 + B 组 2 + C 组 2），用于毕业设计 few-shot 标注与 RQ2/RQ4 试点分析；**实际构建 few-shot 优先使用 A + C 组**
 
 ---
 
@@ -9,10 +9,11 @@
 
 | 维度 | 要求 | 实现方式 |
 |------|------|----------|
-| 总量 | 6 条 | 见下表 |
-| 合并结果 | merged 3 条 / closed（未合并）3 条 | 严格 3:3 |
-| 变更规模（4 条） | 代码变更量、review 数或 comment 数接近全库均值 | 以 `auxiliary/` 聚合指标与全库均值比对；因 `total_changes` 分布极度右偏（均值 1956 vs 中位数 156），"接近平均"同时参考 **中位数区间** 与 **review/comment 均值** |
-| 高活动（2 条） | 代码修改与审查明显偏多 | 选取 `activity_score`（changes + review×50 + review_comment×20 + comment×10）Top 档，且同时具备大量文件变更与多轮 review |
+| 总量 | 8 条（A 4 + B 2 + C 2） | 见下表 |
+| 合并结果 | merged 4 条 / closed 4 条 | A+C 组各 2:2；B 组 1:1 作重量级参照 |
+| 变更规模（A 组 4 条） | 代码变更量、review 数或 comment 数接近全库均值 | 以 `auxiliary/` 聚合指标与全库均值比对；因 `total_changes` 分布极度右偏（均值 1956 vs 中位数 156），"接近平均"同时参考 **中位数区间** 与 **review/comment 均值** |
+| 适度增量（C 组 2 条） | 变更量高于 A 组约 50%–100%，但不重量级 | 约为 p75 的 **1.5–2×**（约 950–1270 changes）；文件数 ≤30、commit ≤12；**有关联 issue**；**1–2 轮有实质内容的 review**（`CHANGES_REQUESTED` / `APPROVED` / 长文 `COMMENTED`） |
+| 高活动参照（B 组 2 条） | 代码修改与审查明显偏多（保留备查，非 few-shot 首选） | 选取 `activity_score` Top 档；变更达数万行、review 十余轮，适合作为"极端案例"对照 |
 
 ### 全库基线（merged + closed，n=1172）
 
@@ -121,31 +122,73 @@
 
 **选取理由**：变更规模与审查强度均处全库 Top（changes 50×均值，review 16×均值），但**最终合并**。通过逐个移除 Maven 插件并验证 `mvn clean install` 的系统性方法，review 中维护者纠正了"不可删除 compiler 插件"——代表 **大规模构建优化 PR 在多轮人机协作后成功落地** 的对照样本，与 #5 形成"同量级活动、不同结局"配对。
 
+> **说明**：B 组保留为"高活动极端案例"备查；日常 few-shot 构建建议跳过，避免标注负担过重。
+
+---
+
+### C 组：适度增量 · 优质轻量（2 条，1 merged + 1 closed）⭐ few-shot 优先
+
+> 选取逻辑：在关联 issue + 有实质 review 的交集中，取变更量约为全库 **p75 的 1.5–2×**（约 950–1270 行），远低于 B 组（10 万行级），但信息密度高、适合人工标注与 LLM few-shot 示范。
+
+#### 7. `3125029980` — merged · Copilot
+
+| 字段 | 值 |
+|------|-----|
+| 仓库 | [nearai/nearai](https://github.com/nearai/nearai) |
+| 标题 | Implement asynchronous API calls for file and message creation in environment.py |
+| Agent | Copilot |
+| Topic | 19_knowledge_deepseek_crew_cache |
+| 关联 Issue | body 链接 issue（`source: body`） |
+| 变更 | 6 commits · 1 file · **959 changes**（≈ p75 的 1.5×） |
+| 协作 | 3 reviews · 0 review comment · 2 comments |
+
+**选取理由**：典型 **"一轮 CR → 按意见修改 → 合并"** 路径。维护者 `CHANGES_REQUESTED`："Don't do async execution in completions_and_run_tools()"，作者撤回有问题的异步路径后获 `APPROVED`；评论给出可复现的性能数据（**~8s 降至 4–5s**）。单文件集中改动，体量适中，非常适合作为 **合并成功 + 性能证据可引用** 的 few-shot 正例。
+
+---
+
+#### 8. `3022909076` — closed · Devin
+
+| 字段 | 值 |
+|------|-----|
+| 仓库 | [risingwavelabs/risingwave](https://github.com/risingwavelabs/risingwave) |
+| 标题 | feat: improve DAG visualization in RisingWave UI |
+| Agent | Devin |
+| Topic | 2_hydration_species_component_children |
+| 关联 Issue | body 链接 issue（`source: body`） |
+| 变更 | 3 commits · 5 files · **1213 changes**（≈ p75 的 1.9×） |
+| 协作 | 2 reviews · 0 review comment · 2 comments |
+
+**选取理由**：将 D3/dagre 替换为 ReactFlow 以改善大型 DAG 可读性，首轮 review 有完整 PR Overview；维护者随后以截图回复 **"还是不 work"** 并 👎，最终因 **7 天不活跃** 关闭。变更与审查强度均适度，拒因清晰（**功能未达预期**），适合作为 **有关联 issue、有 review 往返、但未合并** 的 few-shot 负例，与 #7 形成鲜明对照。
+
 ---
 
 ## 汇总矩阵
 
 | # | PR ID | 分组 | 结果 | Agent | changes | reviews | comments | 代表性 |
 |---|-------|------|------|-------|---------|---------|----------|--------|
-| 1 | 3228424652 | 平均 | merged | Cursor | 79 | 1 | 2 | 小改动轻审查即合并 |
-| 2 | 3074351366 | 平均 | merged | Devin | 1115 | 1 | 1 | 中等 API 资源限制修复 |
-| 3 | 3194284966 | 平均 | closed | Cursor | 230 | 2 | 2 | 缺 benchmark 被拒 |
-| 4 | 3145702280 | 平均 | closed | Copilot | 815 | 0 | 1 | 重构无审查文本即关闭 |
-| 5 | 3226043406 | 高活动 | closed | Claude_Code | 158472 | 11 | 6 | 大范围 lazy-load 引发回归争议 |
-| 6 | 3119512382 | 高活动 | merged | Copilot | 98479 | 18 | 13 | 大规模构建优化多轮协作后合并 |
+| 1 | 3228424652 | A·平均 | merged | Cursor | 79 | 1 | 2 | 小改动轻审查即合并 |
+| 2 | 3074351366 | A·平均 | merged | Devin | 1115 | 1 | 1 | 中等 API 资源限制修复 |
+| 3 | 3194284966 | A·平均 | closed | Cursor | 230 | 2 | 2 | 缺 benchmark 被拒 |
+| 4 | 3145702280 | A·平均 | closed | Copilot | 815 | 0 | 1 | 重构无审查文本即关闭 |
+| 5 | 3226043406 | B·高活动 | closed | Claude_Code | 158472 | 11 | 6 | 大范围 lazy-load 引发回归争议 |
+| 6 | 3119512382 | B·高活动 | merged | Copilot | 98479 | 18 | 13 | 大规模构建优化多轮协作后合并 |
+| 7 | 3125029980 | C·适度 | merged | Copilot | 959 | 3 | 2 | CR 后修正，8s→4-5s 有数据 |
+| 8 | 3022909076 | C·适度 | closed | Devin | 1213 | 2 | 2 | DAG 改版未达预期，截图拒 |
 
-**Agent 覆盖**：Cursor(2) · Devin(1) · Copilot(2) · Claude_Code(1)  
-**合并结果**：merged 3 / closed 3 ✓
+**Agent 覆盖**：Cursor(2) · Devin(2) · Copilot(3) · Claude_Code(1)  
+**合并结果**：merged 4 / closed 4 ✓  
+**Few-shot 推荐**：优先 #1–4 + #7–8（A+C）；#5–6 仅作极端对照备查
 
 ---
 
 ## 后续 few-shot 标注建议
 
-1. **RQ2 优先字段**：`outcome_reason`、`review_dimensions`、`inefficiency_antipattern`；#3、#5 已有明确拒因文本。  
-2. **RQ4 优先字段**：`detection_method`、`reproducibility`、`regression_handling`；#3（benchmark 缺失）、#5（测试不可行）、#6（逐插件验证）形成对比。  
-3. **配对分析**：#5 vs #6（同高活动、异结局）；#3 vs #4（均有/无 review 的 closed 对照）。  
-4. 明细数据路径：`finaldatabase/per_pr/{pr_id}/` 及各 `auxiliary/*.parquet`。
+1. **RQ2 优先字段**：`outcome_reason`、`review_dimensions`、`inefficiency_antipattern`；#3、#8 已有明确拒因文本；#7 有 CR 往返。  
+2. **RQ4 优先字段**：`detection_method`、`reproducibility`、`regression_handling`；#3（benchmark 缺失）、#7（实测耗时对比）、#8（截图验证失败）形成对比。  
+3. **配对分析**：#7 vs #8（同 C 组适度增量、异结局）；#3 vs #4（有/无 review 的 closed 对照）；#5 vs #6（B 组极端高活动对照，可选）。  
+4. **构建顺序建议**：先标注 C 组（#7–8）定模板 → 扩至 A 组（#1–4）→ 视需要参考 B 组。  
+5. 明细数据路径：`finaldatabase/per_pr/{pr_id}/` 及各 `auxiliary/*.parquet`。
 
 ---
 
-*生成方式：基于 `finaldatabase/auxiliary/` 聚合指标与 `pr_master/perf_prs_expanded_final.csv` 主表筛选，2026-07-07。*
+*生成方式：基于 `finaldatabase/auxiliary/` 聚合指标与 `pr_master/perf_prs_expanded_final.csv` 主表筛选；C 组于 2026-07-07 增补（适度增量 + issue + 优质 review，非重量级）。*
