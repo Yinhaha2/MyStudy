@@ -1,0 +1,253 @@
+{
+  "pr_id": 3228424652,
+  "generated_at": "2026-07-13T07:30:30Z",
+  "guide_version": "RQ_fewshot_guide.md",
+  "candidate_group": "A_near_average",
+  "meta": {
+    "title": "Limit wait action to 10 seconds",
+    "html_url": "https://github.com/browser-use/browser-use/pull/2437",
+    "repo": "browser-use/browser-use",
+    "agent": "Cursor",
+    "user": "mertunsall",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-14 11:27:13+00:00",
+    "merged_at": "2025-07-14 11:40:37+00:00",
+    "closed_at": "2025-07-14 11:40:38+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 0,
+    "topic_name": "0_workflow_jobs_job_ci",
+    "body_summary": "Cap browser-use agent wait action at 10 seconds to prevent excessively long asyncio.sleep delays during automation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 9,
+      "additions": 45,
+      "deletions": 34,
+      "changes": 79,
+      "top1_file": "browser_use/browser/session.py",
+      "top1_changes": 36,
+      "top1_change_ratio": 0.456,
+      "files_by_status": {
+        "modified": 9
+      },
+      "directory_count": 2,
+      "directories": [
+        ".cursor",
+        "browser_use"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 4,
+        "commented": 2,
+        "reviewed": 1,
+        "auto_merge_enabled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.223,
+      "first_review_delay_hours": 0.052,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": true
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "few_shot_labels": {
+    "perf_focus": [
+      "wait_timeout_cap",
+      "agent_action_throttling",
+      "observability_overhead_reduction"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative",
+      "ci_task_eval"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "小范围 wait 上限修复；cubic 指出负值 sleep 风险后于 follow-up commit 采纳 min(max(seconds,0),10)；无 benchmark 但 CI agent 任务评测 2/3 通过即合并。"
+  },
+  "rq_analysis": {
+    "RQ1": {
+      "outcome": "merged",
+      "change_scale_vs_library": {
+        "changes_ratio_to_mean": 0.04,
+        "changes_ratio_to_median": 0.506,
+        "interpretation": "变更规模远低于全库均值/中位数，属于小步快改型 perf PR，与合并成功一致。"
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.223,
+        "fast_merge": true
+      }
+    },
+    "RQ2": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_edge_case",
+      "concern_detail": "行内 review 指出负 seconds 传入 asyncio.sleep 会 ValueError，建议 clamp 下界为 0；作者在 e655986 中实现 min(max(seconds,0),10)。",
+      "performance_claim": "防止 Agent wait 动作过长导致执行阻塞/延迟累积",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_blocking_wait (prior behavior, not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "ci_validation"
+      ],
+      "rejection_signals": null
+    },
+    "RQ3": {
+      "topic": "0_workflow_jobs_job_ci",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "控制器层参数钳制类改动，无需 benchmark 或底层 runtime 知识；Cursor 在此类小修复上合并阻力低。",
+      "success_factors": [
+        "narrow_scope",
+        "automated_review_fixable",
+        "maintainer_auto_merge"
+      ]
+    },
+    "RQ4": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "cubic-dev-ai 静态审阅 wait 实现并给出 clamp 建议",
+        "ci_auto": "github-actions Agent Task Evaluation 2/3；delve-auditor 安全扫描无问题"
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "无 before/after 耗时数据或 benchmark；仅有 CI 端到端 agent 任务通过率与叙述性 10s 上限说明。",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "review 建议后在同一 PR 内追加 commit 修复负值边界，未出现 revert。",
+      "evidence_gap": "narrative_only_for_wait_cap"
+    }
+  },
+  "evidence": {
+    "core_change": {
+      "description": "在 browser_use/controller/service.py 的 wait action 中将 asyncio.sleep(seconds) 改为 actual_seconds=min(max(seconds,0),10)，并更新 action 描述与日志。",
+      "files_primary": [
+        "browser_use/controller/service.py"
+      ],
+      "files_secondary_observability": [
+        "browser_use/browser/session.py",
+        "browser_use/agent/service.py",
+        "browser_use/agent/prompts.py",
+        "browser_use/agent/message_manager/service.py",
+        "browser_use/controller/registry/service.py"
+      ],
+      "secondary_note": "合并 main 带入多处 observe_debug(ignore_input=True, ignore_output=True) 调整，可能降低 tracing 开销，但非 PR 标题主改动。",
+      "patches": [
+        {
+          "sha": "c0c1d86f",
+          "file": "browser_use/controller/service.py",
+          "patch_excerpt": "@@ -134,12 +134,17 @@ async def go_back(_: NoParamsAction, browser_session: BrowserSession):\n \n \t\t# wait for x seconds\n \n-\t\t@self.registry.action('Wait for x seconds default 3')\n+\t\t@self.registry.action('Wait for x seconds default 3 (max 10 seconds)')\n \t\tasync def wait(seconds: int = 3):\n-\t\t\tmsg = f'🕒  Waiting for {seconds} seconds'\n+\t\t\t# Cap wait time at maximum 10 seconds\n+\t\t\tactual_seconds = min(seconds, 10)\n+\t\t\tif actual_seconds != seconds:\n+\t\t\t\tmsg = f'🕒  Waiting for {actual_seconds} seconds (capped from {seconds} seconds, max 10 seconds)'\n+\t\t\telse:\n+\t\t\t\tmsg = f'🕒  Waiting for {actual_seconds} seconds'\n \t\t\tlogger.info(msg)\n-\t\t\tawait asyncio.sleep(seconds)\n-\t\t\treturn ActionResult(extracted_content=msg, include_in_memory=True, long_term_memory=f'Waited for {seconds} seconds')\n+\t\t\tawait asyncio.sleep(actual_seconds)\n+\t\t\treturn ActionResult(extracted_content=msg, include_in_memory=True, long_term_memory=f'Waited for {actual_seconds} seconds')\n \n \t\t# Element Interaction Actions\n "
+        },
+        {
+          "sha": "dbb42221",
+          "file": "browser_use/controller/service.py",
+          "patch_excerpt": "@@ -144,7 +144,9 @@ async def wait(seconds: int = 3):\n \t\t\t\tmsg = f'🕒  Waiting for {actual_seconds} seconds'\n \t\t\tlogger.info(msg)\n \t\t\tawait asyncio.sleep(actual_seconds)\n-\t\t\treturn ActionResult(extracted_content=msg, include_in_memory=True, long_term_memory=f'Waited for {actual_seconds} seconds')\n+\t\t\treturn ActionResult(\n+\t\t\t\textracted_content=msg, include_in_memory=True, long_term_memory=f'Waited for {actual_seconds} seconds'\n+\t\t\t)\n \n \t\t# Element Interaction Actions\n "
+        },
+        {
+          "sha": "e655986b",
+          "file": "browser_use/controller/service.py",
+          "patch_excerpt": "@@ -137,7 +137,7 @@ async def go_back(_: NoParamsAction, browser_session: BrowserSession):\n \t\t@self.registry.action('Wait for x seconds default 3 (max 10 seconds)')\n \t\tasync def wait(seconds: int = 3):\n \t\t\t# Cap wait time at maximum 10 seconds\n-\t\t\tactual_seconds = min(seconds, 10)\n+\t\t\tactual_seconds = min(max(seconds, 0), 10)\n \t\t\tif actual_seconds != seconds:\n \t\t\t\tmsg = f'🕒  Waiting for {actual_seconds} seconds (capped from {seconds} seconds, max 10 seconds)'\n \t\t\telse:"
+        }
+      ]
+    },
+    "reviews": [
+      {
+        "id": 3015987349,
+        "state": "COMMENTED",
+        "user": "cubic-dev-ai[bot]",
+        "body_excerpt": "cubic found 1 issue across 1 file. Review it in [cubic.dev](https://cubic.dev/pr/browser-use/browser-use/pull/2437)\n\n<sub>React with 👍 or 👎 to teach cubic. Tag `@cubic-dev-ai` to give specific feedback.</sub>"
+      }
+    ],
+    "review_comments": [
+      {
+        "path": "browser_use/controller/service.py",
+        "user": "cubic-dev-ai[bot]",
+        "body_excerpt": "<!-- metadata:{\"confidence\":8,\"steps\":[]} -->\nIf a negative value is passed, asyncio.sleep will raise ValueError because sleep length must be non-negative. The code should clamp the lower bound to 0 (or raise an explicit error) before calling sleep.\n\n```suggestion\n\t\t\tactual_seconds = min(max(seconds, 0), 10)\n```"
+      }
+    ],
+    "comments": [
+      {
+        "user": "delve-auditor[bot]",
+        "created_at": "2025-07-14T11:28:51Z",
+        "body_excerpt": "✅ **No security or compliance issues detected.** Reviewed everything up to e655986bab166cd5aa73cdcc95773350a632e1b3.\n\n\n<details>\n<summary>Security Overview</summary>\n\n- 🔎 **Scanned files:** 2 changed file(s)\n\n\n</details>\n\n<details>\n<summary>Detected Code Changes</summary>\n\n| Change Type | Relevant files |\n|------------|----------------|\n| Enhancement | ► browser-use-rules.mdc<br>&nbsp;&nbsp;&nbsp;",
+        "bucket": "performance_related_concern"
+      },
+      {
+        "user": "github-actions[bot]",
+        "created_at": "2025-07-14T11:29:58Z",
+        "body_excerpt": "## Agent Task Evaluation Results: 2/3 (67%)\n\n<details>\n<summary>View detailed results</summary>\n\n| Task | Result | Reason |\n|------|--------|--------|\n| captcha_cloudflare | ❌ Fail | The agent did not succeed in solving the captcha on the specified webpage. As a result, the success message confirming the captcha was passed did not appear, and the hostname value 'example.com' was not extracted. The",
+        "bucket": "correctness_or_bug"
+      }
+    ],
+    "commits": [
+      {
+        "sha": "c0c1d86f",
+        "author": "cursoragent",
+        "message": "Cap wait action at maximum 10 seconds\n\n- Updated wait action to limit maximum wait time to 10 seconds\n- Added clear logging when wait time is capped\n- Updated action description to mention the 10-second limit\n- Preserves existing behavior for wait times ≤ 10 seconds"
+      },
+      {
+        "sha": "7d72b013",
+        "author": "mertunsall",
+        "message": "Merge branch 'main' into cursor/limit-wait-action-to-10-seconds-5522"
+      },
+      {
+        "sha": "dbb42221",
+        "author": "mertunsall",
+        "message": "precommit run"
+      },
+      {
+        "sha": "e655986b",
+        "author": "mertunsall",
+        "message": "Update browser_use/controller/service.py\n\nCo-authored-by: cubic-dev-ai[bot] <191113872+cubic-dev-ai[bot]@users.noreply.github.com>"
+      }
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}
