@@ -159,7 +159,7 @@
     }
   },
   "evidence": {
-    "core_change": {
+    "core_change_summary": {
       "description": "在 browser_use/controller/service.py 的 wait action 中将 asyncio.sleep(seconds) 改为 actual_seconds=min(max(seconds,0),10)，并更新 action 描述与日志。",
       "files_primary": [
         "browser_use/controller/service.py"
@@ -172,74 +172,50 @@
         "browser_use/controller/registry/service.py"
       ],
       "secondary_note": "合并 main 带入多处 observe_debug(ignore_input=True, ignore_output=True) 调整，可能降低 tracing 开销，但非 PR 标题主改动。",
-      "patches": [
-        {
-          "sha": "c0c1d86f",
-          "file": "browser_use/controller/service.py",
-          "patch_excerpt": "@@ -134,12 +134,17 @@ async def go_back(_: NoParamsAction, browser_session: BrowserSession):\n \n \t\t# wait for x seconds\n \n-\t\t@self.registry.action('Wait for x seconds default 3')\n+\t\t@self.registry.action('Wait for x seconds default 3 (max 10 seconds)')\n \t\tasync def wait(seconds: int = 3):\n-\t\t\tmsg = f'🕒  Waiting for {seconds} seconds'\n+\t\t\t# Cap wait time at maximum 10 seconds\n+\t\t\tactual_seconds = min(seconds, 10)\n+\t\t\tif actual_seconds != seconds:\n+\t\t\t\tmsg = f'🕒  Waiting for {actual_seconds} seconds (capped from {seconds} seconds, max 10 seconds)'\n+\t\t\telse:\n+\t\t\t\tmsg = f'🕒  Waiting for {actual_seconds} seconds'\n \t\t\tlogger.info(msg)\n-\t\t\tawait asyncio.sleep(seconds)\n-\t\t\treturn ActionResult(extracted_content=msg, include_in_memory=True, long_term_memory=f'Waited for {seconds} seconds')\n+\t\t\tawait asyncio.sleep(actual_seconds)\n+\t\t\treturn ActionResult(extracted_content=msg, include_in_memory=True, long_term_memory=f'Waited for {actual_seconds} seconds')\n \n \t\t# Element Interaction Actions\n "
-        },
-        {
-          "sha": "dbb42221",
-          "file": "browser_use/controller/service.py",
-          "patch_excerpt": "@@ -144,7 +144,9 @@ async def wait(seconds: int = 3):\n \t\t\t\tmsg = f'🕒  Waiting for {actual_seconds} seconds'\n \t\t\tlogger.info(msg)\n \t\t\tawait asyncio.sleep(actual_seconds)\n-\t\t\treturn ActionResult(extracted_content=msg, include_in_memory=True, long_term_memory=f'Waited for {actual_seconds} seconds')\n+\t\t\treturn ActionResult(\n+\t\t\t\textracted_content=msg, include_in_memory=True, long_term_memory=f'Waited for {actual_seconds} seconds'\n+\t\t\t)\n \n \t\t# Element Interaction Actions\n "
-        },
-        {
-          "sha": "e655986b",
-          "file": "browser_use/controller/service.py",
-          "patch_excerpt": "@@ -137,7 +137,7 @@ async def go_back(_: NoParamsAction, browser_session: BrowserSession):\n \t\t@self.registry.action('Wait for x seconds default 3 (max 10 seconds)')\n \t\tasync def wait(seconds: int = 3):\n \t\t\t# Cap wait time at maximum 10 seconds\n-\t\t\tactual_seconds = min(seconds, 10)\n+\t\t\tactual_seconds = min(max(seconds, 0), 10)\n \t\t\tif actual_seconds != seconds:\n \t\t\t\tmsg = f'🕒  Waiting for {actual_seconds} seconds (capped from {seconds} seconds, max 10 seconds)'\n \t\t\telse:"
-        }
+      "change_trajectory": [
+        "初版（c0c1d86f）：加入 min(seconds, 10) 上限与封顶日志。",
+        "review 后（e655986b）：按 cubic 建议将下界 clamp 为 min(max(seconds, 0), 10)。",
+        "dbb42221 仅为 precommit 格式化，不改变语义。"
       ]
     },
-    "reviews": [
+    "review_signals": [
       {
-        "id": 3015987349,
-        "state": "COMMENTED",
-        "user": "cubic-dev-ai[bot]",
-        "body_excerpt": "cubic found 1 issue across 1 file. Review it in [cubic.dev](https://cubic.dev/pr/browser-use/browser-use/pull/2437)\n\n<sub>React with 👍 or 👎 to teach cubic. Tag `@cubic-dev-ai` to give specific feedback.</sub>"
+        "source": "cubic-dev-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "correctness_edge_case",
+        "summary": "指出负 seconds 传入 asyncio.sleep 会触发 ValueError，建议下界 clamp 为 0。",
+        "blocking": false,
+        "action_taken": "维护者在 e655986b 采纳建议，将 actual_seconds 改为 min(max(seconds, 0), 10)。"
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_gateway",
+        "summary": "formal review 正文仅为跳转 cubic.dev 的入口，实质反馈在行内 comment。",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "delve-auditor[bot]",
+        "channel": "pr_comment",
+        "signal": "security_scan_pass",
+        "summary": "安全与合规扫描未发现风险。",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_task_eval_partial_pass",
+        "summary": "Agent 端到端任务评测 2/3 通过（captcha_cloudflare 失败，amazon_laptop 与 browser_use_pip 通过）。",
+        "blocking": false,
+        "action_taken": "评测未全绿但仍触发 auto-merge。"
       }
     ],
-    "review_comments": [
-      {
-        "path": "browser_use/controller/service.py",
-        "user": "cubic-dev-ai[bot]",
-        "body_excerpt": "<!-- metadata:{\"confidence\":8,\"steps\":[]} -->\nIf a negative value is passed, asyncio.sleep will raise ValueError because sleep length must be non-negative. The code should clamp the lower bound to 0 (or raise an explicit error) before calling sleep.\n\n```suggestion\n\t\t\tactual_seconds = min(max(seconds, 0), 10)\n```"
-      }
-    ],
-    "comments": [
-      {
-        "user": "delve-auditor[bot]",
-        "created_at": "2025-07-14T11:28:51Z",
-        "body_excerpt": "✅ **No security or compliance issues detected.** Reviewed everything up to e655986bab166cd5aa73cdcc95773350a632e1b3.\n\n\n<details>\n<summary>Security Overview</summary>\n\n- 🔎 **Scanned files:** 2 changed file(s)\n\n\n</details>\n\n<details>\n<summary>Detected Code Changes</summary>\n\n| Change Type | Relevant files |\n|------------|----------------|\n| Enhancement | ► browser-use-rules.mdc<br>&nbsp;&nbsp;&nbsp;",
-        "bucket": "performance_related_concern"
-      },
-      {
-        "user": "github-actions[bot]",
-        "created_at": "2025-07-14T11:29:58Z",
-        "body_excerpt": "## Agent Task Evaluation Results: 2/3 (67%)\n\n<details>\n<summary>View detailed results</summary>\n\n| Task | Result | Reason |\n|------|--------|--------|\n| captcha_cloudflare | ❌ Fail | The agent did not succeed in solving the captcha on the specified webpage. As a result, the success message confirming the captcha was passed did not appear, and the hostname value 'example.com' was not extracted. The",
-        "bucket": "correctness_or_bug"
-      }
-    ],
-    "commits": [
-      {
-        "sha": "c0c1d86f",
-        "author": "cursoragent",
-        "message": "Cap wait action at maximum 10 seconds\n\n- Updated wait action to limit maximum wait time to 10 seconds\n- Added clear logging when wait time is capped\n- Updated action description to mention the 10-second limit\n- Preserves existing behavior for wait times ≤ 10 seconds"
-      },
-      {
-        "sha": "7d72b013",
-        "author": "mertunsall",
-        "message": "Merge branch 'main' into cursor/limit-wait-action-to-10-seconds-5522"
-      },
-      {
-        "sha": "dbb42221",
-        "author": "mertunsall",
-        "message": "precommit run"
-      },
-      {
-        "sha": "e655986b",
-        "author": "mertunsall",
-        "message": "Update browser_use/controller/service.py\n\nCo-authored-by: cubic-dev-ai[bot] <191113872+cubic-dev-ai[bot]@users.noreply.github.com>"
-      }
+    "collaboration_trajectory": [
+      "PR 创建后约 3 分钟出现 cubic 行内 review。",
+      "维护者追加 commit 修复负值边界并跑 precommit。",
+      "约 13 分钟内启用 auto-merge 并合并，无 CHANGES_REQUESTED 阻塞。"
     ]
   },
   "data_coverage": {
