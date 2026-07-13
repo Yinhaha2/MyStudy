@@ -1,0 +1,229 @@
+{
+  "pr_id": 3228424652,
+  "generated_at": "2026-07-13T07:30:30Z",
+  "guide_version": "RQ_fewshot_guide.md",
+  "candidate_group": "A_near_average",
+  "meta": {
+    "title": "Limit wait action to 10 seconds",
+    "html_url": "https://github.com/browser-use/browser-use/pull/2437",
+    "repo": "browser-use/browser-use",
+    "agent": "Cursor",
+    "user": "mertunsall",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-14 11:27:13+00:00",
+    "merged_at": "2025-07-14 11:40:37+00:00",
+    "closed_at": "2025-07-14 11:40:38+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 0,
+    "topic_name": "0_workflow_jobs_job_ci",
+    "body_summary": "Cap browser-use agent wait action at 10 seconds to prevent excessively long asyncio.sleep delays during automation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 9,
+      "additions": 45,
+      "deletions": 34,
+      "changes": 79,
+      "top1_file": "browser_use/browser/session.py",
+      "top1_changes": 36,
+      "top1_change_ratio": 0.456,
+      "files_by_status": {
+        "modified": 9
+      },
+      "directory_count": 2,
+      "directories": [
+        ".cursor",
+        "browser_use"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 4,
+        "commented": 2,
+        "reviewed": 1,
+        "auto_merge_enabled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.223,
+      "first_review_delay_hours": 0.052,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": true
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "few_shot_labels": {
+    "perf_focus": [
+      "wait_timeout_cap",
+      "agent_action_throttling",
+      "observability_overhead_reduction"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative",
+      "ci_task_eval"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "小范围 wait 上限修复；cubic 指出负值 sleep 风险后于 follow-up commit 采纳 min(max(seconds,0),10)；无 benchmark 但 CI agent 任务评测 2/3 通过即合并。"
+  },
+  "rq_analysis": {
+    "RQ1": {
+      "outcome": "merged",
+      "change_scale_vs_library": {
+        "changes_ratio_to_mean": 0.04,
+        "changes_ratio_to_median": 0.506,
+        "interpretation": "变更规模远低于全库均值/中位数，属于小步快改型 perf PR，与合并成功一致。"
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.223,
+        "fast_merge": true
+      }
+    },
+    "RQ2": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_edge_case",
+      "concern_detail": "行内 review 指出负 seconds 传入 asyncio.sleep 会 ValueError，建议 clamp 下界为 0；作者在 e655986 中实现 min(max(seconds,0),10)。",
+      "performance_claim": "防止 Agent wait 动作过长导致执行阻塞/延迟累积",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_blocking_wait (prior behavior, not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "ci_validation"
+      ],
+      "rejection_signals": null
+    },
+    "RQ3": {
+      "topic": "0_workflow_jobs_job_ci",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "控制器层参数钳制类改动，无需 benchmark 或底层 runtime 知识；Cursor 在此类小修复上合并阻力低。",
+      "success_factors": [
+        "narrow_scope",
+        "automated_review_fixable",
+        "maintainer_auto_merge"
+      ]
+    },
+    "RQ4": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "cubic-dev-ai 静态审阅 wait 实现并给出 clamp 建议",
+        "ci_auto": "github-actions Agent Task Evaluation 2/3；delve-auditor 安全扫描无问题"
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "无 before/after 耗时数据或 benchmark；仅有 CI 端到端 agent 任务通过率与叙述性 10s 上限说明。",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "review 建议后在同一 PR 内追加 commit 修复负值边界，未出现 revert。",
+      "evidence_gap": "narrative_only_for_wait_cap"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "在 browser_use/controller/service.py 的 wait action 中将 asyncio.sleep(seconds) 改为 actual_seconds=min(max(seconds,0),10)，并更新 action 描述与日志。",
+      "files_primary": [
+        "browser_use/controller/service.py"
+      ],
+      "files_secondary_observability": [
+        "browser_use/browser/session.py",
+        "browser_use/agent/service.py",
+        "browser_use/agent/prompts.py",
+        "browser_use/agent/message_manager/service.py",
+        "browser_use/controller/registry/service.py"
+      ],
+      "secondary_note": "合并 main 带入多处 observe_debug(ignore_input=True, ignore_output=True) 调整，可能降低 tracing 开销，但非 PR 标题主改动。",
+      "change_trajectory": [
+        "初版（c0c1d86f）：加入 min(seconds, 10) 上限与封顶日志。",
+        "review 后（e655986b）：按 cubic 建议将下界 clamp 为 min(max(seconds, 0), 10)。",
+        "dbb42221 仅为 precommit 格式化，不改变语义。"
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "correctness_edge_case",
+        "summary": "指出负 seconds 传入 asyncio.sleep 会触发 ValueError，建议下界 clamp 为 0。",
+        "blocking": false,
+        "action_taken": "维护者在 e655986b 采纳建议，将 actual_seconds 改为 min(max(seconds, 0), 10)。"
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_gateway",
+        "summary": "formal review 正文仅为跳转 cubic.dev 的入口，实质反馈在行内 comment。",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "delve-auditor[bot]",
+        "channel": "pr_comment",
+        "signal": "security_scan_pass",
+        "summary": "安全与合规扫描未发现风险。",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_task_eval_partial_pass",
+        "summary": "Agent 端到端任务评测 2/3 通过（captcha_cloudflare 失败，amazon_laptop 与 browser_use_pip 通过）。",
+        "blocking": false,
+        "action_taken": "评测未全绿但仍触发 auto-merge。"
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR 创建后约 3 分钟出现 cubic 行内 review。",
+      "维护者追加 commit 修复负值边界并跑 precommit。",
+      "约 13 分钟内启用 auto-merge 并合并，无 CHANGES_REQUESTED 阻塞。"
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}
