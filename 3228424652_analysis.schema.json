@@ -1,0 +1,170 @@
+{
+  "pr_id": "Pull Request 唯一标识符（GitHub PR id，对应 finaldatabase 主表 id）",
+  "meta": {
+    "title": "PR 标题",
+    "html_url": "PR 网页链接",
+    "repo": "仓库名（owner/repo）",
+    "agent": "生成该 PR 的 AI Agent 名称",
+    "user": "PR 作者 GitHub 用户名",
+    "status": "研究口径下的合并结果（merged / closed / open）",
+    "state": "GitHub 原始 state 字段",
+    "created_at": "PR 创建时间",
+    "merged_at": "合并时间（未合并则为空）",
+    "closed_at": "关闭时间",
+    "detection_source": "该 PR 被纳入性能集的来源/检测方式",
+    "aidev_task_type": "AIDev 任务类型分类（如 fix / perf / feat）",
+    "aidev_task_confidence": "任务类型分类置信度",
+    "topic_id": "BERTopic 主题编号",
+    "topic_name": "BERTopic 主题名称",
+    "body_summary": "PR 正文的一句话英文摘要（分析产出，非原文照搬）"
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": "commit 数量",
+      "file_count": "改动文件数",
+      "additions": "新增行数合计",
+      "deletions": "删除行数合计",
+      "changes": "变更行数合计（additions + deletions）",
+      "top1_file": "变更行数最多的文件路径",
+      "top1_changes": "Top-1 文件的变更行数",
+      "top1_change_ratio": "Top-1 文件变更占总变更的比例",
+      "files_by_status": "按文件状态（added/modified/deleted 等）统计的文件数",
+      "directory_count": "涉及的一级目录数量",
+      "directories": "涉及的一级目录列表"
+    },
+    "collaboration": {
+      "review_count": "formal review 条数",
+      "review_states": "review 状态分布（如 APPROVED / COMMENTED / CHANGES_REQUESTED）",
+      "review_comment_count": "行内 review comment 条数",
+      "pr_comment_count": "PR 讨论 comment 条数",
+      "linked_issue_count": "关联 issue 数量"
+    },
+    "timeline": {
+      "event_count": "timeline 事件总数",
+      "event_counts": "各类型 timeline 事件计数",
+      "lifespan_hours": "从创建到合并/关闭的存活时长（小时）",
+      "first_review_delay_hours": "首条 review 相对 PR 创建的延迟（小时）",
+      "review_rounds": "review 轮次（formal review 条数近似）",
+      "has_revert": "timeline 中是否出现 revert 事件",
+      "auto_merge_enabled": "是否启用过 auto-merge"
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": "正文是否含 benchmark 表格或对比数字",
+      "body_mentions_profiler": "正文是否提及 profiler 工具",
+      "body_has_repro_steps": "正文是否含复现步骤",
+      "body_has_numeric_perf_claim": "正文是否含数值化性能声称"
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "性能关注点（如 wait_timeout_cap、cache、lazy_load 等）"
+    ],
+    "optimization_layer": "优化所在层级（如 application_control_flow、runtime、build 等）",
+    "evidence_type": [
+      "性能证据类型（narrative / benchmark / profiling / ci_task_eval 等）"
+    ],
+    "inefficiency_antipattern": [
+      "低效反模式标签（nested_loop / repeated_io / none 等；无则 none）"
+    ],
+    "outcome_reason": "合并/未合并的结果原因归纳（如 merged_small_scope_low_risk、missing_benchmark）",
+    "review_dimensions": [
+      "审查关注的维度（correctness、tests、perf_evidence、ci_validation 等）"
+    ],
+    "blocking": "审查是否构成合并阻塞（true/false）",
+    "boundary_tag": "能力边界类型（technical_stack / evidence_required / process 等）",
+    "topic_difficulty": "主题难度主观评级（low / medium / high）",
+    "detection_method": [
+      "维护者/审查者发现性能问题的方式（code_reading、profiler、load_test、ci_auto 等）"
+    ],
+    "reproducibility": "PR 材料可复现性评级（sufficient / partial / insufficient / unknown）",
+    "regression_handling": "出现退化或 review 问题后的处置方式（fix_in_pr、revert、reject_close 等）",
+    "confidence": "上述标注整体置信度（high / medium / low）",
+    "notes": "一句话英文依据，概括关键推理"
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "最终合并结果（merged / closed）",
+      "change_scale_vs_library": {
+        "changes_ratio_to_mean": "变更行数相对全库均值的比例",
+        "changes_ratio_to_median": "变更行数相对全库中位数的比例",
+        "interpretation": "变更规模与合并结果关系的文字解释"
+      },
+      "lifecycle": {
+        "lifespan_hours": "PR 存活时长（小时）",
+        "fast_merge": "是否属于快速合并（布尔值）"
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "review/comment 关键词分桶（如 correctness_or_bug、performance_related_concern）",
+      "primary_concern": "审查主要关注点（如 correctness_edge_case、missing_benchmark）",
+      "concern_detail": "主要关注点的具体说明",
+      "performance_claim": "PR 声称的性能收益",
+      "performance_evidence_in_review": "审查中是否要求或提供了性能证据",
+      "antipattern_addressed": "所修复的既有低效模式（若有）",
+      "antipattern_in_fix": "修复代码中是否引入新的反模式",
+      "human_review_dimensions": [
+        "人类审查维度列表"
+      ],
+      "rejection_signals": "未合并时的拒因信号摘要（merged PR 通常为 null）"
+    },
+    "capability_boundary": {
+      "topic": "BERTopic 主题名称",
+      "agent": "Agent 名称",
+      "boundary_type": "能力边界类型",
+      "boundary_notes": "该 PR 体现的能力边界说明",
+      "success_factors": [
+        "促成合并（或导致失败）的关键因素列表"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "维护者发现/验证性能问题的方式列表"
+      ],
+      "detection_detail": {
+        "code_reading": "通过读码审查的发现说明（若适用）",
+        "ci_auto": "通过 CI/自动化评测的发现说明（若适用）"
+      },
+      "material_reproducibility": "材料可复现性评级",
+      "reproducibility_notes": "可复现性判断依据",
+      "regression_handling": "退化或 review 问题的处置方式",
+      "regression_detail": "处置过程说明",
+      "evidence_gap": "证据缺口类型（如 narrative_only_for_wait_cap）"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "核心代码改动的英文摘要（推理产出，非 patch 原文）",
+      "files_primary": [
+        "与性能主张直接相关的主要改动文件"
+      ],
+      "files_secondary_observability": [
+        "次要/附带改动文件（如 observability、merge 带入变更）"
+      ],
+      "secondary_note": "次要改动的说明",
+      "change_trajectory": [
+        "按时间顺序的改动演进摘要（commit 级别推理，非 diff）"
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "信号来源（bot 或用户）",
+        "channel": "渠道（inline_review_comment / formal_review / pr_comment）",
+        "signal": "信号类型标签",
+        "summary": "信号内容的一句话英文摘要",
+        "blocking": "是否构成合并阻塞",
+        "action_taken": "维护者采取的后续行动（无则为 null）"
+      }
+    ],
+    "collaboration_trajectory": [
+      "人机协作时间线的英文摘要条目"
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": "数据集中是否有 commit 级变更明细",
+    "has_timeline": "是否有 timeline 事件",
+    "has_formal_review": "是否有 formal review",
+    "has_review_or_comment_text": "是否有可读的 review/comment 文本",
+    "has_linked_issue": "是否有关联 issue",
+    "per_pr_folder": "是否存在 per_pr 子目录明细"
+  }
+}
