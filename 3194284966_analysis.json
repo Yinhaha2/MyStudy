@@ -1,0 +1,218 @@
+{
+  "pr_id": 3194284966,
+  "meta": {
+    "title": "perf: improve hashing performance for manual path",
+    "html_url": "https://github.com/vercel/turborepo/pull/10623",
+    "repo": "vercel/turborepo",
+    "agent": "Cursor",
+    "user": "anthonyshew",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-02 02:11:24+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-07 17:36:01+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 33,
+    "topic_name": "33_ahash_uint_methods_fnv",
+    "body_summary": "Refactor git_like_hash_file in turborepo-scm to stream file reads with an 8KB buffer instead of loading entire files into memory, claiming better hashing performance for large files."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 2,
+      "additions": 87,
+      "deletions": 143,
+      "changes": 230,
+      "top1_file": "PERFORMANCE_IMPROVEMENT_SUMMARY.md",
+      "top1_changes": 195,
+      "top1_change_ratio": 0.848,
+      "files_by_status": {
+        "added": 1,
+        "modified": 1,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "crates"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 5,
+        "review_requested": 3,
+        "commented": 2,
+        "reviewed": 2,
+        "renamed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 135.41,
+      "first_review_delay_hours": 134.022,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "file_hash_streaming",
+      "memory_usage_reduction",
+      "io_buffering"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "missing_benchmark",
+    "review_dimensions": [
+      "perf_evidence",
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor proposed streaming hash reads but provided no benchmark; maintainer CHANGES_REQUESTED BufReader + benchmark proof, then closed until real benchmarking exists."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 230,
+        "interpretation": "At 230 changed lines, this is a small-to-medium edit by absolute volume, concentrated in one Rust source file plus a later-deleted summary doc. As a small-step performance PR it was closed—not merged—because maintainers required benchmark evidence that was never supplied."
+      },
+      "lifecycle": {
+        "lifespan_hours": 135.41,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "tests_missing_or_requested",
+      "primary_concern": "missing_benchmark",
+      "concern_detail": "chris-olszewski CHANGES_REQUESTED: use BufReader instead of a hand-rolled buffer loop and provide a benchmark to verify the performance claim; cited serde-json precedent where buffered reads can be slower than reading full files into memory.",
+      "performance_claim": "Streaming 8KB-buffered reads reduce memory pressure and improve hashing performance versus read_to_end for large files.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "repeated_io / full_file_load_into_memory (prior read_to_end approach)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence",
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": "Maintainer anthonyshew closed the PR agreeing that real benchmarking is required before accepting the change."
+    },
+    "capability_boundary": {
+      "topic": "33_ahash_uint_methods_fnv",
+      "agent": "Cursor",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Low-level Rust I/O micro-optimization in a mature monorepo tool; maintainers require benchmark proof and standard library patterns (BufReader) before merging performance claims.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "chris-olszewski reviewed the manual hashing implementation, questioned the hand-rolled buffer loop, and demanded benchmark validation referencing prior serde-json performance findings."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body and a PERFORMANCE_IMPROVEMENT_SUMMARY.md claimed significant gains but included no benchmark numbers; the summary doc was deleted before close.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After CHANGES_REQUESTED, no benchmark was added; anthonyshew closed the PR explicitly until benchmarking exists.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In crates/turborepo-scm/src/manual.rs, git_like_hash_file switched from read_to_end into a Vec to metadata-based blob header plus chunked 8KB reads while hashing; an accompanying PERFORMANCE_IMPROVEMENT_SUMMARY.md was added then removed.",
+      "files_primary": [
+        "crates/turborepo-scm/src/manual.rs"
+      ],
+      "files_secondary_observability": [
+        "PERFORMANCE_IMPROVEMENT_SUMMARY.md"
+      ],
+      "secondary_note": "195 of 230 changed lines were in the summary markdown (later deleted); the Rust implementation change is ~35 lines.",
+      "change_trajectory": [
+        "Initial commit: streaming hash implementation and performance summary doc.",
+        "Follow-up: formatting and merge commits; summary doc deleted.",
+        "Review: CHANGES_REQUESTED for BufReader and benchmark; PR closed without benchmark."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "chris-olszewski",
+        "channel": "formal_review",
+        "signal": "changes_requested_missing_benchmark",
+        "summary": "Requested BufReader instead of hand-rolled buffering and a benchmark to verify the performance improvement; skeptical without measurement.",
+        "blocking": true,
+        "action_taken": "No benchmark added; PR eventually closed."
+      },
+      {
+        "source": "chris-olszewski",
+        "channel": "inline_review_comment",
+        "signal": "preserve_symlink_comment",
+        "summary": "Asked to keep the existing symlink-handling comment in manual.rs even if the read method changes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "anthonyshew",
+        "channel": "pr_comment",
+        "signal": "close_until_benchmark",
+        "summary": "Agreed with reviewer; will close until real benchmarking that the team operates against is provided.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata (unrelated to perf validation).",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with streaming hash refactor and narrative performance summary.",
+      "Maintainer CHANGES_REQUESTED citing missing benchmark and preferring BufReader.",
+      "Author-side summary doc removed; no benchmark follow-up.",
+      "Maintainer closed PR explicitly pending benchmark evidence."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}
