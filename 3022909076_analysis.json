@@ -1,0 +1,218 @@
+{
+  "pr_id": 3022909076,
+  "meta": {
+    "title": "feat: improve DAG visualization in RisingWave UI",
+    "html_url": "https://github.com/risingwavelabs/risingwave/pull/21585",
+    "repo": "risingwavelabs/risingwave",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-27 08:09:17+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-05 14:16:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 2,
+    "topic_name": "2_hydration_species_component_children",
+    "body_summary": "Replace RisingWave UI DAG visualization from D3/dagre to ReactFlow for adaptive layout, sub-DAG drill-down, and drag-and-drop, claiming better readability and performance on large DAGs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 5,
+      "additions": 970,
+      "deletions": 243,
+      "changes": 1213,
+      "top1_file": "dashboard/components/ReactFlowRelationGraph.tsx",
+      "top1_changes": 650,
+      "top1_change_ratio": 0.536,
+      "files_by_status": {
+        "added": 1,
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "dashboard"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 3,
+        "commented": 2,
+        "labeled": 2,
+        "reviewed": 2,
+        "renamed": 1,
+        "unlabeled": 1,
+        "review_requested": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 198.127,
+      "first_review_delay_hours": 0.639,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "dag_visualization",
+      "ui_rendering_performance",
+      "frontend_refactor"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_failure_not_working",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin replaced D3/dagre with ReactFlow; maintainer xxchan reviewed with screenshot saying it still doesn't work; PR closed after 7+ days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1213,
+        "interpretation": "At 1213 changed lines across 5 files, this is a medium-sized frontend refactor by absolute volume (650 lines in ReactFlowRelationGraph.tsx, 519 in package-lock). As a moderate incremental UI performance PR it was closed—not merged—because the maintainer found the feature non-functional."
+      },
+      "lifecycle": {
+        "lifespan_hours": 198.127,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_failure",
+      "concern_detail": "Maintainer xxchan commented with a screenshot that the ReactFlow DAG visualization 'still doesn't work' (还是不 work) and gave a thumbs-down; no CHANGES_REQUESTED formal state but clear rejection of functionality.",
+      "performance_claim": "ReactFlow improves readability and performance for large/complex DAGs versus D3/dagre, with adaptive layout and sub-DAG navigation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer functional rejection via screenshot; bot closed PR for 7+ days inactivity."
+    },
+    "capability_boundary": {
+      "topic": "2_hydration_species_component_children",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Complex frontend visualization swap (D3/dagre → ReactFlow) requires working interactive UI; Agent delivered a large component change but failed maintainer's hands-on validation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "xxchan manually tested the UI, found it non-functional, and posted screenshot evidence; Copilot bot review only summarized the diff without blocking."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes manual test steps (risedev, cluster setup) but no performance metrics; maintainer reproduction showed failure, not perf regression data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No fix-in-PR cycle after maintainer rejection; Devin bot auto-closed after 7 days inactivity.",
+      "evidence_gap": "narrative_perf_claim_no_working_demo"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduce ReactFlowRelationGraph.tsx replacing D3/dagre RelationGraph; update relation_graph.tsx and node.tsx imports; add reactflow dependency in package.json/package-lock.json.",
+      "files_primary": [
+        "dashboard/components/ReactFlowRelationGraph.tsx",
+        "dashboard/pages/relation_graph.tsx"
+      ],
+      "files_secondary_observability": [
+        "dashboard/package.json",
+        "dashboard/package-lock.json",
+        "dashboard/pages/node.tsx"
+      ],
+      "secondary_note": "Most churn is the new ReactFlow component (650 lines) and lockfile updates (519 lines); page wiring changes are small.",
+      "change_trajectory": [
+        "Initial commit: ReactFlow-based DAG visualization with layout and interaction features.",
+        "Prettier formatting and edge-creation logic fix commits.",
+        "Maintainer screenshot rejection; no further fixes; auto-closed for inactivity."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Copilot bot posted PR Overview summarizing ReactFlow migration; reviewed 4/5 files with no inline comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "xxchan",
+        "channel": "formal_review",
+        "signal": "functional_rejection_screenshot",
+        "summary": "Commented that it still doesn't work (还是不 work) with thumbs-down and screenshot attachment.",
+        "blocking": true,
+        "action_taken": "No follow-up fix; PR eventually closed."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR linked to issue with ReactFlow DAG rewrite (~650-line new component).",
+      "Copilot bot posted non-blocking overview review within ~15 minutes.",
+      "Maintainer xxchan rejected functionality with screenshot ~9 minutes later.",
+      "No substantive fix commits; Devin bot auto-closed after 7+ days (~198h total lifespan)."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}
