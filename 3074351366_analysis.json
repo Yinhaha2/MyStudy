@@ -1,0 +1,211 @@
+{
+  "pr_id": 3074351366,
+  "meta": {
+    "title": "FIR-2006: Fix maxUrls and timeLimit parameters in Deep Research API",
+    "html_url": "https://github.com/mendableai/firecrawl/pull/1569",
+    "repo": "mendableai/firecrawl",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-19 16:04:38+00:00",
+    "merged_at": "2025-05-20 21:39:56+00:00",
+    "closed_at": "2025-05-20 21:39:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 45,
+    "topic_name": "45_firecrawl_scrape_scraping_authority",
+    "body_summary": "Fix Deep Research API enforcement of maxUrls and timeLimit so crawling stops at user-specified URL and time bounds instead of over-running (e.g., 88 URLs when maxUrls=5, 400s when timeLimit=180)."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 3,
+      "additions": 610,
+      "deletions": 505,
+      "changes": 1115,
+      "top1_file": "apps/api/src/__tests__/snips/lib.ts",
+      "top1_changes": 729,
+      "top1_change_ratio": 0.654,
+      "files_by_status": {
+        "added": 2,
+        "modified": 3,
+        "removed": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "CHANGES_REQUESTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 6,
+        "review_requested": 2,
+        "commented": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 29.588,
+      "first_review_delay_hours": 23.278,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "resource_limit_enforcement",
+      "api_timeout_control",
+      "crawl_budget_cap"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "tests",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin fixed maxUrls/timeLimit enforcement with unit then e2e tests after mogery CHANGES_REQUESTED on mocked snips tests; merged ~30h later with core service change of 56 lines."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1115,
+        "interpretation": "At 1115 changed lines, this is a medium-sized edit by absolute volume, though most churn is in test files rather than the 56-line service fix. It fits a targeted API resource-limit performance fix that merged after one round of test-structure review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 29.588,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "tests_missing_or_requested",
+      "primary_concern": "test_structure_policy",
+      "concern_detail": "Maintainer mogery CHANGES_REQUESTED: mocked tests must not be added to the snips folder—only end-to-end tests are allowed. Devin replaced mocked tests with e2e tests and deleted the snips test files in follow-up commits.",
+      "performance_claim": "Enforce maxUrls and timeLimit so Deep Research stops at user-configured URL and time budgets.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_url_processing_and_missing_time_checks (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "45_firecrawl_scrape_scraping_authority",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Service-layer limit enforcement and loop refactor are within typical API fix scope; merge hinged on aligning with repository test conventions rather than proving runtime speedup.",
+      "success_factors": [
+        "clear_repro_case_in_body",
+        "responded_to_changes_requested",
+        "replaced_mock_tests_with_e2e"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "mogery reviewed test placement policy via inline comment on the snips test file path."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body cites concrete failure cases (88 URLs vs maxUrls=5, 400s vs timeLimit=180) and adds tests, but no benchmark or profiling evidence for runtime improvement.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After CHANGES_REQUESTED, Devin deleted mocked snips tests, added e2e coverage, and reverted an accidental lib.ts deletion within the same PR.",
+      "evidence_gap": "test_policy_not_perf_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In deep-research-service.ts, replaced async filter URL counting with a synchronous for-loop that enforces maxUrls immediately, extracted checkTimeLimit() for repeated timeLimit checks, and added debug logging for URL/time progress.",
+      "files_primary": [
+        "apps/api/src/lib/deep-research/deep-research-service.ts"
+      ],
+      "files_secondary_observability": [
+        "apps/api/src/__tests__/snips/deep-research-service.test.ts",
+        "apps/api/src/__tests__/snips/lib.ts"
+      ],
+      "secondary_note": "Most line churn (729+330) came from added then removed/replaced test files under __tests__/snips; the production fix itself is ~56 changed lines.",
+      "change_trajectory": [
+        "Initial commits: enforce maxUrls/timeLimit in service and add unit tests under snips.",
+        "CHANGES_REQUESTED: mogery rejected mocked tests in snips folder.",
+        "Follow-up: replaced with e2e tests, deleted snips test files; brief revert/delete cycle on lib.ts before final state."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "mogery",
+        "channel": "formal_review",
+        "signal": "changes_requested_no_body",
+        "summary": "Formal CHANGES_REQUESTED review with no body text; substantive feedback delivered via inline comment.",
+        "blocking": true,
+        "action_taken": "Devin reworked tests per inline guidance."
+      },
+      {
+        "source": "mogery",
+        "channel": "inline_review_comment",
+        "signal": "test_structure_policy",
+        "summary": "Mocked tests may not be added to the snips folder; only end-to-end tests are allowed.",
+        "blocking": true,
+        "action_taken": "Removed mocked snips tests and added e2e tests in subsequent commits."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI response for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with service fix and initial snips tests; review requested same day.",
+      "~23 hours later mogery CHANGES_REQUESTED with inline test-folder policy feedback.",
+      "Devin iterated on tests over the next ~6 hours; merged by nickscamara after ~29.6 hours total."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}
