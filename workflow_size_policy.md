@@ -90,13 +90,13 @@ python workflow_size_policy.py --model deepseek-chat-64k --payload standard_no_p
 | `workflow_auto`（≤70% 预算） | **1216（99.8%）** |
 | `manual_xlarge`（硬规则触发） | **3（0.2%）** |
 
-3 条 `manual_xlarge` 因 **changes ≥ 100K** 触发硬规则（token 上其实能装下，但分析质量/成本风险高，建议人工）：
+3 条 `manual_xlarge` 与 **B 组 #5–7** 完全对应（changes ≥ 100K 硬规则），**全部人工分析**：
 
-| PR ID | Agent | changes | 说明 |
-|-------|-------|---------|------|
-| 3226043406 | Claude_Code | 158,472 | B 组极端案例，lazy-load 大范围改动 |
-| 3119512382 | Copilot | 98,479 | B 组极端案例，Maven 插件大规模清理 |
-| 3219880512 | Claude_Code | 121,251 | GCS 文件存储集成，超 12 万行变更 |
+| PR ID | 候选编号 | Agent | changes | 说明 |
+|-------|----------|-------|---------|------|
+| 3226043406 | B #5 | Claude_Code | 158,472 | lazy-load 大范围改动，高 review 失败 |
+| 3119512382 | B #6 | Copilot | 98,479 | Maven 插件大规模清理，高 review 成功 |
+| 3219880512 | B #7 | Claude_Code | 121,251 | GCS 存储替代 base64，基础设施级改造 |
 
 ### 若使用 `with_patch`（含完整 diff）
 
@@ -117,7 +117,7 @@ python workflow_size_policy.py --model deepseek-chat-64k --payload standard_no_p
 ### 调度分配
 
 1. **workflow_auto（1216）** → 批量 API 队列，无需人工预审
-2. **manual_xlarge（3）** → 直接人工深度分析（恰好覆盖 B 组 2 条 + 1 条超大变更）
+2. **manual_xlarge（3）** → 对应 `candidate.md` B 组 #5–7，全部人工深度分析
 3. 若未来切换到 64K 或上传完整 patch，需重新扫描并扩大人工比例
 
 ## 7. 限制与后续
