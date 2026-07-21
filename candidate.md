@@ -175,7 +175,7 @@
 | 变更 | 3 commits · 5 files · **1213 changes**（≈ p75 的 1.9×） |
 | 协作 | 2 reviews · 0 review comment · 2 comments |
 
-**选取理由**：将 D3/dagre 替换为 ReactFlow 以改善大型 DAG 可读性，首轮 review 有完整 PR Overview；维护者随后以截图回复 **"还是不 work"** 并 👎，最终因 **7 天不活跃** 关闭。变更与审查强度均适度，拒因清晰（**功能未达预期**），适合作为 **有关联 issue、有 review 往返、但未合并** 的 few-shot 负例，与 #7 形成鲜明对照。
+**选取理由**：将 D3/dagre 替换为 ReactFlow 以改善大型 DAG 可读性，首轮 review 有完整 PR Overview；维护者随后以截图回复 **"还是不 work"** 并 👎，最终因 **7 天不活跃** 关闭。变更与审查强度均适度，拒因清晰（**功能未达预期**），适合作为 **有关联 issue、有 review 往返、但未合并** 的 few-shot 负例，与 #8 形成鲜明对照。
 
 ---
 
