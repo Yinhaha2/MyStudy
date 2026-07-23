@@ -96,11 +96,13 @@ Compact classification tags for downstream aggregation.
 | `notes` | string | One sentence stating the main evidentiary basis. |
 
 ### `structured_analysis`
+
 Narrative sections for human-readable synthesis.
 
 #### `merge_outcome_context`
 - `outcome`: `merged` or `closed`.
 - `change_scale_vs_repository`: **only** `pr_change_lines` (integer) and `interpretation` (short paragraph). Describe absolute change size (small / medium / large) and whether the outcome fits expectations for that scale. Do **not** add repository LOC ratios or percentile fields here.
+
 - `lifecycle`: `lifespan_hours`, `fast_merge` (boolean).
 
 #### `review_details`
@@ -115,7 +117,9 @@ Narrative sections for human-readable synthesis.
 
 #### `maintainer_practices`
 - `maintainer_detection`: string[].
+
 - `detection_detail`: object with optional keys `code_reading`, `profiler`, `load_test`, `ci_auto` — brief explanation per method used; omit unused keys.
+
 - `material_reproducibility`, `reproducibility_notes`, `regression_handling`, `regression_detail`, `evidence_gap`.
 
 ### `evidence`
@@ -133,7 +137,9 @@ Array of objects:
   "source": "<username or bot>",
   "channel": "inline_review_comment | formal_review | pr_comment",
   "signal": "<short tag>",
-  "summary": "<one sentence>",
+
+  "summary": "<one summary sentence>",
+
   "blocking": true,
   "action_taken": "<follow-up or null>"
 }
