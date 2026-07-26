@@ -1,0 +1,172 @@
+{
+  "pr_id": 3186381329,
+  "meta": {
+    "title": "Optimize outer join in VM",
+    "html_url": "https://github.com/mochilang/mochi/pull/4002",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-29 17:25:32+00:00",
+    "merged_at": "2025-06-29 17:26:25+00:00",
+    "closed_at": "2025-06-29 17:26:25+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 5,
+    "topic_name": "5",
+    "body_summary": "Implement hashed outer join in the VM by adding compileHashOuterJoin and wiring it into compileJoinQuery, with updated benchmark docs and expected IR output."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 356,
+      "deletions": 155,
+      "changes": 511,
+      "top1_file": "tests/vm/valid/outer_join.ir.out",
+      "top1_changes": 297,
+      "top1_change_ratio": 0.581,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.01472,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hash_outer_join",
+      "join_optimization",
+      "vm_performance"
+    ],
+    "optimization_layer": "virtual_machine_runtime",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_by_author_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Self-merged VM outer join improvement with no review or performance evidence; Codex-assisted change merged instantly by maintainer."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 511,
+        "interpretation": "At 511 changed lines, this is a small-to-medium edit by absolute volume. It fits a small-step performance optimization in the VM that was merged instantly by the author without external review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.01472,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comment text available; the PR was self-merged by the same user.",
+      "performance_claim": "Hashed outer join optimization improves query execution performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "VM-level join optimization submitted by maintainer and self-merged within a minute without review; the Agent's output was trusted as part of the author's workflow.",
+      "success_factors": [
+        "author_is_maintainer",
+        "no_review_gate",
+        "implicit_trust_in_codex_assistance"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiler data provided; body mentions 'document benchmark update' but no numeric evidence or repro steps.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR merged immediately without regression checks.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added compileHashOuterJoin function and wired it into compileJoinQuery to produce hashed full outer join execution. Updated outer_join.ir.out test expected output and added a documentation line in JOINS_BENCHMARKS.md about outer join benchmark.",
+      "files_primary": [
+        "runtime/vm/vm.go",
+        "tests/vm/valid/outer_join.ir.out"
+      ],
+      "files_secondary_observability": [
+        "runtime/vm/JOINS_BENCHMARKS.md"
+      ],
+      "secondary_note": "Benchmark docs updated with 1-line addition, no performance numbers.",
+      "change_trajectory": [
+        "Single commit: add hashed outer join implementation, modify expected IR output, and update benchmark documentation."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with Codex assistance, self-merged immediately with no external review or feedback."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "pr_id": 3110602702,
+  "meta": {
+    "title": "Optimize Editor Bundle Size with Dynamic Imports and Chunk Splitting",
+    "html_url": "https://github.com/softmaple/softmaple/pull/218",
+    "repo": "softmaple/softmaple",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-02 15:12:06+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-02 15:15:26+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 24,
+    "topic_name": "24",
+    "body_summary": "Implement React.lazy() and Vite chunk splitting to reduce editor main bundle size by 40% (306.24 kB → 182.37 kB) with on-demand plugin loading."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 48,
+      "deletions": 15,
+      "changes": 63,
+      "top1_file": "packages/editor/src/components/core/Editor.tsx",
+      "top1_changes": 51,
+      "top1_change_ratio": 0.8095,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "commented": 4,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.056,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bundle_size_reduction",
+      "lazy_loading",
+      "code_splitting"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative",
+      "ci_task_eval"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_per_user_request",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin PR with numeric bundle size claim closed immediately by bot per user request after Netlify Lighthouse showed performance regression (96, down 2)."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 63,
+        "interpretation": "At 63 changed lines in 2 files, this is a small edit by absolute volume. It fits a targeted frontend build optimization PR that was closed without merge due to a user request, not based on review feedback."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.056,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "user_request_close",
+      "concern_detail": "No formal review occurred; the PR was closed by the Devin bot 3 minutes after creation with the comment 'Closing per user request - will create issue for editor optimization instead'.",
+      "performance_claim": "Reduce main editor bundle size from 306.24 kB to 182.37 kB (40% reduction) using React.lazy() and enhanced Vite chunk splitting.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "large_synchronous_bundle (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "User requested closure to create an issue instead; no substantive review of the optimization."
+    },
+    "capability_boundary": {
+      "topic": "24_bundle_css_components_splitting",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Bundle size optimization with dynamic imports is within Devin's capability, but closure was driven by process (user preference to handle via issue) rather than review-based rejection.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "Netlify deploy preview automatically ran Lighthouse audit and reported a performance score of 96 (down 2 from production), indicating a minor regression."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body includes before/after bundle size numbers but no repro steps or profiling data. Automated Lighthouse showed a performance regression rather than improvement, and no human validated any perf claim.",
+      "regression_handling": "reject_close",
+      "regression_detail": "The Lighthouse performance regression (down 2 points) likely triggered the user request to close the PR and create an issue for further investigation instead of merging.",
+      "evidence_gap": "automated_regression_no_human_validation"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/editor/src/components/core/Editor.tsx, converted ToolbarPlugin, ShortcutsPlugin, and MarkdownPlugin to React.lazy() components with Suspense fallbacks. In packages/editor/vite.config.ts, added manual chunk splitting to produce separate editor-toolbar and editor-plugins chunks.",
+      "files_primary": [
+        "packages/editor/src/components/core/Editor.tsx",
+        "packages/editor/vite.config.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit introduced lazy loading and Vite chunk splitting changes across both files."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduction, stating it will automatically address comments and monitor CI.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "netlify[bot]",
+        "channel": "pr_comment",
+        "signal": "deploy_preview_lighthouse_regression",
+        "summary": "Netlify deploy preview reported Lighthouse performance score of 96 (down 2 from production), indicating a performance regression.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "user_request_close",
+        "summary": "Closing per user request - will create issue for editor optimization instead.",
+        "blocking": false,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with bundle size optimization and reported 40% reduction.",
+      "Netlify bot automatically posted deploy preview with Lighthouse audit showing performance regression (score dropped from 100 to 96).",
+      "Devin bot closed the PR after 3 minutes, citing user request to create an issue instead."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

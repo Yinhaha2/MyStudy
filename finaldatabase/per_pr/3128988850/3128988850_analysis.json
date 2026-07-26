@@ -1,0 +1,178 @@
+{
+  "pr_id": 3128988850,
+  "meta": {
+    "title": "Apply fold let logic to interpreter",
+    "html_url": "https://github.com/mochilang/mochi/pull/224",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-09 02:58:28+00:00",
+    "merged_at": "2025-06-09 03:07:56+00:00",
+    "closed_at": "2025-06-09 03:07:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "10",
+    "body_summary": "Update interpreter folding logic to store let-bound constants in the environment and fold pure calls using them, enabling static evaluation of simple expressions."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 49,
+      "deletions": 1,
+      "changes": 50,
+      "top1_file": "interpreter/fold.go",
+      "top1_changes": 50,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "interpreter"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.158,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_folding",
+      "let_binding_optimization"
+    ],
+    "optimization_layer": "interpreter_runtime",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_self_merge_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "ignore",
+    "confidence": "medium",
+    "notes": "Self-merged 50-line interpreter folding change with known golden test mismatch but no review or benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 50,
+        "interpretation": "At 50 changed lines, this is a small edit by absolute volume. It fits a tiny, self-contained optimizer tweak and was merged rapidly without external review, consistent with a low-friction, self-merge workflow."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.158,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No formal review or comments exist. PR body mentions a golden test mismatch in compile/go but this did not block the merge.",
+      "performance_claim": "Fold let-bound constants in the interpreter to enable constant folding of pure calls, improving runtime performance by reducing redundant evaluation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "10",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Interpreter constant folding is a well-understood optimization; the agent applied it in a narrow scope and the maintainer self-merged without external validation, indicating low barrier for this change type.",
+      "success_factors": [
+        "narrow_scope",
+        "self_merge_policy",
+        "existing_folding_infrastructure"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or reproducible performance measurements. A pre-merge test failure (golden mismatch in compile/go) was documented but did not prevent merge.",
+      "regression_handling": "ignore",
+      "regression_detail": "The golden test mismatch was noted in the PR body but not addressed; the PR was merged despite this known inconsistency.",
+      "evidence_gap": "no_perf_data_known_test_failure"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified interpreter/fold.go to store let-bound constants in the environment and fold pure calls using these constants, reducing runtime overhead for static expressions.",
+      "files_primary": [
+        "interpreter/fold.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit (a371c69): feat(interpreter): fold let constants, adding 49 lines and removing 1 line in interpreter/fold.go."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "tamnd",
+        "channel": "pr_body",
+        "signal": "test_failure_reported",
+        "summary": "PR body notes that go test ./... fails with a golden mismatch in compile/go.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by maintainer tamnd with a single commit authored by the same user (agent task).",
+      "Labeled as 'codex'.",
+      "Self-merged within approximately 9 minutes without any external review or comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

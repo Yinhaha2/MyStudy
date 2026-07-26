@@ -1,0 +1,258 @@
+{
+  "pr_id": 3219932316,
+  "meta": {
+    "title": "Add Get-SqlDscServerProtocol public command with CIM support",
+    "html_url": "https://github.com/dsccommunity/SqlServerDsc/pull/2108",
+    "repo": "dsccommunity/SqlServerDsc",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-10 16:11:24+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 7,
+    "topic_name": "7",
+    "body_summary": "Adds Get-SqlDscServerProtocol public command with CIM and SMO fallback for SQL Server protocol info; later redesigned to remove CIM and introduce new composable commands."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 6,
+      "additions": 536,
+      "deletions": 0,
+      "changes": 536,
+      "top1_file": "tests/Unit/Public/Get-SqlDscServerProtocol.Tests.ps1",
+      "top1_changes": 223,
+      "top1_change_ratio": 0.416,
+      "files_by_status": {
+        "added": 5,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "source",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 30,
+      "review_states": {
+        "CHANGES_REQUESTED": 5,
+        "COMMENTED": 24,
+        "APPROVED": 1
+      },
+      "review_comment_count": 44,
+      "pr_comment_count": 3,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "commented": 3,
+        "labeled": 2
+      },
+      "lifespan_hours": 1550,
+      "first_review_delay_hours": 1525,
+      "review_rounds": 5,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cim_access",
+      "public_command_exposure",
+      "module_refactor"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_not_merged_after_approval_inactivity",
+    "review_dimensions": [
+      "design_or_approach",
+      "style",
+      "tests",
+      "localization",
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot added public command; after multiple rounds of design changes from maintainer, approved but not merged; closed as abandoned."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 536,
+        "interpretation": "At 536 changed lines initially, this is a medium-sized addition of PowerShell commands. The PR was closed without merge after prolonged review, design overhaul, and eventual approval but abandonment."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1550,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_changes_required",
+      "concern_detail": "Maintainer requested removal of CIM feature, creation of brand-new public commands (Get-SqlDscServerProtocolName, Get-SqlDscManagedComputerInstance), adherence to project instructions and style guidelines, and use of pipeline parameter sets.",
+      "performance_claim": "CIM access to SQL Server protocol data is faster than SMO, providing better performance for the module's DSC resources.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "previously private SMO function not exposed as public; now available",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "style",
+        "tests",
+        "localization",
+        "correctness"
+      ],
+      "rejection_signals": "PR labeled abandoned after 14+ days inactivity, later reviewed and approved but still not merged; closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot's initial design wrongly assumed CIM approach; required multiple review rounds to align with project conventions and to create interrelated commands with proper parameter sets, localization, and testing. Final approval did not result in merge due to abandonment.",
+      "success_factors": [
+        "responded to feedback",
+        "added requested commands and tests"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "johlju manually reviewed all code, demanded removal of CIM, creation of new commands, style fixes, and adherence to instructions.",
+        "ci_auto": "codecov flagged patch coverage issues, and other bots commented on code style."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance benchmarks or metrics provided; narrative claims only.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; despite approval, no merge action taken and abandoned.",
+      "evidence_gap": "narrative_only_no_perf_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Initial commit added Get-SqlDscServerProtocol with CIM/SMO fallback and private helper functions. After maintainer feedback, Copilot removed CIM entirely, created two new public commands (Get-SqlDscServerProtocolName and Get-SqlDscManagedComputerInstance), rewrote main command to use them, added integration and unit tests, updated localization and changelog. The PR evolved from a single command with dual back-ends to a set of composable public commands following project conventions.",
+      "files_primary": [
+        "source/Public/Get-SqlDscServerProtocol.ps1",
+        "source/Public/Get-SqlDscServerProtocolName.ps1",
+        "source/Public/Get-SqlDscManagedComputerInstance.ps1"
+      ],
+      "files_secondary_observability": [
+        "source/en-US/SqlServerDsc.strings.psd1",
+        "CHANGELOG.md",
+        "tests/Unit/Public/Get-SqlDscServerProtocol.Tests.ps1",
+        "tests/Integration/Commands/Get-SqlDscServerProtocol.Integration.Tests.ps1"
+      ],
+      "secondary_note": "Additional files include SMO stubs, integration tests, and infrastructure updates.",
+      "change_trajectory": [
+        "Initial implementation with CIM and SMO (commit c6c92c4).",
+        "Maintainer requested removal of CIM and restructuring (Sep 12).",
+        "Agent removed CIM and SMO private functions, added pipeline parameter sets (Sep 12).",
+        "Maintainer requested creation of Get-SqlDscManagedComputerInstance and Get-SqlDscServerProtocolName (Sep 12).",
+        "Agent added these new commands, fixed error handling, localized strings, and styles (Sep 12).",
+        "Maintainer requested further changes: output types, break in switch, unused string removal, comment-based help updates (Sep 12).",
+        "Agent addressed these and maintainer eventually approved (Sep 13).",
+        "No merge action taken; PR left abandoned."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "johlju",
+        "channel": "formal_review",
+        "signal": "changes_requested_remove_cim",
+        "summary": "Requested complete removal of CIM functionality and use existing public commands instead of private helper functions.",
+        "blocking": true,
+        "action_taken": "Copilot removed CIM, replaced with Get-SqlDscManagedComputer pipeline."
+      },
+      {
+        "source": "johlju",
+        "channel": "formal_review",
+        "signal": "changes_requested_new_commands",
+        "summary": "Demanded creation of Get-SqlDscServerProtocolName and Get-SqlDscManagedComputerInstance with multiple parameter sets.",
+        "blocking": true,
+        "action_taken": "Copilot implemented both commands and integrated them."
+      },
+      {
+        "source": "johlju",
+        "channel": "formal_review",
+        "signal": "changes_requested_style_and_localization",
+        "summary": "Fixed error handling, switch breaks, unused strings, comment-based help, and file endings.",
+        "blocking": true,
+        "action_taken": "All issues addressed in subsequent commits."
+      },
+      {
+        "source": "johlju",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved after final fixes, with no body text.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "bot_nitpick_suggestions",
+        "summary": "CodeRabbit posted multiple nitpick/refactor suggestions (CHANGELOG duplicates, type annotations, mock use in integration tests).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "abandoned_label",
+        "summary": "Labeled PR as abandoned after 14 days of inactivity.",
+        "blocking": false,
+        "action_taken": "PR eventually closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened on Jul 10 with initial CIM/SMO dual approach; no immediate review.",
+      "Labeled 'waiting for code fix' on Jul 19; remained idle until Sep 12.",
+      "Sep 12–13: Intensive review cycle initiated by johlju with multiple CHANGES_REQUESTED; Copilot responded with iterative fixes.",
+      "Maintainer approved on Sep 13, but no merge action followed.",
+      "PR remained abandoned and was later closed; never merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

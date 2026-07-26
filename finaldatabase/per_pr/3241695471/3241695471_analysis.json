@@ -1,0 +1,170 @@
+{
+  "pr_id": 3241695471,
+  "meta": {
+    "title": "Improve Lua compiler membership optimization",
+    "html_url": "https://github.com/mochilang/mochi/pull/9440",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-18 03:13:58+00:00",
+    "merged_at": "2025-07-18 03:14:11+00:00",
+    "closed_at": "2025-07-18 03:14:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 20,
+    "topic_name": "20",
+    "body_summary": "Optimize Lua compiler code generation for `in`, `contains`, and `starts_with` membership operations and add list type helpers."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 103,
+      "additions": 171,
+      "deletions": 186,
+      "changes": 357,
+      "top1_file": "compiler/x/lua/expressions.go",
+      "top1_changes": 48,
+      "top1_change_ratio": 0.134,
+      "files_by_status": {
+        "modified": 103
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.004,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "membership_optimization",
+      "compiler_code_generation",
+      "list_type_helpers"
+    ],
+    "optimization_layer": "compiler_code_generation",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex optimized Lua compiler membership operations with small core changes; merged within seconds with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 357,
+        "interpretation": "At 357 changed lines, this is a small-to‑medium edit by absolute volume, spread across many test files (most are trivial 2‑line updates) while the core compiler change is ~63 lines. It fits a narrow compiler performance PR and was merged nearly instantly with no review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.004,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "not_applicable",
+      "concern_detail": "No review or comment text exists; the PR was self‑merged by the author within seconds of creation.",
+      "performance_claim": "Optimize Lua compiler for `in`, `contains`, and `starts_with` membership operations.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "20",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Compiler membership optimization required no benchmark or human review; the agent could implement and merge instantly, illustrating low process friction for small self‑contained perf changes that pass existing tests.",
+      "success_factors": [
+        "passed_ci_implicitly",
+        "narrow_scope",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark numbers, profiler output, or before/after metrics provided; the PR body only lists a test command for generated Lua golden files.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/lua/expressions.go and helpers.go, added new helper functions (likely list‑specific checks) and rewrote expression generation for `in`, `contains`, and `starts_with` to produce more efficient Lua code. Updated many Lua test fixture files to match the new compiler output.",
+      "files_primary": [
+        "compiler/x/lua/expressions.go",
+        "compiler/x/lua/helpers.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/lua/*.lua",
+        "compiler/x/lua/TASKS.md"
+      ],
+      "secondary_note": "101 test .lua files were updated, most with trivial 1‑line changes, likely reflecting hash changes or minor generated code differences.",
+      "change_trajectory": [
+        "Single commit (ad11e6c6) added list helpers, optimized membership expression codegen, and updated all affected Lua golden test files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with a single commit; merged by the same user 13 seconds later with no external review or interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

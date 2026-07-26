@@ -1,0 +1,186 @@
+{
+  "pr_id": 3088785176,
+  "meta": {
+    "title": "Enable reloc info for BOLT",
+    "html_url": "https://github.com/oven-sh/bun/pull/19894",
+    "repo": "oven-sh/bun",
+    "agent": "OpenAI_Codex",
+    "user": "Jarred-Sumner",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-24 21:56:16+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-29 06:01:05+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 18,
+    "topic_name": "18",
+    "body_summary": "Enable --emit-relocs -q linker flag on Linux release builds to allow BOLT binary optimizer post-processing of Bun."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 3,
+      "additions": 6,
+      "deletions": 3,
+      "changes": 9,
+      "top1_file": "cmake/targets/BuildBun.cmake",
+      "top1_changes": 7,
+      "top1_change_ratio": 0.778,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 3,
+      "directories": [
+        "cmake",
+        "src",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 4,
+        "labeled": 1,
+        "commented": 1,
+        "mentioned": 1,
+        "subscribed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 104.08,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "linker_relocation_emission",
+      "bolt_postprocessing"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_ci_failure",
+    "review_dimensions": [
+      "ci_validation",
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "OpenAI_Codex enabled --emit-relocs linker flag for BOLT; CI reported many test timeouts; no human review; PR closed by author without fix."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 9,
+        "interpretation": "At 9 changed lines, this is a tiny edit by absolute volume. It is a minimal build configuration tweak. The closure is consistent with CI test timeout failures rather than review rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 104.08,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "ci_test_timeouts",
+      "concern_detail": "robobun bot reported extensive test timeouts across multiple Linux platforms for bundler_compile.test.ts and fetch.test.ts, possibly caused by the linker flag change.",
+      "performance_claim": "Enable relocation info emission so that BOLT can post-process Bun binary for runtime performance improvements.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed without merge after robobun CI reported test timeouts; no verbal rejection."
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Enabling a linker flag for BOLT introduces potential binary-level changes that may cause test timeouts; the agent did not anticipate or address CI failures, and the PR was closed without fix.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "robobun BuildKite CI reported multiple test timeouts on bundler_compile.test.ts and fetch.test.ts across various Linux environments."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or before/after performance data; only the linker flag change without performance validation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Author closed the PR after 4 days, likely due to CI test failures, without attempting a fix.",
+      "evidence_gap": "no_perf_evidence_ci_failure"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In cmake/targets/BuildBun.cmake, added linker flag --emit-relocs -q for Linux release builds to emit relocation information, enabling BOLT binary optimizer post-processing.",
+      "files_primary": [
+        "cmake/targets/BuildBun.cmake"
+      ],
+      "files_secondary_observability": [
+        "src/cli/audit_command.zig",
+        "test/regression/issue/18547.test.ts"
+      ],
+      "secondary_note": "Zig format and prettier commits touched unrelated files; not part of the performance change.",
+      "change_trajectory": [
+        "Initial commit: added linker flags to BuildBun.cmake.",
+        "Subsequent commits: `bun run zig-format` and `bun run prettier` applied formatting to other files.",
+        "Final commit: minor update to BuildBun.cmake.",
+        "No review; robobun CI reported test timeouts; author closed PR after 4 days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "robobun",
+        "channel": "pr_comment",
+        "signal": "ci_failure_report",
+        "summary": "Robobun bot reported 3 failures (multiple test timeouts on bundler_compile.test.ts and fetch.test.ts) across various Linux platforms.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with build flag change.",
+      "Immediately robobun bot posted CI failure report with extensive timeouts.",
+      "Author pushed a formatting commit and a final minor edit.",
+      "No human reviewer engaged; PR closed after ~4 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

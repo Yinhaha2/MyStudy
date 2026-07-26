@@ -1,0 +1,251 @@
+{
+  "pr_id": 3138073133,
+  "meta": {
+    "title": "[Azure Pipelines] Implement Copilot build detection with x64-linux first execution",
+    "html_url": "https://github.com/microsoft/vcpkg/pull/45946",
+    "repo": "microsoft/vcpkg",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-11 20:49:09+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Implement Azure Pipelines Copilot build detection and enforce x64-linux first execution to prevent resource contention and speed up feedback."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 12,
+      "file_count": 5,
+      "additions": 525,
+      "deletions": 434,
+      "changes": 959,
+      "top1_file": "scripts/azure-pipelines/azure-pipelines.yml",
+      "top1_changes": 939,
+      "top1_change_ratio": 0.979,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "scripts"
+      ]
+    },
+    "collaboration": {
+      "review_count": 15,
+      "review_states": {
+        "CHANGES_REQUESTED": 4,
+        "COMMENTED": 10,
+        "DISMISSED": 1
+      },
+      "review_comment_count": 15,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 7,
+        "assigned": 2,
+        "copilot_work_started": 6,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 5,
+        "labeled": 1,
+        "reviewed": 4,
+        "commented": 2,
+        "copilot_work_finished_failure": 1
+      },
+      "lifespan_hours": 44.08,
+      "first_review_delay_hours": 21.0,
+      "review_rounds": 15,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_pipeline_optimization",
+      "conditional_execution",
+      "resource_contention_reduction"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative",
+      "maintainer_manual_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "load_test"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot iterated on complex Azure Pipelines YAML changes based on detailed reviewer feedback, but PR was closed without merge after unresolved design iterations."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 959,
+        "interpretation": "At 959 changed lines across 5 files, this is a medium-sized edit concentrated in a single CI pipeline YAML file. The PR involved restructuring a complex Azure Pipelines configuration, but was ultimately closed after multiple design iterations and CHANGES_REQUESTED from maintainers."
+      },
+      "lifecycle": {
+        "lifespan_hours": 44.08,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "ci_pipeline_design_approach",
+      "concern_detail": "Maintainers requested a two-stage scouting/full approach, then preferred a compile-time conditional dependsOn approach to avoid stage UI issues. Specific feedback included fixing detection branch variable (Build.SourceBranchName), properly plumbing dependsOn through templates, and using the correct pool. The PR went through multiple revisions but was not accepted.",
+      "performance_claim": "Reducing CI resource contention for Copilot builds by running x64-linux first and skipping other triplets on failure, leading to faster feedback and lower pool load.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "uncontrolled_parallelism_resource_overload",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": "Closed without merge after multiple CHANGES_REQUESTED and unresolved design feedback on pool selection and template plumbing; no explicit close comment but likely due to stalled progress or disagreement."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The PR required deep knowledge of Azure Pipelines YAML syntax, compile-time vs runtime variable evaluation, stage vs job dependency semantics, and template parameter passing; the agent needed many iterations and human corrections.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "load_test"
+      ],
+      "detection_detail": {
+        "code_reading": "ras0219-msft and BillyONeal reviewed the YAML structure, variable usage, and template plumbing, providing line-level feedback.",
+        "load_test": "Maintainer ras0219-msft manually tested and reported timing improvement from ~8s to 4-5s in a comment."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No automated benchmark or CI test for performance; only a single maintainer comment with timing figures.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; changes were not accepted.",
+      "evidence_gap": "manual_timing_only_no_benchmark_suite"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified azure-pipelines.yml to detect Copilot builds via branch name prefix 'copilot/' and conditionally add dependsOn: x64_linux to non-Linux jobs using compile-time expressions. Added optional dependsOn parameter to platform templates (linux, windows, osx, android) to support conditional dependencies.",
+      "files_primary": [
+        "scripts/azure-pipelines/azure-pipelines.yml"
+      ],
+      "files_secondary_observability": [
+        "scripts/azure-pipelines/android/azure-pipelines.yml",
+        "scripts/azure-pipelines/linux/azure-pipelines.yml",
+        "scripts/azure-pipelines/osx/azure-pipelines.yml",
+        "scripts/azure-pipelines/windows/azure-pipelines.yml"
+      ],
+      "secondary_note": "Template changes are minimal, adding an optional dependsOn parameter and plumbing it to the job definition.",
+      "change_trajectory": [
+        "Initial implementation with 3-stage detection-execution pipeline using email/commit text detection.",
+        "Switched to branch name detection per reviewer request (copilot/ prefix).",
+        "Refactored into two-stage scouting/full approach with stage conditions.",
+        "Converted to compile-time conditional dependsOn at job level to avoid stage UI concerns.",
+        "Fixed detection to use Build.SourceBranchName for PR builds per reviewer feedback.",
+        "Plumbed dependsOn parameter through all platform templates to make job dependencies work.",
+        "Maintainer added printf debugging commits to inspect variable expansion.",
+        "Changed pool to PrAnd-WUS in final iteration."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ras0219-msft",
+        "channel": "formal_review",
+        "signal": "changes_requested_two_stage_approach",
+        "summary": "Requested a two-stage approach (scouting + full) with branch name detection, abandoning email-based detection.",
+        "blocking": true,
+        "action_taken": "Copilot implemented scouting stage."
+      },
+      {
+        "source": "BillyONeal",
+        "channel": "inline_review_comment",
+        "signal": "check_source_repo_and_stage_ui",
+        "summary": "Suggested also checking the source repo and expressed concerns about introducing stages causing UI issues; proposed conditional dependsOn at job level.",
+        "blocking": false,
+        "action_taken": "Lead to discussion and later switch to compile-time conditionals."
+      },
+      {
+        "source": "ras0219-msft",
+        "channel": "inline_review_comment",
+        "signal": "use_build_sourcebranchname",
+        "summary": "Corrected detection to use Build.SourceBranchName because Build.SourceBranch differs for PRs.",
+        "blocking": true,
+        "action_taken": "Copilot fixed detection."
+      },
+      {
+        "source": "ras0219-msft",
+        "channel": "inline_review_comment",
+        "signal": "depends_on_not_plumbed",
+        "summary": "Pointed out that added dependsOn parameter to templates does not result in dependsOn field in underlying jobs; must plumb properly.",
+        "blocking": true,
+        "action_taken": "Copilot plumbed dependsOn through all templates."
+      },
+      {
+        "source": "ras0219-msft",
+        "channel": "inline_review_comment",
+        "signal": "use_prand_wus_pool",
+        "summary": "Requested to change the pool to PrAnd-WUS.",
+        "blocking": true,
+        "action_taken": "Copilot changed the pool."
+      },
+      {
+        "source": "ras0219-msft",
+        "channel": "pr_comment",
+        "signal": "manual_timing_evidence",
+        "summary": "Tested: from ~8 seconds down to 4-5 seconds.",
+        "blocking": false,
+        "action_taken": "Supported the performance claim but did not unblock merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial 3-stage approach using email/commit detection; review requested immediately.",
+      "ras0219-msft CHANGES_REQUESTED preferring branch-name-based detection and two-stage structure.",
+      "Copilot implemented scouting stage and two-stage layout; merged with Copilot work events.",
+      "BillyONeal commented on stage UI concerns and suggested conditional dependsOn at job level.",
+      "ras0219-msft agreed and asked Copilot to implement compile-time conditional dependsOn.",
+      "Copilot switched to conditional dependsOn, then fixed detection with Build.SourceBranchName.",
+      "ras0219-msft found that dependsOn was not properly plumbed through templates; Copilot fixed.",
+      "Several printf debugging commits by ras0219-msft to verify YAML.",
+      "Final CHANGES_REQUESTED to use PrAnd-WUS pool; PR closed without further resolution."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

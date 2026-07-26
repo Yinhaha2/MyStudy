@@ -1,0 +1,187 @@
+{
+  "pr_id": 3093387507,
+  "meta": {
+    "title": "Add benchmark for deserializing large added vocab +  optimizations",
+    "html_url": "https://github.com/huggingface/tokenizers/pull/1782",
+    "repo": "huggingface/tokenizers",
+    "agent": "OpenAI_Codex",
+    "user": "ArthurZucker",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-27 10:09:25+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "23",
+    "body_summary": "PR adds a benchmark for deserializing large added vocabularies and attempts performance optimizations, but provides no body text. The commits indicate heavy manual iteration on normalization overhead reduction."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 19,
+      "file_count": 39,
+      "additions": 743,
+      "deletions": 594,
+      "changes": 1337,
+      "top1_file": "tokenizers/src/tokenizer/added_vocabulary.rs",
+      "top1_changes": 390,
+      "top1_change_ratio": 0.2917,
+      "files_by_status": {
+        "added": 2,
+        "modified": 37,
+        "removed": 0
+      },
+      "directory_count": 3,
+      "directories": [
+        "tokenizers",
+        "bindings",
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 20,
+      "event_counts": {
+        "committed": 19,
+        "commented": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "deserialization_performance",
+      "added_vocab_optimization",
+      "normalization_overhead_reduction"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_normalization"
+    ],
+    "outcome_reason": "stale_abandoned_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added benchmark and initial optimization; human engaged in extensive manual iteration to reduce normalization overhead, but PR closed without review/merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1337,
+        "interpretation": "At 1337 changed lines across 39 files, this is a medium-to-large edit by absolute volume, concentrated in `added_vocabulary.rs`. The PR was closed without merge, indicating the performance optimization did not reach a mergeable state despite extensive human follow-up commits."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "No formal reviews or substantive comments; only a bot comment about documentation preview. The PR was closed without any maintainer interaction.",
+      "performance_claim": "Improved deserialization performance for large added vocabulary by adding benchmark and optimizing normalization.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_normalization",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed without review; commits show heavy manual iteration, possibly unable to reach maintainer acceptance."
+    },
+    "capability_boundary": {
+      "topic": "23",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Performance optimization in Rust tokenizer deserialization required hand-tuning by the human maintainer to reduce unnecessary normalization overhead. The agent provided an initial benchmark and optimization, but significant manual iteration was needed, and the PR was ultimately closed without merge, suggesting the changes were not accepted in their current form.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "The author (ArthurZucker) manually iterated on normalization logic, as evidenced by commit messages like 'try to only normalize once' and 'normalized string are a fucking waste of time when you just want to add tokens to the vocab man....', indicating code-level performance analysis."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "The PR adds a Rust benchmark (`added_vocab_deserialize.rs`) and a Python test (`test_deserialize.py`), but no evidence of comparison with baseline or maintainer verification.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No review occurred; the PR was closed without merge, indicating the changes either were not pursued further or not accepted.",
+      "evidence_gap": "no_maintainer_validation"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added benchmark for deserializing large added vocabulary (`tokenizers/benches/added_vocab_deserialize.rs`). Refactored normalization in `added_vocabulary.rs` to reduce redundant normalization calls when adding tokens, with related changes in `byte_level.rs`, `normalizer.rs`, and `mod.rs`. Iterative commits to achieve performance parity, including removal of unnecessary code.",
+      "files_primary": [
+        "tokenizers/src/tokenizer/added_vocabulary.rs",
+        "tokenizers/benches/added_vocab_deserialize.rs",
+        "tokenizers/src/normalizers/byte_level.rs",
+        "tokenizers/src/tokenizer/normalizer.rs"
+      ],
+      "files_secondary_observability": [
+        "bindings/python/benches/test_deserialize.py"
+      ],
+      "secondary_note": "Many files touched by merge commits from main branch (e.g., workflow files, bindings).",
+      "change_trajectory": [
+        "Initial commit added benchmark and model-level changes.",
+        "Reverted model-level changes to isolate added_vocab.",
+        "Attempted to normalize only once.",
+        "Merged main branch.",
+        "Several iterative optimizations ('small improvement?', 'some updates', 'nit', 'fmt').",
+        "Overhauled normalization to avoid waste ('normalized string are a fucking waste of time').",
+        "'more attempts', 'works', 'let's fucking go, parity': achieved performance parity.",
+        "Reverted changes that are not actually needed.",
+        "Added a Python test, then some final cleanups ('use normalizer before come on', 'nit')."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "HuggingFaceDocBuilderDev",
+        "channel": "pr_comment",
+        "signal": "doc_preview",
+        "summary": "HuggingFaceDocBuilderDev posted link to documentation preview for this PR.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with benchmark and optimization. No external review; author (ArthurZucker) made extensive hand-tailored commits to optimize normalization.",
+      "PR closed without merge, indicating the changes were not finalized or accepted."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

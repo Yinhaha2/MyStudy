@@ -1,0 +1,238 @@
+{
+  "pr_id": 3195078514,
+  "meta": {
+    "title": "Add force_mode_constant parameter to bypass psutil overhead",
+    "html_url": "https://github.com/mlco2/codecarbon/pull/883",
+    "repo": "mlco2/codecarbon",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-07-02 08:34:17+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "6",
+    "body_summary": "Add force_mode_constant parameter to EmissionsTracker to bypass psutil overhead and use constant CPU power estimation, addressing 10x slowdown in short ML training iterations."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 7,
+      "additions": 210,
+      "deletions": 2,
+      "changes": 212,
+      "top1_file": "tests/test_force_constant_mode.py",
+      "top1_changes": 147,
+      "top1_change_ratio": 0.693,
+      "files_by_status": {
+        "added": 1,
+        "modified": 6
+      },
+      "directory_count": 3,
+      "directories": [
+        "codecarbon",
+        "docs",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "APPROVED": 1,
+        "COMMENTED": 2
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": 2025.233,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "psutil_overhead_reduction",
+      "constant_power_mode",
+      "cpu_energy_estimation",
+      "graceful_import_fallback"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative",
+      "manual_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_awaiting_precedence_clarification",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "load_test"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "fix_pending",
+    "confidence": "high",
+    "notes": "Copilot added force_mode_constant to bypass psutil; maintainer approved but raised precedence concern with force_mode_cpu_load, PR remains open."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 212,
+        "interpretation": "At 212 changed lines, this is a small edit by absolute volume, mostly in a new test file (147 lines). The PR remains open, awaiting a minor design clarification on parameter precedence."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "parameter_precedence_ambiguity",
+      "concern_detail": "Maintainer inimaz questioned the behavior when both force_mode_constant and force_mode_cpu_load are True; benoit-cty agreed that force_mode_constant should take precedence and noted it needs handling.",
+      "performance_claim": "Force constant mode eliminates psutil overhead causing 10x slowdown in short ML training iterations (11s vs 1m55s).",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "blocking_psutil_overhead",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent added a new parameter to bypass psutil but missed the interaction with existing force_mode_cpu_load parameter; maintainer review identified the need for explicit precedence logic.",
+      "success_factors": [
+        "linked_issue",
+        "maintainer_tested_positive",
+        "comprehensive_tests"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "load_test"
+      ],
+      "detection_detail": {
+        "code_reading": "inimaz performed static review questioning parameter precedence; benoit-cty confirmed need for precedence handling.",
+        "load_test": "benoit-cty manually tested with CODECARBON_FORCE_MODE_CONSTANT=True and confirmed elimination of overhead."
+      },
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "PR body cites real-world timing case (11s vs 1m55s); maintainer successfully reproduced with monitor command.",
+      "regression_handling": "fix_pending",
+      "regression_detail": "Precedence issue raised by review; maintainer acknowledged but no fix committed yet in this open PR.",
+      "evidence_gap": "precedence_ambiguity_not_resolved"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added force_mode_constant parameter to EmissionsTracker, made psutil imports conditional in cpu.py and util.py, updated resource_tracker.py to prioritize constant mode, and added tests and docs.",
+      "files_primary": [
+        "codecarbon/emissions_tracker.py",
+        "codecarbon/core/resource_tracker.py",
+        "codecarbon/core/cpu.py",
+        "codecarbon/core/util.py"
+      ],
+      "files_secondary_observability": [
+        "tests/test_force_constant_mode.py",
+        "docs/edit/parameters.rst",
+        "docs/_sources/parameters.rst.txt"
+      ],
+      "secondary_note": "Test file covers new mode; docs additions are minor.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Single commit adding parameter, graceful imports, resource tracker logic, tests, and docs."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "inimaz",
+        "channel": "inline_review_comment",
+        "signal": "parameter_precedence_question",
+        "summary": "Questioned behavior when force_mode_constant and force_mode_cpu_load are both True.",
+        "blocking": false,
+        "action_taken": "benoit-cty acknowledged and noted need for precedence; no fix yet."
+      },
+      {
+        "source": "benoit-cty",
+        "channel": "inline_review_comment",
+        "signal": "precedence_acknowledgement",
+        "summary": "Agreed force_mode_constant should take precedence; no fix yet.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "benoit-cty",
+        "channel": "pr_comment",
+        "signal": "manual_test_passed",
+        "summary": "Tested working with CODECARBON_FORCE_MODE_CONSTANT=True, ready to merge.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "benoit-cty",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED review without body text.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "All modified lines covered, coverage increased.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot created PR linked to issue with parameter, tests, and docs.",
+      "Maintainer benoit-cty manually tested and approved.",
+      "Maintainer inimaz reviewed and raised concern about parameter interaction.",
+      "Maintainer benoit-cty acknowledged need for precedence handling, PR remains open."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

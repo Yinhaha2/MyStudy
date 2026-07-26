@@ -1,0 +1,244 @@
+{
+  "pr_id": 3159305613,
+  "meta": {
+    "title": "fix: memoization for markdown components",
+    "html_url": "https://github.com/assistant-ui/assistant-ui/pull/2131",
+    "repo": "assistant-ui/assistant-ui",
+    "agent": "OpenAI_Codex",
+    "user": "AVGVSTVS96",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-19 07:35:48+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-30 15:24:54+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 2,
+    "topic_name": "2",
+    "body_summary": "Improve memoization of markdown components by checking type and tagName in areNodesEqual, excluding position and data properties, and adding unit tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 6,
+      "additions": 82,
+      "deletions": 16,
+      "changes": 98,
+      "top1_file": "packages/react-markdown/src/memoization.tsx",
+      "top1_changes": 30,
+      "top1_change_ratio": 0.306,
+      "files_by_status": {
+        "added": 2,
+        "modified": 5,
+        "removed": 0
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 5,
+      "review_states": {
+        "COMMENTED": 5
+      },
+      "review_comment_count": 5,
+      "pr_comment_count": 11,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 29,
+      "event_counts": {
+        "committed": 4,
+        "review_requested": 1,
+        "labeled": 2,
+        "commented": 11,
+        "reviewed": 4,
+        "renamed": 1,
+        "deployed": 3,
+        "convert_to_draft": 1,
+        "ready_for_review": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 271.817,
+      "first_review_delay_hours": 0.012,
+      "review_rounds": 5,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memoization_optimization",
+      "react_re-render_reduction",
+      "property_sanitization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_branch_replaced_by_new_pr",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "perf_evidence",
+      "design_or_approach",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_followup",
+    "confidence": "high",
+    "notes": "OpenAI_Codex improved memoization with type/tag checks and property exclusion; PR closed due to stale branch, changes migrated to new PR #2158."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 98,
+        "interpretation": "At 98 changed lines, this is a small edit by absolute volume. It fits the pattern of a small-step frontend performance fix and the closure (due to branch conflicts, not change quality) is not reflective of the change size."
+      },
+      "lifecycle": {
+        "lifespan_hours": 271.817,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "shallow_comparison_issues",
+      "concern_detail": "Multiple bot reviews flagged that JSON.stringify for property/children comparison misses deep changes, and excluding `data` property could break memoization for plugins. A human reviewer noted vitest in dependencies instead of devDependencies. No formal CHANGES_REQUESTED block was raised.",
+      "performance_claim": "Improve memoization of markdown components by checking type and tagName, excluding position and data properties to prevent false negatives in areNodesEqual and reduce unnecessary re-renders.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "perf_evidence",
+        "design_or_approach",
+        "ci_validation"
+      ],
+      "rejection_signals": "Author closed PR citing branch conflicts and migrated changes to a new PR #2158; no maintainer rejection."
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent successfully delivered memoization fix with unit tests, but merge failed due to stale branch; human restarted in a new PR. The capability boundary is process-related rather than technical.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "The author (likely aided by Codex) identified that areNodesEqual returned false for identical nodes due to position metadata, leading to unnecessary re-renders; the fix explicitly ignores position and data."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Unit tests verify memoization correctness, but no before/after performance benchmarks or profiling data are provided.",
+      "regression_handling": "fix_followup",
+      "regression_detail": "PR was closed and the changes were carried over to a new PR (#2158) due to branch conflicts; no regression occurred on the main branch.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactored areNodesEqual in memoization.tsx to compare type and tagName, and to exclude position and data from property comparison via a custom sanitize/excludeMetadata function. Added unit tests for areNodesEqual covering type mismatches, tag mismatches, position exclusion, and children differences.",
+      "files_primary": [
+        "packages/react-markdown/src/memoization.tsx"
+      ],
+      "files_secondary_observability": [
+        "packages/react-markdown/src/memoization.test.tsx",
+        "packages/react-markdown/vitest.config.ts",
+        "packages/react-markdown/package.json",
+        "pnpm-lock.yaml",
+        "packages/react-markdown/styles/dot.css"
+      ],
+      "secondary_note": "Secondary files include new test suite and vitest configuration, package.json scripts, lockfile update, and a minor CSS formatting fix.",
+      "change_trajectory": [
+        "Initial commit: added areNodesEqual tests, updated memoization logic with type/tag checks and position exclusion, vitest setup.",
+        "Second commit: renamed sanitize to excludeMetadata and also excluded data property.",
+        "Subsequent commit(s): ran prettier on test file and CSS to fix formatting; final state before closure."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "inline_review_comment",
+        "signal": "json_stringify_inconsistency",
+        "summary": "JSON.stringify can be inconsistent for object comparison due to key ordering; consider deep equality.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "inline_review_comment",
+        "signal": "performance_nitpick_json_stringify",
+        "summary": "Using JSON.stringify for deep comparison can be costly on large objects; consider a targeted deep-equality helper.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "inline_review_comment",
+        "signal": "dependency_location_warning",
+        "summary": "vitest should be in devDependencies, not dependencies.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "prettier_formatting_issue",
+        "summary": "Prettier formatting check failed; run prettier --write.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jazzberry-ai[bot]",
+        "channel": "pr_comment",
+        "signal": "shallow_comparison_bug_report",
+        "summary": "areNodesEqual performs shallow comparison; changes in nested objects or function props are missed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "AVGVSTVS96",
+        "channel": "pr_comment",
+        "signal": "branch_conflict_close_new_pr",
+        "summary": "Closing PR because updating locally is breaking GitButler; merging these changes in a new PR #2158.",
+        "blocking": false,
+        "action_taken": "PR closed; changes migrated to new PR."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with memoization fix and unit tests; multiple bot reviews appeared within minutes flagging JSON.stringify and shallow comparison issues.",
+      "Author converted to draft, later pushed a commit to also exclude data and rename sanitize.",
+      "After prettier formatting and re‑ready, author eventually closed PR citing branch conflicts, with explicit intent to merge via new PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

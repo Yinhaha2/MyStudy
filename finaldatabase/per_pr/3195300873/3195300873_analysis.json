@@ -1,0 +1,229 @@
+{
+  "pr_id": 3195300873,
+  "meta": {
+    "title": "Fix Ollama model detection to ignore `:latest` tag when checking if model exists",
+    "html_url": "https://github.com/microsoft/genaiscript/pull/1699",
+    "repo": "microsoft/genaiscript",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-02 09:50:00+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-02 11:29:40+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Fix Ollama model detection to avoid unnecessary pulls when model specified without tag already exists as `:latest` on the server."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 196,
+      "additions": 7079,
+      "deletions": 3079,
+      "changes": 1976568,
+      "top1_file": "docs/src/content/docs/fr/blog/cline.mdx",
+      "top1_changes": 430,
+      "top1_change_ratio": 0.0002175,
+      "files_by_status": {
+        "added": 50,
+        "modified": 140,
+        "removed": 5,
+        "renamed": 1
+      },
+      "directory_count": 8,
+      "directories": [
+        ".",
+        ".devcontainer",
+        ".github",
+        ".ruler",
+        ".vscode",
+        "demo",
+        "docs",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 23,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 3,
+        "base_ref_changed": 1,
+        "ready_for_review": 1,
+        "commented": 4,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.661,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ollama_model_tag_normalization",
+      "implicit_latest_tag",
+      "api_call_optimization"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_maintainer_without_merge",
+    "review_dimensions": [
+      "tests",
+      "merge_conflict"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot PR fixing Ollama model tag detection; maintainer fixed tests and merge conflicts then closed PR without merge; no performance benchmarks."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1976568,
+        "interpretation": "At 1,976,568 changed lines across 196 files, the change scale is huge due to a broad merge of origin/dev; the core fix (~160 lines) is small. The PR was closed without merge, likely because the large noise from the merge obscured the fix and maintainer decided not to proceed."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.661,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "tests_missing_or_requested",
+      "primary_concern": "test_quality",
+      "concern_detail": "Maintainer pelikhan requested to fix tests and to merge origin/dev and resolve conflicts. Copilot addressed both; PR was closed shortly after final commit.",
+      "performance_claim": "Eliminate unnecessary Ollama model pulls when model specified without tag already exists as `:latest`.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests",
+        "merge_conflict"
+      ],
+      "rejection_signals": "Maintainer closed PR without merge after addressing initial requests; no CHANGES_REQUESTED or explicit rejection reason."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Simple string normalization fix; agent could implement but maintainer closed PR after addressing initial requests, possibly due to process or approach disagreement.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer pelikhan reviewed the test structure and merge state; directed agent to fix tests and merge origin/dev."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No before/after performance data; only narrative claim that unnecessary pulls are eliminated.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed after fix commits; no merge.",
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added normalizeOllamaModelName() and areOllamaModelsEquivalent() in packages/core/src/ollama.ts and used them in nodehost.ts (originally packages/cli/src/nodehost.ts, later moved to packages/runtime/src/nodehost.ts after merge) to treat 'model' and 'model:latest' as equivalent.",
+      "files_primary": [
+        "packages/core/src/ollama.ts",
+        "packages/cli/src/nodehost.ts",
+        "packages/runtime/src/nodehost.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/core/src/ollama.test.ts",
+        "docs/..."
+      ],
+      "secondary_note": "Merge commit brought in large documentation and workflow changes unrelated to the fix.",
+      "change_trajectory": [
+        "Initial commits: add Ollama model tag-aware comparison and tests.",
+        "Maintainer requested test fixes and merge with origin/dev.",
+        "Agent fixed test structure and merged origin/dev, applying fix to new nodehost location.",
+        "PR closed without merge shortly after."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "pelikhan",
+        "channel": "pr_comment",
+        "signal": "fix_tests",
+        "summary": "Requested to fix tests.",
+        "blocking": true,
+        "action_taken": "Agent fixed tests in commit 4ab55a0."
+      },
+      {
+        "source": "pelikhan",
+        "channel": "pr_comment",
+        "signal": "merge_conflict_resolution",
+        "summary": "Requested merge origin/dev and resolve conflicts.",
+        "blocking": true,
+        "action_taken": "Agent merged in commit db687d7."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed test fixes and merge.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "merge_confirmation",
+        "summary": "Confirmed merge and applied fixes to new location.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial Ollama tag normalization fix and tests.",
+      "Maintainer pelikhan requested test fixes and merge.",
+      "Copilot fixed tests and merged origin/dev.",
+      "PR closed by maintainer without merge shortly after."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

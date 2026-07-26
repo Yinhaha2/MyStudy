@@ -1,0 +1,176 @@
+{
+  "pr_id": 3146327522,
+  "meta": {
+    "title": "[WIP] Improve DFT implementation",
+    "html_url": "https://github.com/microsoft/onnxruntime/pull/25061",
+    "repo": "microsoft/onnxruntime",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-14 15:57:48+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 26,
+    "topic_name": "26",
+    "body_summary": "Add threading and algorithmic optimizations (bit manipulation next_power_of_2) to ONNX Runtime DFT kernel, claiming 1.87x microbenchmark speedup and up to 4x parallel scaling for large transforms."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 4,
+      "additions": 559,
+      "deletions": 57,
+      "changes": 616,
+      "top1_file": "onnxruntime/core/providers/cpu/signal/dft.cc",
+      "top1_changes": 285,
+      "top1_change_ratio": 0.462,
+      "files_by_status": {
+        "added": 2,
+        "modified": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        "docs",
+        "onnxruntime",
+        "tools"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "copilot_work_finished_failure": 1
+      },
+      "lifespan_hours": 0.664,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "next_power_of_2_bit_hack",
+      "threading_parallel_execution",
+      "memory_optimization",
+      "dft_compute_kernel"
+    ],
+    "optimization_layer": "cpu_signal_processing",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "abandoned_agent_failure",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot proposed DFT threading and micro-optimizations; PR marked [WIP] and copilot_work_finished_failure indicates agent task failure; closed without merge, no human review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 616,
+        "interpretation": "At 616 changed lines (mostly 228 additions in the core DFT kernel), this is a moderate-sized performance PR. It was closed without merge, consistent with the [WIP] title and the agent workflow ending in failure."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.664,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "agent_workflow_failure",
+      "concern_detail": "Copilot agent task ended with copilot_work_finished_failure; no code review or maintainer feedback was recorded.",
+      "performance_claim": "1.87x speedup in next_power_of_2 via bit manipulation, up to 4x parallel speedup for large DFT sizes via threading.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Agent workflow failure; PR marked [WIP] and closed without any review or merge."
+    },
+    "capability_boundary": {
+      "topic": "26",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot attempted to parallelize DFT with ORT's thread pool and optimize bit operations, but the agent workflow terminated with failure, illustrating a process-level boundary where the agent could not complete the task within the Copilot environment or pass required quality gates.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of human code review; review was never initiated after agent failure.",
+        "ci_auto": "No CI feedback recorded."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body claims benchmark numbers but no CI or manual test results are provided; agent failure prevented any validation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after agent workflow failure; no fix-in-PR cycle occurred.",
+      "evidence_gap": "agent_workflow_failed_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified onnxruntime/core/providers/cpu/signal/dft.cc to add a next_power_of_2 bit-manipulation optimization, integrate parallel execution using ORT thread pool with a cost-based threshold, and improve memory management. Added a standalone benchmark tool (tools/dft_benchmark.cpp) and documentation (docs/DFT_Performance_Improvements.md).",
+      "files_primary": [
+        "onnxruntime/core/providers/cpu/signal/dft.cc",
+        "tools/dft_benchmark.cpp"
+      ],
+      "files_secondary_observability": [
+        "docs/DFT_Performance_Improvements.md",
+        "onnxruntime/test/providers/cpu/signal/signal_ops_test.cc"
+      ],
+      "secondary_note": "Test file gained 54 lines for performance scenarios; docs and benchmark code are new additions.",
+      "change_trajectory": [
+        "Initial plan commit (no file changes).",
+        "Implementation commit adding threading, bit optimization, and test additions.",
+        "Documentation and benchmark utility commit.",
+        "Copilot work finished with failure event; no further changes or interactions."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by Copilot linked to issue #24522, with three commits within ~40 minutes.",
+      "Copilot work finished with failure shortly after the last commit; no human review or comment occurred.",
+      "PR remains closed (state=closed) with no merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

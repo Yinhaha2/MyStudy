@@ -1,0 +1,217 @@
+{
+  "pr_id": 3087466454,
+  "meta": {
+    "title": "Karma: break test suite into chunks",
+    "html_url": "https://github.com/prebid/Prebid.js/pull/13158",
+    "repo": "prebid/Prebid.js",
+    "agent": "OpenAI_Codex",
+    "user": "patmmccann",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-23 20:29:00+00:00",
+    "merged_at": "2025-05-28 16:50:31+00:00",
+    "closed_at": "2025-05-28 16:50:31+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "test",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "40",
+    "body_summary": "Break the Karma test suite into chunks to avoid CircleCI timeouts and flakiness."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 30,
+      "file_count": 17,
+      "additions": 289,
+      "deletions": 173,
+      "changes": 462,
+      "top1_file": "AGENTS.md",
+      "top1_changes": 110,
+      "top1_change_ratio": 0.238,
+      "files_by_status": {
+        "modified": 17
+      },
+      "directory_count": 2,
+      "directories": [
+        ".",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 25,
+        "labeled": 1,
+        "base_ref_changed": 2,
+        "commented": 1,
+        "convert_to_draft": 1
+      },
+      "lifespan_hours": 116.36,
+      "first_review_delay_hours": 115.2,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_suite_chunking",
+      "ci_timeout_reduction",
+      "test_isolation"
+    ],
+    "optimization_layer": "ci_configuration",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_test_fixes",
+    "review_dimensions": [
+      "ci_validation",
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "PR splits test suite into chunks to avoid CircleCI timeouts; author manually detected adnuntius test break and fixed it before merging with one approval."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 462,
+        "interpretation": "At 462 changed lines across 17 files, this is a small-to-medium edit by absolute volume. It fits a CI configuration maintenance PR that merged after fixing a self-identified test break and receiving a maintainer approval."
+      },
+      "lifecycle": {
+        "lifespan_hours": 116.36,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_breakage",
+      "concern_detail": "Author patmmccann noted 'This breaks the adnuntias tests, moving to draft', then made multiple commits to fix adnuntius tests and related sinon.reset replacements before re-requesting review.",
+      "performance_claim": "Avoid CircleCI timeouts and flakiness by splitting test suite into chunks.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "monolithic_test_suite_causing_ci_timeouts",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "ci_validation",
+        "tests"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "40",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "CI configuration changes with manual intervention for test breakage are within agent capability; the PR merged after a human fixed failing tests.",
+      "success_factors": [
+        "self_detect_break",
+        "quick_test_fixes",
+        "ci_integration"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "CI (CircleCI) was timing out or flaking due to monolithic test suite; the author recognized the need to chunk tests."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No before/after timing data; the claim is based on CI anecdotal timeouts.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After initial commits, adnuntius tests broke; author moved PR to draft, added fixes (multiple commits updating adnuntius spec and sinon.reset replacements), then marked ready and obtained approval.",
+      "evidence_gap": "narrative_only_for_ci_perf"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified gulpfile.js to set Karma to run tests in 4 chunks (default 4), updated multiple test spec files to replace sinon.reset with proper sandbox restoration, improved isolation in rayn tests, and fixed adnuntius test breakage by updating the spec. Also, multiple AGENTS.md updates and merges from other branches.",
+      "files_primary": [
+        "gulpfile.js"
+      ],
+      "files_secondary_observability": [
+        "test/spec/modules/adnuntiusBidAdapter_spec.js",
+        "test/spec/modules/raynRtdProvider_spec.js",
+        "test/spec/modules/contxtfulRtdProvider_spec.js",
+        "test/spec/unit/core/bidderFactory_spec.js",
+        "test/spec/unit/core/adapterManager_spec.js"
+      ],
+      "secondary_note": "Most line churn is from repeated AGENTS.md edits (110 changes) and multiple merges from other branches; the effective config change is minimal (gulpfile.js: 6 changes).",
+      "change_trajectory": [
+        "Initial commits expanded AGENTS guidelines (multiple AGENTS.md edits).",
+        "Commit 17de2a4 set test chunks to 4 in gulpfile.js and removed AGENTS.md (later re-added).",
+        "Author replaced sinon.reset in multiple test files to improve test isolation (commits c8afdf5, 14804a6).",
+        "Self-detected adnuntius test break; moved PR to draft.",
+        "Fixed adnuntius tests with multiple commits (b415eb0, b0940bc, 460eb5d, c26ed1e, 066eb62, bf75bfd, ac4ac0b).",
+        "Merged pull requests from other branches for sinon.reset fixes and rayn test isolation.",
+        "PR marked ready; reviewer approved without comments; merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "patmmccann",
+        "channel": "pr_comment",
+        "signal": "self_detected_break",
+        "summary": "Author commented that the change breaks adnuntius tests and moved to draft.",
+        "blocking": true,
+        "action_taken": "Author added multiple fix commits for adnuntius tests and related sinon.reset replacements."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "linter_error",
+        "summary": "Bot reported 1 linter error in adnuntiusBidAdapter_spec.js.",
+        "blocking": false,
+        "action_taken": "Likely addressed in subsequent commits."
+      },
+      {
+        "source": "ChrisHuie",
+        "channel": "formal_review",
+        "signal": "approved_empty_body",
+        "summary": "Approved without comment.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created with AGENTS.md additions and test chunk config.",
+      "Author self-identified adnuntius test breakage, moved to draft.",
+      "Multiple commits to fix adnuntius tests and replace sinon.reset across test suite.",
+      "Several branch merges from other PRs integrated.",
+      "Reviewer approved with no comments; PR merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "pr_id": 3164482877,
+  "meta": {
+    "title": "perf: optimize AttributeToUser query with single Prisma join",
+    "html_url": "https://github.com/calcom/cal.com/pull/21949",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-20 22:26:16+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-29 15:51:14+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 49,
+    "topic_name": "49",
+    "body_summary": "Optimize AttributeToUser query by replacing a two-step database call with a single Prisma join to improve performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 5,
+      "additions": 167,
+      "deletions": 33,
+      "changes": 200,
+      "top1_file": "packages/lib/service/attribute/server/getAttributes.test.ts",
+      "top1_changes": 83,
+      "top1_change_ratio": 0.415,
+      "files_by_status": {
+        "modified": 4,
+        "added": 1
+      },
+      "directory_count": 3,
+      "directories": [
+        "packages",
+        "tests",
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 20,
+      "event_counts": {
+        "committed": 6,
+        "commented": 5,
+        "deployed": 5,
+        "renamed": 1,
+        "reviewed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 209.42,
+      "first_review_delay_hours": 7.26,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "query_join",
+      "database_round_trip_reduction"
+    ],
+    "optimization_layer": "data_access_layer",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin attempted to optimize query from two-step to single join, but reviewer insisted on Kysely; Devin switched but PR auto-closed after 8 days of inactivity without further review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 200,
+        "interpretation": "At 200 changed lines across 5 files, this is a small-to-medium edit by absolute volume, concentrated in database repository and test files. As a database query optimization PR it was closed due to inactivity after review feedback was partially addressed."
+      },
+      "lifecycle": {
+        "lifespan_hours": 209.42,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_policy_preference",
+      "concern_detail": "Reviewer requested using Kysely instead of Prisma for database queries, adhering to project conventions.",
+      "performance_claim": "Reducing database round trips from two separate queries to a single join query improves performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io - prior code made two separate database calls",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach"
+      ],
+      "rejection_signals": "PR auto-closed by Devin after 7 days of inactivity; no merge despite code changes addressing review."
+    },
+    "capability_boundary": {
+      "topic": "49",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent struggled with Kysely test integration requiring custom mocks; unable to get maintainer re-engagement after implementing changes.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "ThyMinimalDev reviewed the added Prisma code and requested using Kysely instead.",
+        "ci_auto": "GitHub Actions performed conventional commit title check and provided E2E test results (though E2E skipped without label)."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Unit tests all pass, but no benchmark or performance measurement data provided; reproducibility of performance claim is low.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Despite Devin implementing the Kysely change and adding mocks, the PR was closed by Devin bot after 7 days of inactivity; no maintainer response to the updated code.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced two-step database query in AttributeToUserRepository with single join query using either Prisma or Kysely (after review). Added unit test mocks for Kysely and CI workflow adjustments.",
+      "files_primary": [
+        "packages/lib/server/repository/attributeToUser.ts",
+        "packages/lib/service/attribute/server/getAttributes.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/lib/service/attribute/server/getAttributes.test.ts",
+        "tests/libs/__mocks__/kysely.ts",
+        ".github/workflows/pr.yml"
+      ],
+      "secondary_note": "Test and mock files support the Kysely implementation; CI changes were to fix E2E check failures.",
+      "change_trajectory": [
+        "Initial commit: Single Prisma join query.",
+        "Review: Requested Kysely instead.",
+        "Commit: Revert to Prisma while investigating Kysely timing issue.",
+        "Commit: Implement Kysely query with join.",
+        "Commit: Add Kysely mock and fix tests.",
+        "CI workflow adjustments.",
+        "Auto-closed after 8 days inactivity."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ThyMinimalDev",
+        "channel": "inline_review_comment",
+        "signal": "design_incompatibility_policy",
+        "summary": "Requested using Kysely instead of Prisma for query optimization.",
+        "blocking": false,
+        "action_taken": "Devin implemented Kysely query and added mocks."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "title_lint_warning",
+        "summary": "PR title did not follow Conventional Commits format; later fixed.",
+        "blocking": false,
+        "action_taken": "Title was renamed."
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployment previews skipped/ignored.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results_available",
+        "summary": "E2E test results link provided.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with Prisma join optimization.",
+      "GitHub Actions bot flagged title format.",
+      "ThyMinimalDev requested switching to Kysely.",
+      "Devin attempted Kysely but had test timing issues; reverted then implemented Kysely with mocks.",
+      "Devin adjusted CI workflows to fix E2E check failures.",
+      "After 8 days of no further review activity, Devin bot auto-closed PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

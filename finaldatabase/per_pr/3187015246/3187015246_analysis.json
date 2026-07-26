@@ -1,0 +1,177 @@
+{
+  "pr_id": 3187015246,
+  "meta": {
+    "title": "Optimize VM pure call folding",
+    "html_url": "https://github.com/mochilang/mochi/pull/4055",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 03:39:36+00:00",
+    "merged_at": "2025-06-30 03:40:03+00:00",
+    "closed_at": "2025-06-30 03:40:03+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 10,
+    "topic_name": "10",
+    "body_summary": "Fold user-defined pure function calls at compile time using the VM's constant evaluator to eliminate runtime overhead, with a new test for folding in the presence of a global constant."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 9,
+      "additions": 87,
+      "deletions": 11,
+      "changes": 98,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 44,
+      "top1_change_ratio": 0.449,
+      "files_by_status": {
+        "modified": 3,
+        "added": 6
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0075,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "compile_time_constant_folding",
+      "pure_function_call_elimination",
+      "vm_optimization"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit self-merge by tamnd; adds constant folding optimization with test snapshots but no performance benchmark or review discussion."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 98,
+        "interpretation": "At 98 changed lines, this is a small change. It fits a low-risk compiler optimization, and the immediate self-merge without review is consistent with a small-scope performance improvement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0075,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Fold pure function calls at compile time using constant evaluator to eliminate runtime overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "10",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small compiler optimization self-merged by maintainer without any review; illustrates that for trusted contributors, agent-authored changes can bypass review processes entirely when scope is low.",
+      "success_factors": [
+        "small_scope",
+        "maintainer_self_merge",
+        "existing_constant_evaluator_reuse"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review or code-reading feedback present in the dataset."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Test output files show IR before/after folding, but no runtime performance measurements are provided; one test suite (TPCH) fails due to timeout, indicating incomplete coverage.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; PR merged immediately.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added logic to fold pure user-defined function calls at compile time using the existing constant evaluator; updated test snapshots and added new test cases for pure and pure_global folding.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/pure_fold.mochi",
+        "tests/vm/valid/pure_fold.ir.out",
+        "tests/vm/valid/pure_global_fold.mochi",
+        "tests/vm/valid/pure_global_fold.ir.out",
+        "tests/vm/valid/fun_call.ir.out",
+        "tests/vm/valid/fun_three_args.ir.out"
+      ],
+      "secondary_note": "Most changed files are test snapshots reflecting the constant folding optimization; the core change is 44 lines in vm.go.",
+      "change_trajectory": [
+        "Single commit (fa45f3f): Implement pure call folding in VM compiler and update/add test files to reflect expected IR output."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created by tamnd with a single commit from OpenAI_Codex agent.",
+      "Labeled 'codex' and immediately merged by the same author within 27 seconds with no review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

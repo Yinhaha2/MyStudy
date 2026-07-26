@@ -1,0 +1,181 @@
+{
+  "pr_id": 3006534682,
+  "meta": {
+    "title": "Spring Boneアニメーション処理の最適化: 行列演算のキャッシュ",
+    "html_url": "https://github.com/saturday06/VRM-Addon-for-Blender/pull/797",
+    "repo": "saturday06/VRM-Addon-for-Blender",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-19 16:36:18+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-20 15:41:15+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 50,
+    "topic_name": "50",
+    "body_summary": "Optimize Spring Bone animation processing by caching matrix inverse and other repeated computations, achieving 5.1% overall execution time reduction with benchmark data."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 56,
+      "deletions": 16,
+      "changes": 72,
+      "top1_file": "src/io_scene_vrm/editor/spring_bone1/handler.py",
+      "top1_changes": 72,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 22.92,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "matrix_inverse_cache",
+      "matrix_operation_cache",
+      "vector_normalization_cache",
+      "collision_calculation_optimization"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "benchmark",
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_computation"
+    ],
+    "outcome_reason": "stale_inactivity_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin provided benchmark data showing 5.1% improvement; PR closed by maintainer without review, likely due to bot archival or inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 72,
+        "interpretation": "At 72 changed lines in a single file, this is a small, focused optimization. Despite providing benchmark evidence, the PR was closed without review, indicating process issues rather than technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 22.92,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_provided",
+      "concern_detail": "No human review or feedback was given; the PR was closed by the maintainer with no comment. Only bot activity (Devin assistant and archival notice) occurred.",
+      "performance_claim": "5.1% overall execution time improvement, 12.5% in targeted function, 24.8% reduction in inverted_safe calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_computation (matrix inversions were computed multiple times unnecessarily)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer closed the PR without review; Devin bot indicated archival. No comments or change requests."
+    },
+    "capability_boundary": {
+      "topic": "50",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Small-scope optimization with benchmark evidence, but closed without review likely due to bot archival/inactivity policy. This highlights a process boundary where agent PRs may not receive maintainer attention even with strong evidence.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "PR includes before/after profiling statistics with function call counts and times, enabling independent validation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed without any regression analysis; likely due to bot archival rather than performance regression.",
+      "evidence_gap": "no_review_despite_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In handler.py, matrix inversions and repeated computations in calculate_joint_pair_head_pose_bone_rotations are cached to avoid redundant calculations, reducing total calls to inverted_safe by 24.8% and improving overall execution time by 5.1%.",
+      "files_primary": [
+        "src/io_scene_vrm/editor/spring_bone1/handler.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: implemented caching optimizations and added benchmark evidence in PR body."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_intro",
+        "summary": "Devin bot introduced itself and offered automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_archival",
+        "summary": "Devin is archived and cannot be woken up; PR closed.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with optimization and benchmark data.",
+      "No human review or comment; bot left introductory message.",
+      "Maintainer closed PR ~23 hours later; bot noted archival."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

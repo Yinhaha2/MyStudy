@@ -1,0 +1,209 @@
+{
+  "pr_id": 2932553016,
+  "meta": {
+    "title": "Add kickoff_for_each_parallel method using ThreadPoolExecutor",
+    "html_url": "https://github.com/crewAIInc/crewAI/pull/2407",
+    "repo": "crewAIInc/crewAI",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-03-19 17:05:51+00:00",
+    "merged_at": null,
+    "closed_at": "2025-03-28 14:55:15+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 8,
+    "topic_name": "8",
+    "body_summary": "Add a new parallel execution method kickoff_for_each_parallel using ThreadPoolExecutor for running a crew on multiple inputs concurrently, linked to issue #2406."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 5,
+      "additions": 894,
+      "deletions": 28,
+      "changes": 922,
+      "top1_file": "tests/cassettes/test_kickoff_for_each_parallel_max_workers.yaml",
+      "top1_changes": 254,
+      "top1_change_ratio": 0.275,
+      "files_by_status": {
+        "added": 4,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 4,
+        "commented": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 213.823,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "crew_parallel_execution",
+      "threading_performance"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity_auto_close",
+    "review_dimensions": [
+      "design_or_approach",
+      "code_quality",
+      "tests",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin added parallel execution method; maintainer provided detailed AI-generated review with suggestions; Devin partially addressed feedback but PR auto-closed after 7 days inactivity without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 922,
+        "interpretation": "At 922 changed lines across 5 files, this is a medium-sized additive feature (most lines in test cassettes). As a performance improvement PR adding parallel execution, it was closed without merge due to inactivity after partial feedback response."
+      },
+      "lifecycle": {
+        "lifespan_hours": 213.823,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "code_quality_improvements_requested",
+      "concern_detail": "Maintainer joaomdmoura posted a comprehensive AI-generated review suggesting import consolidations, type hint enhancements, error message clarification, memory cleanup, test fixture additions, async tests, large input tests, performance logging, and progress callback. It stated that after addressing these, the PR would be ready to merge.",
+      "performance_claim": "Better performance when running the same crew on many inputs by parallel execution.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "code_quality",
+        "tests",
+        "perf_evidence"
+      ],
+      "rejection_signals": "PR closed by bot due to more than 7 days of inactivity after partial feedback incorporation; no formal approval or merge."
+    },
+    "capability_boundary": {
+      "topic": "8",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent successfully added complex feature with tests, but the merge process stalled after maintainer suggestions were partially addressed; eventual closure due to inactivity highlights the need for continuous engagement or auto-merge conditions.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "joaomdmoura reviewed the diff via an AI crew of agents, providing specific inline code suggestions for quality and performance monitoring."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or timing data provided; performance claim is narrative only. Tests cover correctness but not parallelism speedup.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No regression detected; PR was closed without merge after inactivity, not due to a regression.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added kickoff_for_each_parallel method to Crew class using ThreadPoolExecutor to run crew on multiple inputs concurrently. Each input spawns a crew copy via copy.deepcopy, with configurable max_workers. Tests with VCR cassettes verify single/multiple inputs and max_workers behavior.",
+      "files_primary": [
+        "src/crewai/crew.py",
+        "tests/test_kickoff_for_each_parallel.py"
+      ],
+      "files_secondary_observability": [
+        "tests/cassettes/test_kickoff_for_each_parallel_max_workers.yaml",
+        "tests/cassettes/test_kickoff_for_each_parallel_multiple_inputs.yaml",
+        "tests/cassettes/test_kickoff_for_each_parallel_single_input.yaml"
+      ],
+      "secondary_note": "Cassette YAML files captured HTTP interactions for test isolation; the main implementation is in crew.py (114 lines changed) and test file (211 lines).",
+      "change_trajectory": [
+        "Initial commit: Added kickoff_for_each_parallel method and comprehensive test file.",
+        "Added VCR test cassettes for deterministic testing.",
+        "Applied review feedback: improved imports, type hints, error messages, and added memory cleanup (commit 15d59cf).",
+        "Fixed import sorting in test file (d58a249).",
+        "No further human interaction; bot closed after 7 days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "joaomdmoura",
+        "channel": "pr_comment",
+        "signal": "code_review_suggestions",
+        "summary": "AI crew provided comprehensive review with suggestions for import cleanup, type hints, error messages, memory management, tests, and performance metrics, concluding PR will be ready after addressing them.",
+        "blocking": false,
+        "action_taken": "Devin partially addressed feedback in subsequent commits, but not all suggestions (e.g., performance logging, callback)."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "PR closed due to 7+ days of inactivity.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR linked to issue with initial parallel implementation and tests.",
+      "Maintainer joaomdmoura provided a detailed AI-generated code review with several suggestions.",
+      "Devin committed improvements addressing some review points (imports, type hints, error messages, memory cleanup), but not all (performance logging, callback, test enhancements).",
+      "No further human response; bot auto-closed after 7 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

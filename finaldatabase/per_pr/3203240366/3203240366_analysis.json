@@ -1,0 +1,205 @@
+{
+  "pr_id": 3203240366,
+  "meta": {
+    "title": "Refactor harness for improved concurrency",
+    "html_url": "https://github.com/laude-institute/terminal-bench/pull/432",
+    "repo": "laude-institute/terminal-bench",
+    "agent": "Cursor",
+    "user": "alexgshaw",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-04 16:24:29+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-08 16:54:35+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 9,
+    "topic_name": "9",
+    "body_summary": "Convert harness and Docker management to async using asyncio/anyio/aiodocker for reliable Ctrl+C cleanup and improved concurrency via task groups and semaphores."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 20,
+      "additions": 971,
+      "deletions": 501,
+      "changes": 1472,
+      "top1_file": "terminal_bench/harness/harness.py",
+      "top1_changes": 383,
+      "top1_change_ratio": 0.26,
+      "files_by_status": {
+        "added": 2,
+        "modified": 18
+      },
+      "directory_count": 4,
+      "directories": [
+        "terminal_bench",
+        "tasks",
+        "docker",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 4,
+        "reviewed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 96.5,
+      "first_review_delay_hours": 95.3,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "async_refactor",
+      "concurrency_improvement",
+      "docker_cleanup_robustness",
+      "keyboard_interrupt_handling"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_author",
+    "review_dimensions": [
+      "design_or_approach",
+      "code_cleanup"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor delivered large async refactor; maintainer approved but questioned design and artifact file; author closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1472,
+        "interpretation": "At 1472 changed lines across 20 files, this is a medium-to-large refactor by absolute volume. As a concurrency refactor without performance benchmarks, it was closed without merge despite an APPROVED review, likely due to the author's decision after maintainer feedback on design and file artifacts."
+      },
+      "lifecycle": {
+        "lifespan_hours": 96.5,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_appropriateness",
+      "concern_detail": "Maintainer TheMikeMerrill approved but questioned the necessity of making all helper methods async and whether ASYNC_REFACTORING.md is a necessary file, suggesting it might be a cursor artifact.",
+      "performance_claim": "Improved concurrency and reliable Docker container/image cleanup on KeyboardInterrupt via async/await, anyio task groups, and aiodocker.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "synchronous_docker_operations_leading_to_interrupt_cleanup_failure",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "code_cleanup"
+      ],
+      "rejection_signals": "Approved review followed by author close; no explicit rejection from maintainer, but PR abandoned after review comments."
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Large-scale async refactor (asyncio/anyio/aiodocker) converting synchronous harness and Docker interactions; while technically plausible, maintainer expressed unfamiliarity with the libraries and questioned the design, leading to no merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "TheMikeMerrill reviewed the async conversion, noted the addition of ASYNC_REFACTORING.md as a possible cursor artifact, and questioned the design choice of making all helpers async."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body describes benefits of async cleanup and concurrency but lacks before/after measurements or profiling data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After review, author closed the PR without further action; no merge or revert on main.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Convert terminal_bench core from synchronous Docker and subprocess operations to async using asyncio, anyio, and aiodocker. Harness.py replaces ThreadPoolExecutor with anyio task groups and semaphores for concurrent trials. Explicit signal handling removed in favor of asyncio CancelledError propagation for cleanup. CLI entry points wrapped with asyncio.run().",
+      "files_primary": [
+        "terminal_bench/harness/harness.py",
+        "terminal_bench/terminal/docker_compose_manager.py",
+        "terminal_bench/terminal/tmux_session.py",
+        "terminal_bench/terminal/terminal.py"
+      ],
+      "files_secondary_observability": [
+        "ASYNC_REFACTORING.md",
+        "pyproject.toml",
+        "uv.lock",
+        "terminal_bench/cli/tb/runs.py",
+        "terminal_bench/cli/tb/tasks.py"
+      ],
+      "secondary_note": "Merge commit f939518 brought in unrelated main changes including new cache module, agent tweaks, and task docker-compose edits.",
+      "change_trajectory": [
+        "Initial commit: extensive async conversion across harness, Docker manager, tmux, terminal, CLI, and added ASYNC_REFACTORING.md.",
+        "Second commit: simplified async task handling, removed manual signal management, updated ASYNC_REFACTORING.md.",
+        "Merge main brought in many unrelated files (cache, agent, task fixes).",
+        "Human author fix commit: adjusted pyproject.toml, tmux_session, docker_compose_manager, and uv.lock."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "TheMikeMerrill",
+        "channel": "formal_review",
+        "signal": "approved_with_concerns",
+        "summary": "Approved but expressed unfamiliarity with async libraries and questioned whether all helper methods need to be async.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "TheMikeMerrill",
+        "channel": "inline_review_comment",
+        "signal": "file_artifact_concern",
+        "summary": "Questioned whether ASYNC_REFACTORING.md should be added, suspecting it might be a Cursor artifact.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with large async refactor across 8 files.",
+      "Reviewer approved with design questions ~4 days later.",
+      "PR closed by author same day without further discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

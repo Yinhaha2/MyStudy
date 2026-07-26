@@ -1,0 +1,206 @@
+{
+  "pr_id": 3161908700,
+  "meta": {
+    "title": "Optimize GitHub Actions frontend-ci workflow for 2-minute target",
+    "html_url": "https://github.com/liam-hq/liam/pull/2102",
+    "repo": "liam-hq/liam",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-20 04:47:19+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-24 06:47:52+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Optimize GitHub Actions frontend-ci workflow to reduce execution time from 5m 3s to under 2 minutes by parallelizing jobs, replacing Supabase with PostgreSQL service, adding Turbo cache, and optimizing pnpm install."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 3,
+      "additions": 70,
+      "deletions": 14,
+      "changes": 84,
+      "top1_file": ".github/workflows/frontend-ci.yml",
+      "top1_changes": 79,
+      "top1_change_ratio": 0.9404761904761905,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 21,
+      "event_counts": {
+        "committed": 4,
+        "commented": 4,
+        "deployed": 11,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 98.01,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_workflow_parallelization",
+      "postgres_service_replacement",
+      "turbo_cache",
+      "pnpm_install_optimization",
+      "job_timeout_reduction"
+    ],
+    "optimization_layer": "ci_configuration",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin proposed CI workflow optimizations with expected time savings; no human review, closed after ~4 days with no merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 84,
+        "interpretation": "At 84 changed lines across 3 files, this is a small configuration change. The PR was closed without merge despite small size, indicating lack of review engagement rather than technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 98.01,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_no_review",
+      "concern_detail": "No human review or substantive comment provided; the PR was closed after 4 days without engagement.",
+      "performance_claim": "Reduce CI execution time from 5m 3s to under 2 minutes via parallelization, PostgreSQL service, turbo cache, and pnpm optimization.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No human review or feedback; closed by maintainer MH4GF with no comment."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "CI configuration changes require active review or approval; Devin iterated on CI fixes but lacked reviewer engagement, leading to a stale closure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No code review detected.",
+        "ci_auto": "No CI feedback or benchmark provided in the dataset."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body includes a table of expected performance gains but no actual measured CI run times before/after the change.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no regression handling observed.",
+      "evidence_gap": "narrative_expected_gains_no_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modify .github/workflows/frontend-ci.yml to split the frontend-ci job into parallel unit and integration test jobs, add PostgreSQL service container instead of full Supabase startup, enable Turbo cache, add pnpm --ignore-scripts, and reduce timeouts. Also update .github/actions/pnpm-setup/action.yml and turbo.json.",
+      "files_primary": [
+        ".github/workflows/frontend-ci.yml"
+      ],
+      "files_secondary_observability": [
+        ".github/actions/pnpm-setup/action.yml",
+        "turbo.json"
+      ],
+      "secondary_note": "turbo.json and pnpm-setup action are minor tweaks to enable caching and skip scripts.",
+      "change_trajectory": [
+        "Initial commit: implement job parallelization, PostgreSQL service, turbo cache, pnpm optimization.",
+        "Subsequent commits address CI failures: add Supabase CLI install, fix PostgreSQL port, add CSS module type gen for lint."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot intro message explaining automatic comment and CI monitoring.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "missing_changeset",
+        "summary": "Warning: no changeset found, but no version bump required if changes shouldn't bump version.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployment preview links for liam-app, liam-erd-sample, liam-storybook.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "supabase[bot]",
+        "channel": "pr_comment",
+        "signal": "supabase_preview_branch",
+        "summary": "Supabase preview branch deployment status update.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin with workflow optimizations.",
+      "Devin pushed three fix commits in response to CI failures.",
+      "No human reviewer engaged; PR closed by maintainer MH4GF after 4 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

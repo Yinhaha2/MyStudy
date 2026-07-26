@@ -1,0 +1,169 @@
+{
+  "pr_id": 3206779215,
+  "meta": {
+    "title": "Update hs vm roundtrip tool",
+    "html_url": "https://github.com/mochilang/mochi/pull/5817",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-06 16:59:24+00:00",
+    "merged_at": "2025-07-06 16:59:35+00:00",
+    "closed_at": "2025-07-06 16:59:35+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "17",
+    "body_summary": "Add LIMIT env var to vm_roundtrip tool to cap checks, making them faster, and regenerate ERRORS.md accordingly."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 395,
+      "deletions": 3179,
+      "changes": 3574,
+      "top1_file": "compile/x/hs/ERRORS.md",
+      "top1_changes": 3568,
+      "top1_change_ratio": 0.998,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "compile"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00306,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "vm_roundtrip_limit",
+      "test_tool_speedup"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex added LIMIT env var to vm_roundtrip tool; self-merged by tamnd in seconds with no review, claiming quicker tool execution."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3574,
+        "interpretation": "At 3574 changed lines, this appears large, but 99.8% is in ERRORS.md (a generated file) with a net reduction of 2790 lines; the actual tool change is 6 lines. This fits a small-scope tooling performance fix with large artifact regeneration, merged instantly."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00306,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review text available; PR self-merged by author.",
+      "performance_claim": "Limit vm roundtrip checks with LIMIT env var to run quicker.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "17",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple tool configuration change (env var cap) requires no domain‑specific expertise; low‑friction merge for a maintainer‑trusted agent.",
+      "success_factors": [
+        "small_scope",
+        "maintainer_trust",
+        "self_merge",
+        "no_review_needed"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code‑reading review; PR was self‑merged."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No timing numbers; only go test commands with one known failure unrelated to performance.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions handled; self‑merged without review.",
+      "evidence_gap": "narrative_only_for_limit_cap"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/x/hs/cmd/vm_roundtrip/main.go, added support for a LIMIT env var to cap the number of roundtrip checks; regenerated compile/x/hs/ERRORS.md with significantly reduced content (net -2790 lines) reflecting the faster, capped run.",
+      "files_primary": [
+        "compile/x/hs/cmd/vm_roundtrip/main.go"
+      ],
+      "files_secondary_observability": [
+        "compile/x/hs/ERRORS.md"
+      ],
+      "secondary_note": "ERRORS.md is a generated artifact; its large net reduction demonstrates the tool now runs with a limited set of checks, producing fewer error entries.",
+      "change_trajectory": [
+        "Single commit: added LIMIT env var reading in main.go and regenerated ERRORS.md."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged within 11 seconds by tamnd without any review or comment interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "pr_id": 3047296744,
+  "meta": {
+    "title": "fix: resolve type errors in calendar cache implementation",
+    "html_url": "https://github.com/calcom/cal.com/pull/21174",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-07 22:24:02+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-13 04:07:09+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Add CachedCalendarService, in-memory cache store, and batch calendar fetching to reduce DB and API calls, but title indicates a type-error fix that was never addressed; change is large with added integration tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 10,
+      "additions": 1372,
+      "deletions": 157,
+      "changes": 1529,
+      "top1_file": "packages/features/calendar-cache/calendar-cache.integration-test.ts",
+      "top1_changes": 372,
+      "top1_change_ratio": 0.243,
+      "files_by_status": {
+        "added": 5,
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 21,
+      "event_counts": {
+        "committed": 4,
+        "review_requested": 2,
+        "labeled": 4,
+        "commented": 5,
+        "deployed": 3,
+        "reviewed": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 125.71,
+      "first_review_delay_hours": 6.72,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "calendar_cache",
+      "batch_fetching",
+      "in_memory_cache"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "failing_tests_not_solving_issue",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin over-optimized calendar cache causing test failures and missing the original type-error fix; closed for scope mismatch and broken tests."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1529,
+        "interpretation": "At 1529 changed lines across 10 files (mostly test files and caching logic), this is a medium-to-large edit by absolute volume. The scope far exceeds the 'fix type errors' title, adding extensive caching optimization. It closed because it didn't solve the original issue and had failing tests, not due to scale per se but misalignment and quality."
+      },
+      "lifecycle": {
+        "lifespan_hours": 125.71,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "failing_tests_not_solving_original_issue",
+      "concern_detail": "Reviewer TusharBhatt1 questioned why so much was changed for a type-error fix, noting a failing test. Later retrogtx closed the PR stating failing tests and that it does not solve the original issue.",
+      "performance_claim": "CachedCalendarService reduces database calls and avoids redundant Google Calendar API calls during booking.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer closed PR explicitly for failing tests and not solving the original type error issue; no CHANGES_REQUESTED, just comments."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent interpreted 'fix type errors' as an invitation to optimize entire cache, producing a 1500-line change with new caching service and integration tests, but failed to fix the core type issue and introduced test failures. This highlights a boundary in task scoping and validation where agent over-delivers a performance optimization instead of a narrow fix.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "TusharBhatt1 read the code and questioned the scope of changes, noting the title vs actual changes.",
+        "ci_auto": "CI provided e2e test results; maintainers observed failing tests."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarking steps or measurements provided; only narrative claims of reduced API calls. Test failures are evident but not performance-specific.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After a week of inactivity, retrogtx closed the PR, citing failing tests and failure to solve the original issue.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added CachedCalendarService, calendar-cache-store, and related cache utilities to batch-fetch calendars and serve from in-memory store, with extensive integration tests. Modified handleNewBooking and getCalendarsEvents to use cached services. The change is large (~1500 lines) and goes beyond fixing type errors.",
+      "files_primary": [
+        "packages/app-store/googlecalendar/lib/CachedCalendarService.ts",
+        "packages/features/calendar-cache/calendar-cache-store.ts",
+        "packages/lib/getCalendarsEvents.ts",
+        "packages/features/bookings/lib/handleNewBooking.ts",
+        "packages/app-store/_utils/getCachedCalendar.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/features/calendar-cache/calendar-cache.integration-test.ts",
+        "packages/features/calendar-cache/cached-calendar-service.integration-test.ts",
+        "packages/app-store/googlecalendar/index.ts",
+        "packages/lib/server/repository/selectedCalendar.ts",
+        "packages/app-store/_utils/getCalendar.ts"
+      ],
+      "secondary_note": "Test files account for a large portion of the changes (739 lines out of 1529).",
+      "change_trajectory": [
+        "Initial commit (07228ae0): Added CachedCalendarService, cache store, and core logic.",
+        "Second commit (5d9d52b7): Resolve type errors in implementation.",
+        "Third commit (0e2f4fc1): Further type fixes and added integration test for calendar cache.",
+        "Fourth commit (5de4c981): Added comprehensive integration tests for CachedCalendarService."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "TusharBhatt1",
+        "channel": "formal_review",
+        "signal": "scope_too_large_and_failing_test",
+        "summary": "Commented that the task was to remove type errors, questioning the extensive changes and noting a failing test.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "retrogtx",
+        "channel": "pr_comment",
+        "signal": "close_failing_not_solving_issue",
+        "summary": "Closed PR citing failing tests and that it does not solve the original issue.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      },
+      {
+        "source": "retrogtx",
+        "channel": "inline_review_comment",
+        "signal": "suspected_failure_cause",
+        "summary": "Identified the calendar service fetch part as likely causing test failures.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automated_reviewer_label",
+        "summary": "Graphite automation added reviewer and label.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results_ready",
+        "summary": "E2E test results ready link posted.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opens PR with large cache optimization and type fixes.",
+      "TusharBhatt1 comments questioning scope and noting failing test.",
+      "Devin adds integration tests and further type fixes.",
+      "After ~5 days, retrogtx closes PR citing failing tests and not solving original issue."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

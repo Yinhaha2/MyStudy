@@ -1,0 +1,234 @@
+{
+  "pr_id": 3219254404,
+  "meta": {
+    "title": "Reimplement hydration using new diffing/committing architecture",
+    "html_url": "https://github.com/bikeshaving/crank/pull/286",
+    "repo": "bikeshaving/crank",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-10 12:54:35+00:00",
+    "merged_at": "2025-07-10 22:03:24+00:00",
+    "closed_at": "2025-07-10 22:03:25+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 2,
+    "topic_name": "2_hydration_species_component_children",
+    "body_summary": "Reimplement hydration in src/crank.ts to work with the new diffing/committing separation, enabling parallel sibling hydration, fallback for mismatches, and restoring previously skipped hydration tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 12,
+      "file_count": 5,
+      "additions": 314,
+      "deletions": 274,
+      "changes": 588,
+      "top1_file": "src/crank.ts",
+      "top1_changes": 493,
+      "top1_change_ratio": 0.838,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 7,
+      "review_states": {
+        "COMMENTED": 7
+      },
+      "review_comment_count": 8,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 31,
+      "event_counts": {
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "renamed": 1,
+        "review_requested": 3,
+        "copilot_work_finished": 2,
+        "commented": 2,
+        "reviewed": 3,
+        "copilot_work_finished_failure": 2,
+        "committed": 12
+      },
+      "lifespan_hours": 9.147,
+      "first_review_delay_hours": 2.027,
+      "review_rounds": 7,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hydration_reimplementation",
+      "parallel_sibling_hydration",
+      "diff_commit_separation",
+      "async_component_support"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "tests"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot reimplemented hydration using diff/commit separation; brainkim requested design changes (remove hydrationData caching and flag), Copilot resolved via explicit parameter passing; maintainer added subsequent fixes and unskipped tests, merged after ~9h."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 588,
+        "interpretation": "At 588 changed lines across 5 files, this is a medium-sized change by absolute volume. It represents a focused framework refactor that aligns with a performance-oriented feature reimplementation (hydration), and the merge after a few review rounds is consistent with moderate complexity."
+      },
+      "lifecycle": {
+        "lifespan_hours": 9.147,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_improvement_explicit_passing",
+      "concern_detail": "brainkim questioned the need for caching hydrationData on Retainer and using IsHydrating flag, suggesting to pass hydration data explicitly during the commit phase; Copilot implemented the change.",
+      "performance_claim": "Enable hydration with new architecture, improving performance via parallel sibling hydration and removing serial requirement.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "non_functional_hydration_stub",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "tests"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2_hydration_species_component_children",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Complex framework-level refactor (hydration, diff/commit architecture) requires deep understanding of Crank internals; Copilot handled the initial implementation but required design guidance from maintainer to align with preferred patterns.",
+      "success_factors": [
+        "responded_to_review_comments",
+        "adapted_to_design_preferences",
+        "maintainer_assisted_with_final_fixes",
+        "unskipped_tests_passed"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "brainkim manually reviewed the code, questioned caching and flag patterns, and suggested explicit parameter passing; no profiler or CI-based detection."
+      },
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "Test file hydration.tsx unskipped and passed; PR includes manual testing instructions but no benchmark.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "During review, Copilot removed hydrationData caching and IsHydrating flag as per maintainer request; maintainer added lint, fixes, and unskipped additional tests before merge.",
+      "evidence_gap": "narrative_perf_claim_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/crank.ts, reimplemented Renderer.hydrate() to integrate with diffChildren/commitChildren architecture, removed commented-out old code, added hydration data flow via explicit parameters; updated src/dom.ts and test/hydration.tsx to unskip and fix hydration tests.",
+      "files_primary": [
+        "src/crank.ts",
+        "src/dom.ts"
+      ],
+      "files_secondary_observability": [
+        "test/hydration.tsx",
+        "test/rearranging.tsx",
+        "test/refs.tsx"
+      ],
+      "secondary_note": "The main implementation changes are in crank.ts and dom.ts; test changes unskip hydration tests and adjust refs.",
+      "change_trajectory": [
+        "Initial plan and exploration commits.",
+        "Implemented hydration with hydrationData caching and IsHydrating flag.",
+        "Added comments and error handling improvements.",
+        "brainkim reviewed and requested removal of caching/flag, suggestion explicit parameter passing.",
+        "Copilot removed caching and flag, updated commitRootRender etc.",
+        "Maintainer added lint and fix commits, unskipped tests.",
+        "Merged after ~9h."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "brainkim",
+        "channel": "inline_review_comment",
+        "signal": "hydration_data_caching_question",
+        "summary": "Questioned why hydrationData needs to be cached on Retainer.",
+        "blocking": true,
+        "action_taken": "Copilot removed hydrationData caching in follow-up commit."
+      },
+      {
+        "source": "brainkim",
+        "channel": "inline_review_comment",
+        "signal": "is_hydrating_flag_question",
+        "summary": "Questioned why IsHydrating flag is needed, suggesting passing information during commit phase.",
+        "blocking": true,
+        "action_taken": "Copilot removed flag and passed hydration info explicitly."
+      },
+      {
+        "source": "brainkim",
+        "channel": "inline_review_comment",
+        "signal": "explicit_passing_suggestion",
+        "summary": "Suggested passing hydrationData explicitly instead of caching.",
+        "blocking": true,
+        "action_taken": "Copilot updated commitRootRender to accept hydrationData parameter."
+      },
+      {
+        "source": "brainkim",
+        "channel": "formal_review",
+        "signal": "package_lock_deletion_request",
+        "summary": "Asked to delete package-lock.json and use bun.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with reimplemented hydration using diff/commit arch.",
+      "brainkim reviewed and questioned design choices (caching/flag).",
+      "Copilot responded with changes removing caching and flag.",
+      "brainkim requested deletion of package-lock.json.",
+      "Maintainer brainkim added lint fixes and unskipped tests.",
+      "PR merged after ~9 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

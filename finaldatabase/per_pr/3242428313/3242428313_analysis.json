@@ -1,0 +1,164 @@
+{
+  "pr_id": 3242428313,
+  "meta": {
+    "title": "Fix support check caching",
+    "html_url": "https://github.com/xrdevrob/QuestCameraKit/pull/23",
+    "repo": "xrdevrob/QuestCameraKit",
+    "agent": "OpenAI_Codex",
+    "user": "xrdevrob",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-18 08:44:15+00:00",
+    "merged_at": "2025-07-18 21:24:10+00:00",
+    "closed_at": "2025-07-18 21:24:10+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 22,
+    "topic_name": "22",
+    "body_summary": "Cache the result of IsSupported in PassthroughCameraUtils to avoid redundant support checks."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 3,
+      "deletions": 3,
+      "changes": 6,
+      "top1_file": "Unity-QuestVisionKit/Assets/PassthroughCameraApiSamples/PassthroughCamera/Scripts/PassthroughCameraUtils.cs",
+      "top1_changes": 6,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "Unity-QuestVisionKit"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 12.665,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "support_check_caching",
+      "bool_memoization"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit trivial cache of IsSupported bool; no review or evidence; merged by same user with no external validation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 6,
+        "interpretation": "At 6 changed lines, this is a micro-edit. It fits a tiny optimization PR that was merged without review, consistent with low-risk changes by the repo owner."
+      },
+      "lifecycle": {
+        "lifespan_hours": 12.665,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comments exist; PR was merged without external feedback.",
+      "performance_claim": "Caching IsSupported result avoids redundant support checks, presumably improving responsiveness when called multiple times.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The change is a straightforward boolean caching in a single Unity script; no complex interactions or evidence requirements. Codex handled it successfully, though without maintainer validation beyond owner merge.",
+      "success_factors": [
+        "trivial_change",
+        "repo_owner_merged",
+        "no_review_blocker"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No evidence or test instructions; body mentions 'Testing: true' but offers no detail.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression issues occurred.",
+      "evidence_gap": "no_evidence_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In PassthroughCameraUtils.cs, the IsSupported property now caches its result in a private backing field to avoid re-evaluating the support check on each access.",
+      "files_primary": [
+        "Unity-QuestVisionKit/Assets/PassthroughCameraApiSamples/PassthroughCamera/Scripts/PassthroughCameraUtils.cs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only one file changed.",
+      "change_trajectory": [
+        "Single commit (2d52885): cached IsSupported result with a backing field and conditional check."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by xrdevrob with a single commit.",
+      "No reviews or comments; merged by the same user ~12.7 hours later."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

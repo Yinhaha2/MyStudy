@@ -1,0 +1,173 @@
+{
+  "pr_id": 3168894363,
+  "meta": {
+    "title": "Update benchmark with PyPy and Cython",
+    "html_url": "https://github.com/mochilang/mochi/pull/2745",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-23 17:19:52+00:00",
+    "merged_at": "2025-06-23 17:20:06+00:00",
+    "closed_at": "2025-06-23 17:20:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "1",
+    "body_summary": "Add PyPy and Cython benchmarks to the mochi benchmark harness; re-run benchmarks and update BENCHMARK.md with results; also compute globals at runtime in TypeScript compiler."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 22,
+      "additions": 360,
+      "deletions": 314,
+      "changes": 674,
+      "top1_file": "BENCHMARK.md",
+      "top1_changes": 208,
+      "top1_change_ratio": 0.309,
+      "files_by_status": {
+        "modified": 22
+      },
+      "directory_count": 3,
+      "directories": [
+        "(root)",
+        "bench",
+        "compile"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.004,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "add_pypy_cython_benchmarks",
+      "benchmark_harness_update",
+      "ts_runtime_global_computation"
+    ],
+    "optimization_layer": "benchmark_suite",
+    "evidence_type": [
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_trivial_benchmark_update",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Codex added PyPy/Cython benchmarks and TS runtime global computation; merged within 14 seconds with no review or collaboration."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 674,
+        "interpretation": "At 674 changed lines across 22 files, this is a medium-sized change by absolute volume, though most churn is in benchmark output files and BENCHMARK.md. It fits a straightforward benchmark infrastructure extension that was merged rapidly without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.004,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No formal review or comments; merged by author immediately.",
+      "performance_claim": "Update benchmark harness to include PyPy and Cython, and recompute TS globals for correctness.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent-authored benchmark extension with no review feedback; agent's capability to produce a self-contained benchmark update is demonstrated, but merge process was informal (self-merge).",
+      "success_factors": [
+        "self-contained_benchmark_addition",
+        "no_review_required_by_process",
+        "fast_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR indicates testing via `go run ./cmd/mochi-bench`; updated BENCHMARK.md and output files suggest results were regenerated, but no human verification of numbers is documented.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issue was raised.",
+      "evidence_gap": "no_review_no_verification"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In bench/runner.go, added logic to detect PyPy and Cython, generate and run benchmarks for those languages, and updated BENCHMARK.md and bench/out/*.ts.out files with new results. Also changed compile/ts/compiler.go to compute globals at runtime instead of static, affecting many TS output files.",
+      "files_primary": [
+        "bench/runner.go",
+        "compile/py/tools.go",
+        "compile/ts/compiler.go",
+        "BENCHMARK.md"
+      ],
+      "files_secondary_observability": [
+        "bench/out/math_*_*.ts.out"
+      ],
+      "secondary_note": "Multiple .ts.out benchmark output files were updated with new results from the benchmark rerun.",
+      "change_trajectory": [
+        "Single commit added PyPy and Cython to runner, generated new benchmarks, updated TS compiler to compute globals at runtime, and refreshed all benchmark output files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd via OpenAI_Codex with label 'codex'.",
+      "No review or comments were made; author merged the PR within 14 seconds."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "pr_id": 3224833213,
+  "meta": {
+    "title": "Add paste summarization to Codex TUI",
+    "html_url": "https://github.com/openai/codex/pull/1549",
+    "repo": "openai/codex",
+    "agent": "OpenAI_Codex",
+    "user": "aibrahim-oai",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-12 05:00:17+00:00",
+    "merged_at": "2025-07-12 22:32:01+00:00",
+    "closed_at": "2025-07-12 22:32:01+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Adds paste handling to Codex TUI: collapses large pasted blocks to a placeholder like '[Pasted Content X characters]' while storing full text for submission, avoiding per-character processing overhead."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 9,
+      "file_count": 14,
+      "additions": 620,
+      "deletions": 90,
+      "changes": 710,
+      "top1_file": "codex-rs/tui/src/bottom_pane/chat_composer.rs",
+      "top1_changes": 521,
+      "top1_change_ratio": 0.734,
+      "files_by_status": {
+        "added": 5,
+        "modified": 9
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "codex-rs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 21,
+      "event_counts": {
+        "committed": 9,
+        "labeled": 1,
+        "review_requested": 2,
+        "commented": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "locked": 1
+      },
+      "lifespan_hours": 17.53,
+      "first_review_delay_hours": 13.31,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "paste_handling",
+      "ui_rendering_optimization",
+      "large_text_collapse"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "OpenAI_Codex added paste summarization in TUI; reviewer requested higher threshold; after fix, merged within a day."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 710,
+        "interpretation": "At 710 changed lines, this is a medium-sized feature by absolute volume, concentrated in chat_composer.rs. As a UI performance PR it merged smoothly after one review round with minor threshold adjustment."
+      },
+      "lifecycle": {
+        "lifespan_hours": 17.53,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "threshold_value_too_low",
+      "concern_detail": "Reviewer bolinfest suggested increasing paste summarization threshold from 100 to 500 or 1000 chars to avoid frustrating users who might want to edit pasted text before submitting, and noted a leading 't' in a test snapshot output.",
+      "performance_claim": "Replace per-character paste processing with a Paste event and collapse large pastes into a placeholder to reduce UI overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Implementing paste summarization in a TUI requires understanding of terminal event handling and Ratatui/Crossterm APIs; the agent demonstrated this capability with tests and snapshots, with review focused on UX threshold tuning.",
+      "success_factors": [
+        "responded_to_review_feedback",
+        "included_tests_and_snapshots",
+        "narrow_scope"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Reviewer examined paste threshold constant and test snapshot output, requesting changes before merge."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No before/after performance measurements, but unit tests and snapshots verify behavior.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Increased threshold to 500 and added more test scenarios after review feedback.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced Paste event handling to replace per-character paste processing in TUI; when pasted text exceeds a character threshold, it is replaced with a placeholder like '[Pasted Content X characters]' while retaining full text for submission. Implemented across App, ChatWidget, BottomPane, and ChatComposer. Added test snapshots and multiple paste/deletion scenarios.",
+      "files_primary": [
+        "codex-rs/tui/src/bottom_pane/chat_composer.rs",
+        "codex-rs/tui/src/app.rs",
+        "codex-rs/tui/src/chatwidget.rs",
+        "codex-rs/tui/src/bottom_pane/mod.rs"
+      ],
+      "files_secondary_observability": [
+        "codex-rs/tui/src/app_event.rs",
+        "codex-rs/tui/src/bottom_pane/snapshots/...",
+        "codex-rs/Cargo.lock",
+        "codex-rs/tui/Cargo.toml"
+      ],
+      "secondary_note": "Snapshots test empty, small, large, multiple paste, and backspace after paste scenarios.",
+      "change_trajectory": [
+        "Initial commit: basic paste placeholder logic and wiring (chat_composer.rs, app.rs, etc.).",
+        "Add tests and snapshots for empty, small, large pastes.",
+        "Fix deprecated terminal API in tests.",
+        "Multiple formatting commits.",
+        "Increase threshold to 500 and add more tests (multiple pastes, backspace).",
+        "Merge main into branch."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "bolinfest",
+        "channel": "formal_review",
+        "signal": "approved_with_comments",
+        "summary": "Approved but requested increasing paste threshold and questioned leading 't' in snapshot.",
+        "blocking": true,
+        "action_taken": "Author increased threshold to 500 and updated tests."
+      },
+      {
+        "source": "bolinfest",
+        "channel": "inline_review_comment",
+        "signal": "threshold_value_too_low",
+        "summary": "100 chars too low; suggested 500 or 1000 to avoid frustrating users who want to edit pasted text.",
+        "blocking": true,
+        "action_taken": "Threshold increased to 500 in follow-up commit."
+      },
+      {
+        "source": "bolinfest",
+        "channel": "inline_review_comment",
+        "signal": "test_snapshot_artifact",
+        "summary": "Questioned leading 't' in snapshot output string.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "bolinfest",
+        "channel": "pr_comment",
+        "signal": "lgtm",
+        "summary": "LGTM! after changes.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Author opens PR with paste summarization feature and tests.",
+      "~13h later, reviewer approves with comments about threshold and snapshot artifact.",
+      "Within ~4h, author increases threshold, adds more tests, and merges same day."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

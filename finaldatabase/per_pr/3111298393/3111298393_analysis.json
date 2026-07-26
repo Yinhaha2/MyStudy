@@ -1,0 +1,169 @@
+{
+  "pr_id": 3111298393,
+  "meta": {
+    "title": "Improve Release CI speed",
+    "html_url": "https://github.com/eplatonoff/pilorama/pull/78",
+    "repo": "eplatonoff/pilorama",
+    "agent": "OpenAI_Codex",
+    "user": "eplatonoff",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-02 19:03:48+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-02 19:50:25+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Speed up release workflow by adding shallow clone, parallel macOS/Windows builds, and caching in CI pipeline."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 2,
+      "additions": 220,
+      "deletions": 30,
+      "changes": 250,
+      "top1_file": ".github/workflows/build.yml",
+      "top1_changes": 138,
+      "top1_change_ratio": 0.552,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 22,
+      "event_counts": {
+        "committed": 7,
+        "labeled": 1,
+        "ready_for_review": 6,
+        "review_requested": 1,
+        "convert_to_draft": 5,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.777,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_shallow_clone",
+      "parallel_builds",
+      "ci_caching"
+    ],
+    "optimization_layer": "ci_pipeline",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex CI optimization with no review; author closed after 46min and multiple draft/ready cycles."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 250,
+        "interpretation": "At 250 changed lines across two CI workflow files, this is a small edit by absolute volume. Despite the small scope, the PR was closed by the author without merge, indicating the changes were either not working or not desired."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.777,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "self_closed_no_review",
+      "concern_detail": "No reviews or comments were recorded; the author closed the PR after multiple draft/ready cycles with no external feedback.",
+      "performance_claim": "Speed up release CI via shallow clone, parallel macOS/Windows builds, and caching.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author self-closed PR after iterative commits and five draft/ready conversions without any review."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent produced CI workflow refinements in a small personal repository; closure by the author without review suggests process friction or lack of confidence in the generated changes.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks, CI logs, or before/after measurements provided; only narrative claims in the brief PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Author closed PR without merging; no regression fix cycle occurred.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Updated .github/workflows/build.yml and release.yml to use shallow clone (fetch-depth), parallel matrix builds for macOS and Windows, and actions/cache for dependency caching.",
+      "files_primary": [
+        ".github/workflows/build.yml",
+        ".github/workflows/release.yml"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes confined to CI workflow YAML files; no application code modified.",
+      "change_trajectory": [
+        "Initial commit: 'Optimize CI with caching and concurrency' added caching and parallel jobs to both workflows.",
+        "Merge master branch to sync with upstream.",
+        "Five subsequent commits ('Update build.yml') iterated on the build workflow, possibly adjusting cache keys or job dependencies.",
+        "Author repeatedly moved PR between draft and ready state, then self-closed without external review."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "OpenAI_Codex authored the initial CI optimization commit.",
+      "Author merged master and performed multiple incremental fixes on build.yml.",
+      "PR was self-closed by the author after 46 minutes with no external review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

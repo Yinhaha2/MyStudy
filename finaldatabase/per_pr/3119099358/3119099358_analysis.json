@@ -1,0 +1,182 @@
+{
+  "pr_id": 3119099358,
+  "meta": {
+    "title": "Optimize theme application performance for deeply nested components",
+    "html_url": "https://github.com/tokens-studio/figma-plugin/pull/3412",
+    "repo": "tokens-studio/figma-plugin",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-04 20:59:06+00:00",
+    "merged_at": null,
+    "closed_at": "2026-07-13 09:02:37+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "2",
+    "body_summary": "Optimize theme application in figma-plugin by skipping deep recursive traversal of subtrees that lack relevant style IDs, addressing 30-60 minute freezes on deeply nested components."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 309,
+      "deletions": 31,
+      "changes": 340,
+      "top1_file": "packages/tokens-studio-for-figma/src/plugin/asyncMessageHandlers/__tests__/applySiblingStyle.test.ts",
+      "top1_changes": 197,
+      "top1_change_ratio": 0.579,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 10,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "commented": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1
+      },
+      "lifespan_hours": 9684.06,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "theme_application_optimization",
+      "early_exit_recursion",
+      "style_relevance_check",
+      "deep_traversal_pruning"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "recursive_over_traversal"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot added early-exit checks and tests for recursive theme application; zero maintainer engagement, PR closed after ~13 months of inactivity without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 340,
+        "interpretation": "At 340 changed lines, this is a small-to-medium edit by absolute volume, focused on a single plugin module and its tests. It fits a moderate performance PR that was closed without merge due to prolonged inactivity and lack of review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 9684.06,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_maintainer_feedback",
+      "concern_detail": "No human review or CHANGES_REQUESTED feedback present in the dataset; only an automated changeset-bot comment about missing changeset.",
+      "performance_claim": "Optimizes theme application by pruning recursion for subtrees without relevant style IDs, potentially orders-of-magnitude improvement for deeply nested components that previously froze Figma for 30-60 minutes.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "recursive_over_traversal",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed after ~13 months of inactivity with no maintainer interaction; no explicit rejection text."
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Plugin-level performance refactor with no maintainer feedback; closed after extended inactivity, indicating a process gap for this contributor/agent PR.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body describes the performance problem (30-60 minute freeze) and claims improvement but provides no benchmark numbers, profiling data, or reproducible before/after metrics.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fixes or further iterations occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added hasRelevantStyleId and nodeHasRelevantStyles helpers in applySiblingStyle.ts to check if a node's subtree contains relevant style IDs before recursing, and modified applySiblingStyleId to skip processing children when no relevant styles are present. Added unit tests for the optimization logic.",
+      "files_primary": [
+        "packages/tokens-studio-for-figma/src/plugin/asyncMessageHandlers/applySiblingStyle.ts",
+        "packages/tokens-studio-for-figma/src/plugin/asyncMessageHandlers/__tests__/applySiblingStyle.test.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/tokens-studio-for-figma/src/app/components/StartScreen.tsx"
+      ],
+      "secondary_note": "StartScreen.tsx change was a minor 4-line modification in an analysis/plan commit, unrelated to the core optimization.",
+      "change_trajectory": [
+        "Initial plan and analysis commit (touched StartScreen.tsx).",
+        "Main optimization commit: added early-exit checks and new test file.",
+        "No further commits after opening."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "no_changeset_warning",
+        "summary": "Warning that PR lacks a changeset; non-blocking.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with implementation and test.",
+      "Changeset bot posted non-blocking warning.",
+      "No maintainer interaction; PR left open and eventually closed."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

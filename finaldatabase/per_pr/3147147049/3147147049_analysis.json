@@ -1,0 +1,196 @@
+{
+  "pr_id": 3147147049,
+  "meta": {
+    "title": "Add unified performance message support to ntttcp test cases",
+    "html_url": "https://github.com/microsoft/lisa/pull/3862",
+    "repo": "microsoft/lisa",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-15 06:01:35+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-16 01:27:49+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Add unified performance message sending for ntttcp TCP/UDP metrics to existing test infrastructure, following patterns from prior PRs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 97,
+      "deletions": 0,
+      "changes": 97,
+      "top1_file": "lisa/tools/ntttcp.py",
+      "top1_changes": 76,
+      "top1_change_ratio": 0.784,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "lisa",
+        "microsoft"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 18,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 3,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 1,
+        "ready_for_review": 1,
+        "reviewed": 1,
+        "unassigned": 2,
+        "closed": 1,
+        "referenced": 3
+      },
+      "lifespan_hours": 19.437,
+      "first_review_delay_hours": 7.614,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "unified_perf_messaging",
+      "tcp_udp_metrics_reporting"
+    ],
+    "optimization_layer": "testing_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_after_review_unresolved",
+    "review_dimensions": [
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot added observability methods; reviewer flagged missing MetricRelativity attribute for throughput_in_gbps, PR closed without follow-up fix."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 97,
+        "interpretation": "At 97 added lines across two files, this is a small-scope additive change. The closed outcome suggests that even small observability additions can be rejected if they miss required domain-specific attributes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 19.437,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "missing_metric_relativity",
+      "concern_detail": "Reviewer LiliDeng noted that throughput_in_gbps should have MetricRelativity=HigherIsBetter; the unified message call omitted this attribute that is required by the framework.",
+      "performance_claim": "Add unified performance message support for ntttcp test cases to improve test result reporting consistency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness"
+      ],
+      "rejection_signals": "Maintainer left a review comment about missing MetricRelativity; PR closed without follow-up, indicating the change was not accepted."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent added metric sending methods but omitted the required MetricRelativity attribute for throughput_in_gbps, a domain-specific detail in the LISA test framework.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "LiliDeng's inline review comment pointed out the missing MetricRelativity based on manual code inspection of the unified message method."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance benchmarks or test runs required; review was purely static code analysis.",
+      "regression_handling": "reject_close",
+      "regression_detail": "The PR was closed without merge after the unresolved review comment; no fix commits were added.",
+      "evidence_gap": "domain_specific_attribute_omission"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added send_ntttcp_tcp_unified_perf_messages() and send_ntttcp_udp_unified_perf_messages() methods in lisa/tools/ntttcp.py, and called them from perf_ntttcp() in microsoft/testsuites/performance/common.py to emit 11 TCP and 7 UDP metrics as unified messages.",
+      "files_primary": [
+        "lisa/tools/ntttcp.py",
+        "microsoft/testsuites/performance/common.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial plan commit (empty).",
+        "Commit 61c5d13e added 76 lines in ntttcp.py and 21 lines in common.py with no deletions."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "LiliDeng",
+        "channel": "inline_review_comment",
+        "signal": "missing_metric_relativity",
+        "summary": "Pointed out that throughput_in_gbps should have MetricRelativity=HigherIsBetter; the new unified message call did not set this.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "LiliDeng",
+        "channel": "formal_review",
+        "signal": "commented_no_body",
+        "summary": "Formal review COMMENTED with no body text.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with unified message support for ntttcp.",
+      "LiliDeng submitted an inline review comment about missing MetricRelativity ~7.6 hours later.",
+      "No follow-up commits were pushed; PR closed by LiliDeng ~12 hours after review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

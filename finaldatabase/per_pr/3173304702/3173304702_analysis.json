@@ -1,0 +1,165 @@
+{
+  "pr_id": 3173304702,
+  "meta": {
+    "title": "Fix sticky scroll performance issue by using correct array for min content width calculation",
+    "html_url": "https://github.com/microsoft/vscode/pull/252342",
+    "repo": "microsoft/vscode",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-24 21:09:26+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 28,
+    "topic_name": "28",
+    "body_summary": "Fix sticky scroll performance by using correct array for minContentWidth calculation to avoid forced layout recalculations and stuttering."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 1,
+      "additions": 3,
+      "deletions": 1,
+      "changes": 4,
+      "top1_file": "src/vs/editor/contrib/stickyScroll/browser/stickyScrollWidget.ts",
+      "top1_changes": 4,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sticky_scroll_performance",
+      "dom_reflow_reduction",
+      "scroll_width_calculation"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "forced_layout_recalculation"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Copilot 4-line fix for sticky scroll minContentWidth calculation; closed without review or merge, no performance evidence provided."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4,
+        "interpretation": "A tiny 4-line fix; as a small-scale performance PR it was closed without merge, consistent with a lack of review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "The PR claims to fix sticky scroll stuttering by using the correct array for minContentWidth, avoiding forced layout recalculations.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "stale_dom_element_access",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed without any review activity; linked issue #191973, but no maintainer engagement."
+    },
+    "capability_boundary": {
+      "topic": "28",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "A small, targeted bug fix in an editor widget that faced no review; the agent delivered the change but the process boundary (maintainer engagement) prevented merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No test instructions, benchmark, or profiler evidence provided; PR body describes the problem narratively.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling because PR was closed without review.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In stickyScrollWidget.ts, changed the calculation of `_minContentWidthInPx` from using `this._renderedStickyLines` (stale) to the local `renderedStickyLines` array, and added a check for empty array returning 0.",
+      "files_primary": [
+        "src/vs/editor/contrib/stickyScroll/browser/stickyScrollWidget.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Fix commit: corrected array reference and added empty array guard."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue #191973 with a 4-line fix.",
+      "Review requested but no review feedback recorded.",
+      "PR closed without merge; no additional commits after fix."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "pr_id": 3140927195,
+  "meta": {
+    "title": "fix: add memory leak fixes for Maps and MobX reactions",
+    "html_url": "https://github.com/onlook-dev/onlook/pull/2167",
+    "repo": "onlook-dev/onlook",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-12 16:31:43+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-14 18:16:19+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "9",
+    "body_summary": "Add memory leak fixes in EditorEngine including MobX reaction disposal, cache size limits, and nested Map cleanup to prevent unbounded growth."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 5,
+      "additions": 29,
+      "deletions": 3,
+      "changes": 32,
+      "top1_file": "apps/web/client/src/components/store/editor/sandbox/mapping.ts",
+      "top1_changes": 10,
+      "top1_change_ratio": 0.3125,
+      "files_by_status": {
+        "added": 1,
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 2,
+        "commented": 4,
+        "deployed": 4,
+        "reviewed": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 49.743,
+      "first_review_delay_hours": 0.034,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_leak_fix",
+      "cache_size_limit",
+      "mobx_reaction_disposal",
+      "nested_map_cleanup"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unbounded_memory"
+    ],
+    "outcome_reason": "performance_degradation_closed",
+    "review_dimensions": [
+      "correctness",
+      "performance_regression"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "manual_testing"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin added memory leak fixes; bot flagged LRU reversal; maintainer closed due to observed performance degradation, no benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 32,
+        "interpretation": "At 32 changed lines across 4 files plus a lockfile, this is a small edit by absolute volume. As a targeted memory-leak fix PR, it was closed—not merged—because it introduced a performance regression rather than improving performance."
+      },
+      "lifecycle": {
+        "lifespan_hours": 49.743,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_regression",
+      "primary_concern": "performance_degradation",
+      "concern_detail": "Maintainer Kitenite commented that the PR seems to degrade performance, leading to immediate closure.",
+      "performance_claim": "Prevent memory leaks by adding cleanup for Maps, MobX reactions, and event subscribers, with cache size limits.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_memory",
+      "antipattern_in_fix": "incorrect_lru_eviction",
+      "human_review_dimensions": [
+        "correctness",
+        "performance_regression"
+      ],
+      "rejection_signals": "Closed by maintainer after comment that it degrades performance; no fix iteration."
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Memory optimization in a complex frontend state management system can introduce performance regressions if not properly measured; the fix was rejected due to observed degradation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "graphite-app bot pointed out the LRU eviction logic might be removing newest entries instead of oldest.",
+        "manual_testing": "Kitenite manually tested the PR and reported performance degradation."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance benchmark or profiling data was provided; maintainer observation is anecdotal.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After the maintainer's comment, the PR was closed without further commits or fixes.",
+      "evidence_gap": "narrative_only_no_benchmark_and_no_fix_in_pr"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added MobX reaction disposal in SandboxManager, implemented cache size limits (1000 files) in FileSyncManager with LRU eviction, cache size limits (5000 nodes) in TemplateNodeMapper, and clear nested domIdToLayerNode Maps in LayersManager.",
+      "files_primary": [
+        "apps/web/client/src/components/store/editor/sandbox/index.ts",
+        "apps/web/client/src/components/store/editor/sandbox/file-sync.ts",
+        "apps/web/client/src/components/store/editor/sandbox/mapping.ts",
+        "apps/web/client/src/components/store/editor/ast/layers.ts"
+      ],
+      "files_secondary_observability": [
+        "bun.lockb"
+      ],
+      "secondary_note": "bun.lockb is a binary lockfile change; not related to performance logic.",
+      "change_trajectory": [
+        "Initial commit (9763ff): Added memory leak fixes across four editor store files and bun.lockb.",
+        "Second commit (5e9ffe): Refined LRU cache eviction in mapping.ts in response to graphite-app bot feedback.",
+        "After maintainer comment about performance degradation, PR was closed without further modifications."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "graphite-app[bot]",
+        "channel": "inline_review_comment",
+        "signal": "incorrect_lru_eviction",
+        "summary": "Flagged that the cache trimming implementation removes the newest entries instead of the oldest, suggesting a correction.",
+        "blocking": false,
+        "action_taken": "Devin responded with a clarifying commit (5e9ffe), but the PR was later closed due to performance."
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review",
+        "summary": "Formal review only containing a single inline comment about LRU eviction; no overall approval or changes requested.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Kitenite",
+        "channel": "pr_comment",
+        "signal": "performance_degradation_rejection",
+        "summary": "Stated 'This seems to degrade performance' and closed the PR.",
+        "blocking": true,
+        "action_taken": "PR closed immediately."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Standard Devin bot introduction message.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview details.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with memory leak fixes.",
+      "graphite-app bot provided inline feedback on LRU cache eviction within minutes.",
+      "Devin responded with a clarifying commit to improve LRU implementation.",
+      "No further reviews; maintainer Kitenite commented 'This seems to degrade performance' and closed the PR 2 days later."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

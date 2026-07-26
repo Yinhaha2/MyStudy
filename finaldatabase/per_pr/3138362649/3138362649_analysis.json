@@ -1,0 +1,213 @@
+{
+  "pr_id": 3138362649,
+  "meta": {
+    "title": "✨ feat: implement MODEXP precompile (EIP-198) with EIP-2565 gas optimization",
+    "html_url": "https://github.com/evmts/tevm-monorepo/pull/1847",
+    "repo": "evmts/tevm-monorepo",
+    "agent": "Claude_Code",
+    "user": "roninjin10",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-11 23:40:21+00:00",
+    "merged_at": "2025-06-12 02:24:02+00:00",
+    "closed_at": "2025-06-12 02:24:02+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "4",
+    "body_summary": "Implement the MODEXP precompile (address 0x05) for EVM compatibility with EIP-198 modular exponentiation and EIP-2565 gas optimization, including a custom BigInteger library, test suite, and integration."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 25,
+      "additions": 12709,
+      "deletions": 1127,
+      "changes": 13836,
+      "top1_file": "src/evm/prompts/implement-interpreter-types-system-enhanced.md",
+      "top1_changes": 9204,
+      "top1_change_ratio": 0.6657,
+      "files_by_status": {
+        "added": 8,
+        "modified": 15,
+        "removed": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        "src",
+        "test",
+        ""
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 18,
+      "event_counts": {
+        "committed": 8,
+        "commented": 3,
+        "mentioned": 1,
+        "subscribed": 1,
+        "deployed": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 2.728,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "modexp_precompile_impl",
+      "eip2565_gas_optimization",
+      "big_integer_arithmetic"
+    ],
+    "optimization_layer": "execution_layer",
+    "evidence_type": [
+      "test_suite",
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_merge_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Claude Code implemented full MODEXP precompile with custom big integer library; merged by author without review despite large changes and no benchmark evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 13836,
+        "interpretation": "At 13836 changed lines, this is a large-scale change introducing a new cryptographic precompile with a custom big integer library, tests, and documentation. Despite the size, it was merged rapidly without review by the PR author, reflecting a self-merge workflow for experimental features."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.728,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_human_review",
+      "concern_detail": "No formal reviews were submitted; only bot comments about changesets, deployment previews, and a rate-limited review engine.",
+      "performance_claim": "Implement MODEXP precompile with EIP-2565 gas optimization for efficient modular exponentiation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "Claude_Code",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Claude Code successfully implemented a complex cryptographic precompile (MODEXP) with a custom BigInt library in Zig, including integration and tests. The merge was approved by the author without external review, demonstrating capability for low-level crypto but depending on author trust rather than reviewer validation.",
+      "success_factors": [
+        "author_self_merge",
+        "comprehensive_test_suite",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or gas measurement data; only unit tests pass. Performance claims rely on algorithmic complexity analysis from EIP-2565.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added MODEXP precompile implementation files (modexp.zig, big_integer.zig, modexp_test.zig) and integrated into the precompile dispatcher (precompiles.zig). Added gas constants (gas_constants.zig), updated README, and included a standalone test and verification report. Merge commit also brought in large documentation prompts and re-added blake2f.",
+      "files_primary": [
+        "src/evm/precompiles/modexp.zig",
+        "src/evm/crypto/big_integer.zig",
+        "src/evm/precompiles/precompiles.zig",
+        "src/evm/constants/gas_constants.zig"
+      ],
+      "files_secondary_observability": [
+        "test/evm/precompiles/modexp_test.zig",
+        "test_modexp_standalone.zig",
+        "verification_report.md",
+        "src/evm/README.md",
+        "src/evm/prompts/implement-interpreter-types-system-enhanced.md",
+        "src/evm/prompts/implement-modexp-precompile.md"
+      ],
+      "secondary_note": "Many secondary files are tests, documentation, and merge artifacts from other precompile work (blake2f, prompts).",
+      "change_trajectory": [
+        "Early commits: SHA256 and RIPEMD160 preludes, then BLAKE2F added and removed.",
+        "Main commit (13c074a): MODEXP precompile implementation with BigInt and test suite.",
+        "Follow-up: mark MODEXP as completed in README, finalize with standalone test and verification report.",
+        "Merge commit (60d67091): resolve conflicts, bring in large prompt files, re-add blake2f, and finalize MODEXP files."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "changeset_warning",
+        "summary": "No changeset found; merging will not cause version bump.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployment status: some previews canceled.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "rate_limit_exceeded",
+        "summary": "CodeRabbit rate limit exceeded; review unavailable temporarily.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created by roninjin10 using Claude Code, with multiple prior commits and main MODEXP implementation.",
+      "Three bot comments appeared immediately (changeset, Vercel, CodeRabbit rate limit).",
+      "No human reviewer engaged; author merged after ~2.7 hours without any formal review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

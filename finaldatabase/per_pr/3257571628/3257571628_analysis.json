@@ -1,0 +1,175 @@
+{
+  "pr_id": 3257571628,
+  "meta": {
+    "title": "Optimize duplicate detection",
+    "html_url": "https://github.com/MihaiCristianCondrea/Smart-Cleaner-for-Android/pull/219",
+    "repo": "MihaiCristianCondrea/Smart-Cleaner-for-Android",
+    "agent": "OpenAI_Codex",
+    "user": "MihaiCristianCondrea",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-23 20:09:33+00:00",
+    "merged_at": "2025-07-23 20:29:57+00:00",
+    "closed_at": "2025-07-23 20:29:57+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 30,
+    "topic_name": "30",
+    "body_summary": "Add config flag for duplicate scanning, implement partial MD5 hashing for large files, and remove duplicate scan cancellation logic to speed up duplicate detection."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 7,
+      "additions": 80,
+      "deletions": 21,
+      "changes": 101,
+      "top1_file": "app/src/main/kotlin/com/d4rk/cleaner/core/utils/extensions/FileExtensions.kt",
+      "top1_changes": 36,
+      "top1_change_ratio": 0.356,
+      "files_by_status": {
+        "modified": 7
+      },
+      "directory_count": 1,
+      "directories": [
+        "app"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.34,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "partial_hashing",
+      "duplicate_detection",
+      "scan_cancellation_removal"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "No reviews; merged rapidly with only narrative performance claim of partial hashing for large files."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 101,
+        "interpretation": "At 101 changed lines, this is a very small edit by absolute volume. It fits a small-step, fast-turnaround performance PR and is consistent with the successful, low-friction self-merge by the maintainer."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.34,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Partial MD5 hashing for large files speeds up duplicate detection.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io (full file reads for hashing large files)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Android duplicate detection optimization with partial hashing and config toggle; trivial to implement, no performance evidence required for merge.",
+      "success_factors": [
+        "self_merge_by_maintainer",
+        "small_scope",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body lacks benchmark, profiling, or before/after metrics; testing instructions only mention build commands.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add config flag for duplicate scanning enable/disable, implement partial MD5 hashing for large files (FileExtensions.kt), remove duplicate scan cancellation logic, and adapt ScannerViewModel, DuplicateUtils, AutoCleanWorker, ScannerRepositoryImpl, DataStore.",
+      "files_primary": [
+        "app/src/main/kotlin/com/d4rk/cleaner/core/utils/extensions/FileExtensions.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/ui/ScannerViewModel.kt"
+      ],
+      "files_secondary_observability": [
+        "app/src/main/kotlin/com/d4rk/cleaner/app/auto/AutoCleanWorker.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/data/ScannerRepositoryImpl.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/utils/helpers/DuplicateUtils.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/core/data/datastore/DataStore.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/core/utils/constants/datastore/AppDataStoreConstants.kt"
+      ],
+      "secondary_note": "Other files adapt to new config flag and coroutine scope fix; overall nothing external.",
+      "change_trajectory": [
+        "First commit: remove duplicate scan cancellation, add partial hashing config flag, implement partial MD5 function in FileExtensions.kt.",
+        "Second commit: fix coroutine scope for duplicate scan options in ScannerViewModel."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with optimization commits.",
+      "No review or comment activity.",
+      "Merged by maintainer ~20 minutes after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

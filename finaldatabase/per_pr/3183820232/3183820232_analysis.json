@@ -1,0 +1,171 @@
+{
+  "pr_id": 3183820232,
+  "meta": {
+    "title": "Implement register coalescing",
+    "html_url": "https://github.com/mochilang/mochi/pull/3871",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-27 19:00:49+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-29 16:25:46+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 42,
+    "topic_name": "42",
+    "body_summary": "Implement register coalescing to reduce virtual register usage by eliminating redundant Move ops in the VM optimizer; update IR golden files accordingly."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 109,
+      "additions": 882,
+      "deletions": 1880,
+      "changes": 2762,
+      "top1_file": "tests/vm/valid/group_by_multi_join_sort.ir.out",
+      "top1_changes": 174,
+      "top1_change_ratio": 0.063,
+      "files_by_status": {
+        "modified": 109
+      },
+      "directory_count": 3,
+      "directories": [
+        "bench/out",
+        "runtime/vm",
+        "tests/vm/valid"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 45.416,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "register_coalescing",
+      "move_elimination",
+      "compiler_optimization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_without_merge",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "low",
+    "notes": "Self‑closed PR implementing register coalescing with no review engagement, benchmarks, or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2762,
+        "interpretation": "Large change by absolute volume (2762 lines), but most churn is in 109 IR golden test files updated to reflect new register coalescing; the actual compiler changes are only ~76 lines in regopt.go and liveness.go. As a compiler optimization PR with no review, it was self‑closed after 45 hours, consistent with a experimental change that may not have been ready for merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 45.416,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_available",
+      "concern_detail": "No review comments or formal reviews exist for this PR.",
+      "performance_claim": "Reduce virtual register usage by eliminating redundant Move operations.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author self‑closed the PR without external review or explanation."
+    },
+    "capability_boundary": {
+      "topic": "42",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Implementing register coalescing is a complex compiler optimization that requires deep IR and liveness analysis understanding. The lack of any review feedback suggests the author may have found the approach incomplete or the agent's output insufficient, reflecting a high technical boundary for compiler passes.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review or evidence of maintainer detection.",
+        "ci_auto": "No CI automation was employed for this PR."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or repro steps were provided; only a narrative claim about register usage reduction.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR self‑closed by author after 45 hours with no maintainer intervention.",
+      "evidence_gap": "narrative_only_no_benchmark_or_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added register coalescing pass in runtime/vm/regopt.go (70 lines) and updated liveness analysis in liveness.go (5 lines). 107 IR golden test files were updated to reflect the new register allocation, with a net reduction in virtual register usage (882 additions, 1880 deletions).",
+      "files_primary": [
+        "runtime/vm/regopt.go",
+        "runtime/vm/liveness.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/group_by_multi_join_sort.ir.out",
+        "tests/vm/valid/outer_join.ir.out",
+        "bench/out/math_fib_iter_10.ir.out"
+      ],
+      "secondary_note": "The majority of changed lines are in golden test output files reflecting the new register coalescing; no performance benchmarks were included.",
+      "change_trajectory": [
+        "Single commit introduced register coalescing optimization and updated all golden test files to match."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd (OpenAI_Codex) with a single commit implementing register coalescing and updating golden files.",
+      "No reviews or comments were posted.",
+      "Author closed the PR after ~45 hours with no merge or further activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

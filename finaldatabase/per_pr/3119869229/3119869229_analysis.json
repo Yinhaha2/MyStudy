@@ -1,0 +1,231 @@
+{
+  "pr_id": 3119869229,
+  "meta": {
+    "title": "feat: metamask sdk connector",
+    "html_url": "https://github.com/rainbow-me/rainbowkit/pull/2425",
+    "repo": "rainbow-me/rainbowkit",
+    "agent": "OpenAI_Codex",
+    "user": "DanielSinclair",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-05 05:14:00+00:00",
+    "merged_at": "2025-06-18 05:20:41+00:00",
+    "closed_at": "2025-06-18 05:20:41+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Restore MetaMask wallet connector with SDK integration, keep WalletConnect fallback for desktop QR, update tests and changeset."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 2,
+      "additions": 156,
+      "deletions": 127,
+      "changes": 283,
+      "top1_file": "packages/rainbowkit/src/wallets/walletConnectors/metaMaskWallet/metaMaskWallet.ts",
+      "top1_changes": 278,
+      "top1_change_ratio": 0.9823,
+      "files_by_status": {
+        "modified": 1,
+        "added": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        ".changeset",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "labeled": 1,
+        "commented": 3,
+        "deployed": 10,
+        "committed": 5,
+        "head_ref_force_pushed": 2,
+        "renamed": 1,
+        "ready_for_review": 1,
+        "review_requested": 2,
+        "reviewed": 1,
+        "auto_squash_enabled": 1,
+        "auto_merge_disabled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 312.11,
+      "first_review_delay_hours": 311.3,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "wallet_sdk_integration",
+      "mobile_connection_performance",
+      "qr_code_improvement"
+    ],
+    "optimization_layer": "wallet_connector",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_self_fix_and_bot_review",
+    "review_dimensions": [
+      "design_or_approach",
+      "platform_compatibility"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "manual_testing"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "OpenAI Codex refactored MetaMask connector with SDK; maintainer fixed URI length and merged after bot review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 283,
+        "interpretation": "At 283 changed lines, this is a small-to-medium edit by absolute volume, concentrated in one main file. It fits a typical connector refactoring performance PR that merged after maintainer self-fix and bot review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 312.11,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "platform_compatibility_android",
+      "concern_detail": "Copilot bot nitpicked a TODO comment, suggested clarifying a flag name, and questioned removal of Android-specific URI handling, warning it could break deep linking.",
+      "performance_claim": "Improved connection reliability and performance on mobile devices using MetaMask SDK.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "platform_compatibility"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "SDK integration, mobile deep linking and URI handling require platform-specific knowledge; the agent produced a working refactor but missed the URI length QR code limitation that the maintainer caught and fixed.",
+      "success_factors": [
+        "maintainer_self_fix_uri",
+        "bot_review_non_blocking",
+        "works_with_existing_walletconnect_fallback"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "Copilot bot reviewed the code and flagged naming and potential Android regression.",
+        "manual_testing": "Maintainer DanielSinclair manually tested the QR code and discovered the URI length issue."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiler data; only narrative claim of better mobile performance.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "The maintainer added a commit preferring WalletConnect for desktop QR code to resolve the URI length issue before merging.",
+      "evidence_gap": "narrative_perf_claim"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In metaMaskWallet.ts, replace custom MetaMask detection and injected connector with wagmi's createConnector and the metaMask SDK; add shouldUseMetaMaskConnector flag for mobile/desktop; prefer WalletConnect for desktop QR codes; update changeset.",
+      "files_primary": [
+        "packages/rainbowkit/src/wallets/walletConnectors/metaMaskWallet/metaMaskWallet.ts"
+      ],
+      "files_secondary_observability": [
+        ".changeset/two-rats-do.md"
+      ],
+      "secondary_note": "Changeset for version bump only.",
+      "change_trajectory": [
+        "Initial commit: Restore MetaMask connector with SDK integration.",
+        "Second commit: Prefer WalletConnect for desktop QR code due to URI length.",
+        "Third commit: Fix MetaMask SDK options.",
+        "Fourth commit: Add changeset.",
+        "Fifth commit: Explicit MetaMask provider check."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_nitpicks",
+        "summary": "Copilot bot posted review overview, noted low-confidence comments about flag naming and potential Android URI regression.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "todo_comment",
+        "summary": "Suggested replacing TODO with a tracked issue to avoid permanent technical debt.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "simplify_expression",
+        "summary": "Suggested simplifying ternary for installed prop.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "DanielSinclair",
+        "channel": "pr_comment",
+        "signal": "blocked_uri_length",
+        "summary": "Identified that the connector's URI length cannot be rendered as a QR code.",
+        "blocking": false,
+        "action_taken": "Added commit to prefer WalletConnect for desktop QR code."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with MetaMask SDK connector.",
+      "Maintainer self-identified URI length issue ~11 hours later.",
+      "Over 12 days, maintainer added commits to fix URI and refine SDK options.",
+      "Bot review with nitpicks, no blocking.",
+      "Merged 13 days after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

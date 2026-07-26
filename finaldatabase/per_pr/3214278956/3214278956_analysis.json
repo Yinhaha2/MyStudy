@@ -1,0 +1,168 @@
+{
+  "pr_id": 3214278956,
+  "meta": {
+    "title": "Improve Go join compilation",
+    "html_url": "https://github.com/mochilang/mochi/pull/6520",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-09 02:26:08+00:00",
+    "merged_at": "2025-07-09 02:26:26+00:00",
+    "closed_at": "2025-07-09 02:26:26+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Optimize Go join compilation by detecting simple left joins to skip a query helper, regenerating left_join.go and updating README."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 33,
+      "deletions": 254,
+      "changes": 287,
+      "top1_file": "tests/machine/x/go/left_join.go",
+      "top1_changes": 269,
+      "top1_change_ratio": 0.937,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.005,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "left_join_compilation",
+      "query_helper_elimination"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_self_merge_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex optimized Go left join compilation to skip a query helper; merged instantly by maintainer with no reviews or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 287,
+        "interpretation": "At 287 changed lines across 3 files, this is a small-to-medium edit by absolute volume, mostly deletions in left_join.go. It fits a small-step, low-risk compiler optimization PR and was merged instantly without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.005,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": "No review feedback available; PR was self-merged by author.",
+      "performance_claim": "Improve Go join compilation by detecting simple left joins to skip a helper.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Compiler optimization on a small scope; no review required for self-merge, illustrating a process boundary where maintainer can instantly accept AI-authored changes.",
+      "success_factors": [
+        "self_merge_privileges",
+        "small_change_scope",
+        "existing_test_suite"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance measurements provided; only test commands mentioned but no before/after metrics.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "Merged without review; no regression cycle.",
+      "evidence_gap": "narrative_only_no_metrics"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/go/compiler.go, simplified left join emission to skip query helper when it's a simple left join; regenerated tests/machine/x/go/left_join.go with reduced code (mostly deletions) and updated README.",
+      "files_primary": [
+        "compiler/x/go/compiler.go",
+        "tests/machine/x/go/left_join.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/go/README.md"
+      ],
+      "secondary_note": "README note explains new join behavior.",
+      "change_trajectory": [
+        "Single commit 'go compiler: emit left joins without query helper' modified 3 files, no further commits."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author created PR and immediately merged it without any review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

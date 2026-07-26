@@ -1,0 +1,166 @@
+{
+  "pr_id": 3111349756,
+  "meta": {
+    "title": "Offload AI search work to worker thread",
+    "html_url": "https://github.com/shinnku-nikaidou/shinnku-com/pull/141",
+    "repo": "shinnku-nikaidou/shinnku-com",
+    "agent": "OpenAI_Codex",
+    "user": "shinnku-nikaidou",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-02 19:22:58+00:00",
+    "merged_at": "2025-06-02 19:23:28+00:00",
+    "closed_at": "2025-06-02 19:23:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Offload heavy AI search computation to a worker thread to improve responsiveness and avoid blocking the main thread."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 83,
+      "deletions": 44,
+      "changes": 127,
+      "top1_file": "algorithm/ai_search_worker.ts",
+      "top1_changes": 69,
+      "top1_change_ratio": 0.543,
+      "files_by_status": {
+        "added": 1,
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "algorithm"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.008,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "worker_thread_offload",
+      "ui_responsiveness"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_merge_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit self-merge offloading AI search to a worker thread in 30 seconds with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 127,
+        "interpretation": "At 127 changed lines across 2 files, this is a small edit by absolute volume. It represents a concise refactoring to offload compute to a worker, and merge happened instantly, consistent with a low-risk self-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.008,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "",
+      "performance_claim": "Offloading AI search to a worker prevents main-thread blocking.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "blocking_main_thread",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent successfully split AI search logic into a separate worker thread with proper communication boilerplate, demonstrating basic concurrency awareness.",
+      "success_factors": [
+        "small_scope",
+        "direct_worker_usage",
+        "self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling results; PR body notes lint/build failures but no perf measurements.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In algorithm/search.ts, replaced synchronous AI search logic with a worker thread invocation via new ai_search_worker.ts module; worker handles heavy computation and sends result back via postMessage.",
+      "files_primary": [
+        "algorithm/ai_search_worker.ts",
+        "algorithm/search.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Single commit introduced new worker file and modified search.ts to delegate to worker."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR was created and self-merged within 30 seconds; no external review or comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

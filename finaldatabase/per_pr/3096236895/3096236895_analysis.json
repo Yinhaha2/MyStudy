@@ -1,0 +1,191 @@
+{
+  "pr_id": 3096236895,
+  "meta": {
+    "title": "Increase WebSocket reconnect retry limit from 5 to 10 on agent side",
+    "html_url": "https://github.com/microsoft/HydraLab/pull/694",
+    "repo": "microsoft/HydraLab",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-05-28 06:47:28+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Increase WebSocket reconnect retry attempts for agent when connection is closed with code 1008 from 5 to 10 to improve resilience during transient network issues."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 2,
+      "deletions": 1,
+      "changes": 3,
+      "top1_file": "agent/src/main/java/com/microsoft/hydralab/agent/socket/AgentWebSocketClient.java",
+      "top1_changes": 3,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "agent",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 16,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "commented": 2,
+        "mentioned": 2,
+        "subscribed": 2,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "websocket_reconnect_retry",
+      "connection_resilience"
+    ],
+    "optimization_layer": "application_configuration",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_awaiting_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "unknown",
+    "confidence": "high",
+    "notes": "Copilot increased a numeric constant per maintainer directive; PR remains open with no formal review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3,
+        "interpretation": "At 3 changed lines, this is a micro-edit. It is a trivial configuration tweak; the open status is consistent with a low-effort change that may still need review approval."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review text present; maintainer directed the change via a PR comment before any review was submitted.",
+      "performance_claim": "Increasing reconnect retries from 5 to 10 allows the agent to recover from more transient network issues before exiting.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple constant modification; Copilot succeeded in executing the maintainer's explicit request without encountering capability limits.",
+      "success_factors": [
+        "clear_maintainer_directive",
+        "trivial_change"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer zhou9584 read the existing code and instructed Copilot via a PR comment to change the condition from 5 to 10."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or before/after metric provided; the PR relies solely on a narrative that 10 retries is better than 5.",
+      "regression_handling": "unknown",
+      "regression_detail": "No regression or review issues have been raised; PR is still open.",
+      "evidence_gap": "narrative_only_for_retry_increase"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In AgentWebSocketClient.java, changed the violation reconnect threshold from > 5 to > 10 and added an inline comment explaining the 10-retry limit.",
+      "files_primary": [
+        "agent/src/main/java/com/microsoft/hydralab/agent/socket/AgentWebSocketClient.java"
+      ],
+      "files_secondary_observability": [
+        "gradlew"
+      ],
+      "secondary_note": "gradlew appears in the commit diff with zero actual changes, likely unintentional.",
+      "change_trajectory": [
+        "Commit d5a0fe9f: increased violatedReconnectTime condition from 5 to 10 and added comment."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "zhou9584",
+        "channel": "pr_comment",
+        "signal": "directive_change_request",
+        "summary": "Instructed Copilot to modify the violatedReconnectTime condition from 5 to 10 in onClose().",
+        "blocking": false,
+        "action_taken": "Copilot made the change in commit d5a0fe9."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "change_confirmation",
+        "summary": "Confirmed that the change was completed in commit d5a0fe9.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Copilot with the proposed retry limit increase.",
+      "Maintainer zhou9584 commented directly requesting the exact change.",
+      "Copilot responded with a confirmation and the change was already committed."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

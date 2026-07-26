@@ -1,0 +1,164 @@
+{
+  "pr_id": 3185688727,
+  "meta": {
+    "title": "Add unreachable code removal and update IR outputs",
+    "html_url": "https://github.com/mochilang/mochi/pull/3925",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-29 02:57:50+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 03:05:52+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 21,
+    "topic_name": "21",
+    "body_summary": "Add unreachable code removal in VM liveness analysis while keeping division/modulo for runtime errors, regenerate IR test outputs, and add update_job helper tool."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 79,
+      "additions": 1419,
+      "deletions": 501,
+      "changes": 1920,
+      "top1_file": "tests/vm/valid/group_by_multi_join_sort.ir.out",
+      "top1_changes": 200,
+      "top1_change_ratio": 0.104,
+      "files_by_status": {
+        "added": 1,
+        "modified": 78
+      },
+      "directory_count": 3,
+      "directories": [
+        "runtime",
+        "tests",
+        "tools"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 48.13,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "dead_code_elimination",
+      "vm_optimization",
+      "ir_regeneration"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_author_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Single-commit VM dead code elimination PR with IR output updates; no reviews; closed by author after 48h; no performance benchmarks provided."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1920,
+        "interpretation": "At 1920 changed lines across 79 files, this is a medium-sized change by absolute volume, but the bulk is in passive IR output updates; the core VM optimization in liveness.go is a 73-line edit. As a performance PR it was closed without merge—likely due to lack of review engagement or self-realization of missing evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 48.13,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "closed_without_review",
+      "concern_detail": "No formal reviews or comments were recorded; the PR was closed by the author without any maintainer feedback.",
+      "performance_claim": "Improve VM performance by removing unreachable instructions while preserving division/modulo for error semantics.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by author with no review activity; no explicit rejection signals."
+    },
+    "capability_boundary": {
+      "topic": "21",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "VM optimization PR with no review engagement; closed without merge, suggesting that Agent-authored changes in this domain may require additional evidence or testing to attract reviewer attention, or the author may have closed it due to concerns not captured in PR text.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data; only narrative claim and testing commands. No performance evidence to verify improvement.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after 2 days; no reviewer feedback, likely author-initiated close due to unaddressed concerns or lack of performance data.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/liveness.go, added dead code elimination logic to remove unreachable instructions while preserving division and modulo operations for error semantics. Updated 77 IR output test files to reflect the new optimized VM code. Added tools/update_job/main.go as a helper tool to update job dataset files.",
+      "files_primary": [
+        "runtime/vm/liveness.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/*.ir.out",
+        "tests/dataset/tpc-h/out/q8.ir.out",
+        "tools/update_job/main.go"
+      ],
+      "secondary_note": "Majority of changed lines are in IR output files reflecting VM optimization; many files had minor additions/deletions. The helper tool is a new utility.",
+      "change_trajectory": [
+        "Single commit: 'vm: keep division ops for error semantics' that integrates unreachable code removal with IR updates and a new update_job tool."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": []
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

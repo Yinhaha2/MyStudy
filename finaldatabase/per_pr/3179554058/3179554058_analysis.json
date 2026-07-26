@@ -1,0 +1,218 @@
+{
+  "pr_id": 3179554058,
+  "meta": {
+    "title": "feat: optimize slot calculation performance for team event types",
+    "html_url": "https://github.com/calcom/cal.com/pull/22067",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-26 15:43:44+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-05 16:01:10+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Optimize team event slot calculation by replacing O(n^2) linear search with binary search and caching, claiming 20% speedup in stress tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 9,
+      "file_count": 4,
+      "additions": 3923,
+      "deletions": 3656,
+      "changes": 7579,
+      "top1_file": "yarn.lock",
+      "top1_changes": 7090,
+      "top1_change_ratio": 0.935,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "packages",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "DISMISSED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 7,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 9,
+        "commented": 6,
+        "assigned": 1,
+        "deployed": 7,
+        "labeled": 1,
+        "milestoned": 1,
+        "ready_for_review": 1,
+        "review_requested": 2,
+        "reviewed": 1,
+        "review_dismissed": 1
+      },
+      "lifespan_hours": 216.29,
+      "first_review_delay_hours": 7.18,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "slot_calculation",
+      "binary_search_optimization",
+      "team_event_scheduling"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added binary search and stress tests claiming 20% speedup; no substantive human review; PR closed automatically after 7 days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 7579,
+        "interpretation": "At 7579 changed lines, this is a large edit by absolute volume, but 7090 lines are from yarn.lock churn due to revert cycles; the actual performance change in slots.ts is 26 lines. The PR was closed without merge due to inactivity, consistent with many agent PRs that lack maintainer review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 216.29,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_substantive_review",
+      "concern_detail": "The only formal review was an emoji (🚀) which was later dismissed; no performance or correctness feedback was provided. Human involvement was limited to labeling and requesting reviews without further action.",
+      "performance_claim": "Binary search optimization reduces slot calculation time from 5-7.5s for 4 weeks to ~2s target, with stress tests showing 20% improvement (209.5ms → 167.5ms).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "O(n^2)_linear_search (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed automatically by Devin bot due to inactivity for more than 7 days; no human merge or review completion."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "The PR demonstrates algorithmic optimization capability (binary search, caching), but its inability to get merged highlights a process boundary: without timely human review, agent PRs are subject to automatic closure, lacking maintainer engagement or performance-validation steps.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-review by maintainer; review was requested but never performed."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes stress tests with timing numbers, but no separate benchmark profile or production validation; maintainer never verified.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by Devin bot after 7 days inactivity; no regression issues were identified or fixed.",
+      "evidence_gap": "narrative_and_tests_no_independent_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/lib/slots.ts, replaced linear slot boundary search with binary search and added a sorted boundaries cache; stress tests added in slots.test.ts; util.ts changes reverted after CI failures; yarn.lock churn from reverts.",
+      "files_primary": [
+        "packages/lib/slots.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/trpc/server/routers/viewer/slots/util.ts",
+        "packages/lib/slots.test.ts",
+        "yarn.lock"
+      ],
+      "secondary_note": "util.ts initially had additional optimizations (early termination, performance logging) but they were reverted due to CI issues; yarn.lock changes are 7,090 lines of churn from adding and removing dependencies.",
+      "change_trajectory": [
+        "Initial commit (05c58c5): binary search optimization in slots.ts + early termination/cache in util.ts.",
+        "Removed arbitrary 1000-slot limit (fb3e993).",
+        "CI failures led to reverting util.ts changes (7a1338c) and adjusting yarn.lock (af855bbe, 9717582).",
+        "Added comprehensive stress tests (769dedb) with performance measurements (15ms vs 1900ms).",
+        "Added intensive 2000-range stress test (b3639b) showing 209.5ms→167.5ms (20% improvement).",
+        "Enhanced tests with exact slot assertions (1bf2067), then fixed boundary violations (9c249cd)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "hbjORbj",
+        "channel": "formal_review",
+        "signal": "dismissed_emoji_review",
+        "summary": "Review consisted of a rocket emoji (🚀) and was later dismissed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "autoclose_inactivity",
+        "summary": "Closed PR due to 7+ days inactivity.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      },
+      {
+        "source": "delve-auditor[bot]",
+        "channel": "pr_comment",
+        "signal": "security_scan_pass",
+        "summary": "No security or compliance issues detected.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results",
+        "summary": "E2E test results link provided.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with binary search optimization and initial util.ts changes.",
+      "CI failures prompted revert of util.ts changes and yarn.lock adjustments.",
+      "Stress tests with numeric performance claims were added.",
+      "Maintainer assigned, labeled ready-for-e2e, and requested reviews; one emoji review submitted then dismissed.",
+      "After 7 days with no further human review, Devin bot auto‑closed the PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

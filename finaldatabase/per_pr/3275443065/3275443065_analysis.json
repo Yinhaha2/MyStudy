@@ -1,0 +1,254 @@
+{
+  "pr_id": 3275443065,
+  "meta": {
+    "title": "refactor: Python.NET wrapper with improved type conversions, error handling, and performance optimizations",
+    "html_url": "https://github.com/facioquo/stock-indicators-python/pull/434",
+    "repo": "facioquo/stock-indicators-python",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-30 02:01:42+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-05 14:16:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 33,
+    "topic_name": "33",
+    "body_summary": "Refactor Python.NET wrapper to improve type conversions, error handling, and performance; no breaking changes claimed."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 9,
+      "file_count": 19,
+      "additions": 589,
+      "deletions": 259,
+      "changes": 848,
+      "top1_file": "stock_indicators/indicators/common/quote.py",
+      "top1_changes": 164,
+      "top1_change_ratio": 0.193,
+      "files_by_status": {
+        "added": 1,
+        "modified": 18
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "stock_indicators"
+      ]
+    },
+    "collaboration": {
+      "review_count": 10,
+      "review_states": {
+        "CHANGES_REQUESTED": 6,
+        "COMMENTED": 4
+      },
+      "review_comment_count": 13,
+      "pr_comment_count": 9,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 9,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "renamed": 2,
+        "review_requested": 4,
+        "copilot_work_finished": 4,
+        "reviewed": 3,
+        "commented": 3,
+        "mentioned": 1,
+        "subscribed": 1
+      },
+      "lifespan_hours": 11.34,
+      "first_review_delay_hours": 4.93,
+      "review_rounds": 10,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "type_conversion_optimization",
+      "interop_overhead_reduction",
+      "memory_management"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_after_changes_requested",
+    "review_dimensions": [
+      "correctness",
+      "code_quality",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto",
+      "static_analysis",
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot refactored Python.NET wrapper with narrative perf claims; maintainer repeatedly CHANGES_REQUESTED for failing tests/Codacy; agent cycled @staticmethod; PR closed after 7 days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 848,
+        "interpretation": "At 848 changed lines across 19 files, this is a medium-sized refactor by absolute volume. As a performance-oriented wrapper refactor, it was closed—not merged—after repeated quality assurance failures and an unresolvable corrective cycle."
+      },
+      "lifecycle": {
+        "lifespan_hours": 11.34,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_quality",
+      "primary_concern": "code_quality_and_test_failures",
+      "concern_detail": "Maintainer DaveSkender issued six CHANGES_REQUESTED reviews citing failing unit tests and Codacy issues; the agent repeatedly added/removed the @staticmethod decorator on _verify_data, cycling between CI fix and Codacy fix; the PR was eventually closed for inactivity.",
+      "performance_claim": "Improved type conversion performance and memory management in the .NET interop layer.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "code_quality",
+        "ci_validation"
+      ],
+      "rejection_signals": "PR closed by Devin bot after 7 days of no progress; maintainer expressed frustration with the cycling of errors."
+    },
+    "capability_boundary": {
+      "topic": "33",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Multi-file .NET interop refactor with quality gate requirements; the agent was unable to break out of a corrective loop between CI failures and static analysis warnings, leading to maintainer frustration and closure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto",
+        "static_analysis",
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "DaveSkender reviewed inline code and pointed out that the @staticmethod decorator caused build errors; he also questioned the need for pylint disable comments.",
+        "ci_auto": "CI tests failed multiple times due to the @staticmethod TypeError; Codacy raised linting issues throughout the review cycles."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling evidence was provided; only narrative performance claims appear in the PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After multiple rounds of fixes that failed to satisfy quality checks, the PR remained non‑compliant and was closed without merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactored stock_indicators package: direct C# DateTime constructor, Decimal conversions, custom exceptions, pylint suppressions, keyword-only arguments, and a problematic @staticmethod addition/removal cycle in IndicatorResults.",
+      "files_primary": [
+        "stock_indicators/_cslib/__init__.py",
+        "stock_indicators/indicators/common/results.py",
+        "stock_indicators/indicators/common/quote.py"
+      ],
+      "files_secondary_observability": [
+        "stock_indicators/_cstypes/datetime.py",
+        "stock_indicators/_cstypes/decimal.py",
+        "stock_indicators/_cstypes/list.py",
+        "stock_indicators/exceptions.py",
+        "stock_indicators/indicators/common/helpers.py",
+        "stock_indicators/indicators/common/candles.py",
+        "stock_indicators/indicators/*.py"
+      ],
+      "secondary_note": "Remaining changes involve pylint disable comments and keyword-only argument enforcement; no performance observability instrumentation was added.",
+      "change_trajectory": [
+        "Initial commit: introduced custom exceptions, direct DateTime/Decimal constructors, and enhanced Quote/Results validation.",
+        "First round: fixed unit tests and Codacy issues, but introduced @staticmethod on _verify_data.",
+        "CI fix: removed @staticmethod after it caused a TypeError in class creation; all 514 tests passed.",
+        "Codacy fix: re‑added @staticmethod to satisfy linting, causing the CI failure to reappear.",
+        "Subsequent cycles: repeated addition/removal of @staticmethod; maintainer commented on the cycling.",
+        "Final state: @staticmethod removed, but PR was closed by Devin bot due to inactivity."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "DaveSkender",
+        "channel": "formal_review",
+        "signal": "changes_requested_failing_tests",
+        "summary": "Requested fixes for failing unit tests and Codacy issues; instructed not to change test logic.",
+        "blocking": true,
+        "action_taken": "Multiple commits attempted to fix, but the cycle continued."
+      },
+      {
+        "source": "DaveSkender",
+        "channel": "inline_review_comment",
+        "signal": "static_method_build_error",
+        "summary": "Pointed out that the @staticmethod decorator on _verify_data caused the same build error.",
+        "blocking": true,
+        "action_taken": "Copilot removed the decorator, but later reinstated it during Codacy fixes."
+      },
+      {
+        "source": "DaveSkender",
+        "channel": "formal_review",
+        "signal": "cycling_errors_frustration",
+        "summary": "Warned that the agent was cycling to and from the same errors (static method vs Codacy).",
+        "blocking": true,
+        "action_taken": "Final removal of @staticmethod, but PR remained blocked."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closed PR due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Provided a non‑blocking overview of the PR changes and raised potential issues (e.g., overload signature inconsistency).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "detailed_code_review_issues",
+        "summary": "Flagged duplicate exception definitions, unused imports, incorrect return annotation, microsecond precision, and misleading comments.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened the PR with a large refactor, claiming performance and error‑handling improvements.",
+      "Maintainer DaveSkender quickly responded with CHANGES_REQUESTED for failing tests and Codacy issues.",
+      "Agent committed fixes but introduced a @staticmethod that broke CI; a cycle of adding/removing the decorator ensued.",
+      "After several rounds, the maintainer flagged the cycling, and the PR stalled.",
+      "Devin bot auto‑closed the PR after 7 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

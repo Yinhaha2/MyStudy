@@ -1,0 +1,258 @@
+{
+  "pr_id": 3113051088,
+  "meta": {
+    "title": "perf: Remove preemptive deepcopy operations from exported methods",
+    "html_url": "https://github.com/celestiaorg/rsmt2d/pull/361",
+    "repo": "celestiaorg/rsmt2d",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-03 08:51:26+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-05 01:12:05+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 50,
+    "topic_name": "50",
+    "body_summary": "Remove preemptive deepcopy calls in ExtendedDataSquare exported methods, returning direct references to internal data and providing an exported DeepCopy utility for callers who need mutable copies; claims dramatic speedup."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 8,
+      "additions": 259,
+      "deletions": 210,
+      "changes": 469,
+      "top1_file": "extendeddatasquare_test.go",
+      "top1_changes": 176,
+      "top1_change_ratio": 0.375,
+      "files_by_status": {
+        "modified": 7,
+        "added": 1,
+        "removed": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 3
+      },
+      "review_comment_count": 6,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 3,
+        "copilot_work_started": 3,
+        "renamed": 1,
+        "review_requested": 4,
+        "copilot_work_finished": 3,
+        "reviewed": 2,
+        "commented": 3,
+        "mentioned": 2,
+        "subscribed": 2,
+        "ready_for_review": 1,
+        "convert_to_draft": 1
+      },
+      "lifespan_hours": 40.35,
+      "first_review_delay_hours": 2.83,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_allocation_reduction",
+      "deepcopy_removal",
+      "direct_reference_return"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative",
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_deepcopy"
+    ],
+    "outcome_reason": "closed_draft_no_merge_decision",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence",
+      "design_or_approach",
+      "api_usage"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot removed deepcopies with benchmark claims; maintainer iterated on export and simplification but PR stalled as draft and was closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 469,
+        "interpretation": "At 469 changed lines, this is a small-to-medium edit by absolute volume, concentrated in Go source and test files. As a targeted performance PR it was closed after iterative review, not merged, consistent with a stalled process rather than scale rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 40.35,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "api_export_missing",
+      "concern_detail": "Maintainer adlerjohn noted that deepCopy was unexported, preventing library users from copying returned data; Copilot renamed to DeepCopy. Later, adlerjohn flagged that internal row/col methods became redundant after pass-through refactor, triggering further simplification.",
+      "performance_claim": "Row access ~6,000x faster (0.8 ns vs 4,841 ns); RowRoots access ~420x faster (2.8 ns vs 1,179 ns) by avoiding deepcopy overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_deepcopy",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "perf_evidence",
+        "design_or_approach",
+        "api_usage"
+      ],
+      "rejection_signals": "PR converted to draft after iterative review; no merge approval or final rejection comment; later closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "50",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Agent produced working optimization with benchmark, but maintainer's iterative requests (export helper, README example, redundant method cleanup) led to a draft state and eventual closure without explicit acceptance or rejection—suggesting the PR’s life cycle was derailed by process churn.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "adlerjohn manually inspected extendeddatasquare.go, identified the unexported deepCopy, later suggested removal of redundant internal methods; copilot bot provided test assertion fixes."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body cites concrete benchmark numbers but provides no benchmark code or reproduction steps.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Copilot implemented requested changes (exported DeepCopy, updated README, removed redundant methods) within the same PR; no external revert required.",
+      "evidence_gap": "benchmark_numbers_no_benchmark_code"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In extendeddatasquare.go, removed deepcopy calls from Row, Col, RowRoots, ColRoots, Flattened methods and added documentation about direct references; exported the helper as DeepCopy; removed redundant internal row/col methods; updated tests to validate direct references and proper copying.",
+      "files_primary": [
+        "extendeddatasquare.go",
+        "extendeddatasquare_test.go"
+      ],
+      "files_secondary_observability": [
+        "performance_test.go",
+        "README.md",
+        "datasquare.go",
+        "extendeddatacrossword.go"
+      ],
+      "secondary_note": "A temporary performance_test.go was added then removed; README example added; internal method removal impacted multiple files.",
+      "change_trajectory": [
+        "Initial commit: removed deepcopy from exported methods and added direct-reference tests.",
+        "Removed temporary performance test file.",
+        "Exported deepCopy as DeepCopy per maintainer request.",
+        "Updated README with DeepCopy usage example.",
+        "Removed redundant internal row/col methods per maintainer feedback.",
+        "PR converted to draft and subsequently closed without merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "adlerjohn",
+        "channel": "inline_review_comment",
+        "signal": "api_export_missing",
+        "summary": "Noted that deepCopy was not exported, preventing external callers from copying returned data; requested export.",
+        "blocking": false,
+        "action_taken": "Copilot renamed function to DeepCopy in commit 5fdb965."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fix_acknowledgment",
+        "summary": "Acknowledged the unexported function and confirmed the export fix.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "inline_review_comment",
+        "signal": "test_assertion_bug",
+        "summary": "Pointed out that direct-reference test assertions compared slice headers instead of byte data and suggested fixes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "adlerjohn",
+        "channel": "pr_comment",
+        "signal": "documentation_request",
+        "summary": "Asked to update README example with exported DeepCopy usage for RowRoots or ColRoots.",
+        "blocking": false,
+        "action_taken": "Copilot added README example in commit 1752d10."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_acknowledgment",
+        "summary": "Confirmed README update and referenced commit.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "adlerjohn",
+        "channel": "pr_comment",
+        "signal": "code_simplification",
+        "summary": "Noted that internal row/col methods were now redundant after becoming pass-throughs and should be removed.",
+        "blocking": false,
+        "action_taken": "Copilot removed redundant methods in commit 360326e."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_acknowledgment",
+        "summary": "Agreed and described upcoming commit to remove internal methods and inline logic.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Copilot with deepcopy removal and benchmark claims.",
+      "adlerjohn reviewed and requested DeepCopy export via inline comment within 3 hours.",
+      "Copilot exported DeepCopy and added README example per maintainer request.",
+      "copilot bot suggested test assertion fixes in a separate non-blocking review.",
+      "adlerjohn flagged redundant internal methods, Copilot simplified code.",
+      "PR converted to draft and later closed without merge; no formal approval."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

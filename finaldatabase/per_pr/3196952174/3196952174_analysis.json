@@ -1,0 +1,291 @@
+{
+  "pr_id": 3196952174,
+  "meta": {
+    "title": "Fix CodeQL to run only on relevant file changes with path filtering",
+    "html_url": "https://github.com/valkey-io/valkey-glide/pull/4287",
+    "repo": "valkey-io/valkey-glide",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-02 19:21:21+00:00",
+    "merged_at": "2025-07-03 14:52:47+00:00",
+    "closed_at": "2025-07-03 14:52:47+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Refactor CodeQL workflow to split single matrix job into eight language-specific jobs with dorny/paths-filter so only relevant analyses run on PRs, claiming up to 87.5% CI job reduction."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 11,
+      "file_count": 28,
+      "additions": 347,
+      "deletions": 684,
+      "changes": 1031,
+      "top1_file": "glide-core/redis-rs/redis-test/src/lib.rs",
+      "top1_changes": 428,
+      "top1_change_ratio": 0.415,
+      "files_by_status": {
+        "added": 0,
+        "modified": 28,
+        "removed": 0
+      },
+      "directory_count": 7,
+      "directories": [
+        ".github",
+        "csharp",
+        "glide-core",
+        "go",
+        "java",
+        "node",
+        "python"
+      ]
+    },
+    "collaboration": {
+      "review_count": 11,
+      "review_states": {
+        "COMMENTED": 9,
+        "APPROVED": 2
+      },
+      "review_comment_count": 13,
+      "pr_comment_count": 5,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 6,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "renamed": 1,
+        "review_requested": 4,
+        "copilot_work_finished": 3,
+        "ready_for_review": 1,
+        "reviewed": 3,
+        "commented": 3,
+        "mentioned": 2,
+        "subscribed": 2
+      },
+      "lifespan_hours": 19.524,
+      "first_review_delay_hours": 0.234,
+      "review_rounds": 11,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_pipeline_optimization",
+      "conditional_job_execution",
+      "codeql_path_filtering"
+    ],
+    "optimization_layer": "ci_cd_pipeline",
+    "evidence_type": [
+      "narrative",
+      "ci_validation_logic"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "scope",
+      "design_or_approach",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot CI workflow refactor; avifenesh flagged that job-level conditionals would skip required PR scanning; multiple review rounds corrected path filters and build errors; merged after ~19.5h with simulated validation but no runtime benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1031,
+        "interpretation": "At 1031 changed lines across 28 files, this is a medium-sized change by absolute volume, though a large portion of deletions (684) came from merge commits removing submodule test files, not the performance change itself. The core modification is the codeql.yml refactor (approximately 388 changes) plus a small C# test fix. The outcome is consistent with a successful CI optimization that merged after iterative review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 19.524,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_regression_pr_scanning_blocked",
+      "concern_detail": "Initial commit added job-level conditionals that would skip all CodeQL jobs on pull requests, breaking the requirement that PRs be scanned for commit signing. avifenesh pointed out this would block commits from being approved. Copilot removed job-level conditionals, ensuring jobs start but only run analysis if relevant files changed. Additionally, path filters incorrectly included Python utilities in non-Python language jobs, and C# analysis missed integration test projects. All were fixed iteratively.",
+      "performance_claim": "Reduce CodeQL CI jobs from 8 running on every PR to only relevant language analyses, with claims of up to 87.5% reduction in jobs and elimination on documentation-only changes.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "unnecessary_ci_work (prior single matrix approach ran all 8 languages on every PR)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "scope",
+        "design_or_approach",
+        "ci_validation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "CI workflow optimization (YAML, GitHub Actions, paths-filter) is well within Copilot's capability; merge required iterative corrections for path filtering granularity and preserving required scanning coverage.",
+      "success_factors": [
+        "linked_issue",
+        "responded_to_multiple_review_rounds",
+        "fixed_blocking_ci_issue",
+        "incorporated_feedback_on_path_filters_and_builds",
+        "maintainer_approved_after_verification"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "avifenesh and jbrinkman manually reviewed the YAML configuration, identifying that job-level conditionals prevented PR scanning and that path filters incorrectly triggered non-relevant languages. Yury-Fridlyand suggested a build configuration correction. All issues were caught by reading the diff without automated profiling.",
+        "ci_auto": "CI build failures after the initial fixes (C# integration tests compilation error) were observed and resolved. The overall CodeQL scan succeeded after iterative fixes."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR provides narrative performance claims and simulated file change scenarios in the description, but no before/after CI runtime measurements or benchmark artifacts were supplied.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Multiple blocking issues were fixed within the PR: job-level conditionals removed (commit 3cc8133), C# build configuration updated, path filters corrected to remove Python utility from non-Python jobs, and a compilation error in TestConfiguration.cs (commit 0e87766) was resolved.",
+      "evidence_gap": "narrative_perf_claim_no_runtime_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Split the CodeQL workflow into eight language-specific jobs, each with a dorny/paths-filter step to conditionally run only when relevant files change on pull requests. On other events, all analyses run. Also fixed a C# integration tests compilation error (TestConfiguration.cs).",
+      "files_primary": [
+        ".github/workflows/codeql.yml"
+      ],
+      "files_secondary_observability": [
+        "csharp/tests/Valkey.Glide.IntegrationTests/TestConfiguration.cs"
+      ],
+      "secondary_note": "Many deletions are due to a merge commit removing old redis-rs submodule test files; these are not related to the performance change.",
+      "change_trajectory": [
+        "Initial plan (empty commit).",
+        "Implemented split jobs with paths-filter.",
+        "Added missing path patterns.",
+        "Removed job-level conditionals to fix PR scanning (avifenesh feedback).",
+        "Maintainer commits for path corrections.",
+        "Merge from main.",
+        "Fix path filtering (remove utils/cluster_manager.py from non-Python jobs) and add C# integration test build (jbrinkman feedback).",
+        "Merge from main (large removal of redis-rs test files).",
+        "Fix C# integration tests compilation error in TestConfiguration.cs."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_non_blocking",
+        "summary": "Bot posted PR overview summarizing refactor; non-blocking.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "avifenesh",
+        "channel": "formal_review",
+        "signal": "functional_regression_pr_scanning_blocked",
+        "summary": "Pointed out that new structure completely skips CodeQL on PRs, blocking commit signing.",
+        "blocking": true,
+        "action_taken": "Copilot removed job-level conditionals in commit 3cc8133."
+      },
+      {
+        "source": "avifenesh",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED after scope fix (no review body text).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Yury-Fridlyand",
+        "channel": "inline_review_comment",
+        "signal": "build_config_suggestion",
+        "summary": "Suggested changing C# UnitTests build configuration to Lint instead of Debug.",
+        "blocking": false,
+        "action_taken": "Maintainer applied suggestion in subsequent commits."
+      },
+      {
+        "source": "jbrinkman",
+        "channel": "inline_review_comment",
+        "signal": "incorrect_path_filters_and_missing_build",
+        "summary": "Questioned why Python utility triggers Rust/Java/Go analysis and pointed out C# integration tests not being built.",
+        "blocking": true,
+        "action_taken": "Copilot removed utils/cluster_manager.py from non-Python filters and added integration test build in commit ed2db87."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed removal of utils/cluster_manager.py from various filters and addition of integration tests.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "avifenesh",
+        "channel": "pr_comment",
+        "signal": "manual_language_path_filtering_clarification",
+        "summary": "Provided guidance on CodeQL manual build mode path filtering limitations and potential to use filter-sarif.",
+        "blocking": false,
+        "action_taken": "Copilot acknowledged and offered to add SARIF filtering if needed, but no further action was required."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "acknowledgment",
+        "summary": "Acknowledged the limitation and explanation; no further action.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jbrinkman",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Final approval with :shipit: after fixes.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue with initial implementation of split CodeQL jobs.",
+      "copilot-pull-request-reviewer bot gave non-blocking overview.",
+      "avifenesh pointed out that job-level conditionals would prevent PR scanning, blocking merge.",
+      "Copilot removed job-level conditionals in commit 3cc8133.",
+      "Yury-Fridlyand suggested a build configuration tweak; maintainer applied.",
+      "jbrinkman flagged incorrect path filters (Python utility in non-Python jobs) and missing C# integration test build.",
+      "Copilot addressed both in commit ed2db87.",
+      "A C# compilation error in TestConfiguration.cs was later fixed (commit 0e87766).",
+      "avifenesh and jbrinkman approved; PR merged after ~19.5 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

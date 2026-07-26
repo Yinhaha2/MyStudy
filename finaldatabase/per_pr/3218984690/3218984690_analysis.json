@@ -1,0 +1,243 @@
+{
+  "pr_id": 3218984690,
+  "meta": {
+    "title": "Terminal suggest: Move storage from globalState to globalStorageUri",
+    "html_url": "https://github.com/microsoft/vscode/pull/255114",
+    "repo": "microsoft/vscode",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-10 11:32:00+00:00",
+    "merged_at": "2025-07-15 20:09:21+00:00",
+    "closed_at": "2025-07-15 20:09:21+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "12",
+    "body_summary": "Migrate terminal-suggest shell completion cache from context.globalState Memento to context.globalStorageUri filesystem to eliminate large extension state warning (3840KB)."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 1,
+      "additions": 27,
+      "deletions": 12,
+      "changes": 39,
+      "top1_file": "extensions/terminal-suggest/src/terminalSuggestMain.ts",
+      "top1_changes": 39,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "extensions"
+      ]
+    },
+    "collaboration": {
+      "review_count": 5,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 1,
+        "APPROVED": 3
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 26,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 3,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "copilot_work_finished": 2,
+        "review_requested": 2,
+        "unassigned": 1,
+        "reviewed": 4,
+        "ready_for_review": 1,
+        "auto_squash_enabled": 1,
+        "milestoned": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 128.622,
+      "first_review_delay_hours": 2.446,
+      "review_rounds": 5,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "storage_migration",
+      "memory_to_disk_cache",
+      "globalState_to_globalStorageUri"
+    ],
+    "optimization_layer": "application_extension",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot migrated large cache from globalState to globalStorageUri after smoke test warning; Tyriar requested cache files saved in subfolder; fix applied and merged with three approvals."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 39,
+        "interpretation": "At 39 changed lines in one file, this is a very small, surgical edit. It fits a targeted storage migration performance fix and the quick merge after review is consistent."
+      },
+      "lifecycle": {
+        "lifespan_hours": 128.622,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "storage_organization",
+      "concern_detail": "Maintainer Tyriar CHANGES_REQUESTED: the cache files should be placed inside a terminal-suggest/ subdirectory within globalStorageUri. Copilot fixed it in commit 69e8627.",
+      "performance_claim": "Migrating from in-memory Memento to on-disk filesystem storage eliminates the large extension state warning and follows best practices.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "inappropriate_storage_use (prior globalState for large data)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple storage backend migration was successfully performed; the only maintainer request was to organize cache files in a subfolder.",
+      "success_factors": [
+        "narrow_scope",
+        "responded_to_changes_requested",
+        "quick_folder_fix"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Tyriar reviewed the storage migration and requested saving cache files in a terminal-suggest/ subfolder."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "The PR cites a smoke test warning with exact KB size, but no timing or benchmark before/after.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After CHANGES_REQUESTED, Copilot moved cache to subfolder and meganrogge removed extraneous args; then merged.",
+      "evidence_gap": "narrative_only_no_perf_metrics"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In extensions/terminal-suggest/src/terminalSuggestMain.ts, switched cache storage from globalState Memento to globalStorageUri filesystem: replaced globalStorage.update/get with vscode.workspace.fs writeFile/readFile, added createDirectory and JSON serialization, and placed cache in terminal-suggest/ subdirectory.",
+      "files_primary": [
+        "extensions/terminal-suggest/src/terminalSuggestMain.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial plan commit.",
+        "First implementation using globalStorageUri with root-level cache file.",
+        "Error handling improvements.",
+        "After review, moved cache to terminal-suggest/ subdirectory.",
+        "Removed extraneous function arguments (meganrogge)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Tyriar",
+        "channel": "formal_review",
+        "signal": "changes_requested_no_body",
+        "summary": "Formal CHANGES_REQUESTED review with no body; feedback delivered via inline comment.",
+        "blocking": true,
+        "action_taken": "Copilot moved cache to subfolder in follow-up commits."
+      },
+      {
+        "source": "Tyriar",
+        "channel": "inline_review_comment",
+        "signal": "storage_organization",
+        "summary": "Requested that cache files be saved inside a terminal-suggest/ subdirectory.",
+        "blocking": true,
+        "action_taken": "Commit 69e8627 moved cache to terminal-suggest/ subdirectory."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fix_confirmation",
+        "summary": "Updated to store cache files in a terminal-suggest/ subdirectory within the global storage directory.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "meganrogge",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED after rm args commit.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Tyriar",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Second APPROVED after fix.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "rzhao271",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Third APPROVED.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial globalStorageUri migration.",
+      "Tyriar CHANGES_REQUESTED asking to save cache in a subfolder.",
+      "Copilot added terminal-suggest/ subdirectory commit.",
+      "meganrogge made minor cleanup commit and then approved.",
+      "Next day, Tyriar and rzhao271 approved; PR merged after ~5 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

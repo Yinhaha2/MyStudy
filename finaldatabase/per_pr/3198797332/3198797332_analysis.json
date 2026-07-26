@@ -1,0 +1,211 @@
+{
+  "pr_id": 3198797332,
+  "meta": {
+    "title": "Integrate trigger.dev functions for plaid and gocardless",
+    "html_url": "https://github.com/Codehagen/Badget/pull/297",
+    "repo": "Codehagen/Badget",
+    "agent": "Cursor",
+    "user": "Codehagen",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-07-03 09:57:34+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 49,
+    "topic_name": "49",
+    "body_summary": "Integrate trigger.dev tasks for Plaid and GoCardless to offload financial data operations asynchronously with scheduled syncs, aiming to improve UI responsiveness and reliability."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 10,
+      "additions": 2556,
+      "deletions": 131,
+      "changes": 2687,
+      "top1_file": "src/trigger/gocardless-tasks.ts",
+      "top1_changes": 850,
+      "top1_change_ratio": 0.316,
+      "files_by_status": {
+        "added": 7,
+        "modified": 2,
+        "removed": 1
+      },
+      "directory_count": 3,
+      "directories": [
+        ".",
+        ".content-collections",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 5,
+        "commented": 1,
+        "reviewed": 2,
+        "deployed": 4
+      },
+      "lifespan_hours": 321.0,
+      "first_review_delay_hours": 0.048,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "async_task_offloading",
+      "scheduled_sync",
+      "ui_responsiveness",
+      "financial_data_integration"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_pending_review_and_fixes",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "medium",
+    "notes": "Cursor integrated trigger.dev for async financial ops; own bot flagged schema/query/env bugs; PR open with partial fix and no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2687,
+        "interpretation": "At 2687 changed lines, this is a large change by absolute volume. It adds a substantial background task infrastructure. The PR remains open with only bot reviews and no human maintainer engagement, which is atypical for a large feature PR."
+      },
+      "lifecycle": {
+        "lifespan_hours": 321.0,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_prisma_schema_and_env",
+      "concern_detail": "Cursor bot reviews identified Prisma model misuse causing schema inconsistency, incorrect relation field naming, and hardcoded Plaid sandbox environment.",
+      "performance_claim": "Asynchronous processing with trigger.dev improves UI responsiveness and reliability for Plaid/GoCardless operations.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "49",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The integration required correct Prisma modeling and config management; Cursor's bot revealed gaps in schema and environment handling.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Cursor bot performed static analysis and reported Prisma schema misuse, query field naming, and hardcoded environment."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark data, only narrative improvement claims.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After first review, a fix commit adjusted GoCardless schema, but second review indicates remaining issues.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added trigger.dev tasks for Plaid (plaid-tasks.ts) and GoCardless (gocardless-tasks.ts) with async functions and scheduled syncs, plus documentation, test actions, and a UI test button.",
+      "files_primary": [
+        "src/trigger/gocardless-tasks.ts",
+        "src/trigger/plaid-tasks.ts"
+      ],
+      "files_secondary_observability": [
+        "TRIGGER_INTEGRATION.md",
+        "TRIGGER_TEST_GUIDE.md",
+        "src/actions/trigger-test-actions.ts",
+        "src/components/financial/trigger-test-button.tsx"
+      ],
+      "secondary_note": "Documentation and test tools account for significant portion of the changes.",
+      "change_trajectory": [
+        "Initial commit: added trigger tasks, documentation, removed example.ts.",
+        "Fix commit: addressed Prisma schema misuse in GoCardless tasks.",
+        "Added comprehensive test button and test guide.",
+        "Added bank connection tests for Plaid and GoCardless.",
+        "Wip commit: human edits to test button and content-collections; bot review followed with new bugs."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "correctness_bug_prisma_schema_misuse",
+        "summary": "Flagged misuse of ConnectedAccount model causing schema inconsistency; recommended fixing.",
+        "blocking": false,
+        "action_taken": "Partially addressed in commit 384bea."
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "correctness_bug_prisma_query_and_env_hardcode",
+        "summary": "Flagged incorrect relation field BankConnection vs bankConnections and hardcoded Plaid sandbox environment.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployment preview ready.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent opened PR with trigger.dev task integration, documentation, and tests.",
+      "Cursor bot reviewed and reported Prisma schema misuse; agent fixed in subsequent commit.",
+      "Agent added test UI and extended test coverage.",
+      "Human 'wip' commit and bot second review identifying additional correctness bugs.",
+      "PR remains open with unresolved issues and no human maintainer review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

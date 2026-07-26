@@ -1,0 +1,240 @@
+{
+  "pr_id": 3158727370,
+  "meta": {
+    "title": "Optimize RPKI origin validation performance by filtering VRPs by ASN first",
+    "html_url": "https://github.com/tomhrr/cosh/pull/181",
+    "repo": "tomhrr/cosh",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-19 02:56:45+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-26 11:59:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 6,
+    "topic_name": "6",
+    "body_summary": "Optimize RPKI origin validation performance in rpkiv.rov by first filtering VRPs by ASN to reduce search space, with caching and early termination to improve speed while maintaining RFC 6483 compliance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 2,
+      "additions": 198,
+      "deletions": 145,
+      "changes": 343,
+      "top1_file": "lib/rpkiv.ch",
+      "top1_changes": 187,
+      "top1_change_ratio": 0.545,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "lib",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 6,
+      "review_states": {
+        "COMMENTED": 6
+      },
+      "review_comment_count": 10,
+      "pr_comment_count": 6,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 7,
+        "assigned": 2,
+        "copilot_work_started": 6,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 3,
+        "commented": 6,
+        "copilot_work_finished_failure": 2,
+        "reviewed": 1
+      },
+      "lifespan_hours": 177.046,
+      "first_review_delay_hours": 7.535,
+      "review_rounds": 6,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "vrf_filtering_order",
+      "vrf_caching",
+      "early_termination"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_stale_after_review_unsatisfied",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot attempted RPKI ROV optimization with ASN-first filtering but violated RFC 6483; after revert and caching attempt, maintainer found cache and test issues, leading to inactivity closure."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 343,
+        "interpretation": "At 343 changed lines across 2 files, this is a small-to-medium edit by absolute volume. It fits a focused performance optimization PR that was closed due to unresolved correctness and test concerns despite multiple agent iterations."
+      },
+      "lifecycle": {
+        "lifespan_hours": 177.046,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_rfc_compliance",
+      "concern_detail": "Maintainer tomhrr pointed out that filtering VRPs by ASN first violates RFC 6483 because all VRPs intersecting the announced prefix must be considered regardless of ASN; subsequent caching attempt had issues with global variable misuse and lacked proper RPKI tests.",
+      "performance_claim": "Reordering filters (ASN first) reduces search space and improves performance dramatically, with VRP caching and early termination further speeding up repeated validations.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer requested changes to comply with RFC 6483 and to add proper tests; after multiple agent attempts, the PR was closed without resolving all review comments."
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Domain-specific RPKI RFC compliance and Charity language constructs (global variable vs function) presented challenges that Copilot could not fully resolve; maintainer required correct understanding of prefix intersection semantics and proper caching implementation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "tomhrr reviewed the code inline, identified RFC non-compliance, variable misuse, and requested proper tests; also identified that the prefix intersection comment was inaccurate."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body includes a small test case with numeric claim but no reproducible benchmark or profiler data; maintainer did not run performance tests but focused on correctness.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After multiple agent attempts failed to satisfy review, the PR was closed without merge.",
+      "evidence_gap": "narrative_only_no_benchmark_and_test_issues"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In lib/rpkiv.ch, originally reordered VRP filtering to check ASN before prefix intersection; after maintainer objection, reverted to original RFC-compliant order and added caching via _rpkiv.get-vrps-cached, early termination logic, and a quick prefix check; also touched tests/tests.rs with unrelated tests replaced by basic RPKI import tests.",
+      "files_primary": [
+        "lib/rpkiv.ch"
+      ],
+      "files_secondary_observability": [
+        "tests/tests.rs"
+      ],
+      "secondary_note": "Test changes were ultimately reduced to syntax checks after maintainer rejected arithmetic tests and requested real RPKI tests, which were not fully implemented.",
+      "change_trajectory": [
+        "Initial commit with ASN-first filtering optimization.",
+        "Maintainer pointed out RFC 6483 violation requiring prefix-intersection-first filtering.",
+        "Agent reverted to original compliant algorithm in commit a95a544.",
+        "Maintainer asked for performance improvement while staying compliant.",
+        "Agent added caching, early termination, and quick prefix check in commit e2759c2.",
+        "Maintainer reviewed inline: cache storage function/variable confusion, incorrect clear-cache, prefix comment inaccuracy, and irrelevant tests.",
+        "Agent addressed some feedback in commit a75f7cc but tests remained basic."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "tomhrr",
+        "channel": "pr_comment",
+        "signal": "rfc_6483_violation",
+        "summary": "All VRPs intersecting prefix must be considered, not just matching ASN; request to adjust to RFC.",
+        "blocking": true,
+        "action_taken": "Agent reverted to compliant algorithm."
+      },
+      {
+        "source": "tomhrr",
+        "channel": "pr_comment",
+        "signal": "request_speed_improvement",
+        "summary": "After revert, asked to still make function faster.",
+        "blocking": true,
+        "action_taken": "Agent implemented caching and early termination."
+      },
+      {
+        "source": "tomhrr",
+        "channel": "inline_review_comment",
+        "signal": "cache_variable_misuse",
+        "summary": "Function named _rpkiv.vrp-cache-storage clashes with later global variable usage; suggest just global variable.",
+        "blocking": true,
+        "action_taken": "Agent changed to global variable per suggestion."
+      },
+      {
+        "source": "tomhrr",
+        "channel": "inline_review_comment",
+        "signal": "clear_cache_bug",
+        "summary": "rpkiv.clear-cache line drops empty hash instead of storing; suggest using global variable assignment.",
+        "blocking": true,
+        "action_taken": "Agent fixed accordingly."
+      },
+      {
+        "source": "tomhrr",
+        "channel": "inline_review_comment",
+        "signal": "prefix_intersection_comment_inaccurate",
+        "summary": "Comment says finds all VRPs whose prefix intersects, but it finds prefixes equal or larger; request clarification.",
+        "blocking": false,
+        "action_taken": "Agent added clarifying comment."
+      },
+      {
+        "source": "tomhrr",
+        "channel": "inline_review_comment",
+        "signal": "irrelevant_tests",
+        "summary": "Test functions contain arithmetic unrelated to RPKI; request real RPKI validation tests.",
+        "blocking": true,
+        "action_taken": "Agent replaced with basic RPKI import tests, but not full validation."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with ASN-first filtering.",
+      "Maintainer tomhrr objected within ~5h, citing RFC 6483.",
+      "Agent reverted to compliant algorithm after multiple retry prompts.",
+      "Maintainer asked for performance improvement while compliant.",
+      "Agent added caching and early termination; maintainer found several bugs and test issues via inline review.",
+      "Agent attempted fixes but tests remained insufficient; PR eventually closed without merge after inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

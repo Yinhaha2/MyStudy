@@ -1,0 +1,209 @@
+{
+  "pr_id": 2978149205,
+  "meta": {
+    "title": "Add Context Caching Support",
+    "html_url": "https://github.com/crewAIInc/crewAI/pull/2533",
+    "repo": "crewAIInc/crewAI",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-07 22:39:49+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-16 15:59:50+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Add context caching support via LiteLLM cache_control, introducing cache_enabled and cache_ttl parameters to the LLM class, updating documentation, and adding basic tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 3,
+      "additions": 266,
+      "deletions": 2,
+      "changes": 268,
+      "top1_file": "src/crewai/llm.py",
+      "top1_changes": 118,
+      "top1_change_ratio": 0.44,
+      "files_by_status": {
+        "modified": 2,
+        "added": 1
+      },
+      "directory_count": 3,
+      "directories": [
+        ".",
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 2,
+        "commented": 3,
+        "mentioned": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 209.33,
+      "first_review_delay_hours": 0.03,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "context_caching",
+      "api_cost_reduction",
+      "prompt_cache_control"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity_after_partial_fix",
+    "review_dimensions": [
+      "documentation",
+      "tests",
+      "validation",
+      "design_or_approach",
+      "error_handling"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added context caching; an AI-generated review provided extensive feedback; Devin partially addressed it; PR closed by bot after 7 days inactivity with no human merge decision."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 268,
+        "interpretation": "At 268 changed lines across 3 files, this is a small feature addition by absolute volume. The PR lacked performance evidence and human maintainer approval; closure is consistent with insufficient evidence and process inactivity."
+      },
+      "lifecycle": {
+        "lifespan_hours": 209.33,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "missing_validation_and_cache_features",
+      "concern_detail": "An AI-generated review from joaomdmoura identified missing TTL validation, absence of cache management methods, insufficient tests, and documentation gaps.",
+      "performance_claim": "Improve performance and reduce costs by caching parts of prompts unchanged across API calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "documentation",
+        "tests",
+        "validation",
+        "design_or_approach",
+        "error_handling"
+      ],
+      "rejection_signals": "AI-generated review suggested multiple improvements; Devin partially implemented some but PR stagnated and was auto-closed for inactivity."
+    },
+    "capability_boundary": {
+      "topic": "19",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding context caching requires handling provider‑specific cache_control semantics across multiple LLM APIs; Devin delivered an initial implementation but left gaps in validation and cache management, and the process stalled after partial response to AI feedback.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ai_assisted_review"
+      ],
+      "detection_detail": {
+        "code_reading": "Review was entirely generated by a crew of AI agents; no evidence of human code‑reading or manual testing."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or numeric performance claim; only narrative statements about cost and performance improvement.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by bot after 7 days of inactivity, with feedback partially addressed but no final human approval.",
+      "evidence_gap": "narrative_only_no_performance_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added cache_enabled and cache_ttl parameters to LLM class; modified LLM.call() to include LiteLLM cache_control when enabled; added cache management stubs in follow-up commit; updated README with caching docs and provider notes; added basic unit tests.",
+      "files_primary": [
+        "src/crewai/llm.py",
+        "tests/cache_test.py",
+        "README.md"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit: added caching support, README updates, and test file.",
+        "Second commit: addressed AI feedback—added TTL validation, cache management method stubs, and enhanced documentation."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot posted its standard auto‑response capability notice.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "joaomdmoura",
+        "channel": "pr_comment",
+        "signal": "ai_generated_review",
+        "summary": "Detailed review generated by a crew of AI agents; covered documentation, validation, cache management methods, and test gaps.",
+        "blocking": false,
+        "action_taken": "Devin partially implemented suggestions in a follow‑up commit."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial caching implementation.",
+      "AI‑generated review from joaomdmoura provided extensive feedback.",
+      "Devin committed a follow‑up addressing some of the feedback (TTL validation, cache management stubs, doc update).",
+      "No further activity; Devin bot auto‑closed after 7 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

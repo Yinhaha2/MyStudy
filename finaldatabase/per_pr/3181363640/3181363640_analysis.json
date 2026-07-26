@@ -1,0 +1,176 @@
+{
+  "pr_id": 3181363640,
+  "meta": {
+    "title": "Improve Racket backend formatting",
+    "html_url": "https://github.com/mochilang/mochi/pull/3611",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-27 04:59:02+00:00",
+    "merged_at": "2025-06-27 05:01:21+00:00",
+    "closed_at": "2025-06-27 05:01:21+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 18,
+    "topic_name": "18",
+    "body_summary": "Apply raco fmt to generated Racket code and update compiler golden files accordingly, improving readability and consistency of the generated backend output."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 34,
+      "additions": 1808,
+      "deletions": 797,
+      "changes": 2605,
+      "top1_file": "tests/compiler/rkt/fetch_options.rkt.out",
+      "top1_changes": 159,
+      "top1_change_ratio": 0.061,
+      "files_by_status": {
+        "modified": 34
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.039,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "code_formatting",
+      "generated_code_cleanup",
+      "test_golden_regeneration"
+    ],
+    "optimization_layer": "code_generation",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Large formatting-only change (14-line compiler tweak + autoformatted golden files); merged instantly by maintainer with zero review, reflecting extreme trust and low-risk perception."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2605,
+        "interpretation": "At 2605 changed lines this is a large diff by volume, but 99.5% are regenerated test golden files from formatting; the actual source change is only 14 lines in the compiler, making it effectively a small, risk-free maintenance task that merged instantly."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.039,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Improved generated Racket code readability and consistency via pretty-printing with raco fmt.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Formatting and golden-test regeneration is a low-risk automation that the maintainer trusted fully; the agent succeeded without any human barrier because the change was mechanical and well-understood.",
+      "success_factors": [
+        "trivial_formatting_scope",
+        "golden_test_consistency",
+        "maintainer_trust_auto_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance benchmark or profiler evidence provided; the PR only asserts formatting improvements and updates golden files without measurable runtime data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/x/rkt/compiler.go, added a call to raco fmt to format generated Racket code; regenerated 33 golden output files under tests/compiler/rkt/ to reflect the new formatting style.",
+      "files_primary": [
+        "compile/x/rkt/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/compiler/rkt/fetch_options.rkt.out",
+        "tests/compiler/rkt/fetch_builtin.rkt.out",
+        "tests/compiler/rkt/dataset_sort_take_limit.rkt.out",
+        "tests/compiler/rkt/slice_multidim.rkt.out",
+        "tests/compiler/rkt/load_save_json.rkt.out",
+        "tests/compiler/rkt/if_else.rkt.out",
+        "tests/compiler/rkt/two_sum.rkt.out",
+        "tests/compiler/rkt/closure.rkt.out",
+        "..."
+      ],
+      "secondary_note": "All 33 golden output files were updated mechanically by the test regeneration command; no logic changes in outputs, only formatting.",
+      "change_trajectory": [
+        "Single commit: 'feat(rkt): format generated code' by tamnd adds raco fmt call and regenerates all affected golden files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by maintainer tamnd (user) with one commit, labeled 'codex'; merged within ~2.3 minutes with no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

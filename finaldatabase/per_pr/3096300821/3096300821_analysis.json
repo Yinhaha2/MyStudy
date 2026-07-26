@@ -1,0 +1,201 @@
+{
+  "pr_id": 3096300821,
+  "meta": {
+    "title": "Update docs watcher to process changed files only",
+    "html_url": "https://github.com/dlt-hub/dlt/pull/2691",
+    "repo": "dlt-hub/dlt",
+    "agent": "OpenAI_Codex",
+    "user": "sh-rp",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-28 07:11:56+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-29 22:54:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Modify docs watcher to only process a single changed markdown file (and similarly for examples) to speed up docs development iterations."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 1,
+      "additions": 139,
+      "deletions": 99,
+      "changes": 238,
+      "top1_file": "docs/website/tools/preprocess_docs.js",
+      "top1_changes": 238,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "docs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "CHANGES_REQUESTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "commented": 2,
+        "review_requested": 1,
+        "reviewed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 39.717,
+      "first_review_delay_hours": 7.205,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "file_watcher_scope_reduction",
+      "incremental_processing",
+      "build_tool_optimization"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_regression_reintroduced_bug",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Codex refactored docs watcher for speed but reintroduced ENOSPC watcher limit error; reviewer CHANGES_REQUESTED and author closed in favor of another branch."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 238,
+        "interpretation": "At 238 changed lines in one file, this is a small refactor by absolute volume. As a targeted build-tool optimization it should have been low-risk, but it was closed because it reintroduced a previously fixed bug (ENOSPC watcher limit), not because of scale concerns."
+      },
+      "lifecycle": {
+        "lifespan_hours": 39.717,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_regression",
+      "concern_detail": "Reviewer zilto tested the PR locally and found that running `npm start` in `docs/website` brought back the ENOSPC 'System limit for number of file watchers reached' error that had been fixed in #2678. This indicates the watcher change incorrectly handles watcher limits, causing a functional regression.",
+      "performance_claim": "Only process a single changed markdown or example file to speed up docs development.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "perf_evidence"
+      ],
+      "rejection_signals": "Maintainer zilto CHANGES_REQUESTED due to reproduced ENOSPC error; author sh-rp subsequently closed the PR with comment 'closed in favor of branch'."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Node.js watcher limit (ENOSPC) is a known system-level constraint; the agent's refactoring overlooked the need to preserve existing watcher-limit workarounds, leading to a regression.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "zilto manually tested the PR by running `npm start` and observed the ENOSPC error; provided a full stack trace in the review."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Reviewer reproduced the error on their machine and included the exact command and stack trace; no benchmark or profiling for the claimed speedup was provided or requested.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After the CHANGES_REQUESTED review, the PR author closed the pull request without attempting a fix, stating it was closed 'in favor of branch'.",
+      "evidence_gap": "narrative_perf_claim_no_working_fix"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactors `docs/website/tools/preprocess_docs.js` to watch for file changes and only reprocess the changed document or example rather than synchronizing all files.",
+      "files_primary": [
+        "docs/website/tools/preprocess_docs.js"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes confined to a single file; no other files modified.",
+      "change_trajectory": [
+        "Initial commit (a15c4ae): extensive refactor of watcher logic and DRY improvements.",
+        "Follow-up commit (cd5c2cb): fixes small errors from codex output.",
+        "Reviewer reproduced ENOSPC error; no further commits before close."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "zilto",
+        "channel": "formal_review",
+        "signal": "changes_requested_functional_regression",
+        "summary": "Reported that `npm start` reintroduced ENOSPC watcher limit error, attaching full stack trace.",
+        "blocking": true,
+        "action_taken": "Author closed PR without fixing the regression."
+      },
+      {
+        "source": "netlify[bot]",
+        "channel": "pr_comment",
+        "signal": "deploy_preview_ready",
+        "summary": "Netlify deploy preview for docs site succeeded (unrelated to perf validation).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "sh-rp",
+        "channel": "pr_comment",
+        "signal": "close_in_favor_of_branch",
+        "summary": "Closed the PR, stating it was closed in favor of a branch.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by sh-rp with two commits: major refactor and small codex output fixes.",
+      "Reviewer zilto CHANGES_REQUESTED after manual testing revealed ENOSPC regression.",
+      "No further commits; author closed PR after ~40 hours with comment 'closed in favor of branch'."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

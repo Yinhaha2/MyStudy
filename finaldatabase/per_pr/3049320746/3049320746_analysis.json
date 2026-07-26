@@ -1,0 +1,183 @@
+{
+  "pr_id": 3049320746,
+  "meta": {
+    "title": "perf: Optimize team bookings query by using batch version",
+    "html_url": "https://github.com/calcom/cal.com/pull/21193",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-08 15:12:23+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-08 15:15:19+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 29,
+    "topic_name": "29",
+    "body_summary": "Switch team booking limit checks from per-user to batch database query to reduce queries and improve performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 183,
+      "deletions": 10,
+      "changes": 193,
+      "top1_file": "packages/lib/getUserAvailability.ts",
+      "top1_changes": 111,
+      "top1_change_ratio": 0.575,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 1,
+        "review_requested": 2,
+        "commented": 2,
+        "labeled": 2,
+        "closed": 1,
+        "deployed": 1
+      },
+      "lifespan_hours": 0.049,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "batch_query",
+      "team_booking_limit_check",
+      "database_query_optimization"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "agent_auto_closed_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin switched team bookings queries to batch version; PR closed by agent after ~2.9 minutes with no maintainer interaction or review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 193,
+        "interpretation": "At 193 changed lines, this is a small edit by absolute volume, concentrated in three backend files. It fits a typical small-scope performance PR that was closed immediately without merge due to agent self-close and zero maintainer engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.049,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "No human reviews or comments; PR was closed by the agent immediately after creation.",
+      "performance_claim": "Reduce database queries by using batch version of team bookings fetching, lowering load and latency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io (prior per-user queries causing N+1 database calls)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No human rejection signals; agent auto-closed PR "
+    },
+    "capability_boundary": {
+      "topic": "29",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent PR was closed by the agent itself within minutes; no opportunity for review, indicating possible workflow automation issue or abandonment.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review; review was requested but no review text recorded."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or timing data; only a narrative claim that batch query reduces database load.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge by bot; no fix-in-PR cycle occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In checkBookingLimits.ts and getBusyTimesFromLimits.ts, replaced single-user getAllAcceptedTeamBookingsOfUser with batch getAllAcceptedTeamBookingsOfUsers; also refactored getUserAvailability.ts to accept and handle multiple user IDs in a single call.",
+      "files_primary": [
+        "packages/lib/intervalLimits/server/checkBookingLimits.ts",
+        "packages/lib/intervalLimits/server/getBusyTimesFromLimits.ts",
+        "packages/lib/getUserAvailability.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit by Devin: switched to batch booking query and updated user availability logic accordingly."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_label_reviewer",
+        "summary": "Graphite automation added reviewer and community label based on project rules.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened and immediately closed by Devin bot with no human interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

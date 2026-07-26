@@ -1,0 +1,193 @@
+{
+  "pr_id": 2777349471,
+  "meta": {
+    "title": "Fix: Improve Telegram Service Connection Handling",
+    "html_url": "https://github.com/hcengineering/platform/pull/7619",
+    "repo": "hcengineering/platform",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-01-09 09:53:06+00:00",
+    "merged_at": "2025-01-14 06:48:54+00:00",
+    "closed_at": "2025-01-14 06:48:54+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Fix Telegram service connection handling by adding timeouts, reconnection limits with exponential backoff, improved error handling, and resource cleanup to prevent hanging."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 1,
+      "additions": 258,
+      "deletions": 120,
+      "changes": 378,
+      "top1_file": "services/telegram/pod-telegram/src/telegram.ts",
+      "top1_changes": 378,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "services"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 5,
+        "commented": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 116.93,
+      "first_review_delay_hours": 116.92,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "connection_timeout",
+      "reconnection_limit",
+      "exponential_backoff",
+      "resource_cleanup"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin added connection timeouts and reconnection limits to prevent hanging; single APPROVED review, merged after ~117h."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 378,
+        "interpretation": "At 378 changed lines in a single file, this is a small-to-medium edit by absolute volume, fitting a focused incremental performance fix. Merged with no requested changes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 116.93,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_reviewer_concerns",
+      "concern_detail": "",
+      "performance_claim": "Add connection timeouts and reconnection limits to prevent indefinite hanging.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_retry_and_missing_timeout",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Connection management with timeouts and reconnection limits is within Agent capability for a service module; merge required building (clearTTL fix) and formatting clean-up.",
+      "success_factors": [
+        "focused_single_file_change",
+        "self_correcting_build_fix",
+        "maintainer_approved_without_blocking"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body mentions manual testing but no benchmarks or before/after latency metrics; only narrative claim of fixing hanging issues.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; PR merged without revert.",
+      "evidence_gap": "narrative_only_no_measurements"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In services/telegram/pod-telegram/src/telegram.ts, added connection timeout (5 seconds), max reconnection attempts (3) with exponential backoff, improved error handling, event handler cleanup, and TTL management to prevent indefinite hanging.",
+      "files_primary": [
+        "services/telegram/pod-telegram/src/telegram.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Initial commit: implement connection timeout, reconnection limit, error handling, and TTL management.",
+        "Second commit: fix build by making clearTTL public.",
+        "Subsequent commits: formatting fixes using rush fast-format.",
+        "Final state: single approved review and merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "BykhovDenis",
+        "channel": "formal_review",
+        "signal": "approved_no_text",
+        "summary": "Approved review with no body text, indicating no blocking concerns.",
+        "blocking": false,
+        "action_taken": "Merged by BykhovDenis."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial connection handling improvements.",
+      "Devin bot fixed build error and ran formatting multiple times.",
+      "No inline review comments; maintainer approved after 5 days.",
+      "PR merged by BykhovDenis after ~117 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

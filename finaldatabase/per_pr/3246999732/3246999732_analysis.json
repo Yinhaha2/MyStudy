@@ -1,0 +1,199 @@
+{
+  "pr_id": 3246999732,
+  "meta": {
+    "title": "Add database caching for folder scan results to improve performance",
+    "html_url": "https://github.com/TC999/AppDataCleaner/pull/61",
+    "repo": "TC999/AppDataCleaner",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-21 02:41:03+00:00",
+    "merged_at": "2025-07-21 04:51:41+00:00",
+    "closed_at": "2025-07-21 04:51:41+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 30,
+    "topic_name": "30",
+    "body_summary": "Implement SQLite database caching for folder scan results in AppDataCleaner so subsequent scans load from cache, claiming ~10-100x speed improvement over full filesystem scans."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 6,
+      "additions": 558,
+      "deletions": 47,
+      "changes": 605,
+      "top1_file": "src/database.rs",
+      "top1_changes": 319,
+      "top1_change_ratio": 0.527,
+      "files_by_status": {
+        "added": 1,
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        ".",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "ready_for_review": 1,
+        "commented": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 2.178,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "database_caching",
+      "filesystem_scan_optimization",
+      "sqlite_cache"
+    ],
+    "optimization_layer": "application_data_caching",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_after_maintainer_fix",
+    "review_dimensions": [
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot added SQLite caching; maintainer fixed scan logic and merged with no review comments, claiming 10-100x speedup without benchmark evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 605,
+        "interpretation": "At 605 changed lines, this is a small-to-medium feature by absolute volume, adding a new database module and caching logic in a small Rust app. The quick merge after a maintainer fix aligns with a low-risk performance improvement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.178,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "correctness_logic",
+      "concern_detail": "Maintainer committed a fix titled '修正数据库读取、扫描逻辑' (fix database reading, scanning logic) after Copilot's implementation, indicating the initial logic needed correction.",
+      "performance_claim": "~10-100x faster loading from cache vs filesystem scan.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot successfully integrated a new SQLite database module and caching logic into the existing scanner; the need for a maintainer fix suggests the initial logic had minor flaws, but the change was otherwise within Copilot's technical reach.",
+      "success_factors": [
+        "small_scope",
+        "maintainer_fix",
+        "no_reviewer_blocking",
+        "clear_perf_claim"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer TC999 reviewed the code and committed a fix for database reading and scanning logic without leaving review comments."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body claims a 10-100x speedup but provides no benchmark numbers or before/after measurements; no profiler or CI performance test mentioned.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After Copilot's commits, maintainer added a commit '修正数据库读取、扫描逻辑' before merging, fixing issues in the same PR.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added src/database.rs with SQLite schema and CRUD operations for caching folder scan results; modified scanner.rs to check cache first and update only on changes; updated clear_tab.rs for status messages; added rusqlite to Cargo.toml and .gitignore.",
+      "files_primary": [
+        "src/database.rs",
+        "src/scanner.rs",
+        "src/tabs/clear_tab.rs"
+      ],
+      "files_secondary_observability": [
+        ".gitignore",
+        "Cargo.toml",
+        "src/main.rs"
+      ],
+      "secondary_note": "Minor changes: main.rs adds module import, Cargo.toml adds dependency, .gitignore ignores database file.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Added database module, updated scanner and UI with caching logic.",
+        "Completed implementation with user feedback (presumably from maintainer) adding more database and scanner logic.",
+        "Maintainer committed a fix for database reading and scanning logic before merging."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_skip_review",
+        "summary": "CodeRabbit bot skipped review due to bot user detection.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Copilot with initial implementation.",
+      "Copilot completed work and requested review.",
+      "Bot review skipped, no human review comments.",
+      "Maintainer committed direct fix and merged PR within ~2 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

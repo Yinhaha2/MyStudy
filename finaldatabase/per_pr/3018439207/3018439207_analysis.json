@@ -1,0 +1,200 @@
+{
+  "pr_id": 3018439207,
+  "meta": {
+    "title": "fix: parallelize Google Calendar API calls",
+    "html_url": "https://github.com/calcom/cal.com/pull/20962",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-24 21:00:24+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-26 00:57:55+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "29",
+    "body_summary": "Fix Google Calendar availability latency by running API calls concurrently with Promise.all instead of sequentially."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 24,
+      "deletions": 18,
+      "changes": 42,
+      "top1_file": "packages/app-store/googlecalendar/lib/CalendarService.ts",
+      "top1_changes": 42,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 1,
+        "review_requested": 2,
+        "commented": 3,
+        "labeled": 3,
+        "deployed": 2,
+        "reviewed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 27.96,
+      "first_review_delay_hours": 0.25,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "concurrent_api_calls",
+      "availability_fetch_performance",
+      "promise_all"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin parallelized Google Calendar API calls with Promise.all; only bot review, PR closed without human engagement after ~28h."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 42,
+        "interpretation": "At 42 changed lines in a single file, this is a very small edit by absolute volume. As a small incremental performance PR, it was closed without merge, likely due to lack of maintainer review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 27.96,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_no_engagement",
+      "concern_detail": "No human maintainer reviewed the PR; only bot comments and automated labels. PR was closed by emrysal without comment after ~28h.",
+      "performance_claim": "Parallelizing Google Calendar API calls with Promise.all to reduce availability fetch time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "sequential_blocking_api_calls (prior behavior)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed without human review; possible reasons include stale, lack of tests/benchmark, or not desired. Explicitly closed by emrysal."
+    },
+    "capability_boundary": {
+      "topic": "29",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Simple concurrency optimization within a single file; no technical barrier evident, but process failure due to lack of maintainer engagement and possibly missing evidence.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, test results, or before/after data; only type-check and lint success mentioned.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Closed without merge, no fix in PR.",
+      "evidence_gap": "narrative_only_no_engagement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In CalendarService.ts, Google Calendar API calls in getAvailability and fetchAvailabilityAndSetCache were refactored to use Promise.all for concurrent execution instead of sequential awaits.",
+      "files_primary": [
+        "packages/app-store/googlecalendar/lib/CalendarService.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only one file changed.",
+      "change_trajectory": [
+        "Single commit replaced sequential await loops with Promise.all for date ranges and event types."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_gateway",
+        "summary": "mrge reviewed 0 files and found no issues.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_label_reviewer",
+        "summary": "Graphite automation added community label and reviewer.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with a single commit.",
+      "Multiple bot comments (Devin intro, Vercel, Graphite, cubic review) but no human reviewer interaction.",
+      "Closed by emrysal without comment ~28 hours later."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

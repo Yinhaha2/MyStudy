@@ -1,0 +1,215 @@
+{
+  "pr_id": 3213281518,
+  "meta": {
+    "title": "Chunk task creation for record deletion",
+    "html_url": "https://github.com/getsentry/sentry/pull/95050",
+    "repo": "getsentry/sentry",
+    "agent": "Cursor",
+    "user": "JoshFerge",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-08 17:33:07+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-08 17:36:45+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 30,
+    "topic_name": "30",
+    "body_summary": "Chunk group hashes into batches of 1000 when dispatching delete tasks for Seer grouping records to improve scalability and task distribution."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 3,
+      "additions": 114,
+      "deletions": 1,
+      "changes": 115,
+      "top1_file": "chunking_changes.md",
+      "top1_changes": 65,
+      "top1_change_ratio": 0.565,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        "(root)",
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 2,
+        "review_requested": 1,
+        "labeled": 1,
+        "commented": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "reviewed": 1,
+        "deployed": 1,
+        "closed": 1,
+        "locked": 1
+      },
+      "lifespan_hours": 0.061,
+      "first_review_delay_hours": 0.033,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "task_chunking",
+      "batch_processing",
+      "celery_task_distribution",
+      "scalability"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "large_payload_single_task"
+    ],
+    "outcome_reason": "closed_by_author_for_fixes",
+    "review_dimensions": [
+      "tests",
+      "code_quality"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor chunked task creation but left generated .md file and test used real GroupHash objects; author commented to remove .md and mock, then closed PR without merge; CI later showed test StringDataRightTruncation error."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 115,
+        "interpretation": "At 115 changed lines across 3 files, this is a small edit by absolute volume. It fits a small-step performance refactor, but the PR was closed by the author before merging, likely due to needed improvements (remove .md file, adjust test)."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.061,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "tests_missing_or_requested",
+      "primary_concern": "test_quality_and_cleanup",
+      "concern_detail": "JoshFerge requested removal of chunking_changes.md and asked to use fake IDs and mock necessary objects in tests instead of creating real GroupHash instances.",
+      "performance_claim": "Chunking task creation improves memory efficiency, task distribution, and scalability for large-scale deletions.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "large_payload_single_task",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests",
+        "code_quality"
+      ],
+      "rejection_signals": "Author requested changes (remove .md, mock tests) and closed PR shortly after without merge; CI later reported test failure (StringDataRightTruncation)."
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent created a test that produced a hash value exceeding the column length constraint (character varying(32)), indicating lack of awareness of data model constraints; also generated an unnecessary .md file, suggesting need for clearer task conventions.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "JoshFerge manually reviewed the code, noticed presence of chunking_changes.md and test using real GroupHash objects, and requested changes."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance evidence provided; only a test that itself failed.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Author closed the PR after commenting but before the CI failure was reported; the failure indicates a regression (test would not pass), but the PR didn't address it.",
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/sentry/tasks/delete_seer_grouping_records.py, call_delete_seer_grouping_records_by_hash was modified to chunk group_hashes into batches of 1000 before dispatching delete_seer_grouping_records_by_hash tasks; added a test in tests/sentry/tasks/test_delete_seer_grouping_records.py; also added a chunking_changes.md file summarizing the change.",
+      "files_primary": [
+        "src/sentry/tasks/delete_seer_grouping_records.py"
+      ],
+      "files_secondary_observability": [
+        "chunking_changes.md",
+        "tests/sentry/tasks/test_delete_seer_grouping_records.py"
+      ],
+      "secondary_note": "chunking_changes.md is a generated summary file not intended for production code; test file added but incorrectly uses real GroupHash creation leading to CI failure.",
+      "change_trajectory": [
+        "Initial commit by cursoragent: added chunking_changes.md, modified task to chunk hashes, added test.",
+        "Pre-commit fix by getsantry bot modified chunking_changes.md formatting.",
+        "Author JoshFerge commented to remove .md and use mocks in test; no further commits.",
+        "PR closed by author shortly after; post-closure CI revealed test failure due to hash length violation."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "JoshFerge",
+        "channel": "pr_comment",
+        "signal": "request_code_cleanup",
+        "summary": "Requested removal of chunking_changes.md and test rewrite to use fake IDs and mocks instead of real GroupHash objects.",
+        "blocking": true,
+        "action_taken": "PR closed without fix; no subsequent changes."
+      },
+      {
+        "source": "armenzg",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved with comment 'Exactly this 🎉' but no review comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_test_failure",
+        "summary": "Reported test test_call_delete_seer_grouping_records_by_hash_chunked failed with StringDataRightTruncation error because hash value exceeded column length.",
+        "blocking": true,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent committed chunking changes and generated .md file; PR opened.",
+      "Pre-commit bot adjusted formatting of .md file.",
+      "Author commented requesting removal of .md and test improvements.",
+      "Armenzg approved the PR after the comment (no blocking).",
+      "Author closed the PR within ~3.6 minutes of creation without addressing comments or merging."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

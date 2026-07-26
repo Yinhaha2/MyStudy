@@ -1,0 +1,166 @@
+{
+  "pr_id": 3238796960,
+  "meta": {
+    "title": "Improve Racket backend runtime helper selection",
+    "html_url": "https://github.com/mochilang/mochi/pull/9291",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-17 09:15:15+00:00",
+    "merged_at": "2025-07-17 09:16:00+00:00",
+    "closed_at": "2025-07-17 09:16:00+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 18,
+    "topic_name": "18",
+    "body_summary": "Split Racket runtime helpers into individual constants, track used helpers during compilation, and emit only those, reducing runtime overhead."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 91,
+      "deletions": 29,
+      "changes": 120,
+      "top1_file": "compiler/x/racket/compiler.go",
+      "top1_changes": 72,
+      "top1_change_ratio": 0.6,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "compiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0125,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "runtime_code_size_reduction",
+      "conditional_helper_emission",
+      "compile_time_optimization"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Author merged self-authored Codex PR with no review; small change to Racket backend to emit only needed runtime helpers based on usage tracking."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 120,
+        "interpretation": "At 120 changed lines in 2 files, this is a small change by absolute volume. It fits a compact compiler optimization PR and was merged rapidly without review, consistent with low-risk self-merge pattern."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0125,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comment text available in dataset.",
+      "performance_claim": "Splitting runtime helpers and tracking used helpers reduces code emitted for the Racket backend, implying runtime and size improvements.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unconditional_runtime_helper_emission (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small-scoped compiler backend change with no reviewer gate; Codex succeeded due to maintainer familiarity and direct merge, illustrating a process boundary where no evidence was required.",
+      "success_factors": [
+        "small_scope",
+        "maintainer_self_merge",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after measurement; only descriptive claim in PR body.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression occurred; PR merged without review.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/racket, split runtime helper code into individual constants (runtime.go) and track which helpers are actually used during compilation (compiler.go), emitting only the needed helpers instead of all.",
+      "files_primary": [
+        "compiler/x/racket/compiler.go",
+        "compiler/x/racket/runtime.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Single commit (299e5312) adds runtime helper tracking logic and splits helpers into separate constants."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with self-labeled 'codex'; merged by same author within ~45 seconds with no reviews or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

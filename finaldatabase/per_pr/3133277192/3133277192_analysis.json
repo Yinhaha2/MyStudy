@@ -1,0 +1,182 @@
+{
+  "pr_id": 3133277192,
+  "meta": {
+    "title": "feat: add ParadeDB full-text search support for enhanced task search performance",
+    "html_url": "https://github.com/go-vikunja/vikunja/pull/908",
+    "repo": "go-vikunja/vikunja",
+    "agent": "OpenAI_Codex",
+    "user": "kolaente",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-10 11:47:08+00:00",
+    "merged_at": "2025-07-18 21:18:04+00:00",
+    "closed_at": "2025-07-18 21:18:04+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 2,
+    "topic_name": "2_hydration_species_component_children",
+    "body_summary": "Add ParadeDB full‑text search support to PostgreSQL, providing 14ms search vs. 18ms (Typesense) and 206ms (plain ILIKE); fallback to ILIKE when unavailable."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 14,
+      "additions": 338,
+      "deletions": 87,
+      "changes": 425,
+      "top1_file": "pkg/db/helpers.go",
+      "top1_changes": 122,
+      "top1_change_ratio": 0.287,
+      "files_by_status": {
+        "added": 1,
+        "modified": 13,
+        "removed": 0
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "pkg"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "labeled": 1,
+        "assigned": 1,
+        "renamed": 2,
+        "head_ref_force_pushed": 18,
+        "committed": 8
+      },
+      "lifespan_hours": 918.52,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "full_text_search",
+      "paradedb_integration",
+      "database_extension"
+    ],
+    "optimization_layer": "database_extension",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_without_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex authored PR adding ParadeDB FTS; merged without review after iterative force‑pushes and commits; narrative benchmark claim of 14ms vs 18ms vs 206ms."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 425,
+        "interpretation": "At 425 changed lines, this is a medium‑sized feature addition. The PR was merged after a long development period with multiple force‑pushes and no peer review, suggesting a maintainer‑original merge without external review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 918.52,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or comments were recorded in the dataset.",
+      "performance_claim": "ParadeDB search 14ms vs 18ms Typesense vs 206ms plain Postgres ILIKE.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "slow_iliike_full_table_scan",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2_hydration_species_component_children",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Integrating ParadeDB FTS extension requires domain knowledge of PostgreSQL extensions and query optimization; Codex delivered working integration that was merged without external review, possibly due to the maintainer (also PR author) trusting the change.",
+      "success_factors": [
+        "maintainer_self_merge",
+        "iterative_development_with_force_pushes",
+        "numeric_perf_claim_in_body"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes a numeric performance comparison (14ms vs 18ms vs 206ms) but no reproduction steps or benchmark artifacts; the claim is not independently verifiable from the PR materials.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No reviews were conducted, so no regression feedback loop occurred.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Integrated ParadeDB full‑text search via PostgreSQL extension for task and project search, with fallback to ILIKE when extension not available. Added helpers to build ParadeDB search queries, tests, and CI configuration.",
+      "files_primary": [
+        "pkg/db/helpers.go",
+        "pkg/db/db.go",
+        "pkg/models/task_collection_test.go",
+        "pkg/models/project.go"
+      ],
+      "files_secondary_observability": [
+        "pkg/db/helpers_test.go",
+        ".github/workflows/test.yml",
+        "pkg/models/task_search_bench_test.go",
+        "pkg/webtests/task_collection_test.go"
+      ],
+      "secondary_note": "Benchmark adjustment, test fixtures refinements, and CI workflow for ParadeDB tests are supportive.",
+      "change_trajectory": [
+        "Initial benchmark adjustment to isolate task fetching.",
+        "Core ParadeDB integration for task search in db.go, helpers, and tests.",
+        "Refactoring and cleanup of link share search and unused helpers.",
+        "Simplification of MultiFieldSearch helper.",
+        "Extension of ParadeDB support to project search.",
+        "Added CI tests for ParadeDB and refined test assertions."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with initial benchmark adjustment; multiple force‑pushes and commits over 38 days as features and fixes iterated.",
+      "No formal reviews or comments received; merged directly by the PR author."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

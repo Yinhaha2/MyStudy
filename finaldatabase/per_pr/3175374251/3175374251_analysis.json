@@ -1,0 +1,176 @@
+{
+  "pr_id": 3175374251,
+  "meta": {
+    "title": "Implement predicate pushdown in Go compiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/3169",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-25 11:57:22+00:00",
+    "merged_at": "2025-06-25 13:06:10+00:00",
+    "closed_at": "2025-06-25 13:06:10+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Add predicate pushdown optimization for Go compiler query loops by collecting identifier usage and computing earliest filter step; includes golden test for join filtering."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 214,
+      "deletions": 1,
+      "changes": 215,
+      "top1_file": "compile/go/helpers.go",
+      "top1_changes": 102,
+      "top1_change_ratio": 0.474,
+      "files_by_status": {
+        "added": 3,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.146,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "predicate_pushdown",
+      "filter_optimization",
+      "join_optimization"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "No review comments or performance benchmarks; golden tests validate correctness only."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 215,
+        "interpretation": "At 215 changed lines, this is a small-to-medium edit by absolute volume. It fits a moderate incremental performance PR that merged without review in ~1.15 hours, suggesting a low-barrier, trust-based merge process."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.146,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Push down where filters to reduce loop iterations and improve query performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent implemented a non-trivial compiler optimization (predicate pushdown) with golden tests. Merged by the same user without any peer review, suggesting either high maintainer trust or a permissive collaboration process.",
+      "success_factors": [
+        "single_commit",
+        "golden_test_included",
+        "maintainer_as_author_merged_self"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No code review recorded; the author (tamnd) merged the PR themselves, possibly after personal verification.",
+        "ci_auto": "No CI automation was mentioned in the timeline; test commands are part of PR body but no CI run evidence."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Golden test files (join_filter.*) validate correct output after optimization, but no before/after timing data to measure performance impact.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; PR merged cleanly.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/go/compiler.go and compile/go/helpers.go, added predicate pushdown logic to identify earliest step for filter application in query loops. New golden test files (join_filter.*) validate optimized join filtering output.",
+      "files_primary": [
+        "compile/go/compiler.go",
+        "compile/go/helpers.go"
+      ],
+      "files_secondary_observability": [
+        "tests/compiler/go/join_filter.go.out",
+        "tests/compiler/go/join_filter.mochi",
+        "tests/compiler/go/join_filter.out"
+      ],
+      "secondary_note": "Test files verify the optimizer output; .mochi is the input query, .out and .go.out are expected outputs.",
+      "change_trajectory": [
+        "Single commit adding predicate pushdown logic and corresponding golden test cases."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created by tamnd (labeled 'codex') with a single commit implementing optimization.",
+      "No review comments; merged by the same user ~1.15 hours later without external feedback."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

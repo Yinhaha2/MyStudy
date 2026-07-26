@@ -1,0 +1,238 @@
+{
+  "pr_id": 3070150168,
+  "meta": {
+    "title": "perf: optimize getSlots performance by selectively merging overlapping date ranges",
+    "html_url": "https://github.com/calcom/cal.com/pull/21370",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-17 01:31:05+00:00",
+    "merged_at": "2025-05-17 03:44:56+00:00",
+    "closed_at": "2025-05-17 03:44:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 46,
+    "topic_name": "46",
+    "body_summary": "Optimize getSlots performance by filtering out date ranges that are fully contained within other ranges, reducing ~6s processing with no behavioral change."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 5,
+      "additions": 181,
+      "deletions": 34,
+      "changes": 215,
+      "top1_file": "packages/lib/slots.ts",
+      "top1_changes": 61,
+      "top1_change_ratio": 0.284,
+      "files_by_status": {
+        "added": 2,
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 25,
+      "event_counts": {
+        "committed": 5,
+        "review_requested": 2,
+        "commented": 4,
+        "labeled": 3,
+        "deployed": 2,
+        "auto_squash_enabled": 1,
+        "assigned": 1,
+        "milestoned": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 2
+      },
+      "lifespan_hours": 2.231,
+      "first_review_delay_hours": 1.736,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "date_range_filtering",
+      "redundant_range_pruning",
+      "getslots_optimization"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin filtered redundant date ranges to cut getSlots processing from ~6s; maintainer approved without benchmark, citing effectiveness for date overrides."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 215,
+        "interpretation": "At 215 changed lines across 5 files, this is a small‑to‑medium edit by absolute volume, mainly adding a new filtering utility and adjusting the main availability file. It fits a targeted performance PR that merged quickly with maintainer approval."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.231,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_effectiveness",
+      "concern_detail": "Maintainer emrysal approved without changes, commenting that the optimization is 'very effective' for cases like date overrides overlapping with longer availabilities.",
+      "performance_claim": "Reduce getSlots processing from ~6s by pruning date ranges fully contained within others.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "46",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Application‑level date‑range optimization with clear logic; Devin succeeded without external benchmarks by providing unit tests and handling edge cases like overnight ranges.",
+      "success_factors": [
+        "small_isolated_change",
+        "comprehensive_testing",
+        "maintainer_trust_in_optimization",
+        "fast_review_turnaround"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer emrysal reviewed the approach and acknowledged its effectiveness for date override scenarios, approving without performance benchmarks."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Body mentions ~6s slowness but provides no profiler or benchmark; however the filter logic is unit‑tested and the merge included e2e CI runs.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR merged cleanly; no sign of regression or revert in timeline.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added filterRedundantDateRanges utility to prune date ranges fully contained within other ranges before passing to getSlots, with special handling for overnight ranges (end < start). The filtering is applied to all scheduling types, and uniqueness is preserved before filtering.",
+      "files_primary": [
+        "packages/lib/getAggregatedAvailability.ts",
+        "packages/lib/getAggregatedAvailability/date-range-utils/filterRedundantDateRanges.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/lib/getAggregatedAvailability/date-range-utils/filterRedundantDateRanges.test.ts",
+        "packages/lib/slots.test.ts",
+        "packages/lib/slots.ts"
+      ],
+      "secondary_note": "The merge from main brought in changes to slots.ts and slots.test.ts (49 and 61 lines) which are not part of the performance optimization.",
+      "change_trajectory": [
+        "Initial commit: added filterRedundantDateRanges logic and applied it to getSlots.",
+        "Fix: handle overnight date ranges where end time is before start time.",
+        "Apply filtering to all scheduling types, not just round‑robin.",
+        "Preserve uniqueness before filtering redundant ranges.",
+        "Merge from main, bringing unrelated changes to slots.ts and test files."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "emrysal",
+        "channel": "formal_review",
+        "signal": "approved_effectiveness",
+        "summary": "Approved with comment that the optimization is very effective for date overrides, no changes requested.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduced itself and offered to address comments and CI failures.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview information (Ignored deployment).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_reviewer_label",
+        "summary": "Graphite automation added a reviewer and the 'community' label.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results_link",
+        "summary": "E2E test results ready; no failure details provided.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin with optimization and unit tests.",
+      "Maintainer emrysal reviewed and approved within ~1.7 hours.",
+      "Automated checks (labels, E2E) passed; PR merged after ~2.2 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "pr_id": 3218343296,
+  "meta": {
+    "title": "Improve TypeScript printer",
+    "html_url": "https://github.com/mochilang/mochi/pull/7207",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-10 08:09:09+00:00",
+    "merged_at": "2025-07-10 08:09:28+00:00",
+    "closed_at": "2025-07-10 08:09:28+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 39,
+    "topic_name": "39",
+    "body_summary": "Improve TypeScript backend print calls to format each argument separately, simplify _fmt array formatting, and regenerate machine test outputs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 115,
+      "additions": 1322,
+      "deletions": 520,
+      "changes": 1842,
+      "top1_file": "tests/machine/x/ts/inner_join.ts",
+      "top1_changes": 83,
+      "top1_change_ratio": 0.0451,
+      "files_by_status": {
+        "modified": 115
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00528,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "compiler_backend_optimization",
+      "code_generation_efficiency",
+      "print_format_refactor"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_self_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Self-merged compiler refactor with regenerated test outputs; no review, no benchmark, only narrative perf claim."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1842,
+        "interpretation": "At 1842 changed lines, this is a medium-sized absolute edit, but 99% are auto-regenerated TypeScript test outputs. The actual compiler change totals only 8 lines (compiler.go + runtime.go). The PR was self-merged instantly with no review, consistent with a low-risk internal formatting change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00528,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": "No review or comment text in dataset.",
+      "performance_claim": "Improve the performance of generated TypeScript code by formatting print arguments separately instead of concatenating.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "39",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler backend formatting change generates better code; no human review needed, merged instantly by the PR author.",
+      "success_factors": [
+        "narrow_actual_change",
+        "test_regeneration_pipeline",
+        "author_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "A `go test` command is provided to regenerate machine outputs, but no before/after timing or benchmark numbers exist.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactored print formatting in compiler/x/ts/compiler.go to output each argument separately; updated runtime.go for consistency; regenerated all TypeScript machine test expectations under tests/machine/x/ts/.",
+      "files_primary": [
+        "compiler/x/ts/compiler.go",
+        "compiler/x/ts/runtime.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/ts/inner_join.ts",
+        "tests/machine/x/ts/outer_join.ts",
+        "tests/machine/x/ts/group_by.ts",
+        "tests/machine/x/ts/right_join.ts",
+        "tests/machine/x/ts/group_by_multi_join_sort.ts",
+        "tests/machine/x/ts/left_join.ts",
+        "tests/machine/x/ts/join_multi.ts",
+        "tests/machine/x/ts/left_join_multi.ts",
+        "tests/machine/x/ts/cross_join.ts",
+        "tests/machine/x/ts/group_by_join.ts"
+      ],
+      "secondary_note": "Remaining 1836 changed lines are auto-generated .ts and .out files under tests/machine/x/ts (115 files total).",
+      "change_trajectory": [
+        "Single commit 35f494891b7: ts compiler: improve print formatting."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with a single commit, labeled 'codex', and self-merged within 19 seconds with no review comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

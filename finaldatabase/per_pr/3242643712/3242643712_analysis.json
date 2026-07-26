@@ -1,0 +1,227 @@
+{
+  "pr_id": 3242643712,
+  "meta": {
+    "title": "Parallel test jobs",
+    "html_url": "https://github.com/RevenueCat/purchases-android/pull/2549",
+    "repo": "RevenueCat/purchases-android",
+    "agent": "OpenAI_Codex",
+    "user": "vegaro",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-18 09:53:05+00:00",
+    "merged_at": "2025-07-24 07:01:34+00:00",
+    "closed_at": "2025-07-24 07:01:34+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "build",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Parallelize CircleCI test jobs per flavor, remove android-dependencies, and prebuild to reduce build-test-deploy pipeline time from 37 minutes to 17 minutes."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 30,
+      "file_count": 2,
+      "additions": 764,
+      "deletions": 631,
+      "changes": 1395,
+      "top1_file": "scripts/run-tests-split.sh",
+      "top1_changes": 960,
+      "top1_change_ratio": 0.688,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        ".circleci",
+        "scripts"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "APPROVED": 1,
+        "COMMENTED": 2
+      },
+      "review_comment_count": 4,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 25,
+        "labeled": 2,
+        "convert_to_draft": 1,
+        "unlabeled": 1,
+        "commented": 1
+      },
+      "lifespan_hours": 141.14,
+      "first_review_delay_hours": 141.0,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_parallelism",
+      "test_splitting",
+      "gradle_cache_optimization"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative",
+      "ci_pipeline_measurement"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_approved",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "ci_validation",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto",
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex parallelized CI tests; reduced pipeline time from 37m to 17m with linked CircleCI evidence; approved with post-merge suggestions on code duplication and workspace persistence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1395,
+        "interpretation": "At 1395 changed lines across 2 files, this is a medium-sized CI refactor by absolute volume. The change size is consistent with a substantial build pipeline optimization that successfully merged after iterative testing and maintainer approval."
+      },
+      "lifecycle": {
+        "lifespan_hours": 141.14,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "code_duplication_in_ci_jobs",
+      "concern_detail": "JayShortway noted that the test job definitions are duplicated and suggested extracting a command with a gradleTask parameter; also suggested using incremental workspace save for better performance. Tonidero pointed out Kover coverage is limited to one flavor but accepted it.",
+      "performance_claim": "Parallelizing tests across flavors and prebuilding reduces build-test-deploy pipeline time from 37 min to 17 min.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "sequential_testing_in_ci (prior sequential test execution)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "ci_optimization"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "CI pipeline configuration and Gradle test splitting require deep understanding of the build system, environment variables, and caching strategies. Agent successfully delivered a working optimization with iterative fixes.",
+      "success_factors": [
+        "linked_ci_evidence",
+        "iterative_author_commits",
+        "non-blocking_review_suggestions"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto",
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Reviewers examined the CircleCI config for duplication and workspace persistence efficiency.",
+        "ci_auto": "The pipeline runtime was observed via CircleCI, confirming the reduction from 37min to 17min."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body provides links to specific CircleCI pipeline runs with before/after times; the configuration change can be tested by rerunning CI, but no local benchmark script.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression occurred; the PR improved CI performance.",
+      "evidence_gap": "ci_timing_only_no_perf_framework"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactor CircleCI config to run tests in parallel per flavor (defaults debug/release, custom entitlement computation debug/release) using separate jobs, remove android-dependencies, and prebuild testClasses. Also introduced a shell script to split test tasks for parallel execution, later replaced with explicit Gradle tasks.",
+      "files_primary": [
+        ".circleci/config.yml"
+      ],
+      "files_secondary_observability": [
+        "scripts/run-tests-split.sh"
+      ],
+      "secondary_note": "The split script was iteratively developed and eventually removed in favor of direct Gradle task invocations.",
+      "change_trajectory": [
+        "Initial commit split tests via script.",
+        "Subsequent commits fixed test discovery, added module handling, improved filtering.",
+        "Later commits moved from script to hardcoded Gradle tasks, added prebuild step, and adjusted caching.",
+        "Final commits fixed installation steps and artifact storage.",
+        "PR merged after approval despite non-blocking suggestions."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "tonidero",
+        "channel": "formal_review",
+        "signal": "approved_with_note",
+        "summary": "Approved with note about Kover coverage limited to one flavor; okay for now.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vegaro",
+        "channel": "inline_review_comment",
+        "signal": "acknowledgement",
+        "summary": "Acknowledged Kover limitation, leaving as is.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "JayShortway",
+        "channel": "inline_review_comment",
+        "signal": "suggestion_workspace_optimization",
+        "summary": "Suggested using incremental workspace save to speed up workspace persist.",
+        "blocking": false,
+        "action_taken": "Post-merge suggestion, not acted upon."
+      },
+      {
+        "source": "JayShortway",
+        "channel": "inline_review_comment",
+        "signal": "suggestion_extract_command",
+        "summary": "Suggested extracting duplicated test job definitions into a parameterized command.",
+        "blocking": false,
+        "action_taken": "Post-merge suggestion, not acted upon."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created as draft, then made ready. Author iteratively refined CI config and test splitting across 25 commits over 5 days.",
+      "Maintainer tonidero reviewed and approved with one note about Kover coverage.",
+      "After merge, another maintainer JayShortway provided non-blocking suggestions on workspace and code duplication."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

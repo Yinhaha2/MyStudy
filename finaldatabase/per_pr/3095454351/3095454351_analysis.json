@@ -1,0 +1,236 @@
+{
+  "pr_id": 3095454351,
+  "meta": {
+    "title": "perf: migrate listHandler to AttributeRepository + cache attributes fetching in RSCs",
+    "html_url": "https://github.com/calcom/cal.com/pull/21552",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-27 23:02:20+00:00",
+    "merged_at": "2025-05-29 19:01:45+00:00",
+    "closed_at": "2025-05-29 19:01:45+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 49,
+    "topic_name": "49",
+    "body_summary": "Devin migrated the attributes list database query from a tRPC handler into AttributeRepository; the maintainer then added RSC caching with revalidation to reduce repeated fetches and improve rendering performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 28,
+      "additions": 443,
+      "deletions": 346,
+      "changes": 789,
+      "top1_file": "packages/features/ee/workflows/lib/reminders/smsReminderManager.ts",
+      "top1_changes": 284,
+      "top1_change_ratio": 0.36,
+      "files_by_status": {
+        "added": 3,
+        "modified": 33,
+        "removed": 1
+      },
+      "directory_count": 3,
+      "directories": [
+        "apps",
+        "packages",
+        ".yarn"
+      ]
+    },
+    "collaboration": {
+      "review_count": 4,
+      "review_states": {
+        "APPROVED": 2,
+        "DISMISSED": 1,
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 8,
+        "commented": 3,
+        "review_requested": 2,
+        "review_request_removed": 1,
+        "assigned": 1,
+        "deployed": 6,
+        "renamed": 1,
+        "ready_for_review": 1,
+        "auto_squash_enabled": 1,
+        "labeled": 3,
+        "reviewed": 2,
+        "review_dismissed": 1
+      },
+      "lifespan_hours": 43.99,
+      "first_review_delay_hours": 22.37,
+      "review_rounds": 4,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_attributes_fetching",
+      "repository_migration",
+      "reduce_rsc_data_refetches"
+    ],
+    "optimization_layer": "application_data_access",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_maintainer_enhancements",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin migrated listHandler to AttributeRepository; maintainer added RSC caching with revalidation; merged after human commits enhanced performance aspect."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 789,
+        "interpretation": "At 789 changed lines (though many from a merge bringing unrelated files), this is a medium-sized edit by absolute volume. The PR merged after maintainer added caching and revalidation, aligning with a performance-oriented change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 43.99,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "missing_caching",
+      "concern_detail": "Initial Devin migration lacked caching; maintainer hbjORbj dismissed the initial approval, added caching logic (React.cache) in RSC pages, and revalidation on changes.",
+      "performance_claim": "Migrate listHandler to repository and cache attributes fetching to improve RSC data loading speed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_unnecessary_database_calls (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "tests"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "49",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin performed a direct code migration but missed the opportunity to cache the attributes list; the maintainer identified and added RSC-specific caching after review, indicating agent gap in performance-optimizing RSC data patterns.",
+      "success_factors": [
+        "maintainer_caching_enhancement",
+        "review_refinement"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "hbjORbj reviewed the initial repository migration and identified that the attributes list could be cached to avoid repeated fetches in RSC pages."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling; only manual testing and type-checking.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Maintainer directly added caching commits, including revalidation logic, before final approval.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Devin moved the database query from list.handler.ts to a new findAllByOrgIdWithOptions static method in AttributeRepository, removing direct prisma import. Subsequently, maintainer added caching of attributes list in RSC pages (organizations/members) with React cache and revalidation logic, and refactored page structure (consolidated [id]/members page).",
+      "files_primary": [
+        "packages/lib/server/repository/attribute.ts",
+        "packages/trpc/server/routers/viewer/attributes/list.handler.ts",
+        "apps/web/app/(use-page-wrapper)/settings/organizations/members/page.tsx",
+        "apps/web/app/(use-page-wrapper)/settings/organizations/[id]/members/page.tsx"
+      ],
+      "files_secondary_observability": [
+        "apps/web/app/(use-page-wrapper)/settings/organizations/members/actions.ts",
+        "apps/web/app/(use-page-wrapper)/settings/organizations/[id]/members/actions.ts",
+        "packages/features/ee/organizations/pages/settings/attributes/DeleteAttributeModal.tsx",
+        "packages/features/ee/organizations/pages/settings/attributes/attributes-edit-view.tsx"
+      ],
+      "secondary_note": "Many additional files were changed via a merge from main, including unrelated workflow reminders and calendar service updates, not part of this PR's performance goal.",
+      "change_trajectory": [
+        "Initial Devin commit: migrate listHandler to AttributeRepository.",
+        "Maintainer added caching with React.cache in RSC pages.",
+        "Multiple fix commits: refactors, revalidations, remove redundant code.",
+        "Merge from main brought unrelated changes.",
+        "Final approval and merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "hbjORbj",
+        "channel": "formal_review",
+        "signal": "approved_then_dismissed",
+        "summary": "Initially approved without body, then dismissed while adding caching fixes.",
+        "blocking": false,
+        "action_taken": "Dismissed approval and made commits to add caching."
+      },
+      {
+        "source": "hbjORbj",
+        "channel": "inline_review_comment",
+        "signal": "design_simplification",
+        "summary": "Noted that the new page export is same page with different layouts, simplifying code.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "hbjORbj",
+        "channel": "formal_review",
+        "signal": "approved_after_manual_test",
+        "summary": "Tested locally and approved for merge with intention to test further in QA.",
+        "blocking": false,
+        "action_taken": "Merged."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automated comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin with repository migration; maintainer hbjORbj assigned and reviewed.",
+      "Maintainer dismissed approval and made multiple commits to add caching, revalidation, and refactor pages.",
+      "After CI e2e results posted and manual testing, maintainer approved and merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

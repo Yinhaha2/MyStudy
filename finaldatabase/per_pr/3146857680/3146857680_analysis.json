@@ -1,0 +1,165 @@
+{
+  "pr_id": 3146857680,
+  "meta": {
+    "title": "Switch DeepEquals stack to ArrayDeque",
+    "html_url": "https://github.com/jdereg/java-util/pull/143",
+    "repo": "jdereg/java-util",
+    "agent": "OpenAI_Codex",
+    "user": "jdereg",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-14 22:48:02+00:00",
+    "merged_at": "2025-06-14 22:48:25+00:00",
+    "closed_at": "2025-06-14 22:48:25+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 4,
+    "topic_name": "4",
+    "body_summary": "Switch the stack in deepEquals and deepHashCode from LinkedList to ArrayDeque for better performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 13,
+      "deletions": 6,
+      "changes": 19,
+      "top1_file": "src/main/java/com/cedarsoftware/util/DeepEquals.java",
+      "top1_changes": 19,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.0064,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "stack_data_structure",
+      "deque_optimization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "suboptimal_data_structure"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Tiny single-commit ArrayDeque swap; self-merged instantly with no review, suggesting maintainer trust in low-risk micro-optimization."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 19,
+        "interpretation": "At just 19 changed lines in one file, this is an extremely small edit by absolute volume. It fits a micro-optimization performance PR and is consistent with the instantaneous self-merge without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0064,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "",
+      "performance_claim": "Switching the stack from LinkedList to ArrayDeque improves performance of deepEquals and deepHashCode due to better memory locality and lower allocation overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "suboptimal_data_structure",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Java collections micro-optimization: replacing a LinkedList-based stack with ArrayDeque is a well-known pattern that requires no benchmarking for low-risk projects when the maintainer trusts the agent's suggestion.",
+      "success_factors": [
+        "minimal_change_scope",
+        "maintainer_self_merge",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer likely self-reviewed the one-line data structure change and merged immediately."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance numbers or benchmarks provided; maintainer merged without requesting evidence.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In DeepEquals.java, replaced the LinkedList stack with an ArrayDeque and added a helper method to insert collections into the stack.",
+      "files_primary": [
+        "src/main/java/com/cedarsoftware/util/DeepEquals.java"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "No secondary files.",
+      "change_trajectory": [
+        "Single commit swapped the stack data structure from LinkedList to ArrayDeque."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and self-merged by jdereg within seconds with no external review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

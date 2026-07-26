@@ -1,0 +1,201 @@
+{
+  "pr_id": 3124475993,
+  "meta": {
+    "title": "Improve linear layer with matrix multiply and crate `kornia-nn`",
+    "html_url": "https://github.com/kornia/kornia-rs/pull/386",
+    "repo": "kornia/kornia-rs",
+    "agent": "OpenAI_Codex",
+    "user": "edgarriba",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-06 11:15:10+00:00",
+    "merged_at": "2025-06-08 11:04:49+00:00",
+    "closed_at": "2025-06-08 11:04:49+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "26",
+    "body_summary": "Add new kornia-nn crate with linear layer using matrixmultiply::sgemm, migrate SIMD linear layer and benchmarks, remove old dnn module from kornia-tensor-ops."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 11,
+      "additions": 563,
+      "deletions": 417,
+      "changes": 980,
+      "top1_file": "crates/kornia-tensor-ops/src/dnn.rs",
+      "top1_changes": 415,
+      "top1_change_ratio": 0.423,
+      "files_by_status": {
+        "added": 5,
+        "modified": 4,
+        "removed": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        ".cargo",
+        "crates"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 17,
+      "event_counts": {
+        "committed": 6,
+        "labeled": 1,
+        "renamed": 1,
+        "review_requested": 4,
+        "commented": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 47.827,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "linear_layer_gemm",
+      "simd_optimization",
+      "crate_modularization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "benchmark",
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_uncontested_refactor_with_benchmarks",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI Codex added kornia-nn crate with linear layer using matrixmultiply::sgemm, migrated SIMD linear layer and benchmarks; merged by maintainer without review after benchmark infrastructure added."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 980,
+        "interpretation": "At 980 changed lines across 11 files, this is a medium-to-large refactor by absolute volume. It fits a significant modularization and performance improvement PR that was merged by the maintainer without review, likely due to the self-contained nature and addition of benchmarks."
+      },
+      "lifecycle": {
+        "lifespan_hours": 47.827,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Improve linear layer performance using matrixmultiply::sgemm and refactor into dedicated kornia-nn crate.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "26",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Implementing a Rust neural network crate with GEMM and SIMD optimization is within agent capability; merge without review suggests the change was self-contained and did not require external approval.",
+      "success_factors": [
+        "added_benchmarks",
+        "self_contained_refactor",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": "SonarQube bot reported quality gate passed but no performance detection."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Benchmark code added but no results presented in PR; quality gate passed via SonarQube but no performance timing. Codex likely produced the change based on internal knowledge of matrix multiply performance.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "benchmark_added_but_no_results_in_pr"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Create new kornia-nn crate with linear.rs containing GEMM-based linear layer using matrixmultiply::sgemm, migrate and rename SIMD linear layer from kornia-tensor-ops, remove old dnn module, add benchmarks, and update workspace dependencies.",
+      "files_primary": [
+        "crates/kornia-nn/src/linear.rs",
+        "crates/kornia-tensor-ops/src/dnn.rs",
+        "crates/kornia-nn/benches/bench_linear.rs"
+      ],
+      "files_secondary_observability": [
+        "crates/kornia-tensor-ops/Cargo.toml",
+        "crates/kornia-lie/src/se3.rs",
+        "crates/kornia-tensor-ops/src/lib.rs",
+        "Cargo.toml",
+        ".cargo/config.toml",
+        "crates/kornia-nn/Cargo.toml",
+        "crates/kornia-nn/src/lib.rs"
+      ],
+      "secondary_note": "The refactor moved dnn module to separate crate and cleaned up dependencies; .cargo/config.toml added fp16 target feature.",
+      "change_trajectory": [
+        "Initial commit: added matrixmultiply-based linear layer inside kornia-tensor-ops.",
+        "Second commit: implemented using GEMM (sgemm), added bench.",
+        "Third commit: created separate kornia-nn crate, moved linear.rs and benchmarks there, removed old dnn.rs.",
+        "Fourth commit: added crate to workspace deps.",
+        "Fifth commit: added .cargo/config.toml for fp16 target feature.",
+        "Sixth commit: fix compile flag."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "sonarqubecloud[bot]",
+        "channel": "pr_comment",
+        "signal": "quality_gate_passed",
+        "summary": "SonarQube reported quality gate passed with 0 new issues.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "OpenAI Codex commits progressively, adding linear layer, then GEMM, then extracting crate, then adding benchmarks and fp16 flag.",
+      "Maintainer edgarriba merged after two days with no human review; only bot comment reporting quality gate pass."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

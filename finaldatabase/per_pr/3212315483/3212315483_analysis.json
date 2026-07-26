@@ -1,0 +1,248 @@
+{
+  "pr_id": 3212315483,
+  "meta": {
+    "title": "Add speed index to models",
+    "html_url": "https://github.com/WorkflowAI/WorkflowAI/pull/672",
+    "repo": "WorkflowAI/WorkflowAI",
+    "agent": "Cursor",
+    "user": "yannbu",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-08 12:16:04+00:00",
+    "merged_at": "2025-07-09 15:07:00+00:00",
+    "closed_at": "2025-07-09 15:07:00+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": 23,
+    "topic_name": "23",
+    "body_summary": "Introduce a SpeedIndex metric class and integrate it into model data mappings and sorting to support performance ranking of AI models."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 11,
+      "file_count": 24,
+      "additions": 630,
+      "deletions": 217,
+      "changes": 847,
+      "top1_file": "api/core/domain/models/model_data_mapping.py",
+      "top1_changes": 331,
+      "top1_change_ratio": 0.391,
+      "files_by_status": {
+        "modified": 24
+      },
+      "directory_count": 3,
+      "directories": [
+        ".vscode",
+        "api",
+        "client"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "APPROVED": 2,
+        "COMMENTED": 1
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 11,
+        "assigned": 1,
+        "review_requested": 2,
+        "convert_to_draft": 1,
+        "commented": 2,
+        "deployed": 10,
+        "ready_for_review": 1,
+        "reviewed": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 0,
+        "renamed": 0,
+        "review_request_removed": 0,
+        "mentioned": 0,
+        "subscribed": 0,
+        "unsubscribed": 0,
+        "auto_merge_enabled": 0,
+        "labeled": 0,
+        "unlabeled": 0,
+        "auto_merge_disabled": 0
+      },
+      "lifespan_hours": 26.849,
+      "first_review_delay_hours": 26.419,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "model_speed_ranking",
+      "speed_index_metric"
+    ],
+    "optimization_layer": "application_domain_model",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "error_handling"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Cursor added SpeedIndex class; reviewer suggested raising ValueError for zero duration; fix adopted and merged with two approvals."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 847,
+        "interpretation": "At 847 changed lines across 24 files, this is a medium-sized change by absolute volume, concentrated in domain model and mapping. It matches a moderate incremental performance feature PR and merged after a minor error-handling fix."
+      },
+      "lifecycle": {
+        "lifespan_hours": 26.849,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "error_handling",
+      "concern_detail": "guillaq suggested raising ValueError when `duration_seconds` is 0 instead of silently handling the division; the author changed the implementation to raise.",
+      "performance_claim": "Add speed index to models for performance ranking.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "error_handling"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "23",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding a structured metric class with domain logic and integrating into model sorting is within Cursor's capability; merge required a small error-handling fix after review.",
+      "success_factors": [
+        "small_scope",
+        "responded_to_review",
+        "maintainer_approvals"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "guillaq reviewed the `duration_seconds == 0` edge case and recommended raising ValueError."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Unit tests verify the calculation logic, but no performance benchmark or profiler evidence for speed ranking efficacy.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After the review comment, the author modified the code to raise ValueError; the fix was committed before merge.",
+      "evidence_gap": "narrative_only_no_perf_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced `SpeedIndex` class in `model_data.py` with a `from_experiment` factory method that computes speed index as output_tokens / duration_seconds. Extended model data mapping to include speed_index field and updated model sorting to use it. Multiple test files were adjusted to accommodate the new field.",
+      "files_primary": [
+        "api/core/domain/models/model_data.py",
+        "api/core/domain/models/model_data_mapping.py"
+      ],
+      "files_secondary_observability": [
+        "api/api/routers/mcp/_utils/model_sorting.py",
+        "api/core/domain/models/_mistral.py",
+        "api/core/domain/models/_xai.py",
+        "api/api/services/internal_tasks/meta_agent_service.py",
+        "api/api/models.py"
+      ],
+      "secondary_note": "Frontend changes were initially included but later reverted; the focus remained backend metric infrastructure.",
+      "change_trajectory": [
+        "Initial cursoragent commit: added SpeedIndex class and integrated into model sorting, with frontend and many model details.",
+        "Follow-up commit by cursoragent simplified the speed index calculation.",
+        "Human maintainer yannbu reverted frontend changes and settings.json, then added experiment-based speed index values.",
+        "Multiple refinement commits: removed useless value, fixed model data, and added tests for speed index.",
+        "Review comment from guillaq: suggest raising ValueError for zero duration.",
+        "Final commit adopted the raise, and PR was merged after two approvals."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "guillaq",
+        "channel": "inline_review_comment",
+        "signal": "error_handling_suggestion",
+        "summary": "Suggested raising ValueError when `duration_seconds` is 0 instead of silently handling the division.",
+        "blocking": false,
+        "action_taken": "Author changed to raise ValueError in commit a6548df."
+      },
+      {
+        "source": "guillaq",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved without additional comment.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "yannbu",
+        "channel": "inline_review_comment",
+        "signal": "commit_review",
+        "summary": "Thumbs up on commit a6548df.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview URLs; unrelated to performance validation.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "yannbu",
+        "channel": "pr_comment",
+        "signal": "issue_reference",
+        "summary": "Linked Linear issue WOR-4031 for speed index.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent opened PR and made initial two commits with SpeedIndex and model integration.",
+      "Maintainer yannbu reverted unintended frontend changes and continued development with several refactoring and test commits.",
+      "Reviewer guillaq approved after suggesting error-handling improvement; yannbu acknowledged and applied the raise.",
+      "Second approval from jacekzimonski; merged after ~27 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

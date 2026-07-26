@@ -1,0 +1,173 @@
+{
+  "pr_id": 3088454350,
+  "meta": {
+    "title": "[alpha_factory] add LRU cache size limit",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/694",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-24 13:17:35+00:00",
+    "merged_at": "2025-05-24 13:17:45+00:00",
+    "closed_at": "2025-05-24 13:17:45+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "37",
+    "body_summary": "Implement size-capped OrderedDict cache in llm_provider with AF_LLM_CACHE_SIZE env var, verify LRU eviction via unit test, and update documentation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 254,
+      "deletions": 121,
+      "changes": 375,
+      "top1_file": "alpha_factory_v1/backend/utils/llm_provider.py",
+      "top1_changes": 337,
+      "top1_change_ratio": 0.8987,
+      "files_by_status": {
+        "modified": 2,
+        "added": 1
+      },
+      "directory_count": 3,
+      "directories": [
+        "(root)",
+        "alpha_factory_v1",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.00278,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_size_limit",
+      "lru_eviction",
+      "memory_management"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Self-merged cache limit PR with unit test but no human review or performance benchmark; merged instantly without evidence challenge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 375,
+        "interpretation": "At 375 changed lines, this is a small-to-medium edit. It fits a focused, low-risk performance PR with test coverage that merged instantly without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00278,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review text available; PR merged by author without human feedback.",
+      "performance_claim": "Limit LLM provider cache to AF_LLM_CACHE_SIZE entries using LRU eviction to prevent unbounded memory growth.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Cache limit implementation is a straightforward data structure change; no binary interface or platform dependency barriers. Merge friction is minimal for such a self-contained patch with tests.",
+      "success_factors": [
+        "narrow_scope",
+        "unit_tests_included",
+        "self_merge_by_author"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "LRU eviction behavior is covered by unit test, but no memory or latency benchmarks are provided.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review cycle occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In alpha_factory_v1/backend/utils/llm_provider.py, wrapped the existing OrderedDict cache with a maxsize limit (AF_LLM_CACHE_SIZE) using simple LRU eviction on overflow; added a unit test test_llm_cache.py to validate eviction behavior; updated README with the new env var.",
+      "files_primary": [
+        "alpha_factory_v1/backend/utils/llm_provider.py"
+      ],
+      "files_secondary_observability": [
+        "tests/test_llm_cache.py",
+        "README.md"
+      ],
+      "secondary_note": "README change documents AF_LLM_CACHE_SIZE; test file validates LRU eviction.",
+      "change_trajectory": [
+        "Single commit: implement LRU cache, add test, update README."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created with cache limit and test; merged immediately with no review comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

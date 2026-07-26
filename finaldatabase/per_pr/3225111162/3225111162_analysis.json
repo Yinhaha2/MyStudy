@@ -1,0 +1,185 @@
+{
+  "pr_id": 3225111162,
+  "meta": {
+    "title": "Update C backend to use stack arrays",
+    "html_url": "https://github.com/mochilang/mochi/pull/7934",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-12 09:35:57+00:00",
+    "merged_at": "2025-07-12 09:37:03+00:00",
+    "closed_at": "2025-07-12 09:37:03+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "14",
+    "body_summary": "Optimize C code generation by using stack arrays for list expressions when possible, emitting contains_array_int instead of contains_list_int, and using listLenExpr/listItemExpr for query loops."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 16,
+      "additions": 96,
+      "deletions": 183,
+      "changes": 279,
+      "top1_file": "compiler/x/c/compiler.go",
+      "top1_changes": 49,
+      "top1_change_ratio": 0.1756,
+      "files_by_status": {
+        "modified": 14,
+        "removed": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0183,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "stack_array_allocation",
+      "codegen_optimization",
+      "list_backend_improvement"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "self_review"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit self-merge by maintainer with only narrative performance claim and no review or benchmark evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 279,
+        "interpretation": "At 279 changed lines, this is a small-to-medium edit by absolute volume. Most changes are test output updates, with a 49-line core compiler change. As a focused compiler optimization, the quick self-merge aligns with the low-risk, test-backed nature of the change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0183,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review, comments, or inline feedback in dataset.",
+      "performance_claim": "Switching to stack arrays for list expressions when possible improves performance by avoiding heap allocations and using direct stack-based access.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "14",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Codex successfully implemented a stack-array codegen optimization in a compiler backend; the change was self-contained, test-updated, and merged without human review, indicating trust in the agent's code-generation capability.",
+      "success_factors": [
+        "narrow_scope",
+        "self_testable_with_go_test",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "self_review"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR provides a go test command to verify correctness but no before/after performance benchmarks or profiling data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/c/compiler.go, added helper for contains_array_int and emit it when list expression is backed by a stack array. In compiler/x/c/runtime.go, added necessary runtime helpers. Regenerated all C machine test outputs to reflect the new code generation.",
+      "files_primary": [
+        "compiler/x/c/compiler.go",
+        "compiler/x/c/runtime.go",
+        "compiler/x/c/needs.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/c/cross_join_filter.c",
+        "tests/machine/x/c/cross_join_filter.error",
+        "tests/machine/x/c/cross_join_triple.c",
+        "tests/machine/x/c/cross_join_triple.error",
+        "tests/machine/x/c/in_operator.c",
+        "tests/machine/x/c/in_operator.error",
+        "tests/machine/x/c/list_nested_assign.c",
+        "tests/machine/x/c/list_nested_assign.error",
+        "tests/machine/x/c/match_full.error",
+        "tests/machine/x/c/membership.c",
+        "tests/machine/x/c/membership.error",
+        "tests/machine/x/c/python_math.error",
+        "tests/machine/x/c/sum_builtin.error"
+      ],
+      "secondary_note": "All test output files in tests/machine/x/c/ were updated or removed (in_operator.error, membership.error) to match the new code generation.",
+      "change_trajectory": [
+        "Single commit by tamnd: 'tests: update C machine output' which includes all compiler and test changes in one batch."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created by tamnd with single commit.",
+      "Labeled 'codex' and merged by tamnd 66 seconds later.",
+      "No human or bot review interaction recorded."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

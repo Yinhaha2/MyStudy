@@ -1,0 +1,191 @@
+{
+  "pr_id": 3080621090,
+  "meta": {
+    "title": "feat(root): upgrade nx to latest version and remove legacy cache",
+    "html_url": "https://github.com/novuhq/novu/pull/8360",
+    "repo": "novuhq/novu",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-21 15:23:07+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-21 16:16:38+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 7,
+    "topic_name": "7",
+    "body_summary": "Upgrade Nx from v20.3.0 to v21.0.4, update nx-cloud to 19.1.0, remove legacy cache from nx.json and runner configs, and adjust related build configuration."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 5,
+      "additions": 46,
+      "deletions": 37,
+      "changes": 83,
+      "top1_file": "nx.json",
+      "top1_changes": 56,
+      "top1_change_ratio": 0.675,
+      "files_by_status": {
+        "modified": 4,
+        "added": 1
+      },
+      "directory_count": 3,
+      "directories": [
+        ".",
+        "libs",
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 3,
+        "review_requested": 1,
+        "assigned": 1,
+        "commented": 2,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.892,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "nx_upgrade",
+      "legacy_cache_removal",
+      "build_performance"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_review_interest",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin performed Nx upgrade and cache config removal; PR closed without review or comment by maintainer scopsy, no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 83,
+        "interpretation": "At 83 changed lines across 3 commits, this is a small edit by absolute volume. It is a config-level upgrade that did not merge—the maintainer closed it without review, indicating low interest or insufficient justification for the version bump."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.892,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review comments were provided; the PR was closed by maintainer without explanation.",
+      "performance_claim": "Upgrading Nx and removing legacy cache would improve build performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer scopsy closed the PR 53 minutes after creation without any review comments; deploy preview failure may indicate instability, but no explicit rejection reason."
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Build tool version upgrade is straightforward, but acceptance depends on repository version policies; closing without review suggests the change was not needed or lacked sufficient justification.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR claims testing by running build locally but provides no performance metrics or benchmark.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after deploy preview failure; no fix cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Upgrade package.json Nx version from 20.3.0 to 21.0.4 and nx-cloud to 19.1.0; rewrite nx.json and libs/automation/nx.json to remove legacy cache config and use nx-cloud runner; remove deprecated TypeScript option; add netlify.toml for dashboard staging.",
+      "files_primary": [
+        "nx.json",
+        "libs/automation/nx.json",
+        "package.json"
+      ],
+      "files_secondary_observability": [
+        "tsconfig.base.json",
+        "apps/dashboard/netlify.toml"
+      ],
+      "secondary_note": "The netlify config addition appears to be an attempt to fix a deploy failure, but the deploy still failed.",
+      "change_trajectory": [
+        "Initial commit: upgrade Nx version and update configs.",
+        "Second commit: remove deprecated TypeScript option.",
+        "Third commit: add netlify configuration to fix dashboard deploy."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduction and auto-comment announcement.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "netlify[bot]",
+        "channel": "pr_comment",
+        "signal": "deploy_failure",
+        "summary": "Deploy preview for dashboard-v2-novu-staging failed.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with Nx upgrade and config changes.",
+      "Netlify bot reported deploy preview failure.",
+      "Maintainer scopsy closed PR without comment ~53 minutes later."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

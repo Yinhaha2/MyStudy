@@ -1,0 +1,187 @@
+{
+  "pr_id": 3183326458,
+  "meta": {
+    "title": "Replace node-sass with sass (Dart Sass) for improved compatibility and build stability",
+    "html_url": "https://github.com/johnsusek/praeco/pull/715",
+    "repo": "johnsusek/praeco",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-27 16:05:29+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-28 06:17:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 7,
+    "topic_name": "7",
+    "body_summary": "Migrate from deprecated node-sass to Dart Sass to fix build failures and improve compatibility."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 1222,
+      "deletions": 185,
+      "changes": 1407,
+      "top1_file": "package-lock.json",
+      "top1_changes": 1405,
+      "top1_change_ratio": 0.999,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "unassigned": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "commented": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 14.199,
+      "first_review_delay_hours": 12.473,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sass_migration",
+      "build_stability",
+      "node_sass_removal"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "component_incompatibility",
+    "review_dimensions": [
+      "compatibility",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot swapped node-sass for dart-sass; maintainer nsano-rururu closed it due to element-ui incompatibility with sass."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1407,
+        "interpretation": "At 1407 changed lines, mostly in lockfile, this is a small-to-medium edit by absolute volume. It fits a dependency migration performance PR but was closed due to library incompatibility, not change size."
+      },
+      "lifecycle": {
+        "lifespan_hours": 14.199,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "component_incompatibility",
+      "concern_detail": "element-ui does not support Dart Sass; maintainer suggested using the vue3 migration PR instead.",
+      "performance_claim": "Dart Sass is faster than node-sass and improves build stability.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "compatibility",
+        "correctness"
+      ],
+      "rejection_signals": "Maintainer requested to close PR citing element-ui incompatibility and pointing to a vue3 migration PR."
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent replaced a build dependency without checking whether existing UI library (element-ui) supports Dart Sass; closed because the change would break another part of the build stack.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer noted that element-ui does not support sass and that the change should be part of a future vue3 migration."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance evidence; maintainer did not evaluate performance claims because PR was closed for incompatibility.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix attempted.",
+      "evidence_gap": "narrative_only_incompatibility_block"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replace 'node-sass ^9.0.0' with 'sass ^1.83.0' in package.json and update package-lock.json accordingly.",
+      "files_primary": [
+        "package.json"
+      ],
+      "files_secondary_observability": [
+        "package-lock.json"
+      ],
+      "secondary_note": "Lockfile churn accounts for 1405 of 1407 lines; actual dependency change is a single line in package.json.",
+      "change_trajectory": [
+        "Initial plan commit (empty).",
+        "Replace node-sass with sass in package.json and lockfile."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "nsano-rururu",
+        "channel": "pr_comment",
+        "signal": "component_incompatibility",
+        "summary": "element-ui does not support sass. Please include in vue3 migration PR (#711) and close this PR.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with dependency swap.",
+      "~12.5 hours later maintainer responded noting element-ui incompatibility and requested close.",
+      "PR closed ~1.7 hours after comment, total lifespan ~14.2 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

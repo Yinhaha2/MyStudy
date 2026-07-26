@@ -1,0 +1,220 @@
+{
+  "pr_id": 3126110678,
+  "meta": {
+    "title": "k8s(resources): tune workloads and add pedrobot db",
+    "html_url": "https://github.com/theepicsaxguy/homelab/pull/829",
+    "repo": "theepicsaxguy/homelab",
+    "agent": "OpenAI_Codex",
+    "user": "theepicsaxguy",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-06 23:38:47+00:00",
+    "merged_at": "2025-06-06 23:53:29+00:00",
+    "closed_at": "2025-06-06 23:53:29+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 16,
+    "topic_name": "16",
+    "body_summary": "Tune CPU/memory resource requests and limits across multiple Kubernetes workloads and add a MongoDB StatefulSet for the pedrobot application."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 31,
+      "additions": 554,
+      "deletions": 446,
+      "changes": 1000,
+      "top1_file": "k8s/applications/network/omada/deployment.yaml",
+      "top1_changes": 204,
+      "top1_change_ratio": 0.204,
+      "files_by_status": {
+        "added": 2,
+        "modified": 29,
+        "removed": 0
+      },
+      "directory_count": 2,
+      "directories": [
+        "k8s",
+        "website"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 10,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "commented": 1,
+        "ready_for_review": 1,
+        "review_requested": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.245,
+      "first_review_delay_hours": 0.227,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "resource_request_tuning",
+      "capacity_planning",
+      "workload_configuration"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Small-scale resource tuning and MongoDB addition across many YAML files; merged within ~15 minutes with only a non-blocking bot suggestion about probes."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1000,
+        "interpretation": "At 1000 changed lines across 31 files, this is a medium-sized edit by absolute volume, but the changes are primarily repetitive resource value adjustments in YAML manifests. It fits a low-risk infrastructure tuning PR that merged quickly with no human review blocking."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.245,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "missing_probes",
+      "concern_detail": "Copilot bot suggested adding readiness/liveness probes for the new MongoDB StatefulSet; no human reviewer addressed it, and it did not block the merge.",
+      "performance_claim": "Resource request tuning improves CPU/memory allocation efficiency and the MongoDB addition supports pedrobot performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Resource tuning and adding a DB statefulset are straightforward infrastructure changes; Codex faced no blocking challenges and merged with only a non-blocking bot suggestion.",
+      "success_factors": [
+        "narrow_scope",
+        "low_risk_infrastructure_change",
+        "owner_maintained_repo",
+        "quick_merge_policy"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of human code-reading review; only bot review was present."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance benchmarks or load tests; only YAML validation via kustomize build commands is documented.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions detected; PR merged without revert or follow-up fixes.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Adjust CPU and memory requests/limits across 31 Kubernetes YAML files spanning applications, infrastructure, and network controllers; add a new MongoDB StatefulSet for pedrobot; normalize resource quoting and clean up comments.",
+      "files_primary": [
+        "k8s/applications/network/omada/deployment.yaml",
+        "k8s/infrastructure/controllers/external-secrets/values.yaml",
+        "k8s/applications/web/pedrobot/mongodb-statefulset.yaml",
+        "k8s/applications/ai/openwebui/webui-deployment.yaml"
+      ],
+      "files_secondary_observability": [
+        "k8s/infrastructure/storage/longhorn/values.yaml",
+        "website/docs/k8s/applications/application-management.md",
+        "website/docs/infrastructure/controllers-overview.md",
+        "k8s/applications/media/jellyseerr/values.yaml"
+      ],
+      "secondary_note": "Most files only had minor resource value adjustments; substantial changes include new MongoDB definitions and documentation updates.",
+      "change_trajectory": [
+        "Initial commit (03c3edf): bulk resource tuning and MongoDB StatefulSet addition across all workloads.",
+        "Second commit (c9759e8): cleaned up YAML comments and added documentation about AI usage."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "missing_probes_suggestion",
+        "summary": "Suggested adding readiness and liveness probes for the MongoDB container to prevent premature traffic routing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Copilot reviewed 31 files, generated one comment about probes, and noted three low-confidence nitpicks; no blocking issues.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cloudflare-workers-and-pages[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Cloudflare Pages deployment successful; no performance feedback.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with resource tuning and MongoDB StatefulSet.",
+      "Cloudflare Pages bot reported successful deployment preview.",
+      "Copilot bot left a non-blocking review suggesting probes.",
+      "Owner merged within ~15 minutes with no human interaction or blocking requests."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

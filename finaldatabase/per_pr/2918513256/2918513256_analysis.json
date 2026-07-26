@@ -1,0 +1,192 @@
+{
+  "pr_id": 2918513256,
+  "meta": {
+    "title": "fix: enhance API Keys component with loading indicators and performance optimizations",
+    "html_url": "https://github.com/Cap-go/capgo/pull/1060",
+    "repo": "Cap-go/capgo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-03-13 22:31:22+00:00",
+    "merged_at": null,
+    "closed_at": "2025-03-14 02:09:13+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "2",
+    "body_summary": "Enhance API Keys component with loading states, a 10s query timeout with abort/retry, an LRU cache (max 1000 entries), and centralized error handling."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 7,
+      "additions": 614,
+      "deletions": 256,
+      "changes": 870,
+      "top1_file": "src/components/ApiKeys.vue",
+      "top1_changes": 611,
+      "top1_change_ratio": 0.7022988505747126,
+      "files_by_status": {
+        "added": 3,
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 2,
+        "commented": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 3.633,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_lru",
+      "request_timeout",
+      "loading_states",
+      "error_handling"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "no_review_engagement_closed",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added loading states, LRU cache, and 10s timeout; closed by maintainer riderx after ~3.6h with no review or merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 870,
+        "interpretation": "At 870 changed lines across 7 files, this is a medium-sized frontend enhancement by absolute volume. It fits a moderate incremental performance PR that was closed without merge, likely due to lack of maintainer review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 3.633,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "lack_of_maintainer_review",
+      "concern_detail": "No formal review or feedback was given by maintainers. Two bot comments (Devin intro and CodeRabbit skip) but no human review.",
+      "performance_claim": "Improved user experience with loading indicators, reduced query duration via 10s timeout, and bounded memory via LRU cache (max 1000 entries).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by riderx 3.6 hours after creation with no review comments or merge; rejection reason unknown."
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Frontend enhancement PR with new utility files and component changes; closed without maintainer review or merge, showing a process boundary where agent-authored PRs may be ignored or closed due to lack of reviewer engagement.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code reading or manual testing by maintainers.",
+        "ci_auto": "No CI performance evidence or automated review beyond bot remarks."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or reproduction steps; narrative only.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no regression issue was raised, only closure without explanation.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Enhanced ApiKeys.vue with loading indicators, timeout mechanism (AbortController, 10s limit, retry with backoff), and replaced simple Map cache with an LRU cache (max 1000 entries). Added utility files for caching (cacheUtils.ts), error handling (errorUtils.ts), and Supabase utils (supabaseUtils.ts) for timeout/retry logic.",
+      "files_primary": [
+        "src/components/ApiKeys.vue",
+        "src/utils/cacheUtils.ts",
+        "src/utils/errorUtils.ts",
+        "src/utils/supabaseUtils.ts"
+      ],
+      "files_secondary_observability": [
+        "CHANGELOG.md",
+        "package.json",
+        "src/components/dashboard/UsageCard.vue"
+      ],
+      "secondary_note": "Merge commit brought in changelog, version bump, and unrelated UsageCard changes.",
+      "change_trajectory": [
+        "Initial commit by Devin with all enhancements.",
+        "Merge main into branch by riderx; no further changes before closure."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduced itself and its auto-feedback capabilities.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "skip_review_bot_detected",
+        "summary": "CodeRabbit skipped review because the author is a bot.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin bot with ~834 lines of changes.",
+      "Bot comments left by Devin intro and CodeRabbit skip.",
+      "Maintainer riderx merged main branch to keep branch up to date, then closed PR without review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

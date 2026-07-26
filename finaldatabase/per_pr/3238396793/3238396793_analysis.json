@@ -1,0 +1,165 @@
+{
+  "pr_id": 3238396793,
+  "meta": {
+    "title": "Improve Dart compiler code emission",
+    "html_url": "https://github.com/mochilang/mochi/pull/9165",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-17 07:03:20+00:00",
+    "merged_at": "2025-07-17 07:03:38+00:00",
+    "closed_at": "2025-07-17 07:03:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Avoid emitting unused `_equal` helper in Dart compiler output and conditionally call it only when comparing lists or maps, reducing emitted code size."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 27,
+      "deletions": 1,
+      "changes": 28,
+      "top1_file": "compiler/x/dart/compiler.go",
+      "top1_changes": 28,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "compiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.005,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "code_size_reduction",
+      "dead_code_elimination",
+      "conditional_code_emission"
+    ],
+    "optimization_layer": "compiler_code_generation",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Small compiler tweak to omit unused helper; merged instantly with no review or perf evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 28,
+        "interpretation": "At 28 changed lines in a single file, this is a tiny edit by absolute volume. It fits a small-step, low-risk performance PR and merged nearly instantly with no review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.005,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_activity",
+      "concern_detail": "No reviews, comments, or reviewer feedback present in dataset.",
+      "performance_claim": "Reduce emitted code size by omitting unused _equal helper and conditionally calling it only when needed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler code generation tweak with minimal scope; agent handled code emission logic correctly without requiring perf evidence or review.",
+      "success_factors": [
+        "single_file_change",
+        "no_review_required",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "PR includes test commands but no performance data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "Merged without any review or regression handling.",
+      "evidence_gap": "no_performance_evidence_at_all"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/dart/compiler.go, modified Dart code emission to avoid emitting the _equal helper function when it is not needed, and added a conditional check to only call _equal when comparing list or map values.",
+      "files_primary": [
+        "compiler/x/dart/compiler.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Single file change with no secondary files.",
+      "change_trajectory": [
+        "Initial commit: omit unused equality helper in Dart compiler output."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and immediately merged by maintainer with no review interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

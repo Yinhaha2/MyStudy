@@ -1,0 +1,195 @@
+{
+  "pr_id": 3177715945,
+  "meta": {
+    "title": "feat: implement batched parallel processing for user availability calculation",
+    "html_url": "https://github.com/calcom/cal.com/pull/22046",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-26 04:46:55+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-04 17:03:08+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "29",
+    "body_summary": "Replace sequential user availability calls with batched parallel processing (8 users/batch, 100ms delay) to reduce end-to-end latency from minutes to seconds for teams with many users."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 78,
+      "deletions": 1,
+      "changes": 79,
+      "top1_file": "packages/trpc/server/routers/viewer/slots/util.ts",
+      "top1_changes": 79,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "commented": 4,
+        "deployed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 204.283,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "batched_async_processing",
+      "parallel_availability",
+      "rate_limiting_prevention"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "sequential_processing"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin introduced batched parallel availability processing with numerical speedup claim; no human review occurred, bot closed due to 7+ days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 79,
+        "interpretation": "Small 79-line edit confined to one file; as a targeted performance refactor it could have been low-risk, but it was closed due to lack of engagement rather than size or technical issues."
+      },
+      "lifecycle": {
+        "lifespan_hours": 204.283,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "PR received zero human reviews; only bot comments. Devin bot auto-closed after more than 7 days of inactivity.",
+      "performance_claim": "Reduce user availability calculation from sequential 80-200 seconds to batched parallel 3-8 seconds for 40 users.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "sequential_processing",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Bot auto-closed due to inactivity; no human objection or approval."
+    },
+    "capability_boundary": {
+      "topic": "29",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent delivered a low-risk, single-file batching change with numerical speedup claims, but no human reviewer engaged. The PR eventually auto-closed, highlighting a process gap for agent-authored perf PRs that lack maintainer response.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks, profiling, or reproducible test steps; only narrative expected performance numbers.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No human review; Devin bot closed after inactivity without any fix-in-PR cycle.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/trpc/server/routers/viewer/slots/util.ts, introduced getUsersAvailabilityWithBatching that processes users in batches of 8 with 100ms inter-batch delay via Promise.all, replacing the sequential getUsersAvailability call. Added logging and fallback to individual processing on batch failure.",
+      "files_primary": [
+        "packages/trpc/server/routers/viewer/slots/util.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit adding batching function and modifying calculateHostsAndAvailabilities to use it."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduced itself and noted it would respond to comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_skipped",
+        "summary": "Vercel bot reported skipped deployments for cal and cal-eu.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "delve-auditor[bot]",
+        "channel": "pr_comment",
+        "signal": "security_scan_pass",
+        "summary": "Delve auditor reported no vulnerabilities.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_close",
+        "summary": "Devin bot closed PR due to inactivity after 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit implementing batched parallel availability processing.",
+      "Multiple bots (Devin intro, Vercel deployment, Delve security) commented, but no human reviewer engaged.",
+      "After over 8 days of inactivity, Devin bot auto-closed the PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

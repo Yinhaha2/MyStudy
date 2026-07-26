@@ -1,0 +1,167 @@
+{
+  "pr_id": 3210894862,
+  "meta": {
+    "title": "Optimize tool agent prompt usage",
+    "html_url": "https://github.com/intelligencedev/manifold/pull/91",
+    "repo": "intelligencedev/manifold",
+    "agent": "OpenAI_Codex",
+    "user": "Art9681",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-08 03:33:08+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-09 22:19:07+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 16,
+    "topic_name": "16",
+    "body_summary": "Prompt optimization to reduce orchestrator prompt verbosity by providing only concise instructions for tool agents and listing full schemas only when running them directly, adding a flag for schema inclusion."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 10,
+      "deletions": 22,
+      "changes": 32,
+      "top1_file": "internal/agents/engine.go",
+      "top1_changes": 30,
+      "top1_change_ratio": 0.9375,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "internal"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 42.77,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "prompt_size_reduction",
+      "token_efficiency",
+      "tool_schema_management"
+    ],
+    "optimization_layer": "application_prompt",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_test_fail_no_evidence",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "low",
+    "notes": "Self-closed PR with no reviews; narrative prompt optimization with failing CI; no perf evidence or maintainer interaction."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 32,
+        "interpretation": "At 32 changed lines, this is a tiny edit. As a prompt optimization PR, it is small in scope but was closed without merge, likely due to lack of evidence and failing tests."
+      },
+      "lifecycle": {
+        "lifespan_hours": 42.77,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none_or_unknown",
+      "concern_detail": "No review feedback present.",
+      "performance_claim": "Reduce orchestrator prompt size to improve token efficiency and possibly inference speed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR self-closed by author after one day; no maintainer engagement; CI tests reportedly failed (go test fails with proxy Forbidden)."
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small prompt reduction change with no collaboration; failing CI tests and self-closure suggest limitations in agent's ability to handle tooling/environment issues, leading to PR abandonment.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No maintainer review detected; no code-reading feedback.",
+        "ci_auto": "CI test failure mentioned in PR body but no automated detection or action by maintainers."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or before/after data; only narrative description.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix cycle.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In engine.go and stream.go, modified prompt construction to provide concise tool-agent instructions to the orchestrator and added a flag to include full tool schemas only when running agents directly.",
+      "files_primary": [
+        "internal/agents/engine.go"
+      ],
+      "files_secondary_observability": [
+        "internal/agents/stream.go"
+      ],
+      "secondary_note": "stream.go change is minimal (2 lines).",
+      "change_trajectory": [
+        "Single commit refactored prompt for orchestrator tool agent usage; PR self-closed one day later."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by Art9681 with single commit.",
+      "No reviews or comments from maintainers.",
+      "Author self-closed PR after ~43 hours with no additional activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

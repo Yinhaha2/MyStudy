@@ -1,0 +1,208 @@
+{
+  "pr_id": 3072374938,
+  "meta": {
+    "title": "Refactor PR #531 attribute filtering feature",
+    "html_url": "https://github.com/digitaldemocracy2030/kouchou-ai/pull/538",
+    "repo": "digitaldemocracy2030/kouchou-ai",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-19 03:24:34+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-19 08:21:09+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 49,
+    "topic_name": "49",
+    "body_summary": "Refactor attribute filtering feature from PR #531 with TypeScript type safety, component decomposition, React memoization, and scattergl performance improvements."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 29,
+      "file_count": 46,
+      "additions": 4696,
+      "deletions": 3090,
+      "changes": 7786,
+      "top1_file": "client/package-lock.json",
+      "top1_changes": 1395,
+      "top1_change_ratio": 0.179,
+      "files_by_status": {
+        "modified": 41,
+        "added": 4,
+        "removed": 1
+      },
+      "directory_count": 7,
+      "directories": [
+        ".github",
+        "client",
+        "client-admin",
+        "experimental",
+        "scripts",
+        "server",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 28,
+        "commented": 2
+      },
+      "lifespan_hours": 4.94,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "react_memoization",
+      "filter_optimization",
+      "scattergl_performance"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_auto_close",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Large refactor with perf claims; no human review, closed by bot after ~5h."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 7786,
+        "interpretation": "At 7786 changed lines across 46 files, this is a large-by-volume refactor spanning frontend and backend. As a performance refactor PR, it was closed without merge—likely due to lack of maintainer engagement and too large a scope for automated review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 4.94,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_auto_close",
+      "concern_detail": "No human review or feedback; Devin bot auto-closed PR citing inactivity (though PR was open only ~5h).",
+      "performance_claim": "React memoization and filter optimization improve UI performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by bot with 'Closing due to inactivity for more than 7 days' comment; no human interaction."
+    },
+    "capability_boundary": {
+      "topic": "49",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Large cross-language refactor with performance claims but no verifiable improvements; PR closed automatically due to lack of maintainer review, illustrating process breakdown when AI submissions are ignored.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human code review occurred.",
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics; only narrative claims in PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by bot; no maintainer regression handling.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactor attribute filtering across frontend (React) and backend (Python), introducing type safety improvements, component decomposition, memoization, and scattergl for better performance.",
+      "files_primary": [
+        "client/components/report/AttributeFilterDialog.tsx",
+        "client/components/report/ClientContainer.tsx",
+        "client/components/report/NumericRangeFilterItem.tsx",
+        "client/components/report/attributeFilterUtils.ts",
+        "client/components/charts/ScatterChart.tsx"
+      ],
+      "files_secondary_observability": [
+        "client-admin/app/create/components/CsvFileTab.tsx",
+        "client/components/charts/TreemapChart.tsx",
+        "server/broadlistening/pipeline/steps/hierarchical_aggregation.py",
+        "client/package-lock.json"
+      ],
+      "secondary_note": "Large number of files touched due to merge commits and linting across experimental/ and server/.",
+      "change_trajectory": [
+        "tokoroten initially built attribute filtering with range-slider UI, scatter chart improvements, and backend aggregation.",
+        "Subsequent commits refined filter behavior, empty string handling, and layout changes.",
+        "Devin AI joined, refactored for type safety, split components, fixed TypeScript errors, and replaced scatter with scattergl for performance.",
+        "PR closed automatically by Devin bot after ~5h with no human review."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Standard Devin AI engineer intro promising automatic comment/CI handling.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "skip_review",
+        "summary": "CodeRabbit skipped review because bot user detected.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_close",
+        "summary": "Bot closed PR with 'Closing due to inactivity for more than 7 days'.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created by Devin with large refactor from tokoroten's prior work.",
+      "No human reviewers requested; only bot interactions.",
+      "Auto-closed by Devin bot after ~5h."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

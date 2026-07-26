@@ -1,0 +1,194 @@
+{
+  "pr_id": 3195541807,
+  "meta": {
+    "title": "Create Rslib executor for Nx",
+    "html_url": "https://github.com/module-federation/core/pull/3876",
+    "repo": "module-federation/core",
+    "agent": "Cursor",
+    "user": "ScriptedAlchemy",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-02 11:14:59+00:00",
+    "merged_at": "2025-07-22 00:53:39+00:00",
+    "closed_at": "2025-07-22 00:53:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "7",
+    "body_summary": "Introduce an Nx plugin for Rslib with build/dev/echo executors, migrate runtime-core to use it, and claim a build time reduction from ~2.6s to ~50ms."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 12,
+      "file_count": 70,
+      "additions": 1650,
+      "deletions": 765,
+      "changes": 2415,
+      "top1_file": "pnpm-lock.yaml",
+      "top1_changes": 689,
+      "top1_change_ratio": 0.285,
+      "files_by_status": {
+        "added": 34,
+        "modified": 20,
+        "removed": 16
+      },
+      "directory_count": 4,
+      "directories": [
+        "apps",
+        "packages",
+        "tools",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 15,
+      "event_counts": {
+        "committed": 12,
+        "commented": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 469.6,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "build_tool_performance",
+      "nx_executor_migration",
+      "rslib_integration"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_as_maintainer_self_merge",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Large-scale plugin addition with migration; merged without formal review, narrative perf claim."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2415,
+        "interpretation": "At 2415 changed lines across 70 files, this is a large-scale build tool plugin addition and migration, consistent with the merged outcome and likely self-merge by a maintainer."
+      },
+      "lifecycle": {
+        "lifespan_hours": 469.6,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal code review was performed; only a bot comment about missing changeset.",
+      "performance_claim": "Build time reduced from ~2.6s to ~50ms by switching from @nx/rollup to the new rslib executor.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Cursor successfully created a complex Nx plugin with many generated files and migrated a package to the new build system; merge occurred without formal review, indicating either maintainer trust or lack of peer validation.",
+      "success_factors": [
+        "maintainer_self_merge",
+        "large_change_accepted_without_review",
+        "numeric_perf_claim_in_body"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {
+        "code_reading": "No evidence of maintainer code review or performance validation."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body includes a narrative build-time reduction claim but no benchmark or reproduction steps for the performance improvement.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were flagged; merge proceeded without comment.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduce a new Nx plugin for Rslib (tools/rslib-plugin) with build, dev, and echo executors, including source and compiled dist files; remove legacy tools/rslib directory; migrate runtime-core from @nx/rollup to the new rslib:build executor with associated tsconfig/config updates.",
+      "files_primary": [
+        "tools/rslib-plugin/src/executors/build/executor.ts",
+        "tools/rslib-plugin/src/executors/dev/executor.ts",
+        "tools/rslib-plugin/package.json",
+        "packages/runtime-core/rslib.config.ts",
+        "packages/runtime-core/project.json"
+      ],
+      "files_secondary_observability": [
+        "pnpm-lock.yaml",
+        "nx.json",
+        "packages/runtime-core/package.json",
+        "packages/runtime-core/tsconfig.lib.json",
+        "tools/rslib-plugin/README.md"
+      ],
+      "secondary_note": "Most changes are boilerplate executor code and configuration; the runtime-core migration accounts for a small portion of the diff.",
+      "change_trajectory": [
+        "Cursor made multiple background composer commits adding the entire rslib-plugin structure and initial migration.",
+        "ScriptedAlchemy added commits for TypeScript declaration generation, removing unused scripts, and fixing dual package hazard.",
+        "Final fixes to use relative executor paths and pnpm-lock.yaml update.",
+        "Merged by ScriptedAlchemy after 20 days with no review."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "missing_changeset_warning",
+        "summary": "Bot warned that no changeset was found, but that merging would not cause a version bump.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Cursor agent with bulk implementation.",
+      "ScriptedAlchemy made several iterative fixes (TypeScript declarations, dual package hazard, final config adjustments).",
+      "No human reviewer engaged; bot commented about missing changeset.",
+      "Merged by ScriptedAlchemy after about 20 days without external review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

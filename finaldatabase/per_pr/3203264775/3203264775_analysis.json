@@ -1,0 +1,164 @@
+{
+  "pr_id": 3203264775,
+  "meta": {
+    "title": "Fix unused buffer in floatWorker",
+    "html_url": "https://github.com/sannysanoff/SDRPlusPlusBrown/pull/51",
+    "repo": "sannysanoff/SDRPlusPlusBrown",
+    "agent": "OpenAI_Codex",
+    "user": "sannysanoff",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-04 16:34:10+00:00",
+    "merged_at": "2025-07-04 18:00:46+00:00",
+    "closed_at": "2025-07-04 18:00:46+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "4",
+    "body_summary": "Remove an unused vector<float> buffer allocation in FileSourceModule::floatWorker to clean up dead code and slightly reduce memory overhead."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 0,
+      "deletions": 4,
+      "changes": 4,
+      "top1_file": "source_modules/file_source/src/main.cpp",
+      "top1_changes": 4,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "source_modules"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 1.443,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_usage_reduction",
+      "dead_code_elimination",
+      "buffer_allocation_removal"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex removed an unused vector<float> allocation in floatWorker; merged immediately without review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4,
+        "interpretation": "At 4 changed lines, this is a tiny edit. It fits a trivial dead-code removal and is consistent with the fast, self-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.443,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Removing unused buffer allocation reduces memory footprint and initialization overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unused_memory_allocation",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple removal of unused buffer allocation required no specialized knowledge; agent produced a minimal correct diff.",
+      "success_factors": [
+        "trivial_scope",
+        "no_review_required",
+        "fast_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance data; change is a simple dead-code removal.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "Trivial removal; no regression cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In source_modules/file_source/src/main.cpp, removed an unused std::vector<float> buffer allocation in the floatWorker function (4 lines deleted).",
+      "files_primary": [
+        "source_modules/file_source/src/main.cpp"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit removed the unused buffer allocation."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged by same user within ~1.4 hours; no external review or collaboration."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,219 @@
+{
+  "pr_id": 3210321906,
+  "meta": {
+    "title": "Add high-performance loggers to credential providers",
+    "html_url": "https://github.com/AzureAD/microsoft-identity-web/pull/3409",
+    "repo": "AzureAD/microsoft-identity-web",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-07 21:43:20+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 12,
+    "topic_name": "12",
+    "body_summary": "Replace ad-hoc logging with high-performance loggers using LoggerMessage.Define (later changed to [LoggerMessage] attribute) in OidcFIC credential providers to reduce allocations and improve performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 5,
+      "additions": 181,
+      "deletions": 126,
+      "changes": 307,
+      "top1_file": "src/Microsoft.Identity.Web.OidcFIC/OidcIdpSignedAssertionLoader.Logger.cs",
+      "top1_changes": 132,
+      "top1_change_ratio": 0.43,
+      "files_by_status": {
+        "added": 2,
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 2
+      },
+      "review_comment_count": 4,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 2,
+        "reviewed": 1
+      },
+      "lifespan_hours": 2.415,
+      "first_review_delay_hours": 2.319,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "high_performance_logging",
+      "logger_message_define",
+      "avoid_string_interpolation"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_without_approval",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot replaced ad-hoc logging with high-performance loggers; keegan-caruso CHANGES_REQUESTED [LoggerMessage] pattern; Copilot made changes but PR closed without merge despite fixes."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 307,
+        "interpretation": "At 307 changed lines, this is a small-to-medium edit by absolute volume, concentrated in two new logger files and minor modifications to existing classes. It fits a small-step performance PR that was closed without merge after addressing design feedback."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.415,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "incorrect_logging_pattern",
+      "concern_detail": "Maintainer keegan-caruso requested using [LoggerMessage] attribute and extension methods instead of LoggerMessage.Define, and that main classes should not be partial. Copilot updated the implementation accordingly.",
+      "performance_claim": "Pre-compiled delegates avoid string interpolation overhead, reducing allocations and improving logging performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "ad_hoc_logging",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": "PR closed without merge after changes; no further review."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Agent successfully adopted requested logging pattern after explicit guidance, but PR remained unmerged due to lack of follow-up review.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "keegan-caruso reviewed the code and provided exact [LoggerMessage] examples to follow."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or timing data; only narrative claims about performance improvement.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge despite address of review feedback.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added high-performance loggers using LoggerMessage.Define initially, then switched to [LoggerMessage] attribute pattern and extension methods in OidcIdpSignedAssertionLoader and OidcIdpSignedAssertionProvider, replacing ad-hoc logger calls.",
+      "files_primary": [
+        "src/Microsoft.Identity.Web.OidcFIC/OidcIdpSignedAssertionLoader.Logger.cs",
+        "src/Microsoft.Identity.Web.OidcFIC/OidcIdpSignedAssertionProvider.Logger.cs"
+      ],
+      "files_secondary_observability": [
+        "src/Microsoft.Identity.Web.OidcFIC/OidcIdpSignedAssertionLoader.cs",
+        "src/Microsoft.Identity.Web.OidcFIC/OidcIdpSignedAssertionProvider.cs",
+        "global.json"
+      ],
+      "secondary_note": "global.json change in second commit is unrelated (SDK version bump); main classes only had import and call adjustments.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "First implementation using LoggerMessage.Define in two new logger partial classes and updates to main classes.",
+        "After CHANGES_REQUESTED: replaced LoggerMessage.Define with [LoggerMessage] attribute, removed partial from non-logger classes.",
+        "PR closed without merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "keegan-caruso",
+        "channel": "formal_review",
+        "signal": "changes_requested",
+        "summary": "CHANGES_REQUESTED with no body; substantive feedback via inline comments.",
+        "blocking": true,
+        "action_taken": "Copilot pushed commit fd3a87c addressing all inline feedback."
+      },
+      {
+        "source": "keegan-caruso",
+        "channel": "inline_review_comment",
+        "signal": "design_approach_comment",
+        "summary": "Main classes shouldn't be partial; only the logger class requires partial.",
+        "blocking": true,
+        "action_taken": "Removed partial keyword from main classes in fd3a87c."
+      },
+      {
+        "source": "keegan-caruso",
+        "channel": "inline_review_comment",
+        "signal": "design_pattern_change_request",
+        "summary": "Requested using [LoggerMessage] attribute and extension methods with concrete examples.",
+        "blocking": true,
+        "action_taken": "Replaced LoggerMessage.Define with attribute-based pattern in fd3a87c."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fix_confirmation",
+        "summary": "Copilot bot confirmed that the requested changes were applied in commit fd3a87c.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue with high-performance logger implementation.",
+      "~2h later keegan-caruso CHANGES_REQUESTED inline requiring [LoggerMessage] pattern and partial cleanup.",
+      "Copilot responded with fix and re-requested review; no further human response before PR closed."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

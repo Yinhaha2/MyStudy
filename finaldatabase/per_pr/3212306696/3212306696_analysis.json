@@ -1,0 +1,175 @@
+{
+  "pr_id": 3212306696,
+  "meta": {
+    "title": "Fix: Resolve browser multiplication issue in Puppeteer MCP server",
+    "html_url": "https://github.com/modelcontextprotocol/servers/pull/2307",
+    "repo": "modelcontextprotocol/servers",
+    "agent": "Claude_Code",
+    "user": "zitrono",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-08 12:13:09+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-11 15:06:15+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "9",
+    "body_summary": "Fix Puppeteer MCP server browser multiplication issue where multiple Chrome instances were created per tool call, leading to resource exhaustion; implements browser health checks, launch concurrency protection, graceful cleanup, and signal handlers."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 133,
+      "deletions": 37,
+      "changes": 170,
+      "top1_file": "src/puppeteer/index.ts",
+      "top1_changes": 170,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "unsubscribed": 1,
+        "commented": 1,
+        "closed": 1,
+        "mentioned": 1,
+        "subscribed": 1
+      },
+      "lifespan_hours": 74.885,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "browser_instance_management",
+      "process_cleanup",
+      "concurrency_protection",
+      "resource_exhaustion_prevention"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "resource_leak"
+    ],
+    "outcome_reason": "archived_repository",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Claude_Code fix for Puppeteer browser multiplication characterized by resource leak; PR closed because repository is archived."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 170,
+        "interpretation": "At 170 changed lines in a single file, this is a small edit by absolute volume. It fits a focused bug-fix performance PR. However, it was closed rather than merged because the repository is archived and unmaintained, which is inconsistent with the fix's size and potential value."
+      },
+      "lifecycle": {
+        "lifespan_hours": 74.885,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "project_archived",
+      "primary_concern": "archived_repository",
+      "concern_detail": "Maintainer olaservo noted that the Puppeteer reference server has been archived and is no longer maintained, advising to maintain own fork.",
+      "performance_claim": "Fix browser multiplication: stable Chrome process count (15) regardless of tool calls, versus previous continuous growth from 6 to 15+ processes.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "resource_leak",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Project archived; maintainer closed without reviewing fix."
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "Claude_Code",
+      "boundary_type": "process",
+      "boundary_notes": "Although the fix is technically sound, the agent did not identify that the target repository was archived, leading to an automatic rejection regardless of code quality.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No code review performed; maintainer only commented on repository status."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body provides symptom counts and a before/after fix claim, but no reproduction script, benchmark, or profiler evidence.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merging due to repository archive status; no code review or performance validation occurred.",
+      "evidence_gap": "narrative_only_no_working_maintained_repo"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified src/puppeteer/index.ts to add isBrowserHealthy(), browserLaunching flag, graceful close with timeout, process signal handlers, and platform-specific Chrome process cleanup.",
+      "files_primary": [
+        "src/puppeteer/index.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit implementing health checks, launch concurrency, cleanup, and signal handlers."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "olaservo",
+        "channel": "pr_comment",
+        "signal": "archived_repository",
+        "summary": "Maintainer said the server is archived and no longer maintained; recommended forking.",
+        "blocking": true,
+        "action_taken": "Closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with full fix in one commit.",
+      "After ~3 days, maintainer commented about archive and closed the PR; no human code review occurred."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

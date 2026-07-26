@@ -1,0 +1,196 @@
+{
+  "pr_id": 3239263606,
+  "meta": {
+    "title": "Optimize draw shape pressure property",
+    "html_url": "https://github.com/tldraw/tldraw/pull/6472",
+    "repo": "tldraw/tldraw",
+    "agent": "Cursor",
+    "user": "steveruizok",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-17 11:42:48+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-28 13:50:13+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Refactor draw shape pressure storage: omit z field when no pressure (mouse), use integer 0-100 for pen pressure, and include migration to reduce data size and improve clarity."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 170,
+      "deletions": 288,
+      "changes": 458,
+      "top1_file": "packages/tldraw/src/test/__snapshots__/drawing.test.ts.snap",
+      "top1_changes": 251,
+      "top1_change_ratio": 0.548,
+      "files_by_status": {
+        "modified": 6
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 1,
+        "deployed": 4,
+        "commented": 2,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 266.13,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "pressure_storage_optimization",
+      "serialization_size_reduction",
+      "integer_vs_float"
+    ],
+    "optimization_layer": "data_serialization",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "rejected_insufficient_impact",
+    "review_dimensions": [
+      "perf_evidence",
+      "design_or_approach",
+      "scope"
+    ],
+    "blocking": true,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor refactored pressure storage to omit z and use 0-100 ints; ds300 commented that impact is marginal and runtime dominated by derived data; PR closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 458,
+        "interpretation": "At 458 changed lines, this is a small-to-medium refactor by absolute volume, spanning 6 files. As a storage optimization PR, it was closed because the purported performance gains were challenged as insignificant compared to alternative approaches."
+      },
+      "lifecycle": {
+        "lifespan_hours": 266.13,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "insufficient_impact",
+      "concern_detail": "ds300 argued that the change won't significantly improve runtime memory or serialization size, and suggested more impactful approaches like base64 float16 arrays or gzip; the runtime cost is dominated by cached derived data, not raw points.",
+      "performance_claim": "Reduced file size and improved data clarity by omitting z for non-pressure inputs and storing pressure as integer 0-100.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence",
+        "design_or_approach",
+        "scope"
+      ],
+      "rejection_signals": "ds300's comment directly questioned the optimization's value; maintainer closed without further iteration."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Cursor",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Cursor's optimization targeted a specific data representation change but lacked benchmark evidence; maintainer expertise revealed that the real bottleneck lies elsewhere, indicating the agent's inability to assess system-level performance tradeoffs.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "ds300 reviewed the change and identified that runtime overhead is dominated by derived cached data, not raw point storage, and suggested alternative serialization strategies."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data provided; only functional test plan.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After ds300's comment, the PR was closed by the author without further changes.",
+      "evidence_gap": "narrative_claim_no_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In tldraw, refactored draw shape pressure handling: previously stored as float 0-1 in z property always; now omits z when no pressure (mouse), and stores integer 0-100 when pressure is present. Includes migration (OptimizePressure: 3) and updated tests.",
+      "files_primary": [
+        "packages/tldraw/src/lib/shapes/draw/toolStates/Drawing.ts",
+        "packages/tlschema/src/shapes/TLDrawShape.ts",
+        "packages/tldraw/src/test/drawing.test.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/editor/src/lib/primitives/Vec.ts",
+        "packages/tlschema/src/misc/geometry-types.ts",
+        "packages/tldraw/src/test/__snapshots__/drawing.test.ts.snap"
+      ],
+      "secondary_note": "The snapshot update is large (251 deletions) indicating test output changes; Vec.ts and geometry-types had minor adjustments.",
+      "change_trajectory": [
+        "Single commit by Cursor agent: refactored pressure system across 6 files, updated tests and snapshots."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel posted deployment status: analytics ready, examples failed (unrelated to perf).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "ds300",
+        "channel": "pr_comment",
+        "signal": "perf_impact_challenged",
+        "summary": "ds300 stated the change won't significantly improve runtime memory or serialization, and suggested more impactful alternatives like float16 arrays or gzip.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit by Cursor agent.",
+      "~4 days later, ds300 commented negatively on the optimization's value.",
+      "~7 days later, steveruizok closed the PR without further changes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "pr_id": 3183195813,
+  "meta": {
+    "title": "Improve TPCH query compilation",
+    "html_url": "https://github.com/mochilang/mochi/pull/3870",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-27 15:20:18+00:00",
+    "merged_at": "2025-06-27 15:24:55+00:00",
+    "closed_at": "2025-06-27 15:24:55+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 5,
+    "topic_name": "5",
+    "body_summary": "Improve TPC-H query compilation by adding a hash combine runtime helper, tracking element types in query compilation, and generating struct keys for grouped queries."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 483,
+      "deletions": 9,
+      "changes": 492,
+      "top1_file": "tests/dataset/tpc-h/compiler/cpp/q2.cpp.out",
+      "top1_changes": 241,
+      "top1_change_ratio": 0.49,
+      "files_by_status": {
+        "modified": 4,
+        "added": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.077,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "query_compilation",
+      "struct_key_hashing",
+      "type_inference"
+    ],
+    "optimization_layer": "compiler_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added struct key hashing and element type tracking in the C++ compiler; merged by same maintainer with only a single commit and no review discussion."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 492,
+        "interpretation": "At 492 changed lines, this is a small-to-medium edit by absolute volume. As a compiler optimization PR, it fits a typical incremental improvement and was merged quickly by the maintainer without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.077,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No formal review or comments were provided; the PR was self-merged by the author with a single commit.",
+      "performance_claim": "Improve TPC-H query compilation correctness and performance by adding hash combine helper and generating struct keys.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler-level optimization with runtime helper addition and type tracking is within agent capability for this repo; merge required no human engagement.",
+      "success_factors": [
+        "self_merge_by_maintainer",
+        "single_focused_commit",
+        "existing_test_infrastructure"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after evidence; only narrative description and a gold test output file.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression detected; PR merged without review.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In the C++ compiler, added a _hash_combine runtime helper for hashing struct keys, tracked element types in query compilation, and generated struct keys for grouped queries when the key is a map literal. Also added a TPC-H golden test and test output files.",
+      "files_primary": [
+        "compile/x/cpp/compiler.go",
+        "compile/x/cpp/inference.go",
+        "compile/x/cpp/runtime.go"
+      ],
+      "files_secondary_observability": [
+        "compile/x/cpp/tpch_golden_test.go",
+        "tests/dataset/tpc-h/compiler/cpp/q2.cpp.out",
+        "tests/dataset/tpc-h/compiler/cpp/q2.out",
+        "compile/x/cpp/TASKS.md"
+      ],
+      "secondary_note": "Test and output files were added for TPC-H Q2 validation; TASKS.md updated with task tracking.",
+      "change_trajectory": [
+        "Single commit adding compiler changes and test artifacts; merged by author immediately after creation."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with a single commit including compiler improvements and test output.",
+      "No review requested or performed; author self-merged within ~5 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

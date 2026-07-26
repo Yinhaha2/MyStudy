@@ -1,0 +1,173 @@
+{
+  "pr_id": 3165644329,
+  "meta": {
+    "title": "Investigate ai prompt caching issue",
+    "html_url": "https://github.com/ryokun6/ryos/pull/144",
+    "repo": "ryokun6/ryos",
+    "agent": "Cursor",
+    "user": "ryokun6",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-22 04:14:33+00:00",
+    "merged_at": "2025-06-22 04:14:40+00:00",
+    "closed_at": "2025-06-22 04:14:40+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 19,
+    "topic_name": "19",
+    "body_summary": "Refactor chat API to move the static system prompt from the `system` parameter to a message with Anthropic `cacheControl` tag, enabling prompt caching and reducing token usage."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 19,
+      "deletions": 10,
+      "changes": 29,
+      "top1_file": "api/chat.ts",
+      "top1_changes": 29,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "api"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.00194,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "prompt_caching",
+      "api_optimization",
+      "cache_control_tagging"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Cursor enabled Anthropic prompt caching by moving static system prompt to message array with cacheControl tag; self-merged by maintainer with no review or performance numbers."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 29,
+        "interpretation": "At 29 changed lines, this is a tiny edit by absolute volume. It fits a small-step, self-contained optimization that merged immediately without review, consistent with a low-risk enablement change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00194,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Enable Anthropic prompt caching for the static system prompt to reduce token-related cost/latency via cache hits.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "19",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Enabling a cloud API caching feature required understanding the specific SDK message format and Anthropic's caching constraints; Cursor could implement it successfully.",
+      "success_factors": [
+        "small_scope",
+        "self-contained",
+        "maintainer_speed_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No before/after measurements or cache-hit metrics; only narrative description of caching behavior. Verification would rely on observing `cacheReadInputTokens` in Anthropic usage metadata after deployment.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No review regression; merged immediately within seconds.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In api/chat.ts, converted staticSystemPrompt from a system parameter to an explicit system message object with Anthropic cacheControl tag, reordered enrichedMessages so that the static system message appears first, ensuring the large static prompt is cacheable.",
+      "files_primary": [
+        "api/chat.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Single file change only.",
+      "change_trajectory": [
+        "Single commit (32d5401): Refactored chat API to improve system message handling and caching."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor committed the change; maintainer self-merged instantly with no review (PR lifespan ~7 seconds)."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

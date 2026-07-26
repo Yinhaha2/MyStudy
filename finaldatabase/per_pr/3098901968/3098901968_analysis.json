@@ -1,0 +1,197 @@
+{
+  "pr_id": 3098901968,
+  "meta": {
+    "title": "Fix net server noDelay handling",
+    "html_url": "https://github.com/oven-sh/bun/pull/19979",
+    "repo": "oven-sh/bun",
+    "agent": "OpenAI_Codex",
+    "user": "Jarred-Sumner",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-29 01:22:52+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-29 05:14:57+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 40,
+    "topic_name": "40",
+    "body_summary": "Add Node.js test for server noDelay and call Socket.setNoDelay() when server noDelay is enabled to fix missing TCP_NODELAY handling."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 37,
+      "deletions": 0,
+      "changes": 37,
+      "top1_file": "test/js/node/test/parallel/test-net-server-nodelay.js",
+      "top1_changes": 33,
+      "top1_change_ratio": 0.8919,
+      "files_by_status": {
+        "modified": 1,
+        "added": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 3.87,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "tcp_nodelay",
+      "server_socket_option",
+      "latency_optimization"
+    ],
+    "optimization_layer": "network_stack",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_failure",
+    "review_dimensions": [
+      "correctness",
+      "tests"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "ci_auto",
+      "code_reading"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "OpenAI_Codex added server noDelay call but new Node.js test fails on all platforms; maintainer closed citing reliance on internal .onconnection API."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 37,
+        "interpretation": "At 37 changed lines across 2 files (4 lines in net.ts, 33 lines test), this is a small edit by absolute volume. It fits a small-step fix but was closed due to functional failure in the added test."
+      },
+      "lifecycle": {
+        "lifespan_hours": 3.87,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_failure",
+      "concern_detail": "The added test test-net-server-nodelay.js still fails on all CI platforms; maintainer nektro commented that the fix does not fix the test and the test relies on potentially internal `.onconnection` API of native handle.",
+      "performance_claim": "Enabling noDelay on server sockets disables Nagle's algorithm, reducing latency for small writes.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests"
+      ],
+      "rejection_signals": "Change does not fix test; relies on internal .onconnection API; closed without merge after CI failures on all platforms."
+    },
+    "capability_boundary": {
+      "topic": "40",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent attempted to add noDelay handling by calling setNoDelay on socket, but the Node.js test requires using an internal `.onconnection` API native handle; the fix does not resolve the test failure, indicating the agent failed to grasp internal API requirements.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto",
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "nektro reviewed the test and fix, concluding that the change does not fix the test and the test relies on internal .onconnection API.",
+        "ci_auto": "robobun reported 3 categories of failures across all CI platforms, specifically the new test-net-server-nodelay.js failing with code 1 everywhere."
+      },
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "The added Node.js test fails on all CI platforms, providing clear evidence that the fix is insufficient.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After CI failures and maintainer code review, the PR was closed without merge.",
+      "evidence_gap": "test_failure_not_perf_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add a new Node.js test test-net-server-nodelay.js that verifies server noDelay option works, and modify src/js/node/net.ts to call Socket.setNoDelay() when server noDelay is enabled.",
+      "files_primary": [
+        "src/js/node/net.ts"
+      ],
+      "files_secondary_observability": [
+        "test/js/node/test/parallel/test-net-server-nodelay.js"
+      ],
+      "secondary_note": "The test file is newly added for verification but fails across all platforms.",
+      "change_trajectory": [
+        "Commit f5264cea: Added test-net-server-nodelay.js test file and updated net.ts to call setNoDelay() on socket when server noDelay option is true."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "robobun",
+        "channel": "pr_comment",
+        "signal": "ci_failure",
+        "summary": "CI build #17538 failed with 3 categories of failures; the new test-net-server-nodelay.js fails on all platforms.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "nektro",
+        "channel": "pr_comment",
+        "signal": "functional_failure",
+        "summary": "change does not fix test; test relies on potentially internal `.onconnection` api of native handle",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Jarred-Sumner with a single commit adding test and fix.",
+      "robobun CI bot reported test failures across all platforms within seconds.",
+      "nektro reviewed the test failure and code, commented that fix does not work and relies on internal API.",
+      "PR closed by nektro without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

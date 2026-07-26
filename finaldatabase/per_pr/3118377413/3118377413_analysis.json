@@ -1,0 +1,169 @@
+{
+  "pr_id": 3118377413,
+  "meta": {
+    "title": "Adjust benchmark units to microseconds",
+    "html_url": "https://github.com/mochilang/mochi/pull/59",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-04 16:13:47+00:00",
+    "merged_at": "2025-06-04 16:14:03+00:00",
+    "closed_at": "2025-06-04 16:14:03+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 27,
+    "topic_name": "27",
+    "body_summary": "Switch benchmark templates from milliseconds to microseconds, update runner to handle duration_us and display µs, regenerate benchmark outputs and markdown."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 63,
+      "additions": 262,
+      "deletions": 244,
+      "changes": 506,
+      "top1_file": "BENCHMARK.md",
+      "top1_changes": 144,
+      "top1_change_ratio": 0.2846,
+      "files_by_status": {
+        "modified": 63
+      },
+      "directory_count": 2,
+      "directories": [
+        ".",
+        "bench"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0044,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmark_units_conversion",
+      "duration_precision"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Trivial unit-of-measurement change across benchmark tooling, self-merged by maintainer with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 506,
+        "interpretation": "At 506 changed lines across 63 files, this is a medium-sized edit by absolute volume, but most churn is in auto-regenerated benchmark output files. The core change (runner.go, templates) is small, fitting a low-risk infrastructure tweak that was merged instantly."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0044,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review comments; PR was self-merged by maintainer.",
+      "performance_claim": "Switching benchmark output from milliseconds to microseconds provides finer granularity for microbenchmarks.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "27",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple config and unit change in benchmarking tooling; Agent successfully updated templates, runner, and regenerated outputs without human intervention.",
+      "success_factors": [
+        "small_scope",
+        "self_merge_by_maintainer",
+        "regenerated_outputs_consistent"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body mentions 'make bench' as testing but no before/after timing data or output comparison; the changes appear to be automatically regenerated.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; merged without review.",
+      "evidence_gap": "no_human_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Adjusted benchmark templates and runner to output durations in microseconds instead of milliseconds; regenerated benchmark output files and updated BENCHMARK.md to reflect new units.",
+      "files_primary": [
+        "bench/runner.go",
+        "bench/template/math/*/*.mochi"
+      ],
+      "files_secondary_observability": [
+        "BENCHMARK.md",
+        "bench/out/*.out"
+      ],
+      "secondary_note": "All benchmark output .out files and the summary markdown were regenerated with microsecond values.",
+      "change_trajectory": [
+        "Single commit: 'chore(bench): measure durations in microseconds' updated runner.go to parse duration_us and changed template files to output µs; regenerated all benchmark outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Maintainer (tamnd) self-merged the PR within seconds of creation; no external review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

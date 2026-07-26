@@ -1,0 +1,178 @@
+{
+  "pr_id": 3188169860,
+  "meta": {
+    "title": "Update VM for TPCH",
+    "html_url": "https://github.com/mochilang/mochi/pull/4172",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 11:40:40+00:00",
+    "merged_at": "2025-06-30 11:41:13+00:00",
+    "closed_at": "2025-06-30 11:41:13+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "15",
+    "body_summary": "Reuse null constants in the VM and update TPC-H IR outputs to reflect the new constant register reuse, reducing IR output size."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 11,
+      "additions": 1911,
+      "deletions": 2423,
+      "changes": 4334,
+      "top1_file": "tests/dataset/tpc-h/out/q10.ir.out",
+      "top1_changes": 654,
+      "top1_change_ratio": 0.1508,
+      "files_by_status": {
+        "modified": 11
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00917,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "null_constant_reuse",
+      "ir_output_reduction",
+      "vm_efficiency"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_by_author_direct",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex commit reuses null constants in VM, updates 10 TPC-H IR output files; merged by tamnd in 33 seconds with no review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4334,
+        "interpretation": "At 4334 changed lines, this is a large change by absolute volume, but over 99% of the diff is in TPC-H IR expected output files due to constant reuse; the VM source change is only 2 lines. This low-risk, automated refactor is consistent with the fast, self-merge outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00917,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review was conducted; PR was self-merged by the author immediately.",
+      "performance_claim": "Reusing null constants reduces IR output size and may improve VM efficiency by reducing memory pressure.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "15",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Codex performed a deterministic VM optimization (null constant reuse) that required updating test expectations; low merge friction due to absence of review requirement and straightforward mechanical changes.",
+      "success_factors": [
+        "minimal_core_change",
+        "test_outputs_updated",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark or profiling evidence provided; the only verification is that updated IR outputs produce consistent test results.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "Merged directly without any reported regressions.",
+      "evidence_gap": "narrative_only_no_perf_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added null constant reuse logic (2 lines). Updated 10 TPC-H IR expected output files (q1, q4, q6, q8, q9, q10, q11, q13, q18, q21.ir.out) to reflect the new constant register assignments, reducing overall IR lines by ~512.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/tpc-h/out/q1.ir.out",
+        "tests/dataset/tpc-h/out/q4.ir.out",
+        "tests/dataset/tpc-h/out/q6.ir.out",
+        "tests/dataset/tpc-h/out/q8.ir.out",
+        "tests/dataset/tpc-h/out/q9.ir.out",
+        "tests/dataset/tpc-h/out/q10.ir.out",
+        "tests/dataset/tpc-h/out/q11.ir.out",
+        "tests/dataset/tpc-h/out/q13.ir.out",
+        "tests/dataset/tpc-h/out/q18.ir.out",
+        "tests/dataset/tpc-h/out/q21.ir.out"
+      ],
+      "secondary_note": "The bulk of the diff (99.9%) is in test expected output files due to IR register renumbering; the actual VM logic change is only 2 lines.",
+      "change_trajectory": [
+        "Single commit: vm: reuse null constants, updating VM logic and all affected TPC-H IR output files.",
+        "Immediately merged by tamnd without review."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and self-merged by tamnd within 33 seconds; no reviewer interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

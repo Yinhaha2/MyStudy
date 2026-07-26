@@ -1,0 +1,165 @@
+{
+  "pr_id": 3187260592,
+  "meta": {
+    "title": "Add column-aware scan feature",
+    "html_url": "https://github.com/gluesql/gluesql/pull/1663",
+    "repo": "gluesql/gluesql",
+    "agent": "OpenAI_Codex",
+    "user": "panarch",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-06-30 06:03:34+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "30",
+    "body_summary": "Add scan_data_with_columns method to Store trait with default impl, optimized Parquet projection, and integration tests; improves I/O efficiency by reading only requested columns."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 201,
+      "deletions": 1,
+      "changes": 202,
+      "top1_file": "storages/parquet-storage/src/store.rs",
+      "top1_changes": 89,
+      "top1_change_ratio": 0.44,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "core",
+        "storages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 2,
+        "review_requested": 3,
+        "assigned": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "column_aware_scan",
+      "io_reduction",
+      "parquet_projection_optimization"
+    ],
+    "optimization_layer": "storage_io",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_pending_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Codex adds scan_data_with_columns to Store trait and Parquet projection; PR is open with no reviews and no benchmark evidence, relying on narrative claims of I/O optimization."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 202,
+        "interpretation": "At 202 changed lines across 4 files, this is a small edit by absolute volume, introducing a new column-aware scan API with a default implementation and Parquet optimization. The PR is still open without review, so outcome (open) is consistent with pending evaluation."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Improve I/O efficiency by scanning only needed columns instead of full rows, particularly optimizing Parquet columnar reads.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_column_read",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Codex successfully added a new method to the Store trait with a default implementation and integrated with Parquet's column projection, demonstrating capability for moderate storage-layer API changes, but no review feedback yet to confirm functional correctness or performance gains.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance data or review text available; only the PR description mentions column-aware scanning benefits without numbers.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR remains open with no review activity; no regression identified.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add scan_data_with_columns method signature to Store trait with a default implementation that calls scan_data, implement optimized projection in Parquet store by selecting only requested columns, and add integration tests for memory and Parquet backends.",
+      "files_primary": [
+        "storages/parquet-storage/src/store.rs",
+        "core/src/store.rs"
+      ],
+      "files_secondary_observability": [
+        "storages/memory-storage/tests/memory_storage.rs",
+        "storages/parquet-storage/tests/parquet_storage.rs"
+      ],
+      "secondary_note": "Test files verify the new method behavior but do not add benchmark measurements.",
+      "change_trajectory": [
+        "Single commit adds trait method, default impl, Parquet optimization, and tests for both memory and Parquet backends."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by panarch labeled as codex; no review or comment activity yet."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

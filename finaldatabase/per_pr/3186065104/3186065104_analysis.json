@@ -1,0 +1,164 @@
+{
+  "pr_id": 3186065104,
+  "meta": {
+    "title": "Fix VM map argument optimization",
+    "html_url": "https://github.com/mochilang/mochi/pull/3951",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-29 11:14:37+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 03:06:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 42,
+    "topic_name": "42",
+    "body_summary": "Fix VM map construction by ensuring contiguous register usage via temporary copies; update TPCH q1 IR golden file."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 297,
+      "deletions": 150,
+      "changes": 447,
+      "top1_file": "tests/dataset/tpc-h/out/q1.ir.out",
+      "top1_changes": 400,
+      "top1_change_ratio": 0.894,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 39.88,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "vm_map_creation",
+      "register_contiguity",
+      "temporary_arg_copy"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_author_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Author closed PR without review or comment; no performance evidence beyond narrative; single commit modifies VM map logic and golden IR file."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 447,
+        "interpretation": "At 447 changed lines, this is a small-to-medium edit by absolute volume, though most churn is in the IR golden file (400 lines) rather than the VM source (47 lines). As a closed performance PR with no review or comment, the outcome is consistent with an abandoned or self-rejected change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 39.88,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": "No review text available.",
+      "performance_claim": "Fix map creation to use contiguous registers, presumably improving VM performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed PR without explanation; no review interaction."
+    },
+    "capability_boundary": {
+      "topic": "42",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "VM-level fix delivered by an agent with no review engagement; the PR was closed by the author with no maintainer feedback, suggesting the change may not have met an internal requirement or the author decided against pursuing it.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No review or comment text to assess reproducibility; PR body mentions a test command but no performance evidence.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review cycle occurred.",
+      "evidence_gap": "no_review_no_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, map creation logic was adjusted to ensure register contiguity by copying arguments to temporary registers; the corresponding TPCH q1 IR golden file was updated to reflect the new bytecode.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/tpc-h/out/q1.ir.out"
+      ],
+      "secondary_note": "Golden IR file accounts for 400 of 447 changed lines; the VM source modification is 47 lines.",
+      "change_trajectory": [
+        "Single commit 'fix vm map construction' with VM logic fix and golden file update."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit and labeled 'codex'.",
+      "No review or comment activity throughout lifespan.",
+      "Author closed PR after ~40 hours without explanation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

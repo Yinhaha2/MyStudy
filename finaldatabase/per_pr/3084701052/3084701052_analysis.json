@@ -1,0 +1,206 @@
+{
+  "pr_id": 3084701052,
+  "meta": {
+    "title": "Add community profile and like button to ThemeView",
+    "html_url": "https://github.com/jnsahaj/tweakcn/pull/97",
+    "repo": "jnsahaj/tweakcn",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-22 22:40:46+00:00",
+    "merged_at": "2025-05-23 07:41:32+00:00",
+    "closed_at": "2025-05-23 07:41:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 2,
+    "topic_name": "2",
+    "body_summary": "Optimize theme fetching by combining two sequential database queries into a single getThemeWithCommunity query, reducing round-trips and eliminating extra network requests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 4,
+      "additions": 191,
+      "deletions": 15,
+      "changes": 206,
+      "top1_file": "actions/themes.ts",
+      "top1_changes": 71,
+      "top1_change_ratio": 0.345,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 3,
+      "directories": [
+        "actions",
+        "app",
+        "components"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 10,
+      "event_counts": {
+        "committed": 2,
+        "commented": 4,
+        "deployed": 2,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 9.013,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "database_query_reduction",
+      "theme_fetching_optimization"
+    ],
+    "optimization_layer": "application_data_access",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin combined two sequential DB queries into one; merged without human review despite Vercel/Cloudflare build failures."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 206,
+        "interpretation": "At 206 changed lines across 4 files, this is a small-to-medium refactor by absolute volume. It is a compact performance optimization that merged without review friction, fitting a fast‑tracked, low‑risk change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 9.013,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review captured; only automated bot comments (CodeRabbit skipped, Vercel and Cloudflare build failures).",
+      "performance_claim": "Reduces number of database queries from two to one, eliminating sequential requests and extra network overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Straightforward query combination; merged without human review, indicating low friction for small data‑access optimisations even with failing CI deployments.",
+      "success_factors": [
+        "small_change_scope",
+        "narrative_only_perf_claim_accepted",
+        "maintainer_merged_despite_ci_failures"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or reproduction steps in PR body; only query‑count reduction claim.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR merged without reported regressions; no fix‑in‑PR cycle occurred.",
+      "evidence_gap": "narrative_only_for_query_reduction"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added getThemeWithCommunity function in actions/themes.ts that fetches both theme and community theme in a single Prisma query, replacing two separate fetches. Updated page component and ThemeView to use the combined data.",
+      "files_primary": [
+        "actions/themes.ts",
+        "app/themes/[themeId]/page.tsx",
+        "components/theme-view.tsx"
+      ],
+      "files_secondary_observability": [
+        "actions/community-themes.ts"
+      ],
+      "secondary_note": "Minor changes in community-themes.ts support like‑button UI; core performance change is the single‑query refactor in themes.ts.",
+      "change_trajectory": [
+        "Initial commit: Added community profile and like button UI with separate theme and community theme fetches.",
+        "Second commit: Refactored to single getThemeWithCommunity query in actions/themes.ts, updated page component to use it, removing sequential request."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_build_failure",
+        "summary": "Vercel deployment build failed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cloudflare-workers-and-pages[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_build_failure",
+        "summary": "Cloudflare Pages build failed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_bot_user",
+        "summary": "CodeRabbit AI skipped review because PR author is a bot.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write‑access users.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial feature commit, then made an optimizing commit.",
+      "Multiple bots commented (Vercel/Cloudflare build failures, CodeRabbit skip) within minutes.",
+      "PR merged by jnsahaj ~9 hours later with no human review interaction captured."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

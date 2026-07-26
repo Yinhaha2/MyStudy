@@ -1,0 +1,165 @@
+{
+  "pr_id": 3087062778,
+  "meta": {
+    "title": "[alpha_factory] improve metrics setup and memory defaults",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/615",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-05-23 17:33:40+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 13,
+    "topic_name": "13",
+    "body_summary": "Avoid duplicate Prometheus metrics when multiple PingAgent instances run and default MemoryFabric vector store to RAM unless VECTOR_STORE_USE_SQLITE=true."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 29,
+      "deletions": 14,
+      "changes": 43,
+      "top1_file": "alpha_factory_v1/backend/agents/ping_agent.py",
+      "top1_changes": 41,
+      "top1_change_ratio": 0.953,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "alpha_factory_v1/backend/agents",
+        "alpha_factory_v1/backend"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 2,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "prometheus_metric_dedup",
+      "vector_store_memory_default",
+      "ram_vs_sqlite"
+    ],
+    "optimization_layer": "backend_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_pending_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex authored open PR with 43-line change touching metrics dedup and RAM default; no reviews, narrative-only perf claim."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 43,
+        "interpretation": "At 43 changed lines, this is a very small edit by absolute volume. It fits a small-step, incremental performance PR that remains open with no review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No formal review or comment text exists in the dataset.",
+      "performance_claim": "Avoid duplicate Prometheus metrics and default vector store to RAM for better performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "metric_duplication",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "13",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Config-level changes to metrics and memory defaults require no benchmark; the PR is open with no review, indicating a process boundary where maintainer time is unavailable or the change is low priority.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null,
+        "profiler": null,
+        "load_test": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after data, benchmark, or review feedback on performance.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling as PR is open without review.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In ping_agent.py, added metric deduplication logic to avoid multiple Prometheus metric registrations. In memory_fabric.py, changed default vector store to RAM (VECTOR_STORE_USE_SQLITE=false).",
+      "files_primary": [
+        "alpha_factory_v1/backend/agents/ping_agent.py",
+        "alpha_factory_v1/backend/memory_fabric.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: prevent metric duplication and default RAM vector store."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by MontrealAI with no reviews or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "pr_id": 3238351006,
+  "meta": {
+    "title": "feat: Prefetch info panel data with config options `prefetchObjects` and `prefetchStale`",
+    "html_url": "https://github.com/parse-community/parse-dashboard/pull/2915",
+    "repo": "parse-community/parse-dashboard",
+    "agent": "OpenAI_Codex",
+    "user": "mtrezza",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-17 06:45:48+00:00",
+    "merged_at": "2025-07-17 12:15:59+00:00",
+    "closed_at": "2025-07-17 12:15:59+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 22,
+    "topic_name": "22",
+    "body_summary": "Prefetch info panel data when browsing sequential rows; add config options `prefetchObjects` and `prefetchStale`."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 4,
+      "additions": 221,
+      "deletions": 75,
+      "changes": 296,
+      "top1_file": "src/dashboard/Data/Browser/DataBrowser.react.js",
+      "top1_changes": 213,
+      "top1_change_ratio": 0.72,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "CHANGES_REQUESTED": 2,
+        "DISMISSED": 1
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 6,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 28,
+      "event_counts": {
+        "committed": 7,
+        "commented": 6,
+        "labeled": 2,
+        "renamed": 3,
+        "unlabeled": 1,
+        "reviewed": 3,
+        "review_dismissed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 2
+      },
+      "lifespan_hours": 5.503,
+      "first_review_delay_hours": 0.086,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "prefetch_data",
+      "cache_with_stale",
+      "ui_latency_reduction",
+      "data_browser_perf"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "error_handling",
+      "design_or_approach",
+      "documentation"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "OpenAI Codex added prefetch/cache for info panel; coderabbitai flagged scoping and error handling issues; all resolved before merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 296,
+        "interpretation": "At 296 changed lines across 4 files, this is a small-to-medium edit by absolute volume, concentrated in DataBrowser.react.js. It fits a incremental performance feature that merged after automated review identified correctness issues."
+      },
+      "lifecycle": {
+        "lifespan_hours": 5.503,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "variable_scoping_and_error_handling",
+      "concern_detail": "CodeRabbit flagged that variable declarations in switch cases could be accessed from other cases, and recommended wrapping in blocks; also recommended .catch for prefetch cloud function calls.",
+      "performance_claim": "Prefetching cloud function results when browsing sequential rows reduces latency and provides faster info panel load.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "error_handling",
+        "design_or_approach",
+        "documentation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Prefetch/caching with stale invalidation in a React dashboard; code required attention to variable scoping, error handling, and cache size limits, which were caught by static analysis.",
+      "success_factors": [
+        "addressed automated review feedback",
+        "incremental change",
+        "configurable feature",
+        "no breaking changes"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "CodeRabbit performed static analysis (Biome) that flagged variable scoping issues and missing error handling, leading to fixes in PR."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or timing data provided; only narrative claim of improved browsing responsiveness.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Fixes for scoping, error handling, and documentation were added in subsequent commits before merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added prefetch/caching of cloud function results in DataBrowser.react.js for sequential row browsing; new config options prefetchObjects and prefetchStale control number of objects to prefetch and staleness duration; simplified cell click handler in BrowserCell.react.js.",
+      "files_primary": [
+        "src/dashboard/Data/Browser/DataBrowser.react.js",
+        "src/dashboard/Data/Browser/Browser.react.js",
+        "src/components/BrowserCell/BrowserCell.react.js"
+      ],
+      "files_secondary_observability": [
+        "README.md"
+      ],
+      "secondary_note": "README.md was updated to document new config options.",
+      "change_trajectory": [
+        "Initial commit: added prefetch logic, cache, stale check, and config propagation (ecdf280).",
+        "Added arrow key navigation support for prefetching (8c1c12b).",
+        "Fixed key case scoping issues flagged by coderabbitai (13ab40d).",
+        "Fixed cache growth bound (d9adee5).",
+        "Updated README table formatting (4067c5b).",
+        "Added error handling for prefetch failures (0ebd007).",
+        "Fixed info panel reload on cell click despite cached data (4c382b3)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "markdown_formatting",
+        "summary": "Requested adding trailing pipes to table rows in README.md to fix Markdown rendering.",
+        "blocking": true,
+        "action_taken": "Fixed table formatting in commit 4067c5b."
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "error_handling",
+        "summary": "Recommended adding .catch block for prefetch cloud function calls to avoid silent failures.",
+        "blocking": true,
+        "action_taken": "Added error handling in commit 0ebd007."
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "variable_scoping",
+        "summary": "Flagged variable declaration scoping issues in switch cases due to no block wrapping; recommended wrapping in blocks.",
+        "blocking": true,
+        "action_taken": "Fixed key case scopes in commit 13ab40d."
+      }
+    ],
+    "collaboration_trajectory": [
+      "OpenAI Codex opened PR with prefetch feature and no benchmark.",
+      "CodeRabbit bot flagged variable scoping, missing error handling, and markdown formatting issues.",
+      "Author (mtrezza) fixed scoping, added error handling, fixed markdown, and addressed cache growth bound.",
+      "Review dismissed after fixes; PR merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

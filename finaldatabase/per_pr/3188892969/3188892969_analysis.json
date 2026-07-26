@@ -1,0 +1,157 @@
+{
+  "pr_id": 3188892969,
+  "meta": {
+    "title": "Improve row map assembly",
+    "html_url": "https://github.com/mochilang/mochi/pull/4253",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-30 15:19:51+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-03 10:40:35+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "42",
+    "body_summary": "Optimize buildRowMap in runtime/vm/vm.go to avoid copying when key/value pairs are already contiguous in memory."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 17,
+      "deletions": 5,
+      "changes": 22,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 22,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "runtime"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 67.345,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "row_map_copy_avoidance",
+      "contiguous_key_value_handling"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "author_closed_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex PR avoided a copy in buildRowMap but lacked review engagement and was closed by the author after ~67h without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 22,
+        "interpretation": "At 22 changed lines, this is a very small edit by absolute volume. It fits a small-step performance PR but was closed by the author without any review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 67.345,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_data",
+      "concern_detail": "No formal reviews, comments, or review text exist in the dataset; PR was closed by the author after 3 days.",
+      "performance_claim": "Skip copying in buildRowMap when key/value pairs are already contiguous in memory.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_copy_of_contiguous_pairs",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed the PR without merge; no review engagement or evidence of functional rejection."
+    },
+    "capability_boundary": {
+      "topic": "42",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The PR is a small VM optimization with no benchmark or evidence; it received zero reviews or comments and was closed by the author, illustrating that agent PRs can fail to attract reviewer attention without supporting performance data.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body states testing instructions using TPCH query but provides no benchmark numbers or before/after timing.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues occurred; PR closed without merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, modified buildRowMap to detect when key/value byte slices are already contiguous in the underlying map and skip copying them to reduce allocations.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All 22 changed lines are in one file with no secondary changes.",
+      "change_trajectory": [
+        "Single commit: modify buildRowMap to conditionally avoid copy when contiguous."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd (OpenAI_Codex) without review request or linked issue.",
+      "No comments or reviews received; PR was closed by the author after approximately 67 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

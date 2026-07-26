@@ -1,0 +1,195 @@
+{
+  "pr_id": 3142181649,
+  "meta": {
+    "title": "Replace CLI subprocess approach with Claude Code SDK",
+    "html_url": "https://github.com/sugyan/claude-code-webui/pull/19",
+    "repo": "sugyan/claude-code-webui",
+    "agent": "Claude_Code",
+    "user": "sugyan",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-13 04:05:15+00:00",
+    "merged_at": "2025-06-13 14:14:33+00:00",
+    "closed_at": "2025-06-13 14:14:33+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 11,
+    "topic_name": "11_sdk_query_function_dependency",
+    "body_summary": "Replace CLI subprocess execution with Claude Code SDK for better performance, type safety, and error handling while maintaining the same interface."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 4,
+      "additions": 199,
+      "deletions": 164,
+      "changes": 363,
+      "top1_file": "backend/main.ts",
+      "top1_changes": 269,
+      "top1_change_ratio": 0.741,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "backend"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 5,
+        "labeled": 2,
+        "review_requested": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 10.155,
+      "first_review_delay_hours": 10.118,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sdk_integration",
+      "subprocess_replacement",
+      "elimination_overhead"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Claude Code replaced CLI subprocess with SDK; Copilot bot review non-blocking; no benchmarks; merged quickly without human perf scrutiny."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 363,
+        "interpretation": "At 363 changed lines across 4 files, this is a small-to-medium edit by absolute volume. The change replaces subprocess spawning with SDK calls in a single primary file (backend/main.ts). It fits a low-risk, clean replacement PR and merged seamlessly."
+      },
+      "lifecycle": {
+        "lifespan_hours": 10.155,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "Copilot bot review was non-blocking with no inline comments; two low-confidence suggestions suppressed. No human review feedback.",
+      "performance_claim": "Replace subprocess spawning with SDK to eliminate process overhead, enable direct memory access, and improve error handling.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "11_sdk_query_function_dependency",
+      "agent": "Claude_Code",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Replacing CLI subprocess with SDK is a straightforward technical migration; Agent's own SDK integration proceeds without human perf scrutiny or evidence requirements.",
+      "success_factors": [
+        "clean_replacement",
+        "no_human_review_blocking",
+        "same_interface_maintained"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Copilot bot reviewed the diff and provided a summary with two low-confidence suppressed suggestions; no human maintainer reviewed performance."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body describes performance benefits narratively but provides no benchmark, timing data, or reproducible metrics.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues encountered; merged directly after bot review.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced CLI subprocess spawning in backend/main.ts with Claude Code SDK query() function, maintaining identical interface and JSON output. Added deno.lock dependency for npm:@anthropic-ai/claude-code, --allow-env permissions in deno.json and release workflow.",
+      "files_primary": [
+        "backend/main.ts"
+      ],
+      "files_secondary_observability": [
+        "backend/deno.lock",
+        "backend/deno.json",
+        ".github/workflows/release.yml"
+      ],
+      "secondary_note": "Permission and workflow changes are minimal side effects of SDK integration.",
+      "change_trajectory": [
+        "Initial commit: SDK integration with feature flag and CLI fallback.",
+        "Simplify: remove fallback and feature flag for clean SDK-only approach.",
+        "Add --allow-env to deno.json for SDK environment access.",
+        "Add --allow-env to release workflow for binary compilation.",
+        "Final commit: refine SDK usage with dynamic path resolution via 'which claude'."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Copilot bot reviewed all 4 changed files; no inline comments, two low-confidence suggestions suppressed.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with 5 commits authored by sugyan (Claude_Code) over ~10 hours.",
+      "Review requested and Copilot bot review submitted within 2 minutes.",
+      "Merged immediately after bot review; total lifespan ~10.2 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

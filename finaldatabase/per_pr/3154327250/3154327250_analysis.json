@@ -1,0 +1,170 @@
+{
+  "pr_id": 3154327250,
+  "meta": {
+    "title": "[alpha_factory] add memory limit to MemoryAgent",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/2307",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-17 18:01:39+00:00",
+    "merged_at": "2025-06-17 18:01:59+00:00",
+    "closed_at": "2025-06-17 18:01:59+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 13,
+    "topic_name": "13",
+    "body_summary": "Add a memory record cap using AGI_INSIGHT_MEMORY_LIMIT environment variable, trimming history when exceeded, with test for cap behavior."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 81,
+      "deletions": 4,
+      "changes": 85,
+      "top1_file": "tests/test_memory_agent_file_persistence.py",
+      "top1_changes": 52,
+      "top1_change_ratio": 0.612,
+      "files_by_status": {
+        "added": 1,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "alpha_factory_v1",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.0056,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_cap",
+      "resource_limit"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_no_review_minimal_checks",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added memory cap; PR merged instantly without review despite failing tests listed in body; no performance evidence or maintainer discussion."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 85,
+        "interpretation": "At 85 changed lines, this is a small edit. It adds a memory cap and trims history, a targeted resource-limit fix that fits a small-step performance PR. The merge occurred without any review, consistent with low-friction self-merging in this repository."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0056,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": "No review or comment text available; PR merged without human review.",
+      "performance_claim": "Limit memory agent records to prevent unbounded growth, controlled by AGI_INSIGHT_MEMORY_LIMIT env var.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_record_storage",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "13",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding a memory cap with env var configuration and trimming is a low-complexity change within the agent's capability; no evidence requirement barrier in this repo.",
+      "success_factors": [
+        "small_scope",
+        "self_merge",
+        "no_review_requirement"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No code-reading review evidence available.",
+        "ci_auto": "No CI or automated evidence available."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body lists tests that all fail (missing packages, no network), and no benchmark or profiler evidence; the cap is a simple code change without performance validation.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues; merged without feedback.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In memory_agent.py, added a check for AGI_INSIGHT_MEMORY_LIMIT environment variable; if set, and if the number of stored records exceeds the limit, it trims the history list to that cap before saving. Added test file for cap behavior.",
+      "files_primary": [
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/src/agents/memory_agent.py"
+      ],
+      "files_secondary_observability": [
+        "tests/test_memory_agent_file_persistence.py"
+      ],
+      "secondary_note": "Test file adds coverage for the memory cap and env var handling.",
+      "change_trajectory": [
+        "Single commit adds memory cap and tests."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "No human review or comments; PR merged within 20 seconds after creation by the same user."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

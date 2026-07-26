@@ -1,0 +1,180 @@
+{
+  "pr_id": 3116534114,
+  "meta": {
+    "title": "Improve pooled buffer security",
+    "html_url": "https://github.com/OpenHFT/Chronicle-Bytes/pull/686",
+    "repo": "OpenHFT/Chronicle-Bytes",
+    "agent": "OpenAI_Codex",
+    "user": "peter-lawrey",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-04 05:52:53+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-04 06:50:37+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 4,
+    "topic_name": "4",
+    "body_summary": "Zero pooled Bytes only up to its written region instead of full buffer; clarify buffer reuse guidance in documentation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 21,
+      "deletions": 3,
+      "changes": 24,
+      "top1_file": "src/main/java/net/openhft/chronicle/bytes/internal/BytesInternal.java",
+      "top1_changes": 11,
+      "top1_change_ratio": 0.458,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.962,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "zero_pooled_buffers",
+      "zero_only_written_region",
+      "buffer_reuse_security"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_performance_overhead_concern",
+    "review_dimensions": [
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "OpenAI Codex proposed zeroing pool buffers up to write position; maintainer closed citing performance impact without benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 24,
+        "interpretation": "At 24 changed lines, this is a tiny edit by absolute volume, touching core buffer and pool classes plus a doc update. As a micro performance PR it was closed—not merged—because the maintainer perceived it would regress performance."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.962,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "performance_regression_risk",
+      "concern_detail": "Maintainer peter-lawrey closed the PR with the comment 'this would have a performance impact', indicating the zeroing change would negatively affect performance without evidence of benefit.",
+      "performance_claim": "Zeroing pooled buffers only up to the written region (instead of the whole buffer) for improved security and possible reduced memory writes.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence"
+      ],
+      "rejection_signals": "PR closed by maintainer with explicit performance impact concern; no benchmark or data to counter."
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Low-level buffer zeroing optimization in a performance-critical library; agent submitted a code change without benchmark, and the maintainer closed it citing performance degradation risk.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "peter-lawrey reviewed the change in BytesInternal.java and BytesPool.java, commenting that zeroing up to write position would have a performance impact."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after timing data, no benchmark, no test results; PR body mentions mvn verify but notes command not found.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Maintainer closed the PR without merge after stating it would degrade performance.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In BytesInternal.java, add a method to zero bytes from the buffer up to the write position; in BytesPool.java, call this zeroing upon buffer release; update api-guide.adoc with reuse guidance. The change limits zeroing to the actually written portion instead of potentially the whole buffer.",
+      "files_primary": [
+        "src/main/java/net/openhft/chronicle/bytes/internal/BytesInternal.java",
+        "src/main/java/net/openhft/chronicle/bytes/pool/BytesPool.java"
+      ],
+      "files_secondary_observability": [
+        "src/main/adoc/api-guide.adoc"
+      ],
+      "secondary_note": "Documentation update clarifies buffer reuse guidance.",
+      "change_trajectory": [
+        "Single commit (a6565e9ec): zero pooled buffers up to write position.",
+        "Maintainer closed PR ~1 hour later citing performance impact."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "peter-lawrey",
+        "channel": "pr_comment",
+        "signal": "performance_regression_reject",
+        "summary": "Commented 'this would have a performance impact' and immediately closed the PR.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by peter-lawrey (codex-authored) with a single commit.",
+      "No review activity; maintainer commented and closed PR within ~58 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

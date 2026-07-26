@@ -1,0 +1,166 @@
+{
+  "pr_id": 3259716066,
+  "meta": {
+    "title": "Add main handling and faster list append for Lua transpiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/12649",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-24 12:23:37+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-24 12:25:14+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 20,
+    "topic_name": "20",
+    "body_summary": "Add main function call emission, optimize append translation to mutate list in place, add pow builtin, and mark brilliant-numbers test as transpiled."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 413,
+      "deletions": 5,
+      "changes": 418,
+      "top1_file": "tests/rosetta/transpiler/Lua/brilliant-numbers.lua",
+      "top1_changes": 367,
+      "top1_change_ratio": 0.878,
+      "files_by_status": {
+        "added": 2,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.027,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "list_append_mutation",
+      "lua_transpilation"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_test_failure",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "manual_test_failure"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Author self-closed immediately after a test failure noted in PR body; no benchmark or external review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 418,
+        "interpretation": "At 418 changed lines, this is a small edit by absolute volume, mostly test data. The PR was self-closed almost instantly after a test failure, consistent with the closed outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.027,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "test_failure",
+      "concern_detail": "The PR body mentions a test that took too long and was interrupted, indicating the optimization did not behave as expected or the test environment was problematic.",
+      "performance_claim": "Faster append translation by mutating list instead of copying; main function call emission for transpiled programs.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "list_copy_on_append (prior behavior, not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Self-closed after test failure noted in body; no external review."
+    },
+    "capability_boundary": {
+      "topic": "20",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent produced a transpiler optimization with a failing test in the PR body, leading to immediate self-close without external review.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "manual_test_failure"
+      ],
+      "detection_detail": {
+        "manual_test_failure": "Author ran a rosetta test with `-tags slow` and observed it took too long and was interrupted, indicating a regression or insufficient performance."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data; only a failed test run description in the PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after test failure; no fix attempt.",
+      "evidence_gap": "test_failure_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In transpiler/x/lua/transpiler.go, modified append translation to mutate the list in place rather than copying, and added a call to main() at the end of generated Lua. Also added transpiled Lua and expected output for brilliant-numbers test.",
+      "files_primary": [
+        "transpiler/x/lua/transpiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/rosetta/transpiler/Lua/brilliant-numbers.lua",
+        "tests/rosetta/transpiler/Lua/brilliant-numbers.out",
+        "transpiler/x/lua/ROSETTA.md"
+      ],
+      "secondary_note": "Test files added for brilliant-numbers rosetta test; most line changes are in the generated Lua file.",
+      "change_trajectory": [
+        "Single commit: added main handling and optimized append translation, along with test data; PR body noted a test failure (took too long and was interrupted), and PR was closed immediately by author."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with transpiler changes and a failing test; closed by tamnd 2 minutes later after test failure noted in body."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

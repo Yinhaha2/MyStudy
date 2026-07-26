@@ -1,0 +1,247 @@
+{
+  "pr_id": 3197782823,
+  "meta": {
+    "title": "fix(warn): Optimize console warnings to prevent excessive output in development",
+    "html_url": "https://github.com/channel-io/bezier-react/pull/2661",
+    "repo": "channel-io/bezier-react",
+    "agent": "Cursor",
+    "user": "sungik-choi",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-03 02:46:00+00:00",
+    "merged_at": "2025-07-03 04:41:25+00:00",
+    "closed_at": "2025-07-03 04:41:25+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 24,
+    "topic_name": "24_bundle_css_components_splitting",
+    "body_summary": "Optimize the warn utility with a scope parameter to suppress duplicate console warnings in development, preventing UI freezing when many legacy icon deprecation warnings fire."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 6,
+      "additions": 84,
+      "deletions": 15,
+      "changes": 99,
+      "top1_file": "packages/bezier-react/src/utils/assert.test.ts",
+      "top1_changes": 43,
+      "top1_change_ratio": 0.434,
+      "files_by_status": {
+        "added": 1,
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 2,
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 19,
+      "event_counts": {
+        "committed": 3,
+        "review_requested": 1,
+        "commented": 5,
+        "assigned": 1,
+        "renamed": 1,
+        "reviewed": 3,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 1.924,
+      "first_review_delay_hours": 0.044,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "console_warnings_optimization",
+      "duplicate_warning_suppression",
+      "dev_experience_performance"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Small utility change adding scoped warning suppression; merged quickly after bot nitpicks and human approval, no benchmark evidence required."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 99,
+        "interpretation": "At 99 changed lines across 6 files, this is a small-scale utility optimization. It fits a small-step, low-risk performance improvement that merged without blocking review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.924,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "potential_memory_leak_in_dev",
+      "concern_detail": "coderabbitai bot noted that the devWarningScopes Set could grow unbounded in long-running dev sessions, suggesting WeakSet or periodic clearing.",
+      "performance_claim": "Prevent UI blocking and developer tool freezing caused by hundreds or thousands of identical console warnings when many components trigger legacy icon deprecation warnings.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "excessive_duplicate_console_warnings (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "24_bundle_css_components_splitting",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Utility-level change adding scoped warning suppression; no runtime performance evidence required; merge depended on small, well-tested code changes.",
+      "success_factors": [
+        "small_scope",
+        "comprehensive_tests",
+        "backward_compatible",
+        "bot_nitpicks_handled_indirectly",
+        "human_approval_quick"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Bot performed static analysis raising potential memory leak, human maintainer approved without comments; no profiler or load test evidence."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes manual test steps for verifying warning suppression, but no numeric performance benchmark. Improvement is based on developer experience reasoning.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues blocked merge; bot nitpicks were non-blocking.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In assert.ts, the warn function was overloaded to accept an optional scope string; a Set tracks issued scopes so each scoped warning fires only once per session. Dev mode only. Updated Button, Banner, SectionLabel to pass scope strings for legacy icon deprecation warnings. Added tests for scope behavior and production silence.",
+      "files_primary": [
+        "packages/bezier-react/src/utils/assert.ts",
+        "packages/bezier-react/src/components/Button/Button.tsx",
+        "packages/bezier-react/src/components/Banner/Banner.tsx",
+        "packages/bezier-react/src/components/SectionLabel/SectionLabel.tsx"
+      ],
+      "files_secondary_observability": [
+        "packages/bezier-react/src/utils/assert.test.ts",
+        ".changeset/warn-scope-optimization.md"
+      ],
+      "secondary_note": "Test file adds coverage; changeset documents versioning.",
+      "change_trajectory": [
+        "Initial commit: Implement scoped warn with scope tracking and apply to components.",
+        "Subsequent commits: Update changeset wording."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "nitpick_memory_leak_concern",
+        "summary": "Suggested Set may grow unbounded in long dev sessions, recommended WeakSet or periodic clearing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "nitpick_changeset_format",
+        "summary": "Suggested unified quotation style and summary format in changeset file.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "yangwooseong",
+        "channel": "formal_review",
+        "signal": "approved_no_comments",
+        "summary": "Human maintainer approved without review body text.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "changeset_detected",
+        "summary": "Detected changesets for bezier-react and bezier-figma-plugin patches.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "All modified/coverable lines are covered by tests, project coverage increased.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "chromatic_passed",
+        "summary": "Chromatic build successful, Storybook preview available.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with scoped warn implementation and tests.",
+      "Bot review within 2 minutes suggesting minor nitpicks (memory leak, changeset style).",
+      "Human maintainer approved within ~4 minutes.",
+      "No blocking feedback; merged after ~1.9 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

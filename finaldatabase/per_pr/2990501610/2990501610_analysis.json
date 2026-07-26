@@ -1,0 +1,209 @@
+{
+  "pr_id": 2990501610,
+  "meta": {
+    "title": "fix: 优化数据库事务处理以减少死锁和超时",
+    "html_url": "https://github.com/ai-shifu/ai-shifu/pull/345",
+    "repo": "ai-shifu/ai-shifu",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-12 14:27:15+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-15 03:56:31+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "2",
+    "body_summary": "Optimize database transaction handling by splitting long transactions, reducing Redis lock timeouts, and separating long-running LLM operations from DB commits to reduce deadlocks and timeouts under high concurrency."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 7,
+      "additions": 1339,
+      "deletions": 501,
+      "changes": 1840,
+      "top1_file": "src/api/flaskr/service/study/runscript.py",
+      "top1_changes": 429,
+      "top1_change_ratio": 0.233,
+      "files_by_status": {
+        "added": 3,
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 6,
+        "commented": 3,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 61.49,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "database_deadlock_reduction",
+      "transaction_optimization",
+      "redis_lock_timeout",
+      "concurrency_improvement"
+    ],
+    "optimization_layer": "database",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "lock_misuse"
+    ],
+    "outcome_reason": "design_flaw_no_rollback",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin split transactions for lock reduction; maintainer yfge closed due to loss of API-level rollback when LLM errors occur."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1840,
+        "interpretation": "At 1840 changed lines across 7 files, this is a medium-to-large refactor by absolute volume (majority in runscript.py, utils.py, and test scripts). As a transaction optimization performance PR, it was closed—not merged—because the maintainer identified a critical design flaw that broke interface-level rollback guarantees."
+      },
+      "lifecycle": {
+        "lifespan_hours": 61.49,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "transactional_rollback_loss",
+      "concern_detail": "Maintainer yfge commented that splitting transactions and committing early would prevent interface-level rollback if an LLM call errors, breaking atomicity of the overall operation.",
+      "performance_claim": "Reduce database deadlocks and timeouts under high concurrency by using smaller nested transactions, shorter Redis lock timeouts, and separating long LLM operations from DB commits.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "lock_misuse",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer closed PR after raising functional rollback concern; no follow-up fixes were attempted."
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin split long transactions to reduce locking but failed to preserve the required atomic rollback across the LLM call; this boundary reflects the need for deep transactional semantics awareness in Python/Flask/SQLAlchemy.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "yfge reviewed the PR and flagged that early commits would prevent rollback if LLM call fails, citing a specific scenario."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR provides load test scripts but no performance metrics or evidence that deadlocks are reduced; maintainer's functional concern was about correctness, not performance verification.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Maintainer closed the PR without merging; no attempt to fix the rollback issue within the PR.",
+      "evidence_gap": "narrative_only_no_rollback_safety"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Split large transactions in run_script_inner, get_script, and reset_user_study_info_by_lesson into smaller nested transactions using db.session.begin_nested() and commit() after each operation; reduced Redis lock timeout to 30s and block timeout to 3s in run_with_redis; separated long LLM runs from DB commits in run_script; added load test scripts.",
+      "files_primary": [
+        "src/api/flaskr/service/study/runscript.py",
+        "src/api/flaskr/service/study/utils.py",
+        "src/api/flaskr/service/study/funcs.py",
+        "src/api/flaskr/dao/__init__.py"
+      ],
+      "files_secondary_observability": [
+        "tests/load_tests/monitor_db.py",
+        "tests/load_tests/test_concurrency.py",
+        "tests/load_tests/transaction_test.py"
+      ],
+      "secondary_note": "Load test scripts added to validate concurrency and monitor DB, but not used to produce performance evidence before close.",
+      "change_trajectory": [
+        "Initial commits: optimize run_script_inner, reset_user_study_info, run_with_redis, and get_script with smaller transactions.",
+        "Add load test scripts for concurrency testing.",
+        "Pre-commit CI formatting fixes.",
+        "Maintainer yfge commented about loss of rollback; PR closed without further changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "yfge",
+        "channel": "pr_comment",
+        "signal": "transactional_rollback_loss",
+        "summary": "When LLM call errors, splitting transactions prevents interface-level rollback.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_skipped_review",
+        "summary": "CodeRabbit skipped review because it detected a bot user; tips and commands listed.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with transaction optimization and test scripts.",
+      "No formal review was recorded; Devin bot and CodeRabbit bot posted non-blocking comments.",
+      "Maintainer yfge raised rollback concern in PR comment minutes after opening.",
+      "PR closed after ~61 hours without further activity or resolution."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

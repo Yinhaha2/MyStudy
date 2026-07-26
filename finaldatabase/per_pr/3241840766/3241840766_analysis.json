@@ -1,0 +1,177 @@
+{
+  "pr_id": 3241840766,
+  "meta": {
+    "title": "feat: Add support for multiple tool calls in a single message",
+    "html_url": "https://github.com/willccbb/verifiers/pull/147",
+    "repo": "willccbb/verifiers",
+    "agent": "Claude_Code",
+    "user": "PastaPastaPasta",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-18 04:47:18+00:00",
+    "merged_at": null,
+    "closed_at": "2026-07-13 09:27:31+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 16,
+    "topic_name": "16",
+    "body_summary": "Add support for executing multiple tool calls within a single message to reduce round-trips and improve agent workflow efficiency."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 4,
+      "additions": 613,
+      "deletions": 33,
+      "changes": 646,
+      "top1_file": "tests/test_tool_env.py",
+      "top1_changes": 466,
+      "top1_change_ratio": 0.721,
+      "files_by_status": {
+        "added": 1,
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "verifiers"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 3,
+        "commented": 1
+      },
+      "lifespan_hours": 8644.67,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "multiple_tool_calls_per_message",
+      "round_trip_reduction",
+      "agent_workflow_efficiency"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Claude_Code added multi-tool parsing and execution with narrative perf claims; no maintainer review or engagement over ~360 days; PR closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 646,
+        "interpretation": "At 646 changed lines across 4 files, this is a medium‑sized feature addition by absolute volume, dominated by a comprehensive test file (466 lines). As a performance‑oriented feature PR, it was closed without merge due to lack of maintainer activity over a year, consistent with a stale, unreviewed contribution."
+      },
+      "lifecycle": {
+        "lifespan_hours": 8644.67,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_activity",
+      "concern_detail": "No human or formal review was provided; only a CLA‑signature bot comment. The PR remained open for a year before being closed without merge.",
+      "performance_claim": "Executing multiple tool calls in a single message reduces round‑trips and improves agent workflow efficiency, with no performance degradation for 15+ concurrent calls (narrative claim).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR left unreviewed for ~360 days; closed by inactivity. No explicit rejection; likely stale orphaned contribution."
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "Claude_Code",
+      "boundary_type": "process",
+      "boundary_notes": "The agent produced a feature with tests and narrative performance claims, but the PR never received maintainer attention in a small repository. This illustrates a process boundary where agent‑generated PRs may stall without community review or maintainer pull‑in.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body describes performance gains in prose but provides no benchmark data, profiling, or reproducible measurement steps.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed after ~360 days with no fix cycle; no regressions discussed.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added XMLParser.parse_all() using re.findall to extract multiple <tool> tags; updated ToolEnv.env_response() to execute tools sequentially, collecting results with tool name labels; added extensive tests.",
+      "files_primary": [
+        "verifiers/parsers/xml_parser.py",
+        "verifiers/envs/tool_env.py"
+      ],
+      "files_secondary_observability": [
+        "tests/test_tool_env.py",
+        "tests/test_xml_parser.py"
+      ],
+      "secondary_note": "Test files comprise the bulk of the diff (466 changes), covering multiple tool scenarios, error handling, and backward compatibility.",
+      "change_trajectory": [
+        "Initial commit: Added parse_all() to XMLParser and multi‑tool execution in tool_env with 'Tool N result:' prefix.",
+        "Second commit: Refactored result labels to use actual tool names (e.g., 'add_tool result:').",
+        "Third commit: Added trailing newlines to test files."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "CLAassistant",
+        "channel": "pr_comment",
+        "signal": "cla_check",
+        "summary": "Bot confirmed all committers signed the CLA.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Claude_Code authored PR with multi‑tool support and test suite.",
+      "Only CLA bot comment acknowledged CLA signing.",
+      "No human interaction or review occurred; PR closed after ~360 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

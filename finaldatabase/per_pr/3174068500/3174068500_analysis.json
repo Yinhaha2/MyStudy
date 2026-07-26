@@ -1,0 +1,192 @@
+{
+  "pr_id": 3174068500,
+  "meta": {
+    "title": "Implement cached data layer in web",
+    "html_url": "https://github.com/carverauto/serviceradar/pull/1141",
+    "repo": "carverauto/serviceradar",
+    "agent": "OpenAI_Codex",
+    "user": "mfreeman451",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-25 04:05:06+00:00",
+    "merged_at": "2025-06-25 04:06:03+00:00",
+    "closed_at": "2025-06-25 04:06:03+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "2",
+    "body_summary": "Add server-side cached data helper in data.ts, make fetchFromAPI support caching, and apply caching in dashboard, poller, and network pages."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 183,
+      "deletions": 110,
+      "changes": 293,
+      "top1_file": "web/src/lib/data.ts",
+      "top1_changes": 115,
+      "top1_change_ratio": 0.3925,
+      "files_by_status": {
+        "added": 1,
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "web"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.016,
+      "first_review_delay_hours": 0.014,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache",
+      "api_response_caching",
+      "data_layer_cache",
+      "poller_lookup_cache"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex added caching layer in web/src/lib/data.ts; self-reviewed 'lgtm' and merged in <1min with no benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 293,
+        "interpretation": "At 293 changed lines, this is a small-to-medium edit by absolute volume. It fits a small-step caching performance improvement and was merged quickly after self-approval, consistent with a low-risk merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.016,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "lgtm_no_concerns",
+      "primary_concern": "none",
+      "concern_detail": "No concerns raised; author self-reviewed and approved.",
+      "performance_claim": "Add caching to reduce API calls and improve page load performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Implementing a caching helper and integrating it across pages is a straightforward technical task for an agent; no complex dependencies or evidence barriers.",
+      "success_factors": [
+        "small_scope",
+        "self_reviewed_lgtm",
+        "quick_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Author self-reviewed the PR and marked 'lgtm'."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance benchmarks or measurements provided; only narrative description of caching.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression concerns were raised; the PR was merged immediately.",
+      "evidence_gap": "narrative_only_no_perf_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced a new caching helper in web/src/lib/data.ts with functions like getCachedData that memoize API responses; updated fetchFromAPI in api.ts to accept cache options; applied caching in dashboard, pollers list, poller detail, and network pages to share cached poller lookups.",
+      "files_primary": [
+        "web/src/lib/data.ts",
+        "web/src/lib/api.ts",
+        "web/src/app/pollers/page.tsx"
+      ],
+      "files_secondary_observability": [
+        "web/src/app/dashboard/page.tsx",
+        "web/src/app/network/page.tsx",
+        "web/src/app/pollers/[id]/page.tsx"
+      ],
+      "secondary_note": "Other page files were updated to use the new cached data helpers.",
+      "change_trajectory": [
+        "Single commit adds caching layer and integrates it across pages.",
+        "Self-review 'lgtm' and immediate merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "mfreeman451",
+        "channel": "formal_review",
+        "signal": "lgtm",
+        "summary": "Author self-reviewed with 'lgtm' comment, no blocking feedback.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by agent (codex) and self-reviewed by maintainer mfreeman451 within seconds; merged immediately."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

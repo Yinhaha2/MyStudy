@@ -1,0 +1,239 @@
+{
+  "pr_id": 3187833970,
+  "meta": {
+    "title": "feat: add support for plain TXT files",
+    "html_url": "https://github.com/lingodotdev/lingo.dev/pull/981",
+    "repo": "lingodotdev/lingo.dev",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 09:42:27+00:00",
+    "merged_at": "2025-07-01 08:43:01+00:00",
+    "closed_at": "2025-07-01 08:43:01+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 16,
+    "topic_name": "16",
+    "body_summary": "Add TXT file support with line-by-line splitting to the Lingo.dev CLI loader, enabling translation of fastlane metadata files by treating each line as a separate translatable unit with numeric keys."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 5,
+      "additions": 228,
+      "deletions": 32,
+      "changes": 260,
+      "top1_file": "packages/cli/src/cli/loaders/index.spec.ts",
+      "top1_changes": 198,
+      "top1_change_ratio": 0.762,
+      "files_by_status": {
+        "added": 2,
+        "modified": 3,
+        "removed": 0
+      },
+      "directory_count": 2,
+      "directories": [
+        ".changeset",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 21,
+      "event_counts": {
+        "commented": 4,
+        "mentioned": 2,
+        "subscribed": 2,
+        "assigned": 1,
+        "committed": 6,
+        "head_ref_force_pushed": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 23.01,
+      "first_review_delay_hours": 22.99,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "text_loader_line_splitting",
+      "llm_chunking_efficiency"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_smoothly_after_review",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "manual_testing"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin added TXT loader with line-by-line splitting to solve LLM chunking; maintainer approved after thorough review and local testing."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 260,
+        "interpretation": "At 260 changed lines across 5 files, this is a small-to-medium addition by absolute volume. As a new file format loader with line-splitting, it fits a moderate incremental feature that merged smoothly after a single approval review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 23.01,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "local_testing_required",
+      "concern_detail": "Maintainer mathio indicated he would conduct thorough review and local testing before release, not an immediate merge.",
+      "performance_claim": "Line-by-line splitting enables better chunking for large TXT files, preventing LLM token limit issues.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding a new file format loader with line-splitting logic within the existing CLI loader factory is well within Devin's capabilities; no technical or process barriers encountered.",
+      "success_factors": [
+        "followed_existing_patterns",
+        "added_comprehensive_tests",
+        "responded_to_prettier_ci_failure",
+        "iterated_on_empty_line_handling",
+        "maintainer_local_testing"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "Mathio reviewed the loader composition and line-splitting logic, ensuring it followed established patterns.",
+        "manual_testing": "Mathio conducted local testing as stated in his comment before release."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Tests validate loader behavior but no before/after metrics for chunking efficiency; maintainer performed local testing.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions; PR merged on first approval after local testing.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a new TXT loader to packages/cli/src/cli/loaders/txt.ts that splits file content by lines into numeric keys (1-indexed) using a standard loader composition (textFileLoader -> syncLoader -> unlocalizableLoader). Integrated it into the loader factory index.ts and added bucket type in formats.ts. Added comprehensive tests in index.spec.ts.",
+      "files_primary": [
+        "packages/cli/src/cli/loaders/txt.ts",
+        "packages/cli/src/cli/loaders/index.ts",
+        "packages/cli/src/cli/loaders/index.spec.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/spec/src/formats.ts",
+        ".changeset/curly-bats-tell.md"
+      ],
+      "secondary_note": "formats.ts only added 'txt' to bucketTypes; changeset is chore.",
+      "change_trajectory": [
+        "Initial commit: added txt case in loader factory and formats spec.",
+        "Added changeset.",
+        "Added initial TXT loader treating entire file as single 'content' key with tests.",
+        "Applied Prettier formatting to fix CI.",
+        "Implemented line-by-line splitting with numeric keys and space placeholder for empty lines.",
+        "Refactored to remove space placeholder, relying on unlocalizable loader for empty line handling."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "mathio",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved after thorough review and local testing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "mathio",
+        "channel": "pr_comment",
+        "signal": "thorough_review_and_testing_planned",
+        "summary": "Plan to release TXT support tomorrow after thorough review and some local testing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "delve-auditor[bot]",
+        "channel": "pr_comment",
+        "signal": "security_scan_pass",
+        "summary": "No security or compliance issues detected.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial TXT loader implementation and tests.",
+      "CI formatting failure; Devin applied Prettier formatting.",
+      "Devin iterated to implement line-by-line splitting after initial single-content approach.",
+      "Delve-auditor bot reported no security issues.",
+      "Mathio commented he will review thoroughly and test locally.",
+      "Mathio approved after head_ref_force_pushed (likely after cleanup).",
+      "PR merged after ~23 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

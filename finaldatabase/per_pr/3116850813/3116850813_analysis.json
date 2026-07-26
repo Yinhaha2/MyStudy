@@ -1,0 +1,218 @@
+{
+  "pr_id": 3116850813,
+  "meta": {
+    "title": "Switch JSON floats to lexical-core",
+    "html_url": "https://github.com/facet-rs/facet/pull/741",
+    "repo": "facet-rs/facet",
+    "agent": "OpenAI_Codex",
+    "user": "fasterthanlime",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-04 07:47:14+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-04 09:44:36+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "18",
+    "body_summary": "Swap float formatting/parsing from ryu to lexical-core in facet-json, with Cargo.toml/changelog updates."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 75,
+      "deletions": 12,
+      "changes": 87,
+      "top1_file": "Cargo.lock",
+      "top1_changes": 64,
+      "top1_change_ratio": 0.735632183908046,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        ".",
+        "facet-json"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 4,
+        "mentioned": 1,
+        "subscribed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 1.956,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "float_parsing_formatting",
+      "lexical_core_swap"
+    ],
+    "optimization_layer": "library_dependency",
+    "evidence_type": [
+      "narrative",
+      "benchmark",
+      "ci_report"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "perf_regression_not_worth_it",
+    "review_dimensions": [
+      "perf_evidence",
+      "binary_size"
+    ],
+    "blocking": true,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto",
+      "benchmark"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Swapped to lexical-core; binary size increased with minimal speedup per codspeed; maintainer closed as not worth it."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 87,
+        "interpretation": "At 87 changed lines, this is a tiny dependency swap by absolute volume. It fits a minimal performance experiment that was closed after negative evidence emerged."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.956,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "perf_tradeoff_not_worth",
+      "concern_detail": "lexical-core increased facet_json binary size by ~28KiB (from 51.3 to 79.4) and codspeed showed minimal speedup in deserialization; maintainer concluded it's not worth the change.",
+      "performance_claim": "lexical-core may improve float formatting/parsing performance.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence",
+        "binary_size"
+      ],
+      "rejection_signals": "Maintainer fasterthanlime closed PR stating it doesn't seem worth it after codspeed results and binary size increase."
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Agent can perform a dependency swap but cannot pre-validate performance impact; the maintainer's automated CI and manual benchmarking revealed a binary size increase with negligible speedup, leading to rejection.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto",
+        "benchmark"
+      ],
+      "detection_detail": {
+        "ci_auto": "GitHub Actions bot posted binary size diff showing facet_json increase from 51.3KiB to 79.4KiB and new lexical functions accounting for 3.8KiB.",
+        "benchmark": "fasterthanlime linked codspeed run comparing main vs PR branch, showing minimal speed improvements in Deserialize - canada.json.",
+        "code_reading": null
+      },
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "CI binary size analysis is automated and reproducible; codspeed run link provides full benchmark comparison.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Binary size regression (facet_json grew by ~28KiB) combined with no significant speedup led fasterthanlime to close the PR.",
+      "evidence_gap": "benchmark_results_showed_no_benefit"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In facet-json, replaced `ryu` float formatting and custom float parsing with `lexical-core`'s `write_float` and `parse_float`, updating Cargo.toml/changelog and adjusting tokenizer/serializer to call lexical functions.",
+      "files_primary": [
+        "facet-json/src/serialize.rs",
+        "facet-json/src/tokenizer.rs"
+      ],
+      "files_secondary_observability": [
+        "facet-json/Cargo.toml",
+        "Cargo.lock",
+        "facet-json/CHANGELOG.md"
+      ],
+      "secondary_note": "Cargo.lock changes are mostly dependency resolution; changelog documents the switch.",
+      "change_trajectory": [
+        "Single commit: swap ryu for lexical-core in serialize.rs and tokenizer.rs, update cargo files."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "binary_size_regression",
+        "summary": "Binary size analysis showed facet_json grew from 51.3KiB to 79.4KiB with new lexical functions contributing.",
+        "blocking": true,
+        "action_taken": "Maintainer noted the increase in later comment and closed PR."
+      },
+      {
+        "source": "fasterthanlime",
+        "channel": "pr_comment",
+        "signal": "benchmark_results",
+        "summary": "fasterthanlime shared codspeed comparison showing speedups for some float operations but minimal improvement in deserialization.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "ThouCheese",
+        "channel": "pr_comment",
+        "signal": "perf_analysis",
+        "summary": "Noted that deserialize canada.json showed no significant speedup and that the effort was not worth it.",
+        "blocking": true,
+        "action_taken": "Contributor feedback led to closure."
+      },
+      {
+        "source": "fasterthanlime",
+        "channel": "pr_comment",
+        "signal": "rejection_close",
+        "summary": "Author agreed it's not worth it and closed the PR.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit by fasterthanlime (also maintainer).",
+      "Bot immediately posted binary size analysis within 1.3 minutes.",
+      "fasterthanlime posted codspeed results and mentioned ThouCheese.",
+      "ThouCheese commented that improvement was not significant for the actual workload.",
+      "fasterthanlime agreed and closed the PR ~2h after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

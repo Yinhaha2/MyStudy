@@ -1,0 +1,202 @@
+{
+  "pr_id": 2914424485,
+  "meta": {
+    "title": "fix: improve deploy history performance and code quality",
+    "html_url": "https://github.com/Cap-go/capgo/pull/1051",
+    "repo": "Cap-go/capgo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-03-12 15:52:39+00:00",
+    "merged_at": null,
+    "closed_at": "2025-03-13 22:32:04+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "34",
+    "body_summary": "Add database indexes, optimized triggers, server-side search, combined API calls, and localization to improve deploy history performance and code quality."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 11,
+      "additions": 759,
+      "deletions": 5,
+      "changes": 764,
+      "top1_file": "src/components/tables/HistoryTable.vue",
+      "top1_changes": 350,
+      "top1_change_ratio": 0.458,
+      "files_by_status": {
+        "added": 8,
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "supabase"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 5,
+        "commented": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 30.657,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "database_index",
+      "server_side_search",
+      "api_call_combination",
+      "deploy_history_optimization"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merge_broken",
+    "review_dimensions": [],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin PR adding indexes and server-side search for deploy history; closed by maintainer with 'merge broken' without performance validation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 764,
+        "interpretation": "At 764 changed lines, this is a medium‑sized performance refactor by absolute volume. It spans frontend, backend, and database migrations, making it a moderate incremental performance PR. The outcome (closed with 'merge broken') suggests the change could not be integrated, possibly due to merge conflicts or CI failures, not due to performance evidence issues."
+      },
+      "lifecycle": {
+        "lifespan_hours": 30.657,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "merge_conflict_or_integration_failure",
+      "concern_detail": "PR closed with comment 'merge broken', indicating inability to cleanly merge the changes into the main branch; no other review feedback recorded.",
+      "performance_claim": "Improved deploy history screen performance through database indexes, optimized trigger, server-side search, and combined API calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer closed PR with comment 'merge broken', indicating the change set could not be integrated; no further details on performance or correctness."
+    },
+    "capability_boundary": {
+      "topic": "34",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "A multi‑file refactor spanning Vue frontend, Supabase Edge Functions, and SQL migrations; failure to merge suggests the Agent's change did not reconcile cleanly with the target branch state, potentially due to conflict resolution limitations.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body describes manual testing for performance but provides no benchmarks, profiler output, or reproduction steps. Maintainer comment does not address performance.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without further iteration; no attempt to address merge issue shown in timeline.",
+      "evidence_gap": "narrative_only_no_benchmark_and_merge_failure"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added HistoryTable.vue with server‑side search, new deploy_history migration SQL with indexes and triggers, update_metadata edge function with URL validation, and localization files. Updated channel page to use new components and combine API calls.",
+      "files_primary": [
+        "src/components/tables/HistoryTable.vue",
+        "supabase/migrations/20250312154900_add_deploy_history_table.sql",
+        "supabase/functions/update_metadata/index.ts"
+      ],
+      "files_secondary_observability": [
+        "src/locales/de.json",
+        "src/locales/en.json",
+        "src/locales/es.json",
+        "src/locales/fr.json",
+        "src/pages/app/p/[p]/channel/[channel].vue",
+        "src/types/deploy_history.ts",
+        "src/types/supabase.types.ts",
+        "supabase/functions/_backend/utils/validation.ts"
+      ],
+      "secondary_note": "Major additions in new files; channel.vue modifications are small wiring changes.",
+      "change_trajectory": [
+        "Initial commit: performance improvements (indexes, trigger, server‑side search, combined API, localization).",
+        "Subsequent commits: adjust migration script for reset functions and column type correction.",
+        "Maintainer closed PR with 'merge broken'."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write‑access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_bot",
+        "summary": "CodeRabbit skipped review because a bot user was detected.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "riderx",
+        "channel": "pr_comment",
+        "signal": "merge_broken",
+        "summary": "Maintainer stated 'merge broken' and closed the PR.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR linked to issue with multi‑file refactor.",
+      "Bot comments from Devin and CodeRabbit posted automatically, no substantive human review.",
+      "PR received no formal reviews; maintainer riderx closed after ~30 hours with comment 'merge broken'."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

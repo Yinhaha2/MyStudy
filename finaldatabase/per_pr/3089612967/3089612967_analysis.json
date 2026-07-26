@@ -1,0 +1,163 @@
+{
+  "pr_id": 3089612967,
+  "meta": {
+    "title": "Use LRU cache for preprocess",
+    "html_url": "unknown",
+    "repo": "addok/addok",
+    "agent": "OpenAI_Codex",
+    "user": "jdesboeufs",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-25 22:20:49+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-01 21:24:58+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "37",
+    "body_summary": "Add LRU cache to token preprocessing function and introduce PREPROCESS_CACHE_SIZE configuration to speed up addok's address parsing."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 6,
+      "deletions": 6,
+      "changes": 12,
+      "top1_file": "addok/helpers/index.py",
+      "top1_changes": 9,
+      "top1_change_ratio": 0.75,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "addok"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "base_ref_deleted": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 167.07,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache",
+      "token_preprocessing",
+      "lru_cache"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "One-line cache addition with config flag; no review, self-closed after 7 days without merge, no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 12,
+        "interpretation": "At 12 changed lines, this is a very small, targeted performance optimization by absolute volume. Despite its tiny size, the PR was closed without merge, possibly due to lack of review engagement or maintainer disinterest."
+      },
+      "lifecycle": {
+        "lifespan_hours": 167.07,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No human or bot review text present in dataset; PR closed by author without merge.",
+      "performance_claim": "Speed up token preprocessing by caching results of preprocess function using lru_cache.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author after 7 days with no reviewer engagement; no rejection text."
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Very small caching optimization; agent proposed a simple change, but the PR received no review and was eventually self-closed, indicating a process gap for review engagement.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR provides no before/after performance numbers, only pytest test command.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression; PR was closed without integration.",
+      "evidence_gap": "narrative_only_no_review_or_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add @lru_cache(maxsize=PREPROCESS_CACHE_SIZE) decorator to preprocess function in addok/helpers/index.py, and introduce PREPROCESS_CACHE_SIZE configuration option in addok/config/default.py with validation.",
+      "files_primary": [
+        "addok/helpers/index.py",
+        "addok/config/default.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit adding lru_cache and config setting."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit adding lru_cache and config setting.",
+      "No review or comment activity.",
+      "Author closed PR after 7 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

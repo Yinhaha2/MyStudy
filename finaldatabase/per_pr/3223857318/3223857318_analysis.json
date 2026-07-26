@@ -1,0 +1,183 @@
+{
+  "pr_id": 3223857318,
+  "meta": {
+    "title": "Refactor QZydis instance in Bridge class",
+    "html_url": "https://github.com/x64dbg/x64dbg/pull/3641",
+    "repo": "x64dbg/x64dbg",
+    "agent": "Cursor",
+    "user": "mrexodia",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-11 18:38:12+00:00",
+    "merged_at": "2025-07-21 11:24:09+00:00",
+    "closed_at": "2025-07-21 11:24:09+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "15",
+    "body_summary": "Make QZydis a member of Bridge to optimize GuiGetDisassembly performance and ensure configuration synchronization."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 20,
+      "deletions": 3,
+      "changes": 23,
+      "top1_file": "src/gui/Src/Bridge/Bridge.cpp",
+      "top1_changes": 20,
+      "top1_change_ratio": 0.87,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 232.8,
+      "first_review_delay_hours": 0.067,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "disassembly_perf",
+      "config_sync",
+      "instance_reuse"
+    ],
+    "optimization_layer": "gui_bridge_cpp",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_initialization"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "ignore",
+    "confidence": "medium",
+    "notes": "Tiny refactor to reuse QZydis instance; bot flagged race condition but maintainer merged without addressing; no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 23,
+        "interpretation": "At 23 changed lines across 2 files, this is a very small edit by absolute volume. It fits a tiny, low-risk performance refactor that was merged without human review, typical for such trivial changes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 232.8,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "concurrency_race_condition",
+      "concern_detail": "cursor[bot] reported a race condition between DisassembleAt() calls via GUI_GET_DISASSEMBLY and UpdateConfig/UpdateArchitecture from configUpdatedSlot using the shared mDisasm instance without synchronization.",
+      "performance_claim": "Optimize GuiGetDisassembly performance by reusing a member QZydis instance and ensure configuration synchronization.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_initialization",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "15",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple C++ member refactor for performance; the agent missed a potential concurrency issue, but maintainer merged anyway. Illustrates Cursor's ability to make small optimizations but may overlook thread safety.",
+      "success_factors": [
+        "tiny_change_size",
+        "maintainer_override_bot_warning"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human review text; bot performed static analysis and flagged race condition."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics provided; narrative claim only.",
+      "regression_handling": "ignore",
+      "regression_detail": "Bot flagged a race condition, but maintainer merged without discussion or fix; the race condition warning was ignored.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In Bridge.cpp, changed GuiGetDisassembly to use a member mDisasm QZydis instance instead of creating a local temporary instance each call, added configuration synchronization in configUpdatedSlot, and added mDisasm to Bridge.h header.",
+      "files_primary": [
+        "src/gui/Src/Bridge/Bridge.cpp",
+        "src/gui/Src/Bridge/Bridge.h"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: moved QZydis from local to member, updated configUpdateSlot to update the shared instance."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "race_condition_flag",
+        "summary": "Reported a race condition due to shared mDisasm instance being used without synchronization between DisassembleAt and UpdateConfig calls.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit by Cursor Agent.",
+      "cursor[bot] posted a review pointing out a race condition ~4 minutes after creation.",
+      "Maintainer mrexodia merged ~10 days later with no further comments or commits."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

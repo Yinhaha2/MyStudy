@@ -1,0 +1,214 @@
+{
+  "pr_id": 3155143197,
+  "meta": {
+    "title": "Implement CloudFileAttachmentAdapter with promise-based uploads and progress bar support",
+    "html_url": "https://github.com/assistant-ui/assistant-ui/pull/2125",
+    "repo": "assistant-ui/assistant-ui",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-18 01:14:04+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-02 14:27:44+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "16",
+    "body_summary": "Implements CloudFileAttachmentAdapter with promise-based uploads and progress bar in the registry template, claiming performance gains via parallel uploads."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 9,
+      "additions": 418,
+      "deletions": 119,
+      "changes": 537,
+      "top1_file": "packages/react/src/runtimes/adapters/attachment/CloudFileAttachmentAdapter.ts",
+      "top1_changes": 253,
+      "top1_change_ratio": 0.471,
+      "files_by_status": {
+        "added": 5,
+        "modified": 4
+      },
+      "directory_count": 3,
+      "directories": [
+        ".changeset",
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 4,
+      "review_states": {
+        "COMMENTED": 4
+      },
+      "review_comment_count": 7,
+      "pr_comment_count": 14,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 7,
+        "commented": 12,
+        "reviewed": 4,
+        "deployed": 5,
+        "mentioned": 1,
+        "subscribed": 1
+      },
+      "lifespan_hours": 349.23,
+      "first_review_delay_hours": 0.015,
+      "review_rounds": 4,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cloud_file_upload",
+      "promise_parallel_upload",
+      "ui_progress"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin cloud adapter PR; bots flagged bugs; closed after 349h without human review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 537,
+        "interpretation": "At 537 changed lines, this is a medium-sized feature addition. Despite a detailed PR body, it was closed without merge due to lack of maintainer engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 349.23,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_human_review",
+      "primary_concern": "no_maintainer_engagement",
+      "concern_detail": "No human reviewer participated; only automated bot comments. PR was auto-closed by Devin bot after 7+ days of inactivity.",
+      "performance_claim": "Promise-based upload pattern allows upload to start immediately and run in parallel with user interactions, reducing latency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Auto-closed by Devin bot after 14 days of inactivity; no maintainer review or approval."
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Frontend adapter PR with performance narrative; no maintainer engagement despite multiple bot code-quality reports; auto-closed for inactivity.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human code review detected; bots performed static analysis and flagged various issues.",
+        "ci_auto": "No CI benchmark or profiler evidence; deployment previews by Vercel."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or manual test results provided; only narrative performance claim.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR auto-closed; no regression handling occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added CloudFileAttachmentAdapter using XMLHttpRequest for uploading files to AssistantCloud with real-time progress via AsyncGenerator. Added progress primitives (ProgressRoot, ProgressIndicator) and integrated into shadcn registry attachment template.",
+      "files_primary": [
+        "packages/react/src/runtimes/adapters/attachment/CloudFileAttachmentAdapter.ts",
+        "packages/react/src/primitives/attachment/AttachmentProgressRoot.tsx",
+        "packages/react/src/primitives/attachment/AttachmentProgressIndicator.tsx",
+        "packages/react/src/primitives/attachment/progressScope.tsx",
+        "apps/registry/components/assistant-ui/attachment.tsx"
+      ],
+      "files_secondary_observability": [
+        "packages/react/src/types/AttachmentTypes.ts",
+        "packages/react/src/runtimes/adapters/attachment/index.ts",
+        "packages/react/src/primitives/attachment/index.ts",
+        ".changeset/cloudfile-attachment-adapter.md"
+      ],
+      "secondary_note": "Most churn is in the new adapter and progress primitives; registry UI update is smaller.",
+      "change_trajectory": [
+        "Initial adapter with mock progress (0/25/50/75%).",
+        "Replace mock progress with real XHR upload progress.",
+        "Add changeset.",
+        "Formatting fixes.",
+        "Add progress primitive components with separate scope.",
+        "Further formatting and refactor to use attachment context.",
+        "Final adjustments."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "formal_review",
+        "signal": "bot_code_statements",
+        "summary": "Suggested style improvements (CSS class naming, crypto.randomUUID for IDs) and noted empty remove() method.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "inline_review_comment",
+        "signal": "progress_edge_case",
+        "summary": "Recommended adding onProgress(100) before resolution and fixing a potential race condition in the progress loop.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jazzberry-ai[bot]",
+        "channel": "pr_comment",
+        "signal": "bug_report_multiple",
+        "summary": "Flagged issues: inaccurate progress updates, missing abort handling, memory concerns with large files, and inefficient data storage.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with cloud adapter and progress bar.",
+      "Multiple bot reviews appeared within minutes, pointing out progress inaccuracies, memory issues, and missing features.",
+      "Devin iterated on progress reporting and added primitive components.",
+      "No human maintainer responded throughout the 14‑day lifespan.",
+      "Devin bot auto‑closed the PR for inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

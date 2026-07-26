@@ -1,0 +1,192 @@
+{
+  "pr_id": 3137138306,
+  "meta": {
+    "title": "Optimize string operations",
+    "html_url": "https://github.com/moonbitlang/core/pull/2253",
+    "repo": "moonbitlang/core",
+    "agent": "OpenAI_Codex",
+    "user": "bobzhang",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-11 14:51:38+00:00",
+    "merged_at": "2025-06-11 15:33:26+00:00",
+    "closed_at": "2025-06-11 15:33:27+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "4",
+    "body_summary": "Optimize string operations by using write_substring to avoid intermediate allocations, remove unused TODO comments, and update array joining helpers for direct view appends."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 34,
+      "deletions": 16,
+      "changes": 50,
+      "top1_file": "string/methods.mbt",
+      "top1_changes": 34,
+      "top1_change_ratio": 0.68,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "array",
+        "string"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.697,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "string_allocation_reduction",
+      "write_substring_optimization",
+      "array_append_view"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "string_traversal"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI Codex optimizes string operations via write_substring, merged quickly after a bot code review with non-blocking suggestions; no human review or perf evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 50,
+        "interpretation": "Very small change (50 lines) across three files, typical of a micro-optimization PR; merged quickly without formal review, consistent with low-risk string library tweak."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.697,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "partial_optimization",
+      "concern_detail": "Bot noted that the 'new' parameter in replace_all still uses to_string, missing an opportunity for write_substring, and suggested using write_substring as well.",
+      "performance_claim": "Avoid creating intermediate strings by using write_substring for string views.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "string_traversal",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Codex can implement low-level string optimizations using library functions; merge occurred without benchmark or human review, indicating low bar for small core library changes by trusted maintainers.",
+      "success_factors": [
+        "small_scope",
+        "single_commit",
+        "trusted_author",
+        "non_blocking_bot_review"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "peter-jerry-ye-code-review bot provided detailed static analysis identifying remaining intermediate allocation opportunities, Unicode TODO tracking, and code duplication."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance measurements; only narrative claim and CI pass (formatter/info).",
+      "regression_handling": "not_applicable",
+      "regression_detail": "",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replace string concatenation and to_string calls with write_substring in string/methods.mbt and update array joining helpers in array/fixedarray.mbt and array/view.mbt to directly append views.",
+      "files_primary": [
+        "string/methods.mbt",
+        "array/fixedarray.mbt",
+        "array/view.mbt"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit 'Use write_substring for string views' modifies three files with total 50 lines changed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "peter-jerry-ye-code-review[bot]",
+        "channel": "pr_comment",
+        "signal": "non_blocking_suggestions",
+        "summary": "Bot identified remaining intermediate allocations in replace_all, Unicode TODO tracking issue, and code duplication between String and View, but suggestions were not blocking.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coveralls",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "Coverage report posted after merge indicating 100% coverage of changed lines.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Codex-authored PR opened by bobzhang",
+      "Bot code-review comment posted ~20 seconds later with non-blocking suggestions",
+      "PR merged by author ~41 minutes after creation without addressing bot suggestions",
+      "Coveralls posted coverage report after merge"
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

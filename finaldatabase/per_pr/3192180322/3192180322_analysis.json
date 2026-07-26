@@ -1,0 +1,182 @@
+{
+  "pr_id": 3192180322,
+  "meta": {
+    "title": "Increase visual diff concurrency",
+    "html_url": "https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/pull/1187",
+    "repo": "PaloAltoNetworks/docusaurus-openapi-docs",
+    "agent": "OpenAI_Codex",
+    "user": "sserrata",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-01 11:57:31+00:00",
+    "merged_at": "2025-07-01 11:58:11+00:00",
+    "closed_at": "2025-07-01 11:58:11+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Increase visual diff concurrency to 4 and filter sitemap URLs to /tests/ paths for faster CI preview checks."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 12,
+      "deletions": 2,
+      "changes": 14,
+      "top1_file": "scripts/sitemap-visual-diff.ts",
+      "top1_changes": 12,
+      "top1_change_ratio": 0.857,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "scripts"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 1,
+        "assigned": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "commented": 2,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.011,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_parallelism",
+      "sitemap_path_filter",
+      "visual_diff_concurrency"
+    ],
+    "optimization_layer": "ci_cd",
+    "evidence_type": [
+      "narrative",
+      "ci_task_eval"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Trivial concurrency bump and path filter; self-merged in under a minute with no human review; bot visual diff summary confirms successful execution."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 14,
+        "interpretation": "At 14 changed lines, this is a tiny change. It fits a fast, low-risk CI tweak that was self-merged by the author without formal review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.011,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review; PR merged by author immediately after creation.",
+      "performance_claim": "Increase visual diff concurrency from 1 to 4 and filter sitemap URLs to /tests/ only.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple CI config change with a one-line concurrency increase and a small script addition is within the agent's capability; no review friction due to author merge.",
+      "success_factors": [
+        "tiny_scope",
+        "author_self_merge",
+        "ci_bot_confirmation"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "Post-merge github-actions bot posted a visual diff summary showing 319 pages processed with 19 diffs, indirectly validating that the concurrency increase and path filtering worked."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No before/after timing or benchmark; the bot summary proves the tool ran with concurrency, but provides no quantitative speedup.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues occurred.",
+      "evidence_gap": "narrative_only_no_timing_improvement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In .github/workflows/deploy-preview.yml, raised visual-diff job concurrency from 1 to 4. In scripts/sitemap-visual-diff.ts, added a paths option to filter sitemap entries, defaulting to ['/tests/'].",
+      "files_primary": [
+        "scripts/sitemap-visual-diff.ts",
+        ".github/workflows/deploy-preview.yml"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit by sserrata: Increase visual diff concurrency (59f828a)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_visual_diff_summary",
+        "summary": "After merge, posted visual diff summary: 319 pages, 300 matches, 19 diffs, proving the workflow ran with increased concurrency.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created and merged by author in less than a minute.",
+      "Post-merge, github-actions bot published preview URL and visual diff summary confirming the changes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

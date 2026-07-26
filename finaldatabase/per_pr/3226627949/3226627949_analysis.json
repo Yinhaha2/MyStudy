@@ -1,0 +1,210 @@
+{
+  "pr_id": 3226627949,
+  "meta": {
+    "title": "feat(cpu-threading): integrate CLI with threading system and unify TTS API",
+    "html_url": "https://github.com/lucasjinreal/Kokoros/pull/94",
+    "repo": "lucasjinreal/Kokoros",
+    "agent": "Claude_Code",
+    "user": "miteshashar",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-07-13 16:21:50+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Integrate CLI modes with CPU threading optimization, unify TTS API by removing old constructor, add logging, fix chunking bounds, document benchmarks."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 13,
+      "additions": 637,
+      "deletions": 102,
+      "changes": 739,
+      "top1_file": "koko/src/main.rs",
+      "top1_changes": 183,
+      "top1_change_ratio": 0.2476,
+      "files_by_status": {
+        "added": 2,
+        "modified": 11,
+        "removed": 0
+      },
+      "directory_count": 5,
+      "directories": [
+        "(root)",
+        "koko",
+        "kokoros",
+        "checkpoints",
+        "kokoros-openai"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 8,
+        "commented": 2,
+        "renamed": 1,
+        "mentioned": 1,
+        "subscribed": 1
+      },
+      "lifespan_hours": 33.81,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cpu_threading",
+      "onnx_runtime_threading",
+      "instance_parallelism",
+      "tts_latency",
+      "api_unification_breaking"
+    ],
+    "optimization_layer": "inference_runtime_threading",
+    "evidence_type": [
+      "narrative",
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_awaiting_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Claude Code authored CPU threading optimization and API unification with benchmark table; PR open awaiting maintainer review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 739,
+        "interpretation": "At 739 changed lines across 13 files, this is a medium-sized change by absolute volume. As an open performance optimization PR, it has not yet been reviewed or merged; the change includes substantial refactoring and API breaking change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 33.81,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none_yet",
+      "concern_detail": "No reviews have been submitted; only author comments exist.",
+      "performance_claim": "Improved TTS latency and throughput via CPU core distribution across ONNX Runtime instances, with benchmark showing 4-instance optimal at 13.7s total time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Claude_Code",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Low-level inference threading optimization requires understanding of ONNX Runtime threading model and memory bandwidth; Agent provided benchmark data and infrastructure changes that need maintainer validation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Benchmark table provided but no step-by-step instructions to reproduce the exact environment; claim based on manual testing with potential environment variability.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "benchmark_table_only_no_profiler"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactored TTS engine creation to accept instance count, implemented CPU core distribution for ONNX Runtime threading, added mimalloc, logging system, CLI speed parameter, chunking boundary fix, and unified API.",
+      "files_primary": [
+        "kokoros/src/onn/ort_base.rs",
+        "koko/src/main.rs",
+        "kokoros-openai/src/lib.rs",
+        "kokoros/src/tts/koko.rs"
+      ],
+      "files_secondary_observability": [
+        "Cargo.lock",
+        "koko/Cargo.toml",
+        "kokoros/Cargo.toml",
+        "README.md",
+        "test_unicode.rs",
+        "test_unicode",
+        "checkpoints/.gitignore"
+      ],
+      "secondary_note": "Dependency management, documentation, and test files; no runtime monitoring changes.",
+      "change_trajectory": [
+        "Commit 997e20f: Failed CPU threading attempt with over-constrained settings (performance degradation).",
+        "Commit eb57a3: Implemented core distribution strategy with num_cpus and mimalloc.",
+        "Commit 8c0f4f: Added HTTP logging and file rotation.",
+        "Commit 300b87: Global CLI speed parameter pass-through to OpenAI server.",
+        "Commit 4e68d8: Chunking boundary safety check.",
+        "Commit 7f365be: Merge main branch.",
+        "Commit f32ca8f: CLI threading integration and API unification (new() removal).",
+        "Commit fc2e837: Documentation updates."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "miteshashar",
+        "channel": "pr_comment",
+        "signal": "author_note",
+        "summary": "Author notes 'Some changes for #92'.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "miteshashar",
+        "channel": "pr_comment",
+        "signal": "update_description",
+        "summary": "Author updated PR description to reflect actual scope, noting earlier description was stale.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Claude Code generated the initial PR with CPU threading and API unification commits.",
+      "Author commented referencing issue #92.",
+      "Author later updated PR description, no maintainer feedback yet."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

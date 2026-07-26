@@ -1,0 +1,186 @@
+{
+  "pr_id": 3067975590,
+  "meta": {
+    "title": "Implement conversation by ID and active conversation tracking",
+    "html_url": "https://github.com/onlook-dev/onlook/pull/1848",
+    "repo": "onlook-dev/onlook",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-16 05:27:32+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-16 23:48:50+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "41",
+    "body_summary": "Add getConversationById endpoint, active conversation tracking, and fetch messages only for the active conversation to improve performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 28,
+      "deletions": 0,
+      "changes": 28,
+      "top1_file": "apps/web/client/src/server/api/routers/chat.ts",
+      "top1_changes": 14,
+      "top1_change_ratio": 0.5,
+      "files_by_status": {
+        "modified": 3,
+        "added": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "apps",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "deployed": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 18.355,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lazy_load",
+      "conversation_message_fetch_optimization",
+      "active_conversation_tracking"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added getConversationById and active tracking; no review, closed after ~18.4h with no comment from maintainer."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 28,
+        "interpretation": "At 28 changed lines across 4 files, this is a very small edit. It fits a tiny performance-related feature PR but was closed without merge due to apparent lack of maintainer interest or review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 18.355,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "PR was closed by maintainer Kitenite 18.4 hours after creation with no review comments, suggesting lack of engagement or the feature was not needed.",
+      "performance_claim": "Only fetch messages for active conversation to improve performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer closed PR without comment; no review or merge activity."
+    },
+    "capability_boundary": {
+      "topic": "41",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Devin delivered a small feature but failed to trigger maintainer review; PR closed without any feedback, suggesting process barrier where agent PRs may be ignored or not integrated into workflow.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance data or testing evidence provided in PR body or review.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix cycle occurred.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added getConversationById endpoint to chat router, stored activeConversationId in ConversationManager, and modified getConversationFromStorage to fetch messages only for active conversation, along with proper setting and clearing of activeConversationId.",
+      "files_primary": [
+        "apps/web/client/src/server/api/routers/chat.ts",
+        "apps/web/client/src/components/store/editor/chat/conversation/index.ts"
+      ],
+      "files_secondary_observability": [
+        "apps/web/client/src/components/store/editor/chat/index.ts",
+        "bun.lockb"
+      ],
+      "secondary_note": "Minor import addition in chat/index.ts; bun.lockb added (binary lockfile, no code changes).",
+      "change_trajectory": [
+        "Single commit added the new endpoint and active conversation tracking changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview status for docs and web projects.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with feature changes.",
+      "Only bot comments (Vercel preview and Devin notice) appeared; no human interaction.",
+      "Maintainer Kitenite closed the PR after ~18.4 hours with no explanation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

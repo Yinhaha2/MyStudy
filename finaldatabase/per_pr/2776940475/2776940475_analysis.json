@@ -1,0 +1,173 @@
+{
+  "pr_id": 2776940475,
+  "meta": {
+    "title": "refactor(studio): make processNode non-blocking",
+    "html_url": "https://github.com/onlook-dev/onlook/pull/1002",
+    "repo": "onlook-dev/onlook",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-01-09 06:30:25+00:00",
+    "merged_at": null,
+    "closed_at": "2025-01-09 19:13:24+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 37,
+    "topic_name": "37",
+    "body_summary": "Refactor processNode in the AST manager to use requestIdleCallback-based chunked processing and DOM update batching to prevent UI blocking in the renderer."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 125,
+      "deletions": 21,
+      "changes": 146,
+      "top1_file": "apps/studio/src/lib/editor/engine/ast/index.ts",
+      "top1_changes": 146,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 12.72,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "non_blocking_processing",
+      "ui_responsiveness",
+      "chunked_task_scheduling"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin refactored processNode to non-blocking with requestIdleCallback; no review, maintainer closed within ~12.7h, likely due to lack of engagement or misalignment."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 146,
+        "interpretation": "At 146 changed lines, this is a small edit by absolute volume. As a small-step performance refactor it was closed without merge—no human review feedback was given, suggesting the change did not align with maintainer priorities or was deemed unnecessary."
+      },
+      "lifecycle": {
+        "lifespan_hours": 12.72,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No formal review or reviewer comment exists in the dataset.",
+      "performance_claim": "Make processNode non-blocking to prevent UI freezing during AST traversal.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by Kitenite without merge; no review text, only Devin bot comment, indicating maintainer disinterest or perceived risk."
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "The agent produced a possibly correct non-blocking refactor, but the PR was closed without human feedback, illustrating a failure in the collaboration process: either the maintainer didn't want the change or the agent's proposal didn't meet their standards for merging.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No code review evidence; maintainer may not have reviewed the code or did not provide feedback."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or reproduction steps provided; only narrative claims in PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without fix-in-PR; head ref deleted after closure.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In apps/studio/src/lib/editor/engine/ast/index.ts, replaced synchronous DFS processNode with chunked processing using requestIdleCallback, introduced a configurable batching system for DOM updates, and added error handling for executeJavaScript calls.",
+      "files_primary": [
+        "apps/studio/src/lib/editor/engine/ast/index.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes are confined to this single file.",
+      "change_trajectory": [
+        "Single commit: implemented non-blocking processNode with chunked processing, DOM update batching, and error handling."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot posted standard self-introduction and monitoring notice.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin bot opened PR with single commit.",
+      "No human maintainer commented or reviewed.",
+      "PR closed by Kitenite after ~12.7 hours without explanation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "pr_id": 3155257044,
+  "meta": {
+    "title": "Parallelize rustdoc regeneration script",
+    "html_url": "https://github.com/obi1kenobi/cargo-semver-checks/pull/1322",
+    "repo": "obi1kenobi/cargo-semver-checks",
+    "agent": "OpenAI_Codex",
+    "user": "obi1kenobi",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-18 02:28:56+00:00",
+    "merged_at": "2025-06-21 14:56:37+00:00",
+    "closed_at": "2025-06-21 14:56:37+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Parallelize the rustdoc regeneration script by processing crates concurrently using background jobs, with parallelism determined by CPU cores via getconf."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 2,
+      "additions": 166,
+      "deletions": 139,
+      "changes": 305,
+      "top1_file": ".github/workflows/ci.yml",
+      "top1_changes": 177,
+      "top1_change_ratio": 0.580327868852459,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "scripts",
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 10,
+      "event_counts": {
+        "committed": 4,
+        "labeled": 1,
+        "commented": 1,
+        "auto_squash_enabled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 84.46694444444444,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "parallel_execution",
+      "rustdoc_regeneration_speedup"
+    ],
+    "optimization_layer": "build_script",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk_manual_test",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "manual_test"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex parallelized script; obi1kenobi manually tested and merged without formal review or benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 305,
+        "interpretation": "At 305 changed lines, this is a small-to-medium script edit. The changes are concentrated in one shell script plus an unrelated CI merge update. This fits a small-step, fast-turnaround tooling performance PR and merged after a manual test, consistent with lightweight merging practices."
+      },
+      "lifecycle": {
+        "lifespan_hours": 84.46694444444444,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Parallel execution of crate processing speeds up the rustdoc regeneration script.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Script parallelization task required no performance evidence; merge was based on a manual functional test rather than benchmarks or formal review.",
+      "success_factors": [
+        "low_complexity",
+        "maintainer_manual_test",
+        "no_evidence_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "manual_test"
+      ],
+      "detection_detail": {
+        "manual_test": "Maintainer obi1kenobi manually tested the parallel script locally and commented 'It works!'."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No benchmark numbers; maintainer performed a manual test and reported success.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "None.",
+      "evidence_gap": "narrative_only_manual_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Parallelized scripts/regenerate_test_rustdocs.sh using background jobs with getconf for CPU core count; added per-worker target dirs to avoid conflicts; restored placeholder metadata generation; unrelated ci.yml changes from merging main.",
+      "files_primary": [
+        "scripts/regenerate_test_rustdocs.sh"
+      ],
+      "files_secondary_observability": [
+        ".github/workflows/ci.yml"
+      ],
+      "secondary_note": "ci.yml changes are from merging main, not part of the parallelization work.",
+      "change_trajectory": [
+        "Initial commit: Parallelize script with getconf and background jobs.",
+        "Merge branch 'main' brought in ci.yml changes.",
+        "Restore placeholder-based metadata generation.",
+        "Assign per-worker target dir for parallel rustdoc to avoid conflicts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "obi1kenobi",
+        "channel": "pr_comment",
+        "signal": "manual_test_positive",
+        "summary": "obi1kenobi tested the parallel script locally and confirmed it works.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "OpenAI_Codex committed initial parallelization.",
+      "obi1kenobi merged main and added follow-up commits for metadata restore and target directory assignment.",
+      "obi1kenobi manually tested and merged without formal review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

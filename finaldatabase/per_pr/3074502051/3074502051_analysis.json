@@ -1,0 +1,175 @@
+{
+  "pr_id": 3074502051,
+  "meta": {
+    "title": "Refactor verifyReplicationTasks",
+    "html_url": "https://github.com/temporalio/temporal/pull/7794",
+    "repo": "temporalio/temporal",
+    "agent": "OpenAI_Codex",
+    "user": "meiliang86",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-19 17:06:53+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 4,
+    "topic_name": "4",
+    "body_summary": "Simplify verifyReplicationTasks logic and enable concurrent verification with configurable concurrency for better throughput."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 56,
+      "deletions": 13,
+      "changes": 69,
+      "top1_file": "service/worker/migration/activities.go",
+      "top1_changes": 60,
+      "top1_change_ratio": 0.8696,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "service"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 2,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "concurrent_verification",
+      "replication_task_throughput",
+      "refactor_clarity"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Small concurrent verification refactor with no review activity; PR closed unmerged after long inactivity, possibly due to missing performance evidence and test failure in PR description."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 69,
+        "interpretation": "At 69 changed lines, this is a tiny refactor. As a concurrency performance PR, it was closed without merge due to total lack of review engagement rather than technical objections."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "No formal review was conducted; the PR received only a stale bot comment months after creation and was never merged.",
+      "performance_claim": "Enable concurrent verification of replication tasks to increase throughput.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unknown",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No human review activity; PR closed as stale/inactive without any performance or correctness feedback."
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Even a small, self-contained Go concurrency refactor can fail to gain traction when maintainers do not engage. Missing benchmarks and a failing test command likely discouraged review.",
+      "success_factors": [
+        "no_review_engagement",
+        "test_failure_in_body"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics; the provided test command fails with a Go toolchain download issue, reducing confidence in the change.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR left open for months with no review; eventually closed without merge.",
+      "evidence_gap": "no_benchmark_test_failure"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In activities.go, refactored verifyReplicationTasks to use goroutines with a configurable maxConcurrentVerifications limit, replacing sequential processing. Test file updated to exercise new concurrency behavior; force_replication_workflow.go received a one-line change likely for import.",
+      "files_primary": [
+        "service/worker/migration/activities.go"
+      ],
+      "files_secondary_observability": [
+        "service/worker/migration/activities_test.go",
+        "service/worker/migration/force_replication_workflow.go"
+      ],
+      "secondary_note": "Test file adds concurrency-related test case; force_replication_workflow.go had minimal change.",
+      "change_trajectory": [
+        "Single commit: added configurable concurrent verification in activities.go, updated tests, minor import in workflow file."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "stale_bot_comment",
+        "summary": "Stale bot comment posted after months of inactivity, indicating the PR is abandoned.",
+        "blocking": false,
+        "action_taken": "PR remained open until eventually closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created with single commit refactoring verification concurrency.",
+      "No human reviews or comments; only bot stale notification after months.",
+      "PR remained open until it was eventually closed (not merged)."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

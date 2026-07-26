@@ -1,0 +1,168 @@
+{
+  "pr_id": 3132109322,
+  "meta": {
+    "title": "Make Windows terminal shell type detection immediate like macOS",
+    "html_url": "https://github.com/microsoft/vscode/pull/251065",
+    "repo": "microsoft/vscode",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-10 04:33:41+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1_unassigned",
+    "body_summary": "Eliminate a hardcoded 300ms async delay on Windows terminal shell type detection by using the executable path already known at creation, making detection immediate (~1ms) like macOS."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 18,
+      "deletions": 2,
+      "changes": 20,
+      "top1_file": "src/vs/platform/terminal/node/windowsShellHelper.ts",
+      "top1_changes": 13,
+      "top1_change_ratio": 0.65,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "shell_type_detection_latency",
+      "windows_terminal_startup",
+      "sync_vs_async"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "unknown_closed_no_review_activity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "unknown",
+    "confidence": "medium",
+    "notes": "Tiny 20-line perf PR with numeric 320x claim but no evidence; closed without any review or comment, leaving reason unknown."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 20,
+        "interpretation": "At 20 changed lines, this is a very small edit by absolute volume. It fits a tiny, focused performance micro-optimization that was closed—not merged—without any review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_available",
+      "concern_detail": "No formal review or comment text is available in the dataset; the PR was closed without any recorded maintainer feedback.",
+      "performance_claim": "Shell type detection on Windows is now immediate (~1ms) instead of async with a ~300ms delay, approximately 320x faster, matching macOS behavior.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_async_delay (prior hardcoded 300ms wait; not in standard taxonomy)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No explicit rejection signal; PR closed without review or merge."
+    },
+    "capability_boundary": {
+      "topic": "-1_unassigned",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Tiny, low-risk perf PR in a large repository (vscode) with no maintainer review or engagement; closure likely due to lack of reviewer attention rather than technical failure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Only narrative claim of 320x improvement; no benchmark, profiler, or before/after timing data provided in PR body.",
+      "regression_handling": "unknown",
+      "regression_detail": "No regression handling visible; PR closed without merge.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/vs/platform/terminal/node/windowsShellHelper.ts, added optional initialExecutable parameter to constructor to detect shell type immediately from basename and set _shellType and _shellTitle; in terminalProcess.ts, pass shellLaunchConfig.executable to WindowsShellHelper and fire immediate event if detection succeeded, preserving async fallback.",
+      "files_primary": [
+        "src/vs/platform/terminal/node/windowsShellHelper.ts",
+        "src/vs/platform/terminal/node/terminalProcess.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Implementation commit added immediate shell type detection logic across two files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Copilot opened PR and self-assigned.",
+      "review_requested but no human reviewer responded.",
+      "PR closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

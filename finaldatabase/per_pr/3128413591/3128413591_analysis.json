@@ -1,0 +1,293 @@
+{
+  "pr_id": 3128413591,
+  "meta": {
+    "title": "Introduce ahead of time bundling for HTML imports with `bun build`",
+    "html_url": "https://github.com/oven-sh/bun/pull/20265",
+    "repo": "oven-sh/bun",
+    "agent": "Cursor",
+    "user": "Jarred-Sumner",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-08 14:48:30+00:00",
+    "merged_at": "2025-06-11 04:26:01+00:00",
+    "closed_at": "2025-06-11 04:26:01+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "24",
+    "body_summary": "Add HTML import manifest generation to `bun build`, producing a JSON manifest of all bundled files for ahead‑of‑time compilation and better full‑stack application support."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 56,
+      "additions": 2890,
+      "deletions": 347,
+      "changes": 3237,
+      "top1_file": "test/js/bun/http/bun-serve-file.test.ts",
+      "top1_changes": 592,
+      "top1_change_ratio": 0.1829,
+      "files_by_status": {
+        "added": 5,
+        "modified": 50,
+        "removed": 1
+      },
+      "directory_count": 5,
+      "directories": [
+        "cmake",
+        "docs",
+        "packages",
+        "src",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 7,
+      "review_states": {
+        "COMMENTED": 7
+      },
+      "review_comment_count": 8,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 29,
+      "event_counts": {
+        "commented": 2,
+        "mentioned": 2,
+        "subscribed": 2,
+        "reviewed": 6,
+        "head_ref_force_pushed": 2,
+        "committed": 8,
+        "renamed": 1,
+        "ready_for_review": 1,
+        "review_requested": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 61.625,
+      "first_review_delay_hours": 0.009,
+      "review_rounds": 7,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "aot_bundling",
+      "html_import_manifest",
+      "build_optimization"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "code_quality",
+      "documentation",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Cursor implemented HTML import manifest with AOT bundling; reviews caught AI‑generated doc slop, memory leak, and test failures; merged after fixes with tests but no benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3237,
+        "interpretation": "Large multi‑file change spanning 56 files and 3237 lines, mostly in bundler internals and tests, with a significant merge from main bringing unrelated files. This is a substantial feature addition; the merge outcome aligns with the PR's completion after addressing review feedback."
+      },
+      "lifecycle": {
+        "lifespan_hours": 61.625,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_quality",
+      "primary_concern": "memory_leak_and_ai_generated_documentation_quality",
+      "concern_detail": "dylan‑conway flagged a memory leak in BodyReaderMixin.zig (missing defer deinit), Jarred‑Sumner left multiple TODO items about proper JSON quoting and entry point handling, and zackradisic criticized the AI‑generated documentation as 'slop'.",
+      "performance_claim": "Ahead‑of‑time bundling for HTML imports to improve full‑stack app performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "code_quality",
+        "documentation",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "24",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The PR demonstrates that Cursor can generate a large, multi‑file Zig feature for a complex bundler, but human reviewers still needed to catch memory safety issues, AI‑generated documentation that was slop, and edge cases in entry point handling.",
+      "success_factors": [
+        "addressed_review_feedback",
+        "tests_provided",
+        "existing_ci_catches",
+        "maintainer_engagement"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Multiple reviewers manually inspected the code, identifying a memory leak, incorrect JSON quoting, and excessive documentation.",
+        "ci_auto": "robobun CI reported failing tests on bundler_compile and spawn, which prompted further fixes."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No performance evaluation or profiling; only functional tests to verify manifest generation.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Memory leak fixed via 'defer deinit' commit, test failures addressed by adjusting test expectations and adding 'with { type: \"html\" }' attribute. AI‑generated documentation deleted after criticism.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added HTMLImportManifest.zig to generate a JSON manifest of all files produced when an HTML file is imported in JavaScript, enabling ahead‑of‑time bundling. Refactored chunk computation, graph handling, and linker context to support server‑side and client‑side HTML imports. Included a new test suite and documentation, though documentation was later removed.",
+      "files_primary": [
+        "src/bundler/HTMLImportManifest.zig",
+        "src/bundler/bundle_v2.zig",
+        "src/bundler/linker_context/computeChunks.zig",
+        "test/bundler/html-import-manifest.test.ts"
+      ],
+      "files_secondary_observability": [
+        "src/bundler/Chunk.zig",
+        "src/options.zig",
+        "docs/bundler/fullstack.md"
+      ],
+      "secondary_note": "Merge commit from main brought unrelated file route and test changes; most churn in bundle_v2.zig (321 lines) and new test files.",
+      "change_trajectory": [
+        "Initial commit introduced server‑side support for HTML imports.",
+        "Prettier formatting and review comments led to fixes.",
+        "dylan‑conway added defer deinit fix.",
+        "Merge from main brought in FileRoute and other server changes.",
+        "Test fix to address breaking change.",
+        "Documentation deleted after AI slop criticism."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Jarred-Sumner",
+        "channel": "inline_review_comment",
+        "signal": "entry_point_handling",
+        "summary": "Same entry point can be multiple chunks + when code splitting.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Jarred-Sumner",
+        "channel": "inline_review_comment",
+        "signal": "json_quoting_issue",
+        "summary": "TODO: fix the quoting, output proper JSON.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Jarred-Sumner",
+        "channel": "inline_review_comment",
+        "signal": "remove_comment",
+        "summary": "Suggestion to remove an outdated comment.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Jarred-Sumner",
+        "channel": "inline_review_comment",
+        "signal": "path_template_todo",
+        "summary": "TODO: before merging, undo this and have two separate templates for HTML imports.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Jarred-Sumner",
+        "channel": "inline_review_comment",
+        "signal": "chunk_structure",
+        "summary": "TODO: fix this – the JS part of the HTML chunk is in the HTML chunk, the actual HTML chunk is in the additional file.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "dylan-conway",
+        "channel": "inline_review_comment",
+        "signal": "memory_leak",
+        "summary": "This copy of `body` leaks because `ctx.body` is immediately reassigned and `onBody` does not free the chunk. maybe `defer body.deinit()`?",
+        "blocking": true,
+        "action_taken": "Fixed in commit fb7c4931d87379c4bfa02e64eb07173361ea6ad4."
+      },
+      {
+        "source": "zackradisic",
+        "channel": "inline_review_comment",
+        "signal": "documentation_quality",
+        "summary": "This is AI generated slop.",
+        "blocking": false,
+        "action_taken": "Documentation deleted in commit 80fce17ec8bc6d1e38819e201efe0d2cb874e56c."
+      },
+      {
+        "source": "zackradisic",
+        "channel": "inline_review_comment",
+        "signal": "entry_point_optimization",
+        "summary": "Instead of allocating an AutoBitSet, could we just store the source index and break after matching?",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "robobun",
+        "channel": "pr_comment",
+        "signal": "ci_failure",
+        "summary": "3 test failures in build #18475.",
+        "blocking": true,
+        "action_taken": "Subsequent commits fixed the failing tests."
+      },
+      {
+        "source": "dylan-conway",
+        "channel": "pr_comment",
+        "signal": "breaking_change_concern",
+        "summary": "The failing test in `bundler_html.test.ts` either needs `with { type: \"html\" }` or `\"target\": \"bun\"`. I'm not sure if this breaking change is intended.",
+        "blocking": true,
+        "action_taken": "Test fixed in commit 7f0984cd11b65ad0dd10f6b56df2ffd0f145a84d."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial implementation; author self‑reviewed with multiple inline TODO items.",
+      "robobun reported test failures; dylan‑conway fixed memory leak and raised breaking change concern.",
+      "zackradisic criticized AI‑generated documentation; documentation deleted.",
+      "Test fix applied; CI eventually green; merged after ~2.5 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

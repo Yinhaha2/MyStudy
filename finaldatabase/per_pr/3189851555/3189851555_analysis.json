@@ -1,0 +1,193 @@
+{
+  "pr_id": 3189851555,
+  "meta": {
+    "title": "Test suite: eliminate real time waits",
+    "html_url": "https://github.com/prebid/Prebid.js/pull/13464",
+    "repo": "prebid/Prebid.js",
+    "agent": "OpenAI_Codex",
+    "user": "patmmccann",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 21:02:58+00:00",
+    "merged_at": "2025-06-30 22:02:14+00:00",
+    "closed_at": "2025-06-30 22:02:14+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "test",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "40",
+    "body_summary": "Eliminate real-time waits in test suites for digital garage and consent management utilities by shortening timeouts and using Jest fake timers."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 127,
+      "additions": 9828,
+      "deletions": 22174,
+      "changes": 32002,
+      "top1_file": "package-lock.json",
+      "top1_changes": 21858,
+      "top1_change_ratio": 0.683,
+      "files_by_status": {
+        "added": 15,
+        "modified": 111,
+        "removed": 1
+      },
+      "directory_count": 8,
+      "directories": [
+        ".circleci",
+        ".github",
+        "integrationExamples",
+        "libraries",
+        "modules",
+        "src",
+        "test",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 4,
+        "reviewed": 1,
+        "assigned": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.988,
+      "first_review_delay_hours": 0.983,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_timeout_reduction",
+      "fake_timers"
+    ],
+    "optimization_layer": "test_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "realtime_test_waits"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex shortened timeouts and used fake timers in test suite to eliminate real time waits; merged promptly with single approval and no review text."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 32002,
+        "interpretation": "The raw change count of 32,002 lines is dominated by a merge of master (e.g., 21,858-line package-lock.json diff), not the performance fix itself. The actual test suite changes are small: ~94 lines across 4 test files (cmUtils_spec.js, dgkeywordRtdProvider_spec.js, instreamTracking_spec.js, yieldoneAnalyticsAdapter_spec.js), reducing real-time waits via shorter timeouts and fake timers. This tiny, low-risk maintenance change merged quickly without discussion."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.988,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": null,
+      "performance_claim": "Eliminate real-time waits in test suites for digital garage and consent management utils, thereby reducing test execution time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "realtime_test_waits",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "40",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple test-suite refactoring to use fake timers and reduce timeouts; well within agent capabilities for test maintenance tasks.",
+      "success_factors": [
+        "small_scope",
+        "low_risk",
+        "maintainer_quick_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after timing or test suite runtime evidence provided; only claim that real-time waits existed.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression reported; merge proceeded without issues.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In test files, shortened a timeout in dgkeywordRtdProvider_spec.js and cmUtils_spec.js, and replaced real-time setTimeout-based waits with Jest fake timers (jest.useFakeTimers) in instreamTracking_spec.js and yieldoneAnalyticsAdapter_spec.js to eliminate actual delays during test execution.",
+      "files_primary": [
+        "test/spec/libraries/cmUtils_spec.js",
+        "test/spec/modules/dgkeywordRtdProvider_spec.js",
+        "test/spec/modules/instreamTracking_spec.js",
+        "test/spec/modules/yieldoneAnalyticsAdapter_spec.js"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "The massive file count and line churn come from merging master (commit 6dbdce) and an unrelated pull request (commit 04606ee); the actual performance-relevant changes are confined to the 4 test files above.",
+      "change_trajectory": [
+        "First commit (a55e2ac): shortened dgkeywordRtd timeout in cmUtils_spec.js and dgkeywordRtdProvider_spec.js.",
+        "Second commit (6dbdce): merged latest master (introduces many unrelated changes).",
+        "Third commit (86991cd): added fake timers to instreamTracking_spec.js and yieldoneAnalyticsAdapter_spec.js.",
+        "Fourth commit (04606ee): merged a branch containing the fake-timers change."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ChrisHuie",
+        "channel": "formal_review",
+        "signal": "approved_no_comment",
+        "summary": "Approved the PR without any review comments.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by patmmccann with two test improvements (timeout reduction and fake timers).",
+      "Approved by ChrisHuie approximately 58 minutes later with no review comments.",
+      "Merged by ChrisHuie about 59 minutes after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,274 @@
+{
+  "pr_id": 3076401687,
+  "meta": {
+    "title": "Cache CloudInfo / CloudSettings by authority",
+    "html_url": "https://github.com/Azure/azure-kusto-python/pull/583",
+    "repo": "Azure/azure-kusto-python",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-20 09:49:33+00:00",
+    "merged_at": "2025-05-21 08:20:12+00:00",
+    "closed_at": "2025-05-21 08:20:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 45,
+    "topic_name": "45_firecrawl_scrape_scraping_authority",
+    "body_summary": "Modify CloudSettings to cache CloudInfo by authority (scheme+host+port) instead of full URL, reducing redundant network requests for the same cluster accessed with different paths."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 7,
+      "additions": 501,
+      "deletions": 389,
+      "changes": 890,
+      "top1_file": "azure-kusto-data/tests/test_cloud_settings.py",
+      "top1_changes": 337,
+      "top1_change_ratio": 0.378,
+      "files_by_status": {
+        "modified": 4,
+        "removed": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "azure-kusto-data"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 1,
+        "CHANGES_REQUESTED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 14,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "deployed": 12,
+        "commented": 5
+      },
+      "lifespan_hours": 22.51,
+      "first_review_delay_hours": 21.42,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache",
+      "authority_based_caching",
+      "network_request_reduction"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot cached CloudInfo by authority; AsafMah CHANGES_REQUESTED for formatting, test placement, and pytest conversion; after iterative fixes, PR merged."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 890,
+        "interpretation": "At 890 changed lines, this is a medium-sized change by absolute volume, concentrated in test files and a core caching modification. It fits a small-step performance optimization PR that successfully merged after addressing review feedback on formatting, test location, and test framework conventions."
+      },
+      "lifecycle": {
+        "lifespan_hours": 22.51,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "tests_missing_or_requested",
+      "primary_concern": "test_convention_enforcement",
+      "concern_detail": "AsafMah CHANGES_REQUESTED to undo all e2e test changes; additionally requested pytest style, proper test location, and black formatting; Copilot iteratively addressed each via commits.",
+      "performance_claim": "Caching CloudInfo by authority reduces redundant network requests for same cluster accessed with different URL paths.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "design_or_approach",
+        "ci_validation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "45_firecrawl_scrape_scraping_authority",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Caching optimization in Python SDK required understanding authority normalization and cache key design; merge relied on addressing repository-specific test conventions rather than proving performance improvement itself.",
+      "success_factors": [
+        "clear_problem_description",
+        "iterative_response_to_review",
+        "adoption_of_repo_testing_standards"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "AsafMah manually reviewed the implementation, requested formatting, proper test location, pytest conversion, and reversion of e2e changes.",
+        "ci_auto": "github-actions bot reported test results showing +3 tests passing, which likely reassured correctness but not performance."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Tests demonstrate caching behavior but no performance metrics or before/after network call counts are provided.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After CHANGES_REQUESTED, Copilot reverted e2e modifications, converted tests to pytest, removed duplicate test files, and re-ran black; all changes made within the PR lifecycle.",
+      "evidence_gap": "narrative_no_performance_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modify _cloud_settings.py: _normalize_uri now extracts authority (scheme+netloc) instead of full URL; get_cloud_info_for_cluster uses authority as cache key; add test_cloud_settings.py with pytest tests for normalization and caching behavior.",
+      "files_primary": [
+        "azure-kusto-data/azure/kusto/data/_cloud_settings.py",
+        "azure-kusto-data/tests/test_cloud_settings.py"
+      ],
+      "files_secondary_observability": [
+        "CHANGELOG.md",
+        "test_cloud_settings_standalone.py",
+        "test_normalizer.py",
+        "test_cloud_settings_pytest.py",
+        "azure-kusto-data/tests/test_e2e_data.py"
+      ],
+      "secondary_note": "Multiple test files were added and later removed or reverted as part of review cleanup; e2e test modifications were fully undone.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Implement authority-based caching in _cloud_settings.py and add tests.",
+        "Apply black formatting.",
+        "Enhance existing e2e test for authority caching (later reverted).",
+        "Update CHANGELOG.md to Unreleased section.",
+        "Remove duplicate top-level test files.",
+        "Reformat with black 23.3.0.",
+        "Convert test_cloud_settings.py to pytest style, remove temporary test file.",
+        "Undo e2e test changes per review request."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-advanced-security[bot]",
+        "channel": "inline_review_comment",
+        "signal": "code_scanning_warning",
+        "summary": "Flagged incomplete URL substring sanitization in test strings.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "AsafMah",
+        "channel": "formal_review",
+        "signal": "changes_requested_undo_e2e",
+        "summary": "Requested to undo all changes in e2e tests.",
+        "blocking": true,
+        "action_taken": "Copilot reverted test_e2e_data.py changes."
+      },
+      {
+        "source": "lurebat",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved the PR.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "AsafMah",
+        "channel": "pr_comment",
+        "signal": "formatting_request",
+        "summary": "Requested to run black formatting.",
+        "blocking": false,
+        "action_taken": "Copilot applied black in commit 940b938."
+      },
+      {
+        "source": "AsafMah",
+        "channel": "pr_comment",
+        "signal": "test_e2e_coverage_request",
+        "summary": "Noted existing tests in test_e2e_data.py and asked to ensure coverage.",
+        "blocking": false,
+        "action_taken": "Copilot enhanced e2e test (later reverted)."
+      },
+      {
+        "source": "AsafMah",
+        "channel": "pr_comment",
+        "signal": "changelog_section_fix",
+        "summary": "Requested changelog entry under Unreleased.",
+        "blocking": false,
+        "action_taken": "Copilot updated CHANGELOG.md."
+      },
+      {
+        "source": "AsafMah",
+        "channel": "pr_comment",
+        "signal": "test_location_and_pytest",
+        "summary": "Instructed to use proper test location and pytest style.",
+        "blocking": false,
+        "action_taken": "Copilot moved tests and converted to pytest."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "test_results",
+        "summary": "Test results: +3 tests passing, overall 0 failures.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with authority-based caching and tests.",
+      "AsafMah requested black formatting; Copilot fixed.",
+      "AsafMah asked to update e2e tests and changelog; Copilot enhanced e2e and moved changelog entry.",
+      "AsafMah requested pytest conversion and proper test location; Copilot converted tests and removed duplicates.",
+      "AsafMah CHANGES_REQUESTED to undo e2e changes; Copilot reverted.",
+      "After revert, lurebat approved and PR merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

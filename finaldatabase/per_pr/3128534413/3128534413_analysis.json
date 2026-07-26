@@ -1,0 +1,174 @@
+{
+  "pr_id": 3128534413,
+  "meta": {
+    "title": "Implement Salsa-based incremental compilation",
+    "html_url": "https://github.com/steveklabnik/rue/pull/7",
+    "repo": "steveklabnik/rue",
+    "agent": "Claude_Code",
+    "user": "steveklabnik",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-08 17:00:06+00:00",
+    "merged_at": "2025-06-08 17:20:43+00:00",
+    "closed_at": "2025-06-08 17:20:43+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "25",
+    "body_summary": "Add Salsa-based incremental compilation infrastructure, introducing a tracked parse_file query for automatic caching to enable fast recompilation and future IDE support."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 143,
+      "deletions": 2,
+      "changes": 145,
+      "top1_file": "crates/rue-compiler/src/lib.rs",
+      "top1_changes": 86,
+      "top1_change_ratio": 0.593,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "crates"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "head_ref_force_pushed": 2,
+        "committed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.344,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "incremental_compilation",
+      "salsa_query_caching",
+      "parse_cache"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Claude Code added Salsa incremental parsing infrastructure with tests; self-merged by maintainer without external review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 145,
+        "interpretation": "At 145 changed lines, this is a small change by absolute volume. It fits a small-step, fast-turnaround performance PR and is consistent with the successful self-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.344,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review text available; PR was self-merged by the maintainer.",
+      "performance_claim": "Incremental compilation using Salsa for fast recompilation and caching.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "25_incremental_compilation_caching",
+      "agent": "Claude_Code",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Integration of Salsa incremental computation framework into a Rust compiler pipeline; Claude Code successfully added tracked functions, database setup, and tests demonstrating caching behavior.",
+      "success_factors": [
+        "comprehensive_tests",
+        "small_incremental_step",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer (also PR author) reviewed the code before merging; no formal review recorded."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Tests verify incremental caching (same result on unchanged input) but no before/after timing data or benchmark.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression reported; PR merged after tests passed.",
+      "evidence_gap": "narrative_perf_claim_without_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added Salsa database (`RueDatabase`) and a `parse_file` tracked function that caches parsing results; updated lib.rs with Salsa setup, included tests to verify caching behavior, and modified parser's `ParseError` to derive `PartialEq` for Salsa compatibility. Also added an example file demonstrating usage.",
+      "files_primary": [
+        "crates/rue-compiler/src/lib.rs",
+        "crates/rue-compiler/examples/basic_usage.rs"
+      ],
+      "files_secondary_observability": [
+        "crates/rue-parser/src/lib.rs"
+      ],
+      "secondary_note": "Parser change is a one-line derive addition.",
+      "change_trajectory": [
+        "Single commit adds Salsa infrastructure, tests, and example."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with Salsa incremental compilation implementation and tests.",
+      "Force-pushed twice, presumably to clean up commit.",
+      "Maintainer self-merged after ~20 minutes with no external review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

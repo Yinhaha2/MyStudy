@@ -1,0 +1,182 @@
+{
+  "pr_id": 3027146476,
+  "meta": {
+    "title": "Fix lag in pyplot example by implementing proper debouncing",
+    "html_url": "https://github.com/reflex-dev/reflex-web/pull/1321",
+    "repo": "reflex-dev/reflex-web",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-29 06:00:35+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-30 03:19:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 0,
+    "topic_name": "28",
+    "body_summary": "Replace custom asyncio debounce in Reflex pyplot example with built-in .debounce() to eliminate UI lag."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 1,
+      "additions": 24,
+      "deletions": 12,
+      "changes": 36,
+      "top1_file": "docs/library/graphing/other-charts/pyplot.md",
+      "top1_changes": 36,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "docs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 3,
+        "commented": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 21.314,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "debounce",
+      "ui_lag_fix",
+      "event_handler_optimization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_unclear_maintainer_rejection",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin replaced custom asyncio debounce with Reflex .debounce(); closed by maintainer with brief comment, no merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 36,
+        "interpretation": "At 36 changed lines in a single documentation example file, this is a tiny edit by absolute volume. Despite its minimal scope, the PR was closed without merge, suggesting maintainer indifference or rejection rather than scaling concerns."
+      },
+      "lifecycle": {
+        "lifespan_hours": 21.314,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unclear_closure",
+      "concern_detail": "Maintainer Alek99 closed the PR with the single-word comment 'This', providing no explicit feedback on the change or its performance claim.",
+      "performance_claim": "Replace custom asyncio debounce with Reflex's built-in .debounce(1200) to eliminate lag.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "custom_asyncio_debounce",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by maintainer with ambiguous comment; no review discussion or performance validation occurred."
+    },
+    "capability_boundary": {
+      "topic": "28",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "A tiny documentation code fix with no review engagement; Agent PRs on minor doc improvements may be closed without substantive evaluation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-review inspection in any comment or timeline event."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or before/after latency data; only narrative claim of lag improvement via debounce.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without further action or fix cycle.",
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In the pyplot documentation example, removed custom asyncio debouncing logic (global _last_update_time, sleep) and applied `.debounce(1200)` directly to the event handlers `_update_plot` and `_randomize`.",
+      "files_primary": [
+        "docs/library/graphing/other-charts/pyplot.md"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit: replace custom debounce with .debounce().",
+        "Fix AttributeError: rx.get_color_mode() -> rx.color_mode.",
+        "Fix VarTypeError: replace if/else with rx.cond."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI monitoring for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Alek99",
+        "channel": "pr_comment",
+        "signal": "unclear_comment",
+        "summary": "Maintainer wrote 'This' with no further explanation and closed the PR immediately.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with debounce replacement commit.",
+      "Devin added two follow-up commits fixing AttributeError and VarTypeError.",
+      "Maintainer commented 'This' and closed the PR approximately 21 hours later."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

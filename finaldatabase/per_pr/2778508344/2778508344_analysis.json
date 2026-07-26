@@ -1,0 +1,170 @@
+{
+  "pr_id": 2778508344,
+  "meta": {
+    "title": "refactor: move processNode to main process",
+    "html_url": "https://github.com/onlook-dev/onlook/pull/1004",
+    "repo": "onlook-dev/onlook",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-01-09 18:29:31+00:00",
+    "merged_at": null,
+    "closed_at": "2025-01-09 18:45:26+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "37",
+    "body_summary": "Move processNode function from renderer to main process to prevent UI blocking, add WebviewUpdate IPC interface, and batch webview updates."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 242,
+      "deletions": 155,
+      "changes": 397,
+      "top1_file": "apps/studio/src/lib/editor/engine/ast/index.ts",
+      "top1_changes": 197,
+      "top1_change_ratio": 0.496,
+      "files_by_status": {
+        "added": 1,
+        "modified": 6
+      },
+      "directory_count": 2,
+      "directories": [
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.265,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "prevent_ui_blocking",
+      "process_node_main_thread",
+      "ipc_batching"
+    ],
+    "optimization_layer": "architecture_thread_offload",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_maintainer_unknown_reason",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin refactor to move processNode to main process; closed by maintainer after 16 minutes with no review or comment explanation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 397,
+        "interpretation": "At 397 changed lines across 7 files, this is a small to medium refactor by absolute volume. The change concentrated in the AST engine (197 lines) and a new main process handler (151 lines). As an architectural offload performance PR it was closed without merge; no review feedback recorded, so outcome is not clearly related to change scale."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.265,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_available",
+      "concern_detail": "No formal review or human comments; PR closed by maintainer without explanation.",
+      "performance_claim": "Moving processNode to main process via IPC prevents UI blocking by offloading compute from renderer.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "ui_blocking_by_renderer_thread",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by maintainer (Kitenite) with no comment; no review activity. Presumed maintainer did not want the change or it conflicted with other plans."
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Electron process boundary refactor; PR was closed without review, illustrating that maintainer acceptance may require pre-alignment on architectural changes, not just code correctness.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after UI responsiveness metrics provided.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix-in-PR cycle.",
+      "evidence_gap": "narrative_only_no_benchmark_or_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Move processNode from renderer-side AST engine (apps/studio/src/lib/editor/engine/ast/index.ts) to main process (apps/studio/electron/main/events/ast.ts) with IPC via WebviewUpdate interface; update callers in tailwind input and chat context, and register new handler in main process runners.",
+      "files_primary": [
+        "apps/studio/src/lib/editor/engine/ast/index.ts",
+        "apps/studio/electron/main/events/ast.ts"
+      ],
+      "files_secondary_observability": [
+        "apps/studio/electron/main/events/index.ts",
+        "apps/studio/electron/main/run/index.ts",
+        "apps/studio/src/lib/editor/engine/chat/context.ts",
+        "apps/studio/src/routes/editor/EditPanel/StylesTab/single/TailwindInput/index.tsx",
+        "packages/models/src/constants/index.ts"
+      ],
+      "secondary_note": "Packages models constants adds a new IPC message constant.",
+      "change_trajectory": [
+        "Single commit refactoring: moved processNode to main process, added new IPC events, updated all callers, and added WebviewUpdate interface."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Devin AI opened PR with single commit.",
+      "Devin bot posted automated assistant message.",
+      "Maintainer Kitenite closed PR 16 minutes later with no additional comment.",
+      "No review or discussion occurred."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

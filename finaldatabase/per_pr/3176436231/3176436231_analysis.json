@@ -1,0 +1,223 @@
+{
+  "pr_id": 3176436231,
+  "meta": {
+    "title": "Fix XAML binding warnings in DeviceTests.Runners by adding x:DataType attributes",
+    "html_url": "https://github.com/dotnet/maui/pull/30215",
+    "repo": "dotnet/maui",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-25 17:30:59+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-25 21:06:58+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Eliminate 37 XC0022 XAML binding warnings by adding x:DataType attributes to enable compiled bindings, claiming improved runtime performance in DeviceTests.Runners UI."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 5,
+      "additions": 44,
+      "deletions": 31,
+      "changes": 75,
+      "top1_file": "src/TestUtils/src/DeviceTests.Runners/VisualRunner/Pages/HomePage.xaml",
+      "top1_changes": 28,
+      "top1_change_ratio": 0.373,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 5,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 4
+      },
+      "review_comment_count": 8,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 19,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 2,
+        "reviewed": 1,
+        "commented": 2,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "locked": 1
+      },
+      "lifespan_hours": 3.6,
+      "first_review_delay_hours": 2.09,
+      "review_rounds": 5,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "compiled_bindings",
+      "x:DataType_addition",
+      "xaml_warning_reduction"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "incorrect_csharp_changes_closed",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot added x:DataType but incorrectly changed ViewModel command signatures; maintainer CHANGES_REQUESTED, agent attempted fix but PR closed due to unresolved C# mistakes."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 75,
+        "interpretation": "At 75 changed lines across 5 files, this is a small edit by absolute volume, consistent with a compact XAML optimization fix. However, it was closed because the C# changes introduced by the agent were incorrect and not fully resolved, failing the correctness review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 3.6,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "incorrect_csharp_implementation",
+      "concern_detail": "mattleibow CHANGES_REQUESTED: all C# ViewModel changes were wrong; commands should accept ViewModel types, not SelectionChangedEventArgs. He referred to MAUI compiled bindings docs and gave inline corrections for XAML and C#.",
+      "performance_claim": "Eliminate 37 XC0022 warnings and improve runtime performance via compiled bindings.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "missing_compiled_bindings",
+      "antipattern_in_fix": "incorrect_command_signatures",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer closed PR after noting AI could not do the fix correctly without human input."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent struggled with the MAUI compiled binding interaction between XAML markup and C# command signatures, failing to implement the reviewer-corrected pattern despite attempts, illustrating a framework‑specific knowledge gap.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "mattleibow reviewed the C# ViewModel changes, identified they were incorrect, and provided inline examples of the proper SelectionChangedCommandParameter pattern."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark or runtime measurements were provided; the performance claim is based solely on the removal of compile‑time warnings, with no actual runtime before/after data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After the CHANGES_REQUESTED review, Copilot attempted a fix re‑introducing correct command types and x:DataType, but the maintainer closed the PR, stating the AI could not complete the fix without human help.",
+      "evidence_gap": "narrative_perf_claim_no_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added x:DataType attributes to three XAML pages to enable compiled bindings, modified CollectionView bindings by removing element-reference SelectionChangedCommandParameter or incorrectly changing C# command signatures, then reverted ViewModels to accept ViewModel types and added proper SelectionChangedCommandParameter with x:DataType in the final commit.",
+      "files_primary": [
+        "src/TestUtils/src/DeviceTests.Runners/VisualRunner/Pages/HomePage.xaml",
+        "src/TestUtils/src/DeviceTests.Runners/VisualRunner/Pages/TestAssemblyPage.xaml",
+        "src/TestUtils/src/DeviceTests.Runners/VisualRunner/ViewModels/HomeViewModel.cs",
+        "src/TestUtils/src/DeviceTests.Runners/VisualRunner/ViewModels/TestAssemblyViewModel.cs"
+      ],
+      "files_secondary_observability": [
+        "src/TestUtils/src/DeviceTests.Runners/VisualRunner/Pages/TestResultPage.xaml"
+      ],
+      "secondary_note": "TestResultPage.xaml had only a 3-line change adding x:DataType.",
+      "change_trajectory": [
+        "Initial plan commit; no file changes.",
+        "Second commit: added x:DataType to XAML containers and restructured bindings, removing SelectionChangedCommandParameter.",
+        "Third commit: incorrectly changed ViewModel commands to accept SelectionChangedEventArgs.",
+        "Fourth commit (after CHANGES_REQUESTED): reverted ViewModel changes back to ViewModel types and added SelectionChangedCommandParameter with x:DataType per reviewer's inline suggestions.",
+        "Maintainer closed the PR, indicating the overall solution was still not satisfactory."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "mattleibow",
+        "channel": "formal_review",
+        "signal": "changes_requested_incorrect_csharp",
+        "summary": "Formal CHANGES_REQUESTED: none of the C# file changes are correct; pointed to MAUI compiled bindings documentation.",
+        "blocking": true,
+        "action_taken": "Copilot attempted fix in commit d76786b6."
+      },
+      {
+        "source": "mattleibow",
+        "channel": "inline_review_comment",
+        "signal": "missing_x:DataType_and_wrong_command_type",
+        "summary": "Multiple inline comments: SelectionChangedCommandParameter missing x:DataType in XAML, C# command types should be ViewModel types (e.g., TestAssemblyViewModel?) not SelectionChangedEventArgs.",
+        "blocking": true,
+        "action_taken": "Copilot reverted ViewModels and added x:DataType to SelectionChangedCommandParameter in response."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_attempt",
+        "summary": "Copilot acknowledged the mistake and claimed to have corrected the approach by reverting C# changes and using proper x:DataType bindings.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "mattleibow",
+        "channel": "pr_comment",
+        "signal": "ai_unable_close",
+        "summary": "Closed the PR stating AI could not fix it without a human; implemented a different solution afterwards.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with XAML x:DataType additions and modified ViewModel commands to accept SelectionChangedEventArgs.",
+      "mattleibow reviewed, CHANGES_REQUESTED with inline comments showing correct patterns, and pointed to documentation.",
+      "Copilot responded with a fix commit that reverted ViewModels and added x:DataType to parameter bindings.",
+      "mattleibow closed the PR, stating the AI could not complete the work and subsequently created a better fix himself."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

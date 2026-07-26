@@ -1,0 +1,168 @@
+{
+  "pr_id": 3196710615,
+  "meta": {
+    "title": "Make trigger ignore heartbeat updates",
+    "html_url": "https://github.com/janbjorge/pgqueuer/pull/424",
+    "repo": "janbjorge/pgqueuer",
+    "agent": "OpenAI_Codex",
+    "user": "janbjorge",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-02 17:46:15+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-03 21:50:16+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "30",
+    "body_summary": "Reduce unnecessary trigger notifications by ignoring heartbeat updates and delay initial heartbeat to avoid redundant triggers."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 16,
+      "deletions": 7,
+      "changes": 23,
+      "top1_file": "pgqueuer/heartbeat.py",
+      "top1_changes": 15,
+      "top1_change_ratio": 0.652,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "pgqueuer"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "labeled": 1,
+        "head_ref_force_pushed": 2,
+        "committed": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 28.067,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "trigger_optimization",
+      "heartbeat_ignore",
+      "reduce_notifications"
+    ],
+    "optimization_layer": "database_trigger",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_author_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Small trigger optimization PR closed by author with no review; no performance evidence or human feedback."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 23,
+        "interpretation": "At 23 changed lines, this is a tiny edit. It fits a small-step performance PR but was closed without merge, likely due to lack of review or author decision."
+      },
+      "lifecycle": {
+        "lifespan_hours": 28.067,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_available",
+      "concern_detail": "No review or comment text in dataset.",
+      "performance_claim": "Avoid unnecessary trigger notifications by ignoring heartbeat/housekeeping updates.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No review; PR closed by same author without merge after ~28 hours."
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "A tiny trigger optimization with no human review; the PR was closed without merge, indicating that small database changes may still require maintainer validation or lack of engagement for agent-authored PRs in this repo.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human review recorded.",
+        "ci_auto": "No CI performance evaluation observed."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance data; only narrative claim.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed with no merge, so no regression occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modify trigger definitions to exclude heartbeat/housekeeping columns from firing notifications; add delay in initial heartbeat update to reduce unnecessary triggers.",
+      "files_primary": [
+        "pgqueuer/qb.py",
+        "pgqueuer/heartbeat.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Initial commit: limit trigger firing on heartbeat in qb.py.",
+        "Second commit: delay initial heartbeat update in heartbeat.py."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with two commits, labeled 'codex'.",
+      "Two force pushes by author after several hours.",
+      "PR closed by author ~28 hours later with no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

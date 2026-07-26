@@ -1,0 +1,175 @@
+{
+  "pr_id": 3227415432,
+  "meta": {
+    "title": "Fix memory usage by calling comemo::evict(10) after compilation",
+    "html_url": "https://github.com/messense/typst-py/pull/109",
+    "repo": "messense/typst-py",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-14 05:31:44+00:00",
+    "merged_at": "2025-07-14 06:23:06+00:00",
+    "closed_at": "2025-07-14 06:23:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 0,
+    "topic_name": "12",
+    "body_summary": "Add comemo::evict(10) calls after each typst compile to limit memory usage, addressing excessive consumption in long-running applications."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 1,
+      "additions": 8,
+      "deletions": 0,
+      "changes": 8,
+      "top1_file": "src/compiler.rs",
+      "top1_changes": 8,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "ready_for_review": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.856,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "comemo_cache_eviction",
+      "memory_usage_reduction"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Minimal one-line fix addressing connected issue #104; merged without review within 51 minutes."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8,
+        "interpretation": "At only 8 added lines in a single file, this is an extremely small change. It fits a minimal, surgical memory fix that was merged without review, as expected for such low-risk, pinpoint changes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.856,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Calling comemo::evict(10) after each compilation limits memory usage for long-running applications.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_comemo_cache_growth (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A one-line comemo::evict(10) call requires no benchmark or domain expertise; this illustrates the agent's capability to follow existing issue suggestions for memory management.",
+      "success_factors": [
+        "linked_issue",
+        "minimal_scope",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data; body only describes problem and solution with manual testing of output formats.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions occurred; PR merged without issue.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/compiler.rs, added comemo::evict(10) calls after both regular and HTML typst::compile() invocations to limit cache memory usage.",
+      "files_primary": [
+        "src/compiler.rs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial plan commit (no code changes).",
+        "Single commit adding two eviction lines with explanatory comments and a `comemo` import."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and immediately assigned to messense.",
+      "Copilot work finished and review requested.",
+      "Merged by messense ~51 minutes after creation with no human review comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

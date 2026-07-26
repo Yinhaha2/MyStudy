@@ -1,0 +1,175 @@
+{
+  "pr_id": 3128851898,
+  "meta": {
+    "title": "Implement simple compile-time folding for pure calls",
+    "html_url": "https://github.com/mochilang/mochi/pull/211",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-09 01:03:32+00:00",
+    "merged_at": "2025-06-09 01:04:13+00:00",
+    "closed_at": "2025-06-09 01:04:13+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 10,
+    "topic_name": "10",
+    "body_summary": "Detect function purity in type checker, mark builtins as pure, and fold pure calls with literal arguments at compile-time for Go, Python and TypeScript backends."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 219,
+      "deletions": 3,
+      "changes": 222,
+      "top1_file": "types/pure.go",
+      "top1_changes": 152,
+      "top1_change_ratio": 0.6847,
+      "files_by_status": {
+        "added": 2,
+        "modified": 5
+      },
+      "directory_count": 3,
+      "directories": [
+        "compile",
+        "interpreter",
+        "types"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0114,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "compile_time_constant_folding",
+      "pure_function_optimization"
+    ],
+    "optimization_layer": "compiler_optimization",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "OpenAI_Codex implemented compile-time folding of pure calls across three backends; merged by maintainer within 1 minute with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 222,
+        "interpretation": "At 222 changed lines, this is a small-to-medium edit by absolute volume, concentrated in a new pure analysis module and small compiler tweaks. It fits a self-contained compiler optimization PR that merged without review, indicating low perceived risk by the maintainer."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0114,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_available",
+      "concern_detail": "No reviewer feedback in dataset; PR was self-merged immediately.",
+      "performance_claim": "Fold pure calls with literal arguments at compile-time, reducing runtime overhead in Go, Python, and TypeScript compilation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "10",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Implementing purity detection and constant folding across three language backends requires cross-cutting compiler knowledge; the agent succeeded in a small, well-scoped PR that was merged instantly without review, suggesting either maintainer trust or a straightforward, additive change.",
+      "success_factors": [
+        "small_scope",
+        "maintainer_self_merge",
+        "targets_multiple_backends_symmetrically"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Only `go test ./...` mentioned; no benchmark, profiling, or numeric speedup claims included.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were reported or reviewed.",
+      "evidence_gap": "narrative_only_no_benchmark_or_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added purity detection in types/pure.go, marked builtins len and str as pure, added interpreter/consteval.go for constant evaluation of pure calls, and used that in Go/Python/TypeScript compilers to fold calls with literal arguments.",
+      "files_primary": [
+        "types/pure.go",
+        "interpreter/consteval.go"
+      ],
+      "files_secondary_observability": [
+        "compile/go/compiler.go",
+        "compile/py/compiler.go",
+        "compile/ts/compiler.go",
+        "interpreter/interpreter.go",
+        "types/check.go"
+      ],
+      "secondary_note": "Small changes in compiler backends to invoke the new pure-call evaluation; check.go updated for purity detection.",
+      "change_trajectory": [
+        "Single commit: Added purity analysis, constant evaluation helper, and integrated folding into three compiler backends."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with a single commit implementing compile-time folding.",
+      "Maintainer (tamnd) self-merged immediately with no review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

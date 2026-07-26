@@ -1,0 +1,191 @@
+{
+  "pr_id": 3146868385,
+  "meta": {
+    "title": "Fix memory leak in ItemInputCharset",
+    "html_url": "https://github.com/forntoh/LcdMenu/pull/381",
+    "repo": "forntoh/LcdMenu",
+    "agent": "OpenAI_Codex",
+    "user": "forntoh",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-14 23:05:56+00:00",
+    "merged_at": "2025-06-14 23:31:03+00:00",
+    "closed_at": "2025-06-14 23:31:03+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 9,
+    "topic_name": "9",
+    "body_summary": "Prevent memory leak in ItemInputCharset::commitCharEdit by adding a missing delete[]."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "top1_file": "src/ItemInputCharset.h",
+      "top1_changes": 1,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 2,
+        "commented": 2,
+        "ready_for_review": 1,
+        "unlabeled": 1,
+        "mentioned": 1,
+        "subscribed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 0.419,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_leak",
+      "char_buffer_deallocation"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "medium",
+    "notes": "One-line fix adding delete[] in commitCharEdit; merged within 25 minutes with no human review, only bot rate-limit comment and CI memory delta report."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1,
+        "interpretation": "At 1 changed line, this is a minimal, atomic fix by absolute volume. It fits a tiny, low-risk memory leak fix that merged quickly and successfully."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.419,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Prevent memory leak in ItemInputCharset::commitCharEdit by adding missing delete[].",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Trivial single-line memory leak fix requires no review or benchmarking; Agent produced a correct one-character change that merged without friction.",
+      "success_factors": [
+        "atomic_scope",
+        "obvious_correctness",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No explicit detection method visible in dataset; maintainer accepted fix without review, possibly after visual inspection or pre-existing knowledge of the leak."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance data or repro steps; only a terse summary in the PR body.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "The PR commit directly fixes the leak; no further regression was introduced.",
+      "evidence_gap": "narrative_only_no_repro"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/ItemInputCharset.h, added a missing delete[] to free the temporary char buffer allocated in commitCharEdit, preventing a memory leak.",
+      "files_primary": [
+        "src/ItemInputCharset.h"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only one file changed with one line added.",
+      "change_trajectory": [
+        "Single commit added delete[] to commitCharEdit."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "rate_limit_exceeded",
+        "summary": "CodeRabbit bot was rate limited and could not review the PR.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_memory_report",
+        "summary": "CI memory usage comparison showed a minor flash size increase (0–12 bytes) on some boards, no RAM change.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with a single commit fixing the memory leak.",
+      "No human reviews; two bot comments (CodeRabbit rate limit, GitHub Actions memory report).",
+      "Maintainer self-merged within 25 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

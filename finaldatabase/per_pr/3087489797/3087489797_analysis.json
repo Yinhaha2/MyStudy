@@ -1,0 +1,159 @@
+{
+  "pr_id": 3087489797,
+  "meta": {
+    "title": "Reduce memory usage in ReentrantFileLockTest",
+    "html_url": "https://github.com/OpenHFT/Chronicle-Bytes/pull/655",
+    "repo": "OpenHFT/Chronicle-Bytes",
+    "agent": "OpenAI_Codex",
+    "user": "tgd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-23 20:39:49+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-23 20:45:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 31,
+    "topic_name": "31",
+    "body_summary": "Reduce subprocess count and iterations in ReentrantFileLockTest to avoid os::commit_memory errors from excessive memory consumption."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 7,
+      "deletions": 2,
+      "changes": 9,
+      "top1_file": "src/test/java/net/openhft/chronicle/bytes/domestic/ReentrantFileLockTest.java",
+      "top1_changes": 9,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "base_ref_changed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.102,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_memory_usage_reduction",
+      "subprocess_tuning"
+    ],
+    "optimization_layer": "test_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_author_immediately",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex reduced subprocess count and iterations; PR closed immediately by author with no review or merge attempt."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 9,
+        "interpretation": "At 9 changed lines in a single test file, this is a tiny edit by absolute volume. It is a trivial test configuration change that was closed immediately without any review discussion."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.102,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review or comment text available; the PR was closed within minutes of creation with no feedback.",
+      "performance_claim": "Reduce subprocess count and iterations in ReentrantFileLockTest to avoid os::commit_memory errors.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author immediately after creation; no review or merge attempt."
+    },
+    "capability_boundary": {
+      "topic": "31",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small test configuration change; no technical review required, but the PR was closed without engagement, possibly due to CI unavailability (mvn not found) or author decision.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body mentions OOM errors but does not provide memory profiling data; no after metrics.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge or further iteration.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/test/java/net/openhft/chronicle/bytes/domestic/ReentrantFileLockTest.java, reduced the number of locker subprocesses from 6 to 3 and reduced iterations per locker from 50 to 20, aiming to lower memory usage during test execution.",
+      "files_primary": [
+        "src/test/java/net/openhft/chronicle/bytes/domestic/ReentrantFileLockTest.java"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit reduced process count and iteration count."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and closed by author within ~6 minutes with no review or comment activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

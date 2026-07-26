@@ -1,0 +1,258 @@
+{
+  "pr_id": 3205497325,
+  "meta": {
+    "title": "Implement intelligent test selection for github actions",
+    "html_url": "https://github.com/DeepLabCut/DeepLabCut/pull/3046",
+    "repo": "DeepLabCut/DeepLabCut",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-05 19:48:04+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Implements an intelligent test selection system that reduces CI runtime from 5+ minutes to targeted windows (1-5 minutes) based on the scope of changes in a pull request."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 44,
+      "additions": 3289,
+      "deletions": 427,
+      "changes": 3716,
+      "top1_file": "tools/test_selector.py",
+      "top1_changes": 650,
+      "top1_change_ratio": 0.175,
+      "files_by_status": {
+        "added": 8,
+        "modified": 30,
+        "removed": 4,
+        "renamed": 1
+      },
+      "directory_count": 7,
+      "directories": [
+        ".github",
+        "tools",
+        "deeplabcut",
+        "docs",
+        "examples",
+        "tests",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "DISMISSED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 56,
+      "pr_comment_count": 10,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 6,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "labeled": 2,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 4,
+        "commented": 6,
+        "mentioned": 2,
+        "subscribed": 2
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": 1.469,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_runtime_reduction",
+      "intelligent_test_selection",
+      "test_categorization",
+      "workflow_optimization"
+    ],
+    "optimization_layer": "ci_cd",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "full_suite_always_run"
+    ],
+    "outcome_reason": "superseded_by_rework",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot CI test scheduler with narrative time savings; multiple rounds of test-failure fixes and design review, approved but closed without merge as potentially superseded by alternate approach (AlexEMG’s branch)."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3716,
+        "interpretation": "At 3716 changed lines, this is a large change by absolute volume, reflecting addition of a new test selection system, workflow modifications, and a merge from main. As a CI optimization PR, it was closed without merge after approval, possibly due to strategic rework rather than code quality."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_failure",
+      "concern_detail": "Maintainer MMathisLab reported that tests were still failing and requested verbose debugging; also workflow duplication where python-package.yml still triggered on push alongside intelligent-testing.",
+      "performance_claim": "Reduce CI runtime from 5+ minutes to 1-5 minutes based on change scope, with 60-80% time savings for documentation-only changes.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "full_suite_always_run",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "ci_validation"
+      ],
+      "rejection_signals": "Despite final approval, PR was not merged and later closed, likely because of parallel work on 'ReworkCICD' branch (AlexEMG comment)."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "CI/workflow generator tool requiring robust handling of YAML syntax, multi-workflow interactions, and test compatibility; agent succeeded in fixing issues but final merge was superseded by an alternative approach.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "MMathisLab reviewed workflow duplication and test failures; deruyter92 suggested changes to test selection rules.",
+        "ci_auto": "CI logs showed syntax errors and test failures."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body includes estimated time savings table, but no measurement in CI; maintainer focused on test correctness, not benchmark.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Multiple commits addressed syntax errors, missing dependencies, and test failures; PR approved but closed later.",
+      "evidence_gap": "narrative_only_no_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced intelligent test selection system with tools/test_selector.py, tools/parse_test_selection.py, tools/execute_test_commands.py, added .github/workflows/intelligent-testing.yml, modified python-package.yml, and added docs and validate scripts.",
+      "files_primary": [
+        "tools/test_selector.py",
+        ".github/workflows/intelligent-testing.yml",
+        ".github/workflows/python-package.yml"
+      ],
+      "files_secondary_observability": [
+        "tools/parse_test_selection.py",
+        "tools/execute_test_commands.py",
+        "tools/validate_test_selection.py",
+        "tools/README.md",
+        "docs/ModelZoo.md"
+      ],
+      "secondary_note": "Major merge commit added many main branch files (gui, modelzoo, etc.) unrelated to test selection.",
+      "change_trajectory": [
+        "Initial implementation with test_selector, docs, and intelligent-testing.yml.",
+        "Fix test failures and add robustness.",
+        "Rounds of syntax error fixes in YAML and Python scripts.",
+        "Maintainer approvals after fixes; PR later closed without merge likely due to alternative approach."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "MMathisLab",
+        "channel": "formal_review",
+        "signal": "changes_requested_functional_failure",
+        "summary": "Code still failing; request to run verbose tests and debug.",
+        "blocking": true,
+        "action_taken": "Follow-up commits fixed test failures."
+      },
+      {
+        "source": "MMathisLab",
+        "channel": "pr_comment",
+        "signal": "workflow_duplication",
+        "summary": "Full python package tests still running; want intelligent selection to control that.",
+        "blocking": true,
+        "action_taken": "Committed fix to de-duplicate triggers."
+      },
+      {
+        "source": "MMathisLab",
+        "channel": "pr_comment",
+        "signal": "syntax_error",
+        "summary": "SyntaxError: unterminated string literal.",
+        "blocking": true,
+        "action_taken": "Fixed YAML syntax by using environment variables for JSON."
+      },
+      {
+        "source": "deruyter92",
+        "channel": "inline_review_comment",
+        "signal": "test_selection_rule_refinement",
+        "summary": "Suggestions for modelzoo and multianimal test paths.",
+        "blocking": false,
+        "action_taken": "Discussion, not yet implemented."
+      },
+      {
+        "source": "AlexEMG",
+        "channel": "pr_comment",
+        "signal": "alternative_branch",
+        "summary": "Check out my branch ReworkCICD; let's combine efforts.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial test selection implementation.",
+      "MMathisLab requested fix of test failures and workflow duplication.",
+      "Copilot iterated with multiple commits fixing syntax, missing deps, and YAML issues.",
+      "After several rounds, MMathisLab approved the PR.",
+      "AlexEMG suggested combining with ReworkCICD branch.",
+      "No further commits; devin-ai-integration bot closed PR due to inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

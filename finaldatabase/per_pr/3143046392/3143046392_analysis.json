@@ -1,0 +1,168 @@
+{
+  "pr_id": 3143046392,
+  "meta": {
+    "title": "Remove helperIndex/Len from TS runtime",
+    "html_url": "https://github.com/mochilang/mochi/pull/486",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-13 10:09:54+00:00",
+    "merged_at": "2025-06-13 10:20:37+00:00",
+    "closed_at": "2025-06-13 10:20:37+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 9,
+    "topic_id": 39,
+    "topic_name": "39",
+    "body_summary": "Remove helperIndex and helperLen runtime helpers; instead infer indexing and length directly in the TypeScript compiler, reducing generated code overhead."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 5,
+      "deletions": 32,
+      "changes": 37,
+      "top1_file": "compile/ts/runtime.go",
+      "top1_changes": 28,
+      "top1_change_ratio": 0.757,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "compile"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.179,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "runtime_helper_removal",
+      "compiler_direct_inference"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit removal of two runtime helpers with direct compiler inference; no review or perf evidence, merged by author in ~11 minutes."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 37,
+        "interpretation": "At 37 changed lines, this is a very small edit by absolute volume. It fits a small-step, fast-turnaround performance PR and is consistent with the successful, low-friction merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.179,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback available; PR merged without discussion.",
+      "performance_claim": "Removing helperIndex/helperLen and inferring directly in the compiler eliminates redundant runtime calls, reducing generated code size and execution overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "39",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler-level helper removal requires understanding of both the runtime layer and the code generator; the agent produced a focused, correct refactoring that passed existing tests without introducing regressions.",
+      "success_factors": [
+        "small_scope",
+        "passes_existing_tests",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of human review or detection; the only signal is the presence of a `make test` instruction in the PR body, but no test results are recorded."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling data, or before/after metrics provided; only a reference to `make test` but no output shown.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issue occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/ts/runtime.go, removed the helperIndex and helperLen helper functions. In compile/ts/compiler.go, updated the generation logic to directly emit indexing and length operations without calling those helpers.",
+      "files_primary": [
+        "compile/ts/runtime.go",
+        "compile/ts/compiler.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: removed helpers and updated compiler to infer operations directly, reducing runtime call overhead."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with a single commit.",
+      "No reviews or comments; merged by author after approximately 11 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

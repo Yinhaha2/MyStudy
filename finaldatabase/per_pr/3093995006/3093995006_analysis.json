@@ -1,0 +1,215 @@
+{
+  "pr_id": 3093995006,
+  "meta": {
+    "title": "[MTP] Improve performance of validating command line options",
+    "html_url": "https://github.com/microsoft/testfx/pull/5655",
+    "repo": "microsoft/testfx",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-27 13:41:01+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 6,
+    "topic_name": "6",
+    "body_summary": "Optimize CommandLineOptionsValidator by replacing O(n²) LINQ operations with HashSet/Dictionary lookups, reducing memory allocations, and adding PerformanceSensitive attribute (later removed)."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 16,
+      "file_count": 1,
+      "additions": 141,
+      "deletions": 78,
+      "changes": 219,
+      "top1_file": "src/Platform/Microsoft.Testing.Platform/CommandLine/CommandLineOptionsValidator.cs",
+      "top1_changes": 219,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 30,
+      "review_states": {
+        "COMMENTED": 30
+      },
+      "review_comment_count": 34,
+      "pr_comment_count": 3,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "copilot_work_started": 5,
+        "unsubscribed": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 5,
+        "reviewed": 8
+      },
+      "lifespan_hours": 147.85,
+      "first_review_delay_hours": 0.315,
+      "review_rounds": 30,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": true,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "algorithmic_optimization",
+      "hashset_lookups",
+      "string_allocation_reduction"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "closed_no_approval",
+    "review_dimensions": [
+      "design_or_approach",
+      "coding_style"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot performed algorithmic refactoring; maintainer gave extensive style feedback but never approved or requested performance evidence, leading to closure."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 219,
+        "interpretation": "A small, focused single-file change (219 lines) typical of micro-optimisation PRs. Closed without merge after many style-focused review rounds, suggesting maintainer never intended to accept the perf change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 147.85,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "coding_style",
+      "primary_concern": "coding_style_consistency",
+      "concern_detail": "Maintainer repeatedly requested explicit types instead of var, specific whitespace adjustments (blank lines, indentation), and indentation fixes; no comments on performance improvement or benchmarking.",
+      "performance_claim": "Reduce algorithmic complexity from O(n²) to O(n) in validation methods, lower memory allocations, and improve string trimming efficiency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "nested_loop (O(n²) LINQ operations)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "coding_style",
+        "design_or_approach"
+      ],
+      "rejection_signals": "PR closed without approval after multiple rounds of style-only review; maintainer never acknowledged or evaluated the performance benefit."
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot delivered a correct algorithmic improvement, but the maintainer engaged exclusively on coding style conventions (explicit types, whitespace) without evaluating performance, resulting in closure without merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer Youssef1313 reviewed the code meticulously through dozens of inline comments, focusing on style (var/explicit types, blank lines) rather than verifying the performance claims."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes a profiling screenshot but no numeric before/after metrics or benchmark scripts; no evidence of maintainer reproducing the claimed improvement.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix cycle beyond style adjustments.",
+      "evidence_gap": "style_only_review_no_perf_evaluation"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactored CommandLineOptionsValidator to use HashSet for O(1) name checks instead of LINQ Intersect/Union, replaced GroupBy with Dictionary for duplication detection, optimized ToTrimmedString to avoid unnecessary allocations, removed expensive LINQ operations, and added (later removed) PerformanceSensitive attribute.",
+      "files_primary": [
+        "src/Platform/Microsoft.Testing.Platform/CommandLine/CommandLineOptionsValidator.cs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit applied algorithmic optimizations and added PerformanceSensitiveAttribute.",
+        "Per maintainer feedback, removed PerformanceSensitiveAttribute and Roslyn.Utilities import.",
+        "Multiple rounds of style edits: explicit type replacements, whitespace/blank-line adjustments.",
+        "PR closed without merge after sustained style-only interaction."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Youssef1313",
+        "channel": "inline_review_comment",
+        "signal": "remove_performance_sensitive_attribute",
+        "summary": "Requested removal of PerformanceSensitiveAttribute and related Roslyn.Utilities using.",
+        "blocking": false,
+        "action_taken": "Copilot removed the attribute and import."
+      },
+      {
+        "source": "Youssef1313",
+        "channel": "inline_review_comment",
+        "signal": "use_explicit_type",
+        "summary": "Requested replacing var with explicit types in foreach loops.",
+        "blocking": false,
+        "action_taken": "Copilot applied explicit types."
+      },
+      {
+        "source": "Youssef1313",
+        "channel": "inline_review_comment",
+        "signal": "whitespace_fix",
+        "summary": "Multiple suggestions for blank lines and indentation fixes.",
+        "blocking": false,
+        "action_taken": "Copilot applied formatting fixes."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "firewall_block",
+        "summary": "Reported being blocked by firewall rules while working on feedback.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with perf refactoring and profiling screenshot.",
+      "Maintainer rapidly started commenting (within ~19 minutes), focusing on removing PerformanceSensitiveAttribute and later on style issues.",
+      "Copilot responded with many small commits addressing each style request.",
+      "After many rounds, the PR was closed without merge or approval."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "pr_id": 3128226642,
+  "meta": {
+    "title": "feat(root): migrate from ESLint and Prettier to Biome",
+    "html_url": "https://github.com/novuhq/novu/pull/8473",
+    "repo": "novuhq/novu",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-08 11:00:45+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-08 13:00:23+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "7",
+    "body_summary": "Migrate entire Novu monorepo from ESLint/Prettier to Biome, claiming improved linting/formatting performance and reduced dependencies."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 90,
+      "additions": 1975,
+      "deletions": 10396,
+      "changes": 12371,
+      "top1_file": "pnpm-lock.yaml",
+      "top1_changes": 10810,
+      "top1_change_ratio": 0.8739,
+      "files_by_status": {
+        "added": 1,
+        "modified": 82,
+        "removed": 7
+      },
+      "directory_count": 7,
+      "directories": [
+        "(root)",
+        ".github",
+        "apps",
+        "enterprise",
+        "libs",
+        "packages",
+        "playground"
+      ]
+    },
+    "collaboration": {
+      "review_count": 4,
+      "review_states": {
+        "COMMENTED": 4
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 4,
+        "review_requested": 1,
+        "assigned": 1,
+        "commented": 2,
+        "deployed": 9,
+        "labeled": 10,
+        "reviewed": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 1.994,
+      "first_review_delay_hours": 0.042,
+      "review_rounds": 4,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lint_toolchain_migration",
+      "faster_formatting",
+      "reduced_dependencies",
+      "unified_toolchain"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_bot_inactivity_due_to_bugs",
+    "review_dimensions": [
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin migration of monorepo to Biome introduced multiple bugs detected by cursor[bot]; PR closed by bot for inactivity without human review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 12371,
+        "interpretation": "At 12,371 changed lines across 90 files, this is a large-scale infrastructure refactor by absolute volume, primarily driven by a 10,810-line lockfile change and removal of legacy ESLint/Prettier configs. It was closed—not merged—due to multiple correctness bugs and lack of human review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.994,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "multiple_bugs_introduced",
+      "concern_detail": "cursor[bot] flagged: (1) lint:fix scripts passing --fix instead of --write; (2) OpenAPI validate action using biome:check instead of lint:openapi; (3) getEntries function default parameters removed; (4) userRepository renamed to _userRepository but method calls still reference this.userRepository.",
+      "performance_claim": "Biome provides faster linting/formatting and reduces dependency complexity compared to ESLint+Prettier.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Multiple correctness bugs identified by cursor[bot]; PR closed by devin-ai-integration[bot] for inactivity after 2 hours without human review."
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Large-scale monorepo toolchain migration without human oversight; agent introduced several technical bugs and no human reviewer engaged, leading to bot close.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "cursor[bot] statically analyzed the PR changes and identified bugs.",
+        "ci_auto": "No CI validation results available."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks or before/after timing data; only narrative claims of speed improvement.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by bot with no merge; bugs not fixed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Migrate monorepo from ESLint and Prettier to Biome: added biome.json with comprehensive config, removed all ESLint/Prettier configs and dependencies, updated 29+ package.json lint scripts to use biome check, updated CI workflows and Docker files.",
+      "files_primary": [
+        "biome.json",
+        "package.json",
+        "eslint.config.mjs",
+        ".prettierrc",
+        "pnpm-lock.yaml",
+        "nx.json",
+        ".github/workflows/on-pr.yml",
+        ".github/actions/validate-openapi/action.yml"
+      ],
+      "files_secondary_observability": [
+        "apps/*/package.json",
+        "libs/*/package.json",
+        "packages/*/package.json",
+        "enterprise/packages/*/package.json",
+        "playground/nestjs/package.json"
+      ],
+      "secondary_note": "Most line changes are in pnpm-lock.yaml (removal of ESLint dependencies) and deletions of old configs; the core new file is biome.json.",
+      "change_trajectory": [
+        "Initial commit: full migration with biome.json and removal of ESLint/Prettier.",
+        "Subsequent commits: fix Nx config conflicts, enable parameter decorators, resolve TypeScript errors, and adjust enterprise packages."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "lint_fix_scripts_broken",
+        "summary": "lint:fix scripts across packages pass --fix instead of --write, causing failures.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "lint_fix_scripts_broken_repeat",
+        "summary": "Repeated flagging of the same --fix vs --write issue across multiple package.json files.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "openapi_validation_target_wrong",
+        "summary": "OpenAPI validate action incorrectly set to biome:check instead of lint:openapi, breaking OpenAPI validation.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "function_defaults_removed",
+        "summary": "getEntries function default parameters removed causing potential runtime errors.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "renamed_parameter_not_updated",
+        "summary": "UserRepository renamed to _userRepository but internal calls still reference this.userRepository.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with full migration (1,783 additions, 10,241 deletions across 90 files).",
+      "cursor[bot] rapidly reviewed and flagged lint fix script issues and two source code bugs within 40 minutes.",
+      "Devin committed three follow-up fixes addressing Nx config, parameter decorators, and TypeScript errors, but did not fix all flagged issues.",
+      "No human reviewer engaged; devin-ai-integration[bot] closed PR after 2 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

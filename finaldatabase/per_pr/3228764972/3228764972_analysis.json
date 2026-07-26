@@ -1,0 +1,240 @@
+{
+  "pr_id": 3228764972,
+  "meta": {
+    "title": "Retrieve GitHub release asset checksums",
+    "html_url": "https://github.com/jdx/mise/pull/5637",
+    "repo": "jdx/mise",
+    "agent": "Cursor",
+    "user": "jdx",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-14 13:22:23+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-24 02:42:22+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Refactor lockfile to store detailed asset information (URLs, sizes) and enable automatic GitHub release asset checksum retrieval to improve security and avoid API rate limits."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 24,
+      "file_count": 74,
+      "additions": 3088,
+      "deletions": 1692,
+      "changes": 6881,
+      "top1_file": "src/lockfile.rs",
+      "top1_changes": 602,
+      "top1_change_ratio": 0.0875,
+      "files_by_status": {
+        "modified": 60,
+        "added": 10,
+        "removed": 4
+      },
+      "directory_count": 9,
+      "directories": [
+        "src",
+        "docs",
+        "e2e",
+        ".github",
+        "cloudflare",
+        "completions",
+        "packaging",
+        "scripts",
+        "e2e-win"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 24,
+        "review_requested": 1,
+        "reviewed": 2,
+        "connected": 1,
+        "convert_to_draft": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 229.33,
+      "first_review_delay_hours": 0.03,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lockfile_asset_caching",
+      "api_call_avoidance",
+      "checksum_retrieval",
+      "installation_speed"
+    ],
+    "optimization_layer": "application_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "abandoned_draft_closed",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "code_quality"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor attempted lockfile refactor and GitHub checksum retrieval; bot reviews flagged filename shadowing and platform compatibility bugs; PR converted to draft and closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 6881,
+        "interpretation": "At 6881 changed lines across 74 files, this is a large-scale refactor by absolute volume. As a major architectural change to lockfile format and asset handling, it was closed—not merged—likely due to unresolved correctness issues and maintainer draft conversion, consistent with the high risk of large untested changes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 229.33,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_platform_compatibility",
+      "concern_detail": "Cursor bug bot found filename shadowing, unwrap panics, and asset selection ignoring platform compatibility; Copilot flagged checksum length defaults and asset update skipping.",
+      "performance_claim": "Improve installation speed and security by caching asset URLs and auto-retrieving GitHub checksums.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "code_quality"
+      ],
+      "rejection_signals": "Maintainer converted PR to draft and later closed without merge; no human review text beyond bot comments."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The refactor combining lockfile schema migration, multiple backend updates, and GitHub checksum parsing revealed the agent's difficulty with platform context and edge cases in asset selection, leading to correctness bugs.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Cursor bot and Copilot bot statically reviewed Rust code, identifying filename shadowing, platform-agnostic asset picking, checksum algorithm edge cases, and asset update skipping."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body provided no benchmark, profiling, or reproduction steps for performance claims.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR converted to draft after bot reviews and later closed without further fixes.",
+      "evidence_gap": "narrative_only_no_perf_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactored lockfile to store detailed AssetInfo (checksum, size, url) per tool asset; implemented GitHub release asset checksum fetching and parsing; updated multiple backends to reuse cached URLs from lockfile to avoid API calls.",
+      "files_primary": [
+        "src/lockfile.rs",
+        "src/github.rs",
+        "src/backend/github.rs",
+        "src/backend/aqua.rs"
+      ],
+      "files_secondary_observability": [
+        "docs/dev-tools/mise-lock.md",
+        "e2e/backend/test_github_url_tracking",
+        "e2e/core/test_java_url_tracking"
+      ],
+      "secondary_note": "The majority of changed files are from a merge commit bringing in unrelated main branch updates; the primary refactor itself spans approximately 15 files.",
+      "change_trajectory": [
+        "Cursor agent opened PR with initial lockfile asset consolidation and URL tracking commits.",
+        "Maintainer jdx added numerous wip commits to refine asset selection logic and add tests.",
+        "A final Cursor agent commit added GitHub checksum parsing and download.",
+        "Bot reviewers (Copilot and Cursor) flagged multiple correctness bugs via inline comments.",
+        "Maintainer converted PR to draft and later closed without further activity."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "checksum_algorithm_edge_case",
+        "summary": "Unknown checksum lengths default to SHA256, which may result in incorrect verification.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "asset_update_skipping",
+        "summary": "Skipping asset URL/checksum update if already present may miss later arrivals.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "code_duplication",
+        "summary": "Pattern for checking existing asset URL duplication across backends; suggest extracting helper.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "multiple_correctness_bugs",
+        "summary": "Cursor bug bot flagged filename shadowing, unwrap panic, and platform-incompatible asset selection.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Copilot bot posted PR overview summarizing ReactFlow migration; reviewed 20/21 files with no blocking concerns.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent created PR with lockfile asset refactor and URL caching commits.",
+      "Maintainer jdx contributed many wip commits refining backends and tests.",
+      "Bot reviewers (Copilot and Cursor) flagged correctness and code quality issues in inline comments.",
+      "Maintainer converted PR to draft, later closed without merge after 10 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

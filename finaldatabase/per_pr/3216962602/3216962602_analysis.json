@@ -1,0 +1,170 @@
+{
+  "pr_id": 3216962602,
+  "meta": {
+    "title": "Improve TS query compile",
+    "html_url": "https://github.com/mochilang/mochi/pull/7003",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-09 19:48:00+00:00",
+    "merged_at": "2025-07-09 19:48:11+00:00",
+    "closed_at": "2025-07-09 19:48:11+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Add hash-based join helper in TS runtime, detect simple equality joins to use hashed join, and expose joinEqFields helper."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 87,
+      "deletions": 0,
+      "changes": 87,
+      "top1_file": "compiler/x/ts/compiler.go",
+      "top1_changes": 70,
+      "top1_change_ratio": 0.805,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "compiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.003,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hash_join",
+      "join_optimization",
+      "group_by_optimization"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex added hash join detection and runtime helper; single commit merged instantly without review or benchmark, typical small-scope low-risk compiler perf addition."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 87,
+        "interpretation": "At 87 lines added without deletions, this is a very small change. The PR fits a small-step, fast-turnaround performance PR that merged instantly with no review friction, consistent with the successful, low-risk merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.003,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Adding hash-based join for simple equality joins should improve query performance over nested loops.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "nested_loop",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler optimization (hash join detection) within a single repo; merged immediately without review, indicating low friction for internal tooling changes.",
+      "success_factors": [
+        "narrow_scope",
+        "single_commit",
+        "no_review_required",
+        "language/runtime library addition"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review or code-reading evidence; PR merged instantly without any review.",
+        "ci_auto": "No CI evidence or automation feedback recorded."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics for join optimization; only go test mentioned in body, but no performance data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression occurred; PR merged instantly.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/ts/compiler.go, added detection of simple equality joins and code generation for hash-based join using a new hashJoin helper. In compiler/x/ts/runtime.go, added the hashJoin runtime function to support the compiled code.",
+      "files_primary": [
+        "compiler/x/ts/compiler.go",
+        "compiler/x/ts/runtime.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only two files changed; no secondary or observability changes.",
+      "change_trajectory": [
+        "Single commit added hash join detection and runtime helper; no iterative changes or review feedback."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged in 11 seconds with no review or human interaction; labeled 'codex' by author."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

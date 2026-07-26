@@ -1,0 +1,158 @@
+{
+  "pr_id": 3148090723,
+  "meta": {
+    "title": "Optimize pytest startup via lazy runtime imports",
+    "html_url": "https://github.com/jaseci-labs/jaseci/pull/2146",
+    "repo": "jaseci-labs/jaseci",
+    "agent": "OpenAI_Codex",
+    "user": "marsninja",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-15 21:45:50+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 11,
+    "topic_name": "11",
+    "body_summary": "Lazy-load JacMachine in meta_importer to avoid expensive import on Python startup, aiming to speed up pytest runs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 17,
+      "deletions": 2,
+      "changes": 19,
+      "top1_file": "jac/jaclang/runtimelib/meta_importer.py",
+      "top1_changes": 19,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "jac"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 2,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lazy_import",
+      "startup_time",
+      "import_optimization"
+    ],
+    "optimization_layer": "python_runtime_import",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_failure_tests_fail_no_benchmark",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Small lazy import refactor by OpenAI_Codex; tests listed as failures, no review interaction; closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 19,
+        "interpretation": "At 19 changed lines, this is a tiny edit. It fits a small-step startup optimization PR, but was closed likely due to failing tests and lack of performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "tests_failing",
+      "concern_detail": "Author reported that pre-commit and pytest both fail; pre-commit fails due to github access, pytest fails with ModuleNotFoundError: dotenv, indicating the change may break environment or dependencies.",
+      "performance_claim": "Reduce Python startup time by lazy-loading JacMachine only when needed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "eager_import_on_startup",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Tests listed as failures in PR body; no review engagement; PR closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "11",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Lazy import optimization in Python requires demonstration that startup time improves; this PR provided no benchmark and had failing tests, precluding merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Tests listed as failures; no performance data or working test suite provided.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; tests reported failing, no follow-up fixes.",
+      "evidence_gap": "tests_failing_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In jac/jaclang/runtimelib/meta_importer.py, the import of JacMachine is moved inside a function to avoid eager loading at module import time.",
+      "files_primary": [
+        "jac/jaclang/runtimelib/meta_importer.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: Lazy load JacMachine in meta importer."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit; author reported both pre-commit and pytest failures in body; PR closed without any review interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "pr_id": 3070229503,
+  "meta": {
+    "title": "Fix React re-render",
+    "html_url": "https://github.com/KittyCAD/modeling-app/pull/7038",
+    "repo": "KittyCAD/modeling-app",
+    "agent": "OpenAI_Codex",
+    "user": "jessfraz",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-17 03:00:58+00:00",
+    "merged_at": "2025-05-19 16:58:36+00:00",
+    "closed_at": "2025-05-19 16:58:36+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 41,
+    "topic_name": "41",
+    "body_summary": "Memoize ShareButton component and its handlers with useCallback to reduce unnecessary React re-renders."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 7,
+      "deletions": 7,
+      "changes": 14,
+      "top1_file": "src/components/ShareButton.tsx",
+      "top1_changes": 14,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 16,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 3,
+        "review_requested": 2,
+        "deployed": 1,
+        "mentioned": 2,
+        "subscribed": 2,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 61.96,
+      "first_review_delay_hours": 61.96,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "react_memoize",
+      "useCallback",
+      "reduce_re-renders"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_accepted",
+    "review_dimensions": [
+      "perf_evidence",
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "manual_testing"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Tiny React memoization fix; maintainer manually tested and approved, noting useCallback may be unnecessary but merging regardless."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 14,
+        "interpretation": "At 14 changed lines in a single file, this is a tiny, surgical edit. It fits a minimal-react-memo performance micro-optimization that merged after manual testing and positive maintainer feedback, consistent with the merged outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 61.96,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "technique_effectiveness",
+      "concern_detail": "Maintainer initially thought changes seemed unnecessary but after manually testing found React.memo around prop-less components neat; noted useCallback is unnecessary and could lead to stale functions but decided to merge since it's low-risk.",
+      "performance_claim": "Memoizing ShareButton with React.memo and using useCallback for handlers avoids unnecessary re-renders.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence",
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "41",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Applying React.memo and useCallback on a single component is well within agent capability; merge succeeded with manual maintainer testing and a low barrier to acceptance.",
+      "success_factors": [
+        "narrow_scope",
+        "maintainer_manual_testing",
+        "positive_engagement"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer reviewed the ShareButton wrapper and identified React.memo as the key technique, while noting useCallback was unnecessary.",
+        "manual_testing": "Maintainer manually pulled and tested the change, commenting that the memoized component was neat and deciding to merge despite reservations about useCallback."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No benchmark or performance measurement provided; maintainer's manual evaluation concluded the change is low-risk and likely beneficial for re-render reduction.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression reported; PR merged directly after manual testing and approval.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Wrapped ShareButton component with React.memo and added useCallback to its event handlers (handleShare, etc.) in src/components/ShareButton.tsx to reduce unnecessary re-renders.",
+      "files_primary": [
+        "src/components/ShareButton.tsx"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit (f38181e) adding React.memo and useCallback to ShareButton."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "lee-at-zoo-corp",
+        "channel": "pr_comment",
+        "signal": "hold_for_testing",
+        "summary": "Requested that no one approve/merge until he tests; noted changes seem unnecessary.",
+        "blocking": true,
+        "action_taken": "Maintainer later tested and approved."
+      },
+      {
+        "source": "lee-at-zoo-corp",
+        "channel": "pr_comment",
+        "signal": "manual_test_positive",
+        "summary": "After testing, found React.memo around prop-less components neat; acknowledged useCallback unnecessary but harmless; decided to merge.",
+        "blocking": false,
+        "action_taken": "Formal APPROVED and merged."
+      },
+      {
+        "source": "lee-at-zoo-corp",
+        "channel": "formal_review",
+        "signal": "approved_no_body",
+        "summary": "Formal REVIEW state APPROVED with no body text, following manual testing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview URL and status (no perf influence).",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with a single commit adding React.memo and useCallback to ShareButton.",
+      "Vercel deployment preview posted automatically.",
+      "Maintainer commented ~2 days later asking to hold for manual testing.",
+      "After testing, maintainer commented positively and approved; merged immediately."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

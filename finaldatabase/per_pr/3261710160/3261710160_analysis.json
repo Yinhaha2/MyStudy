@@ -1,0 +1,176 @@
+{
+  "pr_id": 3261710160,
+  "meta": {
+    "title": "Add benchmark support to Haskell transpiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/12857",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-25 01:49:57+00:00",
+    "merged_at": "2025-07-25 01:50:11+00:00",
+    "closed_at": "2025-07-25 01:50:11+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "1",
+    "body_summary": "Add benchmark mode to the Haskell transpiler, including new golden test input and updated ROSETTA.md documentation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 9,
+      "additions": 567,
+      "deletions": 325,
+      "changes": 892,
+      "top1_file": "transpiler/x/hs/ROSETTA.md",
+      "top1_changes": 570,
+      "top1_change_ratio": 0.639,
+      "files_by_status": {
+        "added": 1,
+        "modified": 8
+      },
+      "directory_count": 3,
+      "directories": [
+        "scripts",
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.004,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmark_infrastructure",
+      "performance_measurement"
+    ],
+    "optimization_layer": "test_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_infrastructure_addition",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-commit feature addition of benchmark mode with no review; merged instantly by the author."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 892,
+        "interpretation": "At 892 changed lines, this is a medium-sized change by absolute volume, but the majority (570 lines) is in ROSETTA.md documentation updates; the functional code changes are modest (~100 lines across transpiler and tests). This fits a feature addition that adds benchmark infrastructure, and the fast merge without review is consistent with a trusted maintainer self-merging an incremental improvement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.004,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "",
+      "performance_claim": "Adds infrastructure for benchmarking transpiler performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding benchmark support to an existing Haskell transpiler with test harness; Codex successfully extended the codebase with a benchmark mode and related golden file updates, demonstrating capability within the transpiler domain when the change pattern is well-established.",
+      "success_factors": [
+        "single_incremental_commit",
+        "existing_test_infrastructure_to_extend",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark results or performance data in PR; only test commands to run the benchmark mode.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling as no perf regression was reported.",
+      "evidence_gap": "no_perf_claim"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added benchmark mode to the Haskell transpiler (transpiler.go) controlled by MOCHI_BENCHMARK env var; updated rosetta_test.go to support benchmark flag; added new benchmark golden input file (100-doors-2.bench) and updated existing test inputs (.hs files); updated ROSETTA.md and golden test descriptors.",
+      "files_primary": [
+        "transpiler/x/hs/transpiler.go",
+        "transpiler/x/hs/rosetta_test.go",
+        "tests/rosetta/transpiler/Haskell/100-doors-2.bench"
+      ],
+      "files_secondary_observability": [
+        "tests/rosetta/transpiler/Haskell/100-doors-2.hs",
+        "tests/rosetta/transpiler/Haskell/100-doors-3.hs",
+        "transpiler/x/hs/ROSETTA.md",
+        "transpiler/x/hs/transpiler_test.go",
+        "transpiler/x/hs/vm_valid_golden_test.go",
+        "scripts/run_transpile.go"
+      ],
+      "secondary_note": "Remaining changes are test input modifications and extensive documentation update in ROSETTA.md.",
+      "change_trajectory": [
+        "Added benchmark support in transpiler.go and rosetta_test.go; created new benchmark input file; updated existing test inputs and golden test files; updated ROSETTA.md with benchmark results."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and immediately merged by author without external review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

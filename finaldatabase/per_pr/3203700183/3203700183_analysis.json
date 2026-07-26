@@ -1,0 +1,194 @@
+{
+  "pr_id": 3203700183,
+  "meta": {
+    "title": "Add insert SQL batching test and fix",
+    "html_url": "https://github.com/andrewm4894/anomstack/pull/161",
+    "repo": "andrewm4894/anomstack",
+    "agent": "OpenAI_Codex",
+    "user": "andrewm4894",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-04 21:06:35+00:00",
+    "merged_at": "2025-07-04 21:27:32+00:00",
+    "closed_at": "2025-07-04 21:27:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Fix generate_insert_sql to return all batches and add tests covering SQL batching."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 8,
+      "additions": 124,
+      "deletions": 60,
+      "changes": 184,
+      "top1_file": "tests/test_sql_utils.py",
+      "top1_changes": 80,
+      "top1_change_ratio": 0.4348,
+      "files_by_status": {
+        "added": 1,
+        "modified": 6,
+        "removed": 1
+      },
+      "directory_count": 3,
+      "directories": [
+        "(root)",
+        "anomstack",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "commented": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.349,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sql_batch_insert",
+      "batch_size_fix"
+    ],
+    "optimization_layer": "data_access_layer",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "missing_batching"
+    ],
+    "outcome_reason": "merged_trivial_bugfix",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex fixed a generate_insert_sql batching bug with a test; self-merged by maintainer in ~21 min without review, only CI coverage bot."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 184,
+        "interpretation": "At 184 changed lines across 8 files, this is a small-scale fix. The core change (batching fix in anomstack/df/utils.py) is only 10 lines; most churn comes from test file replacement and alignment. The size supports a low-friction self-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.349,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review was recorded; only bot coverage reports.",
+      "performance_claim": "Fixing generate_insert_sql to return all batches enables proper batch INSERT execution, reducing the number of SQL round-trips and improving write throughput.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "missing_insert_batching (prior code did not return all batches)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A small SQL generation bugfix with straightforward batching logic; agent merged without friction under maintainer self-review.",
+      "success_factors": [
+        "self_merge",
+        "small_scope",
+        "added_tests",
+        "no_formal_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "GitHub Actions coverage bot posted coverage reports (64%) after each commit, confirming no coverage loss."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Unit tests (test_sql_utils.py initially, later replaced by test_df_utils.py) verify batching logic, but no before/after performance measurement or benchmark was provided.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions detected; PR merged immediately after second commit.",
+      "evidence_gap": "test_verification_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In anomstack/df/utils.py, fixed generate_insert_sql to correctly yield all batched INSERT statements instead of returning only the first batch. Added initial batching test in test_sql_utils.py, later replaced by test_df_utils.py in a follow-up commit that also aligned with main and added Makefile coverage target.",
+      "files_primary": [
+        "anomstack/df/utils.py"
+      ],
+      "files_secondary_observability": [
+        "tests/test_sql_utils.py",
+        "tests/test_df_utils.py",
+        "anomstack/external/sqlite/sqlite.py",
+        "Makefile",
+        "CONTRIBUTING.md",
+        "README.md",
+        "tests/README.md"
+      ],
+      "secondary_note": "Second commit (139f269c) merged main, added test_df_utils.py, removed test_sql_utils.py, and made minor doc/build updates unrelated to the batching fix.",
+      "change_trajectory": [
+        "Commit 1 (1d4cd51a): Fixed generate_insert_sql to return all batches; added tests/test_sql_utils.py with batching tests.",
+        "Commit 2 (139f269c): Merged with main, replaced test_sql_utils.py with test_df_utils.py, added Makefile coverage target, and synced other minor changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "Coverage report posted after each commit, showing 64% coverage maintained.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Maintainer opened PR with batching fix and initial test file.",
+      "GitHub Actions bot posted first coverage report.",
+      "Maintainer added a second commit to align with main and replace test file; coverage bot posted second report.",
+      "PR self-merged within ~21 minutes with no formal review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

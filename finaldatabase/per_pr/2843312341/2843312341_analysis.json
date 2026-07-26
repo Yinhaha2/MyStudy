@@ -1,0 +1,182 @@
+{
+  "pr_id": 2843312341,
+  "meta": {
+    "title": "perf: optimize cache and token handling",
+    "html_url": "https://github.com/promptfoo/promptfoo/pull/3046",
+    "repo": "promptfoo/promptfoo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-02-10 18:41:40+00:00",
+    "merged_at": null,
+    "closed_at": "2025-02-10 18:46:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 12,
+    "topic_name": "12",
+    "body_summary": "Introduce performance optimizations: skip unnecessary cache clearing, environment-aware token counting, debug metadata, and assertion type handling; claims gradual memory leak and cache invalidation under high load are addressed."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 34,
+      "deletions": 12,
+      "changes": 46,
+      "top1_file": "src/evaluator.ts",
+      "top1_changes": 27,
+      "top1_change_ratio": 0.587,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 0.083,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache",
+      "token_counting",
+      "assertion_type_handling"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_immediately_by_maintainer",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin PR with narrative perf claims; no human review, closed 5 min after creation; gru-agent bot reported unit test writing failures."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 46,
+        "interpretation": "At 46 changed lines across 3 files, this is a very small edit. As a small-step performance PR it was closed without merge, indicating maintainer rejection rather than scale concerns."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.083,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_human_review",
+      "concern_detail": "No human review comments; PR was closed immediately after creation. Gru-agent bot reported unit test writing failures for all changed files, but no human feedback.",
+      "performance_claim": "Improve cache performance, token counting, and assertion handling.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed silently by maintainer typpo within 5 minutes of creation, with no comment; only bot activity (Devin intro, gru-agent test failure)."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent-authored PR with narrative perf claims was closed immediately by maintainer without review; suggests process-related rejection (maybe not requested or outside agent scope) rather than technical failure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics; only narrative claims.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without any iterative fix cycle.",
+      "evidence_gap": "narrative_only_closed_quickly"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified src/evaluator.ts (27 lines) for token counting and debug metadata; src/cache.ts (12 lines) to skip unnecessary cache clearing; src/assertions/index.ts (7 lines) for assertion type handling.",
+      "files_primary": [
+        "src/evaluator.ts",
+        "src/cache.ts",
+        "src/assertions/index.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit with all performance changes.",
+        "Devin bot introduction and gru-agent test failure comment within seconds.",
+        "PR closed by maintainer without additional activity after 5 minutes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduced itself and offered to address comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "gru-agent[bot]",
+        "channel": "pr_comment",
+        "signal": "test_writing_failure",
+        "summary": "Gru-agent reported failure to write unit tests for all three changed files.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created with single commit.",
+      "Devin bot commented, gru-agent reported test generation failure.",
+      "Maintainer closed PR without comment within 5 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

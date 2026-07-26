@@ -1,0 +1,179 @@
+{
+  "pr_id": 3183775420,
+  "meta": {
+    "title": "[Testing] Rework Catalyst Test Runner to use startup arguments instead of UI navigation",
+    "html_url": "https://github.com/dotnet/maui/pull/30286",
+    "repo": "dotnet/maui",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-27 18:41:58+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-22 22:01:04+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Rework Catalyst Test Runner to pass test names via startup arguments (environment variables) instead of UI navigation, eliminating brittle keyboard interactions and reducing test overhead."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 52,
+      "deletions": 5,
+      "changes": 57,
+      "top1_file": "src/Controls/tests/TestCases.Shared.Tests/Tests/Issues/_IssuesUITest.cs",
+      "top1_changes": 27,
+      "top1_change_ratio": 0.4737,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "copilot_work_finished": 1,
+        "review_requested": 1,
+        "commented": 1,
+        "closed": 1,
+        "mentioned": 1,
+        "subscribed": 1
+      },
+      "lifespan_hours": 603.32,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_latency_reduction",
+      "ui_navigation_elimination",
+      "catalyst_test_runner_optimization"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot PR to replace UI-based test navigation with startup arguments for Catalyst; no review, closed after ~25 days without merge following a maintainer mention."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 57,
+        "interpretation": "At 57 changed lines across 3 files, this is a very small edit by absolute volume. It fits a small-step performance PR that would normally be low-risk, but it was closed without merge, likely due to process factors rather than size."
+      },
+      "lifecycle": {
+        "lifespan_hours": 603.32,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No formal review or substantive feedback; only a single maintainer comment '@copilot' at the time of closure after ~25 days of inactivity.",
+      "performance_claim": "Eliminates UI navigation overhead, reduces test latency, improves reliability by avoiding timing-dependent keyboard interactions.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No explicit rejection; PR closed after extended inactivity with a copilot mention."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Test infrastructure optimization PR with no review engagement; closed after weeks of inactivity, indicating process boundary (lack of maintainer bandwidth or priority) rather than technical rejection.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No evidence of manual testing or verification of performance claim; no benchmark or profiling.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without any fix cycle; no regressions explicitly identified.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added ProcessArguments support to AppiumCatalystApp to pass test names as startup environment variables; modified the test host app (MauiProgram.cs) to read 'test' env var and navigate directly; updated _IssuesUITest to set test config args for Catalyst and reset per test.",
+      "files_primary": [
+        "src/Controls/tests/TestCases.HostApp/MauiProgram.cs",
+        "src/Controls/tests/TestCases.Shared.Tests/Tests/Issues/_IssuesUITest.cs",
+        "src/TestUtils/src/UITest.Appium/AppiumCatalystApp.cs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial plan commit (no file changes).",
+        "Implementation commit: added startup argument logic to AppiumCatalystApp, host app environment variable reading, and Catalyst-specific test config in _IssuesUITest (+47 lines total).",
+        "Formatting commit: minor whitespace adjustments in MauiProgram.cs and _IssuesUITest.cs."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "PureWeen",
+        "channel": "pr_comment",
+        "signal": "copilot_mention",
+        "summary": "Maintainer mentioned '@copilot' without further instruction or review.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue, made three commits (plan, implementation, formatting), review requested, no feedback until closure by maintainer with @copilot mention after ~25 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

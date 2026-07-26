@@ -1,0 +1,199 @@
+{
+  "pr_id": 3199875911,
+  "meta": {
+    "title": "Refactor EngineTests to use DataDescription::getCellRef instead of helper methods",
+    "html_url": "https://github.com/chrxh/alien/pull/125",
+    "repo": "chrxh/alien",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-03 15:58:30+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-03 18:52:58+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 50,
+    "topic_name": "50",
+    "body_summary": "Refactor 15 EngineTests files to use direct DataDescription::getCellRef instead of helper methods getCell/getCellById, claiming more efficient cell access without intermediate maps."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 15,
+      "additions": 363,
+      "deletions": 405,
+      "changes": 768,
+      "top1_file": "source/EngineTests/NerveTests.cpp",
+      "top1_changes": 133,
+      "top1_change_ratio": 0.1732,
+      "files_by_status": {
+        "modified": 15
+      },
+      "directory_count": 2,
+      "directories": [
+        "source/EngineInterface",
+        "source/EngineTests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "commented": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 2.908,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "direct_api_access",
+      "eliminate_intermediate_map",
+      "test_helper_removal"
+    ],
+    "optimization_layer": "application_code",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "wrong_base_branch_closed",
+    "review_dimensions": [
+      "process_or_branch_target"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot bulk refactor completed but targeted wrong branch (develop vs v5.0_dev); maintainer closed without merge due to branch policy."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 768,
+        "interpretation": "At 768 changed lines across 15 test files, this is a medium-sized mechanical refactor by absolute volume. The PR was closed due to a branch-target mismatch, not the scale of the change, so the outcome is consistent with process rather than code quality or risk."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.908,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "wrong_target_branch",
+      "concern_detail": "Maintainer chrxh requested the refactor be applied to the v5.0_dev branch, not the develop branch, indicating the PR was opened against the wrong base.",
+      "performance_claim": "Direct cell access via getCellRef without intermediate maps is more efficient and reduces line count.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "elimination_of_helper_indirection",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "process_or_branch_target"
+      ],
+      "rejection_signals": "PR closed by maintainer after branch-target correction was requested; no further commits occurred."
+    },
+    "capability_boundary": {
+      "topic": "50",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot successfully performed a large mechanical refactoring across 15 files, but the agent lacked knowledge of the repository's branching policy (v5.0_dev vs develop). The boundary is procedural rather than technical.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer noticed the PR was based on the wrong branch (develop) and requested a switch to v5.0_dev."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks, profiling, or timing data were provided. The efficiency gain is a claim in the PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed without merge after the branch-target request. No performance regression was discussed.",
+      "evidence_gap": "narrative_perf_claim_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In 15 test files under source/EngineTests/, replaced calls to IntegrationTestFramework::getCell and getCellById with DataDescription::getCellRef, eliminating intermediate maps. Made getCellRef public in Descriptions.h.",
+      "files_primary": [
+        "source/EngineTests/NerveTests.cpp",
+        "source/EngineTests/ConstructorTests.cpp",
+        "source/EngineTests/TransmitterTests.cpp",
+        "source/EngineTests/AttackerTests.cpp",
+        "source/EngineTests/SensorTests.cpp"
+      ],
+      "files_secondary_observability": [
+        "source/EngineInterface/Descriptions.h"
+      ],
+      "secondary_note": "Visibility change: moved getCellRef to public to enable direct test access.",
+      "change_trajectory": [
+        "Initial plan commit (empty).",
+        "Single large commit (7d3ad11) applied the bulk replacement across all test files and the header."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "chrxh",
+        "channel": "pr_comment",
+        "signal": "wrong_target_branch",
+        "summary": "Requested that the refactor be made on the v5.0_dev branch rather than develop.",
+        "blocking": true,
+        "action_taken": "Copilot responded that it switched branches, but the PR was closed anyway."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "agent_branch_switch_claim",
+        "summary": "Stated that work was switched to v5.0_dev and that the refactor already existed there.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened targeted at develop branch with bulk refactor.",
+      "Maintainer commented to use v5.0_dev instead.",
+      "Copilot replied confirming branch switch.",
+      "PR closed by maintainer with no merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

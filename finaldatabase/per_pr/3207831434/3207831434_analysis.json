@@ -1,0 +1,195 @@
+{
+  "pr_id": 3207831434,
+  "meta": {
+    "title": "Analyze nntrainer code for performance improvements",
+    "html_url": "https://github.com/nnstreamer/nntrainer/pull/3293",
+    "repo": "nnstreamer/nntrainer",
+    "agent": "Cursor",
+    "user": "myungjoo",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-07 07:17:38+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-07 07:25:22+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 26,
+    "topic_name": "26",
+    "body_summary": "Introduces new OpenCL FP16 BLAS kernels with dynamic work group sizing, adaptive tiling, and reduced memory operations, claiming 5-15x throughput improvement, plus analysis reports."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 10,
+      "additions": 2180,
+      "deletions": 0,
+      "changes": 2180,
+      "top1_file": "optimized_blas_kernels_fp16.cpp",
+      "top1_changes": 455,
+      "top1_change_ratio": 0.2087,
+      "files_by_status": {
+        "added": 10
+      },
+      "directory_count": 1,
+      "directories": [
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "CHANGES_REQUESTED": 1
+      },
+      "review_comment_count": 13,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 25,
+      "event_counts": {
+        "committed": 3,
+        "review_requested": 18,
+        "labeled": 1,
+        "reviewed": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.13,
+      "first_review_delay_hours": 0.022,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "opencl_fp16_blas_optimization",
+      "dynamic_work_group_sizing",
+      "adaptive_tiling",
+      "memory_operation_reduction"
+    ],
+    "optimization_layer": "gpu_kernel",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "hardcoded_work_group_size",
+      "redundant_memory_write"
+    ],
+    "outcome_reason": "abandoned_by_author",
+    "review_dimensions": [
+      "code_style"
+    ],
+    "blocking": true,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "abandon",
+    "confidence": "medium",
+    "notes": "Cursor dumped large kernel rewrite with 5-15x claim; bot flagged formatting only; author closed PR within 8 minutes with no follow-up."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2180,
+        "interpretation": "At 2180 added lines across 10 new files, this is a large addition by absolute volume. As a performance PR, it was closed without merge—only bot formatting feedback and no human review—likely an analysis dump that the author decided not to pursue."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.13,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_style",
+      "primary_concern": "formatting_compliance",
+      "concern_detail": "github-actions[bot] flagged numerous clang-format violations in optimized_blas_kernels_fp16.cpp via CHANGES_REQUESTED review with 13 inline suggestions on indentation, include order, and bracing.",
+      "performance_claim": "5-15x throughput improvement for FP16 BLAS kernels via dynamic work group sizing, adaptive tiling, and removal of unnecessary memory writes.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "Previously hardcoded {1,1,1} work group sizes, redundant output buffer writes, and non-adaptive tiling.",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed 8 min after creation with no human engagement; only bot feedback was formatting."
+    },
+    "capability_boundary": {
+      "topic": "26",
+      "agent": "Cursor",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Complex GPU kernel optimization without any benchmark or profiler evidence; the PR was aborted immediately, indicating a lack of readiness for external performance claims.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "No human code reading occurred.",
+        "ci_auto": "github-actions[bot] ran clang-format and posted the full formatting patch."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark numbers, profiler output, or test results included; only a self-reported 5-15x claim in commit messages and analysis documents.",
+      "regression_handling": "abandon",
+      "regression_detail": "PR closed by author after 8 minutes with no response to bot formatting feedback.",
+      "evidence_gap": "narrative_claim_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a new file optimized_blas_kernels_fp16.cpp with a BlasOptimizer class that adapts work group sizes and tiling based on device vendor; rewrites sgemv, dot, sgemm, addition, sscal, and transpose kernels to use dynamic sizing and avoid redundant output buffer writes. Also introduced several markdown analysis reports describing potential optimizations across tensor, conv2d, attention, etc.",
+      "files_primary": [
+        "optimized_blas_kernels_fp16.cpp"
+      ],
+      "files_secondary_observability": [
+        "performance_optimization_report.md",
+        "github_issue_performance_optimization.md",
+        "perf_report_attention_kernels.md",
+        "perf_report_blas_kernels.md",
+        "perf_report_conv2d_layer.md",
+        "perf_report_matmul_layer.md",
+        "perf_report_tensor.md",
+        "perf_report_util_simd.md",
+        "performance_reports_summary.md"
+      ],
+      "secondary_note": "Markdown files are descriptive analysis documents, not runnable benchmarks or tests.",
+      "change_trajectory": [
+        "Initial commit added optimized_blas_kernels_fp16.cpp and performance_optimization_report.md.",
+        "Second commit added github_issue_performance_optimization.md.",
+        "Third commit added seven additional performance analysis markdown files.",
+        "Bot posted clang-format CHANGES_REQUESTED; author closed PR immediately without any follow-up."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "formal_review",
+        "signal": "formatting_changes_requested",
+        "summary": "Bot requested clang-format fixes (indentation, include order, bracing) in optimized_blas_kernels_fp16.cpp via 13 inline suggestions.",
+        "blocking": true,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by myungjoo (agent Cursor) with large kernel rewrite and multiple analysis documents.",
+      "Within 2 minutes, github-actions[bot] submitted CHANGES_REQUESTED for clang-format issues.",
+      "Author closed PR 6 minutes later with no response to the bot."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

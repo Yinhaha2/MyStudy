@@ -1,0 +1,245 @@
+{
+  "pr_id": 3176059878,
+  "meta": {
+    "title": "Optimize invoices page to load only invoices needing approval by default",
+    "html_url": "https://github.com/antiwork/flexile/pull/413",
+    "repo": "antiwork/flexile",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-25 15:21:36+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 15:06:50+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "12",
+    "body_summary": "Optimize invoices page by default status filtering to only received and approved invoices with localStorage persistence and toggle, aiming to reduce initial load time."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 16,
+      "file_count": 8,
+      "additions": 430,
+      "deletions": 105,
+      "changes": 535,
+      "top1_file": "e2e/tests/company/invoices/list.spec.ts",
+      "top1_changes": 269,
+      "top1_change_ratio": 0.503,
+      "files_by_status": {
+        "modified": 8
+      },
+      "directory_count": 3,
+      "directories": [
+        "backend",
+        "e2e",
+        "frontend"
+      ]
+    },
+    "collaboration": {
+      "review_count": 15,
+      "review_states": {
+        "COMMENTED": 15
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 6,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 31,
+      "event_counts": {
+        "committed": 9,
+        "commented": 4,
+        "deployed": 9,
+        "reviewed": 8,
+        "assigned": 1
+      },
+      "lifespan_hours": 143.75,
+      "first_review_delay_hours": 0.034,
+      "review_rounds": 15,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "status_filtering",
+      "localStorage_preferences",
+      "data_reduction",
+      "frontend_optimization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_for_new_implementation",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin added status filter but had SSR/localStorage bugs and incorrect filter statuses; after many bot-detected fixes, maintainer closed to reimplement in new PR."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 535,
+        "interpretation": "At 535 changed lines across 8 files, this is a small-to-medium change by absolute volume; however, as a status filter optimization PR it was closed—not merged—because the implementation had critical bugs (SSR localStorage access, filter status mismatches) and the maintainer opted for a fresh approach."
+      },
+      "lifecycle": {
+        "lifespan_hours": 143.75,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_bugs_and_test_coverage",
+      "concern_detail": "Multiple cursor[bot] reviews identified bugs: localStorage access during SSR causing runtime errors, incorrect inclusion of 'payment_pending' and 'rejected' statuses in default filter (intended only 'received' and 'approved'), missing navigation in e2e tests, incorrect invoice association using userId vs companyContractorId, and status name mismatches. Human reviewer slavingia requested e2e tests, but the PR was eventually closed for a new implementation.",
+      "performance_claim": "Reduces initial load time by default filtering to only invoices needing approval (received and approved) with toggle and localStorage.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer MayaRainer announced doing in a new PR; slavingia requested e2e tests; the PR accumulated many bot-detected bugs without full resolution before closure."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin's implementation had multiple technical flaws: direct localStorage access in component body (SSR unsafe), incorrect default status filter (initially including payment_pending and rejected), missing test navigation, and incorrect database associations. These point to gaps in handling Next.js client/server boundaries, status mapping logic, and test infrastructure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "cursor[bot] automated reviews caught SSR localStorage bug and filter status inconsistencies; graphite-app[bot] inline comments flagged filter discrepancy and inaccurate button text; human slavingia requested e2e tests."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or performance measurement was provided to verify load-time improvement; the bot and human testing focused on functional correctness rather than performance gains.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After multiple rounds of Devin fixing CI and test errors, maintainer MayaRainer commented 'Doing this in a new PR' and the PR was closed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In frontend/app/invoices/page.tsx, added localStorage-based status filter defaulting to ['received','approved'] (later expanded to include 'payment_pending','rejected' then reverted to only 'received','approved') with toggle button and persistence; added e2e tests in e2e/tests/company/invoices/list.spec.ts that had missing navigation and other bugs.",
+      "files_primary": [
+        "frontend/app/invoices/page.tsx",
+        "e2e/tests/company/invoices/list.spec.ts"
+      ],
+      "files_secondary_observability": [
+        "frontend/utils/routes.d.ts",
+        "frontend/utils/routes.js",
+        "backend/config/routes.rb",
+        "backend/app/services/onboarding_state/user.rb",
+        "backend/spec/services/onboarding_state/user_spec.rb",
+        "backend/spec/system/root_path_spec.rb"
+      ],
+      "secondary_note": "Merge from main brought in unrelated backend route and onboarding state changes; not directly related to the invoice filter optimization.",
+      "change_trajectory": [
+        "Initial commit: default filter to received/approved with localStorage and toggle.",
+        "Fix localStorage access for test environments with try-catch wrappers.",
+        "Expanded filter to include payment_pending to fix Playwright tests.",
+        "Added rejected status to filter for test compatibility.",
+        "Added comprehensive e2e tests covering filter, toggle, localStorage, and admin controls.",
+        "Multiple commits to fix CI and TypeScript lint errors in e2e tests (type assertions, text selector ambiguity, database constraints).",
+        "Final commit aligned default filter back to received/approved and corrected button text, but PR closed without merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_ssr_localstorage",
+        "summary": "Direct localStorage access during component initialization causes SSR runtime errors; should be moved to useEffect.",
+        "blocking": true,
+        "action_taken": "Devin added try-catch wrappers but did not fully resolve SSR safety."
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_filter_status_mismatch",
+        "summary": "Default filter incorrectly includes payment_pending and rejected statuses; should only include received and approved.",
+        "blocking": true,
+        "action_taken": "Devin initially expanded filter to include them, then later reverted to received/approved only."
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_e2e_missing_navigation",
+        "summary": "New e2e tests missing navigation to invoices page after login, causing failures.",
+        "blocking": true,
+        "action_taken": "Devin added navigation in later commits."
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "inline_review_comment",
+        "signal": "inconsistent_filter_description",
+        "summary": "Filter implementation includes rejected and payment_pending, but PR description says only received and approved; also suggests better button text.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "slavingia",
+        "channel": "pr_comment",
+        "signal": "request_e2e_tests",
+        "summary": "Requested addition of e2e tests to cover new filtering functionality.",
+        "blocking": true,
+        "action_taken": "Devin added e2e tests in subsequent commits."
+      },
+      {
+        "source": "MayaRainer",
+        "channel": "pr_comment",
+        "signal": "closing_for_new_pr",
+        "summary": "Stated that work will continue in a new PR, indicating closure of current attempt.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial filter implementation (received/approved only).",
+      "cursor[bot] immediately flagged SSR localStorage bug and filter status mismatches.",
+      "Devin added try-catch for localStorage and expanded filter to include payment_pending and rejected to fix tests.",
+      "slavingia requested e2e tests; Devin added them but tests had missing navigation and status name issues.",
+      "Multiple cursor[bot] reviews pointed out test bugs; Devin iteratively fixed CI failures over ~10 commits.",
+      "graphite-app[bot] suggested filter/button text corrections.",
+      "Final commit realigned filter to PR description, but maintainer MayaRainer announced closing in favor of new PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

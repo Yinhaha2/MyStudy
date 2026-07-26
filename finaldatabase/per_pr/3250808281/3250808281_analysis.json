@@ -1,0 +1,221 @@
+{
+  "pr_id": 3250808281,
+  "meta": {
+    "title": "[CursorTest] [Upon #3344] Optimize qwen-moe layer ",
+    "html_url": "https://github.com/nnstreamer/nntrainer/pull/3345",
+    "repo": "nnstreamer/nntrainer",
+    "agent": "Cursor",
+    "user": "EunjuYang",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-22 03:01:59+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-22 03:29:52+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 26,
+    "topic_name": "26",
+    "body_summary": "Introduce CausalLM application structure and optimize MoE, Embedding, and MHA layers with shared tensors, AVX2 vectorization, and better cache locality, claiming significant speedups."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 37,
+      "additions": 6182,
+      "deletions": 154,
+      "changes": 6336,
+      "top1_file": "Applications/CausalLM/layers/mha_core.cpp",
+      "top1_changes": 1232,
+      "top1_change_ratio": 0.1945,
+      "files_by_status": {
+        "added": 30,
+        "modified": 7
+      },
+      "directory_count": 4,
+      "directories": [
+        "",
+        "Applications",
+        "nntrainer",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "DISMISSED": 1
+      },
+      "review_comment_count": 21,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 9,
+        "review_requested": 18,
+        "labeled": 1,
+        "renamed": 1,
+        "reviewed": 1
+      },
+      "lifespan_hours": 0.467,
+      "first_review_delay_hours": 0.018,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "moe_layer_optimization",
+      "memory_copy_reduction",
+      "shared_tensor",
+      "avx2_vectorization",
+      "embedding_optimization",
+      "mha_core_optimization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative",
+      "manual_test"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "closed_test_pr_not_intended_for_merge",
+    "review_dimensions": [
+      "style_formatting"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Test PR with large C++ MoE layer optimizations; closed without human review despite manual before/after TPS data in a comment."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 6336,
+        "interpretation": "At 6336 changed lines across 37 files, this is a very large change by absolute volume, consisting mostly of new CausalLM infrastructure and MoE layer optimizations. As a test/demonstration PR, it was closed without merge, consistent with its purpose as a proof-of-concept rather than a merge candidate."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.467,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "style_or_formatting",
+      "primary_concern": "clang_format_suggestions",
+      "concern_detail": "Bot review exclusively flagged clang-format violations; no human feedback on correctness or performance.",
+      "performance_claim": "Reduce memory copies via shared tensors and AVX2 vectorized operations, yielding up to 3.6× prefill speedup (34.79→124 TPS) and 2.1× token generation speedup (8.51→17.87 TPS) per the author's manual test.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed as a test/demonstration; no human review engagement; bot clang-format suggestions only."
+    },
+    "capability_boundary": {
+      "topic": "26",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "Agent produced a large-scale C++ performance optimization with low-level intrinsics, but the PR was a test and never entered human review, illustrating the process boundary where demonstration PRs do not proceed to evaluation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "",
+        "ci_auto": "Bot clang-format check provided formatting feedback but no performance validation."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Author posted before/after TPS numbers in a comment with test conditions (31 tokens, 1‑MoE‑layer model), but no full benchmark script or integration into CI.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed without review cycle; no regression handling occurred.",
+      "evidence_gap": "manual_timing_only_no_benchmark_suite"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added CausalLM application base (causal_lm, factory, layers) and heavily optimized the MoE layer with pre‑computed token assignments, shared tensors, AVX2‑accelerated softmax/RoPE/matmul, and improved FP16 KV‑cache handling.",
+      "files_primary": [
+        "Applications/CausalLM/layers/qwen_moe_layer.cpp",
+        "Applications/CausalLM/layers/qwen_moe_layer.h",
+        "Applications/CausalLM/layers/mha_core.cpp",
+        "Applications/CausalLM/layers/embedding_layer.cpp"
+      ],
+      "files_secondary_observability": [
+        "Applications/CausalLM/causal_lm.cpp",
+        "Applications/CausalLM/causal_lm.h",
+        "Applications/CausalLM/layers/rms_norm.cpp",
+        "Applications/CausalLM/layers/swiglu.cpp",
+        "Applications/CausalLM/layers/tie_word_embedding.cpp",
+        "Applications/CausalLM/layers/meson.build",
+        "Applications/CausalLM/main.cpp",
+        "Applications/CausalLM/meson.build",
+        "meson.build",
+        "nntrainer/tensor/tensor.cpp",
+        "nntrainer/tensor/tensor.h",
+        "test/unittest/unittest_nntrainer_tensor.cpp"
+      ],
+      "secondary_note": "Infrastructure and build‑system additions support the new application but are not performance‑focused.",
+      "change_trajectory": [
+        "Human author added Tensor::getBatchSlice, CausalLM base, Qwen3 dense, and Qwen3‑MoE scaffolding.",
+        "Cursor agent commits overhauled MoE forwarding: pre‑computed expert assignments, shared‑memory tile computation, and minor formatting/refactoring.",
+        "No human review or follow‑up after the agent’s optimization commits; PR closed within 28 minutes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "inline_review_comment",
+        "signal": "clang_format_suggestion",
+        "summary": "Multiple inline comments suggesting formatting fixes (line wrapping, spaces, etc.) in qwen_moe_layer.cpp and .h.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "formal_review",
+        "signal": "bot_dismissed_review",
+        "summary": "Formal review dismissed; substantive content is only the clang‑format suggestions.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "EunjuYang",
+        "channel": "pr_comment",
+        "signal": "manual_perf_evidence",
+        "summary": "Reported 31‑token test results: prefill 34.79→124 TPS, token generation 8.51→17.87 TPS with the updated MoE layer.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Multiple human‑authored preparatory commits were followed by Cursor agent’s MoE optimization commits.",
+      "A bot review appeared ~1 minute after the last commit with 21 formatting suggestions and was dismissed.",
+      "The author posted performance numbers 21 minutes after creation; no further interaction, and the PR was closed 6 minutes later."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "pr_id": 3200836668,
+  "meta": {
+    "title": "Ensure at least once delivery in ClickHouse",
+    "html_url": "https://github.com/514-labs/moose/pull/2529",
+    "repo": "514-labs/moose",
+    "agent": "Cursor",
+    "user": "callicles",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-03 22:50:53+00:00",
+    "merged_at": "2025-07-04 17:08:37+00:00",
+    "closed_at": "2025-07-04 17:08:37+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 8,
+    "topic_name": "8",
+    "body_summary": "Apply wait_end_of_query=1 to ClickHouse INSERT and DDL operations to ensure at-least-once delivery and DDL acknowledgment, correcting an earlier global misapplication that would have degraded SELECT query performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 10,
+      "additions": 972,
+      "deletions": 816,
+      "changes": 1788,
+      "top1_file": "CLICKHOUSE_AT_LEAST_ONCE_DELIVERY_CORRECTED.md",
+      "top1_changes": 836,
+      "top1_change_ratio": 0.467,
+      "files_by_status": {
+        "added": 3,
+        "modified": 7,
+        "removed": 3
+      },
+      "directory_count": 4,
+      "directories": [
+        "(root)",
+        "apps",
+        "packages",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 2,
+        "APPROVED": 1
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 25,
+      "event_counts": {
+        "review_requested": 3,
+        "commented": 1,
+        "reviewed": 3,
+        "deployed": 5,
+        "head_ref_force_pushed": 2,
+        "committed": 8,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 18.296,
+      "first_review_delay_hours": 0.017,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "clickhouse_wait_end_of_query",
+      "at_least_once_delivery",
+      "select_performance_protection"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_approved_low_risk",
+    "review_dimensions": [
+      "design_or_approach",
+      "tests",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "unit_test"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Cursor correctly scoped wait_end_of_query to INSERT/DDL across TS/Python/Rust clients after prior global misapplication; merged quickly with maintainer approval and non-blocking Copilot bot feedback."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1788,
+        "interpretation": "At 1788 changed lines across 10 files (including extensive documentation file churn), this is a medium-sized change by absolute volume. It fits a cross-client configuration fix that merged after a fast human approval cycle and bot review suggestions, without blocking concerns."
+      },
+      "lifecycle": {
+        "lifespan_hours": 18.296,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_quality_improvements",
+      "primary_concern": "design_reuse_and_test_coverage",
+      "concern_detail": "Copilot bot inline comments suggested: extracting DDL commands into a constant, merging default settings when overriding, adding unit tests for the Rust query_param and Python blocks_runner, and extracting a DRY helper method for wait_end_of_query in Python OlapTable. The human maintainer phiSgr approved without additional comments.",
+      "performance_claim": "Ensures at-least-once delivery for INSERT and DDL operations while preserving streaming performance for SELECT queries by not applying wait_end_of_query globally.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "global_setting_without_scoping (prior misconfiguration)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "tests",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "8",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Cursor implemented a multi-language client change (TS, Python, Rust) applying a subtle ClickHouse query setting scoped to INSERT and DDL, addressing a prior global misconfiguration. Merge succeeded with fast human approval and non-blocking bot review suggestions, showing capability on configuration-driven database client optimizations.",
+      "success_factors": [
+        "narrow_scope",
+        "explicit_correction_narrative",
+        "non_blocking_bot_review",
+        "maintainer_approved_without_manual_testing"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Copilot bot provided inline suggestions on code style and test coverage; human maintainer phiSgr approved after reviewing the implementation.",
+        "ci_auto": "Vercel deployment preview succeeded; no CI performance test mentioned."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No before/after performance metrics; unit tests verify wait_end_of_query inclusion in INSERT/DDL payloads but do not measure throughput or latency.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "The PR corrects an earlier global application of wait_end_of_query that would have harmed SELECT performance; this is a proactive fix within the same development cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added wait_end_of_query=1 setting to ClickHouse INSERT and DDL queries across TypeScript SDK, Python OLAP table, and Rust ClickHouse client/runner, while explicitly excluding it from SELECT queries to preserve streaming performance. Introduced a helper method in Python OlapTable and a DDL_COMMANDS constant in Rust.",
+      "files_primary": [
+        "packages/ts-moose-lib/src/dmv2/sdk/olapTable.ts",
+        "packages/py-moose-lib/moose_lib/dmv2/olap_table.py",
+        "apps/framework-cli/src/infrastructure/olap/clickhouse/client.rs",
+        "packages/ts-moose-lib/src/blocks/runner.ts",
+        "apps/framework-cli/src/framework/python/wrappers/blocks_runner.py"
+      ],
+      "files_secondary_observability": [
+        "packages/ts-moose-lib/src/commons.ts",
+        "packages/ts-moose-lib/src/consumption-apis/helpers.ts",
+        "CLICKHOUSE_AT_LEAST_ONCE_DELIVERY.md",
+        "CLICKHOUSE_AT_LEAST_ONCE_DELIVERY_CORRECTED.md",
+        "tests/test_olap_table_wait_end_of_query.py"
+      ],
+      "secondary_note": "Markdown documentation files were repeatedly added and removed during development; the final state includes only code changes. Unit test file test_olap_table_wait_end_of_query.py was added then removed in a later refactor.",
+      "change_trajectory": [
+        "Initial commit: added wait_end_of_query to all insertion paths (TS, Python, Rust) and blocks runners, with documentation.",
+        "Second commit: reverted from global to selective application, removed old doc, added corrected doc, and refined Rust query_param logic.",
+        "Subsequent commits: documentation churn (added/removed), refined Python actions and blocks runner to merge default settings, added unit tests for wait_end_of_query.",
+        "Linter fixes and final refactor: added helper method _with_wait_end_settings in OlapTable, removed test file, and prepared for merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_with_suggestions",
+        "summary": "First review: Reviewed 7/7 files, suggested extracting DDL_COMMANDS constant and merging default settings in blocks_runner; also indicated low-confidence comments on comment placement and unit tests.",
+        "blocking": false,
+        "action_taken": "Agent later adopted the DDL_COMMANDS constant and merged default settings in Python blocks_runner."
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_with_suggestions",
+        "summary": "Second review: Reviewed 9/9 files, suggested DRY helper for wait_end_of_query and noted incorrect test patch path.",
+        "blocking": false,
+        "action_taken": "Agent refactored to introduce _with_wait_end_settings helper method in OlapTable."
+      },
+      {
+        "source": "phiSgr",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved the PR with no comments.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial global wait_end_of_query implementation across three client stacks.",
+      "Within 1 minute, Copilot bot provided first review with code-quality suggestions.",
+      "Within 2 minutes, human maintainer phiSgr approved.",
+      "Agent made several force-push updates incorporating bot feedback (DDL_COMMANDS constant, default settings merging, DRY helper).",
+      "Bot reviewed the updated version with one additional comment, which the agent addressed.",
+      "PR merged after ~18 hours with no blocking reviews."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

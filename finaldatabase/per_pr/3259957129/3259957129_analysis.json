@@ -1,0 +1,165 @@
+{
+  "pr_id": 3259957129,
+  "meta": {
+    "title": "Fix TS append, pass arithmetic-numbers",
+    "html_url": "https://github.com/mochilang/mochi/pull/12696",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-24 13:42:58+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-24 13:43:23+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "39",
+    "body_summary": "Optimize TypeScript transpiler `append` to mutate array in-place, emit helper `_append`, and add Rosetta test case arithmetic-numbers."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 180,
+      "deletions": 6,
+      "changes": 186,
+      "top1_file": "tests/rosetta/transpiler/TypeScript/arithmetic-numbers.ts",
+      "top1_changes": 143,
+      "top1_change_ratio": 0.769,
+      "files_by_status": {
+        "added": 2,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.007,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "array_mutation",
+      "append_optimization",
+      "transpiler_performance"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_immediately",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Single commit optimizing TS append via array mutation; self-closed within 25 seconds with no review or comment; limited context."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 186,
+        "interpretation": "At 186 changed lines, this is a small edit by absolute volume, mostly test additions. It was self-closed immediately, consistent with a non-merge outcome and no engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.007,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "No reviews or comments were ever posted; PR was closed by the author 25 seconds after creation.",
+      "performance_claim": "Optimize `append` to mutate array in-place for better performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author 25 seconds after creation, no review or comment."
+    },
+    "capability_boundary": {
+      "topic": "39",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The PR was closed by the user almost immediately, indicating either an accidental creation or a deliberate quick close before any review. No technical capability boundary evident.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No maintainer interaction; test instructions in PR body are present but not verified.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR self-closed by author within 25 seconds; no review or fix cycle.",
+      "evidence_gap": "no_review_no_interaction_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In transpiler.go, modified the append operation to mutate the input array instead of returning a new one, and added helper `_append`; also added Rosetta test case arithmetic-numbers.ts and expected output.",
+      "files_primary": [
+        "transpiler/x/ts/transpiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/rosetta/transpiler/TypeScript/arithmetic-numbers.ts",
+        "tests/rosetta/transpiler/TypeScript/arithmetic-numbers.out",
+        "transpiler/x/ts/ROSETTA.md"
+      ],
+      "secondary_note": "Test artifacts and Rosetta progress update accompany the optimization.",
+      "change_trajectory": [
+        "Single commit 'ts transpiler: optimize append', modifying transpiler.go and adding Rosetta test data."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd (human, via Codex?) and closed 25 seconds later with no interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

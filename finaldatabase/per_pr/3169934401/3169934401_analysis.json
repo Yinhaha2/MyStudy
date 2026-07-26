@@ -1,0 +1,184 @@
+{
+  "pr_id": 3169934401,
+  "meta": {
+    "title": "Implement register reuse for VM",
+    "html_url": "https://github.com/mochilang/mochi/pull/2756",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-24 01:36:43+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-24 04:07:52+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 42,
+    "topic_name": "42",
+    "body_summary": "Implement simple liveness analysis to allocate physical registers, update compiler to run register allocation after building a function, and regenerate golden files for VM tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 23,
+      "additions": 380,
+      "deletions": 178,
+      "changes": 558,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 209,
+      "top1_change_ratio": 0.374,
+      "files_by_status": {
+        "modified": 23
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 2.519,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "register_allocation",
+      "liveness_analysis",
+      "vm_instruction_efficiency"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_author_no_interaction",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "low",
+    "notes": "Single commit register allocation PR; closed by author after ~2.5h with no review, comments, or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 558,
+        "interpretation": "At 558 changed lines across 23 files, this is a medium-sized change by absolute volume, but most churn comes from regenerated golden test output files (the core VM logic is 209 lines in runtime/vm/vm.go). The PR was closed without merge, consistent with lack of review activity or performance validation."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.519,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_text",
+      "concern_detail": "No formal reviews, inline comments, or PR discussion exist in the dataset.",
+      "performance_claim": "Register reuse through liveness analysis reduces physical register count and potentially improves compiled code size or execution speed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by author with no reviewer interaction; likely self-rejection or test PR."
+    },
+    "capability_boundary": {
+      "topic": "42",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "A medium-difficulty VM optimization PR with no review or performance evidence; closed by author without merge, possibly indicating a test PR or that the change was not intended for production.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No review or performance measurements available; PR body lists test commands but no regression or benchmarking data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no regression or review issue was addressed in the dataset.",
+      "evidence_gap": "no_review_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added liveness analysis and register allocation logic in runtime/vm/vm.go; updated golden test output files (.ir.out and .out) for many VM tests to reflect new register numbers.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/basic_compare.ir.out",
+        "tests/vm/valid/break_continue.ir.out",
+        "tests/vm/valid/break_continue.out",
+        "tests/vm/valid/for_list_collection.ir.out",
+        "tests/vm/valid/for_list_collection.out",
+        "tests/vm/valid/for_loop.ir.out",
+        "tests/vm/valid/for_loop.out",
+        "tests/vm/valid/fun_call.ir.out",
+        "tests/vm/valid/fun_call.out",
+        "tests/vm/valid/fun_expr_in_let.ir.out",
+        "tests/vm/valid/fun_expr_in_let.out",
+        "tests/vm/valid/fun_three_args.ir.out",
+        "tests/vm/valid/fun_three_args.out",
+        "tests/vm/valid/if_else.ir.out",
+        "tests/vm/valid/let_and_print.ir.out",
+        "tests/vm/valid/list_assign.ir.out",
+        "tests/vm/valid/math_ops.ir.out",
+        "tests/vm/valid/membership.ir.out",
+        "tests/vm/valid/short_circuit.ir.out",
+        "tests/vm/valid/two-sum.ir.out",
+        "tests/vm/valid/two-sum.out",
+        "tests/vm/valid/while_loop.ir.out"
+      ],
+      "secondary_note": "Golden file modifications are purely to reflect new register assignments; they do not change test semantics.",
+      "change_trajectory": [
+        "Single commit (7fc9cb0) adds register allocation infrastructure to the VM and updates all affected test golden outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created and closed by the same user (tamnd) within ~2.5 hours; no reviewer or commenter activity in the dataset."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

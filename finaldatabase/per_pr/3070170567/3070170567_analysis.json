@@ -1,0 +1,197 @@
+{
+  "pr_id": 3070170567,
+  "meta": {
+    "title": "Fix cleanup in network status hook",
+    "html_url": "https://github.com/KittyCAD/modeling-app/pull/7034",
+    "repo": "KittyCAD/modeling-app",
+    "agent": "OpenAI_Codex",
+    "user": "jessfraz",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-17 01:56:21+00:00",
+    "merged_at": "2025-05-19 15:38:53+00:00",
+    "closed_at": "2025-05-19 15:38:54+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 46,
+    "topic_name": "46",
+    "body_summary": "Avoid accumulating event listeners in the useNetworkStatus React hook by adding a cleanup function to remove online/offline event listeners on unmount."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "top1_file": "src/hooks/useNetworkStatus.tsx",
+      "top1_changes": 4,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "labeled": 1,
+        "review_requested": 1,
+        "deployed": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 61.71,
+      "first_review_delay_hours": 61.71,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "event_listener_cleanup",
+      "memory_leak_prevention",
+      "network_status_hook"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Trivial one-line fix to remove event listeners in a React hook; merged with a single approval and no performance evidence required."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4,
+        "interpretation": "With only 4 changed lines in a single file, this is an extremely small fix. It fits the pattern of a low-risk, quickly-merged performance-oriented PR, consistent with the successful outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 61.71,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No explicit concerns raised; the PR was approved without any review body or inline comments.",
+      "performance_claim": "Avoid accumulating event listeners, which could lead to memory leaks and degraded performance over time by adding a cleanup function in the useEffect return.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "event_listener_accumulation",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "46",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Trivial React hook cleanup (event listener removal on unmount) is well within agent capabilities; no evidence barriers or complex technical decisions involved.",
+      "success_factors": [
+        "narrow_scope",
+        "single_file_change",
+        "straightforward_code_reading"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer lee-at-zoo-corp reviewed the PR and approved without comment, indicating the fix was self-evident and correct."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance claim or evidence provided; PR solely addresses a potential leak in event listener cleanup, so reproducibility of a performance improvement is not applicable.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues raised; PR was merged as-is after approval.",
+      "evidence_gap": "narrative_only_for_listener_cleanup"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/hooks/useNetworkStatus.tsx, added a cleanup function inside the useEffect hook to remove online and offline event listeners when the component unmounts, preventing listener accumulation.",
+      "files_primary": [
+        "src/hooks/useNetworkStatus.tsx"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: added removal of event listeners in the useEffect return function to fix the accumulating listener issue."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "lee-at-zoo-corp",
+        "channel": "formal_review",
+        "signal": "approved_no_feedback",
+        "summary": "Approved the PR without any inline comments or review body text.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata, unblocking merge.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with a single commit fixing the event listener cleanup.",
+      "Vercel bot deployed a preview and posted deployment status comment.",
+      "Maintainer lee-at-zoo-corp reviewed and approved ~2.5 days later without any textual feedback.",
+      "PR merged immediately after approval."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "pr_id": 3128735694,
+  "meta": {
+    "title": "Skip async runtime when no streams",
+    "html_url": "https://github.com/mochilang/mochi/pull/206",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-08 22:17:58+00:00",
+    "merged_at": "2025-06-08 22:20:29+00:00",
+    "closed_at": "2025-06-08 22:20:29+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 18,
+    "topic_name": "18",
+    "body_summary": "Optimize compiler output by detecting stream/agent usage and skipping async _waitAll when not needed; update golden test outputs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 46,
+      "additions": 204,
+      "deletions": 435,
+      "changes": 639,
+      "top1_file": "compile/py/compiler.go",
+      "top1_changes": 78,
+      "top1_change_ratio": 0.122,
+      "files_by_status": {
+        "modified": 46
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.042,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "skip_async_runtime",
+      "compiler_optimization",
+      "stream_usage_detection"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-commit optimization to skip async runtime in generated code when no streams used; test golden outputs update; merged within minutes with no review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 639,
+        "interpretation": "At 639 changed lines across 46 files, this is a medium-sized change by absolute volume, with most churn in test golden output updates. The core compiler changes are ~133 lines across two files. The outcome (fast merge) is consistent with a low-risk, compiler-level optimization that primarily adjusts code generation and updates corresponding expected output files."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.042,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review or comment text in dataset.",
+      "performance_claim": "Skipping async runtime when no streams reduces overhead in generated code.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler code generation change that adds stream detection; Agent delivered a working implementation that updated golden test outputs automatically, demonstrating ability to handle cross-cutting compiler logic and test data updates.",
+      "success_factors": [
+        "automated_test_coverage",
+        "single_commit_scope",
+        "no_review_blockade",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of manual code review in dataset; detection relied on test suite.",
+        "ci_auto": "Golden output tests in go test ./compile/... validated the change; maintainer merged after passing."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No benchmark or profiling artifacts; correctness verified by existing test suite and golden output updates, but no performance gain measurement.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; change passed test suite and merged without incident.",
+      "evidence_gap": "narrative_perf_claim_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/py/compiler.go and compile/ts/compiler.go, added detection logic for stream/agent usage in the program; when no streams are used, the generated main function is synchronous and _waitAll is omitted. Updated 44 golden output test files to match new generated code.",
+      "files_primary": [
+        "compile/py/compiler.go",
+        "compile/ts/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/compiler/valid/*.py.out",
+        "tests/compiler/valid/*.ts.out"
+      ],
+      "secondary_note": "44 golden output test files were updated to reflect the removal of async _waitAll in programs without streams; these are test expectation changes.",
+      "change_trajectory": [
+        "Initial commit modifying py/ts compilers to detect stream usage and skip async wait; corresponding golden test outputs updated."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with codex label; no review comments; merged by author within ~2.5 minutes after passing tests."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "pr_id": 3275415903,
+  "meta": {
+    "title": "linter: implement pattern-based Jest validation following Vitest approach for binary size optimization",
+    "html_url": "https://github.com/oxc-project/oxc/pull/12599",
+    "repo": "oxc-project/oxc",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-30 01:38:39+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 0,
+    "topic_name": "7",
+    "body_summary": "Replace static Jest validation arrays with pattern-based validation and unify Jest/Vitest validation using a single is_valid_test_fn_call function to reduce linter binary size."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 8,
+      "additions": 315,
+      "deletions": 1529,
+      "changes": 1976,
+      "top1_file": "crates/oxc_linter/src/utils/vitest/valid_vitest_fn.rs",
+      "top1_changes": 1348,
+      "top1_change_ratio": 0.682,
+      "files_by_status": {
+        "modified": 8,
+        "added": 1,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "crates",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 4,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 3
+      },
+      "review_comment_count": 4,
+      "pr_comment_count": 15,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 6,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "commented": 4,
+        "renamed": 3,
+        "review_requested": 2,
+        "copilot_work_finished": 3,
+        "reviewed": 1,
+        "mentioned": 3,
+        "subscribed": 3
+      },
+      "lifespan_hours": 87.6,
+      "first_review_delay_hours": 0.78,
+      "review_rounds": 4,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "binary_size_optimization",
+      "jest_validation_pattern",
+      "vitest_unification",
+      "static_array_replacement",
+      "const_to_static_optimization"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "implementation_not_accepted",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "perf_evidence"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot iterated from complete removal to pattern-based validation per Dunqing's guidance but the PR was closed without merge, likely due to unresolved correctness concerns or maintainer dissatisfaction with the final approach."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1976,
+        "interpretation": "At 1976 changed lines, this is a medium-to-large refactor across linter utilities, mostly deletions from removing static validation strings. It targets binary size reduction but was closed without merge despite multiple iterations."
+      },
+      "lifecycle": {
+        "lifespan_hours": 87.6,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "validation_correctness",
+      "concern_detail": "Dunqing rejected complete removal of VALID_JEST_FN_CALL_CHAINS because it would allow invalid Jest chaining patterns; mandated implementing pattern-based validation as in PR #11384.",
+      "performance_claim": "Binary size reduction by eliminating static validation strings and using algorithmic pattern validation, with potential memory efficiency from static arrays.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "perf_evidence"
+      ],
+      "rejection_signals": "Maintainer Dunqing explicitly rejected complete removal approach; after multiple iterations and feedback, PR was closed without merge, suggesting the final implementation still did not fully satisfy maintainer requirements."
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Complex Rust optimization involving pattern-based validation and binary size reduction; Copilot iterated multiple strategies but struggled to meet maintainer's specific approach requirements.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Dunqing and Boshen reviewed the code and requirements, provided inline feedback rejecting complete removal and directing the agent towards pattern-based validation."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No binary size measurements or benchmarks provided; the PR only claims binary size reduction without evidence.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After CHANGES_REQUESTED and multiple iterations, the PR was closed without merge; no further fixes.",
+      "evidence_gap": "narrative_only_no_binary_size_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced static array VALID_JEST_FN_CALL_CHAINS with a pattern-based validation function is_valid_jest_call that algorithmically checks allowed function call chains and modifiers. Later extended to unify Jest and Vitest validation into a single is_valid_test_fn_call function, removing 1300+ lines of Vitest static arrays.",
+      "files_primary": [
+        "crates/oxc_linter/src/utils/jest/parse_jest_fn.rs",
+        "crates/oxc_linter/src/utils/vitest/valid_vitest_fn.rs"
+      ],
+      "files_secondary_observability": [
+        "crates/oxc_linter/src/utils/express.rs",
+        "crates/oxc_linter/src/utils/jest.rs",
+        "crates/oxc_linter/src/utils/jsdoc.rs",
+        "crates/oxc_linter/src/utils/mod.rs",
+        "crates/oxc_linter/src/utils/promise.rs"
+      ],
+      "secondary_note": "const-to-static array changes were made and later reverted; most deletions came from removing validation arrays.",
+      "change_trajectory": [
+        "Initial commit optimized Jest call chains storage to reduce binary size.",
+        "Complete removal of Jest validation array after maintainer suggestion.",
+        "phf::Set optimization attempted.",
+        "Re-added pattern-based Jest validation after feedback on invalid patterns.",
+        "Const-to-static array changes made then later reverted.",
+        "Merged Jest and Vitest validation into unified pattern-based function."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Dunqing",
+        "channel": "inline_review_comment",
+        "signal": "changes_requested_approach_rejection",
+        "summary": "Rejected complete removal of validation array because it would allow invalid Jest patterns; requested pattern-based validation as in PR #11384.",
+        "blocking": true,
+        "action_taken": "Copilot implemented pattern-based validation."
+      },
+      {
+        "source": "Boshen",
+        "channel": "pr_comment",
+        "signal": "directional_guidance",
+        "summary": "Asked to evaluate feasibility of complete removal and to change const to static arrays; later asked to rebase and remove const-to-static changes.",
+        "blocking": false,
+        "action_taken": "Copilot attempted complete removal and then reverted const-to-static changes."
+      },
+      {
+        "source": "Dunqing",
+        "channel": "pr_comment",
+        "signal": "merge_Jest_Vitest_validation",
+        "summary": "Asked to unify Jest and Vitest validation into a single function.",
+        "blocking": false,
+        "action_taken": "Copilot implemented unified is_valid_test_fn_call."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed implementation of pattern-based validation and unified approach.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial optimization attempt.",
+      "Boshen and Dunqing quickly provided feedback: complete removal might be feasible, and const arrays should be static.",
+      "Copilot removed validation entirely, then after Dunqing's rejection, implemented pattern-based validation.",
+      "After several rounds of feedback on rebasing and unifying Jest/Vitest, the PR was eventually closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

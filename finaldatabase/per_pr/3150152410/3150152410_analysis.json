@@ -1,0 +1,208 @@
+{
+  "pr_id": 3150152410,
+  "meta": {
+    "title": "Implement E-graph based pattern matching for efficient and robust rewriting",
+    "html_url": "https://github.com/microsoft/onnxscript/pull/2395",
+    "repo": "microsoft/onnxscript",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-16 14:02:49+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-18 22:59:33+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "26",
+    "body_summary": "Introduce e-graph based pattern matching system for ONNX rewriting to reduce pattern explosion and enable order-independent matching, with core data structures, pattern matcher, integration tests, and documentation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 7,
+      "additions": 1457,
+      "deletions": 0,
+      "changes": 1457,
+      "top1_file": "onnxscript/rewriter/egraph_pattern.py",
+      "top1_changes": 368,
+      "top1_change_ratio": 0.253,
+      "files_by_status": {
+        "added": 6,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "docs/tutorial/rewriter",
+        "onnxscript/rewriter"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "commented": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 777.0,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "egraph_pattern_matching",
+      "commutative_normalization",
+      "rewrite_rule_reduction",
+      "pattern_matching_efficiency"
+    ],
+    "optimization_layer": "compiler_optimization",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "unclear_value_maintainer_close",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot proposed large egraph rewriting engine; CI revealed test failures; maintainer closed due to unclear value without any performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1457,
+        "interpretation": "At 1457 added lines across 7 files, this is a large, all-new feature change that represents a significant architectural extension. Closure due to unclear value is consistent with an unvalidated feature proposal that failed to convince maintainers of its benefit."
+      },
+      "lifecycle": {
+        "lifespan_hours": 777.0,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "unclear_value_feature_complexity",
+      "concern_detail": "Maintainer gramalingam closed PR stating 'Value of this is unclear to me. Closing this to reduce clutter in the PR list.' No formal review or inline comments were provided; CI showed 2 test failures in the new integration tests.",
+      "performance_claim": "E-graph pattern matching reduces rule explosion, enables order-independent matching without manual commutation, and improves efficiency over traditional tree-based matching.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "pattern_explosion_in_rewrite_rules",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer explicitly closed citing unclear value and clutter; CI test failures were present but not referenced in closure."
+    },
+    "capability_boundary": {
+      "topic": "26",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "A large, all-new feature proposal that adds significant complexity was rejected because the maintainer found its value unclear; the agent was unable to provide convincing evidence or alignment with project goals, even though it generated well-structured code and documentation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer read the PR description and decided value was unclear; no substantive code review comments recorded.",
+        "ci_auto": "Codecov CI reported 2 test failures in egraph integration tests (test_egraph_vs_traditional_commute and test_egraph_integration_with_commutative_patterns), indicating implementation issues."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body includes a table of rule reduction but no runtime measurements; no replication steps or profiling data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without addressing CI test failures or maintainer's concerns; no follow-up commits.",
+      "evidence_gap": "narrative_only_no_benchmark_or_runtime_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added new modules for egraph-based pattern matching: egraph.py (core E-graph, ENode, EClass, EGraph with hash consing and commutative merging), egraph_pattern.py (EGraphPatternMatcher integrating with RewriteRule), egraph_examples.py, egraph_test.py, egraph_integration_test.py, and documentation. Modified __init__.py to export new symbols.",
+      "files_primary": [
+        "onnxscript/rewriter/egraph_pattern.py",
+        "onnxscript/rewriter/egraph.py",
+        "onnxscript/rewriter/egraph_test.py",
+        "onnxscript/rewriter/egraph_integration_test.py",
+        "onnxscript/rewriter/egraph_examples.py",
+        "docs/tutorial/rewriter/egraph_pattern_matching.md"
+      ],
+      "files_secondary_observability": [
+        "onnxscript/rewriter/__init__.py"
+      ],
+      "secondary_note": "Only __init__.py was modified; all other files are new.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Commit 8a8df88 added core egraph modules (egraph.py, egraph_pattern.py, egraph_examples.py, egraph_test.py) and updated __init__.py (+1065 lines).",
+        "Commit 271661c added documentation (egraph_pattern_matching.md) and integration tests (egraph_integration_test.py) (+392 lines).",
+        "Codecov CI reported 2 test failures in integration tests; no further commits.",
+        "Maintainer closed PR after ~32 days due to unclear value."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_test_failure",
+        "summary": "Codecov reported 2 failed tests in egraph integration tests, indicating bugs (e.g., 'Expected None, but test returned True').",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "gramalingam",
+        "channel": "pr_comment",
+        "signal": "maintainer_close_unclear_value",
+        "summary": "Maintainer closed PR stating value is unclear and to reduce clutter; open to discussion if value is demonstrated.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot created PR with extensive egraph implementation and documentation.",
+      "Codecov bot reported 2 test failures in newly added integration tests.",
+      "No human review activity for ~32 days.",
+      "Maintainer gramalingam closed the PR citing unclear value and PR list clutter."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

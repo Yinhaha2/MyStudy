@@ -1,0 +1,203 @@
+{
+  "pr_id": 3238930349,
+  "meta": {
+    "title": "fix: Prefetch cache grows indefinitely",
+    "html_url": "https://github.com/parse-community/parse-dashboard/pull/2916",
+    "repo": "parse-community/parse-dashboard",
+    "agent": "OpenAI_Codex",
+    "user": "mtrezza",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-17 09:56:32+00:00",
+    "merged_at": "2025-07-17 11:35:36+00:00",
+    "closed_at": "2025-07-17 11:35:36+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "22",
+    "body_summary": "Fix unbounded growth of the prefetch cache by cleaning up expired items when prefetching objects."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 4,
+      "additions": 39,
+      "deletions": 25,
+      "changes": 64,
+      "top1_file": "src/dashboard/Data/Browser/DataBrowser.react.js",
+      "top1_changes": 26,
+      "top1_change_ratio": 0.406,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 15,
+      "event_counts": {
+        "committed": 4,
+        "labeled": 1,
+        "commented": 5,
+        "renamed": 1,
+        "unlabeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.651,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_cleanup",
+      "memory_growth_prevention",
+      "prefetch_cache_fix"
+    ],
+    "optimization_layer": "frontend_state",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unbounded_cache"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex cache cleanup fix merged without human review or perf evidence in ~1.6h."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 64,
+        "interpretation": "At 64 changed lines, this is a small edit. It fits a quick, low-risk cache fix that merged with minimal review and no performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.651,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Clean up expired items in prefetch cache to prevent indefinite growth.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_cache",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Straightforward frontend cache cleanup in a single component; agent succeeded without needing benchmark or review.",
+      "success_factors": [
+        "small_scope",
+        "maintainer_self_merge",
+        "no_evidence_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after data; only narrative claim and `npm test`.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression reported; fix accepted directly.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In DataBrowser.react.js, added cleanup of stale entries in the prefetch cache by periodically removing expired items to prevent infinite growth. Other commits temporarily modified info panel loading behavior but were reverted; the final change is a small adjustment to cache handling.",
+      "files_primary": [
+        "src/dashboard/Data/Browser/DataBrowser.react.js"
+      ],
+      "files_secondary_observability": [
+        "src/components/BrowserCell/BrowserCell.react.js",
+        "src/components/BrowserRow/BrowserRow.react.js",
+        "src/dashboard/Data/Browser/BrowserTable.react.js"
+      ],
+      "secondary_note": "Info panel changes in commits 5f9f046 and e8c79ee were added then reverted; they may have been part of the fix iteration but ultimately removed.",
+      "change_trajectory": [
+        "Initial commit 1fd902c: adds cache cleanup logic in DataBrowser.",
+        "Commit 5f9f046: modifies BrowserCell, BrowserRow, BrowserTable, DataBrowser to ensure info panel loads despite cache (adds functions).",
+        "Commit e8c79ee: reverts previous commit changes (removes the added functions).",
+        "Final commit 19f678: small update to DataBrowser.react.js (adjusts condition or order)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "parse-github-assistant[bot]",
+        "channel": "pr_comment",
+        "signal": "title_formatting",
+        "summary": "Bot indicates it will reformat the PR title to proper commit message syntax.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped",
+        "summary": "CodeRabbit review skipped because auto reviews disabled on non-default branch.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "parseplatformorg",
+        "channel": "pr_comment",
+        "signal": "security_pass",
+        "summary": "Snyk security scan passed with no issues.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial cache cleanup commit.",
+      "Bot comments for title format, thanks, review skip, and label removal.",
+      "Author added and then reverted info panel changes.",
+      "Final minor adjustment and merge by maintainer without human review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

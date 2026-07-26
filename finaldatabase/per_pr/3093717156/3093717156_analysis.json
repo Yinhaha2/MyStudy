@@ -1,0 +1,172 @@
+{
+  "pr_id": 3093717156,
+  "meta": {
+    "title": "Split slow tests into separate files",
+    "html_url": "https://github.com/seasonedcc/remix-forms/pull/363",
+    "repo": "seasonedcc/remix-forms",
+    "agent": "OpenAI_Codex",
+    "user": "danielweinmann",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-27 12:14:36+00:00",
+    "merged_at": "2025-05-27 12:20:03+00:00",
+    "closed_at": "2025-05-27 12:20:03+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "test",
+    "aidev_task_confidence": 9,
+    "topic_id": 6,
+    "topic_name": "6",
+    "body_summary": "Split field-error and zod-effects test suites into separate files to mitigate slow test file execution and allow parallel runs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 153,
+      "deletions": 144,
+      "changes": 297,
+      "top1_file": "apps/web/app/routes/examples/field-error.spec.ts",
+      "top1_changes": 88,
+      "top1_change_ratio": 0.296,
+      "files_by_status": {
+        "added": 3,
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.091,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_file_splitting",
+      "test_suite_parallelization"
+    ],
+    "optimization_layer": "test_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "unknown",
+    "confidence": "medium",
+    "notes": "Mechanical test reorg without performance evidence; self-merged by maintainer within 5 minutes, no review required."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 297,
+        "interpretation": "At 297 changed lines, this is a small test-only refactor by absolute volume. It fits a lightweight, no-review test parallelization PR and is consistent with the fast self-merge outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.091,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": null,
+      "performance_claim": "Splitting slow tests into separate files to reduce suite execution time and enable parallel test running.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Test file reorganization does not demand benchmarks or manual verification; merged immediately due to maintainer trust and low-risk nature.",
+      "success_factors": [
+        "small_isolated_change",
+        "no_review_required",
+        "self_merge_by_maintainer"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No reviewer comments or code-reading evidence in the dataset."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No before/after timing data or benchmark; only narrative claim that tests were slow.",
+      "regression_handling": "unknown",
+      "regression_detail": "No review or discussion of test failures; fast merge without comments.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Split the field-error test suite into specialized files (clear-server, without-js) and extract refinement tests from zod-effects.spec.ts to reduce per-file test load and enable parallel execution.",
+      "files_primary": [
+        "apps/web/app/routes/examples/field-error.spec.ts",
+        "apps/web/app/routes/examples/zod-effects.spec.ts",
+        "apps/web/app/routes/examples/field-error-clear-server.spec.ts",
+        "apps/web/app/routes/examples/field-error-without-js.spec.ts",
+        "apps/web/app/routes/examples/zod-effects-refinement.spec.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes are confined to spec files inside apps/web/app/routes/examples.",
+      "change_trajectory": [
+        "Single commit (72a20d9b) splits field-error.spec.ts into specialized files and moves refinement tests from zod-effects.spec.ts to a new file."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by danielweinmann with a single commit, labeled 'codex' immediately.",
+      "No reviews or comments received; the PR was self-merged by the author after 5 minutes of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

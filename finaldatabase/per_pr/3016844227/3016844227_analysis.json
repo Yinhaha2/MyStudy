@@ -1,0 +1,193 @@
+{
+  "pr_id": 3016844227,
+  "meta": {
+    "title": "fix: prevent duplicate API calls to getSchedule and getTeamSchedule",
+    "html_url": "https://github.com/calcom/cal.com/pull/20942",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-24 10:49:53+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-24 10:50:15+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Fix duplicate API calls to getSchedule and getTeamSchedule when layout shifts from default month_view to week_view/column_view by adding layout-based cache keys and staleTime management."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 18,
+      "deletions": 4,
+      "changes": 22,
+      "top1_file": "packages/features/bookings/Booker/utils/event.ts",
+      "top1_changes": 10,
+      "top1_change_ratio": 0.455,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "labeled": 3,
+        "review_requested": 1,
+        "closed": 1,
+        "reviewed": 1,
+        "deployed": 2
+      },
+      "lifespan_hours": 0.006,
+      "first_review_delay_hours": 0.013,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "avoid_duplicate_api_calls",
+      "layout_shift_cache_optimization"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "immediate_close_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin PR closed by human author (anikdhabal) within 22 seconds; no substantive review, only bot comments, suggesting accidental or withdrawn submission."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 22,
+        "interpretation": "At 22 changed lines, this is a minimal change by absolute volume. It fits a small-step performance fix but was closed immediately without review, inconsistent with a merge trajectory."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.006,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "immediate_close_by_author",
+      "concern_detail": "PR was closed by human user anikdhabal within 22 seconds of creation, before any human review or feedback. The only review came from cubic-dev-ai bot after closure and found no issues.",
+      "performance_claim": "Prevent duplicate API calls to getSchedule and getTeamSchedule when layout changes, reducing network overhead and unnecessary re-renders.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "duplicate_api_calls_due_to_layout_shift (prior bug; not in taxonomy)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by author immediately; no further actions. Likely accidental creation or intentional withdrawal."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Instant closure by the human author after Devin created the PR suggests a process mismatch—the PR may have been generated unexpectedly or the author decided against it immediately. No technical evaluation occurred.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after metrics, profiling, or manual testing results provided. PR was closed before any evaluation could take place.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Closed without review cycle or fix-in-pr iteration.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In useScheduleForEvent hook (event.ts), added a cacheKey based on layout and other params, and set staleTime:0 to invalidate stale data. In useSchedule.ts, added layout to query key. In Booker.tsx, passed layout prop to components. Aimed to deduplicate API calls caused by layout shifts.",
+      "files_primary": [
+        "packages/features/bookings/Booker/utils/event.ts",
+        "packages/features/schedules/lib/use-schedule/useSchedule.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/features/bookings/Booker/Booker.tsx"
+      ],
+      "secondary_note": "Booker.tsx change was minimal (2 lines); only added layout prop to components.",
+      "change_trajectory": [
+        "Single commit by Devin AI with all modifications.",
+        "PR closed by anikdhabal 22 seconds after creation; no iteration."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_no_issues",
+        "summary": "Cubic bot reviewed 0 files and found no issues (review submitted after PR was closed).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_actions",
+        "summary": "Graphite bot added consumer team reviewer and community label via automation.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created, bot comments and labels added immediately.",
+      "Human author anikdhabal closed PR within 22 seconds, before any human review.",
+      "Cubic bot review appeared 48 seconds after creation (after closed); no further activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

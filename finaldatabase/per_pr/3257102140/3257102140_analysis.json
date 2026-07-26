@@ -1,0 +1,250 @@
+{
+  "pr_id": 3257102140,
+  "meta": {
+    "title": "Primitives for raw OCaml block access",
+    "html_url": "https://github.com/oxcaml/oxcaml/pull/4363",
+    "repo": "oxcaml/oxcaml",
+    "agent": "Claude_Code",
+    "user": "mshinwell",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-23 17:03:02+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "18",
+    "body_summary": "Extract Flambda2 block index primitives (Read_offset/Write_offset) and expose %raw_field / %set_raw_field for faster unboxed memory access, with tests but still a draft awaiting user-facing wrappers."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 13,
+      "file_count": 23,
+      "additions": 489,
+      "deletions": 141,
+      "changes": 630,
+      "top1_file": "testsuite/tests/basic/raw_field_primitives.ml",
+      "top1_changes": 197,
+      "top1_change_ratio": 0.313,
+      "files_by_status": {
+        "modified": 19,
+        "added": 4
+      },
+      "directory_count": 6,
+      "directories": [
+        "middle_end",
+        "bytecomp",
+        "lambda",
+        "testsuite",
+        "typing",
+        "backend"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 7,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 26,
+      "event_counts": {
+        "renamed": 1,
+        "labeled": 2,
+        "commented": 4,
+        "committed": 13,
+        "head_ref_force_pushed": 1,
+        "ready_for_review": 2,
+        "review_requested": 1,
+        "convert_to_draft": 1,
+        "reviewed": 1
+      },
+      "lifespan_hours": 143.066,
+      "first_review_delay_hours": 143.036,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "raw_field_access",
+      "unboxed_primitive",
+      "memory_offset_ops"
+    ],
+    "optimization_layer": "compiler_middle_end",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "draft_not_ready_no_merge",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach",
+      "scope"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Claude Code added raw field primitives; reviewer flagged dead code, over-commenting, and missing float record support, PR closed as draft with no merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 630,
+        "interpretation": "At 630 changed lines across 23 files, this is a medium-sized change by absolute volume. As a draft compiler primitive addition, it remained unmerged, consistent with its draft status and unresolved review comments."
+      },
+      "lifecycle": {
+        "lifespan_hours": 143.066,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_edge_case",
+      "concern_detail": "Reviewer rtjoa pointed out dead 32-bit code, excessive inline comments, lack of float/mixed record support, and requested additional tests for mixed blocks, float records, arrays, etc.",
+      "performance_claim": "Faster field access than Obj.raw_field via unboxed primitives (no numeric claim).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Draft PR explicitly stating need for user-facing wrappers before use; reviewer raised multiple correctness and coverage concerns; no approval, closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "Claude_Code",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding low-level compiler primitives requires deep knowledge of OCaml runtime, memory model, and architecture specifics; the agent generated plausible code but missed nuanced cases like float record support and 32-bit dead code.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Reviewer rtjoa scrutinized the implementation, identifying dead paths, commenting style, and missing test coverage for specific OCaml value layouts (float records, mixed blocks, arrays)."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Basic correctness tests provided, but no performance evidence; reviewer required more test cases for edge cases.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no follow-up fixes.",
+      "evidence_gap": "no_performance_evidence_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced Prawfield and Psetrawfield Lambda primitives, translated to Flambda2 Read_offset/Write_offset, for unboxed raw memory access via %raw_field / %set_raw_field. Added simplification, code size estimates, CMM translations, and tests.",
+      "files_primary": [
+        "middle_end/flambda2/from_lambda/lambda_to_flambda_primitives.ml",
+        "middle_end/flambda2/terms/flambda_primitive.ml",
+        "lambda/lambda.ml"
+      ],
+      "files_secondary_observability": [
+        "testsuite/tests/basic/raw_field_primitives.ml",
+        "testsuite/tests/basic/raw_field_primitives_nativeint.ml",
+        "middle_end/flambda2/to_cmm/to_cmm_primitive.ml",
+        "backend/cmm_helpers.ml",
+        "backend/cmm_helpers.mli"
+      ],
+      "secondary_note": "Also touched simplify modules, bytecode binding, and various lambda-support files.",
+      "change_trajectory": [
+        "Initial extraction of Read_offset/Write_offset from block indices PR.",
+        "Exposed %raw_field and %set_raw_field Lambda primitives.",
+        "Fixed kind specifications (naked_nativeint instead of any_value).",
+        "Added test file raw_field_primitives.ml and later nativeint variant.",
+        "Multiple 'Various fixes', 'formatting', and 'Fix mistakes in porting' commits.",
+        "Final commit added test reference files."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "rtjoa",
+        "channel": "inline_review_comment",
+        "signal": "dead_code",
+        "summary": "Pointed out that the 32-bit word size check is dead code since the native compiler only supports 64-bit.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "rtjoa",
+        "channel": "inline_review_comment",
+        "signal": "over_commenting",
+        "summary": "Noted that the code is over-commented and suggested avoiding precedent for future AI changes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "rtjoa",
+        "channel": "inline_review_comment",
+        "signal": "missing_tests",
+        "summary": "Requested additional tests for mixed blocks, float records, bits32/void/vec128 fields, and various array accesses.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "rtjoa",
+        "channel": "inline_review_comment",
+        "signal": "external_review_needed",
+        "summary": "Suggested someone else review the to_cmm_primitive.ml changes to avoid self-review.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "rtjoa",
+        "channel": "inline_review_comment",
+        "signal": "fexpr_support_missing",
+        "summary": "Forwarded request to implement fexpr support for the block index primitives.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "rtjoa",
+        "channel": "formal_review",
+        "signal": "design_concern",
+        "summary": "Asked whether float records are supported and suggested documenting the assumptions of the primitives.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Author opened draft PR with initial primitive extraction.",
+      "Several force-pushes and commits added Lambda exposure, kind fixes, tests, formatting, and cleanup.",
+      "PR moved to ready for review.",
+      "Reviewer rtjoa provided detailed inline feedback on correctness, commenting style, missing tests, and architecture concerns.",
+      "No follow-up commits or discussion after review; PR closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

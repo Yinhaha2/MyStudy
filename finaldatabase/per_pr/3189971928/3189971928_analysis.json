@@ -1,0 +1,175 @@
+{
+  "pr_id": 3189971928,
+  "meta": {
+    "title": "Build tag to exclude Cloud archiver providers",
+    "html_url": "https://github.com/temporalio/temporal/pull/7990",
+    "repo": "temporalio/temporal",
+    "agent": "OpenAI_Codex",
+    "user": "stephanos",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-30 21:58:41+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-30 23:34:51+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "build",
+    "aidev_task_confidence": 10,
+    "topic_id": 17,
+    "topic_name": "17",
+    "body_summary": "Add build tags to conditionally exclude cloud archiver providers (S3 and GCloud) to reduce binary size by ~24MB."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 12,
+      "additions": 131,
+      "deletions": 41,
+      "changes": 172,
+      "top1_file": "common/archiver/gcloud/history_archiver_on.go",
+      "top1_changes": 28,
+      "top1_change_ratio": 0.1628,
+      "files_by_status": {
+        "added": 8,
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "common"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 20,
+      "event_counts": {
+        "labeled": 1,
+        "head_ref_force_pushed": 15,
+        "renamed": 3,
+        "committed": 1
+      },
+      "lifespan_hours": 1.6,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "binary_size_reduction",
+      "conditional_compilation",
+      "build_tag"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "author_closed_no_feedback",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit build tag addition with binary size evidence; closed by author with no review or comments; likely self-rejection unobservable from dataset."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 172,
+        "interpretation": "At 172 changed lines across 12 files, this is a small build system change. As a binary size optimization PR, it was closed by the author without review; the small scope does not explain the non-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.6,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review comments or feedback available; PR closed by author shortly after creation.",
+      "performance_claim": "Reduce binary size by 24MB for builds that do not need cloud archiver providers.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author without external feedback; possible self-rejection or reprioritization."
+    },
+    "capability_boundary": {
+      "topic": "17",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent successfully generated a small build-tag refactor with evidence; author closed PR shortly after, implying human decision to not merge the change for reasons beyond technical correctness.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Author provided ls -l output showing before/after binary sizes (119M vs 95M), but no steps to reproduce the build with the tag.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed before merge; no regression cycle.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added build tags `cloud_archiver` to conditionally compile cloud archiver providers (gcloud and s3store). Each archiver implementation now has `_on.go` and `_off.go` files with appropriate build constraints, and existing files stripped of cloud-specific code when tag is off.",
+      "files_primary": [
+        "common/archiver/gcloud/history_archiver_on.go",
+        "common/archiver/gcloud/history_archiver_off.go",
+        "common/archiver/gcloud/visibility_archiver_on.go",
+        "common/archiver/gcloud/visibility_archiver_off.go",
+        "common/archiver/gcloud/history_archiver.go",
+        "common/archiver/gcloud/visibility_archiver.go",
+        "common/archiver/s3store/history_archiver_on.go",
+        "common/archiver/s3store/history_archiver_off.go",
+        "common/archiver/s3store/visibility_archiver_on.go",
+        "common/archiver/s3store/visibility_archiver_off.go",
+        "common/archiver/s3store/history_archiver.go",
+        "common/archiver/s3store/visibility_archiver.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Single commit d02f98 introduces build-tag split for gcloud and s3store archiver providers with before/after binary size evidence."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author opened PR with changes and binary size evidence, then closed shortly after without receiving any review or comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

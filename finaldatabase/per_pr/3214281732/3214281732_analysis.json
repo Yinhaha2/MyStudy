@@ -1,0 +1,176 @@
+{
+  "pr_id": 3214281732,
+  "meta": {
+    "title": "Improve Elixir compiler join handling",
+    "html_url": "https://github.com/mochilang/mochi/pull/6522",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-09 02:27:47+00:00",
+    "merged_at": "2025-07-09 02:29:05+00:00",
+    "closed_at": "2025-07-09 02:29:05+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Improve Elixir compiler join generation by omitting runtime helpers when possible, switch to inspect for map printing, and update machine test outputs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 102,
+      "additions": 250,
+      "deletions": 563,
+      "changes": 813,
+      "top1_file": "tests/machine/x/ex/right_join.mochi.exs",
+      "top1_changes": 134,
+      "top1_change_ratio": 0.165,
+      "files_by_status": {
+        "added": 2,
+        "modified": 98,
+        "removed": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.022,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "join_codegen_optimization",
+      "inline_runtime_helper_elimination",
+      "inspect_printing_optimization"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_no_review_self_merged",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex compiler optimization merged by same author in under 2 minutes; no review, no performance benchmarks."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 813,
+        "interpretation": "At 813 changed lines across 102 files, this is a medium-sized change by absolute volume; the core compiler change is 93 lines with the rest being test output updates. It was merged instantly by the author without external review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.022,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback; PR was directly merged.",
+      "performance_claim": "Generates joins without runtime helper when possible, reducing overhead; uses inspect for better map printing.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent successfully modified compiler join code generation and mass-updated test expectations; the change was accepted without human review, indicating capability for complex compiler transformations.",
+      "success_factors": [
+        "comprehensive_test_format_updates",
+        "trusted_agent_or_author",
+        "immediate_self_merge_culture"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "none"
+      ],
+      "detection_detail": {
+        "code_reading": "No human code review took place."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance benchmarks; only functional test command provided, which does not validate performance claims.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR merged without any regression or review issue.",
+      "evidence_gap": "no_performance_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified compiler.go to omit runtime helper for join code generation when possible and switched printing to use inspect for maps. Updated 100+ machine test output files to match new compiler output.",
+      "files_primary": [
+        "compiler/x/ex/compiler.go",
+        "compiler/x/ex/expr.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/ex/right_join.mochi.exs",
+        "tests/machine/x/ex/left_join.mochi.exs",
+        "tests/machine/x/ex/left_join_multi.mochi.exs",
+        "..."
+      ],
+      "secondary_note": "Many test expectation files (.out, .exs, .error) updated to reflect new code generation.",
+      "change_trajectory": [
+        "Single commit b0bd90d: 'elixir: improve join generation and printing' incorporates all changes."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created and immediately merged by tamnd with no external interaction within 1.3 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

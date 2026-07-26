@@ -1,0 +1,191 @@
+{
+  "pr_id": 3131512724,
+  "meta": {
+    "title": "Optimize collapsible performance",
+    "html_url": "https://github.com/onlook-dev/onlook/pull/2132",
+    "repo": "onlook-dev/onlook",
+    "agent": "OpenAI_Codex",
+    "user": "Kitenite",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-09 21:16:46+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-09 21:17:47+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Remove forceMount prop from CollapsibleContent in a code block component so heavy CodeMirror instances unmount when collapsed, aiming to improve DOM performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 2,
+      "deletions": 1,
+      "changes": 3,
+      "top1_file": "apps/web/client/src/app/project/[id]/_components/right-panel/chat-tab/code-change-display/collapsible-code-block.tsx",
+      "top1_changes": 3,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 2,
+        "reviewed": 1,
+        "closed": 1,
+        "deployed": 2,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.017,
+      "first_review_delay_hours": 0.012,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "collapsible_mount_optimization",
+      "codemirror_instance_reduction"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_due_to_test_failures",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Trivial frontend prop removal with no performance evidence; author self-closed PR after agent's own test/lint failures were reported in body."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3,
+        "interpretation": "At just 3 changed lines, this is a microscopic edit. As a speed-oriented performance PR it was closed within a minute by the author, consistent with a self-rejected experiment that reported test/lint failures in the PR body."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.017,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "self_closed_due_to_failing_tests",
+      "concern_detail": "PR body explicitly states that `bun lint` fails (next: command not found) and `bun test` fails (missing modules). Author closed the PR immediately without requesting review from others.",
+      "performance_claim": "Avoid mounting heavy CodeMirror instances when code block is collapsed by removing forceMount.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_dom_mount (prior forceMount kept CodeMirror in DOM when collapsed)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Immediate closure by author after reporting test/lint failures; no human review or follow-up."
+    },
+    "capability_boundary": {
+      "topic": null,
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent produced a single-line frontend change but the PR lifecycle was cut short because the agent itself reported that lint and tests fail. The human author closed the PR immediately, highlighting a process failure where basic CI checks prevent progression.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after metrics, benchmarks, or profiling data; performance claim is purely narrative.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by author after test/lint failures were reported; no fix attempt.",
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In collapsible-code-block.tsx, removed the `forceMount` prop from the `CollapsibleContent` component so that CodeMirror instances are unmounted when the code block is collapsed, potentially reducing DOM overhead.",
+      "files_primary": [
+        "apps/web/client/src/app/project/[id]/_components/right-panel/chat-tab/code-change-display/collapsible-code-block.tsx"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit (135cce3) removes forceMount prop and adjusts surrounding logic (2 additions, 1 deletion)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ellipsis-dev[bot]",
+        "channel": "formal_review",
+        "signal": "bot_approval",
+        "summary": "Ellipsis bot approved the change with a draft comment noting potential re-mount delays but did not post it.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview status (unrelated to perf validation).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "supabase[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_ignored",
+        "summary": "Supabase bot indicated the PR was ignored because no changes were detected in the backend directory.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Kitenite (Codex agent) with one commit removing forceMount.",
+      "Within seconds, bots (Vercel, Supabase, Ellipsis) posted comments and reviews.",
+      "PR body reports that lint and tests fail; author closed the PR less than one minute after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

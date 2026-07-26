@@ -1,0 +1,171 @@
+{
+  "pr_id": 3188781479,
+  "meta": {
+    "title": "Update tpc-ds IR outputs and improve union_all",
+    "html_url": "https://github.com/mochilang/mochi/pull/4228",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 14:50:07+00:00",
+    "merged_at": "2025-06-30 14:50:28+00:00",
+    "closed_at": "2025-06-30 14:50:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 21,
+    "topic_name": "21",
+    "body_summary": "Optimize union_all by preallocating slice space and regenerate tpc-ds IR golden files for queries q1–q9."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 10,
+      "additions": 3150,
+      "deletions": 4612,
+      "changes": 7762,
+      "top1_file": "tests/dataset/tpc-ds/out/q5.ir.out",
+      "top1_changes": 2315,
+      "top1_change_ratio": 0.298,
+      "files_by_status": {
+        "modified": 10
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00583,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "slice_preallocation",
+      "union_all_optimization",
+      "ir_golden_update"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Codex optimized union_all with slice preallocation in vm.go; no reviews, self-merged within 21 seconds."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 7762,
+        "interpretation": "At 7762 changed lines, this appears large, but the vast majority (7756) are regenerated tpc-ds golden file updates; the actual optimization is 6 lines in vm.go preallocating slice space. The outcome (self-merge with no review) aligns with a small, low-risk performance improvement in a trusted codebase."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00583,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No formal review or comments; PR self-merged by author.",
+      "performance_claim": "Union_all slice preallocation improves performance by reducing allocations.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "21",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Small slice preallocation in VM requires no deep domain expertise and no benchmark evidence; accepted with no review.",
+      "success_factors": [
+        "small_low_risk_change",
+        "trusted_author_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or performance data; only narrative claim of preallocation optimization.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions identified; no review process.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, the union_all function now preallocates the result slice using make([]Value, 0, totalLen) to avoid repeated slice growth, and regenerated tpc-ds IR golden output files q1–q9 accordingly.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/tpc-ds/out/q1.ir.out",
+        "tests/dataset/tpc-ds/out/q2.ir.out",
+        "tests/dataset/tpc-ds/out/q3.ir.out",
+        "tests/dataset/tpc-ds/out/q4.ir.out",
+        "tests/dataset/tpc-ds/out/q5.ir.out",
+        "tests/dataset/tpc-ds/out/q6.ir.out",
+        "tests/dataset/tpc-ds/out/q7.ir.out",
+        "tests/dataset/tpc-ds/out/q8.ir.out",
+        "tests/dataset/tpc-ds/out/q9.ir.out"
+      ],
+      "secondary_note": "The bulk of changes are in tpc-ds IR golden files, reflecting different ordering/numbering due to the VM change.",
+      "change_trajectory": [
+        "Single commit: vm.go union_all preallocation + regenerate all tpc-ds golden outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged within 21 seconds by author without any review or comment activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

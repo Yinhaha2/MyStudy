@@ -1,0 +1,259 @@
+{
+  "pr_id": 3081185488,
+  "meta": {
+    "title": "[EngSys] Enable rush build cache for @typespec/ts-http-runtime",
+    "html_url": "https://github.com/Azure/azure-sdk-for-js/pull/34496",
+    "repo": "Azure/azure-sdk-for-js",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-21 19:14:06+00:00",
+    "merged_at": "2025-05-27 17:28:10+00:00",
+    "closed_at": "2025-05-27 17:28:10+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "build",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Enable rush build cache for @typespec/ts-http-runtime by adding a rush-project.json config that extends the common repo cache configuration, claiming improved build times because many packages depend on it."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 1,
+      "additions": 4,
+      "deletions": 1,
+      "changes": 5,
+      "top1_file": "sdk/core/ts-http-runtime/config/rush-project.json",
+      "top1_changes": 5,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "added": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "sdk"
+      ]
+    },
+    "collaboration": {
+      "review_count": 6,
+      "review_states": {
+        "COMMENTED": 3,
+        "APPROVED": 3
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 26,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 5,
+        "copilot_work_finished": 2,
+        "ready_for_review": 1,
+        "reviewed": 5,
+        "commented": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 142.233,
+      "first_review_delay_hours": 0.317,
+      "review_rounds": 6,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "build_cache",
+      "rush_cache",
+      "monorepo_build_speed"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "process",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Trivial config addition enabling build cache; minor newline fix in review, approved by multiple maintainers, no performance benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5,
+        "interpretation": "At 5 changed lines, this is a tiny configuration change by absolute volume. It fits a minimal, low-risk performance PR that merged naturally after a trivial style fix and multiple approvals."
+      },
+      "lifecycle": {
+        "lifespan_hours": 142.233,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "style_minor",
+      "concern_detail": "The rush-project.json file lacked a trailing newline; jeremymeng flagged it as a code style requirement.",
+      "performance_claim": "Enabling rush build cache for @typespec/ts-http-runtime will improve build times, especially in CI, since many downstream packages depend on it.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "process",
+        "ci_validation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "A trivial configuration addition that required no complex logic; merge gated only on a minor style fix, maintainer approvals, and CI enforcer checks.",
+      "success_factors": [
+        "narrow_scope",
+        "quick_inline_fix",
+        "multiple_approvals",
+        "linked_issue"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "jeremymeng reviewed the new JSON file and requested a terminal newline.",
+        "ci_auto": "jeremymeng triggered /check-enforcer evaluate and override to validate CI checks before merge."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark or quantitative evidence for speedup was provided; maintainers accepted the narrative claim.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After inline review, Copilot added the missing newline in a follow-up commit.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a single rush-project.json under sdk/core/ts-http-runtime/config/ that extends the common rush-project.json from the repo root, enabling Rush build caching for this package.",
+      "files_primary": [
+        "sdk/core/ts-http-runtime/config/rush-project.json"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit: added rush-project.json with extends property.",
+        "Post-review: added missing newline at end of file per jeremymeng's comment."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview",
+        "summary": "Copilot bot summarized the PR as enabling Rush cache and adding rush-project.json; no blocking comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "timovv",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved the PR (first approval).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jeremymeng",
+        "channel": "inline_review_comment",
+        "signal": "style_fix_request",
+        "summary": "Requested a newline at end of file.",
+        "blocking": false,
+        "action_taken": "Copilot added newline in commit c7f0b8a."
+      },
+      {
+        "source": "copilot-swe-agent[bot]",
+        "channel": "formal_review",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed the newline fix in commit c7f0b8a.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "timovv",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Second approval after fix.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "maorleger",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Third approval.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jeremymeng",
+        "channel": "pr_comment",
+        "signal": "check_enforcer_evaluate",
+        "summary": "Triggered /check-enforcer evaluate to run CI validation.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jeremymeng",
+        "channel": "pr_comment",
+        "signal": "check_enforcer_override",
+        "summary": "Triggered /check-enforcer override to bypass a CI check.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Copilot with rush-project.json linked to issue.",
+      "Timovv quickly approved; jeremymeng requested a newline in inline review.",
+      "Copilot fixed the newline; timovv approved again and maorleger approved.",
+      "Jeremymeng ran check-enforcer evaluate and override before merging.",
+      "Merged after ~142 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

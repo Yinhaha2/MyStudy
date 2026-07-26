@@ -1,0 +1,205 @@
+{
+  "pr_id": 3209183782,
+  "meta": {
+    "title": "Evaluate app shell model compliance",
+    "html_url": "https://github.com/jxxghp/MoviePilot-Frontend/pull/364",
+    "repo": "jxxghp/MoviePilot-Frontend",
+    "agent": "Cursor",
+    "user": "jxxghp",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-07 14:06:33+00:00",
+    "merged_at": "2025-07-07 14:09:11+00:00",
+    "closed_at": "2025-07-07 14:09:11+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 35,
+    "topic_name": "35",
+    "body_summary": "Implement comprehensive PWA optimizations: critical CSS inlining, CacheFirst caching strategy with versioning, background sync, and improved install prompt with offline page."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 12,
+      "additions": 1628,
+      "deletions": 566,
+      "changes": 2194,
+      "top1_file": "docs/pwa-cache-optimization.md",
+      "top1_changes": 454,
+      "top1_change_ratio": 0.207,
+      "files_by_status": {
+        "added": 4,
+        "modified": 5,
+        "removed": 1
+      },
+      "directory_count": 4,
+      "directories": [
+        ".",
+        "docs",
+        "public",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 3,
+        "merged": 1,
+        "closed": 1,
+        "reviewed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0439,
+      "first_review_delay_hours": 0.0486,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "pwa_app_shell_caching",
+      "critical_css_inline",
+      "background_sync",
+      "offline_page",
+      "install_prompt"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_quick_despite_bot_bugs_flag",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "ignore",
+    "confidence": "high",
+    "notes": "Cursor added PWA optimizations with caching strategies; cursor bot flagged bugs in PWA install detection and sync queue, but PR merged in 2 minutes without human review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2194,
+        "interpretation": "At 2194 changed lines across 12 files, this is a large edit by absolute volume, concentrated in service worker, caching, and new composer modules. It fits a broad incremental PWA performance refactor that merged extremely quickly despite bot-flagged bugs, consistent with a fast-tracked feature PR."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0439,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_bug_in_code",
+      "concern_detail": "Cursor bot review reported two bugs: 1) 'BeforeInstallPromptEvent' in window check always fails due to incorrect type detection; 2) Sync queue uses 'badge' objectStore, causing data corruption, and IndexedDB transactions are not awaited, leading to race conditions.",
+      "performance_claim": "Improved PWA performance via critical CSS inline, CacheFirst caching strategy with versioning, background sync for offline requests, and install prompt.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "35",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Cursor generated code with flawed 'BeforeInstallPromptEvent' check and improper IndexedDB usage; bot review caught these, suggesting agent struggles with accurate browser API compatibility detection and transaction safety.",
+      "success_factors": [
+        "fast_merge_without_human_review",
+        "bot_review_non_blocking"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Cursor bot performed static analysis and flagged two bugs: incorrect PWA install detection and IndexedDB misuse."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after metrics or benchmarks; PR body only describes intended optimizations.",
+      "regression_handling": "ignore",
+      "regression_detail": "Post-merge bot review pointed out bugs; no fix was applied before merge, and no follow-up commit observed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added PWA optimizations: service worker with CacheFirst strategy, versioned cache cleanup, background sync, critical CSS inline via Vite plugin, offline page, and PWA install prompt composable. Also added documentation files later removed.",
+      "files_primary": [
+        "src/service-worker.ts",
+        "vite.config.ts",
+        "index.html",
+        "src/composables/useCacheManager.ts",
+        "src/composables/usePWAInstall.ts"
+      ],
+      "files_secondary_observability": [
+        "public/offline.html",
+        "src/components/PWAInstallPrompt.vue",
+        "src/layouts/components/OfflinePage.vue",
+        "docs/pwa-cache-optimization.md",
+        "docs/pwa-optimizations-implemented.md",
+        "public/loader.css"
+      ],
+      "secondary_note": "Docs were added then removed; loader.css removed; offline page and install prompt components are new UI elements supporting PWA experience.",
+      "change_trajectory": [
+        "Initial commit: Added caching strategy docs, offline page, and Vite configuration changes.",
+        "Main implementation: Extensive service-worker.ts rewrite for CacheFirst, background sync, critical CSS inline; added PWA install composable and prompt component; removed old loader.css.",
+        "Documentation cleanup: removed PWA documentation files before merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_detection_bot",
+        "summary": "Flagged two bugs: incorrect PWA install detection (window.BeforeInstallPromptEvent check) and sync queue data corruption/race conditions in IndexedDB usage.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent opened PR with 3 commits implementing PWA optimizations.",
+      "PR merged within 2 minutes by maintainer with no human review.",
+      "Cursor bot posted a post-merge review flagging two bugs in JavaScript code."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

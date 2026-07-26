@@ -1,0 +1,174 @@
+{
+  "pr_id": 3166183819,
+  "meta": {
+    "title": "Add source generator for compile-time extraction plan compilation",
+    "html_url": "https://github.com/sblom/RegExtract/pull/25",
+    "repo": "sblom/RegExtract",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-06-22 18:59:23+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Add a .NET source generator to eliminate runtime reflection overhead by compiling extraction plans at compile-time; currently generator does not execute during build."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 6,
+      "additions": 309,
+      "deletions": 11,
+      "changes": 320,
+      "top1_file": "RegExtract.SourceGenerator/RegExtractSourceGenerator.cs",
+      "top1_changes": 178,
+      "top1_change_ratio": 0.556,
+      "files_by_status": {
+        "added": 3,
+        "modified": 3
+      },
+      "directory_count": 4,
+      "directories": [
+        "RegExtract.SourceGenerator",
+        "RegExtract.Test",
+        "(root)",
+        "RegExtract"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "compile_time_code_generation",
+      "reflection_elimination",
+      "source_generator"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_pending_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Copilot added a C# source generator to replace runtime reflection, but the generator itself does not execute; PR is open with no reviews and acknowledged incomplete functionality."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 320,
+        "interpretation": "At 320 changed lines, this is a small-to-medium edit adding a new source generator project and tests. As a performance enhancement PR aiming to eliminate runtime reflection, it remains open without review, consistent with the author's note that the generator is not yet executing."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "generator_not_executing",
+      "concern_detail": "Author acknowledges the source generator is not executing during build; requires further MSBuild or version compatibility investigation.",
+      "performance_claim": "Eliminate runtime reflection overhead by generating compile-time extraction plans.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot attempted a .NET source generator with MSBuild integration; the generator does not execute, indicating insufficient handling of analyzer packaging or project configuration. PR remains open with acknowledged incomplete functionality.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "PR body states generator does not execute, so no performance evidence.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "generator_not_functional_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Adds a new .NET source generator project (RegExtract.SourceGenerator) that detects types with REGEXTRACT_REGEX_PATTERN constants and generates static extraction plan classes to avoid runtime reflection; includes test infrastructure and solution integration, but generator does not execute at build time.",
+      "files_primary": [
+        "RegExtract.SourceGenerator/RegExtractSourceGenerator.cs",
+        "RegExtract.Test/SourceGeneratorTest.cs"
+      ],
+      "files_secondary_observability": [
+        "RegExtract.SourceGenerator/RegExtract.SourceGenerator.csproj",
+        "RegExtract.Test/RegExtract.Test.csproj",
+        "RegExtract.sln",
+        "RegExtract/RegExtract.csproj"
+      ],
+      "secondary_note": "Project files and solution updated to include new generator project and tests.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Created source generator project, syntax receiver, and test class.",
+        "Improved generator with debugging and test enhancements."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Copilot opened the PR with initial implementation.",
+      "No maintainer review or comments.",
+      "PR remains open with generator not executing as acknowledged by author."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

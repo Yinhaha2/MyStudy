@@ -1,0 +1,285 @@
+{
+  "pr_id": 3250546916,
+  "meta": {
+    "title": "Implement `olive optimize` CLI command with comprehensive pass scheduling",
+    "html_url": "https://github.com/microsoft/Olive/pull/1996",
+    "repo": "microsoft/Olive",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-22 00:50:31+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Implement new `olive optimize` CLI command with a comprehensive pass scheduling system to automate model optimization for various execution providers, precisions, and model types."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 30,
+      "file_count": 5,
+      "additions": 2095,
+      "deletions": 1249,
+      "changes": 3344,
+      "top1_file": "olive/cli/optimize.py",
+      "top1_changes": 1800,
+      "top1_change_ratio": 0.538,
+      "files_by_status": {
+        "added": 2,
+        "modified": 5,
+        "removed": 0
+      },
+      "directory_count": 2,
+      "directories": [
+        "olive",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 23,
+      "review_states": {
+        "COMMENTED": 21,
+        "APPROVED": 2
+      },
+      "review_comment_count": 67,
+      "pr_comment_count": 10,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 10,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "copilot_work_finished": 4,
+        "commented": 6,
+        "reviewed": 2,
+        "renamed": 1,
+        "review_requested": 1
+      },
+      "lifespan_hours": 44.0,
+      "first_review_delay_hours": 18.0,
+      "review_rounds": 23,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cli_performance_pipeline",
+      "pass_scheduling",
+      "model_optimization"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_unmerged_after_approval",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "tests",
+      "scope",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Copilot built a large-scale CLI feature with iterative maintainer guidance; approved but closed without merge, likely not fully production-ready."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3344,
+        "interpretation": "Large change (3344 lines) for a new feature; despite maintainer requests and eventual approvals, the PR was closed without merge, possibly because the feature is not fully production-ready or requires more validation."
+      },
+      "lifecycle": {
+        "lifespan_hours": 44.0,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "feature_scope_and_design",
+      "concern_detail": "Maintainers extensively requested feature additions (--save_config_file, --block_size, --modality, --qnn_env_path, API documentation, test naming, etc.) and the agent responded with commits, but the PR was closed without merge despite final approvals.",
+      "performance_claim": "The command provides a comprehensive optimization workflow with intelligent pass scheduling based on user-specified parameters.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "tests",
+        "scope",
+        "ci_validation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Large-scale feature implementation with complex pass scheduling for multiple hardware backends; agent handled iterative feature requests but the PR remained open/unmerged despite approvals, indicating that production readiness may require further maintainer review or testing.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainers provided specific code refactoring suggestions, feature addition requests, and test improvements via inline comments."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body includes manual test instructions (cluster setup, SQL commands) but no performance benchmarks or before/after measurements.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed without merge; no regressions addressed in review.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced new `olive optimize` CLI command with a comprehensive pass scheduling system in olive/cli/optimize.py, integrating multiple performance optimization passes for various execution providers, precisions, and model input types.",
+      "files_primary": [
+        "olive/cli/optimize.py"
+      ],
+      "files_secondary_observability": [
+        "olive/cli/launcher.py",
+        "olive/cli/base.py",
+        "test/unit_test/cli/test_cli.py",
+        "test/unit_test/cli/test_optimize.py"
+      ],
+      "secondary_note": "Changes to launcher.py registered the subcommand; base.py added dry_run option; test files added extensive unit tests (later consolidated).",
+      "change_trajectory": [
+        "Initial implementation of OptimizeCommand with pass scheduling.",
+        "Multiple iterative commits from maintainer to fix lint, pass configs, add block_size, modality, refactor, etc.",
+        "Agent responded to feature requests with new commits.",
+        "Final commits added tests and lint fixes; PR approved but not merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devang-ml",
+        "channel": "pr_comment",
+        "signal": "feature_request_save_config",
+        "summary": "Requested --save_config_file option; Copilot responded it was already implemented.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devang-ml",
+        "channel": "pr_comment",
+        "signal": "feature_request_block_size",
+        "summary": "Requested --block_size option for quantization block size.",
+        "blocking": false,
+        "action_taken": "Copilot added --block_size in commit 814236e."
+      },
+      {
+        "source": "devang-ml",
+        "channel": "pr_comment",
+        "signal": "feature_request_modality",
+        "summary": "Requested --modality option with wikitext2 data config for text.",
+        "blocking": false,
+        "action_taken": "Copilot added --modality in commit 475119b."
+      },
+      {
+        "source": "xiaoyu-work",
+        "channel": "inline_review_comment",
+        "signal": "hardcoded_qnn_env_path",
+        "summary": "Noted that QNN environment path was hardcoded; requested an optional argument.",
+        "blocking": true,
+        "action_taken": "Copilot added --qnn_env_path argument."
+      },
+      {
+        "source": "xiaoyu-work",
+        "channel": "inline_review_comment",
+        "signal": "remove_vision_modality",
+        "summary": "Removed 'vision' from modality choices as it is not supported.",
+        "blocking": true,
+        "action_taken": "Copilot removed vision and updated help text."
+      },
+      {
+        "source": "xiaoyu-work",
+        "channel": "inline_review_comment",
+        "signal": "add_python_api",
+        "summary": "Requested adding optimize function to Python API and updating documentation.",
+        "blocking": true,
+        "action_taken": "Copilot added Python API function and updated docs."
+      },
+      {
+        "source": "xiaoyu-work",
+        "channel": "inline_review_comment",
+        "signal": "test_name_update",
+        "summary": "Asked to indicate which CLI is being tested in test function name.",
+        "blocking": true,
+        "action_taken": "Copilot renamed test to test_optimize_cli_pass_list."
+      },
+      {
+        "source": "xiaoyu-work",
+        "channel": "inline_review_comment",
+        "signal": "remove_duplicate_test_file",
+        "summary": "Requested removal of duplicate test_optimize.py file.",
+        "blocking": true,
+        "action_taken": "Copilot removed the file."
+      },
+      {
+        "source": "xiaoyu-work",
+        "channel": "inline_review_comment",
+        "signal": "revert_tmp_path_change",
+        "summary": "Questioned why output_dir changed from tmp_path in test_quantize_command.",
+        "blocking": true,
+        "action_taken": "Copilot reverted to use tmp_path."
+      },
+      {
+        "source": "xiaoyu-work",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved after all requested changes were addressed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jambayk",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Second approved review.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened large PR with initial implementation of optimize command.",
+      "Maintainers added multiple feature requests and refactoring suggestions over several days.",
+      "Copilot responded with numerous commits adding requested features (block_size, modality, qnn_env_path, API, tests).",
+      "Intensive code review via inline comments, all addressed by agent.",
+      "Two maintainers approved; PR closed without merge, possibly due to remaining integration work or not yet production-ready."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

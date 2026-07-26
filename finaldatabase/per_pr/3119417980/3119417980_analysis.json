@@ -1,0 +1,215 @@
+{
+  "pr_id": 3119417980,
+  "meta": {
+    "title": "feat: Add includeStackTrace option to reduce LLM token usage by 80-90%",
+    "html_url": "https://github.com/CoderGamester/mcp-unity/pull/44",
+    "repo": "CoderGamester/mcp-unity",
+    "agent": "Claude_Code",
+    "user": "Saqoosha",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-04 23:56:12+00:00",
+    "merged_at": "2025-06-05 08:41:19+00:00",
+    "closed_at": "2025-06-05 08:41:19+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 16,
+    "topic_name": "16",
+    "body_summary": "Add an optional includeStackTrace boolean parameter to get_console_logs tool/resource to exclude stack traces and reduce LLM token consumption by up to 80-90%, with backward-compatible default true."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 96,
+      "deletions": 38,
+      "changes": 134,
+      "top1_file": "Server~/build/resources/getConsoleLogsResource.js",
+      "top1_changes": 40,
+      "top1_change_ratio": 0.2985,
+      "files_by_status": {
+        "modified": 7
+      },
+      "directory_count": 2,
+      "directories": [
+        "Editor",
+        "Server~"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "reviewed": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 8.75,
+      "first_review_delay_hours": 0.037,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "token_optimization",
+      "log_filtering",
+      "stack_trace_exclusion"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Claude Code added includeStackTrace flag to skip stack traces, dramatically reducing token usage; approved with a nitpick and merged quickly."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 134,
+        "interpretation": "At 134 changed lines across 7 files, this is a small edit by absolute volume. It fits a small-step, targeted optimization PR and is consistent with the successful merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 8.75,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "validation_improvement",
+      "concern_detail": "CodeRabbit suggested adding validation for includeStackTrace parameter to provide better error messages for invalid inputs.",
+      "performance_claim": "Excluding stack traces reduces token usage by 80-90% for console logs.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "perf_evidence"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "Claude_Code",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding an optional filter parameter to an existing tool is a well-scoped feature within agent capability; no low-level optimization or complex algorithm required.",
+      "success_factors": [
+        "small_scope",
+        "backward_compatible",
+        "clear_documentation",
+        "no_blocking_review"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer CoderGamester approved after reviewing the changes and the PR's performance claims."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body provides example before/after token counts and testing notes, but no automated benchmark or profiler output.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression introduced; merge was smooth.",
+      "evidence_gap": "narrative_and_approximate_token_counts"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added an optional includeStackTrace boolean parameter to the get_console_logs tool and resource across Unity (C#) and Node.js (TypeScript/JavaScript) layers, defaulting to true for backward compatibility; when false, stack traces are omitted from log JSON output to reduce LLM token usage.",
+      "files_primary": [
+        "Editor/Services/ConsoleLogsService.cs",
+        "Editor/Services/IConsoleLogsService.cs",
+        "Editor/Resources/GetConsoleLogsResource.cs",
+        "Server~/src/resources/getConsoleLogsResource.ts",
+        "Server~/src/tools/getConsoleLogsTool.ts"
+      ],
+      "files_secondary_observability": [
+        "Server~/build/resources/getConsoleLogsResource.js",
+        "Server~/build/tools/getConsoleLogsTool.js"
+      ],
+      "secondary_note": "Build JavaScript files reflect the same changes as the TypeScript sources.",
+      "change_trajectory": [
+        "Single commit added includeStackTrace parameter across C# services, TypeScript tool and resource handlers, and updated the build outputs accordingly."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "walkthrough_summary",
+        "summary": "CodeRabbit provided a detailed walkthrough of changes, sequence diagram, and poem.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "nitpick_validation",
+        "summary": "CodeRabbit suggested validating includeStackTrace parameter values for better error messages.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "CoderGamester",
+        "channel": "formal_review",
+        "signal": "approval",
+        "summary": "Maintainer approved with positive feedback: 'Very good PR to help reduce token consumption LGTM.'",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Claude Code authored and opened the PR adding includeStackTrace parameter.",
+      "CodeRabbit bot posted a walkthrough comment and later a formal review with a nitpick about input validation.",
+      "CoderGamester reviewed and approved the PR within ~8.75 hours.",
+      "PR merged smoothly with no blocking changes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

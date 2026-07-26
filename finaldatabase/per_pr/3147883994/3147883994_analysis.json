@@ -1,0 +1,238 @@
+{
+  "pr_id": 3147883994,
+  "meta": {
+    "title": "Optimize code for performance and bugs",
+    "html_url": "https://github.com/haydenbleasel/kibo/pull/153",
+    "repo": "haydenbleasel/kibo",
+    "agent": "Cursor",
+    "user": "haydenbleasel",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-15 17:52:11+00:00",
+    "merged_at": "2025-06-15 23:59:20+00:00",
+    "closed_at": "2025-06-15 23:59:20+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "12",
+    "body_summary": "Apply React performance optimizations (useMemo, useCallback, React.memo, event listener cleanup) across multiple UI packages and add temporary optimization summary documents; documentation removed before merge."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 13,
+      "additions": 809,
+      "deletions": 608,
+      "changes": 1709,
+      "top1_file": "OPTIMIZATION_RECOMMENDATIONS.md",
+      "top1_changes": 534,
+      "top1_change_ratio": 0.312,
+      "files_by_status": {
+        "modified": 10,
+        "deleted": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        ".",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 3
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 26,
+      "event_counts": {
+        "review_requested": 2,
+        "commented": 2,
+        "assigned": 1,
+        "reviewed": 3,
+        "head_ref_force_pushed": 2,
+        "deployed": 4,
+        "committed": 7,
+        "mentioned": 1,
+        "subscribed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 6.12,
+      "first_review_delay_hours": 0.016,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "react_memoization",
+      "event_listener_cleanup",
+      "css_variable_optimization",
+      "usestate_antipattern_fix"
+    ],
+    "optimization_layer": "frontend_react",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "event_listener_memory_leak",
+      "missing_useMemo",
+      "useState_object_creation"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "ignore",
+    "confidence": "high",
+    "notes": "Cursor proposed React memoization and event cleanup; bots flagged dependency and functional issues; merged in 6h without benchmark and with some warnings unaddressed."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1709,
+        "interpretation": "At 1709 changed lines, this is a medium-sized refactor by absolute volume, though many changes come from documentation files that were later removed. It fits a broad React performance optimization PR that was merged quickly with minor concerns raised but no blocking review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 6.12,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "dependency_array_issues",
+      "concern_detail": "Bot reviews flagged stale closures, missing dependency arrays (gantt cssVariables, handleScroll), potential overlay rendering bug in dialog-stack, and missing React keys.",
+      "performance_claim": "Reduce re-renders and memory usage via memoization, event listener cleanup, and CSS variable optimization across multiple React components.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "event_listener_memory_leak, missing_useMemo, useState_object_creation",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "perf_evidence"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "React performance optimization with hooks requires precise dependency arrays; agent missed some, causing potential stale closures and rendering bugs, highlighting boundary in React expertise.",
+      "success_factors": [
+        "maintainer_self_merge",
+        "bot_feedback_only",
+        "no_blocking_review",
+        "quick_iteration"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Both Copilot and CodeRabbit bots scanned the code and reported issues with missing dependencies, stale closures, and potential regressions."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance evidence provided; only narrative claims of reduced re-renders and memory improvements.",
+      "regression_handling": "ignore",
+      "regression_detail": "Bot-flagged issues such as stale closures in gantt and overlay bug in dialog-stack were noted but not fixed before merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Applied React performance optimizations across 10 components: added useMemo/useCallback/memo to reduce re-renders, fixed memory leak in Gantt scroll listener, optimized CSS variables calculation, and corrected useState object initialization in color-picker. Also added and removed optimization documentation files.",
+      "files_primary": [
+        "packages/gantt/index.tsx",
+        "packages/calendar/index.tsx",
+        "packages/color-picker/index.tsx",
+        "packages/editor/index.tsx"
+      ],
+      "files_secondary_observability": [
+        "OPTIMIZATION_RECOMMENDATIONS.md",
+        "SUMMARY_OF_IMPROVEMENTS.md",
+        "PERFORMANCE_ANALYSIS.md"
+      ],
+      "secondary_note": "Documentation files were added in early commits and later removed before merge, leaving no permanent docs.",
+      "change_trajectory": [
+        "Initial commits: Cursor added optimization docs and summary.",
+        "Maintainer applied optimization recommendations across components (commit 6520defd).",
+        "Maintainer completed remaining optimizations (commit c17227f).",
+        "Removed markdown files (commit 16b08b6).",
+        "Minor updates to gantt and calendar index.tsx after reviews.",
+        "Merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "First Copilot review summarized the PR's documentation changes, no blocking comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "dependency_array_flag",
+        "summary": "Second Copilot review flagged missing dependencies in gantt memoization and suggested fixes for cssVariables and handleScroll.",
+        "blocking": false,
+        "action_taken": "No explicit commit to fix; maintainer merged after later minor tweaks."
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "multiple_issues_flagged",
+        "summary": "CodeRabbit identified stale closures, missing useEffect cleanup, missing keys, and incorrect overlay behavior; no CHANGES_REQUESTED.",
+        "blocking": false,
+        "action_taken": "No fixes applied; merged with these issues unresolved."
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata (unrelated to perf validation).",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with docs only; maintainer then applied optimization code.",
+      "Bots provided immediate feedback within minutes and hours.",
+      "Maintainer continued pushing commits to apply optimizations and remove docs.",
+      "No human reviewer raised blocking concerns; maintainer self-merged about 6 hours after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "pr_id": 3071077909,
+  "meta": {
+    "title": "Add event trigger source generator",
+    "html_url": "https://github.com/wieslawsoltes/Xaml.Behaviors/pull/81",
+    "repo": "wieslawsoltes/Xaml.Behaviors",
+    "agent": "OpenAI_Codex",
+    "user": "wieslawsoltes",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-17 21:31:28+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-19 11:09:27+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 0,
+    "topic_name": "-1",
+    "body_summary": "Add a Roslyn source generator to replace reflection-based event wiring in EventTriggerBehavior with compile-time generated handlers."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 111,
+      "deletions": 36,
+      "changes": 147,
+      "top1_file": "src/EventGenerator/EventTriggerSourceGenerator.cs",
+      "top1_changes": 81,
+      "top1_change_ratio": 0.551,
+      "files_by_status": {
+        "added": 2,
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 2,
+        "review_requested": 1,
+        "reviewed": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 37.63,
+      "first_review_delay_hours": 20.17,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "reflection_elimination",
+      "compile_time_code_generation",
+      "event_handler_wiring"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_unknown_reason",
+    "review_dimensions": [
+      "correctness",
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex generated a source generator to replace reflection; bot review flagged correctness edge cases; PR was self-closed without merge after ~37h, no human review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 147,
+        "interpretation": "At 147 changed lines (81-line new generator, 47-line behavior change), this is a small-scale performance refactor by absolute volume. The PR was closed without merge by the author after bot review suggested edge-case bugs, consistent with a small but stagnated optimization attempt."
+      },
+      "lifecycle": {
+        "lifespan_hours": 37.63,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_edge_case",
+      "concern_detail": "Copilot bot review flagged two issues: (1) zero-parameter events would throw at runtime due to `.Last()` on empty parameter list, and (2) static events are included and would generate invalid instance handlers.",
+      "performance_claim": "Replace reflection-based event wiring with compile-time generated handlers for better performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "reflection_overhead",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR self-closed by author after bot review raised correctness issues; no human maintainer engagement."
+    },
+    "capability_boundary": {
+      "topic": "-1_unknown",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Successfully structured a Roslyn incremental source generator to replace reflection but missed edge cases involving parameterless events and static events, indicating incomplete domain modeling of the C# event system.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance data; only a narrative claim of avoiding reflection overhead; testing instructions only `git status --short`.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed before any performance regression could be observed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced EventGenerator/Roslyn incremental source generator that scans all types for events and generates handler methods in EventTriggerBehavior partial class. Replaced runtime reflection in EventTriggerBehavior.Attach/Detach with generated TryAddGeneratedHandler using switch expression.",
+      "files_primary": [
+        "src/EventGenerator/EventTriggerSourceGenerator.cs",
+        "src/Avalonia.Xaml.Interactions/Core/EventTriggerBehavior.cs"
+      ],
+      "files_secondary_observability": [
+        "AvaloniaBehaviors.sln",
+        "src/Avalonia.Xaml.Interactions/Avalonia.Xaml.Interactions.csproj",
+        "src/EventGenerator/EventGenerator.csproj"
+      ],
+      "secondary_note": "Project and solution configuration files for the new source generator project.",
+      "change_trajectory": [
+        "Single commit: Added EventGenerator project, source generator code, updated EventTriggerBehavior to use generated handlers, and registered the generator as an analyzer."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "zero_param_event_guard",
+        "summary": "Generator uses invoke.Parameters.Last() without checking for zero-parameter events, which would throw. Add a guard for events with no parameters.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "static_event_filter",
+        "summary": "Generator includes static events that cannot be attached to instances; filter out static events (ev.AddMethod?.IsStatic) to avoid generating invalid handlers.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_overview",
+        "summary": "Copilot bot posted a PR Overview summarizing the change and reviewed all files, generating two inline comments regarding correctness and edge cases.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by author with one commit.",
+      "~20h later, Copilot bot reviewed with two inline correctness suggestions.",
+      "~37h after creation, author closed the PR without further activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

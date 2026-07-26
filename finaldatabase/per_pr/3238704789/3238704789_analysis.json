@@ -1,0 +1,171 @@
+{
+  "pr_id": 3238704789,
+  "meta": {
+    "title": "Implement terrain patches to reduce GPU load for large terrains",
+    "html_url": "https://github.com/bryanedds/Nu/pull/1074",
+    "repo": "bryanedds/Nu",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-17 08:46:08+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-24 16:31:01+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 44,
+    "topic_name": "44",
+    "body_summary": "Implement a terrain patch system that subdivides large terrains into smaller geometry chunks to reduce GPU load, with configurable patch sizes, material support, and backward compatibility."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 3,
+      "additions": 317,
+      "deletions": 86,
+      "changes": 403,
+      "top1_file": "Nu/Nu/Render/Renderer3d.fs",
+      "top1_changes": 395,
+      "top1_change_ratio": 0.98,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "Nu"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 175.75,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "terrain_patch_system",
+      "gpu_load_reduction",
+      "geometry_chunking"
+    ],
+    "optimization_layer": "rendering_engine",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot terrain patch PR with narrative GPU reduction; no review, closed after ~7d with no comments."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 403,
+        "interpretation": "At 403 changed lines, this is a medium-sized change by absolute volume, heavily concentrated in Renderer3d.fs. As a performance PR, it was closed without merge, consistent with the complete lack of review engagement or maintainer feedback."
+      },
+      "lifecycle": {
+        "lifespan_hours": 175.75,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "No formal review, inline comments, or PR discussion recorded in the dataset; the maintainer closed the PR without explanation after approximately 7 days.",
+      "performance_claim": "Terrain patch system reduces GPU load by splitting large terrain geometry into smaller chunks, enabling better performance and future optimizations like frustum culling.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by maintainer (bryanedds) without comment; no review interaction detected in dataset."
+    },
+    "capability_boundary": {
+      "topic": "44",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "A large rendering pipeline refactor with no maintainer review; the PR may have exceeded the project's threshold for acceptance without human evaluation, or it was deemed out of scope despite the linked issue.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body provides conceptual benefits and example usage but no benchmark numbers or reproduction steps; no maintainer verification possible from available data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without feedback; no fix-in-PR cycle occurred.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added TerrainPatch type and patch-based geometry generation in Nu's renderer; introduced PatchSize property to TerrainDescriptor and TerrainFacet; modified terrain rendering pipeline to iterate over patches instead of a single geometry object.",
+      "files_primary": [
+        "Nu/Nu/Render/Renderer3d.fs"
+      ],
+      "files_secondary_observability": [
+        "Nu/Nu/Core/Constants.fs",
+        "Nu/Nu/World/WorldFacets.fs"
+      ],
+      "secondary_note": "Core/Constants added a default patch size; WorldFacets added PatchSize property; nearly all 403 line changes are in Renderer3d.fs.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Core terrain patch infrastructure with 197 additions in Renderer3d.fs.",
+        "Added PatchSize to TerrainFacet in WorldFacets.fs.",
+        "Improved geometry generation with material handling adjustments (176 line changes in Renderer3d.fs)."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Copilot opened PR with terrain patch system linked to issue #747.",
+      "Review requested, but no reviewer engagement recorded.",
+      "Maintainer (bryanedds) closed the PR after ~7 days without comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

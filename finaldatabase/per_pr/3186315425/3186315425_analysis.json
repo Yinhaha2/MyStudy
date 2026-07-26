@@ -1,0 +1,170 @@
+{
+  "pr_id": 3186315425,
+  "meta": {
+    "title": "Add hashed outer join optimization",
+    "html_url": "https://github.com/mochilang/mochi/pull/3985",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-29 16:14:00+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 12:01:57+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Add hashed full outer join implementation in the VM runtime and regenerate IR output files for JOB dataset and VM tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 35,
+      "additions": 8257,
+      "deletions": 8335,
+      "changes": 16592,
+      "top1_file": "tests/dataset/job/out/q29.ir.out",
+      "top1_changes": 1031,
+      "top1_change_ratio": 0.0621,
+      "files_by_status": {
+        "modified": 35
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 43.799,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hash_join",
+      "outer_join_optimization"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_failure",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Codex adds hashed outer join in VM with IR output regeneration; PR closed by author after tpch update fails, no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 16592,
+        "interpretation": "At 16592 changed lines across 35 files, this is a large change by absolute volume, though most lines are test IR output updates. The PR introduces a new join algorithm in the VM runtime but was closed without merge, likely due to functional issues (tpch update failure) and lack of review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 43.799,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "functional_failure",
+      "concern_detail": "The PR body notes that tpch update fails with 'index out of range', suggesting an implementation bug that prevented full testing. No reviewer feedback.",
+      "performance_claim": "Implement hashed outer join to improve join performance over naive nested loop.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author without external review; internal testing indicated tpch update failure (index out of range), suggesting incomplete or broken implementation."
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "OpenAI Codex generated a large change spanning VM runtime logic and 34 IR output files. The PR was closed without merge due to functional failure in tpch updates, indicating challenges in correctly implementing complex outer join hashing logic without thorough integration testing.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No maintainer review or detection; PR self-closed."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data; functional tests failed for tpch update (index out of range) preventing full validation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by author without addressing the tpch update failure.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added compileHashOuterJoin function to generate hashed full outer join bytecode, and regenerated expected IR outputs for 33 JOB queries and 1 VM test case.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/job/out/q29.ir.out",
+        "tests/dataset/job/out/q22.ir.out",
+        "tests/dataset/job/out/q24.ir.out",
+        "tests/dataset/job/out/q27.ir.out",
+        "tests/dataset/job/out/q33.ir.out",
+        "tests/vm/valid/outer_join.ir.out"
+      ],
+      "secondary_note": "34 IR output files updated across JOB and VM test suites reflecting the new outer join plan; only largest changes listed.",
+      "change_trajectory": [
+        "Single commit adds hashed full outer join in runtime/vm/vm.go and regenerates IR outputs for 33 JOB queries and one VM test."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit adding hashed outer join.",
+      "No review comments or CI reactions.",
+      "Closed by author after 43 hours with tpch update failure noted."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

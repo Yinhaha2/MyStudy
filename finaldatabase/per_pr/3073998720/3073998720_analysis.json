@@ -1,0 +1,217 @@
+{
+  "pr_id": 3073998720,
+  "meta": {
+    "title": "Improve offline demo resilience",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/367",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-19 14:13:26+00:00",
+    "merged_at": "2025-05-19 14:22:08+00:00",
+    "closed_at": "2025-05-19 14:22:08+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 13,
+    "topic_name": "13",
+    "body_summary": "Make optional dependencies (pandas, gradio, openai_agents) lazy-loaded with fallbacks; add CSV reading helper with pandas/csv dual path; skip demo UI if packages missing to improve offline resilience."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 2,
+      "additions": 85,
+      "deletions": 31,
+      "changes": 116,
+      "top1_file": "alpha_factory_v1/demos/era_of_experience/agent_experience_entrypoint.py",
+      "top1_changes": 69,
+      "top1_change_ratio": 0.5948,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "alpha_factory_v1"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 4,
+        "labeled": 1,
+        "review_requested": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.145,
+      "first_review_delay_hours": 0.082,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lazy_loading",
+      "optional_dependency_imports",
+      "fallback_csv_reader"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "OpenAI_Codex made deps lazy; Copilot bot suggested tighter exception handling and CSV nrows=1; PR merged after applying all three suggestions."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 116,
+        "interpretation": "At 116 changed lines across 2 files, this is a small edit by absolute volume. It fits a small-step, low-risk robustness PR and is consistent with the fast merge after incorporating review feedback."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.145,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "import_error_handling_pattern",
+      "concern_detail": "Copilot bot recommended using ImportError instead of Exception for optional imports and suggested nrows=1 in pd.read_csv to limit I/O and memory usage.",
+      "performance_claim": "Improve offline demo resilience by making dependencies optional, reducing crashes when packages missing.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "perf_evidence",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "13",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Optional dependency handling and lazy imports are low-risk changes that Agent can implement with standard patterns; merge after applying automated review suggestions.",
+      "success_factors": [
+        "small_scope",
+        "automated_review_fixable",
+        "maintainer_quick_merge",
+        "all_suggestions_applied"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Copilot bot reviewed import patterns and CSV reading approach, suggesting tighter exception handling and nrows=1 for efficiency."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after metrics; only functional test commands listed.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "All three inline review suggestions were applied in follow-up commits before merge.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In alpha_detection.py, wrap pandas import in try/except with csv fallback; add _read_first_row helper with pandas/csv dual path. In agent_experience_entrypoint.py, make gradio and openai_agents optional with try/except, provide no-op Tool decorator, and skip demo launch if gr is None.",
+      "files_primary": [
+        "alpha_factory_v1/demos/era_of_experience/alpha_detection.py",
+        "alpha_factory_v1/demos/era_of_experience/agent_experience_entrypoint.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit: make pandas optional, add _read_first_row, and make gradio/openai_agents optional with lazy imports.",
+        "Follow-up commits apply Copilot suggestions: change Exception to ImportError in optional imports, use nrows=1 in pd.read_csv, and similar in entrypoint."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "import_error_handling",
+        "summary": "Suggested using ImportError instead of Exception for optional imports in alpha_detection.py.",
+        "blocking": false,
+        "action_taken": "Maintainer applied the suggestion in commit 21ef5052."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "csv_io_efficiency",
+        "summary": "Suggested using nrows=1 in pd.read_csv to limit I/O and memory.",
+        "blocking": false,
+        "action_taken": "Applied in commit bc5d5836."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "import_error_handling",
+        "summary": "Same suggestion for agent_experience_entrypoint.py to catch ImportError instead of Exception.",
+        "blocking": false,
+        "action_taken": "Applied in commit e68772bcd."
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_summary",
+        "summary": "PR Overview generated with no blocking comments.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial dependency fixes.",
+      "Copilot bot posted formal review overview and inline suggestions within ~5 minutes.",
+      "Maintainer applied all three inline suggestions in follow-up commits.",
+      "Merged without further human review ~9 minutes after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

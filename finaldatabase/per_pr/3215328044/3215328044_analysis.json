@@ -1,0 +1,227 @@
+{
+  "pr_id": 3215328044,
+  "meta": {
+    "title": "Remove junderw-crc32c dependency and create PR",
+    "html_url": "https://github.com/BlueWallet/BlueWallet/pull/7994",
+    "repo": "BlueWallet/BlueWallet",
+    "agent": "Cursor",
+    "user": "Overtorment",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-09 10:03:37+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-10 18:58:14+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "chore",
+    "aidev_task_confidence": 9,
+    "topic_id": 7,
+    "topic_name": "7",
+    "body_summary": "Remove unused junderw-crc32c dependency to reduce bundle size and clean up the dependency tree."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 0,
+      "deletions": 33,
+      "changes": 33,
+      "top1_file": "package-lock.json",
+      "top1_changes": 32,
+      "top1_change_ratio": 0.97,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 0,
+      "directories": []
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "APPROVED": 2
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 16,
+      "event_counts": {
+        "committed": 1,
+        "review_requested": 2,
+        "commented": 5,
+        "mentioned": 2,
+        "subscribed": 2,
+        "reviewed": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 32.91,
+      "first_review_delay_hours": 2.93,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "dependency_removal",
+      "bundle_size_reduction",
+      "unused_dependency_cleanup"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "recreated_due_to_conflict",
+    "review_dimensions": [
+      "dependency_management",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "recreated_in_new_pr",
+    "confidence": "high",
+    "notes": "Cursor removed an unused dependency; tests passed and reviewers approved but merge conflict forced recreation as #8002."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 33,
+        "interpretation": "At 33 changed lines across 2 files, this is a tiny edit by absolute volume. It fits a minimal dependency removal performance PR, consistent with a low-risk, fast-turnaround change. The closure is due to conflict recreation, not scale."
+      },
+      "lifecycle": {
+        "lifespan_hours": 32.91,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "historical_dependency_context",
+      "concern_detail": "Maintainer Overtorment asked junderw about the original purpose of junderw-crc32c; junderw confirmed it was for aezeed, now likely unused, and ACKed removal if tests passed.",
+      "performance_claim": "Remove unused dependency to reduce bundle size.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unused_dependency",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "dependency_management",
+        "correctness"
+      ],
+      "rejection_signals": "PR closed by author due to conflict; recreated as #8002."
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "Agent successfully removed unused dependency and tests passed. Closure stemmed from merge conflict, requiring human recreation, illustrating process boundary for conflict resolution.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer Overtorment reviewed the dep removal and asked for historical context; passing tests confirmed no breakage."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No before/after bundle size measurement; only narrative claim. Tests passing confirms correctness, not performance.",
+      "regression_handling": "recreated_in_new_pr",
+      "regression_detail": "The original PR had a merge conflict; maintainer closed it and opened a new PR (#8002) to apply the same change.",
+      "evidence_gap": "narrative_only_no_bundle_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Removed 'junderw-crc32c' from dependencies in package.json and updated package-lock.json accordingly.",
+      "files_primary": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "No secondary changes; only dependency removal.",
+      "change_trajectory": [
+        "Single commit by cursoragent removing the unused dependency."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Overtorment",
+        "channel": "pr_comment",
+        "signal": "historical_context_request",
+        "summary": "Asked junderw about original reason for junderw-crc32c dependency.",
+        "blocking": false,
+        "action_taken": "junderw provided context and ACK."
+      },
+      {
+        "source": "junderw",
+        "channel": "pr_comment",
+        "signal": "ack_if_tests_pass",
+        "summary": "ACKed removal if all tests pass, referencing historical aezeed dependency.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "GladosBlueWallet",
+        "channel": "pr_comment",
+        "signal": "pr_review_reminder",
+        "summary": "Call to merge pending PRs (non-blocking).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "limpbrains",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Formal review APPROVED without comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "junderw",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Formal review APPROVED without comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Overtorment",
+        "channel": "pr_comment",
+        "signal": "recreation_due_to_conflict",
+        "summary": "Closed because of merge conflict; recreated as PR #8002.",
+        "blocking": true,
+        "action_taken": "Closed original PR; opened new PR with same change."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Overtorment opened PR with cursoragent's commit removing the unused dependency.",
+      "Overtorment requested review from limpbrains and junderw, and asked junderw for historical context.",
+      "limpbrains approved.",
+      "junderw provided historical context and approved.",
+      "PR closed due to merge conflict; maintainer recreated as #8002."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

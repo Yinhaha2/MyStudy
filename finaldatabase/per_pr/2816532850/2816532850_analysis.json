@@ -1,0 +1,198 @@
+{
+  "pr_id": 2816532850,
+  "meta": {
+    "title": "refactor: split gradle check into matrix jobs",
+    "html_url": "https://github.com/airbytehq/airbyte/pull/52607",
+    "repo": "airbytehq/airbyte",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-01-28 19:21:47+00:00",
+    "merged_at": null,
+    "closed_at": "2025-02-06 15:21:23+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Split the monolithic Gradle check CI job into parallel matrix jobs (compile, spotbugs, unit tests, integration tests) to improve build feedback and reduce redundant task execution."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 2,
+      "additions": 40,
+      "deletions": 23,
+      "changes": 63,
+      "top1_file": ".github/workflows/gradle.yml",
+      "top1_changes": 44,
+      "top1_change_ratio": 0.698,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 4,
+        "review_requested": 2,
+        "commented": 3,
+        "labeled": 1,
+        "deployed": 1,
+        "unlabeled": 1,
+        "convert_to_draft": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 212.0,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_workflow_parallelization",
+      "build_matrix_split",
+      "gradle_check_optimization"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity_draft",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin split monolithic Gradle check into matrix jobs; maintainer converted to draft; auto-closed for inactivity with no formal review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 63,
+        "interpretation": "At 63 changed lines, this is a small edit by absolute volume. It fits a small-step CI optimization PR that was closed—not merged—due to lack of maintainer engagement and conversion to draft."
+      },
+      "lifecycle": {
+        "lifespan_hours": 212.0,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No human review text exists. The PR was converted to a draft by maintainer aaronsteers, then the Devin bot closed it for inactivity after 7 days.",
+      "performance_claim": "Splitting the monolithic Gradle check into parallel matrix jobs for faster CI feedback and reduced redundant task execution.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer converted PR to draft without comment; Devin bot auto-closed after 7 days inactivity."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "CI config refactor required maintainer acceptance; despite plausible technical changes, the PR was converted to draft and stalled without review.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human review text available; maintainer only converted PR to draft without comments."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body lists benefits without benchmark data or before/after CI runtime comparisons; no evidence that matrix jobs improve build speed.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Maintainer converted PR to draft; Devin bot closed after inactivity; no further iteration.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In .github/workflows/gradle.yml, replaced the monolithic Gradle check job with a matrix strategy that runs compile, spotbugs, unit-tests, and integration-tests as separate parallel jobs with exclusions to avoid redundancy; in build.gradle, disabled SpotBugs from the check task and added KSP task dependencies.",
+      "files_primary": [
+        ".github/workflows/gradle.yml",
+        "build.gradle"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit split gradle.yml into matrix jobs and adjusted build.gradle.",
+        "Subsequent commits fixed YAML formatting, Prettier formatting, and KSP task dependencies."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduced its automatic comment/CI monitoring and original prompt.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview_canceled",
+        "summary": "Vercel bot posted deployment status (airbyte-docs canceled).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity.",
+        "blocking": false,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial matrix split commit and review requests.",
+      "Devin bot introduced auto-monitoring and original prompt.",
+      "Vercel bot posted deployment preview status (canceled).",
+      "Maintainer aaronsteers converted PR to draft without comment.",
+      "PR received no formal reviews; Devin bot auto-closed due to inactivity after ~212 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

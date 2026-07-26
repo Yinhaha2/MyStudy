@@ -1,0 +1,174 @@
+{
+  "pr_id": 3262887238,
+  "meta": {
+    "title": "Update rosetta artifacts for 100-prisoners",
+    "html_url": "https://github.com/mochilang/mochi/pull/13066",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-25 11:19:21+00:00",
+    "merged_at": null,
+    "closed_at": "2026-04-16 13:54:42+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "17",
+    "body_summary": "Speed up the VM's now() builtin by using a PRNG from math/rand instead of system calls, and update Rosetta benchmark artifacts for the 100-prisoners example."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 20,
+      "deletions": 14,
+      "changes": 34,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 19,
+      "top1_change_ratio": 0.5588,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 2,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1
+      },
+      "lifespan_hours": 6362.6,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "now_builtin_optimization",
+      "system_call_avoidance",
+      "prng_usage",
+      "benchmark_artifact_update"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "stale_conflicts_superseded",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Single-commit VM optimization with benchmark artifact refresh; no review, author closed after long period due to staleness and conflicts."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 34,
+        "interpretation": "At 34 changed lines, this is a tiny edit. It fits a small performance update, but was closed without merging after becoming stale and conflicting with main."
+      },
+      "lifecycle": {
+        "lifespan_hours": 6362.6,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_and_conflicts",
+      "concern_detail": "Author closed because too old to resolve conflicts cleanly; content superseded by main.",
+      "performance_claim": "Speed up now() builtin by replacing system calls with a PRNG from math/rand.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by author with comment 'too old to resolve conflicts cleanly; content superseded by main.'"
+    },
+    "capability_boundary": {
+      "topic": "17",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small VM optimization that became stale and conflicted with main; no review involvement, author self-closed.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "PR body includes test commands but no results or benchmark data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by author due to staleness and conflicts; not merged.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, the now() builtin is changed to use a PRNG from math/rand instead of system calls, seeded with MOCHI_NOW_SEED. Updated Rosetta benchmark artifact files for the 100-prisoners example to reflect changes.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/rosetta/ir/100-prisoners.bench",
+        "tests/rosetta/ir/100-prisoners.ir",
+        "tests/rosetta/ir/100-prisoners.out",
+        "runtime/vm/ROSETTA.md"
+      ],
+      "secondary_note": "Benchmark and output files updated to match new IR; ROSETTA.md progress checklist refreshed.",
+      "change_trajectory": [
+        "Single commit: speed up now builtin with PRNG and update artifacts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "tamnd",
+        "channel": "pr_comment",
+        "signal": "close_stale_conflict",
+        "summary": "Closing PR because it is too old to resolve conflicts cleanly and content is superseded by main.",
+        "blocking": false,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit; no review interaction; author closed after long period due to conflicts."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

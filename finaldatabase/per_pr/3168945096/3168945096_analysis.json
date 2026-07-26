@@ -1,0 +1,242 @@
+{
+  "pr_id": 3168945096,
+  "meta": {
+    "title": "feat: implement slot-level caching system with per-person storage",
+    "html_url": "https://github.com/calcom/cal.com/pull/21988",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-23 17:40:06+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 18:46:17+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Implement slot-level caching with per-person storage to speed up slot generation and reduce calendar API calls for individual and team events."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 10,
+      "additions": 506,
+      "deletions": 31,
+      "changes": 537,
+      "top1_file": "packages/trpc/server/routers/viewer/slots/util.ts",
+      "top1_changes": 183,
+      "top1_change_ratio": 0.341,
+      "files_by_status": {
+        "added": 6,
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 10,
+      "review_states": {
+        "COMMENTED": 10
+      },
+      "review_comment_count": 10,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 18,
+      "event_counts": {
+        "committed": 3,
+        "commented": 3,
+        "labeled": 1,
+        "reviewed": 8,
+        "deployed": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 193.1,
+      "first_review_delay_hours": 0.076,
+      "review_rounds": 10,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "slot_caching",
+      "per_user_cache",
+      "database_query_optimization",
+      "team_event_scheduling"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [
+      "code_style",
+      "type_safety",
+      "database_performance",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin implemented slot caching with database migration; multiple reviews on naming and type safety, but PR stalled and auto-closed after 7 days."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 537,
+        "interpretation": "At 537 changed lines across 10 files, this is a medium-sized feature change. As a performance caching PR it was closed without merge — change scale was not the issue, but review feedback was not fully resolved before inactivity auto-close."
+      },
+      "lifecycle": {
+        "lifespan_hours": 193.1,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_style_and_type_safety",
+      "primary_concern": "code_style_and_type_safety",
+      "concern_detail": "Maintainers flagged snake_case table naming, use of 'any' types, type casting smells, and requested findUnique over findFirst for performance.",
+      "performance_claim": "Slots are cached per user to reduce calendar API calls and improve response times.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io (prior repeated calendar API calls)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "code_style",
+        "type_safety",
+        "database_performance",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Auto-closed by Devin bot due to 7+ days inactivity; no CHANGES_REQUESTED or explicit maintainer rejection."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent responded to some feedback with commits fixing naming and types, but could not fully address all concerns; maintainer attention waned and PR auto-closed.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "zomars and keithwillcode performed inline code review focusing on naming conventions, type safety, and database query optimization; no CI or profiler evidence used."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or reproducible performance test; only narrative claims about caching benefits.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge despite some incremental fixes; remaining issues and inactivity led to bot closure.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added SlotCache model and repository with per-person caching in Prisma schema; implemented slot caching logic in a new slot-cache module and integrated into getAvailableSlots in util.ts; added invalidation on event type update and Google Calendar webhook.",
+      "files_primary": [
+        "packages/prisma/schema.prisma",
+        "packages/trpc/server/routers/viewer/slots/util.ts",
+        "packages/features/slot-cache/slot-cache.repository.ts",
+        "packages/features/slot-cache/slot-cache-key.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/trpc/server/routers/viewer/eventTypes/update.handler.ts",
+        "packages/app-store/googlecalendar/api/webhook.ts",
+        "packages/prisma/migrations/20250623172401_add_slot_cache_table/migration.sql",
+        "packages/prisma/migrations/20250623174656_rename_slot_cache_to_pascal_case/migration.sql",
+        "packages/features/slot-cache/slot-cache.ts",
+        "packages/features/slot-cache/team-slot-aggregation.ts"
+      ],
+      "secondary_note": "Migrations and invalidation points are secondary; the core change is the cache module and slot generation refactor.",
+      "change_trajectory": [
+        "Initial commit: full feature with SlotCache model, cache repository, slot generation changes, and invalidation points.",
+        "Fix commit: rename table to PascalCase per keithwillcode's feedback.",
+        "Second fix commit: switch to findUnique, replace 'any' types, and improve type safety per zomars' feedback."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "keithwillcode",
+        "channel": "inline_review_comment",
+        "signal": "naming_convention_fix",
+        "summary": "Requested camelCase/PascalCase for table name instead of snake_case.",
+        "blocking": false,
+        "action_taken": "Devin renamed table to PascalCase in next commit."
+      },
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "forbidden_any_usage",
+        "summary": "Flagged usage of 'any' types in slot generation and requested proper types.",
+        "blocking": false,
+        "action_taken": "Devin replaced any with proper slot types in follow-up commits."
+      },
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "database_query_optimization",
+        "summary": "Requested using findUnique instead of findFirst for cache lookup performance.",
+        "blocking": false,
+        "action_taken": "Devin migrated to findUnique."
+      },
+      {
+        "source": "emrysal",
+        "channel": "inline_review_comment",
+        "signal": "schema_index_discussion",
+        "summary": "Inquired about compound unique index performance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Bot notification of automatic comment handling for 'DevinAI' prefix.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with full cache implementation.",
+      "Multiple inline reviews from keithwillcode, zomars, emrysal within first ~30 minutes focusing on naming, types, and query optimization.",
+      "Devin added commits fixing table name and type safety/query performance.",
+      "No further maintainer engagement; Devin bot auto-closed after 7+ days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

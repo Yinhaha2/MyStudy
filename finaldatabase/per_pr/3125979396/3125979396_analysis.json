@@ -1,0 +1,263 @@
+{
+  "pr_id": 3125979396,
+  "meta": {
+    "title": "Reduce LAN game timeout from 15 to 5 seconds for faster testing",
+    "html_url": "https://github.com/octgn/OCTGN/pull/2245",
+    "repo": "octgn/OCTGN",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-06 22:11:27+00:00",
+    "merged_at": "2025-06-06 23:31:58+00:00",
+    "closed_at": "2025-06-06 23:31:58+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Reduce LAN game server shutdown timeout from 15s to 5s; later evolved into proper socket reuse (SO_REUSEADDR) with local-server only scope per maintainer feedback."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 7,
+      "additions": 358,
+      "deletions": 73,
+      "changes": 431,
+      "top1_file": "octgnFX/Octgn.Test/Server/ServerPortReuseTests.cs",
+      "top1_changes": 137,
+      "top1_change_ratio": 0.3179,
+      "files_by_status": {
+        "modified": 4,
+        "added": 2,
+        "removed": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "octgnFX"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 7,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "renamed": 1,
+        "review_requested": 1,
+        "commented": 6,
+        "mentioned": 6,
+        "subscribed": 5
+      },
+      "lifespan_hours": 1.342,
+      "first_review_delay_hours": 1.338,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lan_game_timeout_reduction",
+      "socket_reuse",
+      "port_binding_optimization"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_iterative_fix",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "scope"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "unknown",
+    "confidence": "high",
+    "notes": "Copilot shifted from timeout band-aid to socket reuse per maintainer direction; merged after iterative commits but post-merge test compilation issue noted."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 431,
+        "interpretation": "At 431 changed lines across 7 files, this is a medium-scale change, combining a simple timeout reduction with substantial socket reuse logic and tests. The merge outcome fits a successful iterative fix driven by maintainer feedback."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.342,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "root_cause_analysis_and_scope",
+      "concern_detail": "Maintainer kellyelton argued that timeout duration wasn't the root issue and requested a proper port reuse solution; later insisted on local_server flag to avoid affecting online servers.",
+      "performance_claim": "Reduce waiting time from 15s to 5s for LAN games and later enable immediate port reuse to avoid connection errors.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "scope"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The task required low-level socket programming (SO_REUSEADDR, fallback ports) and careful scoping to avoid breaking online server behavior. Copilot iterated across multiple commits following maintainer direction, eventually producing a merged solution despite post-merge test issues.",
+      "success_factors": [
+        "responded_to_maintainer_redirection",
+        "adopted_proper_root_cause_fix",
+        "scoped_changes_to_local_only"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "kellyelton reviewed the initial timeout change and pushed for a root-cause fix; also demanded local_server flag to preserve online server backward compatibility."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Unit tests validate behavior but no performance benchmarks or profiler data; manual testing likely but not recorded.",
+      "regression_handling": "unknown",
+      "regression_detail": "After merge, maintainer noted that unit tests in the PR did not compile due to missing namespace references. No follow-up commit observed in timeline.",
+      "evidence_gap": "narrative_perf_claim_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Initial commit reduced LAN game timeout in PlayerCollection.cs from 15s to 5s. Following maintainer feedback, subsequent commits implemented proper socket reuse with SO_REUSEADDR and fallback port selection in Server.cs, gated behind a local_server parameter. Also added game status reset logic on all players disconnect and corresponding unit tests, though some tests had compilation issues.",
+      "files_primary": [
+        "octgnFX/Octgn.Server/Server.cs",
+        "octgnFX/Octgn.Server/PlayerCollection.cs"
+      ],
+      "files_secondary_observability": [
+        "octgnFX/Octgn.Test/Server/ServerPortReuseTests.cs",
+        "octgnFX/Octgn.Test/Server/GameStatusResetTests.cs",
+        "octgnFX/Octgn.Test/Octgn.Test.csproj"
+      ],
+      "secondary_note": "Test files were added and removed across commits; final test coverage includes port reuse tests and game status reset tests, but a compilation error was reported post-merge.",
+      "change_trajectory": [
+        "Initial commit reduced LAN timeout to 5s and added PlayerCollectionTimeoutTests.",
+        "Maintainer requested different approach; Copilot removed old tests and implemented game status reset on disconnect.",
+        "Maintainer then requested root-cause fix; Copilot added socket reuse logic in Server.cs with new test file.",
+        "Maintainer asked for local_server flag; Copilot added optional parameter and updated tests.",
+        "PR merged with one APPROVED review, but post-merge comment indicated test files had namespace errors preventing compilation."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "kellyelton",
+        "channel": "pr_comment",
+        "signal": "design_redirection",
+        "summary": "Maintainer rejected the timeout-bandage approach and requested a proper root-cause fix.",
+        "blocking": true,
+        "action_taken": "Copilot shifted to socket reuse implementation."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "plan_acknowledgment",
+        "summary": "Copilot acknowledged the redirection and outlined a socket reuse plan.",
+        "blocking": false,
+        "action_taken": "Subsequently added socket reuse commit."
+      },
+      {
+        "source": "kellyelton",
+        "channel": "pr_comment",
+        "signal": "missing_implementation",
+        "summary": "Maintainer noted that the proposed socket reuse fix did not appear in the latest commit.",
+        "blocking": true,
+        "action_taken": "Copilot then committed the actual Server.cs changes."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Copilot confirmed the fork reuse implementation was added in commit 00a1f5e.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "kellyelton",
+        "channel": "pr_comment",
+        "signal": "scope_isolation_request",
+        "summary": "Maintainer asked to gate new socket settings behind a local_server flag to avoid impacting online servers.",
+        "blocking": true,
+        "action_taken": "Copilot added local_server parameter and updated tests."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "scope_fix_confirmation",
+        "summary": "Copilot reported implementing the local_server parameter in commit 51a6dbe.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "kellyelton",
+        "channel": "formal_review",
+        "signal": "approved_no_body",
+        "summary": "Maintainer approved without additional comments after all requested changes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "kellyelton",
+        "channel": "pr_comment",
+        "signal": "post_merge_test_failure",
+        "summary": "After merge, maintainer reported that tests do not compile due to missing namespace references.",
+        "blocking": false,
+        "action_taken": "No immediate fix; likely follow-up outside PR."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial timeout reduction and tests.",
+      "Maintainer immediately (14 min later) redirected to root-cause fix.",
+      "Copilot started working on socket reuse, but first mistakenly committed a different fix.",
+      "Maintainer pointed out missing socket fix; Copilot then committed Server.cs changes.",
+      "Maintainer requested local_server flag; Copilot added and adjusted tests.",
+      "PR approved and merged within 1.3 hours.",
+      "Post-merge, maintainer reported test compilation error; no further action within PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

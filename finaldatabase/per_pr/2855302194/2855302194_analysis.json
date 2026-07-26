@@ -1,0 +1,191 @@
+{
+  "pr_id": 2855302194,
+  "meta": {
+    "title": "Optimize Font Loading Performance in Tests",
+    "html_url": "https://github.com/pdfme/pdfme/pull/711",
+    "repo": "pdfme/pdfme",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-02-15 07:23:53+00:00",
+    "merged_at": null,
+    "closed_at": "2025-02-15 07:40:30+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "40",
+    "body_summary": "Add font caching and deep clone to speed up font loading in generator integration tests; claims to reduce times from 10.7s to 4.2s and 21s to 18.3s."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 60,
+      "deletions": 29,
+      "changes": 89,
+      "top1_file": "packages/generator/__tests__/utils.ts",
+      "top1_changes": 72,
+      "top1_change_ratio": 0.809,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 3,
+        "commented": 3,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.277,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "font_caching",
+      "deep_clone",
+      "test_performance"
+    ],
+    "optimization_layer": "test_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "closed_without_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added font caching and clone; maintainer closed within 17 min without review or comment; performance claim narrative only."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 89,
+        "interpretation": "At 89 changed lines across 3 test files, this is a very small edit by absolute volume. It fits a small-step test performance optimization PR, but was closed immediately without review, inconsistent with the typical small-scope merge pattern."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.277,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "PR received no formal reviews or human comments; closed by maintainer within minutes with no explanation.",
+      "performance_claim": "Font caching and cloning reduces test times: fontSubset from 10.7s to 4.2s, full suite from ~21s to 18.3s.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer hand-dot closed PR ~17 minutes after creation with no comment; only bot interactions present."
+    },
+    "capability_boundary": {
+      "topic": "40",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Test-level performance optimization with caching was closed immediately without review, indicating a process boundary where unsolicited AI PRs are rejected quickly without engagement.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body lists before/after timings but no reproduction steps or artifacts; maintainer closure precluded any verification.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without any review cycle or fix iteration.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added font cache in test utility to avoid repeated file reads and used structuredClone/deep clone to prevent mutation of cached font objects. Test files updated to use the new cached loading.",
+      "files_primary": [
+        "packages/generator/__tests__/utils.ts",
+        "packages/generator/__tests__/generate.test.ts",
+        "packages/generator/__tests__/integration1.test.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit: add font caching and update test files.",
+        "Second commit: prevent font cache mutation with structuredClone.",
+        "Third commit: further optimize font initialization to reduce memory pressure."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_ignored",
+        "summary": "Vercel bot posted preview deployment status (ignored).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_review_skipped",
+        "summary": "CodeRabbit skipped review because PR is from a bot user.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with font caching optimization.",
+      "Only bot comments appeared (Devin intro, Vercel preview, CodeRabbit skip).",
+      "Maintainer hand-dot closed the PR within 17 minutes with no comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "pr_id": 3275629277,
+  "meta": {
+    "title": "Lowercase tags; drop method body",
+    "html_url": "https://github.com/mochilang/mochi/pull/14800",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-30 04:29:48+00:00",
+    "merged_at": "2025-07-30 04:30:23+00:00",
+    "closed_at": "2025-07-30 04:30:23+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "20",
+    "body_summary": "Remove the 'body' field from Method in the C# AST inspector and regenerate all C# golden AST files without it, reducing serialized AST size."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 104,
+      "additions": 13072,
+      "deletions": 13793,
+      "changes": 26865,
+      "top1_file": "tests/json-ast/x/cs/group_by_multi_join_sort.cs.json",
+      "top1_changes": 1514,
+      "top1_change_ratio": 0.0564,
+      "files_by_status": {
+        "modified": 104
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "tools"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0097,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ast_size_reduction",
+      "serialization_optimization",
+      "lowercase_tags"
+    ],
+    "optimization_layer": "ast_serialization",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-commit tool update: drop unused Method body from C# AST inspector and regenerate golden files; author self-merged instantly with no review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 26865,
+        "interpretation": "At 26,865 changed lines across 104 files, this is a very large change by absolute volume. However, only 64 lines are in the production inspector code; the rest are mechanical regeneration of 103 golden AST test files to drop a single 'body' field from each Method node. This is a low-risk mechanical change that fits a fast-track performance refactor and was merged without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0097,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "",
+      "performance_claim": "Reduce AST serialization overhead by dropping unused 'body' field from Method nodes.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "20",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Mechanically dropping a redundant field from a code inspector and regenerating test fixtures is well within agent capability; no maintainer feedback was needed.",
+      "success_factors": [
+        "mechanical_regeneration",
+        "single_commit",
+        "no_review_needed",
+        "author_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "PR body provides test commands (`go test -update`) but no before/after performance metrics or profiling.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression issues; merged without review.",
+      "evidence_gap": "narrative_only_no_benchmarks"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In tools/json-ast/x/cs/inspect.go, removed the `body` slice from the Method node serialization and lowercased the tag name. Regenerated all 103 golden AST test files under tests/json-ast/x/cs/ to reflect the removal of the `body` field.",
+      "files_primary": [
+        "tools/json-ast/x/cs/inspect.go"
+      ],
+      "files_secondary_observability": [
+        "tests/json-ast/x/cs/*.cs.json (103 golden files regenerated)"
+      ],
+      "secondary_note": "All 103 golden test files were regenerated to drop the `body` field from Method nodes; no semantic changes.",
+      "change_trajectory": [
+        "Single commit removed `body` from Method and lowercased tag in inspect.go, then ran `go test -update` to regenerate all golden AST files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created with single commit",
+      "Author self-merged immediately with no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

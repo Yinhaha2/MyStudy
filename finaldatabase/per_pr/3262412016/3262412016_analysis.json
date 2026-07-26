@@ -1,0 +1,229 @@
+{
+  "pr_id": 3262412016,
+  "meta": {
+    "title": "Optimize TrimStackTrace to use spans instead of Regex.Split",
+    "html_url": "https://github.com/microsoft/testfx/pull/6162",
+    "repo": "microsoft/testfx",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-25 08:21:04+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-25 10:18:09+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 6,
+    "topic_name": "6",
+    "body_summary": "Replace Regex.Split in TrimStackTrace with a span-based loop to reduce allocations and overhead, with conditional compilation for .NET 6+ and unit tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 2,
+      "additions": 175,
+      "deletions": 9,
+      "changes": 184,
+      "top1_file": "test/UnitTests/MSTestAdapter.PlatformServices.UnitTests/Execution/ExceptionHelperTests.cs",
+      "top1_changes": 106,
+      "top1_change_ratio": 0.576,
+      "files_by_status": {
+        "added": 1,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 22,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 2,
+        "reviewed": 1,
+        "commented": 4,
+        "mentioned": 1,
+        "subscribed": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.951,
+      "first_review_delay_hours": 0.663,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "string_split_optimization",
+      "allocation_reduction",
+      "span_usage"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "design_decision_to_remove_method",
+    "review_dimensions": [
+      "compatibility",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot span optimization was technically sound but closed after maintainers decided TrimStackTrace should be removed in v4, making the PR obsolete."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 184,
+        "interpretation": "At 184 changed lines across 2 files, this is a small, focused performance optimization. It was closed—not merged—due to maintainer decision to remove the target method in v4 rather than optimize it, despite technical soundness."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.951,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "future_plans_to_remove_method",
+      "concern_detail": "Maintainers discussed that TrimStackTrace should be removed altogether in v4, because .NET 6+ already provides StackTraceHiddenAttribute, making the method unnecessary. The PR was closed in favor of this plan.",
+      "performance_claim": "Span-based splitting eliminates regex overhead and reduces allocations for TrimStackTrace.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_regex_split",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "compatibility",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer Evangelink agreed with closing in favor of removing the method in v4, after discussion about StackTraceHiddenAttribute."
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Agent produced a technically valid optimization but lacked knowledge of project roadmap (method planned for removal in v4); also required conditional compilation to handle existing multi-targeting.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Evangelink identified multi-target compatibility issue; Youssef1313 suggested removing the method entirely, recalling StackTraceHiddenAttribute for .NET 6+."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling evidence provided; only narrative performance claims.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed after maintainer discussion without a fix-in-PR cycle; decision to remove the method in v4.",
+      "evidence_gap": "narrative_only_no_benchmark_and_roadmap_conflict"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced Regex.Split with a span-based loop in ExceptionHelper.TrimStackTrace to avoid string[] allocation; added conditional compilation for .NET 6+; added unit tests for behavior parity.",
+      "files_primary": [
+        "src/Adapter/MSTestAdapter.PlatformServices/Execution/ExceptionHelper.cs",
+        "test/UnitTests/MSTestAdapter.PlatformServices.UnitTests/Execution/ExceptionHelperTests.cs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Initial commit: span-based optimization and unit tests.",
+        "Added conditional compilation for .NET 6+ target per review.",
+        "Maintainer fixed diagnostics minor issue.",
+        "After discussion, PR closed due to plans to remove TrimStackTrace in v4."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Evangelink",
+        "channel": "formal_review",
+        "signal": "compatibility_request",
+        "summary": "Requested span usage only for .NET 6+ due to multi-targeting.",
+        "blocking": false,
+        "action_taken": "Copilot added conditional compilation in subsequent commit."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed addition of conditional compilation for net6+ while keeping original for older targets.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Youssef1313",
+        "channel": "pr_comment",
+        "signal": "design_discussion",
+        "summary": "Suggested removing TrimStackTrace entirely in v4, citing StackTraceHiddenAttribute for .NET 6+.",
+        "blocking": true,
+        "action_taken": "PR closed after Evangelink agreed."
+      },
+      {
+        "source": "Youssef1313",
+        "channel": "pr_comment",
+        "signal": "stacktracehidden_alternative",
+        "summary": "Explained that StackTraceHiddenAttribute is already available for hiding stack frames.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Evangelink",
+        "channel": "pr_comment",
+        "signal": "close_pr",
+        "summary": "Agreed to close the PR in favor of removal in v4.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with span-based optimization.",
+      "Evangelink reviewed, commented on multi-targeting.",
+      "Copilot added conditional compilation.",
+      "Youssef1313 suggested removing method in v4; Evangelink agreed.",
+      "PR closed after ~2 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "pr_id": 3240460340,
+  "meta": {
+    "title": "Improve Scheme backend count builtin",
+    "html_url": "https://github.com/mochilang/mochi/pull/9410",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-17 18:07:28+00:00",
+    "merged_at": "2025-07-17 18:07:43+00:00",
+    "closed_at": "2025-07-17 18:07:43+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 25,
+    "topic_name": "25",
+    "body_summary": "Optimize code generation for the count builtin in the Scheme compiler by changing compiler.go and regenerating test outputs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 107,
+      "additions": 134,
+      "deletions": 789,
+      "changes": 923,
+      "top1_file": "tests/machine/x/scheme/avg_builtin.scm",
+      "top1_changes": 222,
+      "top1_change_ratio": 0.2405,
+      "files_by_status": {
+        "modified": 107
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00417,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "compiler_count_builtin_optimization"
+    ],
+    "optimization_layer": "compiler_codegen",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unknown"
+    ],
+    "outcome_reason": "merged_direct_author_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Single-commit compiler optimization merged instantly by author with no review or performance evidence; no benchmark or repro steps provided."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 923,
+        "interpretation": "At 923 changed lines across 107 files, this is a medium-sized change by absolute volume. However, only 7 lines were actually changed in compiler.go; the vast majority are regenerated test outputs, some with large deletions (220 lines each) and others with trivial 1-line updates. This fits a small compiler optimization that was merged instantly without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00417,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Optimizing code generation for the count builtin in the Scheme compiler backend.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unknown",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "25",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "In an author-maintained repository, an agent-produced compiler optimization can be merged instantly without any review or performance evidence, relying solely on the author's trust and the passing of existing tests.",
+      "success_factors": [
+        "author_direct_merge",
+        "small_core_change (7 lines in compiler)",
+        "regenerated_tests_pass"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling data, or reproducible performance improvement steps are provided; only a commit message and a test command.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No review or regression issues were raised.",
+      "evidence_gap": "no_performance_evidence_merged_directly"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified compiler/x/scheme/compiler.go with 7 additions to change the code generation for the count builtin. All other changes are regenerated machine outputs (*.scm files) that reflect this compiler update, along with minor updates to .out files and TASKS.md.",
+      "files_primary": [
+        "compiler/x/scheme/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/scheme/avg_builtin.scm",
+        "tests/machine/x/scheme/count_builtin.scm",
+        "tests/machine/x/scheme/sum_builtin.scm"
+      ],
+      "secondary_note": "106 test files were regenerated, with most having 1-2 line diffs; three files had large deletions of 220 lines each.",
+      "change_trajectory": [
+        "Single commit (2316fe1) modified compiler.go and regenerated all affected Scheme machine test outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and instantly merged by the author with no review or human interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

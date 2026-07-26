@@ -1,0 +1,221 @@
+{
+  "pr_id": 2887787232,
+  "meta": {
+    "title": "[DEVIN: Ryan] Optimize create user query to not use interactive transaction",
+    "html_url": "https://github.com/stack-auth/stack-auth/pull/495",
+    "repo": "stack-auth/stack-auth",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-02-28 18:08:06+00:00",
+    "merged_at": null,
+    "closed_at": "2025-03-13 18:51:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 29,
+    "topic_name": "29",
+    "body_summary": "Refactor user creation in backend CRUD to use direct Prisma client operations instead of interactive transaction, claiming improved efficiency."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 30,
+      "file_count": 176,
+      "additions": 5125,
+      "deletions": 1586,
+      "changes": 292313,
+      "top1_file": "scripts/utils.ts",
+      "top1_changes": 430,
+      "top1_change_ratio": 0.00147,
+      "files_by_status": {
+        "added": 8,
+        "modified": 160,
+        "removed": 2,
+        "renamed": 6
+      },
+      "directory_count": 8,
+      "directories": [
+        ".github",
+        ".vscode",
+        "apps",
+        "docs",
+        "examples",
+        "packages",
+        "scripts",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "review_requested": 1,
+        "commented": 4,
+        "renamed": 1,
+        "deployed": 16,
+        "committed": 8
+      },
+      "lifespan_hours": 312.72,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "transaction_optimization",
+      "prisma_direct_operations",
+      "db_query_overhead"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity_ci_failure",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin refactored user creation to avoid interactive Prisma transaction; CI failure for stack-backend, no maintainer review, closed after 13 days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 292313,
+        "interpretation": "Despite an enormous total line count due to repeated merge commits, the core performance change is a modest ~344-line refactor in a single backend CRUD file. The PR closed without merge, consistent with CI failure and absence of maintainer engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 312.72,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "ci_failure",
+      "concern_detail": "Vercel deployment for stack-backend failed (status: ❌ Failed), suggesting a possible regression; no human reviewer commented on performance or correctness.",
+      "performance_claim": "Avoiding interactive transactions improves efficiency and reduces overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "interactive_transaction_overhead_in_user_creation",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "CI failure on stack-backend deployment, zero human review interaction, auto-closed after 13 days without merge."
+    },
+    "capability_boundary": {
+      "topic": "29",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Backend transaction refactoring with no human reviewer assigned or engaged; despite automated CI and bot alerts, the PR stalled and closed without oversight.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "Vercel deployment for stack-backend failed, potentially exposing a regression, but no maintainer investigated."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics; only a narrative claim of efficiency. No human review to demand evidence.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after CI failure and 13 days of inactivity; no fix-in-PR cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In apps/backend/src/app/api/latest/users/crud.tsx, the onCreate method was refactored to use direct Prisma client operations (e.g., prisma.user.create) instead of retryTransaction; helper functions (checkAuthData, getPasswordConfig, getOtpConfig) were updated to accept PrismaClient or PrismaTransaction for type flexibility.",
+      "files_primary": [
+        "apps/backend/src/app/api/latest/users/crud.tsx"
+      ],
+      "files_secondary_observability": [
+        "scripts/utils.ts",
+        "scripts/generate-sdks.ts",
+        "docs/fern/docs/pages-template/getting-started/setup.mdx",
+        "apps/backend/src/route-handlers/smart-route-handler.tsx",
+        "apps/e2e/tests/backend/endpoints/api/v1/integrations/neon/domain.test.ts",
+        "packages/stack-shared/src/utils/promises.tsx",
+        "packages/stack-shared/src/utils/results.tsx",
+        "packages/stack-shared/src/utils/strings.tsx"
+      ],
+      "secondary_note": "The vast majority of changed files (176) were introduced by merge commits from the dev branch and are unrelated to the performance change; the core perf refactor is confined to crud.tsx (~344 lines).",
+      "change_trajectory": [
+        "Initial commit: refactored user creation to direct Prisma operations, avoiding interactive transaction.",
+        "Second commit: fixed a syntax error by removing unreachable code.",
+        "Multiple merges from dev branch introduced massive incidental changes.",
+        "Vercel backend deployment failed; no human review ever occurred; PR closed after 13 days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduced itself and offered automated comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "recurseml[bot]",
+        "channel": "pr_comment",
+        "signal": "no_issues",
+        "summary": "Recursive ML bot reported no issues found in the code.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_failure",
+        "summary": "Vercel deployment for stack-backend failed; dashboard and demo succeeded.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "CLAassistant",
+        "channel": "pr_comment",
+        "signal": "cla_signed",
+        "summary": "CLA assistant check passed.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with transaction refactor; no human review requested despite bot activity.",
+      "Recursive ML and Vercel bots commented; backend deployment failed.",
+      "Multiple automatic merges from dev branch but zero human interaction.",
+      "PR closed after 13 days without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

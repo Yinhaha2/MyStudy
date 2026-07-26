@@ -1,0 +1,199 @@
+{
+  "pr_id": 3069147854,
+  "meta": {
+    "title": "Add caching for RunPod PDF markdown results in GCS",
+    "html_url": "https://github.com/mendableai/firecrawl/pull/1561",
+    "repo": "mendableai/firecrawl",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-16 14:20:52+00:00",
+    "merged_at": "2025-05-16 15:04:38+00:00",
+    "closed_at": "2025-05-16 15:04:38+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 19,
+    "topic_name": "19",
+    "body_summary": "Add caching for RunPod PDF markdown results in Google Cloud Storage using content hash, reducing redundant API calls and improving response times for repeated PDF conversions."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 272,
+      "deletions": 26,
+      "changes": 298,
+      "top1_file": "apps/api/src/__tests__/snips/pdf-cache.test.ts",
+      "top1_changes": 138,
+      "top1_change_ratio": 0.463,
+      "files_by_status": {
+        "added": 2,
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 3,
+        "review_requested": 2,
+        "commented": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.729,
+      "first_review_delay_hours": 0.722,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "runpod_pdf_cache",
+      "gcs_caching",
+      "content_hashing_cache"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "tests",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin added GCS caching with content hash; nickscamara approved without comment; merged under 44 minutes with no perf evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 298,
+        "interpretation": "At 298 changed lines across 3 files, this is a small edit by absolute volume. It fits a small-step, low-risk performance optimization PR and is consistent with the quick merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.729,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No explicit review feedback; approval was given without comment.",
+      "performance_claim": "Caching RunPod markdown results in GCS reduces latency for repeated PDF conversions by avoiding redundant API calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_uncached_runpod_calls",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "19",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "GCS caching and content hashing within an existing PDF engine require moderate integration effort; merge succeeded with no blocking review feedback.",
+      "success_factors": [
+        "narrow_scope",
+        "automated_tests_added",
+        "maintainer_quick_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "nickscamara reviewed and approved the PR without inline comment; inferred code reading and test coverage evaluation."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Unit tests cover caching logic but no end-to-end latency measurements or benchmark data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions raised; PR merged without issue.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added gcs-pdf-cache.ts module to store/retrieve cached RunPod markdown results in GCS using SHA-256 hash of PDF content as key. Modified PDF engine index.ts to check cache before calling RunPod and store results afterward. Added unit tests covering cache hits, misses, and hash consistency.",
+      "files_primary": [
+        "apps/api/src/lib/gcs-pdf-cache.ts",
+        "apps/api/src/scraper/scrapeURL/engines/pdf/index.ts"
+      ],
+      "files_secondary_observability": [
+        "apps/api/src/__tests__/snips/pdf-cache.test.ts"
+      ],
+      "secondary_note": "Test file adds 138 lines covering cache behavior but does not produce runtime performance metrics.",
+      "change_trajectory": [
+        "Initial commit: Added caching logic and tests.",
+        "Second commit: Updated hashing to use base64 directly and added metadata.",
+        "Third commit: Fixed hashing to directly hash content and adjusted test expectations."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "nickscamara",
+        "channel": "formal_review",
+        "signal": "approved_no_comment",
+        "summary": "Maintainer approved the PR with no review body or inline comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin with caching implementation and tests.",
+      "Maintainer nickscamara reviewed and approved within ~44 minutes without comment.",
+      "PR merged directly after approval."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

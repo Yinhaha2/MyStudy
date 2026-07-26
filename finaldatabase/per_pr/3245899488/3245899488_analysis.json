@@ -1,0 +1,176 @@
+{
+  "pr_id": 3245899488,
+  "meta": {
+    "title": "Improve Lua transpiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/10505",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-20 03:14:22+00:00",
+    "merged_at": "2025-07-20 03:14:45+00:00",
+    "closed_at": "2025-07-20 03:14:45+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 20,
+    "topic_name": "20",
+    "body_summary": "Inline builtin operations in Lua emitter, remove helper tracking flags, update tasks checklist, and refresh Lua golden files."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 10,
+      "additions": 41,
+      "deletions": 160,
+      "changes": 201,
+      "top1_file": "transpiler/x/lua/transpiler.go",
+      "top1_changes": 119,
+      "top1_change_ratio": 0.592,
+      "files_by_status": {
+        "modified": 10
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.006,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "inline_builtin",
+      "remove_helper_tracking_flags",
+      "lua_transpiler_emitter"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "medium",
+    "notes": "Codex inlined builtins and removed flags; merged instantly by author without review, golden tests updated but mixed results remain."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 201,
+        "interpretation": "At 201 changed lines, this is a small-to-medium edit. Most changes are in golden test files, with the core transpiler change of 119 lines. The rapid merge without review suggests low risk and high author confidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.006,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Inline builtin operations and remove helper tracking flags to improve Lua transpiler performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "20",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent successfully modified a transpiler emitter to inline builtins and remove flags, a task within its technical capability. Merge was frictionless.",
+      "success_factors": [
+        "small_scope",
+        "single_commit",
+        "author_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Golden file changes reflect new output but no before/after performance data provided.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Updated Lua golden files to match new transpiler output after inlining builtins and removing helper flags.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In transpiler/x/lua/transpiler.go, inlined builtin operations and removed helper tracking flags, reducing code complexity. Updated multiple test golden files to match new output and adjusted TASKS.md checklist.",
+      "files_primary": [
+        "transpiler/x/lua/transpiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/transpiler/x/lua/append_builtin.lua",
+        "tests/transpiler/x/lua/avg_builtin.lua",
+        "tests/transpiler/x/lua/break_continue.lua",
+        "tests/transpiler/x/lua/len_map.lua",
+        "tests/transpiler/x/lua/map_literal_dynamic.lua",
+        "tests/transpiler/x/lua/membership.lua",
+        "tests/transpiler/x/lua/string_contains.lua",
+        "tests/transpiler/x/lua/sum_builtin.lua",
+        "transpiler/x/lua/TASKS.md"
+      ],
+      "secondary_note": "Golden test file updates align expected output with new emitter behavior; TASKS.md checklist reflects progress.",
+      "change_trajectory": [
+        "Single commit 'update lua transpiler tasks' containing all changes: inlining builtins, removing flags, and refreshing golden tests."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author (tamnd) committed all changes in one shot; PR labeled 'codex' and merged within 23 seconds without any review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

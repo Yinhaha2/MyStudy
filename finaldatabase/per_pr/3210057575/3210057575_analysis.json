@@ -1,0 +1,182 @@
+{
+  "pr_id": 3210057575,
+  "meta": {
+    "title": "Parallelize workflow checks",
+    "html_url": "https://github.com/vectordotdev/vector/pull/23345",
+    "repo": "vectordotdev/vector",
+    "agent": "OpenAI_Codex",
+    "user": "pront",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-07 19:36:54+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-16 13:36:22+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "ci",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Speed up CI feedback by parallelizing steps in test.yml; later closed as experimental by the author."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 1,
+      "additions": 124,
+      "deletions": 74,
+      "changes": 198,
+      "top1_file": ".github/workflows/test.yml",
+      "top1_changes": 198,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 2,
+        "commented": 2,
+        "base_ref_force_pushed": 4,
+        "closed": 1
+      },
+      "lifespan_hours": 209.99,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_parallelization",
+      "workflow_optimization"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "author_closed_experimental_no_clear_split",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Codex-generated CI refactoring closed by author due to poor prompt; no formal review, no benchmark, and no evidence of performance gain."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 198,
+        "interpretation": "At 198 changed lines in a single CI workflow file, this is a small refactor by absolute volume. As a CI speed-up experiment it was closed without merge; author self-evaluated the split as insufficient and chose not to pursue it."
+      },
+      "lifecycle": {
+        "lifespan_hours": 209.99,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "experimental_not_production_ready",
+      "concern_detail": "Author noted the prompt needs to be more elaborate to achieve a proper split into code and non-code checks, and later closed without further work.",
+      "performance_claim": "Parallelization speeds up CI feedback by running checks concurrently.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author self-closed; no external review; deemed experimental with insufficient prompt quality."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Codex-generated CI parallelization works syntactically but lacks domain-specific prompt refinement to achieve a meaningful split between code and non-code checks; author abandoned due to prompt complexity.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No CI run time data or benchmarks; only author's comment about prompt inadequacy.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without further work; no regression testing.",
+      "evidence_gap": "experimental_close_no_bench"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In .github/workflows/test.yml, reorganized job steps into parallel groups, adding 'source checks' steps and adjusting dependencies to reduce CI runtime.",
+      "files_primary": [
+        ".github/workflows/test.yml"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "No secondary files.",
+      "change_trajectory": [
+        "Initial commit: parallelize test workflow by splitting steps.",
+        "Second commit: add steps for source checks.",
+        "Author commented on prompt inadequacy; PR closed after 9 days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "pront",
+        "channel": "pr_comment",
+        "signal": "experimental_caveat",
+        "summary": "Author states the PR was created for fun, prompt needs more elaboration to achieve a proper split between code and non-code checks.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "pront",
+        "channel": "pr_comment",
+        "signal": "author_self_close",
+        "summary": "Not planning to work on this CODEX generated PR.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Author opened CI parallelization PR with Codex.",
+      "Same-day author commented that prompt needed more work for ideal split.",
+      "Second commit added source checks.",
+      "After 9 days with no activity, author closed PR stating no further work planned."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

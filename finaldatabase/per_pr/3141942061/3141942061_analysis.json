@@ -1,0 +1,191 @@
+{
+  "pr_id": 3141942061,
+  "meta": {
+    "title": "Optimize loops by caching length",
+    "html_url": "https://github.com/moonbitlang/core/pull/2262",
+    "repo": "moonbitlang/core",
+    "agent": "OpenAI_Codex",
+    "user": "bobzhang",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-13 01:11:54+00:00",
+    "merged_at": "2025-06-13 01:36:06+00:00",
+    "closed_at": "2025-06-13 01:36:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "4",
+    "body_summary": "Optimize loops in Bytes::to_array, Bytes addition, array reversal, and Deque::to_array by caching length() calls in local variables."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 21,
+      "deletions": 18,
+      "changes": 39,
+      "top1_file": "bytes/bytes.mbt",
+      "top1_changes": 18,
+      "top1_change_ratio": 0.462,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 3,
+      "directories": [
+        "builtin",
+        "bytes",
+        "deque"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.403,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "loop_cache_length"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex cached length() in loops; merged quickly with bot review endorsing the change; no human review or benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 39,
+        "interpretation": "At 39 changed lines across 3 files, this is a tiny edit. It fits a small-step, low-risk performance PR and merged smoothly without friction."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.403,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "bot_performance_recommendation",
+      "concern_detail": "peter-jerry-ye-code-review bot flagged the redundant length() calls and recommended caching (already implemented); also suggested maintainability and correctness improvements.",
+      "performance_claim": "Reduce redundant length() calls in loops to lower function call overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Loop length caching is a straightforward low-level optimization; no complex evidence required; meets typical Codex capability without hurdle.",
+      "success_factors": [
+        "narrow_scope",
+        "small_change",
+        "no_human_review_required",
+        "bot_endorsement"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "Bot review automatically identified the performance pattern and provided commentary; no maintainer manual detection recorded.",
+        "ci_auto": "Coveralls reported coverage after merge but was not used for gatekeeping."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body only lists testing commands (`moon test`) and no numeric performance improvement; no benchmark or profiling data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were reported; coverage dropped slightly but not blocking.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In builtin/array.mbt, bytes/bytes.mbt, deque/deque.mbt, cached the result of length() in a local `len` variable before loops to avoid repeated method calls, reducing call overhead.",
+      "files_primary": [
+        "builtin/array.mbt",
+        "bytes/bytes.mbt",
+        "deque/deque.mbt"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: cached length in array reversal, Bytes::to_array, Bytes addition, and Deque::to_array."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "peter-jerry-ye-code-review[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_performance_recommendation",
+        "summary": "Bot flagged repetitive length() calls as overhead and recommended caching (already implemented). Also noted maintainability and correctness suggestions.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coveralls",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "Coveralls reported 76.92% coverage on changed lines; warning about base commit inaccuracy.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by bobzhang with single commit caching loop lengths.",
+      "Within seconds, peter-jerry-ye-code-review bot posted commentary endorsing the performance change and suggesting additional style improvements.",
+      "After ~24 minutes, maintainer bobzhang merged without further discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "pr_id": 3161649548,
+  "meta": {
+    "title": "feat: add framework-agnostic googleapis caching layer to prevent rate limiting",
+    "html_url": "https://github.com/calcom/cal.com/pull/21933",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-20 01:17:08+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 18:46:17+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Adds a framework-agnostic caching layer for Google Calendar API calls to prevent rate limit exhaustion, with Edge (Next.js) and Redis (Nest.js) cache clients integrated at CalendarAuth level."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 38,
+      "additions": 1695,
+      "deletions": 30,
+      "changes": 1725,
+      "top1_file": "packages/app-store/_utils/googleapis/DEPLOYMENT.md",
+      "top1_changes": 266,
+      "top1_change_ratio": 0.154,
+      "files_by_status": {
+        "added": 18,
+        "modified": 20
+      },
+      "directory_count": 3,
+      "directories": [
+        "apps",
+        "packages",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 27,
+      "event_counts": {
+        "committed": 7,
+        "commented": 4,
+        "deployed": 12,
+        "assigned": 1,
+        "labeled": 1,
+        "referenced": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 281.484,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "api_rate_limit_prevention",
+      "caching",
+      "request_deduplication",
+      "calendar_api_latency"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin added a caching layer for Google APIs; no human reviews, closed after 11+ days due to inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1725,
+        "interpretation": "At 1725 changed lines across 38 files, this is a medium-to-large refactor by absolute volume, adding a new caching subsystem. As a feature-level performance PR with no human review, it was closed without merge due to inactivity, not due to code quality concerns."
+      },
+      "lifecycle": {
+        "lifespan_hours": 281.484,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No human review or CHANGES_REQUESTED; PR was closed by Devin bot due to 7+ days of inactivity.",
+      "performance_claim": "Caching layer prevents Google API rate limiting and reduces API latency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Devin bot auto-closed after ~11 days with no human review or maintainer comment."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Large feature addition (caching layer) with zero human maintainer engagement; Agent could build the feature but couldn't progress due to lack of review, leading to stale closure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review in dataset."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR provides extensive documentation and test instructions but no quantitative performance benchmarks or before/after metrics.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after ~11 days of inactivity; no fix cycle occurred.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added GoogleApiCache, CacheClient abstraction with Edge and Redis implementations, CachedCalendarClient wrapper, and integration at CalendarAuth level; targeted read operations for caching; included extensive documentation.",
+      "files_primary": [
+        "packages/app-store/_utils/googleapis/GoogleApiCache.ts",
+        "packages/app-store/_utils/googleapis/CacheClient.ts",
+        "packages/app-store/_utils/googleapis/CachedCalendarClient.ts",
+        "packages/app-store/_utils/googleapis/cachedFetch.ts",
+        "packages/app-store/_utils/googleapis/GoogleApiCacheFactory.ts",
+        "apps/api/v2/src/modules/googleapis-cache/googleapis-cache.service.ts",
+        "apps/api/v2/src/modules/googleapis-cache/googleapis-cache.module.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/app-store/_utils/googleapis/ARCHITECTURE.md",
+        "packages/app-store/_utils/googleapis/DEPLOYMENT.md",
+        "packages/app-store/_utils/googleapis/TESTING.md",
+        "packages/app-store/_utils/googleapis/INTEGRATION.md",
+        "packages/app-store/_utils/googleapis/README.md",
+        "apps/api/v2/src/ee/bookings/2024-08-13/controllers/e2e/*.e2e-spec.ts",
+        "apps/api/v2/test/mocks/mock-googleapis-cache-service.ts"
+      ],
+      "secondary_note": "Extensive documentation and E2E test updates accompany the new caching layer.",
+      "change_trajectory": [
+        "Initial commit (2c90561): implemented caching layer with core classes and integration points, added documentation.",
+        "Subsequent commits: fixed TypeScript errors, moved NestJS integration to proper module, added mock for E2E tests, fixed import issues.",
+        "No review feedback received; Devin bot auto-closed after 11+ days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment status updates (unrelated to perf validation).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results_ready",
+        "summary": "E2E test results available but not blocking.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with full caching layer implementation.",
+      "No human reviewer engaged; only automated bots commented.",
+      "Devin bot auto-closed after 7+ days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

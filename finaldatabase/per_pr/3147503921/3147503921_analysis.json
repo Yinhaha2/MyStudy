@@ -1,0 +1,248 @@
+{
+  "pr_id": 3147503921,
+  "meta": {
+    "title": "docs: Upgrade Docusaurus from 3.7.0 to 3.8.1",
+    "html_url": "https://github.com/remotion-dev/remotion/pull/5375",
+    "repo": "remotion-dev/remotion",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-15 13:00:43+00:00",
+    "merged_at": "2025-06-16 08:06:10+00:00",
+    "closed_at": "2025-06-16 08:06:10+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "docs",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "7",
+    "body_summary": "Upgrade Docusaurus from 3.7.0 to 3.8.1 with required future flag and resolve useColorMode hydration error by refactoring custom components to CSS-based theme switching."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 12,
+      "file_count": 19,
+      "additions": 3548,
+      "deletions": 3818,
+      "changes": 7543,
+      "top1_file": "pnpm-lock.yaml",
+      "top1_changes": 6755,
+      "top1_change_ratio": 0.895,
+      "files_by_status": {
+        "modified": 16,
+        "added": 3,
+        "removed": 0
+      },
+      "directory_count": 3,
+      "directories": [
+        "(root)",
+        ".github",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 7,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "commented": 5,
+        "deployed": 6,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "mentioned": 3,
+        "subscribed": 3
+      },
+      "lifespan_hours": 19.1,
+      "first_review_delay_hours": 4.94,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "dependency_upgrade",
+      "docs_build_performance",
+      "build_tool_upgrade"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "scope",
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "manual_runtime_testing"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Dependency upgrade merged after review to discard unnecessary changes and fix useColorMode hydration with CSS approach per Docusaurus docs."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 7543,
+        "interpretation": "At 7543 changed lines across 19 files, the change is large by absolute volume, but primarily driven by pnpm-lock.yaml updates (90% of changes). The actual functional modifications are small (config flag and component refactoring). The merge outcome is consistent with a low-risk dependency upgrade that required iterative collaboration to resolve a framework-specific hydration issue."
+      },
+      "lifecycle": {
+        "lifespan_hours": 19.1,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "hydration_error_and_design",
+      "concern_detail": "Maintainer JonnyBurger reported ReactContextError in useColorMode after upgrade, then directed Copilot to discard an initial try-catch workaround and refactor to use CSS-based theme switching following Docusaurus best practices.",
+      "performance_claim": "Upgrading Docusaurus from 3.7.0 to 3.8.1 improves performance and provides access to latest features and bug fixes.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "scope"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent initially applied a naive try-catch safety check for useColorMode hydration error, then required maintainer-provided Docusaurus documentation to implement the correct CSS-based theme switching pattern. This illustrates a capability gap in framework-specific rendering best practices.",
+      "success_factors": [
+        "maintainer_provided_specific_guidance",
+        "agent_able_to_implement_css_refactor_after_instruction"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_runtime_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "JonnyBurger reviewed the initial try-catch commit, identified it as a hack, and provided the correct Docusaurus documentation on avoiding useColorMode in render.",
+        "manual_runtime_testing": "JonnyBurger manually tested the upgraded site, discovered the ReactContextError, and later verified the CSS fix worked before approving."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes steps to start a dev server and verify features, but no benchmark data supports the general performance claim of the upgrade.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After CHANGES_REQUESTED to clean up and a later comment requesting correct useColorMode refactor, Copilot reverted unnecessary files and implemented CSS-based theme switching; approved and merged.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Upgraded all Docusaurus packages in packages/docs/package.json and added the required future.v4.removeLegacyPostBuildHeadAttribute flag to docusaurus.config.js. After encountering a useColorMode hydration error, Copilot refactored custom components (VideoPlayerHeader, index.tsx, MultiColumn) to use CSS-based theme switching instead of useColorMode() in render. All unrelated changes were discarded per maintainer request.",
+      "files_primary": [
+        "packages/docs/docusaurus.config.js",
+        "packages/docs/package.json",
+        "packages/docs/src/components/VideoPlayerHeader.tsx",
+        "packages/docs/src/pages/index.tsx",
+        "packages/docs/src/theme/Footer/Links/MultiColumn/index.tsx",
+        "packages/docs/src/css/custom.css"
+      ],
+      "files_secondary_observability": [
+        "pnpm-lock.yaml"
+      ],
+      "secondary_note": "pnpm-lock.yaml accounts for the vast majority of line changes (6755 lines) due to dependency resolution; the functional changes are minimal.",
+      "change_trajectory": [
+        "Initial upgrade commit bumped Docusaurus versions and added future flag.",
+        "Maintainer reported ReactContextError in useColorMode.",
+        "Copilot attempted a try-catch safety-check workaround (commit b487c33).",
+        "Maintainer rejected the workaround and provided Docusaurus documentation advocating CSS-based theme switching.",
+        "Copilot refactored to CSS approach (commit 0aff241).",
+        "Maintainer requested discarding of non-essential changes to custom.css, index.tsx, and MultiColumn.",
+        "Copilot reverted those files (commit 726622a) and maintainer further cleaned up.",
+        "After final approval, PR merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "JonnyBurger",
+        "channel": "formal_review",
+        "signal": "changes_requested_scope_cleanup",
+        "summary": "Requested to discard unnecessary changes to custom.css, index.tsx, and MultiColumn after the CSS fix worked.",
+        "blocking": true,
+        "action_taken": "Copilot reverted those files in commit 726622a."
+      },
+      {
+        "source": "JonnyBurger",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved after changes discarded.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "JonnyBurger",
+        "channel": "pr_comment",
+        "signal": "bug_report",
+        "summary": "Reported ReactContextError in useColorMode after upgrade and asked Copilot to fix usage.",
+        "blocking": false,
+        "action_taken": "Led to initial try-catch and later correct CSS fix."
+      },
+      {
+        "source": "JonnyBurger",
+        "channel": "pr_comment",
+        "signal": "design_guidance",
+        "summary": "Provided Docusaurus documentation explaining why useColorMode in render is unsafe and instructed to refactor to CSS selectors.",
+        "blocking": false,
+        "action_taken": "Copilot refactored to CSS approach in commit 0aff241."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed implementation of CSS-based fix and later reverted excess changes as requested.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with Docusaurus upgrade and minimal config changes.",
+      "JonnyBurger reported a useColorMode RuntimeError about 24 minutes later.",
+      "Copilot deployed a try-catch workaround; JonnyBurger rejected it 3 hours later with Docusaurus documentation.",
+      "Copilot refactored to CSS-based theme switching; JonnyBurger then requested discarding of unrelated component edits.",
+      "Copilot reverted those files, and after final approval the PR was merged within 19 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

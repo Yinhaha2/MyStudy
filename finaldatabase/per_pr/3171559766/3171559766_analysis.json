@@ -1,0 +1,211 @@
+{
+  "pr_id": 3171559766,
+  "meta": {
+    "title": "Create PR to deactivate thinking field",
+    "html_url": "https://github.com/browser-use/browser-use/pull/2085",
+    "repo": "browser-use/browser-use",
+    "agent": "Cursor",
+    "user": "mertunsall",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-24 11:08:50+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-24 12:02:25+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "16",
+    "body_summary": "Add an optional disable_thinking parameter to the Agent to omit reasoning output, aiming to reduce token usage, speed up responses, and improve model compatibility."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 190,
+      "deletions": 47,
+      "changes": 237,
+      "top1_file": "browser_use/agent/message_manager/service.py",
+      "top1_changes": 89,
+      "top1_change_ratio": 0.376,
+      "files_by_status": {
+        "modified": 4,
+        "added": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "browser_use"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "reviewed": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 0.893,
+      "first_review_delay_hours": 0.034,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "token_usage_reduction",
+      "response_latency",
+      "thinking_toggle",
+      "model_compatibility"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_author_withdrew_unintended_changes",
+    "review_dimensions": [
+      "correctness",
+      "scope"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Cursor added disable_thinking feature but accidentally changed XML tag and max_actions_per_step; PR closed without human review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 237,
+        "interpretation": "At 237 changed lines, this is a small-to-medium edit by absolute volume. It is a feature PR that was closed due to unintended bugs, consistent with a withdrawal."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.893,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "scope_or_side_effects",
+      "primary_concern": "unintended_changes",
+      "concern_detail": "cursor[bot] flagged that the XML tag for agent_history_description was changed from <system> to <s>, potentially breaking parsing, and that max_actions_per_step was changed from 10 to 1, and include_attributes list was modified. These changes are unrelated to the disable_thinking feature.",
+      "performance_claim": "Reduced token usage, faster responses, and better model compatibility by optionally disabling the thinking field.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed PR after bot flagged unintended side effects and CLA unsigned."
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent added a feature but also inadvertently changed unrelated code (tag, default max_actions_per_step, include_attributes), indicating difficulty in isolating changes.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "cursor[bot] static analysis flagged unintended tag change, max_actions_per_step reduction, and include_attributes modification."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling evidence; narrative claim of token reduction.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by author after bot flagged unintended changes; no follow-up fix.",
+      "evidence_gap": "no_perf_evidence_no_human_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added disable_thinking parameter to Agent, updated prompts, models, and logging to optionally omit thinking field, aiming to reduce token usage and improve speed.",
+      "files_primary": [
+        "browser_use/agent/service.py",
+        "browser_use/agent/prompts.py",
+        "browser_use/agent/views.py",
+        "browser_use/agent/message_manager/service.py"
+      ],
+      "files_secondary_observability": [
+        "disable_thinking_feature_summary.md"
+      ],
+      "secondary_note": "A documentation file summarizing the feature.",
+      "change_trajectory": [
+        "Single commit introducing disable_thinking parameter and conditional logic across 4 core files plus documentation."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_report_unintended_changes",
+        "summary": "Flagged that XML tag changed from <system> to <s>, max_actions_per_step reduced from 10 to 1, and include_attributes modified, all unrelated to the feature.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "formal_review",
+        "signal": "no_issues_found",
+        "summary": "Reviewed 5 files and found no issues.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "CLAassistant",
+        "channel": "pr_comment",
+        "signal": "cla_not_signed",
+        "summary": "Contributor License Agreement not signed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "delve-auditor[bot]",
+        "channel": "pr_comment",
+        "signal": "security_scan_pass",
+        "summary": "No security or compliance issues detected.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created with single commit adding disable_thinking feature.",
+      "cursor[bot] review flagged unintended changes within 2 minutes.",
+      "cubic-dev-ai[bot] found no issues.",
+      "Author closed PR without responding or fixing bugs after ~53 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "pr_id": 3215375260,
+  "meta": {
+    "title": "Fix bugs and consult AGENTS.md",
+    "html_url": "https://github.com/moonbitlang/core/pull/2422",
+    "repo": "moonbitlang/core",
+    "agent": "Cursor",
+    "user": "bobzhang",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-09 10:15:40+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-21 09:25:27+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 9,
+    "topic_name": "9",
+    "body_summary": "Fix Unicode surrogate pair handling and optimize string view creation for robustness and performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 142,
+      "deletions": 27,
+      "changes": 169,
+      "top1_file": "bug_fixes_summary.md",
+      "top1_changes": 69,
+      "top1_change_ratio": 0.408,
+      "files_by_status": {
+        "added": 2,
+        "modified": 4
+      },
+      "directory_count": 3,
+      "directories": [
+        "",
+        "json",
+        "string"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "reviewed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 287.2,
+      "first_review_delay_hours": 0.06,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "unicode_surrogate_handling",
+      "string_view_performance",
+      "json_parsing_crash_fix"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_object_creation"
+    ],
+    "outcome_reason": "improper_test_committed_closed",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor committed a debug test file; cursor bot flagged it, no human follow-up, PR closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 169,
+        "interpretation": "At 169 changed lines across 6 files, this is a small edit by absolute volume. It fits a small-step performance fix that would typically merge quickly, but was closed due to an accidental debug test commit and lack of human engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 287.2,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "debug_code_committed",
+      "concern_detail": "cursor bot detected that debug_test.mbt, a temporary debugging test with placeholder assertion, was accidentally committed.",
+      "performance_claim": "Improved Unicode handling robustness and performance by removing unnecessary intermediate objects in string view creation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_object_creation",
+      "antipattern_in_fix": "debug_code_artifact",
+      "human_review_dimensions": [],
+      "rejection_signals": "cursor bot flagged accidental debug test; PR closed by author after 12 days without follow-up."
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "The agent left a temporary debug file in the committed changes, indicating a process boundary around test hygiene and cleanup before PR submission.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "cursor bot reviewed the commit and identified the presence of debug_test.mbt with placeholder assertion."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data for the performance claim; only narrative in the PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No human review; the author closed the PR without addressing the bot's comment.",
+      "evidence_gap": "narrative_only_no_benchmark_and_debug_code_committed"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Fixed Unicode surrogate pair handling in json/utils.mbt and string/string.mbt; optimized string view creation by removing unnecessary intermediate objects; added bug_fixes_summary.md; accidentally committed debug_test.mbt.",
+      "files_primary": [
+        "json/utils.mbt",
+        "string/string.mbt",
+        "string/view.mbt"
+      ],
+      "files_secondary_observability": [
+        "bug_fixes_summary.md",
+        "debug_test.mbt",
+        "json/parse_test.mbt"
+      ],
+      "secondary_note": "bug_fixes_summary.md is a post-hoc narrative document; debug_test.mbt is an accidental commit of a placeholder test.",
+      "change_trajectory": [
+        "Single commit by cursoragent: applied Unicode fixes and string view performance improvements, included a summary document and an unintended debug test."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "debug_test_committed",
+        "summary": "Detected accidentally committed debug_test.mbt with placeholder 'emoji debug' test assertion.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent opened PR with a single commit containing bug fixes and an accidental debug test.",
+      "cursor bot reviewed and flagged the debug test within 4 minutes.",
+      "No human interaction occurred; the PR was closed by the author after 12 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

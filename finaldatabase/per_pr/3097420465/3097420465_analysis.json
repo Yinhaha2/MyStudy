@@ -1,0 +1,186 @@
+{
+  "pr_id": 3097420465,
+  "meta": {
+    "title": "feat: add ESLint rule to prevent AppRouter source imports",
+    "html_url": "https://github.com/calcom/cal.com/pull/21584",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-28 13:32:38+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-28 14:19:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "12",
+    "body_summary": "Add custom ESLint rule to flag and auto-fix imports of AppRouter from source to use generated types path for better performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 3,
+      "additions": 66,
+      "deletions": 14,
+      "changes": 80,
+      "top1_file": "packages/eslint-plugin/src/rules/avoid-app-router-source-import.ts",
+      "top1_changes": 78,
+      "top1_change_ratio": 0.975,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "packages/eslint-plugin/src/configs",
+        "packages/eslint-plugin/src/rules"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 2,
+        "commented": 2,
+        "assigned": 1,
+        "closed": 1,
+        "deployed": 1
+      },
+      "lifespan_hours": 0.784,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "eslint_rule_optimization",
+      "import_path_enforcement"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_maintainer_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added an ESLint rule for perf-oriented import enforcement; maintainer closed PR without review or comment after 47 minutes."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 80,
+        "interpretation": "At 80 lines across 3 files, this is a very small change by absolute volume. It was closed without merge, likely due to maintainer disagreement or lack of interest rather than change size."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.784,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No human review or comment from the maintainer; PR was closed silently 47 minutes after creation.",
+      "performance_claim": "Using generated types import improves performance over importing from source.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by maintainer eunjae-lee without explanation or review discussion."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Even a small, well-scoped dev tooling PR was closed without review, indicating maintainer rejection or disengagement rather than technical inability.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after metrics or profiling data; only a narrative claim of performance improvement.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without any follow-up fixes or discussion.",
+      "evidence_gap": "narrative_only_no_metrics_and_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a new ESLint rule `avoid-app-router-source-import` that flags and auto-fixes imports of AppRouter from `@calcom/trpc/server/routers/_app` to use `@calcom/trpc/types/server/routers/_app`. Registered in rules index and enabled at error level in recommended config.",
+      "files_primary": [
+        "packages/eslint-plugin/src/rules/avoid-app-router-source-import.ts",
+        "packages/eslint-plugin/src/rules/index.ts",
+        "packages/eslint-plugin/src/configs/recommended.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit (`8a66b02`): added rule implementation (44 lines) and registrations.",
+        "Follow-up commit (`35c37db`): updated rule implementation (20 additions, 14 deletions)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot announced automatic comment/CI monitoring for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata (skipped deployment).",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin with two commits within 11 minutes.",
+      "Assigned to maintainer eunjae-lee, but no review or comment followed.",
+      "PR closed by eunjae-lee 47 minutes after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

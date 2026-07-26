@@ -1,0 +1,209 @@
+{
+  "pr_id": 3267314311,
+  "meta": {
+    "title": "Fix inference OOM by streaming dataset",
+    "html_url": "https://github.com/marin-community/marin/pull/1489",
+    "repo": "marin-community/marin",
+    "agent": "OpenAI_Codex",
+    "user": "dlwh",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-27 18:17:29+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 4,
+    "topic_name": "4",
+    "body_summary": "Avoid OOM during inference by streaming input datasets in batches and writing results incrementally instead of loading entire datasets into memory."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 4,
+      "additions": 155,
+      "deletions": 15,
+      "changes": 170,
+      "top1_file": "marin/processing/classification/inference.py",
+      "top1_changes": 77,
+      "top1_change_ratio": 0.453,
+      "files_by_status": {
+        "added": 2,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "marin",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "APPROVED": 1,
+        "COMMENTED": 1
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 4,
+        "labeled": 1,
+        "reviewed": 1
+      },
+      "lifespan_hours": 2598.71,
+      "first_review_delay_hours": 5.94,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_optimization",
+      "streaming_dataset",
+      "oom_fix"
+    ],
+    "optimization_layer": "application_data_processing",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "full_dataset_load_into_memory"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [
+      "feature_completeness",
+      "tests",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex streamed dataset to avoid OOM; BabyChouSr approved but asked for parquet support; partial fix added parquet input but not output; tests missing; auto-closed after inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 170,
+        "interpretation": "At 170 changed lines across 4 files, this is a small-to-medium edit by absolute volume, mostly concentrated in inference.py (77 lines). It fits a targeted performance fix that was closed due to incomplete parquet support and subsequent inactivity."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2598.71,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "feature_completeness_and_tests",
+      "primary_concern": "missing_parquet_output_support",
+      "concern_detail": "Reviewer noted that the streaming approach only handles JSON files; parquet output requires a different write path. Also, tests are needed for this codepath.",
+      "performance_claim": "Streaming inference dataset avoids OOM by not loading entire dataset into memory.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "full_dataset_load_into_memory (prior behavior)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "feature_completeness",
+        "tests"
+      ],
+      "rejection_signals": "Ambiguous: approved with condition but incomplete; bot closed due to inactivity after 3 months."
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Streaming implementation for JSON files worked, but lack of parquet output support and missing tests prevented merge; Agent failed to cover all file formats required by the codebase.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "BabyChouSr reviewed the diff and noted that iter_dataset_batches handling for parquet should use fsspec.open, and that output writing only works for JSON files; dlwh commented on missing tests."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No OOM benchmark or profiling; only narrative claims.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed by bot after 3 months of inactivity following partial fix and review comments.",
+      "evidence_gap": "narrative_only_no_benchmark_or_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactored process_file_with_quality_classifier to stream data in batches from iter_dataset_batches, writing results incrementally with fsspec.open for JSON formats; added parquet input handling (reading) but output remains JSON-only.",
+      "files_primary": [
+        "marin/processing/classification/inference.py"
+      ],
+      "files_secondary_observability": [
+        "tests/processing/classification/test_inference.py",
+        "marin/execution/executor.py",
+        "tests/test_classification_inference_empty_glob.py"
+      ],
+      "secondary_note": "Test files were added but not fully fleshed out; executor.py changes were from merge.",
+      "change_trajectory": [
+        "Initial commit: replaced read_dataset and write_dataset with streaming iter_dataset_batches and line-by-line writes for JSON files.",
+        "parquet file fix: added parquet reading support in iter_dataset_batches via fsspec.open, and added compression detection for output.",
+        "wip tests: added a test file tests/processing/classification/test_inference.py with initial pytest test.",
+        "Merge main: resolved merge conflicts bringing in unrelated changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "BabyChouSr",
+        "channel": "inline_review_comment",
+        "signal": "code_style_suggestion",
+        "summary": "Suggested using fsspec.open for consistency in parquet reading.",
+        "blocking": false,
+        "action_taken": "Addressed in 'parquet file fix' commit."
+      },
+      {
+        "source": "BabyChouSr",
+        "channel": "inline_review_comment",
+        "signal": "missing_format_support",
+        "summary": "Output writing only supports JSON files; parquet output requires a fallback to write_dataset.",
+        "blocking": false,
+        "action_taken": "Not addressed before PR closure."
+      },
+      {
+        "source": "dlwh",
+        "channel": "inline_review_comment",
+        "signal": "tests_missing",
+        "summary": "Requested tests for the streaming codepath.",
+        "blocking": false,
+        "action_taken": "WIP tests commit added, but not completed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by dlwh with initial streaming implementation.",
+      "Same day maintainer BabyChouSr reviewed, suggested fsspec.open usage, and noted missing parquet output support; approved with the condition.",
+      "nikil-ravi added parquet reading support and a WIP test within hours.",
+      "Reviewer dlwh commented that tests are needed for the new codepath.",
+      "No further activity; bot closed after 3 months of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

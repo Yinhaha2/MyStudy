@@ -1,0 +1,164 @@
+{
+  "pr_id": 3123330256,
+  "meta": {
+    "title": "[alpha_factory] disable grad in MiniMu",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/1651",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-06 01:37:24+00:00",
+    "merged_at": "2025-06-06 01:37:33+00:00",
+    "closed_at": "2025-06-06 01:37:33+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 8,
+    "topic_id": 13,
+    "topic_name": "13",
+    "body_summary": "Disable gradient tracking during inference in MiniMu (minimuzero.py) and add type hints for policy and reset methods."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 50,
+      "deletions": 44,
+      "changes": 94,
+      "top1_file": "alpha_factory_v1/demos/muzero_planning/minimuzero.py",
+      "top1_changes": 94,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "alpha_factory_v1"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.0025,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "gradient_tracking_disable",
+      "inference_performance",
+      "memory_reduction"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_gradient_tracking"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex disabled gradient tracking in MiniMu inference; merged in seconds with no review, no benchmark, and many test failures but small scope."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 94,
+        "interpretation": "At 94 changed lines, this is a small edit by absolute volume, concentrated in a single file. It fits a small-step, fast-turnaround performance PR and is consistent with the instant, low-friction merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0025,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comment text available in the dataset.",
+      "performance_claim": "Disable gradient tracking during inference to improve performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_gradient_tracking",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "13",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple torch.no_grad() wrap in a single file; no review friction; Agent successfully made a small-scope performance improvement.",
+      "success_factors": [
+        "small_scope",
+        "self_merge",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after metrics; PR body includes test commands but many failures and no performance data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR merged immediately with no reported regressions.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In alpha_factory_v1/demos/muzero_planning/minimuzero.py, wrapped model inference calls with torch.no_grad() to disable gradient computation, and added type hints for policy and reset methods.",
+      "files_primary": [
+        "alpha_factory_v1/demos/muzero_planning/minimuzero.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit adds torch.no_grad() blocks and type hints; self-merged immediately."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created and merged by MontrealAI within 9 seconds; no external review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

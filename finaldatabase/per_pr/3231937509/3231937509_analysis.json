@@ -1,0 +1,170 @@
+{
+  "pr_id": 3231937509,
+  "meta": {
+    "title": "Fix flaky Java scan tests by reducing dataset size and increasing timeout",
+    "html_url": "https://github.com/valkey-io/valkey-glide/pull/4385",
+    "repo": "valkey-io/valkey-glide",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-15 11:42:30+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-15 13:46:45+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "40",
+    "body_summary": "Reduce dataset size from 1000 to 100 entries and increase timeout from 20s to 30s in Java scan integration tests to mitigate flaky timeout failures."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 32,
+      "deletions": 19,
+      "changes": 51,
+      "top1_file": "java/integTest/src/test/java/glide/SharedCommandTests.java",
+      "top1_changes": 29,
+      "top1_change_ratio": 0.569,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "java"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "deployed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 2.07,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_dataset_reduction",
+      "test_timeout_increase",
+      "flaky_test_mitigation"
+    ],
+    "optimization_layer": "test_configuration",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "unknown",
+    "confidence": "low",
+    "notes": "Copilot test parameter adjustment; closed by maintainer with no review text or comment, making closure reason unclear."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 51,
+        "interpretation": "At 51 changed lines, this is a tiny edit by absolute volume. It fits a quick test stability tuning PR, but was closed without merge despite its small, low-risk nature."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.07,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown_closure_reason",
+      "concern_detail": "No formal review, no comment from maintainer; PR closed by avifenesh with no explanation.",
+      "performance_claim": "90% dataset reduction and 50% timeout increase improve test reliability and performance by reducing computation time, memory usage, and network traffic.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closure by avifenesh without any review feedback; no explicit rejection reason provided."
+    },
+    "capability_boundary": {
+      "topic": "40",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Simple parameter tuning is within Copilot's capability, but lack of maintainer engagement led to closure; the boundary is process-related rather than technical.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No review text or performance evidence provided; PR body narrative only.",
+      "regression_handling": "unknown",
+      "regression_detail": "PR closed without explanation; no fix-in-PR iteration or regression discussion.",
+      "evidence_gap": "no_review_text_no_closure_reason"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In Java scan integration tests, reduced dataset sizes from 1000 to 100 entries (hscan, sscan, zscan and their binary variants) and increased test timeouts from 20s to 30s. Also adjusted the Gradle build timeout in build.gradle.",
+      "files_primary": [
+        "java/integTest/src/test/java/glide/SharedCommandTests.java",
+        "java/client/build.gradle"
+      ],
+      "files_secondary_observability": [
+        "java/integTest/src/test/java/glide/SharedClientTests.java"
+      ],
+      "secondary_note": "SharedClientTests had a minor timeout annotation addition.",
+      "change_trajectory": [
+        "Initial plan commit (f84a2d1).",
+        "Initial analysis and setup commit (5267a46): adjusted build.gradle and added timeout annotations in test files.",
+        "Final fix commit (9b5dd8a): applied dataset reduction and timeout increase across all relevant scan tests."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue; review requested but no formal review provided.",
+      "Maintainer avifenesh closed PR after ~2 hours without comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

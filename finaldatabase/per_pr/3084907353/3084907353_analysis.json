@@ -1,0 +1,248 @@
+{
+  "pr_id": 3084907353,
+  "meta": {
+    "title": "[SymbolReader] Make symbol server timeout configurable and remove dead server mechanism",
+    "html_url": "https://github.com/microsoft/perfview/pull/2209",
+    "repo": "microsoft/perfview",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-23 01:35:35+00:00",
+    "merged_at": "2025-05-27 15:36:01+00:00",
+    "closed_at": "2025-05-27 15:36:02+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "7",
+    "body_summary": "Add configurable symbol server timeout (TimeSpan) and remove dead server blocking to improve symbol resolution in slow network environments."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 1,
+      "additions": 13,
+      "deletions": 32,
+      "changes": 45,
+      "top1_file": "src/TraceEvent/Symbols/SymbolReader.cs",
+      "top1_changes": 45,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 4,
+      "review_states": {
+        "COMMENTED": 2,
+        "APPROVED": 2
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 24,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 5,
+        "copilot_work_finished": 2,
+        "reviewed": 3,
+        "commented": 2,
+        "ready_for_review": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 110.02,
+      "first_review_delay_hours": 0.573,
+      "review_rounds": 4,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "configurable_timeout",
+      "remove_dead_server_block",
+      "network_retry_resilience"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "flawed_retry_policy"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "api_design",
+      "correctness",
+      "scope"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot added configurable timeout and removed dead server blocking; brianrob requested API type change to TimeSpan which was fixed before merge; merged with praise."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 45,
+        "interpretation": "At 45 changed lines, this is a very small edit by absolute volume. It fits a small, fast‑turnaround performance PR and is consistent with the successful, low‑friction merge after a minor API design feedback."
+      },
+      "lifecycle": {
+        "lifespan_hours": 110.02,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "api_surface_type",
+      "concern_detail": "brianrob requested changing `ServerTimeoutSeconds` (int) to `ServerTimeout` (TimeSpan) for better semantics and .NET consistency.",
+      "performance_claim": "Configurable timeout prevents long waits and dead server removal improves symbol resolution on subsequent attempts, enhancing PerfView behavior on slow networks.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "flawed_retry_policy",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "api_design",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Small, self‑contained public API addition in a .NET library; Agent successfully understood and implemented the change with one round of API surface feedback.",
+      "success_factors": [
+        "narrow_scope",
+        "clear_review_feedback",
+        "fast_fix_adoption",
+        "maintainer_post_mortem_praise"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "brianrob reviewed the inline diff and requested a change from `int ServerTimeoutSeconds` to `TimeSpan ServerTimeout`."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No before/after timing data; performance claim relies on allowing network timeout configuration and removing dead‑server blocking.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After review, Copilot immediately updated property type in commit c7f656e.",
+      "evidence_gap": "narrative_only_for_timeout_and_dead_removal"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added configurable `ServerTimeout` property (TimeSpan) to SymbolReader, removed the dead server list and 5‑minute blocking mechanism, and updated log messages. All changes in SymbolReader.cs.",
+      "files_primary": [
+        "src/TraceEvent/Symbols/SymbolReader.cs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial plan commit",
+        "Make symbol server timeout configurable with `int ServerTimeoutSeconds` and remove dead server",
+        "After review, changed property to `TimeSpan ServerTimeout` and updated usages"
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "brianrob",
+        "channel": "inline_review_comment",
+        "signal": "api_surface_type_change",
+        "summary": "Requested changing `ServerTimeoutSeconds` (int) to `ServerTimeout` (TimeSpan) to improve API clarity.",
+        "blocking": false,
+        "action_taken": "Copilot changed property and updated all usages in commit c7f656e."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "acknowledgment",
+        "summary": "Confirmed the change was made and noted commit c7f656e.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "brianrob",
+        "channel": "formal_review",
+        "signal": "commented_no_body",
+        "summary": "Formal review state COMMENTED with no body text; substantive feedback delivered via inline comment.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-swe-agent[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_no_body",
+        "summary": "Formal review from bot with empty body.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "brianrob",
+        "channel": "pr_comment",
+        "signal": "post_mortem_positive",
+        "summary": "Maintainer stated the request was clean and Copilot made the change quickly.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "mconnew",
+        "channel": "formal_review",
+        "signal": "approved_shipit",
+        "summary": "Approved with shipit emoji.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "leculver",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Second approval.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial implementation using `int ServerTimeoutSeconds` and dead server removal.",
+      "Maintainer brianrob reviewed and requested changing to `TimeSpan ServerTimeout` via inline comment.",
+      "Copilot acknowledged and applied the change in commit c7f656e.",
+      "Maintainer praised the fix, marked PR ready for review, and requested additional reviewers.",
+      "Two maintainers (mconnew, leculver) approved; PR merged after ~4.6 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

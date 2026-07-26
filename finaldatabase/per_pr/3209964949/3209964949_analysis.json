@@ -1,0 +1,247 @@
+{
+  "pr_id": 3209964949,
+  "meta": {
+    "title": "ENG-889",
+    "html_url": "https://github.com/ethyca/fides/pull/6310",
+    "repo": "ethyca/fides",
+    "agent": "Cursor",
+    "user": "adamsachs",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-07 18:54:40+00:00",
+    "merged_at": "2025-07-08 14:24:20+00:00",
+    "closed_at": "2025-07-08 14:24:20+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "2",
+    "body_summary": "Offload dataset serialization to a FastAPI threadpool to avoid blocking the async event loop, and update the admin UI to use `minimal=true` query to avoid fetching full dataset contents, reducing latency for large datasets."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 11,
+      "file_count": 25,
+      "additions": 721,
+      "deletions": 105,
+      "changes": 826,
+      "top1_file": "tests/api/task/test_manual_task_integration.py",
+      "top1_changes": 196,
+      "top1_change_ratio": 0.237,
+      "files_by_status": {
+        "added": 2,
+        "modified": 23
+      },
+      "directory_count": 4,
+      "directories": [
+        "(root)",
+        "clients",
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 26,
+      "event_counts": {
+        "committed": 11,
+        "commented": 4,
+        "deployed": 5,
+        "ready_for_review": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 19.5,
+      "first_review_delay_hours": 19.13,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "async_offload_threadpool",
+      "serialization_non_blocking",
+      "api_query_minimization",
+      "ui_performance"
+    ],
+    "optimization_layer": "application_control_flow_and_frontend_ui",
+    "evidence_type": [
+      "narrative",
+      "manual_test"
+    ],
+    "inefficiency_antipattern": [
+      "blocking_async_serialization"
+    ],
+    "outcome_reason": "merged_with_manual_testing_and_cypress_passing",
+    "review_dimensions": [
+      "testing",
+      "scope",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "manual_test"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Cursor offloaded dataset serialization to threadpool and frontend to use minimal=true; maintainer approved and added cypress tests, no quantitative perf evidence required."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 826,
+        "interpretation": "At 826 changed lines across 25 files, this is a medium-sized edit by absolute volume, though much of it is test fixtures and merge from main. It fits a moderate incremental performance PR that merged with manual testing and cypress validation."
+      },
+      "lifecycle": {
+        "lifespan_hours": 19.5,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "test_and_scope",
+      "primary_concern": "scope_minimal_endpoint_coverage",
+      "concern_detail": "Maintainer adamsachs noted that the system information form still uses the non-minimal endpoint and requested updating it to minimal, but this did not block merge.",
+      "performance_claim": "Offloading dataset serialization to a threadpool prevents blocking the async event loop; using minimal=true avoids fetching full dataset contents, reducing latency and data transfer for UI.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "blocking_async_serialization",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "testing",
+        "scope",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Offloading blocking operations to a threadpool and adjusting API query parameters are low-level but within Agent capability when the codebase conventions are clear; merge required manual testing and cypress test adjustments.",
+      "success_factors": [
+        "manual_testing_approval",
+        "cypress_test_coverage",
+        "incremental_scope",
+        "collaborative_fix_for_frontend"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_test"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer adamsachs reviewed the frontend code and identified remaining non-minimal endpoint usage.",
+        "manual_test": "Maintainer lucanovera tested manually and added cypress tests to cover the changes."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No before/after benchmarks; manual testing screenshots and cypress tests confirm functional correctness, not speedup.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Cypress tests were fixed and extended to cover the minimal dataset queries; no performance regressions noted.",
+      "evidence_gap": "narrative_perf_claim_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In generic_overrides.py, the synchronous dataset serialization is run via run_in_threadpool to avoid blocking the async event loop. In the admin UI, dataset queries now include minimal=true to fetch only basic fields, with related test updates.",
+      "files_primary": [
+        "src/fides/api/api/v1/endpoints/generic_overrides.py",
+        "clients/admin-ui/src/features/datastore-connections/add-connection/DatasetConfiguration.tsx",
+        "clients/admin-ui/src/features/datastore-connections/add-connection/forms/YamlEditorForm.tsx",
+        "clients/admin-ui/src/features/datastore-connections/system_portal_config/forms/fields/DatasetConfigField/YamlEditor.tsx"
+      ],
+      "files_secondary_observability": [
+        "clients/admin-ui/cypress/e2e/connectors.cy.ts",
+        "clients/admin-ui/cypress/e2e/integration-management.cy.ts",
+        "clients/admin-ui/cypress/fixtures/connectors/minimal_datasets.json",
+        "clients/admin-ui/cypress/fixtures/connectors/minimal_unlinked_datasets.json",
+        "clients/admin-ui/cypress/fixtures/datasets_paginated_minimal.json",
+        "CHANGELOG.md",
+        "clients/admin-ui/src/features/system/privacy-declarations/hooks.ts",
+        "clients/admin-ui/cypress/support/stubs.ts"
+      ],
+      "secondary_note": "Most churn from testing fixtures and merge from main; core performance change is in generic_overrides.py (~20 lines) and frontend query additions.",
+      "change_trajectory": [
+        "Initial Cursor commit updated frontend to use filtered and minimal datasets.",
+        "adamsachs added threadpool offloading in generic_overrides.py and fixed typing.",
+        "Cursor added cypress tests for minimal dataset queries.",
+        "Maintainer lucanovera fixed and extended cypress tests, added fixtures.",
+        "adamsachs merged main, noted remaining non-minimal endpoint in system form.",
+        "lucanovera updated system form to use minimal query, updated tests.",
+        "After final test updates, PR approved and merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "lucanovera",
+        "channel": "formal_review",
+        "signal": "approved_with_testing",
+        "summary": "Approved with manual testing and added cypress tests.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "adamsachs",
+        "channel": "pr_comment",
+        "signal": "scope_extension_request",
+        "summary": "Requested further use of minimal endpoint in system form; non-blocking.",
+        "blocking": false,
+        "action_taken": "Subsequently, lucanovera made the change and updated tests."
+      },
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "Reported patch coverage 85.71% with 1 missing line.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cypress[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_pass",
+        "summary": "Cypress test run passed with 5 passing tests.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor opened PR with frontend minimal query changes.",
+      "adamsachs manually added threadpool offloading and fixed typing.",
+      "Cursor added cypress tests; lucanovera refined them.",
+      "adamsachs merged main and commented on missing minimal endpoint in system form.",
+      "lucanovera applied the missing minimal query and updated tests.",
+      "PR approved and merged after ~19h."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

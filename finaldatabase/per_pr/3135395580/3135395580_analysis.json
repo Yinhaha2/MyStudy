@@ -1,0 +1,260 @@
+{
+  "pr_id": 3135395580,
+  "meta": {
+    "title": "Fix cudagraph record_stream memory leak",
+    "html_url": "https://github.com/pytorch/pytorch/pull/155658",
+    "repo": "pytorch/pytorch",
+    "agent": "OpenAI_Codex",
+    "user": "ezyang",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-11 03:56:27+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 0,
+    "topic_name": "9",
+    "body_summary": "Fix CUDA graph memory leak when record_stream is used during capture by processing pending events at the end of allocation to the pool; includes a test for no leak."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 33,
+      "deletions": 0,
+      "changes": 33,
+      "top1_file": "test/test_cuda.py",
+      "top1_changes": 29,
+      "top1_change_ratio": 0.8788,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "c10",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 12,
+      "review_states": {
+        "COMMENTED": 11,
+        "APPROVED": 1
+      },
+      "review_comment_count": 10,
+      "pr_comment_count": 6,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 22,
+      "event_counts": {
+        "committed": 1,
+        "review_requested": 8,
+        "labeled": 1,
+        "commented": 6,
+        "reviewed": 4,
+        "mentioned": 1,
+        "subscribed": 1
+      },
+      "lifespan_hours": 140.63,
+      "first_review_delay_hours": 0.551,
+      "review_rounds": 12,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cuda_graph_memory_leak",
+      "record_stream_event_processing",
+      "end_allocate_to_pool"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative",
+      "test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_unmerged",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "tests",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Codex-generated fix to process pending events in endAllocateToPool; PR closed without merge due to CI lint/label failures and maintainer desire for more review despite one approval."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 33,
+        "interpretation": "At 33 changed lines across 2 files (only 4 lines in CUDACachingAllocator.cpp), this is a tiny edit by absolute volume. It fits a targeted fix for a complex memory leak, but the PR was closed without merge despite one approval, indicating the small scope did not guarantee acceptance due to unresolved CI issues and maintainer caution."
+      },
+      "lifecycle": {
+        "lifespan_hours": 140.63,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "understanding_of_fix_impact",
+      "concern_detail": "Reviewers questioned whether the fix reduces reserved memory or just allocated memory and discussed alternative solutions like removing record_stream from the autograd engine; the provided test could not be run due to a missing psutil module.",
+      "performance_claim": "Fix CUDA graph memory leak when record_stream is used during capture, allowing memory to be reclaimed after capture ends.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "tests",
+        "perf_evidence"
+      ],
+      "rejection_signals": "PR closed without merge despite one approval; CI lint failure and missing labels; author indicated need for more scrutiny ('Treat this like a third party PR'), suggesting the fix was not fully trusted or complete."
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Fixing a CUDA memory leak in the caching allocator during graph capture required understanding of event processing, stream semantics, and interaction with record_stream. Codex produced a small, plausible fix but could not address the broader design discussion about eliminating record_stream from autograd.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Reviewers eqy and pritamdamania87 analyzed the code change in endAllocateToPool and discussed whether it addresses actual reserved memory leak or just allocated memory, referencing the allocator code.",
+        "ci_auto": "CI flagged lint errors in test_cuda.py and missing release notes label, but no performance-related CI checks."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Test provided but could not be executed due to missing psutil module; no benchmark or before/after memory measurements.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merging; CI failures and maintainer's request for more scrutiny indicated the fix was not considered complete.",
+      "evidence_gap": "narrative_only_no_runnable_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In c10/cuda/CUDACachingAllocator.cpp, added a call to process pending events at the end of endAllocateToPool to ensure that memory used by record_stream tensors during graph capture can be freed. In test/test_cuda.py, added test_graph_record_stream_no_leak that captures a graph with cross-stream operations and checks that memory allocated after capture does not increase.",
+      "files_primary": [
+        "c10/cuda/CUDACachingAllocator.cpp",
+        "test/test_cuda.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only two files changed; the allocator change is 4 lines, test adds 29 lines.",
+      "change_trajectory": [
+        "Single commit: added processEvents call in endAllocateToPool and new leak test.",
+        "CI flagged lint issues and missing labels; PR discussed but not merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "eqy",
+        "channel": "formal_review",
+        "signal": "question_impact",
+        "summary": "Naive question: does this decrease the total reserved memory or just the reported allocated memory?",
+        "blocking": false,
+        "action_taken": "Discussion ensued about the actual effect on memory."
+      },
+      {
+        "source": "pritamdamania87",
+        "channel": "inline_review_comment",
+        "signal": "suggest_improved_test",
+        "summary": "Suggested putting the graph capture in a loop with larger allocations to demonstrate OOM; also record_stream on x in the other stream.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "eqy",
+        "channel": "inline_review_comment",
+        "signal": "explain_change_scope",
+        "summary": "Pointed out that all allocator changes are in endAllocateToPool, so they only affect after capture, not during.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "pritamdamania87",
+        "channel": "inline_review_comment",
+        "signal": "alternative_design_fix",
+        "summary": "Argued the right fix is to get rid of record_stream in the autograd engine.",
+        "blocking": false,
+        "action_taken": "Led to further discussion and an experimental PR (#155857)."
+      },
+      {
+        "source": "eqy",
+        "channel": "inline_review_comment",
+        "signal": "acceptance_with_caveat",
+        "summary": "PR makes things strictly better even if only marginally; should land regardless of other record_stream discussions.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "ngimel",
+        "channel": "formal_review",
+        "signal": "approve_with_comment",
+        "summary": "APPROVED stating this is making things strictly better, so why not?",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "ngimel",
+        "channel": "inline_review_comment",
+        "signal": "minor_code_suggestion",
+        "summary": "Maybe get context only if you are going to use it?",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "ezyang",
+        "channel": "pr_comment",
+        "signal": "request_more_scrutiny",
+        "summary": "Treat this like a third party PR — do not trust the fix without thorough review.",
+        "blocking": true,
+        "action_taken": "PR eventually closed without merge."
+      },
+      {
+        "source": "pytorch-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_lint_failure",
+        "summary": "CI reported lint errors in test_cuda.py and missing release notes label.",
+        "blocking": true,
+        "action_taken": "Not resolved before close."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by ezyang with single commit from Codex.",
+      "Immediate CI bot comments about lint and labels; ezyang stated he hadn't reviewed yet.",
+      "Reviewers eqy and pritamdamania87 engaged in discussion about the fix's actual impact, alternative approaches, and test design.",
+      "ngimel approved after 5 days, but ezyang requested more scrutiny, leading to no merge.",
+      "PR closed without merge, likely due to unresolved CI issues and maintainer's lack of confidence."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

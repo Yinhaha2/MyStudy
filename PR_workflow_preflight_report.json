@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-07-25T06:50:23.595006+00:00",
+  "sections": {
+    "deepseek_api_key": {
+      "token_file_exists": true,
+      "token_format": "ok (sk- prefix, length 35)",
+      "status": "PASS",
+      "message": "API key accepted (GET /models 200)",
+      "sample_models": [
+        "deepseek-v4-flash",
+        "deepseek-v4-pro"
+      ]
+    },
+    "json_validation": {
+      "files": {
+        "3228424652_analysis.json": {
+          "parse_ok": true,
+          "pr_id_match_filename": true,
+          "missing_paths": [],
+          "extra_paths": [],
+          "type_issues": [],
+          "taxonomy_issues": [],
+          "rule_issues": []
+        },
+        "3194284966_analysis.json": {
+          "parse_ok": true,
+          "pr_id_match_filename": true,
+          "missing_paths": [],
+          "extra_paths": [],
+          "type_issues": [],
+          "taxonomy_issues": [],
+          "rule_issues": []
+        },
+        "3145702280_analysis.json": {
+          "parse_ok": true,
+          "pr_id_match_filename": true,
+          "missing_paths": [],
+          "extra_paths": [],
+          "type_issues": [],
+          "taxonomy_issues": [],
+          "rule_issues": []
+        },
+        "3125029980_analysis.json": {
+          "parse_ok": true,
+          "pr_id_match_filename": true,
+          "missing_paths": [],
+          "extra_paths": [],
+          "type_issues": [],
+          "taxonomy_issues": [
+            "perf_labels.evidence_type: non-enum \"maintainer_manual_test\" (allowed: ['benchmark', 'ci_task_eval', 'narrative', 'profiling', 'unknown'])"
+          ],
+          "rule_issues": []
+        },
+        "3074351366_analysis.json": {
+          "parse_ok": true,
+          "pr_id_match_filename": true,
+          "missing_paths": [],
+          "extra_paths": [],
+          "type_issues": [],
+          "taxonomy_issues": [
+            "perf_labels.evidence_type: non-enum \"unit_test\" (allowed: ['benchmark', 'ci_task_eval', 'narrative', 'profiling', 'unknown'])"
+          ],
+          "rule_issues": []
+        },
+        "3022909076_analysis.json": {
+          "parse_ok": true,
+          "pr_id_match_filename": true,
+          "missing_paths": [],
+          "extra_paths": [],
+          "type_issues": [],
+          "taxonomy_issues": [],
+          "rule_issues": []
+        }
+      },
+      "cross_file_summary": {
+        "file_count": 6,
+        "all_parse_ok": true,
+        "total_missing_paths": 0,
+        "total_extra_paths": 0,
+        "total_type_issues": 0,
+        "total_rule_issues": 0,
+        "total_taxonomy_issues": 2
+      }
+    },
+    "prompt_vs_schema": {
+      "status": "WARN",
+      "hard_contradictions": [],
+      "soft_gaps_and_exemplar_drift": [
+        "prompt.md lists detection_detail keys code_reading/profiler/load_test/ci_auto; schema.json template only documents code_reading and ci_auto (template doc gap).",
+        "schema meta.status includes open; prompt merge_outcome_context.outcome is merged/closed only — for still-open PRs, workflow should map status explicitly.",
+        "Gold JSON 3194284966 uses files_by_status.removed; prompt examples say deleted — naming drift only.",
+        "Exemplars use custom perf_focus / outcome_reason / evidence_type labels beyond strict enums; consistent with prompt rule allowing new snake_case when needed."
+      ]
+    }
+  },
+  "overall": {
+    "ready_for_next_step": true,
+    "blockers": [],
+    "warnings": [
+      "Exemplars contain 2 strict-enum deviations (mostly custom snake_case tags allowed by prompt).",
+      "prompt/schema soft documentation gaps — see section 3."
+    ],
+    "recommendation": "预检通过：DeepSeek API 可用，六份样例 JSON 结构与模板一致，格式正确；prompt 与 schema 仅有文档级软差异（见第 3 节），可进入工作流脚本开发与试跑。"
+  }
+}

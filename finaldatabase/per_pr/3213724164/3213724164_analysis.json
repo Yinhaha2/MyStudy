@@ -1,0 +1,166 @@
+{
+  "pr_id": 3213724164,
+  "meta": {
+    "title": "Use HashCode.Combine in Result.GetHashCode",
+    "html_url": "https://github.com/jscarle/LightResults/pull/61",
+    "repo": "jscarle/LightResults",
+    "agent": "OpenAI_Codex",
+    "user": "jscarle",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-08 20:40:00+00:00",
+    "merged_at": "2025-07-08 20:56:08+00:00",
+    "closed_at": "2025-07-08 20:56:08+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 43,
+    "topic_name": "43",
+    "body_summary": "Improve hash code distribution for non-generic Result by using HashCode.Combine."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "top1_file": "src/LightResults/Result.cs",
+      "top1_changes": 2,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 0.267,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hash_code_distribution"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Codex replaced manual GetHashCode with HashCode.Combine; minimal scope, no review, merged within minutes by maintainer/author."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2,
+        "interpretation": "At 2 changed lines, this is a minimal, focused change. It fits the pattern of a tiny, low-risk performance tweak that was merged without review, consistent with its rapid acceptance."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.267,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No review text available; PR was merged by author without external feedback.",
+      "performance_claim": "Improve hash code distribution by using HashCode.Combine.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "43",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "This is a low-level C# hash code optimization; trivial change within agent capability if it can replace the manual hash with the standard library method.",
+      "success_factors": [
+        "minimal_scope",
+        "low_risk",
+        "self_merge_by_maintainer"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer likely recognized that hash distribution could be improved by using HashCode.Combine."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or performance measurement; only unit test command in PR body, which passed presumably.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR merged without regression; no follow-up needed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/LightResults/Result.cs, the GetHashCode method was changed from a manual XOR/prime combination to HashCode.Combine, which provides better hash distribution.",
+      "files_primary": [
+        "src/LightResults/Result.cs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "No secondary files.",
+      "change_trajectory": [
+        "Single commit replaced GetHashCode implementation."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Maintainer/author opened PR with the change and self-merged within ~16 minutes with no review interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

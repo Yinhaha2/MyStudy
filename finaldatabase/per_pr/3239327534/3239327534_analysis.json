@@ -1,0 +1,183 @@
+{
+  "pr_id": 3239327534,
+  "meta": {
+    "title": "implement context caching",
+    "html_url": "https://github.com/google-gemini-php/client/pull/135",
+    "repo": "google-gemini-php/client",
+    "agent": "OpenAI_Codex",
+    "user": "michabbb",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-17 12:04:24+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 19,
+    "topic_name": "19",
+    "body_summary": "Implement cached content resource and data handling for the Gemini PHP client, adding create/retrieve/list/update/delete operations with tests and fixtures."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 14,
+      "file_count": 25,
+      "additions": 1408,
+      "deletions": 195,
+      "changes": 1603,
+      "top1_file": ".github/workflows/claude.yml",
+      "top1_changes": 333,
+      "top1_change_ratio": 0.2077,
+      "files_by_status": {
+        "added": 23,
+        "modified": 26,
+        "removed": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        ".github",
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 15,
+      "event_counts": {
+        "committed": 14,
+        "commented": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "context_caching",
+      "response_cache",
+      "api_latency_reduction"
+    ],
+    "optimization_layer": "api_client",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added full context caching feature with tests but PR closed without maintainer review; no performance evidence beyond narrative."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1603,
+        "interpretation": "At 1603 changed lines across 25 files, this is a medium-to-large feature addition by absolute volume, though much churn is from repeated addition/removal of CI workflow files. As a performance-oriented feature PR, it was closed without merge, likely due to lack of maintainer review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "The PR received no formal reviews or maintainer comments; closed without feedback.",
+      "performance_claim": "Add context caching to reduce API latency by reusing cached contexts.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed without any maintainer review or merge; no explicit rejection reason available."
+    },
+    "capability_boundary": {
+      "topic": "19",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent delivered a complete feature with tests, but the PR remained unmerged due to lack of maintainer engagement, illustrating a process boundary where agent contributions are useless without human buy-in.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data; author provided a test script link but not performance analysis.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no regression handling as it was never incorporated.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added CachedContent resource, request/response classes, and client methods for create, retrieve, list, update, delete operations on cached contexts. Included tests, test fixtures, and updated client interface/contract.",
+      "files_primary": [
+        "src/Resources/CachedContents.php",
+        "src/Data/CachedContent.php",
+        "src/Contracts/Resources/CachedContentsContract.php",
+        "src/Requests/CachedContents/*.php",
+        "src/Responses/CachedContents/*.php"
+      ],
+      "files_secondary_observability": [
+        ".github/workflows/claude.yml",
+        ".github/workflows/claude-code-review.yml"
+      ],
+      "secondary_note": "Workflow files were added and later removed; they contributed to churn but not to the caching feature itself.",
+      "change_trajectory": [
+        "Initial commit added all caching-related source files and tests.",
+        "Subsequent commits fixed validation, request handling, and merged code review fixes from a side branch.",
+        "Later commits added and later removed Claude workflow configurations and made minor type fixes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "michabbb",
+        "channel": "pr_comment",
+        "signal": "test_script_link",
+        "summary": "Author provided a link to a test script for manual verification.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with full implementation and tests.",
+      "Author posted one comment with a test script link.",
+      "No maintainer interaction recorded; multiple commits by author with clean-up.",
+      "PR eventually closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "pr_id": 3006562482,
+  "meta": {
+    "title": "Spring Boneアニメーション処理の最適化: 親子関係チェックのキャッシュ",
+    "html_url": "https://github.com/saturday06/VRM-Addon-for-Blender/pull/800",
+    "repo": "saturday06/VRM-Addon-for-Blender",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-19 17:25:15+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-19 17:28:14+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 50,
+    "topic_name": "50",
+    "body_summary": "Attempt to optimize Spring Bone animation by caching parent-child bone relationships, but self-provided cProfile benchmark shows no improvement (202.010s vs 202.048s) and even a slight increase; PR is closed after agent concludes caching overhead cancelled out benefits."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 14,
+      "deletions": 8,
+      "changes": 22,
+      "top1_file": "src/io_scene_vrm/editor/spring_bone1/handler.py",
+      "top1_changes": 22,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "closed": 2,
+        "reopened": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.05,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_parent_child_relationship",
+      "bone_hierarchy_traversal",
+      "spring_bone_animation_optimization"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "redundant_computation"
+    ],
+    "outcome_reason": "self_closed_no_improvement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "profiler"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin attempted caching optimization with self-provided cProfile benchmark showing no gain; PR self-closed after realizing overhead negated benefits."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 22,
+        "interpretation": "At 22 changed lines, this is a tiny edit by absolute volume. It represents a small experimental performance PR that was closed because the optimization proved ineffective."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.05,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "ineffective_optimization",
+      "concern_detail": "The optimization added caching of parent-child bone relationships, but profiling showed no improvement (202.010s vs 202.048s) and even a slight increase; the PR was closed because the caching overhead cancelled any benefit.",
+      "performance_claim": "Caching parent-child checks to reduce repeated parent chain traversals, expecting speedup for complex bone hierarchies.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "redundant_parent_chain_traversal",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Self-assessed negative benchmark results; PR closed by maintainer without merge."
+    },
+    "capability_boundary": {
+      "topic": "50",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent attempted a caching optimization but failed to achieve performance improvement, demonstrating that algorithmic changes require empirical validation; the agent provided benchmark evidence and self-concluded the approach was ineffective.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human review; detection solely based on agent-provided profiling."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes cProfile output for comparison but does not provide the specific test model or input data, so exact reproduction requires the same scene setup.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After the agent's benchmark showed no improvement, the PR was closed by the maintainer without further changes.",
+      "evidence_gap": "self_disproved_optimization"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In handler.py, added a bones_with_parent_ids dictionary cache at function start to precompute parent-child relationships, then used it to check if a joint pair's head bone is a parent of the target bone, replacing repeated parent-chain traversal.",
+      "files_primary": [
+        "src/io_scene_vrm/editor/spring_bone1/handler.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit (ed56b10) added caching logic in calculate_spring_pose_bone_rotations, with benchmark data showing no net improvement."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_archived",
+        "summary": "Devin stated it is archived and cannot be woken up, appearing right before PR closure.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with self-contained benchmark and no external review requests.",
+      "Two bot comments appeared, including an archive notice.",
+      "Maintainer quickly closed the PR within 3 minutes, likely based on the agent's own negative assessment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "pr_id": 3216324404,
+  "meta": {
+    "title": "Enhance multi-agent swarm structures",
+    "html_url": "https://github.com/kyegomez/swarms/pull/950",
+    "repo": "kyegomez/swarms",
+    "agent": "Cursor",
+    "user": "kyegomez",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-09 15:25:27+00:00",
+    "merged_at": null,
+    "closed_at": "2025-08-04T01:13:08Z",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 8,
+    "topic_name": "8",
+    "body_summary": "Enhances HierarchicalSwarm with reliability, concurrency, and observability features for production multi-agent task execution."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 6,
+      "additions": 4197,
+      "deletions": 494,
+      "changes": 4691,
+      "top1_file": "swarms/structs/hiearchical_swarm.py",
+      "top1_changes": 1336,
+      "top1_change_ratio": 0.2848,
+      "files_by_status": {
+        "added": 5,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        ".",
+        "swarms"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 3
+      },
+      "review_comment_count": 8,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 2,
+        "commented": 1,
+        "reviewed": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 609.795,
+      "first_review_delay_hours": 0.039,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "concurrent_execution",
+      "load_balancing",
+      "priority_scheduling",
+      "health_monitoring",
+      "retry_backoff"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "sequential_blocking_execution"
+    ],
+    "outcome_reason": "closed_with_unresolved_functional_bugs",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "type_safety"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Large-scope multi-agent swarm refactor; bot reviews flagged load-balancing bug, unsafe assignment, argument misuse, and type errors; PR closed without merge due to unresolved functional issues."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4691,
+        "interpretation": "At 4691 changed lines across 6 files (including large documentation), this is a large-scale refactor by absolute volume. As a major feature/enhancement performance PR, it was closed without merge after multiple bot-flagged bugs and no human approval."
+      },
+      "lifecycle": {
+        "lifespan_hours": 609.795,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_bugs",
+      "concern_detail": "Cursor bot review identified three specific bugs: load balancing non-functional because running_tasks dict is never populated, unsafe agent.__dict__ assignment in handle_teams bypasses normal attribute setting, and incorrect positional argument and missing img parameter in agent.run via ThreadPoolExecutor. GitHub Advanced Security scan additionally flagged type incompatibilities and an undefined pydantic import.",
+      "performance_claim": "Concurrent task execution, intelligent load balancing, and priority scheduling improve multi-agent swarm performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "sequential_blocking_execution",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "type_safety"
+      ],
+      "rejection_signals": "PR closed by maintainer after 25 days; bot reviews highlighted critical functional bugs that were not addressed."
+    },
+    "capability_boundary": {
+      "topic": "8",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Refactoring a large multi-agent swarm system with concurrency, load balancing, and task management introduced functional bugs in core logic, type errors, and unsafe patterns that Cursor did not resolve.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Cursor bot performed static analysis and flagged specific code issues (load balancing, unsafe assignment, argument mismatch).",
+        "ci_auto": "GitHub Advanced Security scan detected undefined import, incompatible types, inconsistent override, and more than 20 potential problems."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data; PR claims performance improvements without measurements or repro steps.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by kyegomez with no fix commits; bot-flagged issues remained unresolved.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactored HierarchicalSwarm in swarms/structs/hiearchical_swarm.py to add concurrency (ThreadPoolExecutor), load balancing, priority scheduling, agent health monitoring, task timeouts, and retries. Added large summarization markdown files and new communication modules (enhanced_communication.py, hierarchical_cooperation.py) and a new enhanced_hierarchical_swarm.py.",
+      "files_primary": [
+        "swarms/structs/hiearchical_swarm.py",
+        "swarms/communication/enhanced_communication.py",
+        "swarms/communication/hierarchical_cooperation.py",
+        "swarms/structs/enhanced_hierarchical_swarm.py"
+      ],
+      "files_secondary_observability": [
+        "hierarchical_swarm_improvements.md",
+        "enhanced_hierarchical_swarm_improvements_summary.md"
+      ],
+      "secondary_note": "The two .md files are documentation summaries with no functional code impact; they contribute to the large line count.",
+      "change_trajectory": [
+        "Initial commit (6d73b8): modified hiearchical_swarm.py with concurrency, load balancing, monitoring, and added hierarchical_swarm_improvements.md.",
+        "Second commit (d59e2cc): added new communication modules and an enhanced hierarchical swarm variant, plus another summary markdown."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_report_load_balancing",
+        "summary": "Load balancing is non-functional because the self.running_tasks dictionary is never populated.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_report_unsafe_assignment",
+        "summary": "handle_teams uses agent.__dict__['team_name'] assignment, bypassing normal attribute setting and potentially causing errors.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_report_incorrect_arguments",
+        "summary": "ThreadPoolExecutor.submit passes agent_context positionally and omits img parameter, risking runtime errors.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "github-advanced-security[bot]",
+        "channel": "inline_review_comment",
+        "signal": "type_issues",
+        "summary": "Multiple type incompatibility warnings (img declared as str but used as None, incompatible variable types, inconsistent override, undefined pydantic import).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-advanced-security[bot]",
+        "channel": "formal_review",
+        "signal": "broad_type_analysis",
+        "summary": "Pyre found more than 20 potential problems in the proposed changes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "dependency_review_pass",
+        "summary": "Dependency review found no vulnerabilities or license issues.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor authored two commits with large-scale refactoring; immediate automated reviews from Cursor bot and GitHub Advanced Security flagged functional bugs and type issues; no human reviewer engaged; PR remained open for 25 days without fix; maintainer kyegomez closed the PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

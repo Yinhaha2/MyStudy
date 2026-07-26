@@ -1,0 +1,170 @@
+{
+  "pr_id": 3240293813,
+  "meta": {
+    "title": "Improve Fortran constant folding",
+    "html_url": "https://github.com/mochilang/mochi/pull/9363",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-17 17:03:04+00:00",
+    "merged_at": "2025-07-17 17:03:19+00:00",
+    "closed_at": "2025-07-17 17:03:19+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 14,
+    "topic_name": "14",
+    "body_summary": "Enhance Fortran compiler constant folding by folding len for constant strings, and update documentation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 56,
+      "deletions": 18,
+      "changes": 74,
+      "top1_file": "compiler/x/fortran/compiler.go",
+      "top1_changes": 70,
+      "top1_change_ratio": 0.9459,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00417,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_folding",
+      "string_length_optimization",
+      "fortran_compiler_optimization"
+    ],
+    "optimization_layer": "compiler_optimization",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Small Fortran compiler constant folding addition; merged immediately by author without review, relying on go test for correctness."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 74,
+        "interpretation": "At 74 changed lines, this is a very small edit. It fits a minimal incremental compiler optimization PR and was merged quickly without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00417,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Fold len for constant strings in Fortran compiler.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "14",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler-level constant folding optimization with no review; small, self-contained change in Fortran sub-compiler that was accepted by the maintainer (who is also the PR author).",
+      "success_factors": [
+        "small_scope",
+        "self_merge",
+        "existing_test_suite"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance benchmarks or profiler data; only 'go test ./...' mentioned.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression occurred; merged immediately.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In Fortran compiler (compiler.go), added constant folding logic to evaluate len() on constant strings at compile time, replacing runtime length calls with integer literals. Updated TASKS.md and test README to reflect new optimization.",
+      "files_primary": [
+        "compiler/x/fortran/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "compiler/x/fortran/TASKS.md",
+        "tests/machine/x/fortran/README.md"
+      ],
+      "secondary_note": "Documentation and task list updates only; no performance measurement files.",
+      "change_trajectory": [
+        "Single commit: 'fortran: fold len on constant strings' added folding logic and doc updates."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged by tamnd within 15 seconds with no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

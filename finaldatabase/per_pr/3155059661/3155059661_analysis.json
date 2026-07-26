@@ -1,0 +1,163 @@
+{
+  "pr_id": 3155059661,
+  "meta": {
+    "title": "Speed up timeline creation via batch->json",
+    "html_url": "https://github.com/herbie-fp/herbie/pull/1286",
+    "repo": "herbie-fp/herbie",
+    "agent": "OpenAI_Codex",
+    "user": "pavpanchekha",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-18 00:13:34+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-20 01:55:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Add batch->json to serialize batches compactly, avoiding expensive batch->progs during timeline generation as a first step toward fully optimized timeline output."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 61,
+      "deletions": 3,
+      "changes": 64,
+      "top1_file": "src/reports/timeline.rkt",
+      "top1_changes": 38,
+      "top1_change_ratio": 0.59375,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 49.7,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "timeline_generation",
+      "json_serialization",
+      "batch_compaction"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_computation"
+    ],
+    "outcome_reason": "closed_by_author_scope_incomplete",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "No review or numeric evidence; author self-closed after two days, likely because the change was a partial improvement pending further batch output adjustments."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 64,
+        "interpretation": "A small change (64 lines) that adds a batch->json serialization function. The PR was closed by the author without merging, possibly because it was an incomplete step toward a larger timeline optimization."
+      },
+      "lifecycle": {
+        "lifespan_hours": 49.7,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No reviews or comments were submitted on this PR.",
+      "performance_claim": "Speeds up timeline.json generation by using compact JSON serialization to avoid expensive batch->progs calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_computation (unnecessary full program expansion during timeline creation)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed the PR without merge; no explicit rejection comments."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Codex produced a functional serialization change, but the PR was closed without review, suggesting that the change was either incomplete or the human author decided not to pursue it at this stage.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body claims speed improvement but provides no benchmark, profiling, or before/after measurements.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merging; no regression occurred as the change was not integrated.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added batch->json to serialize batches into compact JSON; adapted timeline.rkt to use it, thereby avoiding full batch->progs expansion; minor patch.rkt update to support the new serialization.",
+      "files_primary": [
+        "src/core/batch.rkt",
+        "src/reports/timeline.rkt"
+      ],
+      "files_secondary_observability": [
+        "src/core/patch.rkt"
+      ],
+      "secondary_note": "patch.rkt change is minimal, likely aligning existing serialization logic with the new function.",
+      "change_trajectory": [
+        "Single commit introduces batch->json and integrates it into timeline generation."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "No human comments or reviews; author closed PR two days after creation with no prior interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

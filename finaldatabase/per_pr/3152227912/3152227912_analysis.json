@@ -1,0 +1,164 @@
+{
+  "pr_id": 3152227912,
+  "meta": {
+    "title": "Optimize interpreter ops",
+    "html_url": "https://github.com/mochilang/mochi/pull/1268",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-17 06:29:21+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-17 06:35:29+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Centralize built-in operator implementations in a shared table and route applyBinaryValue / applyUnaryValue through it to optimize interpreter dispatch; tests fail with golden mismatch."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 239,
+      "deletions": 17,
+      "changes": 256,
+      "top1_file": "interpreter/op_table.go",
+      "top1_changes": 233,
+      "top1_change_ratio": 0.91,
+      "files_by_status": {
+        "added": 1,
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "interpreter"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.102,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "centralized_op_table",
+      "interpreter_dispatch",
+      "binary_unary_ops_routing"
+    ],
+    "optimization_layer": "interpreter_runtime",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_close_test_failure",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Author self-closed PR 6 minutes after creation with only a narrative description; tests failed with golden mismatch and no performance evidence was provided."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 256,
+        "interpretation": "256 changed lines, a small-to-medium refactor by absolute volume, centralizing op implementations in a new file. As a performance PR it was closed due to test failure and lack of performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.102,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "test_failure_golden_mismatch",
+      "concern_detail": "The PR body explicitly notes that `go test ./...` fails with 'golden mismatch', suggesting the change in interpreter behavior broke expected output.",
+      "performance_claim": "Centralize built-in operator implementations to improve interpreter dispatch performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author self-closed PR 6 minutes after creation; test failure and absence of performance evidence drove closure."
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent produced an interpreter refactor that broke existing tests (golden mismatch), indicating a boundary in understanding the interpreter's expected behavior; no maintainer review required to surface the issue.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No maintainer detection recorded; author discovered test failure."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data; only narrative claim of centralization. Test failure may be reproducible but does not constitute performance evidence.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without any fix; no subsequent commits.",
+      "evidence_gap": "narrative_only_no_benchmark_test_failure"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added interpreter/op_table.go with a centralized table mapping operator kinds to specific operation handles, and modified interpreter/runtime_utils.go to route applyBinaryValue and applyUnaryValue calls through the new table, removing inline dispatch.",
+      "files_primary": [
+        "interpreter/op_table.go",
+        "interpreter/runtime_utils.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit added op_table.go (233 lines) and modified runtime_utils.go (6 additions, 17 deletions) to implement centralized op dispatch."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created by OpenAI_Codex with one commit; author self-closed within 6 minutes of creation; no review or collaboration."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

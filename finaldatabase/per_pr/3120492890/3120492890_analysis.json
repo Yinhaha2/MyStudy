@@ -1,0 +1,217 @@
+{
+  "pr_id": 3120492890,
+  "meta": {
+    "title": "Enable pull request trigger tests",
+    "html_url": "https://github.com/giselles-ai/giselle/pull/1057",
+    "repo": "giselles-ai/giselle",
+    "agent": "OpenAI_Codex",
+    "user": "toyamarinyon",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-05 09:27:32+00:00",
+    "merged_at": "2025-06-05 10:00:16+00:00",
+    "closed_at": "2025-06-05 10:00:16+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 6,
+    "topic_name": "6",
+    "body_summary": "Enable previously skipped pull request trigger tests by mocking network calls and adding conditional diff fetching to avoid unnecessary API calls when 'diff' accessor is not requested."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 34,
+      "deletions": 5,
+      "changes": 39,
+      "top1_file": "packages/giselle-engine/src/core/github/trigger-utils.test.ts",
+      "top1_changes": 33,
+      "top1_change_ratio": 0.846,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 18,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 2,
+        "commented": 5,
+        "deployed": 2,
+        "reviewed": 2,
+        "ready_for_review": 1,
+        "review_requested": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "assigned": 1
+      },
+      "lifespan_hours": 0.545,
+      "first_review_delay_hours": 0.128,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "conditional_diff_fetching",
+      "unnecessary_api_call_reduction"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_network_call"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Small fix adding accessor check to skip unnecessary diff fetches; merged quickly with one human approval and no benchmark requirement."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 39,
+        "interpretation": "At 39 changed lines across 2 files, this is a tiny edit by absolute volume. It fits a minimal performance optimization that merged quickly without friction."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.545,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "Human reviewer shige approved with a thank-you emoji; bots provided non-blocking suggestions. No critical concerns raised.",
+      "performance_claim": "Avoid unnecessary getPullRequestDiff API calls when output accessor is not 'diff'.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_network_call",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple conditional check to skip API calls falls within agent capability; no evidence or deep integration required.",
+      "success_factors": [
+        "small_scope",
+        "clear_test_coverage",
+        "quick_human_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "shige reviewed and approved without comment except a thank-you; bot reviewers also read code and did not flag blocking issues."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or timing data provided; PR just enables tests and adds conditional logic.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression introduced; the change is a performance improvement without causing issues.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In trigger-utils.ts, added if (args.output.accessor !== payload) continue; before calling getPullRequestDiff to skip unnecessary API calls when diff is not requested. In trigger-utils.test.ts, enabled previously skipped test suites and improved mocks with repository node IDs and diff hunks.",
+      "files_primary": [
+        "packages/giselle-engine/src/core/github/trigger-utils.ts",
+        "packages/giselle-engine/src/core/github/trigger-utils.test.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only these two files changed; no secondary observability modifications.",
+      "change_trajectory": [
+        "Single commit 'test: enable pull request trigger suites' adds the conditional check and test modifications together."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "shige",
+        "channel": "formal_review",
+        "signal": "approved_without_feedback",
+        "summary": "Approved with thank-you message; no blocking concerns.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bot_no_bugs_found",
+        "summary": "Reviewed and found no bugs; non-blocking bot review.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "auto_summary_with_suggestions",
+        "summary": "Generated walkthrough and minor suggestions (duplicate code note) but did not block.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "qodo-merge-for-open-source[bot]",
+        "channel": "pr_comment",
+        "signal": "duplicate_code_suggestion",
+        "summary": "Pointed out duplicate accessor logic but did not block merge.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit; bot reviews (cursor, coderabbit, qodo-merge) appeared within minutes.",
+      "Human reviewer shige approved ~13 minutes after creation with no changes requested.",
+      "Merged by author ~33 minutes after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

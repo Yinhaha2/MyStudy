@@ -1,0 +1,246 @@
+{
+  "pr_id": 3147449966,
+  "meta": {
+    "title": "[DataGrid] Add IsFixed parameter",
+    "html_url": "https://github.com/microsoft/fluentui-blazor/pull/3921",
+    "repo": "microsoft/fluentui-blazor",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-15 12:17:46+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-17 07:32:33+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "38",
+    "body_summary": "Add IsFixed parameter to FluentDataGrid to skip hash‑based change detection for static datasets, reducing unnecessary CPU cycles and automatic refreshes."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 16,
+      "additions": 334,
+      "deletions": 59,
+      "changes": 393,
+      "top1_file": "tests/Core/DataGrid/FluentDataGridIsFixedTests.razor",
+      "top1_changes": 172,
+      "top1_change_ratio": 0.438,
+      "files_by_status": {
+        "added": 2,
+        "modified": 14
+      },
+      "directory_count": 3,
+      "directories": [
+        "src",
+        "tests",
+        "examples"
+      ]
+    },
+    "collaboration": {
+      "review_count": 10,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 1,
+        "APPROVED": 8
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 7,
+      "linked_issue_count": 2
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "renamed": 2,
+        "review_requested": 1,
+        "copilot_work_finished": 3,
+        "commented": 6,
+        "mentioned": 4,
+        "subscribed": 4
+      },
+      "lifespan_hours": 43.246,
+      "first_review_delay_hours": 20.607,
+      "review_rounds": 10,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "skip_hash_computation",
+      "static_dataset_optimization",
+      "refresh_reduction"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_after_approval_no_merge_unknown",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "tests"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot added IsFixed parameter to skip hash computation; maintainers requested complete hash removal and explicit default; agent iterated and approvals given, but PR closed without merge for unknown reason."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 393,
+        "interpretation": "At 393 changed lines across 16 files, this is a small-to-medium change. It is a targeted performance optimization for the FluentDataGrid component, but despite receiving multiple approvals, the PR was closed without merge; the reason is not evident from review text, which is atypical."
+      },
+      "lifecycle": {
+        "lifespan_hours": 43.246,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "simplify_implementation",
+      "concern_detail": "vnbaaij requested removal of explicit default value assignment, then asked to remove hash calculation and comparisons entirely, relying only on IsFixed to control refresh. Copilot complied in follow-up commits.",
+      "performance_claim": "Skip hash computation for static datasets to reduce unnecessary CPU cycles and automatic refreshes.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "tests"
+      ],
+      "rejection_signals": "Despite multiple approvals, the PR was closed without merge; no explicit rejection reason provided in review text."
+    },
+    "capability_boundary": {
+      "topic": "38",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent successfully iterated on maintainer feedback to simplify hash removal, demonstrating understanding of Blazor component lifecycle. However, the PR was ultimately closed despite approvals, indicating a possible process disconnect.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "vnbaaij reviewed the parameter addition, requested removal of explicit default and complete hash removal; later dvoituron approved."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Unit tests cover IsFixed behaviour, but no benchmark or profiling data is provided to quantify the performance improvement.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After CHANGES_REQUESTED, Copilot removed explicit default and later removed hash computation entirely per maintainer request; all feedback addressed within the PR.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add boolean IsFixed parameter to FluentDataGrid; when true, skip hash-based change detection and rely solely on parameter to control automatic refresh, removing ComputeItemsHash method and hash comparison logic.",
+      "files_primary": [
+        "src/Core/Components/DataGrid/FluentDataGrid.razor.cs",
+        "tests/Core/DataGrid/FluentDataGridIsFixedTests.razor"
+      ],
+      "files_secondary_observability": [
+        "tests/Core/DataGrid/FluentDataGridTests.razor",
+        "examples/Demo/Shared/Pages/DataGrid/DataGridPage.razor",
+        "examples/Demo/Shared/Pages/DataGrid/Examples/DataGridCustomComparer.razor",
+        "examples/Demo/Shared/Pages/DataGrid/Examples/DataGridTypical.razor"
+      ],
+      "secondary_note": "Merge commits brought in unrelated DataGrid page updates, demo files, and JavaScript modifications; core performance change is isolated in FluentDataGrid.razor.cs.",
+      "change_trajectory": [
+        "Initial commit adds IsFixed parameter and basic refresh logic.",
+        "Maintainer requests removal of hash calculation; Copilot first skips hash when IsFixed=true.",
+        "Maintainer requests complete removal of hash computation; Copilot deletes ComputeItemsHash and all hash-based detection.",
+        "Maintainer asks to remove explicit default value; Copilot removes `= false` assignment.",
+        "Multiple approvals given, but PR closed without merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vnbaaij",
+        "channel": "inline_review_comment",
+        "signal": "remove_explicit_default",
+        "summary": "Do not explicitly set the parameter to its default value; Copilot removed `= false` in a follow-up commit.",
+        "blocking": true,
+        "action_taken": "Removed explicit default assignment in commit 04c43f2."
+      },
+      {
+        "source": "vnbaaij",
+        "channel": "pr_comment",
+        "signal": "remove_hash_completely",
+        "summary": "Remove hash calculation and comparisons completely; only use IsFixed parameter to determine refresh.",
+        "blocking": true,
+        "action_taken": "Removed all hash logic in commit 07a7395."
+      },
+      {
+        "source": "vnbaaij",
+        "channel": "pr_comment",
+        "signal": "hash_optimization_request",
+        "summary": "Asked whether hash calculation can be removed with IsFixed changes; Copilot first skipped hash, then removed it entirely.",
+        "blocking": false,
+        "action_taken": "Evolved from skip to full removal per further follow-up."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "bot_code_style",
+        "summary": "Removed explicit default value assignment as it's unnecessary in C#.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "dvoituron",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Multiple APPROVED reviews (no body text).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_pass",
+        "summary": "All tests passed successfully and coverage report posted.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with IsFixed parameter and initial hash‑skipping implementation.",
+      "vnbaaij requested hash removal; Copilot first added conditional skip, then fully removed hash logic.",
+      "Explicit default value removed after inline review.",
+      "Multiple approvals from vnbaaij and dvoituron over the next day.",
+      "PR closed without merge, approximately 43 hours after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

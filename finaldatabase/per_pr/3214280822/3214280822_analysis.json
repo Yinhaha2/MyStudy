@@ -1,0 +1,164 @@
+{
+  "pr_id": 3214280822,
+  "meta": {
+    "title": "Improve Python join code generation",
+    "html_url": "https://github.com/mochilang/mochi/pull/6521",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-09 02:27:09+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-09 02:28:52+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Improve Python backend to emit list comprehensions for inner joins, regenerate golden test outputs, and document the new handling."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 35,
+      "deletions": 201,
+      "changes": 236,
+      "top1_file": "tests/machine/x/python/inner_join.py",
+      "top1_changes": 101,
+      "top1_change_ratio": 0.428,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.028,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "join_code_generation",
+      "list_comprehension_emission"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_without_explanation",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "low",
+    "notes": "OpenAI_Codex changed join emission to list comprehensions; PR self-closed in ~2 minutes with no review or perf evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 236,
+        "interpretation": "Small to medium line count (236 changes, net deletions of golden outputs), but self-closure in isolation without review suggests conclusion not based on performance evaluation."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.028,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review feedback; PR was self-closed by author less than two minutes after creation.",
+      "performance_claim": "Emit list comprehensions for inner joins to improve Python code generation performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR self-closed by author within ~2 minutes without explanation."
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "PR was created and immediately closed by the author, suggesting a process or policy boundary where the author may have rescinded the change or it was never intended for merge. No maintainer engagement.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or before/after comparison provided; only narrative claim about emitting list comprehensions.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without review or any change cycle.",
+      "evidence_gap": "narrative_only_no_benchmark_self_closed"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/python/compiler.go, added logic to emit list comprehensions for inner joins; updated golden test output files (inner_join.py, join_multi.py, group_by_multi_join.py) reflecting the new generated code and README documentation.",
+      "files_primary": [
+        "compiler/x/python/compiler.go",
+        "tests/machine/x/python/inner_join.py",
+        "tests/machine/x/python/join_multi.py"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/python/group_by_multi_join.py",
+        "tests/machine/x/python/README.md"
+      ],
+      "secondary_note": "Most deletions (~201 lines) are in the golden test files, indicating a shift from old loop style to new list comprehension outputs.",
+      "change_trajectory": [
+        "Single commit added list comprehension emission in the compiler, updated golden test outputs and README; PR self-closed immediately after creation."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with a single commit; no review requests or comments; self-closed by author within ~2 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

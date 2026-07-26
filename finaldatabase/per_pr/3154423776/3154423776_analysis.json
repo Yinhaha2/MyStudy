@@ -1,0 +1,173 @@
+{
+  "pr_id": 3154423776,
+  "meta": {
+    "title": "Support database-level pagination for user/group search",
+    "html_url": "https://github.com/nuxeo/nuxeo/pull/5272",
+    "repo": "nuxeo/nuxeo",
+    "agent": "OpenAI_Codex",
+    "user": "majd-alhafi",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-06-17 18:38:49+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Add limit/offset parameters to getQueryForPattern and update page providers to push pagination down to the directory query, avoiding in-memory slicing for user/group search endpoints."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 92,
+      "deletions": 53,
+      "changes": 145,
+      "top1_file": "modules/platform/nuxeo-platform-usermanager/src/main/java/org/nuxeo/ecm/platform/usermanager/providers/AbstractUsersPageProvider.java",
+      "top1_changes": 67,
+      "top1_change_ratio": 0.462,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 3,
+      "directories": [
+        "modules/platform/nuxeo-platform-usermanager/src/main/java/org/nuxeo/ecm/platform/usermanager/providers",
+        "modules/platform/nuxeo-platform-usermanager/src/main/java/org/nuxeo/ecm/platform/usermanager",
+        "modules/platform/nuxeo-platform-usermanager/src/test/java/org/nuxeo/ecm/platform/usermanager"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 2,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "database_pagination",
+      "limit_offset_pushdown",
+      "in_memory_paging_reduction"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_awaiting_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex PR adds limit/offset to user/group search queries; no reviews yet, PR remains open with CLA bot check only."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 145,
+        "interpretation": "At 145 changed lines across 4 files, this is a small edit by absolute volume, focused on adding limit/offset parameters to the existing query methods. As a small performance PR, it remains open without any review feedback, consistent with a pending contribution that may suffer from maintainer process barriers."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review has been performed on this PR; the only comment is a CLA bot check.",
+      "performance_claim": "Push down limit and offset to the directory query to avoid loading all entries before paging in memory, improving efficiency for large datasets.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "in_memory_paging",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The PR introduces a straightforward performance optimization with low risk, but remains open with no reviews, indicating a process boundary where agent-authored patches may not be reviewed in a timely manner or may lack the necessary visibility or advocacy.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance evidence, benchmark, or reproduction steps provided; only narrative claim.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling because the PR is unreviewed and open.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified UserManagerImpl.getQueryForPattern to accept limit and offset parameters, and updated AbstractUsersPageProvider and AbstractGroupsPageProvider to construct QueryBuilder with those parameters instead of fetching all results and slicing in memory.",
+      "files_primary": [
+        "modules/platform/nuxeo-platform-usermanager/src/main/java/org/nuxeo/ecm/platform/usermanager/UserManagerImpl.java",
+        "modules/platform/nuxeo-platform-usermanager/src/main/java/org/nuxeo/ecm/platform/usermanager/providers/AbstractUsersPageProvider.java",
+        "modules/platform/nuxeo-platform-usermanager/src/main/java/org/nuxeo/ecm/platform/usermanager/providers/AbstractGroupsPageProvider.java"
+      ],
+      "files_secondary_observability": [
+        "modules/platform/nuxeo-platform-usermanager/src/test/java/org/nuxeo/ecm/platform/usermanager/TestUserManager.java"
+      ],
+      "secondary_note": "Test file updated to match new method signature.",
+      "change_trajectory": [
+        "Single commit: fixed imports and refactored getQueryForPattern with limit/offset, updated page providers."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "CLAassistant",
+        "channel": "pr_comment",
+        "signal": "cla_signed",
+        "summary": "CLAAssistant confirmed committer has signed the CLA.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit; CLA bot confirmed signature; no maintainer engagement."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

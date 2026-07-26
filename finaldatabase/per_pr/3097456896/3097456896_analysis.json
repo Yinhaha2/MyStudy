@@ -1,0 +1,192 @@
+{
+  "pr_id": 3097456896,
+  "meta": {
+    "title": "Advanced Bandwidth Aggregation Optimization",
+    "html_url": "https://github.com/fatedier/fft/pull/22",
+    "repo": "fatedier/fft",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-28 13:44:50+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-30 08:52:49+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 8,
+    "topic_name": "8",
+    "body_summary": "Implement RTT-based congestion control, adaptive frame sizing, and predictive retransmission to improve bandwidth aggregation efficiency, with many subsequent fix commits for deadlock, type, and formatting issues."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 15,
+      "file_count": 5,
+      "additions": 1058,
+      "deletions": 471,
+      "changes": 1529,
+      "top1_file": "pkg/sender/transfer.go",
+      "top1_changes": 1009,
+      "top1_change_ratio": 0.659,
+      "files_by_status": {
+        "added": 1,
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "pkg",
+        "client"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 17,
+      "event_counts": {
+        "committed": 15,
+        "commented": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 43.13,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "rtt_congestion_control",
+      "adaptive_frame_sizing",
+      "predictive_retransmission"
+    ],
+    "optimization_layer": "network_transport",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added complex network optimizations; no human review occurred, closed without merge after ~43 h and 15 self-fix commits."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1529,
+        "interpretation": "At 1529 changed lines across 5 files, this is a medium-sized edit by absolute volume, but 1009 lines are in transfer.go alone. It represents a significant new feature (congestion control, adaptive sizing) that was closed without merge due to lack of review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 43.13,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No human review or substantive comment was recorded; only a Devin bot notification. The maintainer closed the PR without explanation after ~2 days.",
+      "performance_claim": "RTT-based congestion control, adaptive frame sizing, and predictive retransmission improve bandwidth aggregation for variable-latency, lossy, or asymmetric networks.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by fatedier with no review comments; PR remained unreviewed despite 15 commits of automatic fixes by Devin."
+    },
+    "capability_boundary": {
+      "topic": "8",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "A large, self-contained network protocol optimization in Go; the PR failed to attract any human review, likely due to scope, unfamiliar code, or maintainer bandwidth, illustrating a process boundary where Agent PRs stall without engagement.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or test results; only narrative descriptions of intended benefits.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix-in-PR cycle requested by maintainer.",
+      "evidence_gap": "narrative_only_no_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added rtt.go with RTT statistics (smoothed RTT, variation), modified sender.go for adaptive frame sizing and congestion window adjustments, and updated transfer.go for predictive retransmission with deadlock fixes. Many subsequent commits addressed build errors, type conversions, formatting, and refactoring.",
+      "files_primary": [
+        "pkg/sender/rtt.go",
+        "pkg/sender/sender.go",
+        "pkg/sender/transfer.go"
+      ],
+      "files_secondary_observability": [
+        "pkg/sender/frame.go",
+        "client/send.go"
+      ],
+      "secondary_note": "frame.go had minor additions for frame metadata; client/send.go enabled adaptive sizing flag. Most churn is from iterative fixes in transfer.go and formatting changes.",
+      "change_trajectory": [
+        "Initial commit: implement advanced bandwidth optimization (277 additions, 5 deletions).",
+        "Formatting fix (51/51 lines).",
+        "Type conversion fix (time.Duration comparison).",
+        "Deadlock fix in predictive retransmission (21/9).",
+        "Go formatting fix.",
+        "Dynamic RTT probing implementation (194/39).",
+        "Type conversion fix for Duration/float64 (22/21).",
+        "Enable adaptive frame sizing when dynamic allocation enabled (1/0).",
+        "Implement dynamic RTT probing with worker-aware CC (132/25).",
+        "Fix build errors (14/22).",
+        "Indentation fix (96/96).",
+        "Indentation fix (17/16).",
+        "Adaptive frame sizing RTT thresholds enhancement (1/1).",
+        "Refactor transfer.go to reduce nesting (220/174).",
+        "go fmt fix (6/6)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI monitoring for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial implementation and no linked issue.",
+      "Devin committed 14 additional commits addressing deadlocks, type errors, formatting, and build failures without human prompting.",
+      "No human review or comment was ever posted.",
+      "Maintainer fatedier closed the PR after ~43 hours without explanation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

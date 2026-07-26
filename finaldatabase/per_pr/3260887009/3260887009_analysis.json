@@ -1,0 +1,261 @@
+{
+  "pr_id": 3260887009,
+  "meta": {
+    "title": "Fix startup errors and implement real-time Effect streaming",
+    "html_url": "https://github.com/OpenAgentsInc/openagents/pull/1164",
+    "repo": "OpenAgentsInc/openagents",
+    "agent": "Claude_Code",
+    "user": "AtlantisPleb",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-24 18:50:34+00:00",
+    "merged_at": "2025-07-24 20:00:28+00:00",
+    "closed_at": "2025-07-24 20:00:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "41",
+    "body_summary": "Fix 'Session not found' error on startup by filtering ephemeral panes and implement Effect-based real-time streaming to replace 50ms polling, with additional fixes for React setState warnings, infinite loop, and UX improvements."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 15,
+      "file_count": 14,
+      "additions": 1255,
+      "deletions": 850,
+      "changes": 2105,
+      "top1_file": "openagents-tauri/src/hooks/useClaudeStreaming.ts",
+      "top1_changes": 448,
+      "top1_change_ratio": 0.213,
+      "files_by_status": {
+        "added": 5,
+        "modified": 11,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "docs",
+        "openagents-tauri"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 6,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 25,
+      "event_counts": {
+        "committed": 15,
+        "commented": 6,
+        "renamed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.165,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "real_time_streaming",
+      "polling_replacement",
+      "startup_error_fix"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "polling_overhead"
+    ],
+    "outcome_reason": "merged_self_merged_direct",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence",
+      "design_or_approach",
+      "scope"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "manual_test"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Claude_Code agent iteratively fixed multiple issues and implemented Effect-based streaming to replace polling; merged quickly with no external review based on linked issue and self-verification."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2105,
+        "interpretation": "At 2105 changed lines across 14 files, this is a large change by absolute volume, spread across streaming implementation, session persistence attempts, and multiple bug fixes. Despite its size, it was self-merged within 1.2 hours, indicating the author maintained full control and iterative debugging within the PR."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.165,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "latency_improvement",
+      "concern_detail": "Author iteratively addressed session persistence, React setState warnings, infinite loop, and implemented Effect-based streaming to replace 50ms polling. No external review or comments from other collaborators.",
+      "performance_claim": "Implement real-time Effect-based streaming to replace 50ms polling, reducing message latency from batch delivery to real-time as Claude responds.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "polling_overhead",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "perf_evidence",
+        "design_or_approach",
+        "scope"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "41",
+      "agent": "Claude_Code",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Complex multi-layered fix involving Tauri event system, Rust backend, React frontend, and Effect.ts streaming library; agent successfully integrated advanced async patterns (Effect.forkDaemon) and iteratively debugged without external guidance.",
+      "success_factors": [
+        "self-contained fix with linked issue",
+        "iterative debugging and commit pattern",
+        "author self-merge with full control"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_test"
+      ],
+      "detection_detail": {
+        "code_reading": "Author identified issues through testing and code inspection, iteratively fixing bugs as reported in linked issue #1163."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes test plan checklist and before/after description but no reproducible benchmark or timing data; streaming improvement is claimed but not quantified.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "All fixes made within the PR; session persistence was attempted and then reverted due to infinite loop, all within the same pull request.",
+      "evidence_gap": "narrative_only_absence_of_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Implemented Effect-based streaming for real-time message delivery (TauriEventService, ClaudeStreamingService, useClaudeStreaming hook, SessionStreamManager), fixed 'Session not found' error by filtering ephemeral chat panes on rehydration, resolved React setState warnings with setTimeout, fixed infinite loop in session restoration, added responsive pane height, and enabled typing during initialization.",
+      "files_primary": [
+        "openagents-tauri/src/hooks/useClaudeStreaming.ts",
+        "openagents-tauri/src/services/ClaudeStreamingService.ts",
+        "openagents-tauri/src/services/TauriEventService.ts",
+        "openagents-tauri/src/components/SessionStreamManager.tsx",
+        "openagents-tauri/src-tauri/src/lib.rs",
+        "openagents-tauri/src-tauri/src/claude_code/manager.rs"
+      ],
+      "files_secondary_observability": [
+        "openagents-tauri/src/App.tsx",
+        "openagents-tauri/src/stores/pane.ts",
+        "openagents-tauri/src/panes/ChatPane.tsx",
+        "openagents-tauri/index.html",
+        "openagents-tauri/package.json",
+        "openagents-tauri/bun.lock",
+        "docs/research/tauri/databases.md"
+      ],
+      "secondary_note": "Additional changes include removal of a research document and minor config updates; core streaming implementation is approximately 800 lines of new code.",
+      "change_trajectory": [
+        "Commit 417589b: Added databases research doc.",
+        "Commit 8dbf605: Initial fix for Session not found error - filter panes on rehydration.",
+        "Commit f43f397: Attempt session persistence with sessionMessages store.",
+        "Commit f339239: Fix React setState warning with setTimeout.",
+        "Commit ed3cdd0: Fix sending messages to restored sessions by recreating backend sessions.",
+        "Commit fc4f29f: Fix infinite loop with restoredSessionsRef.",
+        "Commit 50c3390: Bundle fix for setState, typing during init, responsive height.",
+        "Commit 226e6f9: Remove broken session restoration, revert to filtering.",
+        "Commit 30da6d2: Implement Effect streaming (new services, hook, backend events).",
+        "Commit 9d1147b: Debug logging for fiber interruption.",
+        "Commit 4531795: Restructure streaming to prevent fiber interruption.",
+        "Commit be7ec88: Revert to exact original PR #1160 implementation.",
+        "Commit 3879dbb: Use working implementation with forkDaemon.",
+        "Commit 519c97e: Remove debug logging.",
+        "Commit ebc4915: Fix typing during initialization."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "AtlantisPleb",
+        "channel": "pr_comment",
+        "signal": "self_review_iteration",
+        "summary": "Author reported updated implementation to persist sessions and messages instead of filtering them out.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "AtlantisPleb",
+        "channel": "pr_comment",
+        "signal": "self_review_iteration",
+        "summary": "Author fixed React setState warning by wrapping in setTimeout.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "AtlantisPleb",
+        "channel": "pr_comment",
+        "signal": "self_review_iteration",
+        "summary": "Author fixed 'Session not found' error when sending messages to restored sessions by recreating backend sessions.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "AtlantisPleb",
+        "channel": "pr_comment",
+        "signal": "self_review_iteration",
+        "summary": "Author fixed infinite loop when restoring sessions by adding restoredSessionsRef.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "AtlantisPleb",
+        "channel": "pr_comment",
+        "signal": "self_review_iteration",
+        "summary": "Author fixed React setState warning, enabled typing while initializing, and fixed pane height responsively.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "AtlantisPleb",
+        "channel": "pr_comment",
+        "signal": "self_review_iteration",
+        "summary": "Author removed broken session restoration logic to fix infinite loop, reverting to ephemeral sessions.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial session not found fix, linked to issue #1163.",
+      "Author iteratively added 12 more commits addressing session persistence, setState warnings, infinite loop, and integrating Effect-based streaming from unmerged PR #1160.",
+      "Self-merged after 1.1 hours with no external review or comments from other collaborators."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

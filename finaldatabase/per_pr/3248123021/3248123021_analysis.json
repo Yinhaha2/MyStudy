@@ -1,0 +1,162 @@
+{
+  "pr_id": 3248123021,
+  "meta": {
+    "title": "Fix multi-project commit detection in GitLab import tool",
+    "html_url": "https://github.com/alexandear/import-gitlab-commits/pull/135",
+    "repo": "alexandear/import-gitlab-commits",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-21 10:44:37+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 36,
+    "topic_name": "36",
+    "body_summary": "Fix commit counter to use project name instead of stale loop index, and add cursor-based pagination to reduce redundant GitLab API calls."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 1,
+      "additions": 8,
+      "deletions": 3,
+      "changes": 11,
+      "top1_file": "internal/app.go",
+      "top1_changes": 11,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "internal"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "copilot_work_finished": 1,
+        "review_requested": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "fix_commit_counter",
+      "pagination_efficiency",
+      "api_call_reduction"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot fixed commit counter bug and added proper pagination for GitLab imports; PR closed unreviewed after ~12 minutes, with no maintainer interaction."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 11,
+        "interpretation": "At 11 changed lines in a single Go file, this is a tiny fix by absolute volume. As a small bugfix with a minor performance optimization, it was closed without merge, indicating a process gap rather than technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_human_feedback",
+      "concern_detail": "No review, comment, or feedback on the PR; the PR was closed with no maintainer interaction.",
+      "performance_claim": "Fix missing project ID in commit counter and add proper cursor-based pagination for efficient GitLab API calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "redundant_api_calls (pagination never advanced; also a counter bug)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR was closed without merge, no review, no comments; likely stale or auto-closed."
+    },
+    "capability_boundary": {
+      "topic": "36",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Small bugfix with performance improvement in a Go tool; no maintainer engagement suggests PRs from agents in this repo may be ignored or auto-closed without review.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body describes the bug and fix in narrative, but no benchmark, profiler, or repro steps for the performance claim.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed without merge; no regression handling occurred.",
+      "evidence_gap": "narrative_only_without_benchmark_or_repro"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In internal/app.go, fixed commit counter to use project name instead of stale loop index, and added cursor-based pagination by updating idAfter with the highest project ID from each page.",
+      "files_primary": [
+        "internal/app.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial plan commit and fix commit with two changes: counter key fix and pagination improvement."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Copilot opened PR with fix, requested review from maintainer; no review or comment; PR closed shortly after."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

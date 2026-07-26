@@ -1,0 +1,209 @@
+{
+  "pr_id": 3218617983,
+  "meta": {
+    "title": "docs: Performance improvements: Fix memory leaks, add HTTP timeouts, optimize UI rendering",
+    "html_url": "https://github.com/openfoodfacts/smooth-app/pull/6746",
+    "repo": "openfoodfacts/smooth-app",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-10 09:40:53+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-11 09:31:59+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "docs",
+    "aidev_task_confidence": 10,
+    "topic_id": 6,
+    "topic_name": "6",
+    "body_summary": "Copilot addresses multiple performance issues: LRU cache for SVG network requests, HTTP timeouts, async file I/O, ListView.builder optimization, and adds a performance monitoring helper; includes documentation and unit test."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 10,
+      "additions": 398,
+      "deletions": 39,
+      "changes": 437,
+      "top1_file": "packages/smooth_app/docs/PERFORMANCE.md",
+      "top1_changes": 177,
+      "top1_change_ratio": 0.405,
+      "files_by_status": {
+        "added": 3,
+        "modified": 7
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 21,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "copilot_work_finished": 2,
+        "renamed": 2,
+        "review_requested": 1,
+        "labeled": 1,
+        "commented": 2,
+        "mentioned": 2,
+        "subscribed": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 23.85,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_leak_fix",
+      "http_timeout",
+      "ui_rendering_optimization",
+      "listview_builder",
+      "async_file_io"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unbounded_cache",
+      "blocking_io",
+      "missing_timeout"
+    ],
+    "outcome_reason": "closed_without_merge_due_to_incomplete_validation",
+    "review_dimensions": [
+      "code_quality"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot fixed memory/timeout/rendering issues and added docs; maintainer requested lint but closure occurred without merge, likely due to incomplete validation environment."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 437,
+        "interpretation": "At 437 changed lines across 10 files, this is a small-to-medium refactor. It addresses multiple performance issues and adds new documentation and testing, but was closed without merge after maintainer lint request and agent's inability to run full Flutter analysis."
+      },
+      "lifecycle": {
+        "lifespan_hours": 23.85,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_quality",
+      "primary_concern": "linting_compliance",
+      "concern_detail": "Maintainer teolemon asked Copilot to lint the files; Copilot could only perform partial validation due to firewall restrictions and could not run Flutter analyze.",
+      "performance_claim": "Prevent OOM crashes via LRU cache, eliminate network hangs via timeouts, improve UI responsiveness via async I/O and ListView.builder, and add performance monitoring utility.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_cache, blocking_io, missing_timeout",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "code_quality"
+      ],
+      "rejection_signals": "PR closed after lint request without merge; no explicit rejection but lack of full validation likely contributed."
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Agent PR performance improvement needed integration with the project's CI/lint environment; inability to run full Flutter analysis due to firewall restrictions hindered validation, leading to closure without merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling; only narrative description of fixes and a performance monitoring helper added.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after lint request; no fix-in-PR cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Implemented LRU cache for SVG network requests, added HTTP timeouts, converted synchronous file read to async, used ListView.builder for infinite scroll, and cached image provider computation to avoid rebuilds; added performance_helper.dart utility and unit test, plus PERFORMANCE.md doc.",
+      "files_primary": [
+        "packages/smooth_app/lib/cards/category_cards/svg_safe_network.dart",
+        "packages/smooth_app/lib/cards/product_cards/smooth_product_image.dart",
+        "packages/smooth_app/lib/pages/prices/infinite_scroll_list.dart",
+        "packages/smooth_app/lib/helpers/performance_helper.dart"
+      ],
+      "files_secondary_observability": [
+        "packages/smooth_app/lib/data_models/news_feed/newsfeed_provider.dart",
+        "packages/smooth_app/lib/data_models/location_list_nominatim_supplier.dart",
+        "packages/smooth_app/lib/data_models/location_list_photon_supplier.dart",
+        "packages/smooth_app/lib/generic_lib/widgets/smooth_product_image.dart",
+        "packages/smooth_app/docs/PERFORMANCE.md",
+        "packages/smooth_app/test/helpers/performance_helper_test.dart"
+      ],
+      "secondary_note": "HTTP timeout changes are minimal (2 lines each) in location and newsfeed suppliers; documentation and test files are supportive.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "First commit: LRU cache in svg_safe_network.dart, HTTP timeouts in location and newsfeed, image provider caching in smooth_product_image.dart.",
+        "Second commit: async file operations in newsfeed_provider.dart, ListView.builder in infinite_scroll_list.dart, new performance_helper.dart and test.",
+        "Final commit: added PERFORMANCE.md documentation."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "teolemon",
+        "channel": "pr_comment",
+        "signal": "lint_request",
+        "summary": "Maintainer asked @copilot to lint the files.",
+        "blocking": false,
+        "action_taken": "Copilot attempted lint but could not run full Flutter analyze due to firewall; partial manual review reported."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "lint_partial_response",
+        "summary": "Copilot reported that full Flutter analyze was blocked by firewall; manual review showed code follows Dart conventions.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with performance fixes and documentation.",
+      "Maintainer teolemon asked Copilot to lint files.",
+      "Copilot responded that full lint could not run due to firewall restrictions but manual review looked fine.",
+      "Maintainer closed the PR without merging; no further interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

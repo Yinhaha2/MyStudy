@@ -1,0 +1,191 @@
+{
+  "pr_id": 3212230718,
+  "meta": {
+    "title": "[Backport][release-474-e] Parallelize Iceberg materialized view base table freshness retrieval",
+    "html_url": "https://github.com/trinodb/trino/pull/26149",
+    "repo": "trinodb/trino",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-08 11:50:27+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-08 13:02:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Backport of parallel freshness retrieval for Iceberg materialized views from PR #24734 to release-474-e, claiming to reduce refresh time from 560ms to 310ms, but actual commits only contain JVM config changes and no performance code."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 2,
+      "additions": 17,
+      "deletions": 17,
+      "changes": 34,
+      "top1_file": ".mvn/jvm.config.original",
+      "top1_changes": 28,
+      "top1_change_ratio": 0.8235,
+      "files_by_status": {
+        "modified": 1,
+        "added": 1,
+        "removed": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        ".mvn"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 17,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "copilot_work_started": 1,
+        "commented": 5,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 1.194,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "parallel_execution",
+      "materialized_view_freshness"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "failed_backport_no_perf_change",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Backport PR by Copilot with numerical perf claim from original PR; commits contain only .mvn/ config changes, not the Iceberg parallelism code; closed by maintainer without review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 34,
+        "interpretation": "At only 34 lines changed, this is a tiny edit. The changes are limited to .mvn/ configuration files, with no Iceberg connector modifications. The intended performance change was not implemented, explaining the quick closure without merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.194,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "failed_to_cherry_pick_changes",
+      "concern_detail": "The PR body describes parallelizing Iceberg freshness retrieval, but the commits contain only JVM config tweaks and a file addition/removal in .mvn/, with no changes to IcebergMetadata.java or any Java files. The agent apparently failed to cherry-pick the actual code changes from the original PR.",
+      "performance_claim": "20 base tables with 10ms avg load time reduces refresh from 560ms to 310ms (~45% improvement).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer wendigo closed the PR after ~1 hour; kokosing later commented 'Sorry about that!' suggesting the PR was opened by mistake."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Cherry-picking commits for a backport requires accurate identification of relevant commits and conflict resolution. The agent failed to include any of the intended performance changes, resulting in an empty PR.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance evidence in the PR; the actual commits do not implement the claimed change.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by maintainer without review; no follow-up fix.",
+      "evidence_gap": "backport_miss_no_change"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "The PR intended to backport parallel freshness retrieval for Iceberg materialized views but only modified .mvn/jvm.config and added then removed .mvn/jvm.config.original. No Java source files were changed.",
+      "files_primary": [],
+      "files_secondary_observability": [
+        ".mvn/jvm.config",
+        ".mvn/jvm.config.original"
+      ],
+      "secondary_note": "All changes are limited to maven JVM configuration files; no performance-related code was included.",
+      "change_trajectory": [
+        "Initial plan commit (empty).",
+        "Second commit: added .mvn/jvm.config.original and modified .mvn/jvm.config.",
+        "Third commit: removed .mvn/jvm.config.original and further tweaked .mvn/jvm.config; no Java changes committed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cla-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "CLA_requirement",
+        "summary": "Reminded that a signed CLA is required before merge.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "kokosing",
+        "channel": "pr_comment",
+        "signal": "accidental_pr_closure_apology",
+        "summary": "Commented 'Sorry about that!' after the PR was closed, suggesting unintentional opening or closure.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR as a backport of #24734 to release-474-e.",
+      "CLA bot posted multiple reminders.",
+      "Copilot committed changes only to .mvn/ config files.",
+      "PR closed by wendigo after ~1 hour; kokosing apologized post-close.",
+      "No human review or performance validation occurred."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

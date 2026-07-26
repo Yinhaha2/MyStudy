@@ -1,0 +1,175 @@
+{
+  "pr_id": 3261868679,
+  "meta": {
+    "title": "Add bench mode toggle to C# transpiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/12926",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-25 03:30:36+00:00",
+    "merged_at": "2025-07-25 03:34:32+00:00",
+    "closed_at": "2025-07-25 03:34:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "1",
+    "body_summary": "Add SetBenchMain flag to C# transpiler for benchmark mode, fix negative RNG and substring, and update Rosetta golden tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 8,
+      "additions": 67,
+      "deletions": 16,
+      "changes": 83,
+      "top1_file": "transpiler/x/cs/rosetta_test.go",
+      "top1_changes": 34,
+      "top1_change_ratio": 0.41,
+      "files_by_status": {
+        "added": 1,
+        "modified": 7
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.066,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmark_infrastructure",
+      "negative_rng_fix"
+    ],
+    "optimization_layer": "build_transpiler",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added bench mode flag to C# transpiler with test update; merged within 4 minutes without review; no performance evidence apart from Rosetta test."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 83,
+        "interpretation": "At 83 changed lines across 8 files, this is a small edit by absolute volume. It fits a small-step, fast-turnaround infrastructure PR and is consistent with the successful, low-friction merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.066,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or comment text in the dataset; PR was self-approved and merged by the author.",
+      "performance_claim": "Add bench mode toggle to enable wrapping main in benchmark block and fix negative RNG values for better benchmark reliability.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding a simple feature flag and test update in a transpiler codebase poses low merge friction; Codex correctly added the flag and updated tests, and the maintainer merged without human review.",
+      "success_factors": [
+        "small_scope",
+        "self-contained_test_update",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No before/after benchmark numbers; only a test command and Rosetta golden file update.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression observed; PR merged immediately.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added SetBenchMain flag in C# transpiler to wrap main in benchmark block; fixed negative RNG and substring; added Rosetta test output with benchmark metrics; updated tests to handle bench mode.",
+      "files_primary": [
+        "transpiler/x/cs/transpiler.go",
+        "transpiler/x/cs/stub.go"
+      ],
+      "files_secondary_observability": [
+        "tests/rosetta/transpiler/CS/100-doors-2.bench",
+        "tests/rosetta/transpiler/CS/100-doors-2.cs",
+        "transpiler/x/cs/rosetta_test.go",
+        "transpiler/x/cs/transpiler_test.go",
+        "transpiler/x/cs/vm_valid_golden_test.go",
+        "transpiler/x/cs/ROSETTA.md"
+      ],
+      "secondary_note": "Most files are test artifacts or documentation updates for benchmark mode.",
+      "change_trajectory": [
+        "Single commit adding bench mode flag, fixing RNG and substring, updating Rosetta goldens and test files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created with a single commit by tamnd, self-merged within 4 minutes with no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

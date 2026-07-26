@@ -1,0 +1,167 @@
+{
+  "pr_id": 3172149812,
+  "meta": {
+    "title": "[alpha_factory] drain in-memory event queues",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/2554",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-24 14:04:55+00:00",
+    "merged_at": "2025-06-24 14:06:15+00:00",
+    "closed_at": "2025-06-24 14:06:15+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "13",
+    "body_summary": "Add an in-memory event consumer loop to AgentManager that starts on initialization and stops on shutdown, with a regression test."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 63,
+      "deletions": 3,
+      "changes": 66,
+      "top1_file": "tests/test_agent_manager_consumer.py",
+      "top1_changes": 58,
+      "top1_change_ratio": 0.879,
+      "files_by_status": {
+        "added": 1,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "alpha_factory_v1",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.0222,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "event_queue_drain",
+      "consumer_loop_lifecycle"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_fast_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Small in-memory queue drain fix with a test, merged within minutes with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 66,
+        "interpretation": "At 66 changed lines across 2 files, this is a minimal edit by absolute volume. It fits a quick, low-risk infrastructure fix that was merged rapidly without formal review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0222,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none_no_review",
+      "concern_detail": "No formal review or comments were recorded; the PR was merged directly.",
+      "performance_claim": "Drain in-memory event queues to prevent buildup and improve memory/resource usage.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "13",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "A self-contained agent manager patch with a test; merged with zero review friction, illustrating low barriers for small, non-breaking internal changes in this repository.",
+      "success_factors": [
+        "small_scope",
+        "single_commit",
+        "fast_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance benchmarks or before/after metrics; only a unit test and narrative description of the consumer loop.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression observed; PR merged immediately.",
+      "evidence_gap": "narrative_only_no_perf_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In agent_manager.py, started an in-memory consumer loop on AgentManager init and stopped it on shutdown; added test_test_agent_manager_consumer.py with 58 lines covering the lifecycle.",
+      "files_primary": [
+        "alpha_factory_v1/backend/agent_manager.py",
+        "tests/test_agent_manager_consumer.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes are in two files: a minor production modification and an added regression test.",
+      "change_trajectory": [
+        "Single commit adds consumer loop start/stop logic in agent_manager.py and associated test."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by MontrealAI with a single commit; labeled 'codex' immediately.",
+      "Merged by MontrealAI ~1.3 minutes after creation with no human review comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

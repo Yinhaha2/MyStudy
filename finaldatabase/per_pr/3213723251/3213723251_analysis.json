@@ -1,0 +1,177 @@
+{
+  "pr_id": 3213723251,
+  "meta": {
+    "title": "Share static empty metadata",
+    "html_url": "https://github.com/jscarle/LightResults/pull/60",
+    "repo": "jscarle/LightResults",
+    "agent": "OpenAI_Codex",
+    "user": "jscarle",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-08 20:39:32+00:00",
+    "merged_at": "2025-07-08 20:56:00+00:00",
+    "closed_at": "2025-07-08 20:56:00+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "43",
+    "body_summary": "Reuse static EmptyMetaData instance to reduce allocations for Error.Empty and DefaultErrorList."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 5,
+      "additions": 63,
+      "deletions": 15,
+      "changes": 78,
+      "top1_file": "tests/LightResults.Tests/ErrorTests.cs",
+      "top1_changes": 35,
+      "top1_change_ratio": 0.449,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 0.275,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "shared_immutable_instance",
+      "allocation_optimization",
+      "memory_reduction"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Self-merged allocation optimization; no review, benchmark, or profiler evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 78,
+        "interpretation": "At 78 changed lines, this is a tiny edit by absolute volume. It fits a small-step, low-risk performance PR that was self-merged without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.275,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_feedback",
+      "concern_detail": "No formal review or comments; PR was merged by the author without external review.",
+      "performance_claim": "Reduce allocations by reusing a static empty metadata instance instead of creating new ones.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "43",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A single-file allocation refactor in a .NET library; merged quickly with no review, indicating low barrier for small optimization changes.",
+      "success_factors": [
+        "narrow_scope",
+        "self_merge_by_maintainer",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "Author likely identified repeated allocations through code reading; merged without explicit review."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No performance measurements; testing only via unit tests, not a benchmark or profiler.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions observed; change was self-contained.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In Error.cs, replaced new instances of EmptyMetaData with a shared static readonly instance, reducing allocations. Also updated related files IResult.cs and IResult`1.cs, and added unit tests in ErrorTests.cs.",
+      "files_primary": [
+        "src/LightResults/Error.cs"
+      ],
+      "files_secondary_observability": [
+        "src/LightResults/IResult.cs",
+        "src/LightResults/IResult`1.cs",
+        "tests/LightResults.Tests/ErrorTests.cs"
+      ],
+      "secondary_note": "Merge branch brought in unrelated README.md changes.",
+      "change_trajectory": [
+        "Initial commit: replace instantiation with static EmptyMetaData in Error.cs.",
+        "Merge commit from feature/work branch added further IResult changes and unit tests."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created with single commit sharing static empty metadata.",
+      "Merge from feature/work added tests and doc changes.",
+      "Self-merged within ~16 minutes; no human review interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

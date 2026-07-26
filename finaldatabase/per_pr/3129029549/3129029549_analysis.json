@@ -1,0 +1,210 @@
+{
+  "pr_id": 3129029549,
+  "meta": {
+    "title": "Draw down `Wrapper` components and migrate from `styled-components` to SCSS modules",
+    "html_url": "https://github.com/polkadot-cloud/polkadot-staking-dashboard/pull/2799",
+    "repo": "polkadot-cloud/polkadot-staking-dashboard",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-09 03:32:28+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-14 07:41:26+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "24",
+    "body_summary": "Migrate 19 library components from styled-components to SCSS modules, claiming better bundle size, performance, and maintainability."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 9,
+      "file_count": 168,
+      "additions": 9934,
+      "deletions": 3306,
+      "changes": 30226,
+      "top1_file": "package-lock.json",
+      "top1_changes": 6487,
+      "top1_change_ratio": 0.2146,
+      "files_by_status": {
+        "added": 15,
+        "modified": 120,
+        "removed": 12,
+        "renamed": 21
+      },
+      "directory_count": 3,
+      "directories": [
+        ".github",
+        "package",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 21,
+      "event_counts": {
+        "committed": 9,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "copilot_work_finished": 2,
+        "commented": 2,
+        "renamed": 2,
+        "review_requested": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 124.15,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "css_modules_migration",
+      "bundle_size_reduction",
+      "styled_components_replacement"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot migrated 19 components; only maintainer interaction was a lint fix request; closed without merge after ~5 days with zero formal reviews."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 30226,
+        "interpretation": "At over 30k total changed lines (many from merge commits), this is a large-scale refactor across many components. The close without merge aligns with a high-risk, unreviewed migration that lacked active maintainer engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 124.15,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "ci_validation",
+      "primary_concern": "lint_formatting",
+      "concern_detail": "Maintainer rossbulat requested pnpm lint:fix to resolve CI lint errors. No other code or performance review was performed.",
+      "performance_claim": "Improved bundle size and performance by eliminating styled-components overhead for 19 components.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "ci_validation"
+      ],
+      "rejection_signals": "Closed without substantive review; only interaction was lint fix request. No evidence of maintainer approval or interest."
+    },
+    "capability_boundary": {
+      "topic": "24",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Large frontend migration PRs require active maintainer review; without engagement, the PR went stale and was closed despite a successful lint fix.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "CI lint failures prompted the maintainer to request pnpm lint:fix; no manual code review or performance validation was observed."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body lists migration patterns and benefits but includes no benchmarks or before/after measurements.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After the lint fix, no further review occurred; the maintainer closed the PR without comment after approximately 5 days.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Migrated 19 components from styled-components to SCSS modules. Added shared _variables.scss with breakpoints, colors, and fonts. Replaced transient props with CSS classes using classNames. Updated imports and removed old Wrapper styled files.",
+      "files_primary": [
+        "packages/app/src/library/_variables.scss",
+        "packages/app/src/library/EstimatedTxFee/index.tsx",
+        "packages/app/src/library/MainFooter/index.tsx",
+        "packages/app/src/library/StyledSlider/index.tsx",
+        "packages/app/src/library/SelectItems/index.tsx"
+      ],
+      "files_secondary_observability": [
+        "package-lock.json",
+        "packages/dedot-api/src/services/kusama.ts",
+        "packages/app/src/library/Card/Wrappers.ts",
+        "packages/app/src/canvas/Pool/Overview/Performance/ActiveGraph.tsx"
+      ],
+      "secondary_note": "Most line churn came from merge commits introducing unrelated changes (e.g., package-lock.json, dedot-api refactor); the core migration touched many small files across the library.",
+      "change_trajectory": [
+        "Initial plan commit (13963c5).",
+        "Migrated 4 components (4509485).",
+        "Migrated 8 more components (df545d8).",
+        "Migrated 6 more components (13377ce).",
+        "Completed migration of all 19 components (1b30497).",
+        "Fixed lint issues (e00bfb8).",
+        "Merged main branch multiple times (bb47be0, cee2c5c, a2a78de)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "rossbulat",
+        "channel": "pr_comment",
+        "signal": "lint_fix_request",
+        "summary": "Requested pnpm lint:fix to resolve CI lint errors.",
+        "blocking": false,
+        "action_taken": "Copilot fixed lint issues in commit e00bfb8."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "lint_fix_confirmation",
+        "summary": "Confirmed lint fix and referenced commit e00bfb8.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue #2798 with incremental migration commits.",
+      "Maintainer rossbulat commented requesting pnpm lint:fix to resolve CI errors.",
+      "Copilot applied the lint fix within minutes.",
+      "PR remained open without further review until rossbulat closed it after ~5 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

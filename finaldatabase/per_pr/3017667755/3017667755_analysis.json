@@ -1,0 +1,244 @@
+{
+  "pr_id": 3017667755,
+  "meta": {
+    "title": "fix: eliminate double rendering in apps homepage",
+    "html_url": "https://github.com/calcom/cal.com/pull/20951",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-24 15:29:27+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-06 15:28:11+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 12,
+    "topic_name": "12",
+    "body_summary": "Fix double rendering in apps homepage by removing duplicate NotificationSoundHandler, adding client-side only rendering for AppCard/InstallAppButton, memoizing AllApps, and addressing hydration mismatches."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 16,
+      "file_count": 60,
+      "additions": 1100,
+      "deletions": 600,
+      "changes": 1700,
+      "top1_file": "packages/features/apps/components/AllApps.tsx",
+      "top1_changes": 258,
+      "top1_change_ratio": 0.152,
+      "files_by_status": {
+        "added": 6,
+        "modified": 53,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 14,
+        "review_requested": 2,
+        "commented": 3,
+        "labeled": 3,
+        "reviewed": 2,
+        "deployed": 6
+      },
+      "lifespan_hours": 287.983,
+      "first_review_delay_hours": 0.017,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "render_optimization",
+      "hydration_mismatch_fix",
+      "component_memoization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity_typecheck_failure",
+    "review_dimensions": [
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin attempted to fix double rendering with client-side rendering and memoization, but type check failed; PR closed after 12 days of inactivity with no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1700,
+        "interpretation": "At 1700 changed lines across 60 files, this is a medium-to-large edit by absolute volume, inflated by a merge commit that brought in many unrelated files; the PR was closed, not merged, reflecting the unresolved type check failure and inactivity."
+      },
+      "lifecycle": {
+        "lifespan_hours": 287.983,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "type_check_failure",
+      "concern_detail": "retrogtx reported that the type check was failing; hbjORbj noted the duplicate NotificationSoundHandler removal was correct but already guarded.",
+      "performance_claim": "Memoizing AllApps and using client-side only rendering reduce unnecessary re-renders and hydration mismatches.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "double_rendering_and_hydration_mismatch",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "ci_validation"
+      ],
+      "rejection_signals": "Type check failing and subsequent inactivity led to auto-close after 12 days."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Complex React rendering optimization involving RSC, hydration, and client-side rendering exhausted the Agent; multiple iterations failed to pass type checks, showing difficulty with nuanced Next.js patterns.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer hbjORbj reviewed layout.tsx change and noted the duplicate removal.",
+        "ci_auto": "retrogtx identified type check failure through CI or manual run, indicating broken type safety."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or reproduction steps for performance; only narrative claim about double rendering.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed by Devin bot after 7+ days of inactivity, with no fix for type check; no further attempts to resolve.",
+      "evidence_gap": "narrative_only_typecheck_failure"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "The PR attempted to fix double rendering in the apps homepage by: removing a duplicate NotificationSoundHandler in layout.tsx; replacing useAutoAnimate with useRef in AllApps.tsx; memoizing AllApps; adding client-side only rendering wrappers for AppCard, InstallAppButton, and slider components; extracting CategoryTab; using a static server-side skeleton; and reverting an SSR wrapper that didn't help.",
+      "files_primary": [
+        "packages/features/apps/components/AllApps.tsx",
+        "packages/features/apps/components/AppCard.tsx",
+        "packages/app-store/components.tsx",
+        "apps/web/app/layout.tsx",
+        "apps/web/app/(use-page-wrapper)/apps/(homepage)/page.tsx"
+      ],
+      "files_secondary_observability": [
+        "apps/web/app/(use-page-wrapper)/apps/(homepage)/loading.tsx",
+        "apps/web/app/(use-page-wrapper)/apps/(homepage)/skeleton.tsx",
+        "packages/features/apps/components/CategoryTab.tsx",
+        "packages/features/apps/components/Categories.tsx",
+        "packages/features/apps/components/PopularAppsSlider.tsx",
+        "packages/features/apps/components/RecentAppsSlider.tsx",
+        "packages/features/apps/components/Slider.tsx",
+        "apps/web/components/apps/layouts/AppsLayout.tsx"
+      ],
+      "secondary_note": "A merge from main brought in many unrelated changes to availability pages, admin routes, email templates, and other components, inflating the diff.",
+      "change_trajectory": [
+        "Initial commit: removed duplicate NotificationSoundHandler in layout.tsx and modified homepage page.",
+        "Added memoization to AllApps and replaced useAutoAnimate with useRef.",
+        "Added client-side only rendering for AppCards and InstallAppButton.",
+        "Reverted an SSR wrapper approach on homepage page.",
+        "Maintainer merged main, then manually removed the client-side only rendering from AppCard.tsx (hbjORbj).",
+        "Devin continued with more client-side rendering for sliders, a skeleton loading state, and extracting CategoryTab.",
+        "Final commits added more client-side rendering protection and a static server-side skeleton.",
+        "Type check remained failing; PR auto-closed after 7+ days of inactivity."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_no_issues",
+        "summary": "cubic-dev-ai bot commented with a generic no-issues message.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "hbjORbj",
+        "channel": "inline_review_comment",
+        "signal": "code_duplication_note",
+        "summary": "Noted that the duplicate NotificationSoundHandler line was already preceded by a guarded {!isEmbed && ...}.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "retrogtx",
+        "channel": "pr_comment",
+        "signal": "type_check_failure",
+        "summary": "type check is failing",
+        "blocking": false,
+        "action_taken": "No fix committed; PR eventually closed."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_bot_notice",
+        "summary": "Devin bot posted its usual integration message.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR for fixing double rendering with initial changes.",
+      "cubic-dev-ai bot posted no-issue review immediately.",
+      "Devin iterated through multiple approaches: memoization, client-side rendering, skeleton SSR.",
+      "Maintainer hbjORbj merged main and manually removed some client-side rendering in AppCard.",
+      "retrogtx flagged type check failure.",
+      "Devin continued adding more fixes but PR stalled; auto-closed after 12 days due to inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

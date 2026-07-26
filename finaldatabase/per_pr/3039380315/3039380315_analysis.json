@@ -1,0 +1,219 @@
+{
+  "pr_id": 3039380315,
+  "meta": {
+    "title": "perf: optimize app loading and rendering performance with TypeScript fix",
+    "html_url": "https://github.com/calcom/cal.com/pull/21113",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-05 11:30:36+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-05 12:10:49+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "12",
+    "body_summary": "Claims to fix TypeScript type checking issues (null check, TS version revert) but the title and initial body misrepresent the PR as containing performance optimizations like caching and memoization."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 3,
+      "additions": 12,
+      "deletions": 12,
+      "changes": 24,
+      "top1_file": "packages/features/ee/teams/components/TeamsListing.tsx",
+      "top1_changes": 2,
+      "top1_change_ratio": 0.083,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "packages",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 2,
+        "review_requested": 2,
+        "labeled": 2,
+        "commented": 5,
+        "deployed": 1,
+        "reviewed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.67,
+      "first_review_delay_hours": 0.53,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "none"
+    ],
+    "optimization_layer": "none",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "misleading_description_not_performance_pr",
+    "review_dimensions": [
+      "scope"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "PR title and initial body claimed performance optimizations, but actual changes were only a tiny TS null fix and TS version revert. Maintainer closed after noting absence of claimed caching/memoization/code-splitting."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 24,
+        "interpretation": "Extremely small change (2-line null check + TS version revert) that does not match the performance claim; closed quickly after maintainer identified the disconnect."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.67,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "scope",
+      "primary_concern": "misleading_description",
+      "concern_detail": "retrogtx noted that the described performance optimizations (caching, memoization, code splitting) are absent from the code diff; Devin acknowledged they belong to another PR, but the PR was closed immediately.",
+      "performance_claim": "Optimize app loading and rendering performance (from the title and initial body).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "scope"
+      ],
+      "rejection_signals": "Maintainer closed after pointing out missing changes; no request for benchmarks or further iteration."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent submitted a PR with a title/description claiming performance improvements but the actual diff was unrelated TS fixes; the maintainer rejected it without engaging on performance metrics.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "retrogtx compared the PR description with the file diffs and immediately identified that the claimed optimizations were not present."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance materials or measurements existed; the PR only contained a null check and TS version revert.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed within minutes of maintainer comment, with no follow-up commits.",
+      "evidence_gap": "missing_performance_changes_entirely"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Fixed a potential null error in TeamsListing.tsx by adding optional chaining to searchParams; reverted TypeScript version in package.json and yarn.lock to resolve a compiler bug.",
+      "files_primary": [
+        "packages/features/ee/teams/components/TeamsListing.tsx",
+        "package.json"
+      ],
+      "files_secondary_observability": [
+        "yarn.lock"
+      ],
+      "secondary_note": "Lockfile reflects the TS version revert.",
+      "change_trajectory": [
+        "Initial commit: optional chaining fix for searchParams.",
+        "Second commit: TypeScript version revert to fix compiler bug.",
+        "Maintainer review noted missing performance items; Devin acknowledged and pointed to another PR; PR closed without further changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "retrogtx",
+        "channel": "formal_review",
+        "signal": "scope_mismatch",
+        "summary": "Pointed out that the PR description lists caching, memoization, code splitting, but these are not in the diff.",
+        "blocking": true,
+        "action_taken": "PR was closed immediately by the maintainer."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Standard Devin welcome message indicating automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_label_reviewer",
+        "summary": "Added community label and reviewer via Graphite automations.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_type_check_pass",
+        "summary": "Reported that local and CI type checks passed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "clarification_misleading_description",
+        "summary": "Acknowledged that performance items are in PR #21048 and that this PR is only for type fixes.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with misleading title/desc referencing performance improvements that were not present.",
+      "Bot automatically labeled as 'performance' and added reviewer.",
+      "Within ~30 minutes, maintainer retrogtx commented that the described changes are missing.",
+      "Devin acknowledged the mismatch and pointed to the correct PR for performance; PR was closed immediately by maintainer."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

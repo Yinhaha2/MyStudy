@@ -1,0 +1,183 @@
+{
+  "pr_id": 3085814797,
+  "meta": {
+    "title": "Experiment: enable multi-threaded rendering",
+    "html_url": "https://github.com/CapSoftware/Cap/pull/569",
+    "repo": "CapSoftware/Cap",
+    "agent": "OpenAI_Codex",
+    "user": "richiemcilroy",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-23 09:42:28+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-27 04:20:10+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Add multi-threaded rendering by parallelizing render_video_to_channel with a worker pool and making RenderSegment clonable in the rendering crate."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 3,
+      "additions": 67,
+      "deletions": 51,
+      "changes": 118,
+      "top1_file": "crates/rendering/src/lib.rs",
+      "top1_changes": 116,
+      "top1_change_ratio": 0.983,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "crates"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "renamed": 1,
+        "deployed": 2,
+        "commented": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 90.633,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "multithreaded_rendering",
+      "worker_pool_parallelization"
+    ],
+    "optimization_layer": "application_rendering",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "obsoleted_by_upcoming_refactor",
+    "review_dimensions": [
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "OpenAI_Codex added worker pool parallelization to rendering; PR closed because upcoming Skia rewrite will require reimplementation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 118,
+        "interpretation": "At 118 changed lines across 3 files, this is a small edit. It is a targeted performance experiment for multi-threaded rendering, but was closed without merge because the maintainer indicated a future Skia rewrite will obsolete it."
+      },
+      "lifecycle": {
+        "lifespan_hours": 90.633,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "obsoleted_by_future_refactor",
+      "concern_detail": "Maintainer Brendonovich commented that the multi-threaded rendering will need to be reimplemented after the upcoming Skia rewrite, indicating the current implementation is not worth merging now.",
+      "performance_claim": "Parallelize video rendering to improve throughput via worker pool multithreading.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer closed PR stating it will need reimplementation after Skia rewrite, not due to performance or correctness issues."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The PR was closed not due to technical issues but because a planned refactor (Skia rewrite) would make the implementation obsolete; this illustrates a process boundary where agent contributions may be invalidated by upcoming architectural changes.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body mentions cargo check fails due to missing screencapturekit dependency; no performance metrics or instructions.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merging; no regression handling needed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In crates/rendering/src/lib.rs, added rayon worker pool to render_video_to_channel, made RenderSegment clonable, and added num_cpus dependency in Cargo.toml.",
+      "files_primary": [
+        "crates/rendering/src/lib.rs",
+        "crates/rendering/Cargo.toml"
+      ],
+      "files_secondary_observability": [
+        "Cargo.lock"
+      ],
+      "secondary_note": "Cargo.lock update is dependency-related.",
+      "change_trajectory": [
+        "Initial commit: add multithreaded rendering using worker pool.",
+        "Fix commit: handle JoinError from parallel processing."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Brendonovich",
+        "channel": "pr_comment",
+        "signal": "obsoleted_by_skia_rewrite",
+        "summary": "State that the change will need to be reimplemented after the Skia rewrite, implying no merge at this time.",
+        "blocking": false,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with multithreaded rendering changes.",
+      "Maintainer commented on future Skia rewrite making the PR obsolete.",
+      "PR closed after 3.8 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "pr_id": 3186031697,
+  "meta": {
+    "title": "Reduce map constant instructions",
+    "html_url": "https://github.com/mochilang/mochi/pull/3946",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-29 10:32:04+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 03:06:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "15",
+    "body_summary": "Optimize VM by removing freshConst and reusing constant registers for map/struct literals, reducing hash join register increments, and updating IR golden files."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 161,
+      "deletions": 98,
+      "changes": 259,
+      "top1_file": "tests/vm/valid/inner_join.ir.out",
+      "top1_changes": 185,
+      "top1_change_ratio": 0.714,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 40.567,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_register_reuse",
+      "instruction_count_reduction",
+      "hash_join_optimization"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "unknown",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex proposed VM optimization with IR golden file updates; no reviews or comments; PR closed without merge after 1.7 days; infer closed due to lack of review engagement."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 259,
+        "interpretation": "At 259 changed lines, this is a small-to-medium edit by absolute volume. As a VM optimization performance PR it was closed without merge—no review engagement recorded, and the author closed it after ~1.7 days, suggesting possible self-abandonment or lack of maintainer attention."
+      },
+      "lifecycle": {
+        "lifespan_hours": 40.567,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review or comments were recorded in the dataset; the PR was closed by the author without any reviewer feedback.",
+      "performance_claim": "Reduce instruction count by reusing constant registers and optimizing hash join register increments.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author with no review or merge activity; likely abandoned or deemed unnecessary after brief period."
+    },
+    "capability_boundary": {
+      "topic": "15",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "VM optimization PR with no review engagement; closed without merge, indicating that even technically sound changes may fail if no maintainer reviews them or the author loses interest.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance evidence or repro steps in PR body; only change to IR golden files suggests correct behavior but no benchmark.",
+      "regression_handling": "unknown",
+      "regression_detail": "No regression reported; PR closed without merge so regression handling not applicable.",
+      "evidence_gap": "narrative_only_no_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, removed freshConst and reused constant registers for map and struct literals, and optimized hash join register increments to reduce instruction count. Updated IR golden files (tests/vm/valid/*.ir.out) to reflect the instruction changes.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/closure.ir.out",
+        "tests/vm/valid/inner_join.ir.out",
+        "tests/vm/valid/nested_function.ir.out",
+        "tests/vm/valid/tree_sum.ir.out"
+      ],
+      "secondary_note": "Golden file updates show expected instruction reduction but no before/after counts or performance measurements.",
+      "change_trajectory": [
+        "Single commit (51e602c0) with all changes: VM optimization and IR golden file refresh."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with a single commit and labeled 'codex'.",
+      "No reviews or comments recorded.",
+      "Closed by author after ~40 hours without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

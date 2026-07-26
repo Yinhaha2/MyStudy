@@ -1,0 +1,236 @@
+{
+  "pr_id": 3210760092,
+  "meta": {
+    "title": "Cursor/prepare performance benchmarking publishing system 349b",
+    "html_url": "https://github.com/nnstreamer/nntrainer/pull/3298",
+    "repo": "nnstreamer/nntrainer",
+    "agent": "Cursor",
+    "user": "myungjoo",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-08 02:08:57+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 0,
+    "topic_name": "8",
+    "body_summary": "Introduce automated benchmarking system with CI workflow, benchmark scripts, and GitHub Pages publishing to track memory/CPU metrics for NNTrainer."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 10,
+      "additions": 1153,
+      "deletions": 6,
+      "changes": 1159,
+      "top1_file": "benchmarks/generate_html.py",
+      "top1_changes": 293,
+      "top1_change_ratio": 0.253,
+      "files_by_status": {
+        "added": 6,
+        "modified": 4
+      },
+      "directory_count": 5,
+      "directories": [
+        ".github",
+        "benchmarks",
+        "nnstreamer",
+        "packaging",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 17,
+      "review_states": {
+        "COMMENTED": 17
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "labeled": 3,
+        "head_ref_force_pushed": 6,
+        "reviewed": 3,
+        "commented": 1,
+        "ready_for_review": 1,
+        "review_requested": 16
+      },
+      "lifespan_hours": 341.38,
+      "first_review_delay_hours": 1.16,
+      "review_rounds": 17,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmark_automation",
+      "ci_cd_pipeline",
+      "performance_tracking",
+      "github_pages_publishing"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative",
+      "test_suite"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_failure_unresolved_bugs",
+    "review_dimensions": [
+      "correctness",
+      "style",
+      "ci_configuration"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading",
+      "bot_analysis"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor generated a complex benchmarking system but left numerous scripting bugs; maintainer labeled DO NOT MERGE and PR was closed without fix."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1159,
+        "interpretation": "At 1159 lines across 10 files, this is a large addition of greenfield infrastructure code by absolute volume. The PR introduced a full benchmarking pipeline but was closed due to persistent functional bugs, which is consistent with the scale and complexity of the change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 341.38,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "script_bugs_and_ci_issues",
+      "concern_detail": "Cursor bot repeatedly detected bugs in run.sh (e.g., command substitution errors, variable mismatches, output path issues) and generate_html.py (os.makedirs failure). Human reviewers questioned the use of debug mode in the benchmark CI and missing end-of-file newlines.",
+      "performance_claim": "Automated benchmarking system to track memory consumption and CPU cycles over time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "style",
+        "ci_configuration"
+      ],
+      "rejection_signals": "Maintainer added DO NOT MERGE label and did not grant approval; multiple bot bug reports remained unfixed. PR eventually closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "8",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Cursor struggled with low-level shell scripting, CI workflow syntax, and Python file handling, introducing numerous bugs that prevented the system from working correctly.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "bot_analysis"
+      ],
+      "detection_detail": {
+        "code_reading": "skykongkong8 reviewed the workflow and questioned enabling debug mode for benchmarks; DonghakPark flagged missing end-of-file newline.",
+        "bot_analysis": "cursor[bot] automatically scanned commits and reported multiple critical bugs in run.sh and generate_html.py over several iterations."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "The benchmarking scripts contained logical and syntax errors, making the system non-functional and results non-reproducible.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No fixes were applied; maintainer added DO NOT MERGE label after seeing unresolved bot reports, and the PR was eventually closed.",
+      "evidence_gap": "no_functional_validation_only_bot_scan"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a full automated benchmarking system including CI workflow (benchmark_and_publish.yml), benchmark execution script (run.sh), results parser (parse_results.py), HTML report generator (generate_html.py), system test (test_system.sh), and README. Also included unrelated meson/packaging install path changes from a separate commit.",
+      "files_primary": [
+        ".github/workflows/benchmark_and_publish.yml",
+        "benchmarks/run.sh",
+        "benchmarks/parse_results.py",
+        "benchmarks/generate_html.py",
+        "benchmarks/test_system.sh",
+        "benchmarks/README.md"
+      ],
+      "files_secondary_observability": [
+        "meson_options.txt",
+        "nnstreamer/tensor_filter/meson.build",
+        "nnstreamer/tensor_trainer/meson.build",
+        "packaging/nntrainer.spec"
+      ],
+      "secondary_note": "The meson and packaging changes adjust install paths and are unrelated to benchmarking; they appear to be a separate commit bundled in the PR.",
+      "change_trajectory": [
+        "First commit (acb753) made minor build/install path corrections unrelated to benchmarks.",
+        "Second commit (734e895) introduced the entire benchmarking system with 1147 lines of new files.",
+        "Human reviews identified style (missing EoF) and CI config concerns (debug mode).",
+        "Cursor bot continuously reported bugs in run.sh and generate_html.py across multiple force-push iterations.",
+        "Maintainer added DO NOT MERGE label; no human approvals were given.",
+        "PR was closed without merge after remaining inactive for several days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "skykongkong8",
+        "channel": "inline_review_comment",
+        "signal": "ci_configuration_question",
+        "summary": "Questioned whether debug mode should be enabled for benchmarking or was intended for profiling.",
+        "blocking": false,
+        "action_taken": "myungjoo replied that Cursor would remove debug mode."
+      },
+      {
+        "source": "DonghakPark",
+        "channel": "formal_review",
+        "signal": "style_missing_eof",
+        "summary": "Requested end-of-file newline be added.",
+        "blocking": false,
+        "action_taken": "myungjoo confirmed Cursor fixed it."
+      },
+      {
+        "source": "myungjoo",
+        "channel": "pr_comment",
+        "signal": "style_fix_confirmed",
+        "summary": "Confirmed that Cursor took care of the missing EoF.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bot_bug_detection",
+        "summary": "Reported multiple bugs: command substitution errors, variable name mismatch in run.sh, output file overwrite, missing tempfile cleanup, and os.makedirs failure in generate_html.py.",
+        "blocking": false,
+        "action_taken": "No fix applied; bugs persisted."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with benchmarking system.",
+      "Human reviewers provided minor feedback on style and CI configuration.",
+      "Cursor bot automatically detected and reported critical bugs across multiple force-push iterations.",
+      "Maintainer added DO NOT MERGE label; no human approvals or fixes followed.",
+      "PR closed without merge after extended period of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "pr_id": 3234973989,
+  "meta": {
+    "title": "Replace emotion with CSS modules across Express.js and Next.js applications",
+    "html_url": "https://github.com/bbc/simorgh/pull/12990",
+    "repo": "bbc/simorgh",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-16 08:22:00+00:00",
+    "merged_at": null,
+    "closed_at": "2026-07-17 12:11:45+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 24,
+    "topic_name": "24",
+    "body_summary": "Replace emotion styling with CSS modules throughout the Simorgh codebase, claiming improved performance and reduced bundle size by eliminating runtime CSS-in-JS overhead."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 199,
+      "additions": 863,
+      "deletions": 438,
+      "changes": 2361,
+      "top1_file": "yarn.lock",
+      "top1_changes": 65,
+      "top1_change_ratio": 0.0275,
+      "files_by_status": {
+        "added": 70,
+        "modified": 125,
+        "removed": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        ".yarn",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 9,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "commented": 4,
+        "mentioned": 4,
+        "subscribed": 4
+      },
+      "lifespan_hours": 8811.8,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "css_module_migration",
+      "styled_components_elimination",
+      "bundle_size_reduction",
+      "runtime_performance"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "scope"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot attempted large-scale emotion→CSS modules migration but left ~400 TS errors and many unconverted complex components; maintainer engaged but PR closed due to incomplete work and prolonged inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2361,
+        "interpretation": "At 2361 changed lines across 199 files, this is a large, codebase-wide refactor. It is consistent with the closed outcome given the incomplete conversion and leftover TypeScript errors."
+      },
+      "lifecycle": {
+        "lifespan_hours": 8811.8,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "incomplete_migration_and_errors",
+      "concern_detail": "Maintainer eagerterrier noted remaining TypeScript errors and requested conversion of ThemeProvider and complex page components; Copilot reduced errors from 1000+ to ~400 but left many emotion-dependent components.",
+      "performance_claim": "Replacing emotion with CSS modules removes runtime overhead and reduces bundle size.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "runtime_css_in_js",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "scope"
+      ],
+      "rejection_signals": "PR closed likely due to incomplete migration and prolonged inactivity (closed after ~1 year). No explicit rejection comment, but maintainer's request for remaining files indicates expectation not met."
+    },
+    "capability_boundary": {
+      "topic": "24_bundle_css_components_splitting",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Large-scale migration across hundreds of files with complex dynamic styling patterns exceeds agent's ability to complete without human iteration; minor errors and incomplete conversion persist after multiple rounds.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer eagerterrier reviewed CI results (TypeScript errors) and manually inspected remaining emotion files, requesting specific conversions."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance benchmarks or before/after metrics provided; only narrative claims about runtime overhead and bundle size reduction.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merging; maintainer attempted to guide agent through additional conversions but the effort remained incomplete.",
+      "evidence_gap": "narrative_perf_claim_no_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced emotion styling with CSS modules across the Simorgh codebase: removed emotion dependencies, converted 200+ components from emotion `css`/`styled` to CSS modules with local scoping, added webpack configuration for CSS modules, and cleaned up unused imports. The change spans both Express.js (`src/`) and Next.js (`ws-nextjs-app/`) apps.",
+      "files_primary": [
+        "src/app/components/BulletedList/index.module.css",
+        "src/app/components/Billboard/index.tsx",
+        "webpack.config.js",
+        "jest.config.js"
+      ],
+      "files_secondary_observability": [
+        "yarn.lock",
+        ".yarn/cache/*.zip",
+        "src/app/components/* (various CSS and TSX)"
+      ],
+      "secondary_note": "Also includes dependency updates in yarn.lock and cache changes; many component files were bulk-updated.",
+      "change_trajectory": [
+        "Initial plan and exploration of emotion usage.",
+        "Set up CSS modules configuration and convert initial component group (LiveLabel).",
+        "Bulk convert all emotion components to CSS modules across codebase.",
+        "Fix css prop usage, clean up emotion imports and configurations.",
+        "Final fixes for duplicate className attributes and remaining emotion imports.",
+        "Fix TypeScript errors: add Jest types, CSS modules support, remove unused emotion files, reducing errors from 1000+ to ~400.",
+        "Remove unused emotion styles files and fix React import issues.",
+        "Convert MediaArticlePage from emotion to CSS modules.",
+        "Add ArticlePage CSS module placeholder and assess remaining emotion usage.",
+        "Maintainer requests further conversions; Copilot reports remaining 30 emotion files; PR eventually closed without merge after ~1 year."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "eagerterrier",
+        "channel": "pr_comment",
+        "signal": "typescript_errors_noted",
+        "summary": "Noted a bunch of TypeScript errors and asked Copilot to fix them.",
+        "blocking": true,
+        "action_taken": "Copilot committed fixes (441d5a7) reducing errors from 1000+ to ~400."
+      },
+      {
+        "source": "eagerterrier",
+        "channel": "pr_comment",
+        "signal": "request_remaining_conversions",
+        "summary": "Asked Copilot to convert ThemeProvider and other complex components, and list remaining emotion files.",
+        "blocking": true,
+        "action_taken": "Copilot converted MediaArticlePage (bb14677) and reported 30 remaining emotion files."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "status_update_ts_fixes",
+        "summary": "Reported fixing TypeScript errors in jest config, CSS modules types, and removing unused emotion files; reduced errors to ~400.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "status_update_incomplete_migration",
+        "summary": "Reported completing ThemeProvider and MediaArticlePage conversion, listing 30 remaining emotion files; noted complex conditional styling in ArticlePage.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with large-scale emotion→CSS modules migration (bulk commit covering 200+ components).",
+      "Maintainer eagerterrier requested TypeScript error fixes; Copilot reduced errors from 1000+ to ~400 via config and import fixes.",
+      "Maintainer requested remaining conversions (ThemeProvider, complex pages); Copilot completed some but listed 30 remaining files with complex emotion usage.",
+      "No further activity after Copilot's status report; PR left open for ~1 year then closed."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

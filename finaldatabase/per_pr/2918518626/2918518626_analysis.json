@@ -1,0 +1,191 @@
+{
+  "pr_id": 2918518626,
+  "meta": {
+    "title": "fix: improve deploy history performance and code quality",
+    "html_url": "https://github.com/Cap-go/capgo/pull/1061",
+    "repo": "Cap-go/capgo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-03-13 22:35:28+00:00",
+    "merged_at": null,
+    "closed_at": "2025-03-14 03:04:47+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 34,
+    "topic_name": "34",
+    "body_summary": "Implement performance improvements for deploy history screen including database indexes, trigger optimization, server-side search, debounce, and data fetching optimization; also fix URL validation and add loading state."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 99,
+      "deletions": 23,
+      "changes": 122,
+      "top1_file": "supabase/migrations/20250311041340_deploy_history.sql",
+      "top1_changes": 43,
+      "top1_change_ratio": 0.352,
+      "files_by_status": {
+        "added": 2,
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "supabase"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 4.483,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "database_indexes",
+      "trigger_optimization",
+      "server_side_search",
+      "debounce",
+      "data_fetch_optimization",
+      "frontend_loading_state"
+    ],
+    "optimization_layer": "full_stack",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin PR closed without merge ~4.5h after opening; no human review comments; only bot introductions; changes small with narrative-only perf claims."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 122,
+        "interpretation": "At 122 changed lines, this is a small edit by absolute volume. It is a small-step performance PR that was closed without merge—consistent with outcome given lack of maintainer engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 4.483,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "lack_of_engagement",
+      "concern_detail": "No human review comments or formal reviews; maintainer closed PR without comment ~4.5h after opening.",
+      "performance_claim": "Improved deploy history screen performance via database indexes, trigger optimization, server-side search, debounce, and data fetching optimization.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer riderx closed the PR without comment; no review engagement; only bot comments."
+    },
+    "capability_boundary": {
+      "topic": "34",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Devin PR with multiple small changes across frontend and backend was closed within ~4.5h without any human review; indicates process boundary where maintainer may have closed without considering the PR.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body only mentions local testing; no benchmarks, profiler, or before/after metrics; no repro steps provided.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed by maintainer without any fix-in-PR cycle; no human review feedback.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added composite database indexes, optimized trigger logic, implemented server-side search in Vue component with debounce, selected only necessary fields in queries, and fixed URL validation.",
+      "files_primary": [
+        "supabase/migrations/20250311041340_deploy_history.sql",
+        "src/components/tables/HistoryTable.vue"
+      ],
+      "files_secondary_observability": [
+        "supabase/migrations/20250313223300_enhance_deploy_history_indexes.sql",
+        "supabase/functions/_backend/public/bundle/update_metadata.ts",
+        "supabase/functions/_backend/utils/validators/url.ts"
+      ],
+      "secondary_note": "Index migrations and URL validation are supporting changes for the deploy history performance improvement.",
+      "change_trajectory": [
+        "Single commit containing all changes: database indexes, trigger function update, frontend component with search, debounce, and field selection, plus URL validation fix."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_review_skipped",
+        "summary": "CodeRabbitAI skipped review due to bot user detection; review can be triggered by command.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with performance improvements across 5 files.",
+      "Only bot comments within seconds; no human formal review or comments.",
+      "Maintainer riderx closed PR after ~4.5h without comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

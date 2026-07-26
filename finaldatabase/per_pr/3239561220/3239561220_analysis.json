@@ -1,0 +1,246 @@
+{
+  "pr_id": 3239561220,
+  "meta": {
+    "title": "perf: Add config option `enableResourceCache` to cache dashboard resources locally for faster loading in additional browser tabs",
+    "html_url": "https://github.com/parse-community/parse-dashboard/pull/2920",
+    "repo": "parse-community/parse-dashboard",
+    "agent": "OpenAI_Codex",
+    "user": "mtrezza",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-17 13:15:15+00:00",
+    "merged_at": "2025-07-18 14:58:56+00:00",
+    "closed_at": "2025-07-18 14:58:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 35,
+    "topic_name": "35",
+    "body_summary": "Add a service worker to cache dashboard bundles and register it in login/dashboard entry points, with config option enableResourceCache for faster loading in additional browser tabs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 11,
+      "file_count": 9,
+      "additions": 196,
+      "deletions": 47,
+      "changes": 243,
+      "top1_file": "src/registerServiceWorker.js",
+      "top1_changes": 90,
+      "top1_change_ratio": 0.37,
+      "files_by_status": {
+        "added": 2,
+        "modified": 7
+      },
+      "directory_count": 3,
+      "directories": [
+        "Parse-Dashboard",
+        "src",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 7,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 5,
+        "APPROVED": 1
+      },
+      "review_comment_count": 7,
+      "pr_comment_count": 6,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 11,
+        "commented": 5,
+        "labeled": 1,
+        "renamed": 3,
+        "mentioned": 3,
+        "subscribed": 3,
+        "unlabeled": 1,
+        "reviewed": 3
+      },
+      "lifespan_hours": 25.728,
+      "first_review_delay_hours": 18.97,
+      "review_rounds": 7,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "service_worker_caching",
+      "resource_cache",
+      "browser_asset_caching"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "documentation"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Codex-initiated service worker caching PR with heavy manual follow-up fixes addressing lifecycle review concerns; merged after CHANGES_REQUESTED resolved."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 243,
+        "interpretation": "At 243 changed lines, this is a small-to-medium edit by absolute volume, concentrated in service worker and registration logic. It fits a moderate incremental performance PR merged after review iterations."
+      },
+      "lifecycle": {
+        "lifespan_hours": 25.728,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "service_worker_lifecycle",
+      "concern_detail": "CodeRabbit bot flagged missing activate handler for cache cleanup, error handling in fetch, path construction safety, and cache versioning; maintainer mtrezza pressed on activate event timing and naming consistency across code and docs.",
+      "performance_claim": "Service worker caching makes dashboard resources load faster when opening additional browser tabs.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "documentation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "35",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Initial AI-authored service worker implementation required maintainer to manually add cache cleanup, error handling, and clarify lifecycle semantics; merge hinged on deep browser API expertise.",
+      "success_factors": [
+        "responsive_to_review_feedback",
+        "maintainer_drove_critical_fixes",
+        "documentation_updates_consistent"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer mtrezza manually reviewed service worker lifecycle (activate event timing, cleanup) and requested changes; CodeRabbit bot flagged additional correctness issues."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No benchmark or timing data; manual testing instructions provided but no recorded performance comparison.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After CHANGES_REQUESTED, maintainer added multiple commits fixing cache cleanup, error handling, path safety, and config renaming.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced a service worker (sw.js) with install/activate/fetch handlers to cache dashboard scripts, styles, and bundle resources; registration module (registerServiceWorker.js) with tab-count-based unregistration; configuration flag enableResourceCache; documentation updates.",
+      "files_primary": [
+        "Parse-Dashboard/public/sw.js",
+        "src/registerServiceWorker.js"
+      ],
+      "files_secondary_observability": [
+        "Parse-Dashboard/app.js",
+        "README.md",
+        "Parse-Dashboard/parse-dashboard-config.json",
+        "src/dashboard/index.js",
+        "src/login/index.js"
+      ],
+      "secondary_note": "Merge from alpha brought package.json and package-lock.json changes unrelated to caching.",
+      "change_trajectory": [
+        "Initial commit: add sw.js and registration module (basic cache).",
+        "Subsequent commits: add config option, fix service worker persistence after closing tabs, path refinement, naming adjustments.",
+        "Review iterations: add activate handler for cache cleanup, error handling, and address naming consistency; final config rename to enableResourceCache."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "changes_requested_with_comments",
+        "summary": "CHANGES_REQUESTED review with three actionable comments about service worker cache handling and path safety.",
+        "blocking": true,
+        "action_taken": "Maintainer addressed all items in subsequent commits."
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "missing_activate_cache_cleanup",
+        "summary": "Suggested adding activate event handler to delete old caches.",
+        "blocking": true,
+        "action_taken": "Added activate handler in commit e1a8e66."
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "cache_put_error_handling",
+        "summary": "Requested error handling for cache operations.",
+        "blocking": true,
+        "action_taken": "Added error handling in fetch handler."
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "path_construction_safety",
+        "summary": "Flagged that service worker path may break without trailing slash.",
+        "blocking": true,
+        "action_taken": "Fixed path normalization."
+      },
+      {
+        "source": "mtrezza",
+        "channel": "inline_review_comment",
+        "signal": "activate_event_question",
+        "summary": "Asked about using clients.claim() and when activate is called.",
+        "blocking": false,
+        "action_taken": "Addressed in discussion and final code."
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "approved_after_fixes",
+        "summary": "APPROVED review after maintainer addressed all concerns.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "OpenAI_Codex (via mtrezza) opened PR with initial service worker and cache logic.",
+      "CodeRabbit bot provided CHANGES_REQUESTED with multiple actionable issues within ~19h.",
+      "Maintainer mtrezza iterated with several commits fixing cache cleanup, error handling, path normalization, and config naming.",
+      "After discussion on activate event semantics, CodeRabbit approved, and PR merged in ~25.7h."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

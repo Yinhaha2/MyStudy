@@ -1,0 +1,222 @@
+{
+  "pr_id": 3087295315,
+  "meta": {
+    "title": "perf: replace tRPC caller with direct call to getEventTypeById",
+    "html_url": "https://github.com/calcom/cal.com/pull/21497",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-23 19:11:13+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-05 16:58:46+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "49",
+    "body_summary": "Replace tRPC caller with a direct call to getEventTypeById in the event-types page to eliminate tRPC overhead and improve performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 12,
+      "file_count": 70,
+      "additions": 2083,
+      "deletions": 1099,
+      "changes": 4140,
+      "top1_file": "packages/app-store/googlecalendar/lib/__tests__/CalendarService.test.ts",
+      "top1_changes": 600,
+      "top1_change_ratio": 0.145,
+      "files_by_status": {
+        "added": 20,
+        "modified": 48,
+        "removed": 2
+      },
+      "directory_count": 5,
+      "directories": [
+        ".yarn",
+        "apps",
+        "packages",
+        "scripts",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 9,
+        "deployed": 9,
+        "commented": 4,
+        "review_requested": 1,
+        "labeled": 3,
+        "reviewed": 2,
+        "renamed": 1,
+        "auto_squash_enabled": 1
+      },
+      "lifespan_hours": 309.792,
+      "first_review_delay_hours": 0.76,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "tRPC_overhead",
+      "direct_function_call",
+      "response_time_improvement"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_after_approval",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin replaced tRPC caller with direct call; approved by zomars but closed after 13 days of inactivity despite hbjORbj's non-blocking aside about matching tRPC handler parameters."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4140,
+        "interpretation": "At 4140 changed lines across 70 files, the absolute volume is large, but only ~84 lines constitute the actual perf-related change in page.tsx; the rest are merge commits from main. This refactor PR was closed despite approval, likely due to being stale rather than technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 309.792,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "parameter_mapping_correctness",
+      "concern_detail": "hbjORbj noted in an aside that the direct call should include the full logic of the tRPC getHandler, specifically passing organizationId, userId, prisma, and isTrpcCall flag, which the initial change might have missed.",
+      "performance_claim": "Replacing tRPC caller with direct call improves performance by skipping tRPC overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "tRPC_overhead",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": "PR approved but left stale; closed by bot after 13 days of inactivity, likely abandoned."
+    },
+    "capability_boundary": {
+      "topic": "49",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Despite a correct refactor and approval, the PR was not merged due to abandonment; indicates that even approved agent PRs may fail to be picked up for merge in large projects with many contributors.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "hbjORbj reviewed the diff and provided an example of the full tRPC handler logic that should be mirrored in the direct call."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body only describes the change, no benchmarks or profiling results.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No further action taken after approval; the bot auto-closed for inactivity.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In apps/web/app/(use-page-wrapper)/event-types/[type]/page.tsx, replaced the tRPC caller creation and call with a direct import and call to getEventTypeById, and adapted parameters to pass user directly instead of headers/cookies. Several follow-up commits fixed types and parameter mapping.",
+      "files_primary": [
+        "apps/web/app/(use-page-wrapper)/event-types/[type]/page.tsx"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All other 69 file changes result from merges of main branch, not directly part of the performance refactor.",
+      "change_trajectory": [
+        "Initial commit: replaced tRPC caller with direct call to getEventTypeById.",
+        "Second commit: refactored to pass user directly instead of headers/cookies.",
+        "Maintainer commits: multiple type fixes and parameter adjustments.",
+        "Merges from main to keep branch updated.",
+        "PR approved by zomars but left inactive and closed by bot after 13 days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "hbjORbj",
+        "channel": "inline_review_comment",
+        "signal": "aside_parameter_mapping_concern",
+        "summary": "Pointed out that the direct call should include the full logic from the tRPC getHandler.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "hbjORbj",
+        "channel": "formal_review",
+        "signal": "self_review_comment",
+        "summary": "Self-review comment; no blocking feedback.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "zomars",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved without comment.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closed due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial direct call replacement.",
+      "Devin updated to pass user object instead of headers/cookies.",
+      "hbjORbj reviewed with an aside comment about parameter mapping.",
+      "zomars approved the PR.",
+      "PR remained inactive; after 13 days, Devin bot auto-closed."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

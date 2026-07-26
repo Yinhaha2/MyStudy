@@ -1,0 +1,268 @@
+{
+  "pr_id": 3221925890,
+  "meta": {
+    "title": "Trim MCP server tool payloads to reduce token consumption",
+    "html_url": "https://github.com/microsoft/azure-devops-mcp/pull/247",
+    "repo": "microsoft/azure-devops-mcp",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-11 07:44:05+00:00",
+    "merged_at": "2025-07-23 11:44:31+00:00",
+    "closed_at": "2025-07-23 11:44:31+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 16,
+    "topic_name": "16",
+    "body_summary": "Add trimmed responses for Azure DevOps MCP server tools to dramatically reduce LLM token consumption while maintaining backward compatibility via an optional fullResponse parameter."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 29,
+      "additions": 4361,
+      "deletions": 1161,
+      "changes": 5522,
+      "top1_file": "package-lock.json",
+      "top1_changes": 1556,
+      "top1_change_ratio": 0.2818,
+      "files_by_status": {
+        "added": 6,
+        "modified": 23,
+        "removed": 0
+      },
+      "directory_count": 5,
+      "directories": [
+        "(root)",
+        ".github",
+        "docs",
+        "src",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 13,
+      "review_states": {
+        "COMMENTED": 11,
+        "APPROVED": 2
+      },
+      "review_comment_count": 11,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 7,
+        "assigned": 2,
+        "copilot_work_started": 5,
+        "renamed": 1,
+        "copilot_work_finished": 4,
+        "review_requested": 3,
+        "labeled": 1,
+        "reviewed": 5,
+        "commented": 2
+      },
+      "lifespan_hours": 292.0,
+      "first_review_delay_hours": 274.0,
+      "review_rounds": 13,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "token_consumption_reduction",
+      "api_payload_trimming",
+      "backward_compatible_opt_in"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot added trimmed responses with fullResponse toggle; maintainer requested code improvements (helper function, error checking) via inline comments, then approved; merged with ~50% token reduction claims."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5522,
+        "interpretation": "At 5522 total changed lines, this is a large change by absolute volume; however, the core performance change in repos.ts is roughly 150 lines, with the rest coming from a merge-update that pulled in many unrelated repository-wide updates. The outcome aligns with a moderate incremental performance PR that merged after iterative review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 292.0,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "code_structure_and_error_handling",
+      "concern_detail": "Maintainer nikolapeja6 requested extracting comment trimming into a reusable helper function and adding error checks for comment creation and thread resolution; Copilot iterated with commits, and all review comments were addressed.",
+      "performance_claim": "Trims API responses to reduce token consumption, e.g., resolve_comment from 1346 to 37 chars (97.3% reduction).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "verbose_api_responses (prior behavior returned full JSON)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot can implement backend response trimming with an opt‑in flag; merge required iterative refinement of helper function extraction and error handling per maintainer feedback.",
+      "success_factors": [
+        "linked_issue",
+        "responded_to_inline_requests",
+        "backward_compatible_design",
+        "two_approvals_after_fixes"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "nikolapeja6 reviewed the implementation, requested structural improvements (trimComments helper) and error validation for comment creation and thread resolution.",
+        "ci_auto": "github-actions bot performed dependency review (no vulnerabilities found) and labeled the PR as stale and needing attention before review activity resumed."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body lists token savings (e.g., 97.3% reduction) but no automated benchmark; reviewer approved without independent performance measurement.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Inline review comments led to commits extracting trimComments helper, adding error checks, and simplifying conditionals; no revert or follow‑up issues.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/tools/repos.ts, added a fullResponse parameter to repo_resolve_comment, repo_reply_to_comment, repo_list_pull_request_threads, and repo_list_pull_request_thread_comments. When fullResponse is false (default), action tools return simple success strings and list tools return filtered data excluding deleted comments, _links objects, and verbose author properties. Added a trimComments helper and error validation for comment creation and thread resolution.",
+      "files_primary": [
+        "src/tools/repos.ts"
+      ],
+      "files_secondary_observability": [
+        "jest.config.cjs",
+        "package.json",
+        "package-lock.json"
+      ],
+      "secondary_note": "The merge commit cec490e brought in many unrelated repository‑wide changes (README, CI workflows, new tests, etc.) that are not part of the performance change.",
+      "change_trajectory": [
+        "Initial implementation: added trimming logic in repos.ts with fullResponse toggle.",
+        "Added jest config mapping for auth.js to enable future testing.",
+        "Extracted comment trimming into reusable `trimComments` helper (90b82b2).",
+        "Added error checking for comment creation and thread resolution (b0d3f49).",
+        "Maintainer requested simplifying error conditions and committing suggestions (6b66117, d273ce5).",
+        "Merged main branch (cec490e) after two approvals."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "nikolapeja6",
+        "channel": "inline_review_comment",
+        "signal": "extract_helper_function",
+        "summary": "Requested extracting comment trimming logic into a reusable helper function and using it in both list tools.",
+        "blocking": true,
+        "action_taken": "Copilot committed trimComments helper in 90b82b2."
+      },
+      {
+        "source": "nikolapeja6",
+        "channel": "inline_review_comment",
+        "signal": "add_error_checking",
+        "summary": "Asked @copilot to add a check if the comment/thread operation was successful; if not, return an error.",
+        "blocking": true,
+        "action_taken": "Copilot added error validation in b0d3f49."
+      },
+      {
+        "source": "nikolapeja6",
+        "channel": "inline_review_comment",
+        "signal": "simplify_error_condition",
+        "summary": "Suggested simplifying `if (!comment || !comment.id || comment.isDeleted)` to `if (!comment)`.",
+        "blocking": false,
+        "action_taken": "Committed suggestions in 6b66117 and d273ce5."
+      },
+      {
+        "source": "nikolapeja6",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED after all requested changes were addressed (no review body text).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "danhellem",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Second APPROVED review (no body text).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "dependency_scan_pass",
+        "summary": "Dependency review found no vulnerabilities or license issues.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Arithmomaniac",
+        "channel": "pr_comment",
+        "signal": "concern_scope_default",
+        "summary": "Questioned mergining a big change directly to main with default on for certain tools.",
+        "blocking": false,
+        "action_taken": "Maintainer responded that trimming was already in place and this is a continuation."
+      },
+      {
+        "source": "nikolapeja6",
+        "channel": "pr_comment",
+        "signal": "resolve_scope_concern",
+        "summary": "Responded that results were already being trimmed and this is a continuation.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened July 11 with initial trimmed-response implementation and stale label after 7 days of inactivity.",
+      "Review activity resumed July 22: maintainer nikolapeja6 left several inline comments requesting helper function extraction and error handling.",
+      "Copilot responded with commits for trimComments helper and error validation.",
+      "Maintainer then requested simplifying error conditions; Copilot applied suggestions.",
+      "After all changes, nikolapeja6 approved, followed by danhellem; PR merged after ~12 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

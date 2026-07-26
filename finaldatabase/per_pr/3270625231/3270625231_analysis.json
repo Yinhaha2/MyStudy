@@ -1,0 +1,282 @@
+{
+  "pr_id": 3270625231,
+  "meta": {
+    "title": "SEL-508: Implement code splitting and lazy loading",
+    "html_url": "https://github.com/selfxyz/self/pull/795",
+    "repo": "selfxyz/self",
+    "agent": "OpenAI_Codex",
+    "user": "transphorm",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-28 16:40:56+00:00",
+    "merged_at": "2025-07-29 09:00:37+00:00",
+    "closed_at": "2025-07-29 09:00:37+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Implement code splitting and lazy loading for a React Native mobile app by configuring manual chunks in Vite, lazy-loading navigation screens, wrapping navigation in Suspense, dynamically importing heavy providers, and adding a crypto loader utility."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 30,
+      "file_count": 47,
+      "additions": 1042,
+      "deletions": 374,
+      "changes": 1416,
+      "top1_file": "yarn.lock",
+      "top1_changes": 407,
+      "top1_change_ratio": 0.287,
+      "files_by_status": {
+        "added": 2,
+        "modified": 45,
+        "removed": 0
+      },
+      "directory_count": 3,
+      "directories": [
+        ".github",
+        "app",
+        "root"
+      ]
+    },
+    "collaboration": {
+      "review_count": 15,
+      "review_states": {
+        "COMMENTED": 15
+      },
+      "review_comment_count": 20,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "labeled": 1,
+        "commented": 1,
+        "mentioned": 1,
+        "renamed": 1,
+        "reviewed": 7,
+        "committed": 19
+      },
+      "lifespan_hours": 16.33,
+      "first_review_delay_hours": 0.156,
+      "review_rounds": 15,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "code_splitting",
+      "lazy_loading",
+      "bundle_optimization",
+      "manual_chunks",
+      "screen_lazy_loading",
+      "provider_dynamic_import",
+      "crypto_loader"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative",
+      "ci_build_check"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_iterative_review_and_fixes",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "OpenAI_Codex PR for code splitting with lazy loading in React Native app; merged after iterative bot reviews and author fixes; no performance benchmarks but build/lint checks passed."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1416,
+        "interpretation": "At 1416 changed lines across 47 files, this is a medium-sized refactor by absolute volume. It fits a cross-cutting performance optimization (code splitting) that required changes to bundler config, navigation, and many component files, and successfully merged after iterative review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 16.33,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_react_native_incompatibility",
+      "concern_detail": "coderabbitai flagged that SuspenseFallback used <div> instead of React Native View, which would cause runtime errors; also highlighted duplicate imports, deprecated Gradle options, and suggested proper type annotations for dynamic imports.",
+      "performance_claim": "Improve app startup performance by implementing code splitting and lazy loading for screens and heavy dependencies (crypto, animations).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "ci_validation",
+        "tests"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Implementing code splitting in a React Native monorepo required understanding Metro/Vite bundler configs, React.lazy/Suspense constraints, and type-only imports. The initial implementation had React Native incompatibility (div vs View) and import resolution issues, requiring multiple fixes.",
+      "success_factors": [
+        "extensive_bot_review_feedback",
+        "author_iterative_fixes",
+        "build_ci_checks_passing",
+        "narrow_scope_optimization"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "coderabbitai performed static analysis and flagged React Native incompatibility, deprecated Gradle options, and suggested import improvements.",
+        "ci_auto": "GitHub Actions ran lint, build, and type checks; build scripts were adjusted to pre-build dependencies."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No performance benchmarks; only build and lint checks verify correctness. The performance gain is assumed from standard code-splitting benefits.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "All issues raised in reviews were addressed by follow-up commits before merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced code splitting and lazy loading for navigation screens and heavy modules (crypto, animations) via React.lazy and dynamic imports; modified Vite manualChunks, Metro config, and import paths; wrapped app in Suspense with fallback; added loadCryptoUtils/loadProvingUtils for deferred crypto library loading.",
+      "files_primary": [
+        "app/src/navigation/aesop.ts",
+        "app/src/navigation/dev.ts",
+        "app/src/navigation/passport.ts",
+        "app/src/navigation/prove.ts",
+        "app/src/navigation/recovery.ts",
+        "app/src/navigation/settings.ts",
+        "app/src/navigation/index.tsx",
+        "app/src/utils/cryptoLoader.ts",
+        "app/vite.config.ts",
+        "app/metro.config.cjs",
+        "app/App.tsx"
+      ],
+      "files_secondary_observability": [
+        "app/src/components/Disclosures.tsx",
+        "app/src/providers/passportDataProvider.tsx",
+        "app/src/screens/dev/MockDataScreen.tsx",
+        "app/src/screens/dev/MockDataScreenDeepLink.tsx",
+        "app/src/screens/misc/LoadingScreen.tsx",
+        "app/src/screens/passport/PassportNFCScanScreen.tsx",
+        "app/src/screens/prove/ProveScreen.tsx",
+        "app/src/screens/settings/PassportDataInfoScreen.tsx",
+        "app/src/stores/proof-types.ts",
+        "app/src/stores/proofHistoryStore.ts",
+        "app/src/stores/protocolStore.ts",
+        "app/src/stores/selfAppStore.tsx",
+        "app/src/utils/nfcScanner.ts",
+        "app/src/utils/ofac.ts",
+        "app/src/utils/proving/attest.ts",
+        "app/src/utils/proving/provingInputs.ts",
+        "app/src/utils/proving/provingMachine.ts",
+        "app/src/utils/proving/provingUtils.ts",
+        "app/src/utils/proving/validateDocument.ts",
+        ".github/workflows/app.yml",
+        ".github/workflows/general-checks.yml",
+        "app/tsconfig.json",
+        "app/package.json"
+      ],
+      "secondary_note": "Many files had import refactoring to use type-only imports and granular submodules, which supports tree shaking but is not direct performance evidence.",
+      "change_trajectory": [
+        "Initial commit: implemented basic code splitting with React.lazy for screens and dynamic import for crypto modules.",
+        "CodeRabbit review flagged critical React Native incompatibility (HTML div in SuspenseFallback) and various code quality issues.",
+        "Subsequent commits: replaced div with native View, consolidated duplicate imports, added return types to cryptoLoader, adjusted Metro resolver, enabled Hermes engine, and fixed CI to build dependencies before linting.",
+        "After ~16 hours of iterative fixes and passing CI, PR merged with no further human objections."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "correctness_react_native_incompatibility",
+        "summary": "SuspenseFallback uses HTML div instead of React Native View; will crash on mobile.",
+        "blocking": false,
+        "action_taken": "Fixed in commit 848071 by replacing div with View."
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "import_duplicate_consolidation",
+        "summary": "Duplicate imports from @selfxyz/common detected across multiple files; consolidate to a single import statement.",
+        "blocking": false,
+        "action_taken": "Fixed in commits 2270ada to d15a9b7 (imports consolidated)."
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "type_safety_improvement",
+        "summary": "cryptoLoader functions lack explicit return types; add proper TypeScript annotations.",
+        "blocking": false,
+        "action_taken": "Added return types in commit d55eec8."
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "gradle_deprecation",
+        "summary": "dexOptions block is deprecated in AGP 7+; replace with modern build-type dexing configuration.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "transphorm",
+        "channel": "inline_review_comment",
+        "signal": "author_clarification",
+        "summary": "Explained that import path is correct and signing fallback is intentional for local runs.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_overview_and_walkthrough",
+        "summary": "CodeRabbit provided a detailed walkthrough and poem summarizing the PR changes.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial code splitting implementation.",
+      "CodeRabbit bot immediately reviewed and flagged critical React Native incompatibility (div in SuspenseFallback) and numerous code quality issues.",
+      "Author committed fixes iteratively over the next ~16 hours, addressing most bot suggestions while also resolving Metro/import resolution, Android build config, and CI pipeline adjustments.",
+      "No human CHANGES_REQUESTED; merged after successful CI and all bot reviews returning COMMENTED."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "pr_id": 3245346788,
+  "meta": {
+    "title": "feat: simplify Node.js runtime with Hono v1.17.0 absolute path support",
+    "html_url": "https://github.com/sugyan/claude-code-webui/pull/195",
+    "repo": "sugyan/claude-code-webui",
+    "agent": "Claude_Code",
+    "user": "sugyan",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-19 14:33:10+00:00",
+    "merged_at": "2025-07-19 14:41:39+00:00",
+    "closed_at": "2025-07-19 14:41:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "11",
+    "body_summary": "Upgrade @hono/node-server to v1.17.0 and simplify static path handling from complex relative path calculation to direct absolute path, improving robustness and removing working directory dependency."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 2,
+      "additions": 11,
+      "deletions": 16,
+      "changes": 27,
+      "top1_file": "backend/cli/node.ts",
+      "top1_changes": 17,
+      "top1_change_ratio": 0.6296,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "backend"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 3,
+        "labeled": 3,
+        "review_requested": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.141,
+      "first_review_delay_hours": 0.025,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "absolute_path_support",
+      "code_simplification",
+      "dependency_upgrade"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "code_quality"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "manual_testing",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Tiny PR upgrading dependency and simplifying path logic; merged quickly after bot-suggested code style improvement."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 27,
+        "interpretation": "At 27 changed lines across 2 files, this is a tiny edit by absolute volume. It is a classic small-step, fast-turnaround performance PR consistent with the low-friction merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.141,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_quality",
+      "primary_concern": "code_style_suggestion",
+      "concern_detail": "Copilot bot suggested ES6 property shorthand (staticPath instead of staticPath: staticPath). Applied in two follow-up commits.",
+      "performance_claim": "Simplify Node.js runtime by using absolute paths, eliminating complex relative path calculation and working directory dependency, improving maintainability.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "11",
+      "agent": "Claude_Code",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple dependency version bump and code simplification in a single file; the agent handled the change and bot feedback smoothly, merge friction is low.",
+      "success_factors": [
+        "tiny_scope",
+        "dependency_upgrade",
+        "bot_feedback_addressed",
+        "self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_testing",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Bot reviewed the diff, suggesting code style improvements.",
+        "ci_auto": "CI tests passed locally (make test, etc.) prior to merge.",
+        "manual_testing": "Author manually verified static file serving with absolute paths."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance metrics; improvement is in code simplicity and robustness, not measurable speedup.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions observed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Upgrade @hono/node-server to v1.17.0 for absolute path support. In backend/cli/node.ts, replace 10 lines of relative path calculation (join, relative, edge-case handling) with a single absolute path join(__dirname, '../static'). Remove unused 'relative' import. Apply ES6 property shorthand.",
+      "files_primary": [
+        "backend/cli/node.ts"
+      ],
+      "files_secondary_observability": [
+        "backend/package-lock.json"
+      ],
+      "secondary_note": "Lockfile update reflects @hono/node-server version bump.",
+      "change_trajectory": [
+        "Initial commit: upgrade @hono/node-server, simplify path logic, remove unused import.",
+        "Follow-up: apply Copilot shorthand suggestion for staticPath.",
+        "Further commit: apply shorthand consistently to cliPath as well."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_code_style_suggestion",
+        "summary": "Suggested ES6 property shorthand for staticPath; non-blocking.",
+        "blocking": false,
+        "action_taken": "Author applied shorthand suggestion in two follow-up commits."
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "inline_review_comment",
+        "signal": "code_style_improvement",
+        "summary": "Inline comment: use staticPath, instead of staticPath: staticPath, for object property assignment.",
+        "blocking": false,
+        "action_taken": "Applied."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Claude_Code generated initial PR with dependency upgrade and path simplification.",
+      "Copilot bot reviewed within ~1.5 minutes, suggested ES6 shorthand.",
+      "Author applied suggestions in two commits.",
+      "PR self-merged by maintainer after ~8 minutes total."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

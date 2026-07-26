@@ -1,0 +1,229 @@
+{
+  "pr_id": 3046430027,
+  "meta": {
+    "title": "perf: optimize event type query by using team IDs instead of complex join",
+    "html_url": "https://github.com/calcom/cal.com/pull/21162",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-07 15:43:58+00:00",
+    "merged_at": "2025-05-07 20:00:49+00:00",
+    "closed_at": "2025-05-07 20:00:49+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "49",
+    "body_summary": "Optimize query in EventTypeRepository.findById by first fetching user team IDs and using an IN clause instead of a complex join with the Team table, reducing query complexity."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 22,
+      "deletions": 7,
+      "changes": 29,
+      "top1_file": "packages/lib/server/repository/membership.ts",
+      "top1_changes": 17,
+      "top1_change_ratio": 0.586,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 17,
+      "event_counts": {
+        "committed": 1,
+        "commented": 4,
+        "labeled": 4,
+        "review_requested": 1,
+        "deployed": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 2
+      },
+      "lifespan_hours": 4.281,
+      "first_review_delay_hours": 4.273,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "query_optimization",
+      "join_elimination",
+      "in_query_refactor"
+    ],
+    "optimization_layer": "database_query",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin optimized query with a single commit; zomars approved based on CI E2E pass and no perf evidence required."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 29,
+        "interpretation": "At 29 changed lines across 2 files, this is a tiny edit by absolute volume. It fits a small-step, low-risk performance PR and is consistent with a fast, low-friction merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 4.281,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none_evident",
+      "concern_detail": "No review concerns raised; reviewer zomars approved without comment.",
+      "performance_claim": "Query optimization by replacing complex join with IN query on user team IDs, improving efficiency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "complex_join",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "ci_validation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "49",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Database query optimization within a repository pattern; Devin successfully replaced a join with a two-step ID fetch and IN clause, and merged without performance benchmarks.",
+      "success_factors": [
+        "narrow_scope",
+        "single_commit",
+        "ci_passing",
+        "automated_reviewer_assignment"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "zomars approved after presumably reviewing the query changes (no inline comments).",
+        "ci_auto": "E2E test results available via GitHub Actions, and deployment verified."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No before/after performance metrics; only CI functional E2E tests passed, and the code change is a self-evidently simpler query.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling needed; change was straightforward and CI passed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In eventType.ts, modified findById to call findUserTeamIds from MembershipRepository and use a where clause with teamId in (...), handling empty teams and null teamId edge cases. Added findUserTeamIds method in membership.ts.",
+      "files_primary": [
+        "packages/lib/server/repository/eventType.ts",
+        "packages/lib/server/repository/membership.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit (5bd7742) added findUserTeamIds and refactored findById to use IN query."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "zomars",
+        "channel": "formal_review",
+        "signal": "approved_no_body",
+        "summary": "Approved with no review body text.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_status",
+        "summary": "Vercel deployment skipped for cal web preview.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_reviewer_assignment",
+        "summary": "Added consumer team as reviewer and community label via Graphite automation.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results_ready",
+        "summary": "E2E test results available, likely passing.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin with single commit optimizing query.",
+      "Automated labeling and reviewer assignment by bots.",
+      "Maintainer zomars approved after ~4 hours, no changes requested.",
+      "Merged shortly thereafter."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

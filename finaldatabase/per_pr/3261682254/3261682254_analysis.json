@@ -1,0 +1,174 @@
+{
+  "pr_id": 3261682254,
+  "meta": {
+    "title": "Add CS benchmark mode and update Rosetta",
+    "html_url": "https://github.com/mochilang/mochi/pull/12844",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-25 01:32:25+00:00",
+    "merged_at": "2025-07-25 01:32:39+00:00",
+    "closed_at": "2025-07-25 01:32:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 1,
+    "topic_name": "1",
+    "body_summary": "Add benchmark block option to CS transpiler, capture durations and memory in Rosetta tests, skip MOCHI_NOW_SEED when benchmarking, and parse JSON results from output."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 8,
+      "additions": 441,
+      "deletions": 334,
+      "changes": 775,
+      "top1_file": "transpiler/x/cs/ROSETTA.md",
+      "top1_changes": 572,
+      "top1_change_ratio": 0.738,
+      "files_by_status": {
+        "modified": 8
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.004,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmark_infrastructure",
+      "resource_timing_capture",
+      "cs_transpiler_testing"
+    ],
+    "optimization_layer": "build_and_test_infra",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_fast_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single commit adding benchmark mode without review; self-merged in seconds. No performance claim, only instrumentation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 775,
+        "interpretation": "At 775 changed lines, this is a medium-sized diff concentrated mainly in documentation (ROSETTA.md). It is a self-contained feature addition (benchmark mode) that was merged instantly by the same user without review, consistent with a low-overhead self-merge workflow."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.004,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none_observed",
+      "concern_detail": "No formal review, PR comments, or inline review comments exist in the dataset.",
+      "performance_claim": "None; the PR adds benchmarking instrumentation rather than making a performance improvement claim.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "A project-internal feature addition (benchmark mode) that required no review or external validation. The Agent likely generated the code changes, and the human self-merged immediately, illustrating a loose process for self-driven instrumentation.",
+      "success_factors": [
+        "self_merge",
+        "no_external_review_required",
+        "instrumentation_only"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark results or performance evidence provided; the PR only adds infrastructure to capture durations/memory.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues encountered; PR merged instantly.",
+      "evidence_gap": "no_perf_claim_or_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a benchmark mode to the CS transpiler test suite (rosetta_test.go) that captures execution durations and memory usage, skipped MOCHI_NOW_SEED when benchmarking, updated related test outputs and documentation, and regenerated the 100-doors-2 example.",
+      "files_primary": [
+        "transpiler/x/cs/rosetta_test.go",
+        "transpiler/x/cs/transpiler.go",
+        "transpiler/x/cs/vm_valid_golden_test.go"
+      ],
+      "files_secondary_observability": [
+        "tests/rosetta/transpiler/CS/100-doors-2.cs",
+        "tests/rosetta/transpiler/CS/100-doors-2.out",
+        "transpiler/x/cs/ROSETTA.md",
+        "transpiler/x/cs/TASKS.md",
+        "transpiler/x/cs/README.md"
+      ],
+      "secondary_note": "Documentation files (ROSETTA.md, TASKS.md) account for the majority of changes; the actual test instrumentation is a few dozen lines.",
+      "change_trajectory": [
+        "Single commit (e49003be) by tamnd: added benchmark parsing and timing to CS transpiler test code, updated output and docs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged by the same user (tamnd) within seconds, with no review or external feedback."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

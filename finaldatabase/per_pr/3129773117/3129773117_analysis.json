@@ -1,0 +1,232 @@
+{
+  "pr_id": 3129773117,
+  "meta": {
+    "title": "Implement error node caching for improved TreeView user experience",
+    "html_url": "https://github.com/microsoft/vscode-cosmosdb/pull/2706",
+    "repo": "microsoft/vscode-cosmosdb",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-09 09:45:10+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 2,
+    "topic_name": "2",
+    "body_summary": "Add error node caching in base branch data provider to prevent repeated failed operations on tree refresh, with retry command and contextValue non-readonly changes for improved UX."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 11,
+      "file_count": 144,
+      "additions": 15376,
+      "deletions": 9899,
+      "changes": 25275,
+      "top1_file": "package-lock.json",
+      "top1_changes": 15620,
+      "top1_change_ratio": 0.618,
+      "files_by_status": {
+        "modified": 130,
+        "added": 10,
+        "removed": 4
+      },
+      "directory_count": 4,
+      "directories": [
+        "src",
+        "l10n",
+        ".azure-pipelines",
+        "docs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 3
+      },
+      "review_comment_count": 5,
+      "pr_comment_count": 3,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 11,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 5,
+        "copilot_work_finished": 1,
+        "commented": 3,
+        "reviewed": 1,
+        "ready_for_review": 1,
+        "mentioned": 2,
+        "subscribed": 2
+      },
+      "lifespan_hours": 1179.66,
+      "first_review_delay_hours": 26.92,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "error_node_caching",
+      "retry_command",
+      "tree_view_refresh_optimization"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_repeated_operation"
+    ],
+    "outcome_reason": "closed_design_review_unresolved",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "manual_testing"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot added error node caching; tnaum-ms simplified and added contextValue non-readonly; bk201- questioned design; PR closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 25275,
+        "interpretation": "At 25275 changed lines across 144 files, this is a very large change by absolute volume, but the feature-specific changes are small (BaseCachedBranchDataProvider.ts ~83 lines, retryOperation.ts ~60 lines) while most churn comes from repeated merge branches into main. As a moderate feature PR it was closed without merge after design review stalled."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1179.66,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_decision_objection",
+      "concern_detail": "bk201- questioned making contextValue non-readonly, suggesting that constructor or getTreeItem() should be used instead; this blocked progress.",
+      "performance_claim": "Error node caching prevents repeated failed operations on tree refresh, improving responsiveness.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_repeated_operation",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": "Design objection on making contextValue non-readonly, no resolution found; PR closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot's initial implementation was over-engineered; maintainer simplified and added contextValue non-readonly, but this design change triggered a review objection that halted progress.",
+      "success_factors": [
+        "maintainer_adaptation",
+        "linked_issue"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "bk201- reviewed the code and objected to making contextValue publicly writable; tnaum-ms provided manual test video.",
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or timing data; maintainer provided a video demonstrating functional fix but not performance metrics.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed after design objection without resolution.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Enhanced BaseCachedBranchDataProvider to cache error nodes by parent ID, preventing repeated failed operations on tree refresh. Added retryOperation command to clear error state and refresh. Made contextValue non-readonly across many tree items to support context propagation.",
+      "files_primary": [
+        "src/tree/BaseCachedBranchDataProvider.ts",
+        "src/commands/retryOperation/retryOperation.ts",
+        "src/tree/TreeElementWithRetryChildren.ts",
+        "src/tree/createGenericElementWithContext.ts",
+        "src/tree/TreeElementWithContextValue.ts"
+      ],
+      "files_secondary_observability": [
+        "l10n/bundle.l10n.json",
+        "src/postgres/tree/*.ts",
+        "src/tree/azure-resources-view/cosmosdb/*.ts",
+        "src/tree/workspace-view/cosmosdb/*.ts",
+        "src/webviews/**/*.tsx"
+      ],
+      "secondary_note": "Most line changes come from merge commits that bring in main's updates; feature scope is < 200 lines excluding mechanical readonly removal.",
+      "change_trajectory": [
+        "Initial Copilot commits: error node caching infrastructure and utility functions.",
+        "Maintainer tnaum-ms refactored: simplified implementation, removed unused code, renamed retryAuthentication to retryOperation.",
+        "Maintainer made contextValue non-readonly in many files to support dynamic context assignment.",
+        "Review: Copilot bot suggested nitpicks (unawaited promises, naming); maintainer adopted param rename.",
+        "Human reviewer bk201- questioned design of non-readonly contextValue; no resolution, PR closed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_nitpicks",
+        "summary": "Copilot bot provided overview and suggested using Promise.all for fallback refresh and renaming parameter; some suggestions adopted.",
+        "blocking": false,
+        "action_taken": "Maintainer adopted param rename."
+      },
+      {
+        "source": "tnaum-ms",
+        "channel": "inline_review_comment",
+        "signal": "design_explanation_non_blocking",
+        "summary": "Explained that non-await for fallback is intentional and retry node detection is by design.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "bk201-",
+        "channel": "pr_comment",
+        "signal": "design_decision_objection",
+        "summary": "Questioned making contextValue non-readonly, suggesting alternatives; no resolution.",
+        "blocking": true,
+        "action_taken": "PR closed without change."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot created initial implementation with error cache and tests.",
+      "Maintainer tnaum-ms heavily refactored: simplified, removed tests, introduced contextValue non-readonly.",
+      "Copilot bot reviewed and suggested minor improvements.",
+      "Maintainer addressed some suggestions and requested review.",
+      "Human reviewer bk201- objected to non-readonly contextValue; discussion stalled.",
+      "PR closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

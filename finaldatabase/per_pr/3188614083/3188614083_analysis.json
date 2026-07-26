@@ -1,0 +1,167 @@
+{
+  "pr_id": 3188614083,
+  "meta": {
+    "title": "Improve constant reuse in VM",
+    "html_url": "https://github.com/mochilang/mochi/pull/4196",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 14:01:38+00:00",
+    "merged_at": "2025-06-30 14:04:55+00:00",
+    "closed_at": "2025-06-30 14:04:55+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "15",
+    "body_summary": "Single-commit change to reuse empty list and map constants in the VM to reduce allocations; also regenerated IR output for TPC-H Q21."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 10,
+      "deletions": 0,
+      "changes": 10,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 10,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "runtime"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.055,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_deduplication",
+      "empty_collection_reuse",
+      "vm_optimization"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Tiny VM constant-dedup diff (10 lines) merged by author without review or benchmark; evidence is narrative-only."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 10,
+        "interpretation": "At 10 changed lines, this is an extremely small edit. It fits a micro-optimization performance PR and is consistent with the low-friction immediate merge by the author."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.055,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Reusing empty list and map constants reduces allocation overhead in the VM.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "15",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Small-scale VM internal change (dedup empty collections) in Go; agent can propose simple optimization without triggering maintainer concern due to minimal scope.",
+      "success_factors": [
+        "minimal_scope",
+        "single_file",
+        "obvious_correctness"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No formal review or code-reading feedback visible in the dataset; maintainer self-merged immediately."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after measurements provided; only narrative claim of constant reuse.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues discussed; PR merged without hesitation.",
+      "evidence_gap": "narrative_only"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added logic to reuse previously created empty list and map constants instead of allocating new ones on each use, reducing allocation overhead.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit deduplicating empty list/map constants; no subsequent fixes needed."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with a single commit, labeled as codex, and merged by the author within 4 minutes without any review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

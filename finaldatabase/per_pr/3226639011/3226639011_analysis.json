@@ -1,0 +1,178 @@
+{
+  "pr_id": 3226639011,
+  "meta": {
+    "title": "Improve role+name filter performance on Windows",
+    "html_url": "https://github.com/mediar-ai/terminator/pull/201",
+    "repo": "mediar-ai/terminator",
+    "agent": "Cursor",
+    "user": "louis030195",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-13 16:31:20+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 26,
+    "topic_name": "26",
+    "body_summary": "Introduce a two-phase depth-limited search for Windows UI element lookup: shallow depth‑15 pass first, falling back to depth‑50 if not found, to reduce average latency without losing accuracy."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 58,
+      "deletions": 27,
+      "changes": 85,
+      "top1_file": "terminator/src/platforms/windows.rs",
+      "top1_changes": 85,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "terminator"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 2,
+      "event_counts": {
+        "committed": 1,
+        "reviewed": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": 0.152,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ui_element_search",
+      "depth_tuning",
+      "two_phase_search"
+    ],
+    "optimization_layer": "platform_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_bug_timeout_double_counting",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Two-phase search introduced a timeout double‑counting bug; bot review flagged it, PR closed without fix or any performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 85,
+        "interpretation": "At 85 changed lines in a single file, this is a small edit by absolute volume. It fits a small-step performance PR but was closed due to a correctness bug, not because of its size or scope."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_timeout_bug",
+      "concern_detail": "The two-phase search applies the specified timeout_ms to each phase independently, causing the total search duration to exceed the intended timeout by up to double. This violates the expected timeout contract.",
+      "performance_claim": "Faster element lookups by first scanning only to depth 15, falling back to a deep scan when nothing is found.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness"
+      ],
+      "rejection_signals": "Bot review identified a timeout double-counting defect; no human review or additional commits occurred; PR closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "26",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent introduced a subtle contract violation by failing to propagate a single timeout value across a two‑phase search. Handling temporal resource bounds across algorithm stages requires deeper awareness of API semantics.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "cursor bugbot analyzed the timeout propagation logic and flagged the per‑phase usage of timeout_ms, exposing that total duration could double the intended bound."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics provided; the PR offers only a narrative claim.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After the bot review, no further commits were made; the PR was closed (presumably by the author) without addressing the timeout bug.",
+      "evidence_gap": "narrative_only_timeout_bug"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In terminator/src/platforms/windows.rs, introduced DEFAULT_ROLE_NAME_SEARCH_DEPTH=15 and modified find_element to first attempt a shallow depth‑15 search, falling back to depth‑50 if not found; find_elements defaults to the shallow depth.",
+      "files_primary": [
+        "terminator/src/platforms/windows.rs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit by cursoragent: implemented two‑phase search with depth constants."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "timeout_double_counting_bug",
+        "summary": "Two-phase search applies timeout_ms separately to each phase, potentially doubling the total duration beyond the caller’s intended timeout.",
+        "blocking": true,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent committed the optimized search.",
+      "cursor bugbot reviewed and flagged timeout mismanagement.",
+      "No further activity; PR closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

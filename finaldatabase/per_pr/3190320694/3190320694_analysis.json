@@ -1,0 +1,168 @@
+{
+  "pr_id": 3190320694,
+  "meta": {
+    "title": "Enable vm group append for tpc-ds",
+    "html_url": "https://github.com/mochilang/mochi/pull/4340",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-01 01:10:01+00:00",
+    "merged_at": "2025-07-01 01:10:16+00:00",
+    "closed_at": "2025-07-01 01:10:16+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 21,
+    "topic_name": "21",
+    "body_summary": "Update group append logic in runtime/vm to avoid unnecessary slice copies and refresh golden IR output for TPC-DS q63."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 74,
+      "deletions": 75,
+      "changes": 149,
+      "top1_file": "tests/dataset/tpc-ds/out/q63.ir.out",
+      "top1_changes": 143,
+      "top1_change_ratio": 0.96,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00417,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "slice_copy_optimization",
+      "group_append_perf",
+      "tpc_ds_ir_update"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_self_atomic_fast",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit VM slice-copy optimization with IR golden file update; self-merged by author in seconds with no review or benchmark evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 149,
+        "interpretation": "At 149 changed lines, this is a small edit by absolute volume, concentrated in a runtime VM file and a test golden output. It represents an atomic, low-risk performance change that was self-merged immediately, consistent with the typical pattern for small-step perf fixes in this repo."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00417,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Avoid unnecessary slice copies during group append in the runtime VM.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "21",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "A trivial VM internals change plus golden IR update required no review or maintainer validation; merge was immediate, indicating the change is well within agent capability for this repo's self-merge workflow.",
+      "success_factors": [
+        "tiny_isolated_change",
+        "self_merge_no_review_required",
+        "golden_ir_test_update"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after performance data; only a code diff and a golden IR regeneration are provided.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No review feedback or regression event; PR merged without any blocking concerns.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, the group append logic was adjusted to eliminate unnecessary slice copies, likely by using slice expressions that prevent reallocation. The golden IR output for TPC-DS query q63 was updated to reflect the new behavior.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/tpc-ds/out/q63.ir.out"
+      ],
+      "secondary_note": "The IR output changes are a consequence of the VM modification; the primary performance change is in vm.go.",
+      "change_trajectory": [
+        "Single commit (a472d99): updated group append logic and refreshed golden IR output."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created by tamnd with OpenAI Codex label, self-merged within seconds, no external review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

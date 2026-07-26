@@ -1,0 +1,199 @@
+{
+  "pr_id": 2910104788,
+  "meta": {
+    "title": "fix: display API key start and linkages to orgs/apps",
+    "html_url": "https://github.com/Cap-go/capgo/pull/1043",
+    "repo": "Cap-go/capgo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-03-11 11:05:41+00:00",
+    "merged_at": "2025-03-12 14:38:00+00:00",
+    "closed_at": "2025-03-12 14:38:00+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "2",
+    "body_summary": "Enhances API keys display with first/last 5 chars, organization and app badges, plus performance optimizations using computed properties, parallel fetching, caching, and Set for unique IDs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 5,
+      "additions": 172,
+      "deletions": 20,
+      "changes": 198,
+      "top1_file": "src/components/ApiKeys.vue",
+      "top1_changes": 186,
+      "top1_change_ratio": 0.939,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 3,
+        "commented": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 27.53,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "api_key_display",
+      "frontend_reactivity",
+      "parallel_data_fetching",
+      "caching"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_design_fix",
+    "review_dimensions": [
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "medium",
+    "notes": "Devin added API key display with narrative performance optimizations; maintainer made a design fix without formal review, no benchmark or quantitative perf evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 198,
+        "interpretation": "At 198 changed lines across 5 files, this is a small-to-medium absolute edit, concentrated in a single Vue component. It fits a targeted UI enhancement with perf claims that merged quickly after a maintainer design tweak."
+      },
+      "lifecycle": {
+        "lifespan_hours": 27.53,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_or_approach",
+      "concern_detail": "Maintainer riderx made a 'fix: design' commit (c41394f) after Devin's initial implementation, adjusting the layout/styling of the API keys display. The change indicates a review focus on visual design rather than performance, with no formal review text.",
+      "performance_claim": "Uses computed properties for memoization, parallel fetching with Promise.all, efficient caching for org/app IDs, and Set for unique IDs; claims better performance and responsive display.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2_hydration_species_component_children",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Frontend Vue component enhancement with performance narrative was within Devin's capability, but merge still required a maintainer design fix, suggesting visual polish and layout details still benefit from human oversight.",
+      "success_factors": [
+        "maintainer_design_tweak_quickly_merged",
+        "clear_pr_description",
+        "no_blocking_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer riderx manually reviewed the PR and committed a 'fix: design' (c41394f) adjusting layout/styling of the API key display after Devin's initial commit."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or concrete before/after performance data; only narrative claims about computed properties, parallel fetching, and caching.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "The maintainer's design fix was applied within the PR, addressing layout issues; no other regressions noted.",
+      "evidence_gap": "narrative_perf_claim_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified src/components/ApiKeys.vue to display the first 5 and last 5 characters of each API key, added badges for linked organizations and apps with proper color coding, and introduced Vue computed properties, parallel fetching with Promise.all, caching for uncached org/app IDs, and Set for collecting unique IDs before queries.",
+      "files_primary": [
+        "src/components/ApiKeys.vue"
+      ],
+      "files_secondary_observability": [
+        "CHANGELOG.md",
+        "package.json",
+        "src/styles/style.css"
+      ],
+      "secondary_note": "The merge of main also touched CHANGELOG.md, bun.lockb, package.json, and style.css, unrelated to the performance claims.",
+      "change_trajectory": [
+        "Devin initial commit (7c7c742): added API key display and performance optimizations in ApiKeys.vue.",
+        "Maintainer merged main branch (3f26ae2).",
+        "Maintainer committed 'fix: design' (c41394f) adjusting layout/styling of the API key display."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot posted automatic integration notice stating it will address comments and monitor CI.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_review_skipped",
+        "summary": "CodeRabbit bot skipped review because the PR author is a bot user; offered manual invocation commands.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with automatic integration notice and initial code commit.",
+      "CodeRabbit bot automatically skipped review due to bot user detection.",
+      "Maintainer riderx merged main branch, then added a design fix commit.",
+      "PR merged by riderx without formal review or explicit approval comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

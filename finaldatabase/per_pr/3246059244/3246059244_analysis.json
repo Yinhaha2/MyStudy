@@ -1,0 +1,204 @@
+{
+  "pr_id": 3246059244,
+  "meta": {
+    "title": "fix(timeline): remove notch listeners on redraw",
+    "html_url": "https://github.com/katspaugh/wavesurfer.js/pull/4163",
+    "repo": "katspaugh/wavesurfer.js",
+    "agent": "OpenAI_Codex",
+    "user": "katspaugh",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-20 06:33:32+00:00",
+    "merged_at": "2025-07-20 06:41:16+00:00",
+    "closed_at": "2025-07-20 06:41:16+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 46,
+    "topic_name": "46",
+    "body_summary": "Fix memory leak in Timeline plugin by removing notch scroll listeners on redraw, preventing listener accumulation that causes memory growth."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 7,
+      "deletions": 1,
+      "changes": 8,
+      "top1_file": "src/plugins/timeline.ts",
+      "top1_changes": 8,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src/plugins"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "review_requested": 1,
+        "labeled": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.1289,
+      "first_review_delay_hours": 0.0047,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_usage",
+      "event_listener_cleanup"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "listener_leak"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "8-line change in timeline plugin to clean up event listeners; merged after bot review non-blocking nitpick with no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8,
+        "interpretation": "At 8 changed lines, this is a tiny edit by absolute volume, consistent with a minimal-scope performance fix. It naturally supports a fast, low-risk merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.1289,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "listener_tracking_inconsistency",
+      "concern_detail": "Copilot bot review noted the change uses unsubscribeNotches instead of the existing subscriptions array, suggesting a possible inconsistency in listener management.",
+      "performance_claim": "Prevent growing memory usage by removing notch listeners on redraw.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "listener_leak",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "46",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple listener cleanup within a single plugin file required no benchmark or complex justification; merge was immediate after bot review nitpick.",
+      "success_factors": [
+        "small_scope",
+        "bot_review_non_blocking",
+        "maintainer_auto_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Copilot bot reviewed the diff and noted a potential inconsistency in listener tracking.",
+        "ci_auto": "Cloudflare Pages deployment succeeded on the branch, confirming no build breakage."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler data, or numeric before/after memory measurements provided; only a narrative claim of preventing memory growth.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/plugins/timeline.ts, introduced an unsubscribeNotches array to call unsubscribe callbacks for notch scroll handlers before rebuilding the timeline and on destroy, preventing listener accumulation that caused memory growth on repeated zoom.",
+      "files_primary": [
+        "src/plugins/timeline.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit (f6ec94a) introduced unsubscribeNotches and cleanup logic."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Copilot bot posted a pull request overview summarizing the memory leak fix and noted the listener tracking change.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "listener_tracking_consistency_nitpick",
+        "summary": "The bot nitpicked that using this.unsubscribeNotches instead of this.subscriptions may create inconsistency in how event listeners are managed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cloudflare-workers-and-pages[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_success",
+        "summary": "Cloudflare Pages reported a successful deploy of the branch preview.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with a single commit fixing the listener memory leak.",
+      "Copilot bot reviewed immediately, leaving an inline nitpick and an overview.",
+      "Cloudflare Pages deployment succeeded within seconds.",
+      "Maintainer merged after ~7 minutes, ignoring the non-blocking nitpick."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

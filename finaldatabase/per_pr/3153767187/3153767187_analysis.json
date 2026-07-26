@@ -1,0 +1,233 @@
+{
+  "pr_id": 3153767187,
+  "meta": {
+    "title": "Add Microsoft.Extensions.FileSystemGlobbing support to MSBuildGlob with trait-based feature flag",
+    "html_url": "https://github.com/dotnet/msbuild/pull/12033",
+    "repo": "dotnet/msbuild",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-17 14:42:57+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 38,
+    "topic_name": "38",
+    "body_summary": "Add Microsoft.Extensions.FileSystemGlobbing as an alternative glob implementation behind a trait flag to evaluate performance and maintainability vs the built-in regex-based MSBuildGlob."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 10,
+      "additions": 429,
+      "deletions": 35,
+      "changes": 464,
+      "top1_file": "src/Build/Globbing/FileSystemGlobbingMSBuildGlob.cs",
+      "top1_changes": 157,
+      "top1_change_ratio": 0.338,
+      "files_by_status": {
+        "added": 3,
+        "modified": 7
+      },
+      "directory_count": 2,
+      "directories": [
+        "eng",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 5,
+      "review_states": {
+        "COMMENTED": 5
+      },
+      "review_comment_count": 5,
+      "pr_comment_count": 5,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "commented": 5,
+        "mentioned": 4,
+        "subscribed": 3,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 3,
+        "reviewed": 2
+      },
+      "lifespan_hours": 24.796,
+      "first_review_delay_hours": 3.825,
+      "review_rounds": 5,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "glob_implementation_alternative",
+      "file_system_globbing",
+      "trait_based_conditional_code"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative",
+      "ci_benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "perf_change_not_significant_after_benchmark",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "perf_evidence"
+    ],
+    "blocking": true,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot added alternative glob using M.E.FileSystemGlobbing with trait flag; maintainer requested factory refactor and test fixes; PerfStar showed no significant eval time change; PR closed without merge pending more evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 464,
+        "interpretation": "At 464 changed lines across 10 files, this is a small-to-medium refactor that adds an alternative glob implementation behind a feature flag. The PR was closed without merge after performance evaluation showed no significant runtime changes, meeting the expected outcome for a performance-motivated change that didn't demonstrate clear benefit."
+      },
+      "lifecycle": {
+        "lifespan_hours": 24.796,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "insufficient_performance_benefit",
+      "concern_detail": "PerfStar run showed no significant changes in evaluation time; maintainer requested memory usage comparison and additional large-source-code tests before considering merge, but no further changes were made, leading to closure.",
+      "performance_claim": "Microsoft.Extensions.FileSystemGlobbing may offer better maintainability and performance over the custom regex-based glob implementation.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "perf_evidence"
+      ],
+      "rejection_signals": "PR closed without merge after PerfStar benchmark showed no significant performance improvement; maintainer requested further testing but no follow-up commits occurred."
+    },
+    "capability_boundary": {
+      "topic": "38",
+      "agent": "Copilot",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Swapping a core library component (globbing implementation) requires performance validation beyond correctness; the Agent successfully implemented the feature but the PR was not merged because the performance evidence (PerfStar) did not demonstrate improvement, illustrating the need for empirical performance wins for such changes.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "baronfel requested factory pattern refactor and identified test failures.",
+        "ci_auto": "JanProvaznik triggered PerfStar automated performance evaluation which showed no significant changes."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PerfStar results were mentioned but not fully detailed; no memory comparison provided.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After PerfStar showed no significant improvement, the PR was closed without further iterations.",
+      "evidence_gap": "perfstar_evaluation_showed_no_improvement_no_memory_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added FileSystemGlobbingMSBuildGlob class implementing IMSBuildGlob using Microsoft.Extensions.FileSystemGlobbing, integrated via a trait flag (Environment variable MSBUILD_USE_FILESYSTEMGLOBBING). MSBuildGlob factory method CreateGlob checks the trait to return either MSBuildGlob or the new implementation. Test files added for compatibility and trait demo.",
+      "files_primary": [
+        "src/Build/Globbing/FileSystemGlobbingMSBuildGlob.cs",
+        "src/Build/Globbing/MSBuildGlob.cs",
+        "src/Framework/Traits.cs"
+      ],
+      "files_secondary_observability": [
+        "src/Build.UnitTests/Globbing/FileSystemGlobbingCompatibility_Tests.cs",
+        "src/Build.UnitTests/Globbing/GlobbingTraitDemo_Tests.cs",
+        "src/Build/Microsoft.Build.csproj",
+        "src/Build.UnitTests/Microsoft.Build.Engine.UnitTests.csproj",
+        "eng/dependabot/Packages.props"
+      ],
+      "secondary_note": "Most line additions are test files and the new glob implementation; production changes are minimal with factory pattern and trait flag.",
+      "change_trajectory": [
+        "Initial commits: add dependency, new glob class, trait flag, and basic compatibility tests.",
+        "baronfel review: requested factory pattern instead of Lazy allocation; Copilot refactored.",
+        "Test failures identified: incorrect path handling in FileSystemGlobbingMSBuildGlob; Copilot fixed.",
+        "JanProvaznik triggered PerfStar; baronfel reported no significant eval time changes and requested memory tests.",
+        "No further commits; PR closed without merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "baronfel",
+        "channel": "inline_review_comment",
+        "signal": "design_suggestion_factory_pattern",
+        "summary": "Requested separate IMSBuildGlob implementation instead of Lazy inside MSBuildGlob.",
+        "blocking": true,
+        "action_taken": "Copilot refactored to factory pattern in commit 087c736."
+      },
+      {
+        "source": "baronfel",
+        "channel": "pr_comment",
+        "signal": "test_failures_identified",
+        "summary": "Two compatibility tests failing due to path handling.",
+        "blocking": true,
+        "action_taken": "Copilot fixed path handling in commit 37c94b6."
+      },
+      {
+        "source": "JanProvaznik",
+        "channel": "inline_review_comment",
+        "signal": "perfstar_trigger_instructions",
+        "summary": "Provided steps to run PerfStar for benchmarking.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "baronfel",
+        "channel": "pr_comment",
+        "signal": "perfstar_result_no_significant_change",
+        "summary": "PerfStar run showed no significant changes in evaluation time; requested memory comparison and larger tests.",
+        "blocking": true,
+        "action_taken": "PR closed without further changes."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial implementation using Lazy and trait flag.",
+      "baronfel reviewed and requested refactor to factory pattern; Copilot complied.",
+      "Compatibility tests failed; Copilot diagnosed path-handling bug and fixed it.",
+      "JanProvaznik set up PerfStar benchmark; baronfel reported results and asked for more data.",
+      "PR was closed without merge after no further activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

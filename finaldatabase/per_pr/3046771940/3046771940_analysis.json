@@ -1,0 +1,210 @@
+{
+  "pr_id": 3046771940,
+  "meta": {
+    "title": "perf: Optimize _getAvailableSlots function and related operations",
+    "html_url": "https://github.com/calcom/cal.com/pull/21166",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-07 18:01:20+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-17 15:47:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "46",
+    "body_summary": "Implement memoization, caching, and reduced dayjs.tz operations to optimize slot calculations in _getAvailableSlots, and add a benchmark script (no benchmark results provided)."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 7,
+      "additions": 310,
+      "deletions": 89,
+      "changes": 399,
+      "top1_file": "packages/trpc/server/routers/viewer/slots/util.ts",
+      "top1_changes": 126,
+      "top1_change_ratio": 0.316,
+      "files_by_status": {
+        "modified": 5,
+        "added": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 4,
+        "review_requested": 2,
+        "commented": 4,
+        "labeled": 1,
+        "deployed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 237.76,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "slot_calculation_optimization",
+      "memoization",
+      "caching",
+      "dayjs_tz_reduction"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added memoization and a benchmark script without measurable evidence; no maintainer engagement, auto-closed after ~9.9 days."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 399,
+        "interpretation": "At 399 changed lines, this is a small-to-medium edit by absolute volume. It fits an incremental performance optimization PR, but was closed without merge due to lack of review—not due to size."
+      },
+      "lifecycle": {
+        "lifespan_hours": 237.76,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No human review or feedback was provided; only bot comments appeared. The PR was auto-closed by the Devin bot after 7+ days of inactivity.",
+      "performance_claim": "Improve speed of slot calculations via memoization, caching, and reduced dayjs.tz operations.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR auto-closed by Devin bot after 7 days without any maintainer interaction."
+    },
+    "capability_boundary": {
+      "topic": "46",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent submitted a perf optimization PR with a benchmark script but failed to obtain any maintainer review, leading to automatic closure due to process inactivity.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark results or performance measurements were provided; only a benchmark script without output.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No regressions identified because no review occurred; PR closed due to inactivity.",
+      "evidence_gap": "narrative_only_no_benchmark_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added memoization to parseBookingLimit and parseDurationLimit, Map-based caching in slotsMappedToDate and withinBoundsSlotsMappedToDate, reduced dayjs.tz calls in isOutOfBounds and slots, and introduced a benchmark script with a shell runner.",
+      "files_primary": [
+        "packages/trpc/server/routers/viewer/slots/util.ts",
+        "packages/lib/isOutOfBounds.tsx",
+        "packages/trpc/server/routers/viewer/slots/benchmark.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/lib/intervalLimits/isBookingLimits.ts",
+        "packages/lib/intervalLimits/isDurationLimits.ts",
+        "packages/lib/slots.ts",
+        "packages/trpc/server/routers/viewer/slots/run-benchmark.sh"
+      ],
+      "secondary_note": "Benchmark script and its shell runner were added but no benchmark output or numeric claim was included.",
+      "change_trajectory": [
+        "Initial commit (150e8b9b): added memoization, caching, dayjs.tz reductions, and benchmark script.",
+        "Second commit (f65d9775): fixed TypeScript errors in benchmark and util.",
+        "Third commit (8f45f9a): further TypeScript fixes in benchmark script.",
+        "Fourth commit (ab79addd): updated benchmark script to properly implement IncomingMessage interface."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI response for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata (unrelated to perf validation).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_label_and_reviewer",
+        "summary": "Graphite automation added community label and assigned a reviewer.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with optimization and benchmark script; no linked issue.",
+      "Automated bots commented (Devin intro, Vercel preview, Graphite label/reviewer assignment).",
+      "Devin pushed three follow-up commits fixing TypeScript errors in benchmark and util.",
+      "No human review occurred; Devin bot auto-closed PR after ~9.9 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

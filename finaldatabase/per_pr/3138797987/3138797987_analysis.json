@@ -1,0 +1,224 @@
+{
+  "pr_id": 3138797987,
+  "meta": {
+    "title": "gui: Refactor useEffect to useMemo",
+    "html_url": "https://github.com/vltpkg/vltpkg/pull/856",
+    "repo": "vltpkg/vltpkg",
+    "agent": "Cursor",
+    "user": "lukekarrys",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-12 04:24:54+00:00",
+    "merged_at": "2025-06-14 00:23:17+00:00",
+    "closed_at": "2025-06-14 00:23:17+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 9,
+    "topic_id": 41,
+    "topic_name": "41",
+    "body_summary": "Refactor multiple useEffect calls to useMemo to eliminate unnecessary re-renders, improving React rendering performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 8,
+      "additions": 305,
+      "deletions": 335,
+      "changes": 640,
+      "top1_file": "useEffect-refactoring-analysis.md",
+      "top1_changes": 500,
+      "top1_change_ratio": 0.781,
+      "files_by_status": {
+        "added": 1,
+        "modified": 6,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        ".",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 18,
+      "event_counts": {
+        "commented": 2,
+        "head_ref_force_pushed": 2,
+        "renamed": 1,
+        "review_requested": 2,
+        "convert_to_draft": 1,
+        "reviewed": 1,
+        "committed": 5,
+        "ready_for_review": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 43.98,
+      "first_review_delay_hours": 17.38,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "useeffect_to_usememo",
+      "derived_state_computation",
+      "unnecessary_rerender_elimination"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_discussion",
+    "review_dimensions": [
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "manual_inspection"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Cursor refactored useEffect to useMemo across multiple components; merged after maintainer manually verified functionality and reviewer suggested more tests (non-blocking)."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 640,
+        "interpretation": "At 640 changed lines across 8 files, this is a small-to-medium refactor by absolute volume, concentrated in React component logic. It fits a typical small-step performance improvement PR that merged after a non-blocking review suggestion."
+      },
+      "lifecycle": {
+        "lifespan_hours": 43.98,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "tests_missing_or_requested",
+      "primary_concern": "test_coverage",
+      "concern_detail": "Reviewer ejkorol commented that writing more tests would help ensure stability, but did not block the merge.",
+      "performance_claim": "Eliminate unnecessary re-renders by converting useEffect+useState patterns to useMemo for derived state.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_rerenders",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "41",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "Cursor successfully refactored multiple components according to React best practices; merge gated only on human manual testing and a non-blocking suggestion for more tests.",
+      "success_factors": [
+        "manual_verification",
+        "non_blocking_review",
+        "small_scope"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_inspection"
+      ],
+      "detection_detail": {
+        "code_reading": "Author reviewed the refactoring by reading the code and applying React best practices; no profiling or automated perf measurement.",
+        "manual_inspection": "Author manually tested the GUI to ensure functionality after the refactoring."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No before/after performance data; manual functional verification only.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "The refactoring itself aimed to fix inefficiency; no regression was introduced. The PR was merged after manual verification.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Multiple React components refactored to replace useEffect+useState with useMemo for derived state to eliminate redundant render cycles. An analysis markdown was added by Cursor and later deleted.",
+      "files_primary": [
+        "src/gui/src/components/explorer-grid/save-query.tsx",
+        "src/gui/src/components/explorer-grid/query-matches.tsx",
+        "src/gui/src/components/query-bar/index.tsx",
+        "src/gui/src/components/ui/filter-search.tsx",
+        "src/gui/src/components/data-table/data-table.tsx",
+        "src/gui/src/components/queries/saved-item.tsx"
+      ],
+      "files_secondary_observability": [
+        "useEffect-refactoring-analysis.md",
+        "src/gui/test/components/explorer-grid/__snapshots__/save-query.tsx.snap"
+      ],
+      "secondary_note": "The analysis markdown (250 lines) was added by Cursor and later deleted; the snapshot file was updated due to the refactor.",
+      "change_trajectory": [
+        "Cursor added analysis markdown listing useEffect findings.",
+        "Cursor applied useMemo refactors across multiple files in a single commit.",
+        "Human deleted the analysis markdown (not needed in final).",
+        "Human cleanup commits (fine-tuning, deleting unused code, updating snapshot)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ejkorol",
+        "channel": "formal_review",
+        "signal": "test_suggestion",
+        "summary": "Suggested writing more tests to ensure stability, but did not block.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "lukekarrys",
+        "channel": "pr_comment",
+        "signal": "merge_acknowledgment",
+        "summary": "Manually verified functionality and agreed more tests ideal but out of scope; merged.",
+        "blocking": false,
+        "action_taken": "PR merged"
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor generated refactor analysis and applied changes.",
+      "Human curated the PR, removed analysis markdown, and cleaned up code.",
+      "Reviewer suggested more tests, non-blocking.",
+      "Author manually verified and merged PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "pr_id": 3170126845,
+  "meta": {
+    "title": "Enable constant folding of pure functions in VM",
+    "html_url": "https://github.com/mochilang/mochi/pull/2776",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-24 03:42:50+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-24 04:09:08+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 10,
+    "topic_name": "10",
+    "body_summary": "Add compile-time evaluation of pure functions in VM compiler to constant fold calls, with updated IR golden files and test instructions."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 87,
+      "deletions": 17,
+      "changes": 104,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 82,
+      "top1_change_ratio": 0.788,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.438,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "compile_time_evaluation",
+      "constant_folding",
+      "pure_function_optimization"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_quickly_no_explanation",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "OpenAI_Codex authored a self-contained constant folding implementation; closed by author within ~26 minutes with no review comments, likely abandoned or testing PR."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 104,
+        "interpretation": "At 104 changed lines, this is a small edit by absolute volume. As a focused compiler optimization, the outcome (closed without merge) is unexpected for such a small, self-contained change, suggesting the closure was intentional by the author rather than due to review friction."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.438,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review feedback available; PR was self-closed without comments.",
+      "performance_claim": "Compile-time evaluation of pure functions eliminates runtime overhead of those calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Self-closed by author within ~26 minutes; no explanation provided."
+    },
+    "capability_boundary": {
+      "topic": "10",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Unclear why the PR was closed; possibly a test PR for Codex agent or an incomplete implementation. The lack of review and quick self-close suggests a workflow boundary where agent-generated PRs may be used for verification rather than actual merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No maintainer code reading recorded."
+      },
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "IR golden file tests are provided to verify constant folding correctness; however, no performance benchmarks are included.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were noted; PR was self-closed without any issue.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added compile-time constant folding for pure function calls in runtime/vm/vm.go. Pure functions are registered in the type environment; constant values from let bindings are stored and used to evaluate calls at compile time. IR golden files for fun_call and fun_three_args are updated to reflect folded calls.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/fun_call.ir.out",
+        "tests/vm/valid/fun_three_args.ir.out"
+      ],
+      "secondary_note": "Golden file updates show the expected IR after constant folding; no other secondary changes.",
+      "change_trajectory": [
+        "Single commit: adds constant folding logic to vm.go and updates two IR golden test files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with single commit.",
+      "No reviewers assigned or requested.",
+      "Closed by author after ~26 minutes with no comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

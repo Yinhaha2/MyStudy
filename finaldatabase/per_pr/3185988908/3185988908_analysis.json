@@ -1,0 +1,172 @@
+{
+  "pr_id": 3185988908,
+  "meta": {
+    "title": "Optimize VM join loops",
+    "html_url": "https://github.com/mochilang/mochi/pull/3943",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-29 09:57:37+00:00",
+    "merged_at": "2025-06-29 09:58:13+00:00",
+    "closed_at": "2025-06-29 09:58:13+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Optimize VM join loops with OpLessInt and cached null constants; fold VM constant expressions without importing interpreter; update benchmarks and regenerate IR golden files."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 30,
+      "additions": 1299,
+      "deletions": 743,
+      "changes": 2042,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 356,
+      "top1_change_ratio": 0.174,
+      "files_by_status": {
+        "modified": 30
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.01,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "join_loop_optimization",
+      "constant_folding",
+      "cached_null_constants"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_self_merge_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Single-commit large VM refactor with no review, instant self-merge; no performance evidence or human validation recorded."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2042,
+        "interpretation": "At 2042 changed lines across 30 files, this is a large edit by absolute volume, but most churn comes from golden IR test updates (27 .ir.out files). The core change in runtime/vm/vm.go is 356 lines. As a performance PR with zero review and a sub-minute self-merge, outcome is merged but bypasses typical process."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.01,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review, comment, or formal feedback recorded; PR was merged by author immediately.",
+      "performance_claim": "Optimize join loops via OpLessInt and cached null constants; fold VM constant expressions without importing interpreter.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unknown",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent delivered a substantial VM refactor with test updates; merged instantly by author without review, indicating that for self-maintained projects the process boundary is low, with no evidence or verification gate required.",
+      "success_factors": [
+        "author_self_merge",
+        "no_review_required",
+        "includes_test_updates"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review; author self-merged immediately.",
+        "ci_auto": "Not applicable; no CI job or automated check reported in timeline."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "PR body mentions updating join benchmarks but contains no numeric data, profiler output, or reproduction steps; no human verification performed.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues raised; merged directly without any fix cycle.",
+      "evidence_gap": "narrative_only_no_benchmarks"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, refactored join loop internals to use OpLessInt and cached null constants; added constant folding that runs without importing the interpreter. Updated 27 VM test IR golden files to reflect new constant folding output.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "runtime/vm/JOINS_BENCHMARKS.md",
+        "tests/vm/valid/*.ir.out (27 files)"
+      ],
+      "secondary_note": "Most line churn (1463 out of 2042) is in golden test outputs; the actual logic change is concentrated in vm.go (356 lines).",
+      "change_trajectory": [
+        "Single commit by tamnd: folded VM constants without interpreter, optimized join loops, updated join benchmark doc, regenerated golden IR files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened, labeled 'codex', merged immediately by author with no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

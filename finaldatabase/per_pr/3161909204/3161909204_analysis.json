@@ -1,0 +1,186 @@
+{
+  "pr_id": 3161909204,
+  "meta": {
+    "title": "jQuery Schedule Plugin - DOM Element Caching Optimization",
+    "html_url": "https://github.com/ateliee/jquery.schedule/pull/58",
+    "repo": "ateliee/jquery.schedule",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-20 04:47:33+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-28 14:18:47+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "46",
+    "body_summary": "Implement DOM element caching and loop optimizations in jQuery Schedule plugin to reduce DOM queries and improve drag/drop performance, with an efficiency analysis report."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 143,
+      "deletions": 47,
+      "changes": 190,
+      "top1_file": "EFFICIENCY_REPORT.md",
+      "top1_changes": 103,
+      "top1_change_ratio": 0.542,
+      "files_by_status": {
+        "added": 1,
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "dist",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 201.52,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "dom_element_caching",
+      "loop_optimization",
+      "drag_drop_performance"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io",
+      "inefficient_loop"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added DOM caching and loop fixes with an efficiency report; no human review, PR auto-closed after ~8 days of inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 190,
+        "interpretation": "At 190 changed lines across 5 files, this is a small edit by absolute volume. The PR was closed without merge due to complete lack of maintainer engagement, consistent with a process boundary for agent PRs in low-activity repositories."
+      },
+      "lifecycle": {
+        "lifespan_hours": 201.52,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No maintainer review or feedback was provided; the only interactions were Devin bot auto-replies and auto-close after 7+ days of inactivity.",
+      "performance_claim": "20-30% reduction in DOM query operations, improved responsiveness during drag/drop, and better performance with large numbers of schedule items.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io (uncached DOM queries) and inefficient_loop (for...in on arrays)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Auto-closed by Devin bot after more than 7 days without any human review or comment."
+    },
+    "capability_boundary": {
+      "topic": "46",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "A small frontend DOM caching PR in a low-traffic jQuery plugin repository was completely ignored by maintainers, demonstrating that AI agent PRs can be stalled by lack of human attention even when scoped correctly.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Only narrative claims and a self-reported manual test by the Devin bot; no benchmark, profiler, or CI validation, and no maintainer verification.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed automatically due to inactivity; no regression fix cycle took place.",
+      "evidence_gap": "narrative_only_no_human_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Cached frequently accessed DOM elements (timeline, bars, container) in multiple jQuery methods and converted for...in loops on arrays to standard for loops; added EFFICIENCY_REPORT.md with analysis of performance bottlenecks.",
+      "files_primary": [
+        "src/js/jq.schedule.js",
+        "EFFICIENCY_REPORT.md"
+      ],
+      "files_secondary_observability": [
+        "dist/js/jq.schedule.js",
+        "dist/js/jq.schedule.min.js",
+        "dist/js/jq.schedule.min.js.map"
+      ],
+      "secondary_note": "Built distribution files were updated as part of the optimization change.",
+      "change_trajectory": [
+        "Single commit with all DOM caching modifications, loop fixes, efficiency report, and dist rebuild."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with a single commit optimizing DOM caching and providing an efficiency report.",
+      "No human review or interaction occurred.",
+      "Devin bot auto-closed the PR after ~8 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

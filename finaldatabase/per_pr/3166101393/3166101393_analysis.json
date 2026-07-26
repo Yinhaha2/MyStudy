@@ -1,0 +1,187 @@
+{
+  "pr_id": 3166101393,
+  "meta": {
+    "title": "Fix file picker performance with buffer option caching in Snacks.util.bo",
+    "html_url": "https://github.com/folke/snacks.nvim/pull/1991",
+    "repo": "folke/snacks.nvim",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-22 16:49:17+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 6,
+    "topic_name": "6",
+    "body_summary": "Implement buffer option caching in Snacks.util.bo to avoid redundant `nvim_set_option_value` calls during file picker operations, claiming an 87% reduction in API calls."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 154,
+      "deletions": 2,
+      "changes": 156,
+      "top1_file": "tests/util_spec.lua",
+      "top1_changes": 107,
+      "top1_change_ratio": 0.686,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "lua",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 1,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "copilot_work_finished": 1,
+        "commented": 2,
+        "labeled": 1
+      },
+      "lifespan_hours": 873.0,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "buffer_option_caching",
+      "nvim_api_call_reduction",
+      "file_picker_performance"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "redundant_api_calls"
+    ],
+    "outcome_reason": "accidental_pr_author_requested_close",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot opened an unintended PR with a caching optimization; the author explicitly requested closure, and no reviews occurred."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 156,
+        "interpretation": "At 156 changed lines, this is a small edit. The PR was closed without merge because the author did not intend to open it, and it was later marked stale."
+      },
+      "lifecycle": {
+        "lifespan_hours": 873.0,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "accidental_pr_opening",
+      "concern_detail": "The user spenrose commented 'Please close, I didn't realize this was going to open a pull request', indicating that the PR was opened by Copilot unintendedly.",
+      "performance_claim": "Reduces redundant nvim API calls by caching buffer option values, reducing calls from 13,800 to 1,800 (87% improvement).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "redundant_api_calls",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Accidental PR; author requested immediate close; no further action taken."
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot opened a PR on behalf of a user who was not expecting it, resulting in an unwanted PR. The agent performed well on the technical fix but failed to prevent unnecessary contribution.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body contains anecdotal performance numbers but no reproducible benchmark or repro steps.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge due to author request; later labeled stale by bot.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Optimized M.bo in lua/snacks/util/init.lua by adding a cache to skip redundant nvim_set_option_value calls; added tests in tests/util_spec.lua.",
+      "files_primary": [
+        "lua/snacks/util/init.lua"
+      ],
+      "files_secondary_observability": [
+        "tests/util_spec.lua"
+      ],
+      "secondary_note": "Tests added to validate caching behavior.",
+      "change_trajectory": [
+        "Initial plan commit (no files changed).",
+        "Implementation commit: added caching logic to bo function and tests.",
+        "After author request to close, no further changes; labeled stale."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "spenrose",
+        "channel": "pr_comment",
+        "signal": "accidental_pr_request_close",
+        "summary": "User requested to close the PR because they didn't intend to open it.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "stale_bot_mark",
+        "summary": "Bot marked PR as stale after 30 days of inactivity.",
+        "blocking": false,
+        "action_taken": "PR likely closed automatically."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with performance fix.",
+      "User spenrose commented asking to close, indicating unintended PR.",
+      "No review engagement; PR marked stale after 30 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "pr_id": 3111251601,
+  "meta": {
+    "title": "Improve Release CI speed",
+    "html_url": "https://github.com/eplatonoff/pilorama/pull/76",
+    "repo": "eplatonoff/pilorama",
+    "agent": "OpenAI_Codex",
+    "user": "eplatonoff",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-02 18:45:01+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-02 19:01:44+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Speed up release CI workflow by adding shallow clone and parallel macOS/Windows builds."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 5,
+      "deletions": 5,
+      "changes": 10,
+      "top1_file": ".github/workflows/build.yml",
+      "top1_changes": 6,
+      "top1_change_ratio": 0.6,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "ready_for_review": 1,
+        "review_requested": 1,
+        "reviewed": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.28,
+      "first_review_delay_hours": 0.018,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_workflow_optimization",
+      "shallow_clone",
+      "parallel_builds"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "manual_close_after_approval",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "10-line CI config change, approved but manually closed; no review text or perf evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 10,
+        "interpretation": "At 10 changed lines across 2 CI workflow files, this is an extremely small change by absolute volume. It is a minimal CI speedup attempt that was approved but manually closed rather than merged, despite the tiny scope."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.28,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review text available; APPROVED review with empty body.",
+      "performance_claim": "Speed up release CI by shallow clone and parallel builds.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed manually by author shortly after approval, without explanation."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small CI config optimization: Codex can propose yaml changes, but maintainer practice (manual close after approval) suggests possible workflow integration issues or maintainer oversight.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark or runtime data; the change was not merged, so no measurement was taken.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was approved but then closed manually by author; no fix was applied.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In .github/workflows/build.yml, changed macOS/Windows builds from sequential to parallel matrix strategy; in release.yml, added fetch-depth: 0 to checkout action for shallow clone to speed up repo checkout.",
+      "files_primary": [
+        ".github/workflows/build.yml",
+        ".github/workflows/release.yml"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit modified both build and release workflows with one change each."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vladtsm",
+        "channel": "formal_review",
+        "signal": "approved_no_text",
+        "summary": "Approved the PR without providing any written feedback.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created with CI speed changes; immediately labeled 'codex' and marked ready for review.",
+      "Reviewer vladtsm approved within 1 minute without comments.",
+      "Author closed the PR approximately 15 minutes later without merging."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "pr_id": 3246163910,
+  "meta": {
+    "title": "Dispose bitmap sources on replacement",
+    "html_url": "https://github.com/wieslawsoltes/PanAndZoom/pull/96",
+    "repo": "wieslawsoltes/PanAndZoom",
+    "agent": "OpenAI_Codex",
+    "user": "wieslawsoltes",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-20 08:53:08+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-22 10:56:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 9,
+    "topic_name": "9",
+    "body_summary": "Add disposal of old bitmap sources when ZoomBorder child images are replaced, document the requirement, and provide a swapping sample demonstrating correct cleanup."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 68,
+      "deletions": 4,
+      "changes": 72,
+      "top1_file": "samples/AvaloniaDemo.Base/MainView.axaml.cs",
+      "top1_changes": 47,
+      "top1_change_ratio": 0.653,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "samples",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 50.058,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bitmap_disposal",
+      "memory_management",
+      "image_replacement"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "missing_dispose"
+    ],
+    "outcome_reason": "closed_by_author_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Closed by author after 2 days with no reviews; no benchmark or quantitative evidence for memory improvement."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 72,
+        "interpretation": "At 72 changed lines across 4 files, this is a small edit by absolute volume. It fits a small-scale, resource-cleanup performance PR, but it was closed without merge likely due to lack of review engagement or author decision."
+      },
+      "lifecycle": {
+        "lifespan_hours": 50.058,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_performed",
+      "concern_detail": "No formal review or comments were recorded in the dataset; only bot labels 'codex' and 'size/M' were applied, with no human engagement.",
+      "performance_claim": "Dispose bitmap sources on replacement to prevent memory leaks when swapping ZoomBorder child images.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "missing_dispose",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author without review or comments; no explicit performance concern raised."
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "A small resource cleanup PR with no performance evidence or reviewer engagement; closed by author after 2 days, suggesting a possible test-run or non-merge-intent agent submission.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after memory measurements, profiling, or reproduction steps beyond a build command.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by author without integration; no fix-in-PR or follow-up cycle occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In ZoomBorder.cs, dispose the old bitmap source when a new child image is set, preventing memory leaks. Also update README.md to document the disposal requirement, and add a bitmap swapping sample in AvaloniaDemo that demonstrates proper cleanup logic.",
+      "files_primary": [
+        "src/PanAndZoom/ZoomBorder.cs"
+      ],
+      "files_secondary_observability": [
+        "README.md",
+        "samples/AvaloniaDemo.Base/MainView.axaml",
+        "samples/AvaloniaDemo.Base/MainView.axaml.cs"
+      ],
+      "secondary_note": "Documentation and demo sample illustrate the importance of disposing replaced bitmaps to avoid memory accumulation.",
+      "change_trajectory": [
+        "Single commit by wieslawsoltes: Dispose image sources when replaced, touching 4 files with 68 additions and 4 deletions."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author opened PR with single commit from OpenAI_Codex agent.",
+      "No reviews, comments, or other collaboration activity recorded.",
+      "Author closed the PR after roughly 2 days without merging."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "pr_id": 3148897416,
+  "meta": {
+    "title": "Implement lazy loading of networks",
+    "html_url": "https://github.com/stefanobartoletti/nuxt-social-share/pull/373",
+    "repo": "stefanobartoletti/nuxt-social-share",
+    "agent": "OpenAI_Codex",
+    "user": "stefanobartoletti",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-16 07:38:34+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-18 10:16:31+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Implement lazy loading of social networks via dynamic imports, convert useSocialShare to async, and update components/docs accordingly."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 30,
+      "deletions": 52,
+      "changes": 82,
+      "top1_file": "src/runtime/networksIndex.ts",
+      "top1_changes": 58,
+      "top1_change_ratio": 0.707,
+      "files_by_status": {
+        "modified": 6
+      },
+      "directory_count": 3,
+      "directories": [
+        "docs",
+        "playground",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "review_requested": 1,
+        "labeled": 1,
+        "reviewed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 50.63,
+      "first_review_delay_hours": 0.007,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lazy_load",
+      "dynamic_import",
+      "async_composable"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_failure_tests_failed",
+    "review_dimensions": [
+      "type_safety"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Codex implemented lazy loading via dynamic imports; tests failed, no human review; author closed PR after ~2 days."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 82,
+        "interpretation": "At 82 changed lines across 6 files, this is a small change by absolute volume. It replaces static imports with dynamic ones, which fits a small-scale performance refactoring PR. However, it was closed without merge due to failing tests and lack of human review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 50.63,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_quality",
+      "primary_concern": "type_safety",
+      "concern_detail": "Copilot bot suggested replacing 'any' with a more specific type for the imported module in networksIndex.ts.",
+      "performance_claim": "Lazy loading reduces bundle size and initial load time by only importing needed network modules on demand.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed PR without merge; PR body notes eslint and pnpm test failures, indicating functional issues preventing acceptance."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Codex changed module loading strategy but the PR had failing tests (eslint missing config, test suite cancelled), suggesting incomplete handling of the build/test environment. The lack of human review and eventual closure by author indicate the agent output was not ready for merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark or performance measurements; only structural claim of improved loading due to lazy imports.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Author closed PR after ~2 days with failing tests; no regression fix cycle occurred.",
+      "evidence_gap": "narrative_only_no_tests_passing"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced static imports of all social network modules with dynamic import.meta.glob in networksIndex.ts, making getNetwork async; updated useSocialShare to be async and await network import; adapted SocialShare.vue and playground pages to use top-level await.",
+      "files_primary": [
+        "src/runtime/networksIndex.ts",
+        "src/runtime/useSocialShare.ts",
+        "src/runtime/SocialShare.vue"
+      ],
+      "files_secondary_observability": [
+        "docs/content/2.usage/2.composable.md",
+        "playground/pages/composable.vue",
+        "playground/pages/urls.vue"
+      ],
+      "secondary_note": "Documentation and playground pages updated to reflect async usage.",
+      "change_trajectory": [
+        "Single commit: replaced static imports with dynamic imports, converted composable to async, and updated all usage sites."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Copilot bot summarized PR changes and suppressed low-confidence comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "type_safety_suggestion",
+        "summary": "Suggested replacing 'any' with a specific type for the module import in getNetwork to improve type safety.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by author with lazy load implementation.",
+      "Copilot bot reviewed within seconds, posted overview and type safety suggestion.",
+      "No human interaction; author closed PR after ~2 days without addressing failing tests."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

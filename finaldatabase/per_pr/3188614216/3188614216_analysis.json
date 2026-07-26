@@ -1,0 +1,163 @@
+{
+  "pr_id": 3188614216,
+  "meta": {
+    "title": "Add constant reuse for empty collections",
+    "html_url": "https://github.com/mochilang/mochi/pull/4197",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-30 14:01:40+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-30 14:07:42+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 15,
+    "topic_name": "15",
+    "body_summary": "Enhance VM constant intern table so empty lists and maps reuse registers to reduce memory allocations."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 10,
+      "deletions": 0,
+      "changes": 10,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 10,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "vm"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.1,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "empty_collection_reuse",
+      "constant_intern_table_optimization",
+      "register_reuse"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_author_without_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Minimal perf PR with no review or discussion; author closed it within minutes, likely a self-abandoned experiment or failed test."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 10,
+        "interpretation": "At 10 addition lines, this is a tiny edit by absolute volume. It fits a micro-optimization but the outcome (closed without review) is inconsistent with a successful merge, suggesting the author quickly abandoned it."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.1,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review or comment text exists; the PR was closed by the author ~6 minutes after creation.",
+      "performance_claim": "Reusing VM registers for empty lists and maps avoids redundant allocations per empty collection constant.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author with no maintainer interaction; likely self-abandoned."
+    },
+    "capability_boundary": {
+      "topic": "15",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Extremely fast close (~6 min) with no review suggests the author (likely the Codex agent itself) opened the PR but either failed tests or realized an issue, highlighting a process boundary where agent-authored PRs may be abandoned without maintainer engagement.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metric; only a brief narrative claim and a reference to `make test` without results.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No review cycle; PR closed before any regression feedback.",
+      "evidence_gap": "narrative_only_no_test_results"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added logic to reuse registers for empty list and map constants by checking if a register already holds an identical empty collection, avoiding redundant allocations.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit `75c3285` introduces deduplication of empty list/map constants in vm.go (+10 lines).",
+        "PR closed by author ~6 minutes later without any discussion or review."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with minimal description and `codex` label.",
+      "No interaction from maintainers or bots; author closed PR after 6 minutes and deleted the branch."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

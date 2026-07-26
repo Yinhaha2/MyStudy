@@ -1,0 +1,167 @@
+{
+  "pr_id": 3253128073,
+  "meta": {
+    "title": "Modify exit to throttle on bandwidth exhaustion",
+    "html_url": "https://github.com/geph-official/geph5/pull/95",
+    "repo": "geph-official/geph5",
+    "agent": "OpenAI_Codex",
+    "user": "nullchinchilla",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-22 15:22:31+00:00",
+    "merged_at": "2025-07-22 15:23:40+00:00",
+    "closed_at": "2025-07-22 15:23:40+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "37",
+    "body_summary": "Add fallback rate limiting to throttle exit speed when paid bandwidth is exhausted, without exposing governor types."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 45,
+      "deletions": 26,
+      "changes": 71,
+      "top1_file": "binaries/geph5-exit/src/ratelimit.rs",
+      "top1_changes": 42,
+      "top1_change_ratio": 0.5915,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "binaries"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.0192,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bandwidth_throttling",
+      "rate_limit_fallback"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_fast_small_change",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Small ratelimit refactor with no review or performance evidence; merged by author immediately after push."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 71,
+        "interpretation": "At 71 changed lines, this is a very small edit by absolute volume. It fits a rapid-merge pattern for a low-risk fallback throttling change, consistent with the fast merge without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0192,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Throttle exit using fallback rate when paid bandwidth is exhausted.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": null,
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Self-merged micro-change with no review; reflects a process boundary where maintainer merges Agent-authored commits without external validation.",
+      "success_factors": [
+        "small_scope",
+        "author_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review text available; likely maintainer self-reviewed via code reading but no record."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark, profiler, or reproducible performance test provided; only cargo check and test --help mentioned.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In binaries/geph5-exit/src/ratelimit.rs, added a fallback rate limiter via with_fallback to throttle traffic when paid bandwidth is exhausted, without exposing governor types.",
+      "files_primary": [
+        "binaries/geph5-exit/src/ratelimit.rs"
+      ],
+      "files_secondary_observability": [
+        "binaries/geph5-client/src/vpn.rs"
+      ],
+      "secondary_note": "Merge from master brought unrelated VPN changes in binaries/geph5-client/src/vpn.rs.",
+      "change_trajectory": [
+        "Initial commit refactored ratelimit.rs to implement fallback throttling.",
+        "Merge master to integrate upstream changes."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author pushed ratelimit fallback commit, labeled codex, merged master, and immediately merged the PR with no review or comment activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

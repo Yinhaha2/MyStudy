@@ -1,0 +1,190 @@
+{
+  "pr_id": 3209206554,
+  "meta": {
+    "title": "Optimize unit test timeouts",
+    "html_url": "https://github.com/buster-so/buster/pull/416",
+    "repo": "buster-so/buster",
+    "agent": "Cursor",
+    "user": "dallinbentley",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-07 14:13:06+00:00",
+    "merged_at": "2025-07-07 14:23:34+00:00",
+    "closed_at": "2025-07-07 14:23:34+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 40,
+    "topic_name": "40",
+    "body_summary": "Reduce mock setTimeout delays from 60s to 5s in timeout.test.ts to speed up unit test execution."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 4,
+      "deletions": 4,
+      "changes": 8,
+      "top1_file": "packages/data-source/tests/unit/adapters/timeout.test.ts",
+      "top1_changes": 8,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.175,
+      "first_review_delay_hours": 0.012,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_timeout_reduction",
+      "test_execution_speed"
+    ],
+    "optimization_layer": "test_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "ci_validation",
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-file, 8-line timeout reduction; merged within 10 minutes after non-blocking bot reviews; no human feedback."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8,
+        "interpretation": "At 8 changed lines, this is an extremely small edit by absolute volume. It fits a trivial test optimization PR that can be merged immediately with no risk."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.175,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review feedback; the Greptile bot provided a non-blocking summary and the Vercel bot reported an unrelated deployment failure.",
+      "performance_claim": "Reduce mock setTimeout delays from 60s to 5s to optimize unit test execution speed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "40",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Trivial parameter change in a test file; requires no benchmark or domain expertise and merges with zero friction.",
+      "success_factors": [
+        "minimal_change_size",
+        "no_review_blockers"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of human code review; the Greptile bot's summary indicates the change was automatically reviewed."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "The test uses vi.advanceTimersByTime to simulate time, so the reduced timeout should yield the same behavioral verification; no before/after timing data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues were raised; the PR was merged directly.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/data-source/tests/unit/adapters/timeout.test.ts, changed mock setTimeout delays from 60000 (60 seconds) to 5000 (5 seconds) across four test cases. Uses vi.advanceTimersByTime to simulate elapsed time and still verify timeout behavior.",
+      "files_primary": [
+        "packages/data-source/tests/unit/adapters/timeout.test.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit aa5449a: replaced four occurrences of 60000 with 5000 while keeping the rest of the test logic intact."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "formal_review",
+        "signal": "bot_summary_no_block",
+        "summary": "Greptile bot posted a PR summary noting the test timeout reduction and that tests still properly verify timeout behavior for various database adapters; no inline comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_failure_unrelated",
+        "summary": "Vercel bot reported a deployment failure for buster-web, likely unrelated to the test timeout change.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit; Greptile bot immediately summarized the change.",
+      "Vercel bot commented on deployment status.",
+      "Maintainer merged after ~10 minutes with no additional feedback."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

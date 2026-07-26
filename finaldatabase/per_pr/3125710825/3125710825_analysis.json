@@ -1,0 +1,254 @@
+{
+  "pr_id": 3125710825,
+  "meta": {
+    "title": "feat: update parts channel capacity from 1000 to 2500",
+    "html_url": "https://github.com/celestiaorg/celestia-core/pull/1936",
+    "repo": "celestiaorg/celestia-core",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-06 19:42:55+00:00",
+    "merged_at": "2025-06-11 14:42:14+00:00",
+    "closed_at": "2025-06-11 14:42:14+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "23",
+    "body_summary": "Increase parts channel capacity from 1000 to 2500 to prevent blocking during processing of large blocks (128MB)."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 91,
+      "additions": 330,
+      "deletions": 196,
+      "changes": 526,
+      "top1_file": "rpc/client/rpc_test.go",
+      "top1_changes": 51,
+      "top1_change_ratio": 0.097,
+      "files_by_status": {
+        "modified": 91
+      },
+      "directory_count": 23,
+      "directories": [
+        ".github",
+        "abci",
+        "blocksync",
+        "cmd",
+        "config",
+        "consensus",
+        "crypto",
+        "evidence",
+        "inspect",
+        "libs",
+        "light",
+        "mempool",
+        "node",
+        "p2p",
+        "privval",
+        "proxy",
+        "rpc",
+        "scripts",
+        "state",
+        "statesync",
+        "store",
+        "test",
+        "types"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 1,
+        "APPROVED": 2
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 6,
+        "assigned": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "copilot_work_started": 2,
+        "unsubscribed": 1,
+        "renamed": 1,
+        "review_requested": 8,
+        "copilot_work_finished": 2,
+        "reviewed": 3,
+        "commented": 1,
+        "ready_for_review": 1,
+        "auto_squash_enabled": 1
+      },
+      "lifespan_hours": 114.99,
+      "first_review_delay_hours": 0.226,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "channel_capacity",
+      "block_prevention",
+      "large_block_handling"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "scope",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot increased channel capacity from 1000 to 2500; rach-id COMMENTED to limit changes to three files; Copilot reverted test files; later two APPROVED and merged."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 526,
+        "interpretation": "At 526 changed lines across 91 files (mostly merge-inflated), this is a small absolute change concentrated on three files' constant updates. It matches a low-risk parameter adjustment PR that merged after a trivial scope fix."
+      },
+      "lifecycle": {
+        "lifespan_hours": 114.99,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "scope_too_large",
+      "primary_concern": "scope_too_large",
+      "concern_detail": "rach-id asked to revert capacity changes in test files and keep only in replay_file.go, wal_generator.go, node.go; the agent complied.",
+      "performance_claim": "Increasing parts channel capacity to 2500 prevents blocking during large block processing, simplifying consensus flow and improving performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "scope",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "23",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple constant increase in channel buffer; agent handled parameter change but initially over-scoped into test files; minor revision resolved.",
+      "success_factors": [
+        "narrow_scope",
+        "responded_to_comment",
+        "maintainer_approved"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "rach-id reviewed the changes and identified unnecessary modifications in test files, requesting they be reverted."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or performance measurement provided; only narrative claim about blocking prevention for 128MB blocks.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Agent reverted extraneous test file changes in a follow-up commit, limiting the capacity change to the three specified files.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Increased partsChan buffer capacity from 1000 to 2500 in node/node.go, consensus/replay_file.go, and consensus/wal_generator.go; initially also touched test files but those were reverted per review.",
+      "files_primary": [
+        "node/node.go",
+        "consensus/replay_file.go",
+        "consensus/wal_generator.go"
+      ],
+      "files_secondary_observability": [
+        "consensus/byzantine_test.go",
+        "consensus/common_test.go",
+        "consensus/propagation/commitment_test.go",
+        "consensus/propagation/reactor_test.go",
+        "consensus/reactor_test.go"
+      ],
+      "secondary_note": "Test files were initially modified but reverted in a later commit; final changes are only in three production files.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Added capacity change in eight files including test files.",
+        "Reviewer requested to keep changes only in replay_file.go, wal_generator.go, and node.go.",
+        "Agent committed a revert of test files, retaining capacity changes in the three specified files.",
+        "Merge commits from main and multiple approvals led to merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "rach-id",
+        "channel": "formal_review",
+        "signal": "scope_too_large",
+        "summary": "Requested to limit capacity changes to replay_file.go, wal_generator.go, and node.go; revert other test files.",
+        "blocking": false,
+        "action_taken": "Copilot reverted test files in commit b93d08a."
+      },
+      {
+        "source": "evan-forbes",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED (no body).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "ninabarbakadze",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED (no body).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed revert of test files and kept capacity changes in three files.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with capacity increase across multiple files including tests.",
+      "rach-id commented requesting to limit changes to three specific files.",
+      "Copilot responded with revert commit and confirmation comment within minutes.",
+      "Subsequent reviewers (evan-forbes, ninabarbakadze) approved; PR merged after ~115 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

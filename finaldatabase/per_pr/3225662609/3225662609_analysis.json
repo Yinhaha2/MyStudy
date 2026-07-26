@@ -1,0 +1,267 @@
+{
+  "pr_id": 3225662609,
+  "meta": {
+    "title": "Improve asciicast clear offset caching",
+    "html_url": "https://github.com/amantus-ai/vibetunnel/pull/333",
+    "repo": "amantus-ai/vibetunnel",
+    "agent": "OpenAI_Codex",
+    "user": "steipete",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-12 18:39:20+00:00",
+    "merged_at": "2025-07-15 01:24:15+00:00",
+    "closed_at": "2025-07-15 01:24:15+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Cache the byte offset of the last terminal clear sequence in SessionInfo so stream replay can skip previously sent content and start from that position instead of scanning the entire asciicast file from the beginning."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 75,
+      "additions": 7230,
+      "deletions": 1484,
+      "changes": 8714,
+      "top1_file": "web/node-pty/pnpm-lock.yaml",
+      "top1_changes": 1798,
+      "top1_change_ratio": 0.206,
+      "files_by_status": {
+        "modified": 60,
+        "added": 15,
+        "removed": 2,
+        "renamed": 1
+      },
+      "directory_count": 5,
+      "directories": [
+        ".github",
+        "apple",
+        "mac",
+        "web",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 3
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 6,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 26,
+      "event_counts": {
+        "committed": 5,
+        "labeled": 1,
+        "commented": 6,
+        "reviewed": 3,
+        "mentioned": 4,
+        "subscribed": 4,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 54.75,
+      "first_review_delay_hours": 0.048,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "clear_offset_caching",
+      "file_seek_skip",
+      "stream_replay_optimization"
+    ],
+    "optimization_layer": "file_stream_processing",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "code_quality",
+      "resource_management",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Codex caching implementation introduced UTF-8 byte tracking and session data overwrite bugs; fixes by maintainer via Claude before merge; no benchmark provided."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8714,
+        "interpretation": "At 8714 changed lines, this appears large, but the bulk (~8500 lines) comes from a merge of main. The actual performance change is small (~200 lines in stream-watcher.ts and types.ts). As a small-step performance PR, it merged after iterative bot review fixes, which aligns with the outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 54.75,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_utf8_offset_and_session_corruption",
+      "concern_detail": "cursor[bot] flagged that header reading used data.length (string length) instead of byte position for fs.readSync, causing misreads with multi-byte UTF-8; also flagged incomplete SessionInfo fallback could overwrite existing data. claude[bot] later confirmed fixes but noted file descriptor leak. All were resolved in follow-up commits.",
+      "performance_claim": "Caching last clear offset avoids scanning entire asciicast file from beginning on replay, improving stream performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io (full file scan per replay)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "code_quality",
+        "resource_management"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Codex introduced low-level file I/O bugs (UTF-8 byte vs character position, file descriptor leak) that required fixes by another AI tool (Claude) under maintainer guidance. The optimization logic was correct but implementation details slipped.",
+      "success_factors": [
+        "iterative_bot_review",
+        "maintainer_active_fixing",
+        "use_of_second_AI_for_fixes"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "cursor[bot] and claude[bot] performed static analysis and identified the UTF-8 bug and data corruption risk.",
+        "ci_auto": "GitHub Actions reported test failures (vt-title-integration.test.ts and others) and lint errors; Mac formatting/linting failed on pre-existing issues."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No performance benchmarks; correctness is validated by existing tests and code review. The optimization effect is logical but unmeasured.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After initial commit, multiple bot reviews flagged bugs. The maintainer committed fixes: correcting byte tracking, adding try-finally for fd close, extracting constants, and lint fixes. All before merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In web/src/server/services/stream-watcher.ts, added lastClearOffset to SessionInfo, used it to skip bytes when replaying, with proper byte-position tracking for header reading. Also prevented session data overwrite by only updating offset if sessionInfo exists.",
+      "files_primary": [
+        "web/src/server/services/stream-watcher.ts",
+        "web/src/shared/types.ts",
+        "web/src/server/pty/pty-manager.ts",
+        "web/src/server/server.ts"
+      ],
+      "files_secondary_observability": [
+        "web/node-pty/pnpm-lock.yaml",
+        "web/pnpm-lock.yaml",
+        "web/package.json",
+        "web/scripts/build-npm.js",
+        "web/src/client/components/*",
+        "mac/VibeTunnel/*"
+      ],
+      "secondary_note": "Majority of changes (8500+ lines) came from merge of main branch and unrelated to this optimization; the actual performance change is concentrated in stream-watcher.ts and types.",
+      "change_trajectory": [
+        "Initial commit (b1e09c1): added lastClearOffset tracking, wired SessionManager into StreamWatcher, updated tests.",
+        "Merge main (b5e1870): brought in 8500+ lines of unrelated changes.",
+        "Fix commit (01183f1): corrected UTF-8 header reading by tracking byte position, prevented session data overwrite, extracted constants, added offset validation.",
+        "Fix commit (86a2c07): added try-finally block to close file descriptor and prevent leak.",
+        "Lint fix commit (9843cc8): resolved formatting, unused parameter, and type safety issues across multiple files."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_utf8_header_and_session_corruption",
+        "summary": "Flagged that header reading uses data.length instead of byte position, and incomplete SessionInfo fallback could overwrite existing session data.",
+        "blocking": false,
+        "action_taken": "Maintainer committed fixes for both issues in subsequent commits."
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_utf8_header_and_fd_leak",
+        "summary": "Repeated the UTF-8 header bug and highlighted potential file descriptor leak.",
+        "blocking": false,
+        "action_taken": "Maintainer added try-finally to close fd (commit 86a2c07)."
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_stream_parsing_and_offset_miscalc",
+        "summary": "Warned about incorrect header overwrite and inaccurate lastClearOffset calculation (offset incremented before processing line).",
+        "blocking": false,
+        "action_taken": "Already addressed by previous byte-position fix; no further change requested."
+      },
+      {
+        "source": "claude[bot]",
+        "channel": "pr_comment",
+        "signal": "initial_review_with_suggestions",
+        "summary": "Detailed review of initial commit: flagged UTF-8 bug, SessionInfo corruption, missing offset validation, and magic numbers; suggested specific fixes.",
+        "blocking": false,
+        "action_taken": "Maintainer applied fixes in later commits, incorporating many suggestions."
+      },
+      {
+        "source": "claude[bot]",
+        "channel": "pr_comment",
+        "signal": "review_confirm_fixes_1",
+        "summary": "After fixes, confirmed that critical bugs (UTF-8, SessionInfo, offset validation) were resolved, noted remaining large-file memory concern.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "claude[bot]",
+        "channel": "pr_comment",
+        "signal": "review_confirm_fixes_2",
+        "summary": "Final review confirmed all critical bugs fixed; praised code quality and approved; suggested performance logging for production.",
+        "blocking": false,
+        "action_taken": "Merged after this review."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_failure",
+        "summary": "CI failure on Node.js Build and Test (vt-title-integration.test.ts) and Mac formatting/linting errors (pre-existing).",
+        "blocking": false,
+        "action_taken": "Lint fixes committed; tests already passed on Node.js side after fixes."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Codex with initial offset caching change (~113 lines).",
+      "CI reported test failures; cursor[bot] immediately flagged two correctness bugs.",
+      "claude[bot] provided a comprehensive review with suggestions less than a minute later.",
+      "Maintainer merged main to pick up unrelated changes, then applied fixes via Claude over the next two days (byte tracking, fd close, lint).",
+      "After all bot comments were satisfied, the PR was merged ~55 hours after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

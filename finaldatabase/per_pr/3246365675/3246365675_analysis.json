@@ -1,0 +1,176 @@
+{
+  "pr_id": 3246365675,
+  "meta": {
+    "title": "Improve TS transpiler join code",
+    "html_url": "https://github.com/mochilang/mochi/pull/10824",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-20 13:42:01+00:00",
+    "merged_at": "2025-07-20 13:44:02+00:00",
+    "closed_at": "2025-07-20 13:44:02+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "39",
+    "body_summary": "Inline join loops in the TS transpiler and update golden outputs to improve performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 120,
+      "additions": 570,
+      "deletions": 636,
+      "changes": 1206,
+      "top1_file": "tests/transpiler/x/ts/left_join_multi.ts",
+      "top1_changes": 82,
+      "top1_change_ratio": 0.068,
+      "files_by_status": {
+        "added": 6,
+        "modified": 114,
+        "removed": 0
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.034,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "join_loop_inlining",
+      "ts_transpiler_codegen"
+    ],
+    "optimization_layer": "application_code_generation",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "No review or comments; single-commit inline optimization with test updates merged in ~2 minutes; narrative-only performance claim without benchmarks or evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1206,
+        "interpretation": "At 1206 changed lines across 120 files, this appears large but the majority are test golden file updates; the core optimization is a 115-line refactor in transpiler.go. This fits a low-risk transpiler code-gen improvement that merged quickly without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.034,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_text",
+      "concern_detail": "No review or comments detected; PR merged without any human or bot feedback.",
+      "performance_claim": "Inline join loops in the TS transpiler to improve generated code performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "39",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Small-scale transpiler optimization with inline loops; merged immediately with no review, suggesting the change was straightforward and low-risk in this codebase context.",
+      "success_factors": [
+        "small_scope",
+        "no_review_required",
+        "golden_test_update_confidence"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks or reproduction steps provided; change is a code-level transpiler optimization without before/after metrics.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions noted; PR merged without any blocking issues.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In transpiler/x/ts/transpiler.go, replace previous join code generation with inline loops to improve performance; update corresponding test golden outputs and progress markers.",
+      "files_primary": [
+        "transpiler/x/ts/transpiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/transpiler/x/ts/left_join_multi.ts",
+        "tests/transpiler/x/ts/join_multi.ts",
+        "tests/transpiler/x/ts/inner_join.ts",
+        "tests/transpiler/x/ts/outer_join.ts",
+        "tests/transpiler/x/ts/right_join.ts",
+        "tests/transpiler/x/ts/group_by_multi_join_sort.ts",
+        "transpiler/x/ts/README.md",
+        "transpiler/x/ts/TASKS.md"
+      ],
+      "secondary_note": "Most changes are updates to test golden outputs and progress tracking files (120 files total); the core code change is 115 lines in one file.",
+      "change_trajectory": [
+        "Single commit: inline join loops in transpiler.go and update all golden outputs and progress files accordingly."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with a single commit; merged within 2 minutes without any review or human interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

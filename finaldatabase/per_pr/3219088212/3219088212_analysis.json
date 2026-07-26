@@ -1,0 +1,189 @@
+{
+  "pr_id": 3219088212,
+  "meta": {
+    "title": "Cursor/cursorignore",
+    "html_url": "https://github.com/selfxyz/self/pull/756",
+    "repo": "selfxyz/self",
+    "agent": "Cursor",
+    "user": "hackertron",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-10 12:06:09+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-10 12:06:24+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Adds .cursorignore to prevent Cursor AI from indexing sensitive files and large build artifacts, claiming improved AI editor performance and security."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 36,
+      "additions": 1009,
+      "deletions": 639,
+      "changes": 1648,
+      "top1_file": "contracts/scripts/setVerifiersV2.ts",
+      "top1_changes": 583,
+      "top1_change_ratio": 0.354,
+      "files_by_status": {
+        "added": 15,
+        "modified": 21
+      },
+      "directory_count": 4,
+      "directories": [
+        "(root)",
+        ".github",
+        "circuits",
+        "contracts"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 2,
+        "commented": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.004,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "editor_indexing_optimization",
+      "cursor_ignore_config"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "wrong_base_branch_closed",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "PR adds .cursorignore for editor perf, but closed immediately because wrong base branch; no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1648,
+        "interpretation": "At 1648 changed lines across 36 files, this is a large diff by absolute volume, but mostly due to a merge commit bringing in many unrelated changes; the actual intended change is only a 298-line .cursorignore addition. The PR was closed immediately because the wrong base branch was used, which is consistent with a process error rather than the change content."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.004,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "wrong_base_branch",
+      "concern_detail": "The PR author closed the PR because they used the main branch as the base instead of the dev branch, as indicated in the comment: 'wrong base. used main as a base for this, should have been dev'.",
+      "performance_claim": "The .cursorignore file is intended to reduce AI editor indexing latency by excluding sensitive and generated files.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by author with comment 'wrong base. used main as a base for this, should have been dev'."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "Simple configuration file addition was closed due to incorrect base branch, illustrating that Agent PRs can fail on workflow conventions even when the code change is trivial.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks or profiling evidence for editor indexing improvement.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No merge, so no regression handling occurred.",
+      "evidence_gap": "narrative_claim_no_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Adds a .cursorignore file that excludes sensitive files (keys, credentials, deployment configs) and large generated artifacts (build outputs, node_modules, circuit/contract compilation outputs) from Cursor AI to prevent indexing slowdown.",
+      "files_primary": [
+        ".cursorignore"
+      ],
+      "files_secondary_observability": [
+        "contracts/scripts/setVerifiersV2.ts",
+        "circuits/scripts/build/build_r1cs_wasm.sh",
+        "contracts/scripts/setHubV2.ts",
+        "circuits/scripts/build/build_cpp.sh"
+      ],
+      "secondary_note": "Most changed files are from an automatic merge of the dev branch into main, unrelated to the cursorignore change.",
+      "change_trajectory": [
+        "Merge commit cb2ef913 brings in dev branch changes (contracts, circuits, build scripts).",
+        "Commit ce3da82 adds .cursorignore file.",
+        "PR closed immediately after creation due to wrong base branch."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_review_failed_due_to_close",
+        "summary": "CodeRabbit bot reported review failed because the pull request is closed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "hackertron",
+        "channel": "pr_comment",
+        "signal": "wrong_base_closed",
+        "summary": "Author closed the PR admitting wrong base branch used.",
+        "blocking": false,
+        "action_taken": "PR closed without any further action."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created with merge and .cursorignore addition.",
+      "CodeRabbit bot posted failed review notice.",
+      "Author quickly closed PR citing wrong base branch."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

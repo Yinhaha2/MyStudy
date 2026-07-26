@@ -1,0 +1,195 @@
+{
+  "pr_id": 3087404055,
+  "meta": {
+    "title": "Various bid adapters: remove duplicative video param validations",
+    "html_url": "https://github.com/prebid/Prebid.js/pull/13156",
+    "repo": "prebid/Prebid.js",
+    "agent": "OpenAI_Codex",
+    "user": "patmmccann",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-23 19:56:36+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-23 21:03:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 8,
+    "topic_id": 22,
+    "topic_name": "22",
+    "body_summary": "Remove duplicative video parameter validations across multiple bid adapter modules in Prebid.js."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 8,
+      "additions": 68,
+      "deletions": 373,
+      "changes": 441,
+      "top1_file": "modules/yieldmoBidAdapter.js",
+      "top1_changes": 89,
+      "top1_change_ratio": 0.202,
+      "files_by_status": {
+        "added": 1,
+        "modified": 7,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        ".",
+        "modules"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 7,
+        "commented": 2,
+        "convert_to_draft": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 1.11,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "code_deduplication",
+      "bundle_size_reduction",
+      "validation_overhead_reduction"
+    ],
+    "optimization_layer": "application_code",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "code_duplication"
+    ],
+    "outcome_reason": "closed_by_author_after_bot_feedback",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI Codex removed redundant video validations across 7 adapters; github-actions duplication bot flagged remaining similarity and suggested extraction; PR quickly closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 441,
+        "interpretation": "At 441 changed lines across 8 files, this is a small-to-medium refactor by absolute volume, touching multiple adapter modules. The PR was closed without merge shortly after bot feedback, which is consistent with a rapid rejection due to incomplete deduplication approach."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.11,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_quality_duplication",
+      "primary_concern": "duplicated_code_not_fully_addressed",
+      "concern_detail": "A github-actions duplication checker flagged remaining duplicated lines between videobyteBidAdapter and yieldliftBidAdapter, and between dxkultureBidAdapter and yieldliftBidAdapter, recommending that common code be moved to a shared library rather than simply removing validations inline.",
+      "performance_claim": "Removing redundant validation code may reduce overhead but no explicit performance claim was stated.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "code_duplication",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR was converted to draft and then closed by the author within roughly one hour after the bot feedback; no human review or further action was taken."
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The agent removed duplicate code inline but did not extract shared functions as the project's duplication checker recommended. The project preference for a library‑based deduplication led to the PR being closed.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "github-actions[bot] ran a duplication check against the latest commits and reported that some adapter files still contained duplicated lines, urging extraction into a common library."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, before/after profiling, or reproducibility instructions were provided; the change only removed validation logic lines with no measurable performance evidence.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR was closed without merge; no regression or fix cycle occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Removed redundant video parameter validations (e.g., checking video object properties) from 7 bid adapter files, while AGENTS.md was added and later deleted during the PR's lifecycle.",
+      "files_primary": [
+        "modules/yieldmoBidAdapter.js",
+        "modules/insticatorBidAdapter.js",
+        "modules/madsenseBidAdapter.js",
+        "modules/33acrossBidAdapter.js",
+        "modules/dxkultureBidAdapter.js",
+        "modules/videobyteBidAdapter.js",
+        "modules/smartytechBidAdapter.js"
+      ],
+      "files_secondary_observability": [
+        "AGENTS.md"
+      ],
+      "secondary_note": "AGENTS.md was added with agent guidelines in early commits and then deleted before the PR was closed.",
+      "change_trajectory": [
+        "Initial commits created and updated AGENTS.md with agent guidelines.",
+        "Commit 0f5b4af removed redundant video validation code across 7 adapter modules (344 deletions, 15 additions).",
+        "Final commit deleted AGENTS.md.",
+        "github-actions duplication checker commented on remaining similar code; PR was converted to draft and closed soon after."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "duplication_warning",
+        "summary": "Detected 24 duplicated lines between videobyteBidAdapter.js and yieldliftBidAdapter.js, and 19 duplicated lines between dxkultureBidAdapter.js and yieldliftBidAdapter.js; urged moving common code to a shared library.",
+        "blocking": false,
+        "action_taken": "PR closed by author without addressing feedback."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "duplication_warning",
+        "summary": "Duplicated code audit repeated after a subsequent commit; same duplication lines and recommendation.",
+        "blocking": false,
+        "action_taken": "PR closed shortly after."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with AGENTS.md and adapter changes.",
+      "github-actions bot flagged remaining duplication.",
+      "Author converted PR to draft, then closed without further interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

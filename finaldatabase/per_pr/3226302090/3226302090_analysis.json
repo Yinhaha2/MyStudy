@@ -1,0 +1,173 @@
+{
+  "pr_id": 3226302090,
+  "meta": {
+    "title": "Improve Go compiler struct reuse",
+    "html_url": "https://github.com/mochilang/mochi/pull/8385",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-13 09:25:31+00:00",
+    "merged_at": "2025-07-13 09:25:49+00:00",
+    "closed_at": "2025-07-13 09:25:49+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 5,
+    "topic_name": "5",
+    "body_summary": "Enhance Go compiler struct inference to reuse existing struct types instead of creating duplicates, and update test/output files."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 57,
+      "deletions": 32,
+      "changes": 89,
+      "top1_file": "compiler/x/go/helpers.go",
+      "top1_changes": 44,
+      "top1_change_ratio": 0.494,
+      "files_by_status": {
+        "modified": 4,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.005,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "struct_deduplication",
+      "compiler_optimization",
+      "type_reuse"
+    ],
+    "optimization_layer": "compiler_toolchain",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_no_review_small_scope",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit compiler struct deduplication merged instantly by the same user with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 89,
+        "interpretation": "At 89 changed lines, this is a small edit by absolute volume. It fits a small-step performance PR that was merged without any review, consistent with the extremely short lifecycle (18 seconds)."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.005,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Reuse existing struct types instead of creating new ones, reducing memory and improving compiler efficiency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "duplicate_struct_inference",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler-level struct inference optimization with no requirement for benchmarks; agent succeeded despite no evidence because maintainer merged instantly.",
+      "success_factors": [
+        "small_change_scope",
+        "no_review_required",
+        "maintainer_is_author"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks or performance validation; only compilation test provided.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add structMatches helper and modify compiler to reuse existing struct types; update test files and checklists.",
+      "files_primary": [
+        "compiler/x/go/helpers.go",
+        "compiler/x/go/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/go/cast_struct.go",
+        "tests/machine/x/go/cast_struct.error",
+        "tests/machine/x/go/README.md",
+        "compiler/x/go/TASKS.md"
+      ],
+      "secondary_note": "Test and documentation files were updated to reflect the new struct reuse behavior and remove the error case.",
+      "change_trajectory": [
+        "Single commit (ff594faa) by tamnd: deduplicate struct inference"
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged by same actor (tamnd) within 18 seconds, with no review or human interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

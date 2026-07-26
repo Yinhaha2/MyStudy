@@ -1,0 +1,202 @@
+{
+  "pr_id": 3215330137,
+  "meta": {
+    "title": "Cursor/inspect results of ggml_interface.cpp",
+    "html_url": "https://github.com/nnstreamer/nntrainer/pull/3312",
+    "repo": "nnstreamer/nntrainer",
+    "agent": "Cursor",
+    "user": "myungjoo",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-09 10:04:07+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-11 05:06:53+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 26,
+    "topic_name": "26",
+    "body_summary": "Proposes three low-level optimizations in ggml_interface.cpp: BS::thread_pool instead of OpenMP, a memory pool for quantization buffers, and SIMD-accelerated quantization for ARM NEON / x64 AVX2, claiming 3–5x overall performance improvement."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 2,
+      "additions": 523,
+      "deletions": 107,
+      "changes": 630,
+      "top1_file": "nntrainer/tensor/cpu_backend/ggml_interface/ggml_interface.cpp",
+      "top1_changes": 341,
+      "top1_change_ratio": 0.541,
+      "files_by_status": {
+        "modified": 1,
+        "added": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "nntrainer"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 27,
+      "event_counts": {
+        "committed": 3,
+        "mentioned": 1,
+        "subscribed": 1,
+        "review_requested": 18,
+        "labeled": 1,
+        "commented": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 43.046,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "thread_pool_replacement",
+      "memory_pool",
+      "simd_quantization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative",
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_failure_inflated_claims_closed",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence",
+      "tests",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading",
+      "profiler"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor proposed thread pool, memory pool, and SIMD q8_K optimizations; maintainer refuted claims with valgrind & profiling, found NaN failures, and closed the PR."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 630,
+        "interpretation": "At 630 changed lines (341 in ggml_interface.cpp, 289 in a new simd header), this is a medium-sized low-level optimisation. The PR was closed—not merged—because the maintainer found functional failures and weak performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 43.046,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_failure_nan_values",
+      "concern_detail": "Maintainer skykongkong8 found that after fixing trivial bugs, all unit tests fail with NaN values. Additionally, SIMD optimization targets only 1.16% of GEMV runtime, memory pool gives 2.03% reduction with no peak memory change, and thread pool work is already addressed in other PRs.",
+      "performance_claim": "3-5x overall performance improvement via thread pool, memory pool, and SIMD quantisation.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "perf_evidence",
+        "tests",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer explicitly states suggestions are trivial/invalid, all unit tests fail, and performance claims are inflated; PR closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "26",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Low-level C++ SIMD/thread pool optimisations require exact numerical correctness and deep understanding of performance bottlenecks; the agent over‑optimised a non‑critical path and introduced NaN bugs.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "profiler"
+      ],
+      "detection_detail": {
+        "code_reading": "skykongkong8 examined code, noted thread pool work already in other PRs, and identified the extremely low runtime share of the SIMD‑targeted function.",
+        "profiler": "Used valgrind heap profiling to measure memory allocation reduction (2.03%) and timing measurements to show quantize_row_q8_K accounts for only 1.16% of GEMV."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body lacked reproduction steps; maintainer replicated with actual measurements and found no significant benefit and functional failure.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after maintainer refuted claims and found NaN failures.",
+      "evidence_gap": "inflated_claims_no_working_implementation"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In ggml_interface.cpp, replaced OpenMP with BS::thread_pool, added QuantizationBufferPool singleton with PooledBuffer RAII wrapper for quantization buffers, and introduced ggml_simd_quant.h containing ARM NEON and x64 AVX2 accelerated quantize_row_q8_K with runtime dispatch.",
+      "files_primary": [
+        "nntrainer/tensor/cpu_backend/ggml_interface/ggml_interface.cpp",
+        "nntrainer/tensor/cpu_backend/ggml_interface/ggml_simd_quant.h"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Commit 1 (87381f8): replace OpenMP with BS::thread_pool.",
+        "Commit 2 (76866f): implement memory pool for quantization buffers.",
+        "Commit 3 (8ad0717): add SIMD-accelerated quantize_row_q8_K for NEON and AVX2."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "skykongkong8",
+        "channel": "pr_comment",
+        "signal": "functional_failure_nan_tests",
+        "summary": "All unit tests fail with NaN values after trivial bug fixes; SIMD optimization targets 1.16% of GEMV, memory pool reduces allocation by 2.03% with no peak memory change, thread pool already in other PRs.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      },
+      {
+        "source": "skykongkong8",
+        "channel": "pr_comment",
+        "signal": "summary_rejection",
+        "summary": "Overall suggestions are quite trivial, or invalid.",
+        "blocking": true,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor opened PR with three performance optimization commits; myungjoo requested reviews from skykongkong8.",
+      "Maintainer skykongkong8 analyzed changes, provided counter‑evidence with valgrind and profiling, and noted functional failure (NaN) and weak performance gains.",
+      "PR closed without merge after maintainer's negative assessment, ~43 hours after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

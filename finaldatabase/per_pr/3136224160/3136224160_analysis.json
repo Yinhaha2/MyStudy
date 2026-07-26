@@ -1,0 +1,221 @@
+{
+  "pr_id": 3136224160,
+  "meta": {
+    "title": "Add native ARM64 GitHub Actions runner support",
+    "html_url": "https://github.com/hackmdio/codimd/pull/1923",
+    "repo": "hackmdio/codimd",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-06-11 09:58:23+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Replace QEMU emulation with native ARM64 GitHub Actions runners for Docker image builds and CI testing, using ubuntu-22.04-arm after iterative maintainer corrections."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 3,
+      "additions": 12,
+      "deletions": 12,
+      "changes": 24,
+      "top1_file": ".github/workflows/push-image.yml",
+      "top1_changes": 17,
+      "top1_change_ratio": 0.708,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "bin"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 7,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 3,
+        "commented": 5,
+        "mentioned": 4,
+        "subscribed": 4,
+        "milestoned": 1,
+        "ready_for_review": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "native_arm_runner",
+      "ci_docker_build_performance",
+      "remove_qemu_emulation"
+    ],
+    "optimization_layer": "ci_pipeline",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_in_progress",
+    "review_dimensions": [
+      "correctness",
+      "scope"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Copilot added native ARM64 runner via small CI workflow YAML edits; maintainer Yukaii iteratively corrected runner tag and binary file inclusion via PR comments, no formal review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 24,
+        "interpretation": "At 24 changed lines across two workflow files, this is a tiny edit by absolute volume. It fits a minimal CI-infra performance PR; it remains open after multiple maintainer-requested corrections (runner tag, binary removal)."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "ci_configuration_correctness",
+      "concern_detail": "Maintainer Yukaii requested removal of an accidentally committed bin/act binary and corrected the runner tag from ubuntu-24.04-arm64 → ubuntu-22.04-arm64 → finally ubuntu-22.04-arm, indicating platform-specific naming knowledge.",
+      "performance_claim": "Native ARM64 runners improve Docker build and CI speed compared to QEMU emulation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "ci_configuration"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "CI_workflow_optimization",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent successfully modified GitHub Actions workflow YAMLs but initially used incorrect runner tags (ubuntu-24.04-arm64, then ubuntu-22.04-arm64), requiring maintainer guidance to use the correct ubuntu-22.04-arm label. This highlights current limitations in knowing platform-specific runner naming conventions.",
+      "success_factors": [
+        "maintainer_iterative_guidance",
+        "small_scope_workflow_change"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Yukaii reviewed the diff via PR comments, requesting removal of bin/act and specifying the correct ubuntu-22.04-arm runner tag."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or CI execution logs comparing native vs QEMU build times; performance claims are purely narrative.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_ci_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In .github/workflows/push-image.yml and build.yml, replaced ubuntu-latest with native ubuntu-22.04-arm runner, removed QEMU setup step, and added ARM64 matrix testing. Accidentally committed then removed bin/act binary.",
+      "files_primary": [
+        ".github/workflows/push-image.yml",
+        ".github/workflows/build.yml"
+      ],
+      "files_secondary_observability": [
+        "bin/act"
+      ],
+      "secondary_note": "bin/act was added in a validation commit and then removed per maintainer request.",
+      "change_trajectory": [
+        "Initial commit added ARM64 runner with ubuntu-24.04-arm64 and removed QEMU in push-image.yml, added ARM64 to build.yml.",
+        "Subsequent commits: removed bin/act binary, changed runner to ubuntu-22.04-arm64, then to ubuntu-22.04-arm as instructed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Yukaii",
+        "channel": "pr_comment",
+        "signal": "remove_binary",
+        "summary": "Requested removal of the accidentally committed bin/act binary file.",
+        "blocking": false,
+        "action_taken": "Copilot removed the binary in commit 6968070."
+      },
+      {
+        "source": "Yukaii",
+        "channel": "pr_comment",
+        "signal": "change_runner_version",
+        "summary": "Instructed to use ubuntu-22.04-arm instead of 24.04.",
+        "blocking": false,
+        "action_taken": "Copilot changed to ubuntu-22.04-arm64 then corrected to ubuntu-22.04-arm."
+      },
+      {
+        "source": "Yukaii",
+        "channel": "pr_comment",
+        "signal": "commentary",
+        "summary": "Reacted with laughter to GitHub community discussion about ARM runner naming.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Yukaii",
+        "channel": "pr_comment",
+        "signal": "correct_runner_tag",
+        "summary": "Specified exact image tag `ubuntu-22.04-arm`.",
+        "blocking": false,
+        "action_taken": "Copilot updated both workflows to use ubuntu-22.04-arm."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial ARM64 runner change.",
+      "Maintainer requested binary removal; Copilot complied.",
+      "Maintainer requested runner version switch; Copilot iteratively corrected the tag.",
+      "Maintainer reacted to naming issue; later provided the exact tag, PR still open."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

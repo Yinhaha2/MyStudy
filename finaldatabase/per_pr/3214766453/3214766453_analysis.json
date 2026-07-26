@@ -1,0 +1,166 @@
+{
+  "pr_id": 3214766453,
+  "meta": {
+    "title": "Avoid duplicate grouping on main thread",
+    "html_url": "https://github.com/MihaiCristianCondrea/Smart-Cleaner-for-Android/pull/132",
+    "repo": "MihaiCristianCondrea/Smart-Cleaner-for-Android",
+    "agent": "OpenAI_Codex",
+    "user": "MihaiCristianCondrea",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-09 06:59:29+00:00",
+    "merged_at": "2025-07-09 07:00:43+00:00",
+    "closed_at": "2025-07-09 07:00:43+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 0,
+    "topic_name": "30",
+    "body_summary": "Compute duplicate groups during scanning and store in scanner state, then access them in the tabs UI, to avoid re-grouping on main thread."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 30,
+      "deletions": 18,
+      "changes": 48,
+      "top1_file": "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/ui/ScannerViewModel.kt",
+      "top1_changes": 22,
+      "top1_change_ratio": 0.458,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "app"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.021,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "duplicate_grouping",
+      "main_thread_offload"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "ui_thread_blocking"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Small refactor moving grouping computation from UI to scanner, merged instantly by sole maintainer with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 48,
+        "interpretation": "At 48 changed lines across 3 files, this is a very small edit by absolute volume. It fits a minimal, low‑risk performance optimization and merged without any review friction."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.021,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No reviews or comments are recorded in the dataset.",
+      "performance_claim": "Avoid duplicate grouping on main thread by computing groups during scanning and reusing stored state.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "ui_thread_blocking",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "A self-contained Android refactoring in a repo where the sole maintainer self‑merges without any review or performance evidence. The agent faces no external gatekeeping.",
+      "success_factors": [
+        "small_scope",
+        "no_review_process",
+        "sole_maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after timing data, benchmark, or profiler output; only a narrative description in PR title and body.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were reported.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Moved duplicate group calculation into the scanning phase (ScannerViewModel) and stored the groups in UiScannerModel state. Updated TabsContent composable to read pre‑computed groups from model instead of recalculating on‑the‑fly on the main thread.",
+      "files_primary": [
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/ui/ScannerViewModel.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/domain/data/model/ui/UiScannerModel.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/analyze/components/tabs/TabsContent.kt"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit (6ccf081c) optimizes duplicate grouping by offloading it from TabsContent UI to ScannerViewModel, with state stored in UiScannerModel."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Maintainer committed the change and merged it immediately (≈1 minute later) with no review or comment activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

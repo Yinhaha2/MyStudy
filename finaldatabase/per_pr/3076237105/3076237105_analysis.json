@@ -1,0 +1,235 @@
+{
+  "pr_id": 3076237105,
+  "meta": {
+    "title": "feat: add segments prop to DataTableProvider",
+    "html_url": "https://github.com/calcom/cal.com/pull/21409",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-20 08:53:06+00:00",
+    "merged_at": "2025-05-20 20:30:32+00:00",
+    "closed_at": "2025-05-20 20:30:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 2,
+    "topic_name": "2",
+    "body_summary": "Adds optional segments prop to DataTableProvider, allowing pre‑fetched segments to be passed directly instead of always fetching on the client."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 32,
+      "additions": 2379,
+      "deletions": 168,
+      "changes": 2547,
+      "top1_file": "packages/features/pbac/README.md",
+      "top1_changes": 424,
+      "top1_change_ratio": 0.1665,
+      "files_by_status": {
+        "added": 14,
+        "modified": 14,
+        "removed": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 22,
+      "event_counts": {
+        "committed": 6,
+        "commented": 4,
+        "review_requested": 1,
+        "labeled": 2,
+        "deployed": 4,
+        "assigned": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 11.62,
+      "first_review_delay_hours": 6.89,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "server_data_propagation",
+      "client_fetch_optimization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative",
+      "ci_task_eval"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "tests",
+      "ci_validation",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin added segments prop to reduce client fetching; review feedback led to refactoring hook; merged after CI and E2E pass."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2547,
+        "interpretation": "At 2547 changed lines across 32 files, this is a medium-to-large edit by absolute volume, but the core change is small (only a few files in the data-table package). Most lines come from merge commits bringing in unrelated pbac feature files. As a small incremental performance optimization, it was merged after CI and E2E checks passed."
+      },
+      "lifecycle": {
+        "lifespan_hours": 11.62,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No explicit concerns raised in review; the formal review was approved with an empty body.",
+      "performance_claim": "Passing segments as a prop reduces client-side data fetching, potentially improving page load performance by avoiding unnecessary network requests.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "ci_validation",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple prop addition and hook modification within a React component; Devin needed to iterate on approach (initially a separate hook vs modifying existing) per implicit feedback.",
+      "success_factors": [
+        "responded_to_implicit_feedback",
+        "ci_passing",
+        "e2e_tests_passing"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "GitHub Actions ran E2E tests and reported results ready; all checks passed before merge."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Performance claim is narrative only; no before/after timing or benchmark. E2E tests ensure functionality, not performance.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After initial implementation, the agent refactored to modify existing useSegments hook rather than creating a new one, and fixed a failing test in slots.test.ts.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added optional segments prop to DataTableProvider to allow pre-fetched segments to be passed directly, and modified useSegments hook to accept them instead of always fetching via TRPC; includes type updates and test fixes.",
+      "files_primary": [
+        "packages/features/data-table/DataTableProvider.tsx",
+        "packages/features/data-table/hooks/useSegments.ts",
+        "packages/features/data-table/lib/types.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/lib/slots.test.ts"
+      ],
+      "secondary_note": "Most line churn comes from merge commits pulling in unrelated pbac feature files; the core optimization is contained within the data-table package.",
+      "change_trajectory": [
+        "Initial commit: added segments prop and new useSegmentsWithProp hook.",
+        "Refactored to modify existing useSegments instead of creating a separate hook.",
+        "Implemented PR feedback and fixed failing test in slots.test.ts.",
+        "Maintainer clean‑up and merge of main branches."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "hbjORbj",
+        "channel": "formal_review",
+        "signal": "approved_no_text",
+        "summary": "Approved without written feedback.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduction and control options.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployment information posted.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_actions",
+        "summary": "Automated reviewer assignment and labeling.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results_ready",
+        "summary": "E2E test results posted; workflow completed.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial implementation using a separate useSegmentsWithProp hook.",
+      "Agent refactored to modify existing useSegments hook, likely due to implicit feedback.",
+      "Agent implemented further PR feedback and fixed failing test.",
+      "Maintainer cleaned up code and merged main branches.",
+      "Reviewer approved after CI and E2E checks passed; PR merged within ~11.6 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

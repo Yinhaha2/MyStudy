@@ -1,0 +1,172 @@
+{
+  "pr_id": 3084770989,
+  "meta": {
+    "title": "Improve query update performance",
+    "html_url": "https://github.com/elixr-games/elics/pull/42",
+    "repo": "elixr-games/elics",
+    "agent": "OpenAI_Codex",
+    "user": "felixtrz",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-22 23:27:38+00:00",
+    "merged_at": "2025-05-22 23:59:39+00:00",
+    "closed_at": "2025-05-22 23:59:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 1,
+    "topic_name": "1",
+    "body_summary": "Optimize Entity.destroy to iterate only active components, map queries by component for targeted updates, improve QueryManager.resetEntity efficiency, and add integration tests for new behavior."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 139,
+      "deletions": 54,
+      "changes": 193,
+      "top1_file": "tests/integration.test.ts",
+      "top1_changes": 120,
+      "top1_change_ratio": 0.622,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.534,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "entity_destroy_loop_optimization",
+      "query_update_targeting",
+      "component_mapped_query_reset"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_self_merge",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-commit ECS micro-optimization: entity destroy iterates only active components, query manager maps by component; self-merged after ~32 minutes with no review or benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 193,
+        "interpretation": "At 193 changed lines across 4 files, this is a small edit by absolute volume, fitting a targeted ECS performance optimization. The small size, self-merge, and rapid turnaround are consistent with a low-risk change that maintains backward compatibility."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.534,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No reviews or comments were made on this PR. The author self-merged without external oversight.",
+      "performance_claim": "Improve entity destruction and query update performance by iterating only active components and mapping queries by component for targeted resets.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "over_broad_component_iteration",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Engine-level ECS loop refinements and query-mapping restructure are within code-level agent capability on this codebase; the self-merge without review suggests low-friction acceptance of such targeted optimizations.",
+      "success_factors": [
+        "narrow_scope",
+        "author_self_merge",
+        "test_coverage_added"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No formal maintainer review occurred; author is the repository owner and performed a self-merge after local testing."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks, before/after metrics, or profiler data were provided. Only narrative claims and integration tests (npm test) support the performance improvement.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "The PR was merged without any reported regressions or review issues.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In Entity.destroy(), changed iteration to use only active component types instead of a broader loop. In QueryManager.ts, enhanced resetEntity to use a component-to-queries map for targeted updates, reducing unnecessary iteration. World.ts now passes the component manager to the query manager. Added integration tests for the new behavior.",
+      "files_primary": [
+        "src/Entity.ts",
+        "src/QueryManager.ts",
+        "src/World.ts"
+      ],
+      "files_secondary_observability": [
+        "tests/integration.test.ts"
+      ],
+      "secondary_note": "Integration test additions account for the majority of changed lines (120 of 193).",
+      "change_trajectory": [
+        "Single commit simultaneously introduced all three optimizations and the supporting integration tests."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by felixtrz with one commit, labeled 'codex'.",
+      "Self-merged after 32 minutes with no reviews, comments, or bot interactions."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

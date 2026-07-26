@@ -1,0 +1,174 @@
+{
+  "pr_id": 3184427385,
+  "meta": {
+    "title": "Consolidate pharmacy sales queries",
+    "html_url": "https://github.com/hmislk/hmis/pull/13447",
+    "repo": "hmislk/hmis",
+    "agent": "OpenAI_Codex",
+    "user": "buddhika75",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-28 01:38:26+00:00",
+    "merged_at": "2025-06-28 01:38:41+00:00",
+    "closed_at": "2025-06-28 01:38:41+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "32",
+    "body_summary": "Consolidate pharmacy sales queries by adding a method that fetches sales for all institutions in one database query and refactoring createInstitutionSale to use the aggregated result."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 75,
+      "deletions": 22,
+      "changes": 97,
+      "top1_file": "src/main/java/com/divudi/bean/pharmacy/PharmacyController.java",
+      "top1_changes": 97,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "commented": 1
+      },
+      "lifespan_hours": 0.0042,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "query_consolidation",
+      "database_io_reduction"
+    ],
+    "optimization_layer": "database_query",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single commit consolidating pharmacy sales into one query; merged instantly with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 97,
+        "interpretation": "At 97 changed lines in one file, this is a small refactor by absolute volume. It fits a small-step, fast-turnaround performance PR (query consolidation) and was merged instantly with no review friction."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0042,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or human comments; CodeRabbit bot skipped review due to non-default branch configuration.",
+      "performance_claim": "Consolidating sales queries into a single aggregated query to avoid per-institution queries.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "32",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent successfully consolidated queries into a single Java method; low-risk change requiring minimal proof, merged instantly.",
+      "success_factors": [
+        "narrow_scope",
+        "no_review_required",
+        "quick_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark or test results; only narrative claim and automated build failure for test command.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression observed; merged without review cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In PharmacyController.java, added `calDepartmentSalesAllInstitutions()` method that performs a single aggregated database query to fetch sales for all institutions, and refactored `createInstitutionSale()` to use the aggregated result instead of per-institution queries.",
+      "files_primary": [
+        "src/main/java/com/divudi/bean/pharmacy/PharmacyController.java"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: Added consolidated sales calculation method and used it in createInstitutionSale."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped",
+        "summary": "CodeRabbit skipped review because auto reviews are disabled on non-default branches.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened and merged within 15 seconds by the author; no human review or interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

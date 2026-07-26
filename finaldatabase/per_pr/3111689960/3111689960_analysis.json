@@ -1,0 +1,170 @@
+{
+  "pr_id": 3111689960,
+  "meta": {
+    "title": "[alpha_factory] add i18n precache",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/1459",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-02 21:28:36+00:00",
+    "merged_at": "2025-06-02 21:29:58+00:00",
+    "closed_at": "2025-06-02 21:29:58+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "35",
+    "body_summary": "Cache locale JSON files in the Insight demo service worker to improve offline loading performance, updating build scripts and tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 34,
+      "deletions": 0,
+      "changes": 34,
+      "top1_file": "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/manual_build.py",
+      "top1_changes": 10,
+      "top1_change_ratio": 0.294,
+      "files_by_status": {
+        "added": 1,
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "alpha_factory_v1"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.023,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "i18n_precache",
+      "service_worker_cache",
+      "offline_performance"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added i18n precache to service worker; 34-line change merged instantly without review; no performance evidence but low-risk prefetch."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 34,
+        "interpretation": "At 34 pure additions across 5 files, this is a minimal change by absolute volume. It fits a small, low-risk performance optimization PR that merged instantly without any review, consistent with the low-friction outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.023,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comment text exists in the dataset.",
+      "performance_claim": "Improve offline loading performance by caching locale JSON files via service worker.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "35",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "A minimal, isolated addition of precaching logic to a service worker within a demo. The Agent required no maintainer interaction for merge, indicating that such small, well-defined performance improvements have low barriers.",
+      "success_factors": [
+        "small_change_size",
+        "low_risk_addition",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body lists test commands but no before/after performance data; testing only covers functionality.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression observed; PR merged without issue.",
+      "evidence_gap": "narrative_only_no_perf_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added precaching of locale JSON files in the service worker (sw.js) and updated build.js, manual_build.py, and offline test to include the new cache. A compiled dist/sw.js was also committed with the precache logic.",
+      "files_primary": [
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/sw.js",
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/build.js",
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/manual_build.py"
+      ],
+      "files_secondary_observability": [
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/dist/sw.js",
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/tests/test_pwa_offline.py"
+      ],
+      "secondary_note": "dist/sw.js is the compiled output; test_pwa_offline.py updated to reflect new cache manifest.",
+      "change_trajectory": [
+        "Single commit (3f5f98aec) added i18n file precaching in sw.js, build scripts, and offline test."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged by the same user within 82 seconds; no human review or bot interaction observed."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

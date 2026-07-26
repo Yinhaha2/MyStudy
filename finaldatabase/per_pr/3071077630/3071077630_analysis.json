@@ -1,0 +1,214 @@
+{
+  "pr_id": 3071077630,
+  "meta": {
+    "title": "Optimize reflection",
+    "html_url": "https://github.com/wieslawsoltes/Xaml.Behaviors/pull/78",
+    "repo": "wieslawsoltes/Xaml.Behaviors",
+    "agent": "OpenAI_Codex",
+    "user": "wieslawsoltes",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-17 21:30:50+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-19 10:55:55+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "22",
+    "body_summary": "Optimize reflection by introducing caching for type/property lookups and compiling expression-based setters/delegates in ChangePropertyAction and CallMethodAction."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 2,
+      "additions": 134,
+      "deletions": 36,
+      "changes": 170,
+      "top1_file": "src/Avalonia.Xaml.Interactions/Core/ChangePropertyAction.cs",
+      "top1_changes": 126,
+      "top1_change_ratio": 0.741,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 5,
+        "labeled": 2,
+        "review_requested": 2,
+        "reviewed": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 37.42,
+      "first_review_delay_hours": 20.18,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "reflection_caching",
+      "expression_compilation",
+      "delegate_invocation"
+    ],
+    "optimization_layer": "application_runtime",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "uncached_reflection_calls"
+    ],
+    "outcome_reason": "closed_by_author_no_benchmark_or_test",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "close_no_merge",
+    "confidence": "high",
+    "notes": "OpenAI_Codex optimized reflection with caching and compiled delegates; bot reviews flagged null caching and test gaps; author closed PR after applying suggestions, with tests failing due to missing dotnet."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 170,
+        "interpretation": "At 170 changed lines, this is a small edit focused on two core files. As a micro-optimization PR it fits small-step performance changes; the closure without merge despite low risk and bot-only review suggests that missing benchmarks and test failures prevented acceptance."
+      },
+      "lifecycle": {
+        "lifespan_hours": 37.42,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_and_tests_missing",
+      "primary_concern": "correctness_edge_cases",
+      "concern_detail": "Copilot bot flagged that caching null results in type cache could prevent later type discovery, missing guard for null setter method causing exceptions, and noted missing XML doc for CreateSetter.",
+      "performance_claim": "Reduce reflection overhead by caching type and property lookups, and using compiled expression-based setters and method delegates instead of GetRuntimeProperty, SetValue, and MethodInfo.Invoke.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_reflection_calls",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "documentation"
+      ],
+      "rejection_signals": "PR closed by author without merge; bot reviews non-blocking; no human feedback; test environment failure prevented performance validation."
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Low-level .NET reflection optimization without benchmarks; bot-flagged correctness issues; author closed PR after applying suggestions due to missing performance proof and test environment issues.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Copilot bot reviewed code and flagged null-caching, setter guard, and XML doc issues via inline comments."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks or measurements; testing command in PR body failed with missing dotnet; no performance validation possible.",
+      "regression_handling": "close_no_merge",
+      "regression_detail": "Author closed PR after applying some bot suggestions, but did not pursue further; no fix-in-pr cycle for performance concerns.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In ChangePropertyAction.cs, added static ConcurrentDictionary caches for types and property setters, replaced reflection-based property setting with compiled expression setters. In CallMethodAction.cs, replaced MethodInfo.Invoke with compiled delegate invocation.",
+      "files_primary": [
+        "src/Avalonia.Xaml.Interactions/Core/ChangePropertyAction.cs",
+        "src/Avalonia.Xaml.Interactions/Core/CallMethodAction.cs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit added caching and expression compilation for both actions.",
+        "Applied Copilot suggestions: added return for type cache, guard for null setter, and XML doc comments.",
+        "Author closed PR without merge after last commit."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "cache_null_issue",
+        "summary": "Caching null results in type cache may prevent later type discovery; add return of cached value.",
+        "blocking": false,
+        "action_taken": "Author committed fix adding return statement."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "null_setter_guard",
+        "summary": "If propertyInfo.SetMethod is null, CreateSetter throws; add guard to avoid exception.",
+        "blocking": false,
+        "action_taken": "Author added guard in a subsequent commit."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "xml_doc_request",
+        "summary": "Add XML doc comment for CreateSetter method explaining its behavior.",
+        "blocking": false,
+        "action_taken": "Author added XML doc in commit 82180a2."
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Bot provided PR overview and flagged issues; no blocking CHANGES_REQUESTED.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Author opened PR with initial reflection optimization commit.",
+      "Within ~20h, Copilot bot reviewed and left 3 inline suggestions.",
+      "Author applied all three suggestions in subsequent commits over the next day.",
+      "Second bot review at ~36h saw no new issues.",
+      "Author closed PR shortly after, without merge, likely due to missing benchmarks and test environment failure."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

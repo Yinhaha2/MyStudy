@@ -1,0 +1,284 @@
+{
+  "pr_id": 3040980236,
+  "meta": {
+    "title": "feat(prisma): add middleware to detect and report slow Prisma queries to Sentry",
+    "html_url": "https://github.com/calcom/cal.com/pull/21119",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-05 22:31:17+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-17 15:47:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "29",
+    "body_summary": "Add a Prisma middleware to detect slow queries (>SLOW_QUERY_THRESHOLD_MS) and report them to Sentry with rate limiting, targeting better database performance observability."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 17,
+      "file_count": 148,
+      "additions": 6004,
+      "deletions": 1835,
+      "changes": 7839,
+      "top1_file": "yarn.lock",
+      "top1_changes": 890,
+      "top1_change_ratio": 0.1135,
+      "files_by_status": {
+        "added": 5,
+        "modified": 140,
+        "removed": 3,
+        "renamed": 1
+      },
+      "directory_count": 6,
+      "directories": [
+        "(root)",
+        ".github",
+        ".yarn",
+        "apps",
+        "docs",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 11,
+      "review_states": {
+        "COMMENTED": 10,
+        "CHANGES_REQUESTED": 1
+      },
+      "review_comment_count": 10,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 11,
+        "review_requested": 2,
+        "commented": 3,
+        "labeled": 3,
+        "reviewed": 9,
+        "convert_to_draft": 1,
+        "deployed": 1
+      },
+      "lifespan_hours": 281.27,
+      "first_review_delay_hours": 0.42,
+      "review_rounds": 11,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "slow_query_detection",
+      "database_telemetry",
+      "sentry_integration",
+      "rate_limiting"
+    ],
+    "optimization_layer": "application_observability",
+    "evidence_type": [
+      "narrative",
+      "unit_test",
+      "integration_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_stale_after_changes_requested",
+    "review_dimensions": [
+      "tests",
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin added slow-query middleware; reviewer zomars CHANGES_REQUESTED due to mutable globals, lack of true integration tests, and design issues; PR closed after 12 days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 7839,
+        "interpretation": "At 7839 changed lines, this is a large change by absolute volume, though most churn comes from a merge commit. As a moderate observability performance PR, it was closed without merge because the reviewer identified fundamental design and testing flaws that were not resolved."
+      },
+      "lifecycle": {
+        "lifespan_hours": 281.27,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "missing_true_integration_tests_and_design_flaws",
+      "concern_detail": "Reviewer flagged mutable globals incompatible with Vercel Fluid, misuse of INSIGHTS_DATABASE_URL, unnecessary import changes, duplicate middleware application, and required true integration tests against a real database instead of mocks.",
+      "performance_claim": "Detect and report slow Prisma queries to Sentry to aid performance debugging, with configurable threshold and rate limiting.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "mutable_global_state",
+      "human_review_dimensions": [
+        "tests",
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": "CHANGES_REQUESTED with multiple unresolved concerns; closed stale after 7 days inactivity."
+    },
+    "capability_boundary": {
+      "topic": "29",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin attempted to add observability middleware but struggled with environment-specific constraints (Vercel Fluid) and proper test strategy (real vs mocked Prisma). Despite many iterations, it could not satisfy reviewer requirements.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "zomars provided detailed inline feedback on mutable globals, test approach, unnecessary imports, and middleware duplication."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body claims integration tests, but reviewer deemed them insufficient; no before/after performance data provided.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after multiple rounds of fixes that did not address core concerns; Devin bot closed it for 7+ days inactivity.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add slowQueryDetection middleware in packages/prisma/middleware/slowQueryDetection.ts that tracks Prisma query timings and reports slow queries (>SLOW_QUERY_THRESHOLD_MS) to Sentry with rate limiting. Wire into packages/prisma/index.ts and add tests.",
+      "files_primary": [
+        "packages/prisma/middleware/slowQueryDetection.ts",
+        "packages/prisma/index.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/prisma/middleware/__tests__/slowQueryDetection.integration-test.ts",
+        "packages/prisma/middleware/__tests__/__snapshots__/slowQueryDetection.integration-test.ts.snap",
+        "packages/prisma/middleware/index.ts",
+        "packages/prisma/test/fixtures/prismaMock.ts"
+      ],
+      "secondary_note": "Initial unit test file was later removed; integration test iterated multiple times; a prismaMock.ts was added then removed per review.",
+      "change_trajectory": [
+        "Initial middleware implementation with unit tests and mutable rate-limit state.",
+        "Review feedback: mutable globals not compatible with Vercel Fluid; need true integration tests, not mocks.",
+        "Devin iterates: improves types, adds integration test (but still uses mocks), adds prismaMock fixture.",
+        "Further review: remove prismaMock, use real database; remove unnecessary import changes and duplicate middleware application.",
+        "Devin adjusts integration test to use real db connections, reverts import changes, removes mock file.",
+        "Chat about snapshot test for SQL; Devin adds snapshot.",
+        "PR closed stale by bot after 12 days with unresolved concerns."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "mutable_global_state",
+        "summary": "We should avoid mutable globals since we have Fluid compute enabled in Vercel.",
+        "blocking": true,
+        "action_taken": "Devin later refactored middleware to use WeakMap for per-client state."
+      },
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "irrelevant_env_var_usage",
+        "summary": "INSIGHTS_DATABASE_URL has nothing to do with the slow query middleware.",
+        "blocking": true,
+        "action_taken": "Devin removed the offending code."
+      },
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "need_true_integration_tests",
+        "summary": "This is a unit test; I've asked for integration tests that test actual db operations.",
+        "blocking": true,
+        "action_taken": "Devin created integration-test file, but initially used mocks; later iterated to use real db."
+      },
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "remove_barrel_file",
+        "summary": "Skip barrel files (middleware/index.ts).",
+        "blocking": false,
+        "action_taken": "Barrel file changes reverted."
+      },
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "remove_mock_file",
+        "summary": "Remove prismaMock.ts file; do not mock Prisma in integration tests.",
+        "blocking": true,
+        "action_taken": "Devin removed prismaMock.ts."
+      },
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "unnecessary_import_change",
+        "summary": "There is no need to change this import.",
+        "blocking": true,
+        "action_taken": "Devin reverted import change."
+      },
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "duplicate_middleware_application",
+        "summary": "readOnly prisma already uses customPrisma which has the middleware.",
+        "blocking": true,
+        "action_taken": "Devin removed the redundant middleware call."
+      },
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "remove_extra_conditional",
+        "summary": "Remove this change (conditional middleware on readonlyPrisma).",
+        "blocking": true,
+        "action_taken": "Devin removed the conditional."
+      },
+      {
+        "source": "zomars",
+        "channel": "inline_review_comment",
+        "signal": "add_snapshot_test",
+        "summary": "Add a snapshot of actual captured rawSql to ensure it's working.",
+        "blocking": false,
+        "action_taken": "Devin added snapshot test."
+      },
+      {
+        "source": "zomars",
+        "channel": "formal_review",
+        "signal": "changes_requested",
+        "summary": "Left comments; CHANGES_REQUESTED.",
+        "blocking": true,
+        "action_taken": "Devin attempted to fix issues but never received approval."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with slow-query middleware and unit tests.",
+      "zomars quickly reviewed and raised multiple design and testing concerns.",
+      "Devin iterated across many commits addressing some issues but struggled with true integration tests and mutable globals.",
+      "After the last round of fixes, no approval was given, and the PR sat inactive for over a week.",
+      "Devin bot closed the PR due to 7+ days inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

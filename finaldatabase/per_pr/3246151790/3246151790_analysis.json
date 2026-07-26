@@ -1,0 +1,165 @@
+{
+  "pr_id": 3246151790,
+  "meta": {
+    "title": "Fix heavy UI updates on main thread",
+    "html_url": "https://github.com/MihaiCristianCondrea/Smart-Cleaner-for-Android/pull/211",
+    "repo": "MihaiCristianCondrea/Smart-Cleaner-for-Android",
+    "agent": "OpenAI_Codex",
+    "user": "MihaiCristianCondrea",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-20 08:37:18+00:00",
+    "merged_at": "2025-07-20 08:37:30+00:00",
+    "closed_at": "2025-07-20 08:37:30+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "30",
+    "body_summary": "Offload contact selection loops and duplicate contact collection to Dispatchers.Default to reduce main thread UI jank in the contacts cleaner."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 46,
+      "deletions": 40,
+      "changes": 86,
+      "top1_file": "app/src/main/kotlin/com/d4rk/cleaner/app/clean/contacts/ui/ContactsCleanerViewModel.kt",
+      "top1_changes": 86,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "app"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.003,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "main_thread_offloading",
+      "dispatcher_default",
+      "contact_selection_concurrency"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "blocking_main_thread"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex offloaded heavy contact loops to Dispatchers.Default; self-merged instantly with no reviews, no perf evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 86,
+        "interpretation": "At 86 changed lines in a single file, this is a tiny, targeted edit. It fits a small-step, fast-turnaround performance PR and is consistent with the immediate self-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.003,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback available; PR was self-merged seconds after creation.",
+      "performance_claim": "Offloading contact selection loops to Dispatchers.Default reduces main thread UI jank.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "blocking_main_thread",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple dispatcher change requires no benchmark or review to merge; low-friction process in small repo.",
+      "success_factors": [
+        "narrow_scope",
+        "single_file_edit",
+        "self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark, profiling, or timing evidence; only narrative fix description.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression detected; PR self-merged without review.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In ContactsCleanerViewModel.kt, moved contact selection loops and duplicate contact collection from main thread to Dispatchers.Default using Kotlin coroutines, replacing Dispatchers.IO for duplicate collection.",
+      "files_primary": [
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/contacts/ui/ContactsCleanerViewModel.kt"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Single file changed; all edits confined to view model dispatchers.",
+      "change_trajectory": [
+        "Sole commit: Improve contacts cleaner concurrency, shifting dispatchers to Default."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and self-merged within 12 seconds; no review or external interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

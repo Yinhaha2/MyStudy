@@ -1,0 +1,165 @@
+{
+  "pr_id": 3151769530,
+  "meta": {
+    "title": "Fix unsupported conversion caching",
+    "html_url": "https://github.com/jdereg/java-util/pull/282",
+    "repo": "jdereg/java-util",
+    "agent": "OpenAI_Codex",
+    "user": "jdereg",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-17 01:41:48+00:00",
+    "merged_at": "2025-06-17 01:41:57+00:00",
+    "closed_at": "2025-06-17 01:41:57+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "22",
+    "body_summary": "Cache unsupported conversion lookups in Converter.java to avoid repeated failed attempts, and document caching behavior in changelog."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 3,
+      "deletions": 0,
+      "changes": 3,
+      "top1_file": "src/main/java/com/cedarsoftware/util/convert/Converter.java",
+      "top1_changes": 2,
+      "top1_change_ratio": 0.667,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.0025,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "conversion_negative_caching",
+      "lookup_avoidance"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Extremely small caching fix (3 lines) with no review; self-merged by maintainer in seconds."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3,
+        "interpretation": "At 3 changed lines, this is an extremely small edit. It fits a tiny, low-risk performance fix that was self-merged by the maintainer without any review or discussion."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0025,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Caching unsupported conversions avoids repeated lookups and improves performance when unsupported types are encountered multiple times.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "uncached_failed_conversions",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A trivial negative caching change in a utility conversion library requires no complex reasoning; the agent successfully added the cache without any pushback.",
+      "success_factors": [
+        "minimal_scope",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark, profiling, or even a passing test is reported; the PR body notes mvn test failed.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In Converter.java, cache the result of an unsupported conversion to avoid repeated lookups later; update changelog.md to document the caching behavior.",
+      "files_primary": [
+        "src/main/java/com/cedarsoftware/util/convert/Converter.java"
+      ],
+      "files_secondary_observability": [
+        "changelog.md"
+      ],
+      "secondary_note": "Only documentation addition (1 line).",
+      "change_trajectory": [
+        "Single commit: add caching of unsupported conversions and update changelog."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Maintainer opened PR with one commit; PR merged immediately with no review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

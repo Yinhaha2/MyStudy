@@ -1,0 +1,237 @@
+{
+  "pr_id": 3094144121,
+  "meta": {
+    "title": "Replace `pre-commit install` with `pre-commit install --install-hooks`",
+    "html_url": "https://github.com/mlflow/mlflow/pull/15909",
+    "repo": "mlflow/mlflow",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-27 14:26:16+00:00",
+    "merged_at": "2025-05-27 15:15:53+00:00",
+    "closed_at": "2025-05-27 15:15:53+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Add --install-hooks flag to all pre-commit install commands to ensure hooks are installed immediately, improving dev environment setup efficiency."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 6,
+      "additions": 9,
+      "deletions": 9,
+      "changes": 18,
+      "top1_file": ".devcontainer/postCreate.sh",
+      "top1_changes": 4,
+      "top1_change_ratio": 0.222,
+      "files_by_status": {
+        "modified": 6
+      },
+      "directory_count": 4,
+      "directories": [
+        ".devcontainer",
+        ".github",
+        "(root)",
+        "dev"
+      ]
+    },
+    "collaboration": {
+      "review_count": 6,
+      "review_states": {
+        "COMMENTED": 6
+      },
+      "review_comment_count": 6,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 27,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 4,
+        "commented": 2,
+        "reviewed": 3,
+        "ready_for_review": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.827,
+      "first_review_delay_hours": 0.17,
+      "review_rounds": 6,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "pre_commit_hooks_immediate_install",
+      "dev_setup_efficiency"
+    ],
+    "optimization_layer": "development_workflow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot added --install-hooks flag to pre-commit commands; harupy requested removal of hook type options and PR merged after fix."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 18,
+        "interpretation": "Tiny 18-line config change across 6 files; typical for a workflow improvement PR, merged quickly after minor review comment about hook type options."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.827,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "hook_type_options_unnecessary",
+      "concern_detail": "harupy suggested removing explicit hook type options (-t pre-commit -t prepare-commit-msg) from pre-commit install commands, as --install-hooks is sufficient without them. Copilot applied the changes in follow-up commits.",
+      "performance_claim": "Adding --install-hooks flag ensures hooks are installed immediately, making dev environment setup more efficient and predictable.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Simple, well-scoped configuration change; Copilot handled flag addition and review feedback seamlessly.",
+      "success_factors": [
+        "linked_issue",
+        "responsive_to_review",
+        "very_small_scope"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "harupy reviewed the diff and requested removal of unnecessary hook type options in inline comments."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No quantitative performance data provided or requested; claim of efficiency improvement is narrative.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Copilot applied three commits to remove hook type options from .devcontainer/postCreate.sh, CONTRIBUTING.md, and dev/dev-env-setup.sh after reviewer feedback.",
+      "evidence_gap": "narrative_only_setup_efficiency"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced `pre-commit install -t pre-commit -t prepare-commit-msg` with `pre-commit install --install-hooks` in six files; subsequently removed explicit hook type options from three of those files per review.",
+      "files_primary": [
+        ".devcontainer/postCreate.sh",
+        ".github/workflows/autoformat.yml",
+        ".github/workflows/copilot-setup-steps.yml",
+        ".github/workflows/lint.yml",
+        "CONTRIBUTING.md",
+        "dev/dev-env-setup.sh"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit (26b832b6): added --install-hooks flag to all six occurrences.",
+        "After review, Copilot removed hook type options from postCreate.sh (5343d43), CONTRIBUTING.md (f342a9f), and dev-env-setup.sh (98f2bf9).",
+        "PR approved and merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "harupy",
+        "channel": "inline_review_comment",
+        "signal": "remove_hook_type_options_postCreate",
+        "summary": "Suggested removing -t pre-commit -t prepare-commit-msg from pre-commit install in .devcontainer/postCreate.sh.",
+        "blocking": false,
+        "action_taken": "Removed in commit 5343d43."
+      },
+      {
+        "source": "harupy",
+        "channel": "inline_review_comment",
+        "signal": "remove_hook_type_options_contributing",
+        "summary": "Same suggestion for CONTRIBUTING.md.",
+        "blocking": false,
+        "action_taken": "Removed in commit f342a9f."
+      },
+      {
+        "source": "harupy",
+        "channel": "inline_review_comment",
+        "signal": "remove_hook_type_options_dev-env-setup",
+        "summary": "Same suggestion for dev/dev-env-setup.sh.",
+        "blocking": false,
+        "action_taken": "Removed in commit 98f2bf9."
+      },
+      {
+        "source": "harupy",
+        "channel": "pr_comment",
+        "signal": "approval_lgtm",
+        "summary": "Commented 'LGTM' after changes, indicating approval.",
+        "blocking": false,
+        "action_taken": "PR merged."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "doc_preview",
+        "summary": "Documentation preview link posted.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial plan and first commit adding --install-hooks.",
+      "harupy reviewed within 10 minutes, inline-suggested removal of hook type options in three files.",
+      "Copilot responded with sequential commits removing hook type options.",
+      "harupy marked ready for review, added 'rn/none' label, and commented 'LGTM'.",
+      "Merged by harupy ~50 minutes after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

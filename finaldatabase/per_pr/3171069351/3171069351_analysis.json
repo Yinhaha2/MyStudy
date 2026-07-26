@@ -1,0 +1,211 @@
+{
+  "pr_id": 3171069351,
+  "meta": {
+    "title": "@remotion/renderer: Improved render time estimates",
+    "html_url": "https://github.com/remotion-dev/remotion/pull/5463",
+    "repo": "remotion-dev/remotion",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-24 09:01:04+00:00",
+    "merged_at": "2025-06-26 10:07:38+00:00",
+    "closed_at": "2025-06-26 10:07:38+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Improve renderEstimatedTime calculation in render-media.ts by switching from a full cumulative average to a rolling window of the most recent 50 frame timings to eliminate cold-start bias."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 101,
+      "additions": 254,
+      "deletions": 263,
+      "changes": 517,
+      "top1_file": "packages/docs/docusaurus.config.ts",
+      "top1_changes": 147,
+      "top1_change_ratio": 0.284,
+      "files_by_status": {
+        "modified": 99,
+        "renamed": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        ".github",
+        "(root)",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "commented": 1,
+        "deployed": 10,
+        "renamed": 3,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "ready_for_review": 1,
+        "auto_merge_enabled": 1,
+        "reviewed": 1,
+        "auto_merge_disabled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 49.11,
+      "first_review_delay_hours": 0.315,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": true
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "render_time_estimation",
+      "rolling_average",
+      "frame_timing_bias"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Copilot improved render time estimation with a rolling window of 50 frame timings; maintainer approved immediately without comments and merged after minor code deletions."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 517,
+        "interpretation": "At 517 changed lines this is a small-to-medium edit, but the core performance change is only ~19 lines in render-media.ts; the rest is noise from merging main and version bumps. The PR is a focused performance tweak that merged successfully with quick approval and minor maintainer cleanup."
+      },
+      "lifecycle": {
+        "lifespan_hours": 49.11,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No concerns raised; maintainer approved without any textual feedback.",
+      "performance_claim": "Using a rolling average of the last 50 frame render times instead of the overall average produces more accurate and adaptive render time estimates, eliminating initial cold-start bias.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A straightforward rolling-window algorithm for time estimation; Copilot could implement it without special evidence, and maintainer merged with minor tweaks.",
+      "success_factors": [
+        "small_scope",
+        "linked_issue",
+        "backward_compatible",
+        "quick_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer JonnyBurger likely reviewed the diff visually, approved within ~18 minutes without requesting additional evidence, and later made minor code deletions."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after timing data or benchmark provided; the improvement is based on algorithmic intuition and narrative.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression issues; maintainer made two small deletions after approval, possibly for cleanup.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/renderer/src/render-media.ts, replaced the cumulative average of all frame timings with a rolling window of the last 50 frame timings. Added recentFrameTimings array and a constant MAX_RECENT_FRAME_TIMINGS = 50, updating renderEstimatedTime calculation accordingly.",
+      "files_primary": [
+        "packages/renderer/src/render-media.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/docs/docusaurus.config.ts",
+        "packages/docs/sidebars.ts",
+        "packages/docs/timeline/demo.mdx",
+        "packages/docs/contributing/docs.mdx",
+        "packages/docs/src/css/custom.css",
+        "packages/google-fonts/scripts/google-fonts.ts",
+        "packages/google-fonts/src/LibreBarcodeEAN13Text.ts",
+        "packages/google-fonts/src/NotoSerifDivesAkuru.ts",
+        "packages/studio/src/renderEntry.tsx",
+        "pnpm-lock.yaml",
+        "and many package.json files"
+      ],
+      "secondary_note": "The merge of main brought in extensive unrelated changes including version bumps in many package.json files and documentation updates.",
+      "change_trajectory": [
+        "Initial Copilot commit: implement rolling window estimation with recentFrameTimings and MAX_RECENT_FRAME_TIMINGS = 50.",
+        "Maintainer merges main branch, pulling in many unrelated updates.",
+        "Maintainer makes two small deletions in render-media.ts (likely removing extraneous code)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "JonnyBurger",
+        "channel": "formal_review",
+        "signal": "approved_no_comment",
+        "summary": "Approved the PR without any textual feedback.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue #5462.",
+      "Maintainer JonnyBurger approved within ~18 minutes with no comments.",
+      "Auto-merge was briefly enabled then disabled; maintainer manually made two small code deletions.",
+      "PR merged after ~49 hours by JonnyBurger."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

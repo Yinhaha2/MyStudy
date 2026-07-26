@@ -1,0 +1,242 @@
+{
+  "pr_id": 3070233885,
+  "meta": {
+    "title": "perf: optimize O(n²) algorithms in slot generation",
+    "html_url": "https://github.com/calcom/cal.com/pull/21373",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-17 03:04:54+00:00",
+    "merged_at": "2025-05-19 22:40:18+00:00",
+    "closed_at": "2025-05-19 22:40:18+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 46,
+    "topic_name": "46",
+    "body_summary": "Replace several O(n²) algorithms in cal.com slot generation with O(n) or O(n log n) solutions using Maps and loop restructuring to improve performance for large numbers of slots and bookings."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 3,
+      "additions": 137,
+      "deletions": 59,
+      "changes": 196,
+      "top1_file": "packages/trpc/server/routers/viewer/slots/util.ts",
+      "top1_changes": 86,
+      "top1_change_ratio": 0.439,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "APPROVED": 2
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 18,
+      "event_counts": {
+        "committed": 2,
+        "review_requested": 2,
+        "commented": 4,
+        "labeled": 2,
+        "assigned": 1,
+        "auto_squash_enabled": 1,
+        "deployed": 1,
+        "reviewed": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 67.59,
+      "first_review_delay_hours": 64.1,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "algorithm_complexity_reduction",
+      "slot_generation_perf",
+      "map_data_structure_usage"
+    ],
+    "optimization_layer": "application_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "merged_clean_approval",
+    "review_dimensions": [
+      "correctness",
+      "functional_testing"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin optimized slot generation by replacing nested loops with Maps; approved by two reviewers with manual seat testing and E2E CI; merged cleanly."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 196,
+        "interpretation": "At 196 changed lines, this is a small edit by absolute volume. It fits a targeted algorithmic optimization performance PR that merged after two approvals with no blocking concerns."
+      },
+      "lifecycle": {
+        "lifespan_hours": 67.59,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_comments",
+      "primary_concern": "none",
+      "concern_detail": "Reviewer joeauyeung approved with comment 'Code LGTM and seats are working as expected'; second reviewer hbjORbj approved without text.",
+      "performance_claim": "Reduced time complexity from O(n²) to O(n) using Maps, claimed to improve performance for large numbers of slots/bookings.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "nested_loop",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "functional_testing"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "46",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin successfully refactored existing JS/TS algorithms using Maps to reduce complexity; the change is within its capability for data structure transformations and the reviewers accepted the code after manual testing and CI.",
+      "success_factors": [
+        "clear_algorithmic_claim",
+        "no_blocking_review",
+        "manual_testing_confirmed",
+        "ci_e2e_pass"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "joeauyeung manually verified seat functionality.",
+        "ci_auto": "github-actions ran E2E tests and posted results link; no failures reported."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body describes algorithmic changes and testing steps, but no before/after performance benchmarks; review focused on correctness.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; PR was merged after approvals without any revert or follow-up fix.",
+      "evidence_gap": "narrative_complexity_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/trpc/server/routers/viewer/slots/util.ts, replaced countBy with Map, moved reduce outside map, and used Maps for lookups instead of nested some/findIndex; merged main brought slot test and performance-related adjustments in lib.",
+      "files_primary": [
+        "packages/trpc/server/routers/viewer/slots/util.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/lib/slots.test.ts",
+        "packages/lib/slots.ts"
+      ],
+      "secondary_note": "Merge commit added test file and performance-related changes in slots.ts, likely corresponding to the optimization.",
+      "change_trajectory": [
+        "Initial commit: optimize O(n²) algorithms with Maps, reduce operations outside loops.",
+        "Merge main bringing additional test and performance tweaks.",
+        "Two APPROVED reviews; merged without inline review comments."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "joeauyeung",
+        "channel": "formal_review",
+        "signal": "approved_with_comment",
+        "summary": "Code LGTM and seats are working as expected",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "hbjORbj",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved with no comment",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results_ready",
+        "summary": "E2E test results link posted",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automated_reviewer_assignment",
+        "summary": "Graphite automation added a reviewer",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployment preview link posted",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with O(n²) optimization in slot generation.",
+      "Keith Williams merged main and enabled auto-squash; E2E tests run.",
+      "joeauyeung approved after manual check about 2 days later.",
+      "hbjORbj approved subsequently; PR merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

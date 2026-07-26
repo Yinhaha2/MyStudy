@@ -1,0 +1,218 @@
+{
+  "pr_id": 3147975254,
+  "meta": {
+    "title": "feat: optimize Prisma queries by replacing findFirst with findUnique where applicable",
+    "html_url": "https://github.com/calcom/cal.com/pull/21826",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-15 19:01:54+00:00",
+    "merged_at": "2025-06-17 06:52:03+00:00",
+    "closed_at": "2025-06-17 06:52:03+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 29,
+    "topic_name": "29",
+    "body_summary": "Systematically replace findFirst/findFirstOrThrow with findUnique/findUniqueOrThrow on queries using unique indexes, excluding API and test files, to leverage database unique constraints for better performance and type safety."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 162,
+      "additions": 448,
+      "deletions": 411,
+      "changes": 859,
+      "top1_file": "apps/api/v1/test/lib/utils/retrieveScopedAccessibleUsers.integration-test.ts",
+      "top1_changes": 44,
+      "top1_change_ratio": 0.051,
+      "files_by_status": {
+        "modified": 162
+      },
+      "directory_count": 2,
+      "directories": [
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 29,
+      "event_counts": {
+        "committed": 6,
+        "commented": 4,
+        "assigned": 1,
+        "deployed": 6,
+        "labeled": 4,
+        "ready_for_review": 1,
+        "review_requested": 2,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 35.84,
+      "first_review_delay_hours": 35.83,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "prisma_query_optimization",
+      "findFirst_to_findUnique",
+      "unique_index_lookup"
+    ],
+    "optimization_layer": "database_orm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "inefficient_orm_usage"
+    ],
+    "outcome_reason": "merged_after_review_approval",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_validation"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin systematically replaced findFirst with findUnique on unique-key queries across 162 non-API/non-test files; merged after maintainer manually verified all Prisma queries and CI passed."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 859,
+        "interpretation": "At 859 changed lines across 162 files, this is a medium-sized systematic refactor by absolute volume. It fits a broad but mechanical performance improvement that merged after maintainer manual verification and CI success."
+      },
+      "lifecycle": {
+        "lifespan_hours": 35.84,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "manual_correctness_verification",
+      "concern_detail": "Maintainer ThyMinimalDev manually checked all the Prisma queries and found Devin did a good job; no performance evidence requested.",
+      "performance_claim": "Replacing findFirst with findUnique for unique-key queries improves database performance via unique index lookups.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "inefficient_orm_usage (using findFirst on unique fields)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "29",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Systematic Prisma query optimization is well within Devin's capability when targeting known ORM patterns; merge succeeded due to thorough maintainer manual review and no breaking changes.",
+      "success_factors": [
+        "mechanical_replacement_pattern",
+        "excluded_api_and_test_files_as_requested",
+        "comprehensive_ci_passing",
+        "maintainer_manual_audit_of_all_queries"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_validation"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer manually reviewed all changed Prisma queries across 162 files.",
+        "ci_auto": "Type checking and 2041 tests passed; E2E results provided by github-actions."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance measurement; only narrative claim of O(1) lookup benefit.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; CI and manual review confirmed correctness.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Across 162 non-API and non-test files, replaced Prisma calls: findFirst → findUnique and findFirstOrThrow → findUniqueOrThrow where WHERE clause uses unique constraints (primary keys, email, composite keys). Reverted API-related and test files per maintainer request.",
+      "files_primary": [
+        "packages/lib/server/repository/user.ts",
+        "packages/features/auth/lib/next-auth-options.ts",
+        "packages/features/insights/server/events.ts",
+        "packages/trpc/server/routers/viewer/eventTypes/duplicate.handler.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes were direct query method replacements; no observability additions. Test files were excluded from optimization.",
+      "change_trajectory": [
+        "Initial broad replacement across codebase (b7dd048f)",
+        "Reverted API files per user request (8adcd554)",
+        "Added additional membership query optimization (ca5d9b2)",
+        "Reverted test files as requested (df73e69)",
+        "Reverted attributeUtils.ts to findFirst for test compatibility (e2f92e1)",
+        "Merged main branch (803696b)"
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ThyMinimalDev",
+        "channel": "formal_review",
+        "signal": "approval_after_manual_check",
+        "summary": "Maintainer manually reviewed all Prisma queries and found Devin did a good job; approved without performance evidence.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_e2e_passing",
+        "summary": "E2E results ready; all tests passed.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with systematic findUnique replacements",
+      "Devin bot integration notice posted",
+      "API file exclusions committed per maintainer feedback",
+      "E2E tests run and passed",
+      "Test file exclusions added via further commits",
+      "Maintainer marked PR ready for review and requested review",
+      "Manual review by ThyMinimalDev approved the changes",
+      "PR merged"
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

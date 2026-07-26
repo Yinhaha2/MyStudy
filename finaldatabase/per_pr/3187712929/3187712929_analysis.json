@@ -1,0 +1,163 @@
+{
+  "pr_id": 3187712929,
+  "meta": {
+    "title": "Implement batched ingestion",
+    "html_url": "https://github.com/kyryl-opens-ml/no-ocr/pull/12",
+    "repo": "kyryl-opens-ml/no-ocr",
+    "agent": "OpenAI_Codex",
+    "user": "truskovskiyk",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 09:03:36+00:00",
+    "merged_at": "2025-06-30 09:03:53+00:00",
+    "closed_at": "2025-06-30 09:03:53+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Ingest LanceDB data in batches to reduce per-item overhead in SearchClient."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 21,
+      "deletions": 12,
+      "changes": 33,
+      "top1_file": "no-ocr-api/np_ocr/search.py",
+      "top1_changes": 33,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "no-ocr-api"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.005,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "batch_ingestion",
+      "lancedb_write_overhead_reduction"
+    ],
+    "optimization_layer": "database_ingestion",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-file batch loop in SearchClient ingestion; merged in 17s with no review or perf evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 33,
+        "interpretation": "At 33 changed lines, this is a small edit by absolute volume. It fits a small-step, fast-turnaround performance PR and is consistent with the successful, low-friction merge without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.005,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_feedback",
+      "concern_detail": "No formal reviews or comments exist in the dataset; PR merged immediately without maintainer feedback.",
+      "performance_claim": "Ingest LanceDB data in batches to reduce overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple batching logic in a data ingestion client requires no runtime profiling; Agent can apply standard optimization patterns with minimal merge friction.",
+      "success_factors": [
+        "narrow_scope",
+        "small_change",
+        "maintainer_self-merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics; only a narrative claim about batching overhead reduction.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No revert or fix cycle; PR merged directly without review.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified SearchClient.ingest in no-ocr-api/np_ocr/search.py to process LanceDB data in batches, replacing an unbatched insertion loop with a batched one to reduce per-item overhead.",
+      "files_primary": [
+        "no-ocr-api/np_ocr/search.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: Added batching logic to ingestion function, converting individual item ingestion to batch-based processing."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged by same maintainer within 17 seconds with no human review or bot interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

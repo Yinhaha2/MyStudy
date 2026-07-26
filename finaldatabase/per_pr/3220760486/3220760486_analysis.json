@@ -1,0 +1,185 @@
+{
+  "pr_id": 3220760486,
+  "meta": {
+    "title": "Reduce memory allocations in display code",
+    "html_url": "https://github.com/jniebuhr/gaggimate/pull/299",
+    "repo": "jniebuhr/gaggimate",
+    "agent": "OpenAI_Codex",
+    "user": "jniebuhr",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-10 21:25:13+00:00",
+    "merged_at": "2025-07-13 17:03:05+00:00",
+    "closed_at": "2025-07-13 17:03:05+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "4",
+    "body_summary": "Reduce memory allocations in display code by storing timezone data and Serial message literals as flash strings and placing WebUI error messages in flash."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 8,
+      "additions": 29,
+      "deletions": 28,
+      "changes": 57,
+      "top1_file": "src/display/core/zones.h",
+      "top1_changes": 17,
+      "top1_change_ratio": 0.298,
+      "files_by_status": {
+        "modified": 8
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 1,
+        "merged": 1,
+        "closed": 1,
+        "milestoned": 1
+      },
+      "lifespan_hours": 67.63,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "flash_memory_usage",
+      "string_placement",
+      "ram_optimization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex placed strings in flash via F() macro; no review or evidence required; merged by author."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 57,
+        "interpretation": "At 57 changed lines across 8 files, this is a tiny edit by absolute volume. It fits a small-step, trivial memory optimization PR that merged without review, consistent with low-risk, minimal change performance tweaks."
+      },
+      "lifecycle": {
+        "lifespan_hours": 67.63,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review; SonarQube bot reported quality gate passed with 2 new issues but did not block.",
+      "performance_claim": "Reduce memory allocations by moving strings to flash.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Embedded C++ flash string placement is within Codex capability; small scope and lack of review made merge straightforward.",
+      "success_factors": [
+        "author_merge",
+        "low_risk_change",
+        "no_blocking_review"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark or reproduction steps provided; PR body only lists what was moved.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression reported; change was merged by author.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In various display driver and plugin files, string literals passed to Serial or WebUI error messages were wrapped with F() macro to place them in flash memory, reducing RAM usage. Timezone data strings also moved to flash.",
+      "files_primary": [
+        "src/display/core/zones.h",
+        "src/display/drivers/LilyGo-T-RGB/LilyGo_RGBPanel.cpp",
+        "src/display/drivers/Waveshare/WavesharePanel.cpp",
+        "src/display/plugins/WebUIPlugin.cpp"
+      ],
+      "files_secondary_observability": [
+        "src/display/core/Controller.cpp",
+        "src/display/drivers/LilyGoDriver.cpp",
+        "src/display/drivers/WaveshareDriver.cpp",
+        "src/display/plugins/mDNSPlugin.cpp"
+      ],
+      "secondary_note": "Minor adjustments for flash string usage in other files.",
+      "change_trajectory": [
+        "Single commit wraps string literals with F() across display code."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "sonarqubecloud[bot]",
+        "channel": "pr_comment",
+        "signal": "quality_gate_pass",
+        "summary": "SonarQube reported quality gate passed with 2 new issues.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by maintainer with single commit moving strings to flash.",
+      "No human reviews; SonarQube bot ran static analysis.",
+      "PR merged by author after ~2.8 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

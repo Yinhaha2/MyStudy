@@ -1,0 +1,166 @@
+{
+  "pr_id": 3245852667,
+  "meta": {
+    "title": "Improve C transpiler print logic",
+    "html_url": "https://github.com/mochilang/mochi/pull/10435",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-20 02:06:44+00:00",
+    "merged_at": "2025-07-20 02:06:56+00:00",
+    "closed_at": "2025-07-20 02:06:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "20",
+    "body_summary": "Enhance PrintStmt.emit to combine multiple print arguments into a single printf call, reducing C function call overhead and improving output formatting."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 26,
+      "deletions": 17,
+      "changes": 43,
+      "top1_file": "transpiler/x/c/transpiler.go",
+      "top1_changes": 35,
+      "top1_change_ratio": 0.814,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00333,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "printf_optimization",
+      "transpiler_output_format"
+    ],
+    "optimization_layer": "transpiler_codegen",
+    "evidence_type": [
+      "golden_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Transpiler micro-optimization merging printf arguments; merged instantly by same user without review or performance data; golden test update serves as implicit correctness check."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 43,
+        "interpretation": "At 43 changed lines, this is a very small edit by absolute volume. It fits a micro-optimization PR that was self-merged instantly with no review, consistent with low-friction, fast-turnaround outcomes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00333,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No review or comments were recorded; PR was self-merged by the author.",
+      "performance_claim": "Combine print statement arguments into a single printf to reduce C function call overhead and improve output formatting.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "20",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "A local-only code gen tweak in a transpiler with no review process; agent's change was accepted instantly by the same user who authored the PR, illustrating a permissive environment.",
+      "success_factors": [
+        "trivially_scoped",
+        "author_is_maintainer",
+        "pre-validated_by_golden_tests"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after timing or benchmark; only golden test output update as implicit correctness check.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling needed; PR self-merged without review.",
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In transpiler/x/c/transpiler.go, modified PrintStmt.emit to concatenate multiple arguments into a single printf call with format string construction, eliminating multiple separate printf statements. Updated a golden test output file accordingly.",
+      "files_primary": [
+        "transpiler/x/c/transpiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/transpiler/x/c/break_continue.c",
+        "transpiler/x/c/TASKS.md"
+      ],
+      "secondary_note": "Golden test output change reflects the new printf pattern; TASKS.md tracks progress.",
+      "change_trajectory": [
+        "Single commit: combined print formatting logic and updated golden test output."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and self-merged within 12 seconds by tamnd; no review interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

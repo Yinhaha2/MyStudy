@@ -1,0 +1,212 @@
+{
+  "pr_id": 3098890364,
+  "meta": {
+    "title": "Fix CodeRabbit feedback on Query Node implementation",
+    "html_url": "https://github.com/giselles-ai/giselle/pull/993",
+    "repo": "giselles-ai/giselle",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-29 01:11:56+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-29 01:50:43+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 36,
+    "topic_name": "36",
+    "body_summary": "Address CodeRabbit feedback on Query Node by adding input validation, type safety improvements, DB query optimization, and error handling across multiple packages."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 9,
+      "additions": 398,
+      "deletions": 188,
+      "changes": 586,
+      "top1_file": "apps/studio.giselles.ai/app/services/vector-store/query-github-vector-store.test.ts",
+      "top1_changes": 284,
+      "top1_change_ratio": 0.4846,
+      "files_by_status": {
+        "added": 3,
+        "modified": 6,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 20,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "commented": 3,
+        "deployed": 6,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.646,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "query_optimization",
+      "input_validation",
+      "type_safety",
+      "error_handling"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "test_quality_over_mocking",
+    "review_dimensions": [
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot addressed CodeRabbit feedback with validation, query optimization, and tests, but maintainer removed an over-mocked test and closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 586,
+        "interpretation": "At 586 changed lines across 9 files, this is a medium-sized refactor by absolute volume. It was closed without merge, as the maintainer removed an over-mocked test and the PR did not progress to merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.646,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "test_quality_over_mocking",
+      "concern_detail": "The maintainer satococoa removed the query-github-vector-store.test.ts file in a commit titled 'Remove over-mocking test', then closed the PR without merge. No formal review text was provided.",
+      "performance_claim": "Improved performance by combining two database queries into one, and enhanced input validation and error handling.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests"
+      ],
+      "rejection_signals": "Maintainer explicitly removed an over-mocked test and closed the PR, suggesting the test approach was unacceptable and no further action was taken."
+    },
+    "capability_boundary": {
+      "topic": "36",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent implemented CodeRabbit feedback fixes including query optimization, but wrote an over-mocked test that the maintainer discarded; this indicates a gap in test design aligned with project standards.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "Likely the maintainer reviewed test code and found it over-mocked."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling evidence; PR closed without performance validation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Maintainer removed the problematic test and closed the PR without merging; no further iteration.",
+      "evidence_gap": "over_mocked_test_no_perf_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added input validation in rag query, renamed type to avoid conflict, optimized DB query from two separate queries to a single join, added error handling, and added tests which were later removed.",
+      "files_primary": [
+        "apps/studio.giselles.ai/app/services/vector-store/query-github-vector-store.ts",
+        "packages/rag/src/query.ts"
+      ],
+      "files_secondary_observability": [
+        "apps/studio.giselles.ai/app/services/vector-store/query-github-vector-store.test.ts",
+        "packages/rag/src/query.test.ts",
+        "packages/rag/vitest.config.ts",
+        "packages/giselle-engine/src/core/operations/execute-query.ts",
+        "packages/giselle-engine/src/react/generations/generation-runner.tsx"
+      ],
+      "secondary_note": "The primary test file for the vector store was added and then removed due to over-mocking; other test files remain.",
+      "change_trajectory": [
+        "Initial plan commit (f41daf0).",
+        "Main implementation commit (059248a): added validation, query optimization, type safety, error handling, and tests.",
+        "Maintainer commit (c9a58ca): removed over-mocked test file and closed PR."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "no_changeset_warning",
+        "summary": "Warning about missing changeset configuration.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_bot_user",
+        "summary": "CodeRabbit skipped review because a bot user was detected.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR addressing CodeRabbit feedback with validation, query optimization, and tests.",
+      "Maintainer satococoa removed the query-github-vector-store.test.ts file as over-mocked.",
+      "PR closed by maintainer shortly after, without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

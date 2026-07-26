@@ -1,0 +1,185 @@
+{
+  "pr_id": 3191369762,
+  "meta": {
+    "title": "Fix bugs in frontend blocks",
+    "html_url": "https://github.com/trylinky/linky/pull/19",
+    "repo": "trylinky/linky",
+    "agent": "Cursor",
+    "user": "alexpate",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-01 08:32:50+00:00",
+    "merged_at": "2025-07-01 08:33:20+00:00",
+    "closed_at": "2025-07-01 08:33:20+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 9,
+    "topic_name": "9",
+    "body_summary": "Fix import inconsistencies, a memory leak, and accessibility issues in frontend blocks, accompanied by a generated summary file."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 80,
+      "deletions": 23,
+      "changes": 103,
+      "top1_file": "bug-fixes-summary.md",
+      "top1_changes": 63,
+      "top1_change_ratio": 0.612,
+      "files_by_status": {
+        "added": 1,
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "app.frontend",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.008,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_leak_fix",
+      "import_cleanup"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Small bugfix PR with memory leak claim merged in 30 seconds with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 103,
+        "interpretation": "At 103 changed lines across 6 files, this is a very small edit. Most of the changes (63 lines) are in a generated summary file, so the actual code diff is only ~40 lines. This tiny bug fix, which includes a memory leak prevention claim, was merged extremely quickly (30 seconds) without any review, consistent with low-risk, small-scale fixes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.008,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or substantive human feedback recorded; only a Vercel bot reported deployment failures.",
+      "performance_claim": "Fixed a memory leak in the reaction block by adding event listener cleanup.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Small frontend bug fixes including a memory leak are within Cursor's capability; the PR merged instantly without maintainer feedback, indicating low-barrier acceptance.",
+      "success_factors": [
+        "small_scope",
+        "no_review_needed",
+        "fast_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of human code review; PR merged without review.",
+        "ci_auto": "Vercel CI reported deployment failures, but they did not block the merge."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance evidence, benchmarks, or reproduction steps. The memory leak fix claim is untested.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions introduced; the PR was a bug fix.",
+      "evidence_gap": "narrative_only_no_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Fixed import consistency in header and link-box blocks, added alt text for accessibility in reaction block, and added a useEffect cleanup in ui.tsx to prevent memory leaks from event listeners. A summary markdown file was added.",
+      "files_primary": [
+        "app.frontend/lib/blocks/ui.tsx",
+        "app.frontend/lib/blocks/reaction/ui.tsx",
+        "app.frontend/lib/blocks/header/ui-client.tsx",
+        "app.frontend/lib/blocks/link-box/ui-server.tsx"
+      ],
+      "files_secondary_observability": [
+        "bug-fixes-summary.md",
+        "package-lock.json"
+      ],
+      "secondary_note": "The summary file and lockfile changes are supporting artifacts.",
+      "change_trajectory": [
+        "Single commit: Fix import consistency, add alt text, and prevent memory leaks in blocks."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_deployment_failed",
+        "summary": "Vercel bot reported deployment failures for both linky and linky-marketing projects.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created with a single commit by Cursor.",
+      "Vercel bot reported deployment failures immediately after PR creation.",
+      "PR merged by alexpate within 30 seconds, no human review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

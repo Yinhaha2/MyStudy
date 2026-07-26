@@ -1,0 +1,166 @@
+{
+  "pr_id": 3200979351,
+  "meta": {
+    "title": "Optimize logits worker I/O",
+    "html_url": "https://github.com/marin-community/marin/pull/1429",
+    "repo": "marin-community/marin",
+    "agent": "OpenAI_Codex",
+    "user": "ahmeda14960",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-04 00:58:38+00:00",
+    "merged_at": "2025-07-04 01:12:51+00:00",
+    "closed_at": "2025-07-04 01:12:51+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 0,
+    "topic_name": "4",
+    "body_summary": "Optimize sliding logits worker by reducing per-element conversions, storing batches as Parquet record batches, and computing log-probs on device before CPU transfer."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 29,
+      "deletions": 25,
+      "changes": 54,
+      "top1_file": "marin/generation/sliding_logits.py",
+      "top1_changes": 54,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "marin"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.236,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "per_element_conversion_reduction",
+      "record_batch_storage",
+      "on_device_logprob_computation"
+    ],
+    "optimization_layer": "model_inference_pipeline",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Small self-merge perf PR with narrative logits I/O improvements; no review, evidence, or benchmarks provided."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 54,
+        "interpretation": "At 54 changed lines, this is a small edit by absolute volume. It fits a small-step, fast-turnaround performance PR and is consistent with the successful, low-friction self-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.236,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No formal review or comments were recorded; PR was self-merged 14 minutes after creation.",
+      "performance_claim": "Cut per-element conversions, store logits batches as record batches in Parquet, compute log-probs on device to reduce I/O overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io (per-element conversions)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small, single-commit logits I/O optimization was self-merged by the author without review, suggesting low merge friction for local performance changes by the repository owner.",
+      "success_factors": [
+        "small_scope",
+        "no_review_required",
+        "fast_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "PR body mentions failed pre-commit and pytest commands; no before/after measurements provided.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "Merged without review; no regression handling observed.",
+      "evidence_gap": "narrative_only_no_profiling_or_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In marin/generation/sliding_logits.py, refactored logits processing to reduce per-element conversions, store batches as record batches in Parquet file, and compute log-probs on device before moving tensors to CPU, reducing I/O and computation overhead.",
+      "files_primary": [
+        "marin/generation/sliding_logits.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "No secondary files; all changes confined to one file.",
+      "change_trajectory": [
+        "Single commit: 'Improve sliding logits efficiency' with 29 additions and 25 deletions focused on I/O optimization."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by ahmeda14960 with a single commit improving logits efficiency.",
+      "Self-merged 14 minutes later with no review interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

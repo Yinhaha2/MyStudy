@@ -1,0 +1,161 @@
+{
+  "pr_id": 3187229759,
+  "meta": {
+    "title": "Improve VM sum handling",
+    "html_url": "https://github.com/mochilang/mochi/pull/4084",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-30 05:46:25+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "21",
+    "body_summary": "Speed up sum aggregation on groups by checking stored count, regenerate TPC-DS q1 IR, and clarify q1 dataset comments."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 14,
+      "deletions": 1,
+      "changes": 15,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 9,
+      "top1_change_ratio": 0.6,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 2,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "aggregate_sum_optimization",
+      "group_count_check"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Micro-optimization for VM sum on groups with no review or benchmark; closed unmerged without any interaction, likely due to inactivity or lack of evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 15,
+        "interpretation": "At 15 changed lines, this is a microscopic edit by absolute volume. As a performance micro-optimization PR it was closed without merge, consistent with no review engagement and lack of evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": "No review or comment text available in payload.",
+      "performance_claim": "Speed up sum on groups by checking the stored count instead of recomputing.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No review or comment activity; PR closed unmerged without explicit rejection signal in dataset."
+    },
+    "capability_boundary": {
+      "topic": "21",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Micro-optimization in VM with no review interaction; capability boundary unclear as the change was neither evaluated nor discussed by maintainers.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after data provided; only a narrative claim of speedup with a reference to a ChatGPT Codex task link.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without any maintainer interaction; no feedback loop or performance validation.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, the sum aggregation over groups was optimized by checking a pre-existing count instead of recalculating; liveness.go gained a minor addition likely to track the count; the TPC-DS q1 test was updated to reflect the new IR.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "runtime/vm/liveness.go",
+        "tests/dataset/tpc-ds/q1.mochi"
+      ],
+      "secondary_note": "Liveness change may be related to ensuring count availability; test update is a minor refinement.",
+      "change_trajectory": [
+        "Single commit by tamnd adding the optimization, liveness tracking, and test update."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with a single commit; no reviews, comments, or maintainer interaction recorded before closing."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

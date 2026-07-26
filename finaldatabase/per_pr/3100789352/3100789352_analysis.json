@@ -1,0 +1,240 @@
+{
+  "pr_id": 3100789352,
+  "meta": {
+    "title": "Add performance benchmarking and AOT file size tracking with Azure storage",
+    "html_url": "https://github.com/AArnott/Nerdbank.MessagePack/pull/414",
+    "repo": "AArnott/Nerdbank.MessagePack",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-29 16:02:40+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "8",
+    "body_summary": "Add CI/CD performance tracking workflow (perf.yml) and PowerShell scripts to run BenchmarkDotNet, measure AOT file size, store results in Azure Table Storage, and detect regressions on PRs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 8,
+      "additions": 1160,
+      "deletions": 139,
+      "changes": 1299,
+      "top1_file": ".github/workflows/perf.yml",
+      "top1_changes": 416,
+      "top1_change_ratio": 0.32,
+      "files_by_status": {
+        "added": 7,
+        "modified": 1
+      },
+      "directory_count": 3,
+      "directories": [
+        ".github",
+        "tools",
+        ""
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 2
+      },
+      "review_comment_count": 4,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 23,
+      "event_counts": {
+        "committed": 10,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "commented": 4,
+        "reviewed": 1
+      },
+      "lifespan_hours": 108.06,
+      "first_review_delay_hours": 3.97,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "performance_benchmarking_ci",
+      "aot_size_tracking",
+      "azure_storage_integration",
+      "regression_detection"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "incomplete_ci_implementation",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot added CI perf infrastructure; maintainer requested changes and then manually fixed multiple issues; workflow remained unreliable and PR closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1299,
+        "interpretation": "1,299 changed lines across 8 files is a medium‑sized addition by absolute volume. It fits a workload that adds CI infrastructure rather than optimizing code. The closure is consistent with the scale given the functional problems encountered."
+      },
+      "lifecycle": {
+        "lifespan_hours": 108.06,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "ci_workflow_correctness",
+      "concern_detail": "AArnott requested Windows runner instead of Ubuntu and multi‑column version sorting. Subsequent CI runs showed benchmark results file not found, then historical data unavailable, and AOT file size varied wildly (36.13 MB to 5.21 MB), indicating misconfiguration.",
+      "performance_claim": "The system would automatically track benchmark execution times and AOT file size, and detect regressions.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "ci_validation"
+      ],
+      "rejection_signals": "Maintainer CHANGES_REQUESTED, followed by manual fixes but no approval; PR closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "8",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot's CI benchmarking setup failed to produce reliable results; maintainer had to correct runner, sorting, indentation, escaping, and benchmark data discovery.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "AArnott manually reviewed the workflow and PowerShell scripts, identifying the need for Windows runner and multi‑column sort.",
+        "ci_auto": "GitHub Actions bot posted CI results showing initial failure to find benchmark results, then historical data unavailable and erratic AOT file size."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Benchmark workflow could not run consistently; first attempt failed to locate results file, later runs lacked Azure storage, and AOT size varied from 36.13 MB to 5.21 MB.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After several manual fixes by the maintainer, the workflow still reported missing historical data and variable AOT sizes; the PR was eventually closed.",
+      "evidence_gap": "ci_infrastructure_not_proven"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added GitHub Actions workflow (perf.yml) and PowerShell scripts (Store‑PerformanceData.ps1, Compare‑PerformanceData.ps1, Post‑PerfComment.ps1) to run BenchmarkDotNet benchmarks, measure AOT file size, store results in Azure Table Storage, and post regression detection comments to PRs.",
+      "files_primary": [
+        ".github/workflows/perf.yml",
+        "tools/perf/Compare-PerformanceData.ps1",
+        "tools/perf/Store-PerformanceData.ps1"
+      ],
+      "files_secondary_observability": [
+        "tools/perf/Post-PerfComment.ps1",
+        "tools/perf/Test-PerformanceLogic.ps1",
+        "tools/perf/README.md",
+        "tools/perf/EXAMPLES.md",
+        "global.json"
+      ],
+      "secondary_note": "global.json changed .NET SDK version; documentation and testing scripts were also added.",
+      "change_trajectory": [
+        "Initial plan and first commits added the workflow and scripts.",
+        "AArnott CHANGES_REQUESTED Windows runner and sort order fix; Copilot made those changes.",
+        "Maintainer then manually fixed indentation, newline escaping, benchmark data discovery, and other workflow issues.",
+        "CI runs continued to report benchmark results file not found or historical data unavailable; no further approval, PR closed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "AArnott",
+        "channel": "formal_review",
+        "signal": "changes_requested",
+        "summary": "CHANGES_REQUESTED with no body text; substantive feedback delivered via inline comments.",
+        "blocking": true,
+        "action_taken": "Copilot addressed the inline comments in subsequent commits."
+      },
+      {
+        "source": "AArnott",
+        "channel": "inline_review_comment",
+        "signal": "design_change_windows_runner",
+        "summary": "Requested running the workflow on Windows instead of Ubuntu to support .net 9 and .net framework.",
+        "blocking": true,
+        "action_taken": "Copilot switched to windows‑latest and adjusted AOT path in commit 7f1f5e8."
+      },
+      {
+        "source": "AArnott",
+        "channel": "inline_review_comment",
+        "signal": "sort_order_fix",
+        "summary": "Requested sorting by major version, minor version, then build number.",
+        "blocking": true,
+        "action_taken": "Copilot updated Compare‑PerformanceData.ps1 sorting in commit 7f1f5e8."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "benchmark_file_not_found",
+        "summary": "First CI run reported 'Unable to analyze performance': benchmark results file not found.",
+        "blocking": false,
+        "action_taken": "Maintainer later committed 'Fix discovery of benchmark data'."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "historical_data_unavailable",
+        "summary": "Subsequent CI runs reported historical data not available and AOT file size of 36.13 MB or 5.21 MB respectively.",
+        "blocking": false,
+        "action_taken": "No further merge‑oriented action; PR eventually closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened the PR with workflow and scripts, review requested same day.",
+      "~4 hours later AArnott CHANGES_REQUESTED with two inline comments.",
+      "Copilot addressed the comments within minutes, but CI reported benchmark errors.",
+      "Over the next few days maintainer added multiple manual fixes while CI continued to report problems.",
+      "No approval given; PR closed after ~4.5 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

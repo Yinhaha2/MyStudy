@@ -1,0 +1,224 @@
+{
+  "pr_id": 3215073469,
+  "meta": {
+    "title": "[Feature]: Sync with latest binding.js from napi-rs to fix performance issue",
+    "html_url": "https://github.com/web-infra-dev/rspack/pull/10963",
+    "repo": "web-infra-dev/rspack",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-09 08:48:57+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-28 13:20:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Sync binding.js with latest napi-rs to set process.report.excludeNetwork = true before getReport(), reducing isMusl() overhead from 5s to ~4ms on affected systems."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 10,
+      "deletions": 0,
+      "changes": 10,
+      "top1_file": "packages/rspack/src/util/bindingVersionCheck.ts",
+      "top1_changes": 4,
+      "top1_change_ratio": 0.4,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "crates",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 23,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "commented": 5,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "unsubscribed": 1,
+        "mentioned": 2,
+        "subscribed": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 460.52,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "libc_detection_overhead",
+      "process_report_exclude_network",
+      "binding_initialization_latency"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot added process.report.excludeNetwork to isMusl in three files; PR closed after 19 days without merge, likely due to inactivity despite CI fix by agent."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 10,
+        "interpretation": "At 10 changed lines across 3 files, this is a trivial edit by absolute volume. As a small-step performance fix, its closure without merge despite low change volume is unexpected and may reflect process or evidence barriers."
+      },
+      "lifecycle": {
+        "lifespan_hours": 460.52,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "PR was left without formal review; after CI fix, closed 18 days later by CPunisher without comment.",
+      "performance_claim": "isMusl() overhead reduced from 5+ seconds to ~4ms by excluding network info from process.report.getReport().",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "ci_validation"
+      ],
+      "rejection_signals": "PR closed without merge after extended inactivity; no explicit rejection but no maintainer merged."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Trivial runtime fix with narrative performance claims; maintainer did not merge despite CI passing, possibly requiring benchmark evidence or reviewer approval.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No code-reading review found; only a CI fix command.",
+        "ci_auto": "github-actions binary size-limit and other CI runs, but no performance-specific detection."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body provides before/after timing numbers but no benchmark or reproduction script; maintainer did not verify.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix-in-pr cycle for performance regression, only a CI fix.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In three binding.js/ts files, added process.report.excludeNetwork = true before calling process.report.getReport() in the isMusl() function to prevent network info collection overhead.",
+      "files_primary": [
+        "crates/node_binding/binding.js",
+        "crates/rspack_binding_builder_testing/binding.js",
+        "packages/rspack/src/util/bindingVersionCheck.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Initial commit: added process.report.excludeNetwork = true to isMusl in three files.",
+        "Subsequent commit: fixed TypeScript error in bindingVersionCheck.ts by adding @ts-expect-error annotation.",
+        "No further changes; PR left inactive and closed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "netlify[bot]",
+        "channel": "pr_comment",
+        "signal": "deploy_preview_canceled",
+        "summary": "Netlify deploy preview canceled.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "CLAassistant",
+        "channel": "pr_comment",
+        "signal": "cla_unsigned",
+        "summary": "Contributor License Agreement not signed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "binary_size_limit",
+        "summary": "Binary size remains unchanged at 59.49MB.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "hardfist",
+        "channel": "pr_comment",
+        "signal": "fix_ci_command",
+        "summary": "Maintainer instructed Copilot to fix CI error.",
+        "blocking": false,
+        "action_taken": "Copilot fixed TypeScript error and reported back."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "ci_fix_confirmation",
+        "summary": "Copilot reported fixing CI TypeScript error with @ts-expect-error, all checks pass.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with fix in three files.",
+      "Initial comments from bots (Netlify, CLA, size-limit) within first hour.",
+      "Next day, maintainer hardfist requested CI fix; Copilot added @ts-expect-error and confirmed fix.",
+      "No further human engagement; PR closed by CPunisher after 19 days without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

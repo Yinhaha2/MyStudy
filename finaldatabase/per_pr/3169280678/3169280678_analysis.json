@@ -1,0 +1,174 @@
+{
+  "pr_id": 3169280678,
+  "meta": {
+    "title": "Add numeric bytecode specialization",
+    "html_url": "https://github.com/mochilang/mochi/pull/2754",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-23 19:48:09+00:00",
+    "merged_at": "2025-06-24 01:48:12+00:00",
+    "closed_at": "2025-06-24 01:48:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 47,
+    "topic_name": "47",
+    "body_summary": "Add specialized VM bytecode for int and float operations, tracking register types to emit specialized instructions, and update disassembler and golden tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 259,
+      "deletions": 26,
+      "changes": 285,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 261,
+      "top1_change_ratio": 0.916,
+      "files_by_status": {
+        "modified": 7
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 6.0,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bytecode_specialization",
+      "type_tracking",
+      "int_float_ops"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI Codex added VM bytecode specialization with int/float tracking; merged directly by author at ~6h, no review or performance evidence provided."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 285,
+        "interpretation": "At 285 changed lines, this is a small-to-medium sized edit, concentrated in the VM runtime and golden tests. It fits a focused, low-risk performance enhancement that was self-merged without external review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 6.0,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback is available in the dataset.",
+      "performance_claim": "Specialized VM instructions for int and float operations should improve execution performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "47",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Low-level VM bytecode specialization requires compiler/runtime expertise; the Agent autonomously implemented the change and the maintainer merged it directly without any human review interaction.",
+      "success_factors": [
+        "single_commit",
+        "golden_test_coverage",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance data or benchmark; only correctness is validated via updated golden test outputs.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were reported; the PR was merged without any revert or follow-up fix.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added specialized opcodes for int and float arithmetic/comparison, updated the execution loop, and refreshed golden IR outputs across six test files to reflect the new instructions.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/basic_compare.ir.out",
+        "tests/vm/valid/if_else.ir.out",
+        "tests/vm/valid/let_and_print.ir.out",
+        "tests/vm/valid/math_ops.ir.out",
+        "tests/vm/valid/two-sum.ir.out",
+        "tests/vm/valid/while_loop.ir.out"
+      ],
+      "secondary_note": "Golden test output files were updated to match the new specialized bytecode; no other functional changes.",
+      "change_trajectory": [
+        "Single commit added numeric specialization bytecode support in the VM and updated all relevant golden test outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created with a single commit adding numeric bytecode specialization and golden test updates.",
+      "Maintainer (author) merged the PR directly ~6 hours later with no external review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

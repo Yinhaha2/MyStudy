@@ -1,0 +1,171 @@
+{
+  "pr_id": 3119752724,
+  "meta": {
+    "title": "Improve input tracking with debouncing",
+    "html_url": "https://github.com/bytebot-ai/bytebot/pull/25",
+    "repo": "bytebot-ai/bytebot",
+    "agent": "OpenAI_Codex",
+    "user": "atupem",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-05 03:55:44+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-12 04:01:21+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 28,
+    "topic_name": "28",
+    "body_summary": "Add debouncing to input tracking actions (uiohook events, mouse moves, keyboard input) to produce smoother ComputerAction logs by coalescing rapid events into trace_mouse and type_keys actions."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 212,
+      "deletions": 4,
+      "changes": 216,
+      "top1_file": "packages/bytebotd/src/input-tracking/input-tracking.service.ts",
+      "top1_changes": 162,
+      "top1_change_ratio": 0.75,
+      "files_by_status": {
+        "added": 2,
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "infrastructure",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 168.094,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "debounce",
+      "input_event_coalescing",
+      "trace_mouse",
+      "type_keys"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "author_closed_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added debouncing and input coalescing; PR closed by author after 7 days with no review or comment."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 216,
+        "interpretation": "At 216 changed lines across 6 files, this is a small-to-medium edit by absolute volume. It fits a modest performance enhancement (debouncing) but was closed without merge, which is inconsistent with typical small-step perf PRs; closure suggests lack of maintainer engagement rather than size."
+      },
+      "lifecycle": {
+        "lifespan_hours": 168.094,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review or comment text available.",
+      "performance_claim": "Debounce input events for smoother ComputerAction logs (coalesce mouse moves and keyboard input).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No review feedback; PR closed by author after 7 days of inactivity."
+    },
+    "capability_boundary": {
+      "topic": "28",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The agent produced a complete feature (debouncing) but the PR received no review or engagement, eventually closed by author; this highlights that agent PRs in smaller repositories may face process barriers due to lack of reviewer attention.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body provides build/test steps but no performance metrics; no benchmark or profiler evidence.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling because PR was closed without merge.",
+      "evidence_gap": "no_performance_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added input-tracking service module with debouncing logic using uiohook events, coalescing rapid mouse moves into 'trace_mouse' action and keyboard input into 'type_keys' action; also updated Dockerfile and dependencies.",
+      "files_primary": [
+        "packages/bytebotd/src/input-tracking/input-tracking.service.ts",
+        "packages/bytebotd/src/input-tracking/input-tracking.module.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/bytebotd/package.json",
+        "packages/bytebotd/package-lock.json",
+        "packages/bytebotd/src/app.module.ts",
+        "infrastructure/docker/Dockerfile"
+      ],
+      "secondary_note": "Dockerfile and app module wiring are supportive infrastructure; core logic resides in the new input-tracking service files.",
+      "change_trajectory": [
+        "Single commit introduced new input-tracking module with debouncing service, updated dependencies, and wired module into app."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by atupem with single commit implementing debouncing.",
+      "No review or comment engagement occurred.",
+      "PR closed by atupem after 7 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

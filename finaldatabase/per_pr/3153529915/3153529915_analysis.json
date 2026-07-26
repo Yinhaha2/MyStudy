@@ -1,0 +1,172 @@
+{
+  "pr_id": 3153529915,
+  "meta": {
+    "title": "Rewrite Erlang compiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/1333",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-17 13:30:58+00:00",
+    "merged_at": "2025-06-17 13:43:00+00:00",
+    "closed_at": "2025-06-17 13:43:00+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "1",
+    "body_summary": "Rewrite mochi Erlang compiler to emit native Erlang code instead of delegating to Python, with adjusted golden tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 429,
+      "deletions": 22,
+      "changes": 451,
+      "top1_file": "compile/erlang/compiler.go",
+      "top1_changes": 398,
+      "top1_change_ratio": 0.882,
+      "files_by_status": {
+        "modified": 2,
+        "added": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile/erlang",
+        "tests/compiler/erl_simple"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.202,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "native_code_emission",
+      "compiler_rewrite",
+      "python_delegation_removal"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_fast_without_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "No review feedback and no performance evidence; merged quickly by author."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 451,
+        "interpretation": "At 451 changed lines, this is a small edit by absolute volume, concentrated in a single compiler file. It fits a small-step performance rewrite and was self-merged within minutes without external review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.202,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback available in dataset.",
+      "performance_claim": "Emitting native Erlang code instead of delegating to Python improves runtime performance of compiled programs.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "python_delegation_overhead",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Rewriting a compiler backend requires domain knowledge of Erlang code generation; the agent managed it within a small change scope.",
+      "success_factors": [
+        "small_scope",
+        "fast_self_merge",
+        "existing_test_framework"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling evidence; only functional golden file tests.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression detected; merged without review.",
+      "evidence_gap": "no_review_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Rewired the Erlang compiler to emit native Erlang code directly from the Go compiler, replacing previous Python delegation; added runtime helpers for printing and golden test files for two-sum example.",
+      "files_primary": [
+        "compile/erlang/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/compiler/erl_simple/two-sum.erl.out",
+        "tests/compiler/erl_simple/two-sum.mochi",
+        "tests/compiler/erl_simple/two-sum.out",
+        "compile/erlang/compiler_test.go"
+      ],
+      "secondary_note": "Golden file additions for end-to-end test validation.",
+      "change_trajectory": [
+        "Single commit rewrote erlang compiler.go to emit native code, added golden test files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with label 'codex', merged by tamnd within ~12 minutes with no reviews or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

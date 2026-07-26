@@ -1,0 +1,173 @@
+{
+  "pr_id": 3217761016,
+  "meta": {
+    "title": "Improve Haskell compiler runtime",
+    "html_url": "https://github.com/mochilang/mochi/pull/7115",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-10 03:36:30+00:00",
+    "merged_at": "2025-07-10 03:36:48+00:00",
+    "closed_at": "2025-07-10 03:36:48+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 18,
+    "topic_name": "18",
+    "body_summary": "Modify Haskell compiler to avoid importing Aeson unless JSON features are used, split AnyValue runtime from JSON loader runtime, and regenerate machine Haskell outputs with the lighter runtime."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 32,
+      "additions": 1079,
+      "deletions": 2080,
+      "changes": 3159,
+      "top1_file": "tests/machine/x/hs/left_join.hs",
+      "top1_changes": 156,
+      "top1_change_ratio": 0.049,
+      "files_by_status": {
+        "modified": 32
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.005,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lazy_import",
+      "dependency_minimization",
+      "runtime_bloat_reduction"
+    ],
+    "optimization_layer": "compiler_runtime",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex modified Go compiler files and regenerated 32 machine‑generated Haskell test outputs; merged instantly without human review or perf evidence, relying on CI."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3159,
+        "interpretation": "At 3159 changed lines, this appears large, but the vast majority are machine‑regenerated Haskell test outputs; the core logic changes are only ~27 lines in two Go files. This fits a mechanical, regeneration‑heavy performance PR that was merged instantly."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.005,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Lighten the Haskell runtime by avoiding Aeson import unless JSON features are used and splitting AnyValue from JSON loader.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Modifying compiler code generation and performing bulk regeneration of machine‑generated outputs; maintainer merged without human review, indicating that this class of mechanically reproducible, compiler‑internal change is within the agent‑trust boundary.",
+      "success_factors": [
+        "mechanical_regeneration",
+        "ci_passing",
+        "maintainer_trust"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "Merge occurred immediately after creation; no human review recorded – presumably CI (`go test ./...`) passed, supporting the maintainer’s rapid merge decision."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after comparison is provided; only a narrative summary and regenerated test outputs are included.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues were raised; the PR was merged without any corrective cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified `compiler/x/hs/compiler.go` and `compiler/x/hs/runtime.go` to conditionally import Aeson only when JSON features are used and split AnyValue runtime from JSON loader runtime; then regenerated all machine‑generated Haskell test files under `tests/machine/x/hs/` to reflect the lighter runtime.",
+      "files_primary": [
+        "compiler/x/hs/compiler.go",
+        "compiler/x/hs/runtime.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/hs/*.hs",
+        "tests/machine/x/hs/README.md"
+      ],
+      "secondary_note": "All .hs files under tests/machine/x/hs/ are machine‑generated outputs; the bulk changes are due to runtime adjustments, not manual edits.",
+      "change_trajectory": [
+        "Single commit `hs compiler: remove unnecessary JSON deps` contains all compiler modifications and regenerated test outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with compiler modification and regenerated machine outputs; no reviews or comments.",
+      "Maintainer merged instantly (within 18 seconds) without any human feedback."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

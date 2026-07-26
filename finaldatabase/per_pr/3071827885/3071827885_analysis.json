@@ -1,0 +1,161 @@
+{
+  "pr_id": 3071827885,
+  "meta": {
+    "title": "Improve string/comment parsing performance",
+    "html_url": "https://github.com/mangiucugna/json_repair/pull/120",
+    "repo": "mangiucugna/json_repair",
+    "agent": "OpenAI_Codex",
+    "user": "mangiucugna",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-18 14:27:00+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-18 14:37:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 4,
+    "topic_name": "4",
+    "body_summary": "Refactor string and comment parsing in json_parser.py to accumulate characters in lists instead of repeated concatenation, claiming performance improvement."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 37,
+      "deletions": 26,
+      "changes": 63,
+      "top1_file": "src/json_repair/json_parser.py",
+      "top1_changes": 63,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.183,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "string_building",
+      "list_accumulation",
+      "comment_parsing"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "string_traversal"
+    ],
+    "outcome_reason": "closed_insufficient_testing",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Author self-closed quickly after noting test command failure (no pytest module); no review or benchmark, inferring lack of verification led to abandonment."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 63,
+        "interpretation": "At 63 changed lines in a single file, this is a minimal edit by absolute volume. As a tiny self-contained string-building perf fix, it was closed—not merged—by the author presumably due to inability to test the performance claim."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.183,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or human comment text; author closed PR shortly after creation.",
+      "performance_claim": "Avoid repeated string concatenations during parsing by accumulating characters in lists and joining at the end.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "string_traversal",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author self-closed without verification; body notes 'python3 -m pytest -q' fails with 'No module named pytest', suggesting inability to test."
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent produced a low-level string concatenation refactor; author lacked a runnable test suite to validate the perf claim and closed the PR within minutes.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No reviewer involvement; author self-closed without external detection."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or timing data; only a narrative claim and a non-functional pytest command.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge, no further iteration.",
+      "evidence_gap": "narrative_only_no_test_infra"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/json_repair/json_parser.py, replaced repeated string concatenation inside parsing loops with list accumulation and final join, affecting string and comment construction.",
+      "files_primary": [
+        "src/json_repair/json_parser.py"
+      ],
+      "files_secondary_observability": [],
+      "change_trajectory": [
+        "Single commit refactoring string and comment parsing to use list accumulation."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with one commit, no reviews, and self-closed ~11 minutes later."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

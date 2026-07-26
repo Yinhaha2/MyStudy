@@ -1,0 +1,173 @@
+{
+  "pr_id": 3262845265,
+  "meta": {
+    "title": "Accelerate now() and update Rosetta artifacts",
+    "html_url": "https://github.com/mochilang/mochi/pull/13057",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-25 11:02:34+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 17,
+    "topic_name": "17",
+    "body_summary": "Replace the PRNG in OpNow with a faster xorshift algorithm, update Rosetta golden test outputs and benchmark data, and add MOCHI_NOW_SEED for deterministic seeding."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 19,
+      "deletions": 18,
+      "changes": 37,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 23,
+      "top1_change_ratio": 0.6216,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 2,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1
+      },
+      "lifespan_hours": 6362.87,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "prng_performance",
+      "now_function_optimization",
+      "rosetta_benchmark_update"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative",
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "slow_prng"
+    ],
+    "outcome_reason": "stale_superseded_by_main",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex replaced slow OpNow PRNG with xorshift; closed without review due to staleness/conflicts after ~9 months."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 37,
+        "interpretation": "At 37 changed lines, this is a tiny edit by absolute volume. As a small performance PR it was closed—not merged—because it became stale and conflicted with main after ~9 months."
+      },
+      "lifecycle": {
+        "lifespan_hours": 6362.87,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "PR unattended for ~9 months; owner closed because it was too old to resolve conflicts cleanly and content superseded by main.",
+      "performance_claim": "Speed up OpNow with xorshift PRNG.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "slow_prng",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by owner due to staleness and conflicts after long inactivity."
+    },
+    "capability_boundary": {
+      "topic": "17",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small PRNG optimization in a language VM; agent contribution went unreviewed and became stale, showing that even simple perf changes can fail due to process delays.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes test commands with benchmark flag and updated Rosetta golden files, but no explicit before/after timing data in the body.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No performance regression reported; PR closed for staleness.",
+      "evidence_gap": "narrative_only_no_explicit_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, OpNow random number generation was replaced with a xorshift PRNG for speed; Rosetta golden outputs and benchmark data were regenerated with deterministic seed MOCHI_NOW_SEED=1.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/rosetta/ir/100-prisoners.bench",
+        "tests/rosetta/ir/100-prisoners.out",
+        "runtime/vm/ROSETTA.md"
+      ],
+      "secondary_note": "Secondary files update Rosetta golden outputs and benchmark data to reflect the new PRNG behavior.",
+      "change_trajectory": [
+        "Single commit replaces PRNG in OpNow and updates Rosetta artifacts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "tamnd",
+        "channel": "pr_comment",
+        "signal": "stale_close",
+        "summary": "PR closed as too old to resolve conflicts cleanly; content superseded by main.",
+        "blocking": false,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Single commit by tamnd/OpenAI_Codex; no reviews or comments for ~9 months until owner closed PR due to staleness."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "pr_id": 3250477735,
+  "meta": {
+    "title": "Optimize nancorrmatrix and nancovmatrix for cache locality",
+    "html_url": "https://github.com/numbagg/numbagg/pull/397",
+    "repo": "numbagg/numbagg",
+    "agent": "Claude_Code",
+    "user": "max-sixty",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-22 00:19:55+00:00",
+    "merged_at": "2025-07-22 00:28:17+00:00",
+    "closed_at": "2025-07-22 00:28:17+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "23",
+    "body_summary": "Refactor nancorrmatrix and nancovmatrix to process observations sequentially for better cache locality; add new benchmark parameters."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 88,
+      "deletions": 71,
+      "changes": 159,
+      "top1_file": "numbagg/funcs.py",
+      "top1_changes": 154,
+      "top1_change_ratio": 0.9686,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "numbagg",
+        "numbagg/test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.139,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_locality",
+      "loop_reordering"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit loop reordering PR by maintainer; merged without review or benchmark evidence; narrative only."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 159,
+        "interpretation": "At 159 changed lines concentrated in one source file, this is a small edit by absolute volume. As a small-step performance PR it merges quickly and fits the low-friction outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.139,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": "No review feedback was provided; the PR was merged directly by the author/maintainer.",
+      "performance_claim": "Refactor to process observations first improves cache locality by reducing random memory access, leading to better performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "cache_miss_scattered_access",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "23",
+      "agent": "Claude_Code",
+      "boundary_type": "process",
+      "boundary_notes": "Small loop-reordering optimization submitted by a maintainer; merged without external review or formal performance evidence.",
+      "success_factors": [
+        "maintainer_self_merge",
+        "small_scope",
+        "narrative_justification"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark numbers, profiler output, or repro steps; only a qualitative claim about cache locality.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_for_cache_locality"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactored nancorrmatrix and nancovmatrix in numbagg/funcs.py to loop over observations first then variable pairs, improving cache locality; added benchmark parameters in test_benchmark.py.",
+      "files_primary": [
+        "numbagg/funcs.py"
+      ],
+      "files_secondary_observability": [
+        "numbagg/test/test_benchmark.py"
+      ],
+      "secondary_note": "Benchmark parameters added but no results reported.",
+      "change_trajectory": [
+        "Single commit: reordered nested loops for cache locality and added benchmark params."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged by same maintainer within ~8 minutes; no external review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

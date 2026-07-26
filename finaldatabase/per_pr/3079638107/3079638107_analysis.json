@@ -1,0 +1,191 @@
+{
+  "pr_id": 3079638107,
+  "meta": {
+    "title": "Allow ParticleBuffer to shrink buffers",
+    "html_url": "https://github.com/pixijs/pixijs/pull/11432",
+    "repo": "pixijs/pixijs",
+    "agent": "OpenAI_Codex",
+    "user": "GoodBoyDigital",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-21 09:52:11+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "4",
+    "body_summary": "Add a minSize option to ParticleBuffer and implement logic to shrink the allocated buffer when the particle count drops, reducing memory usage."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 70,
+      "deletions": 0,
+      "changes": 70,
+      "top1_file": "src/scene/particle-container/shared/__tests__/ParticleBuffer.test.ts",
+      "top1_changes": 48,
+      "top1_change_ratio": 0.686,
+      "files_by_status": {
+        "added": 1,
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "reviewed": 1,
+        "commented": 1
+      },
+      "lifespan_hours": 0.056,
+      "first_review_delay_hours": 0.003,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "particle_buffer_shrink",
+      "memory_optimization",
+      "buffer_growth_control"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "unbounded_buffer_growth"
+    ],
+    "outcome_reason": "closed_test_failure_title_issue",
+    "review_dimensions": [
+      "title_format",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex PR adds buffer shrink and test; bot flagged title format and tests fail due to missing run-s; PR closed without further action."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 70,
+        "interpretation": "At 70 changed lines, this is a small, focused performance PR. The change adds buffer shrinkage logic and a test. The outcome (closed) is inconsistent with a small, low-risk performance change; likely due to title format policy and test failures."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.056,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "title_format_policy",
+      "primary_concern": "title_format_issue",
+      "concern_detail": "github-actions bot flagged PR title not matching required conventional commit format (e.g., feat(particles):).",
+      "performance_claim": "Allow ParticleBuffer to shrink when particle counts drop, reducing memory usage.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_buffer_growth",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR was closed without merge; bot title format flag and test failure (run-s not found) indicate insufficient quality; no human follow-up."
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The PR conforms to technical changes (small memory optimization) but fails to meet repo-specific title format and CI testing requirements; agent did not address these process requirements.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "github-actions bot rejected PR title format; npm test fails due to missing run-s."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Test file added but npm test fails due to missing run-s; no before/after memory metrics provided.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without fix; no evidence of handling regression beyond test failure.",
+      "evidence_gap": "no_profiling_or_benchmark_only_unit_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In ParticleBuffer.ts, added minSize option and logic to shrink allocated buffer when particle count drops below threshold; added unit test to simulate growth and shrinkage.",
+      "files_primary": [
+        "src/scene/particle-container/shared/ParticleBuffer.ts"
+      ],
+      "files_secondary_observability": [
+        "src/scene/particle-container/shared/__tests__/ParticleBuffer.test.ts"
+      ],
+      "secondary_note": "Test file adds 48 lines to validate shrink behavior.",
+      "change_trajectory": [
+        "Single commit adding shrink logic and test; no follow-up commits."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "formal_review",
+        "signal": "title_format_policy",
+        "summary": "PR title doesn't match required conventional commit format.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "codesandbox-ci[bot]",
+        "channel": "pr_comment",
+        "signal": "build_environment_available",
+        "summary": "Build is automatically testable in CodeSandbox.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with shrink feature and test.",
+      "github-actions bot flagged title format immediately.",
+      "codesandbox-ci provided build/test link.",
+      "No human review or follow-up; PR eventually closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

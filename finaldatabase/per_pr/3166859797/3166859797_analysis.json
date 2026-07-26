@@ -1,0 +1,170 @@
+{
+  "pr_id": 3166859797,
+  "meta": {
+    "title": "Use cached reflection APIs",
+    "html_url": "https://github.com/jdereg/java-util/pull/347",
+    "repo": "jdereg/java-util",
+    "agent": "OpenAI_Codex",
+    "user": "jdereg",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-23 05:48:42+00:00",
+    "merged_at": "2025-06-23 05:49:02+00:00",
+    "closed_at": "2025-06-23 05:49:02+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 22,
+    "topic_name": "22",
+    "body_summary": "Replace direct reflection calls with ReflectionUtils caching in ClassUtilities, SystemUtilities, and Unsafe to improve performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 20,
+      "deletions": 14,
+      "changes": 34,
+      "top1_file": "src/main/java/com/cedarsoftware/util/ClassUtilities.java",
+      "top1_changes": 14,
+      "top1_change_ratio": 0.4118,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.006,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "reflection_cache",
+      "java_version_query_optimization",
+      "osgi_class_loading"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "uncached_reflection_calls"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-commit refactor to use ReflectionUtils caching: merged instantly by author with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 34,
+        "interpretation": "At 34 changed lines, this is a very small edit by absolute volume. It fits a quick caching improvement PR that was merged immediately without review, consistent with a low-risk, self-contained change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.006,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback in dataset; PR was merged by the author without any review comments.",
+      "performance_claim": "Switching to cached reflection APIs avoids repeated reflection lookups, improving performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "uncached_reflection_calls",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Straightforward library-internal refactoring using existing cache utility: agent replaced direct reflection calls with cached equivalents without needing performance evidence or design discussion.",
+      "success_factors": [
+        "small_scope",
+        "author_self_merge",
+        "no_review_friction"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance measurements, benchmarks, or before/after comparisons provided; only narrative intent to use caching.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues encountered; PR merged instantly.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In three utility classes, replace direct reflection API calls with calls to ReflectionUtils which implement caching, and add a changelog entry.",
+      "files_primary": [
+        "src/main/java/com/cedarsoftware/util/ClassUtilities.java",
+        "src/main/java/com/cedarsoftware/util/SystemUtilities.java",
+        "src/main/java/com/cedarsoftware/util/Unsafe.java"
+      ],
+      "files_secondary_observability": [
+        "changelog.md"
+      ],
+      "secondary_note": "changelog.md notes the reflection improvements.",
+      "change_trajectory": [
+        "Single commit: applied ReflectionUtils caching across three utility classes and updated changelog."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by jdereg (likely repo owner) via OpenAI Codex agent.",
+      "No reviews or comments; PR merged by the author within 20 seconds."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

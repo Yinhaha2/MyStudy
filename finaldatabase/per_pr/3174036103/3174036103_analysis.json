@@ -1,0 +1,245 @@
+{
+  "pr_id": 3174036103,
+  "meta": {
+    "title": "fix: improve E2E test performance by avoiding unnecessary redirects",
+    "html_url": "https://github.com/liam-hq/liam/pull/2195",
+    "repo": "liam-hq/liam",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-25 03:52:00+00:00",
+    "merged_at": "2025-06-25 08:20:07+00:00",
+    "closed_at": "2025-06-25 08:20:07+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 6,
+    "topic_name": "6",
+    "body_summary": "Introduce DEFAULT_TEST_URL pointing directly to Mastodon schema ERD page, replacing '/' navigation in E2E tests to eliminate 300-600ms redirect delays and improve test suite performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 8,
+      "additions": 37,
+      "deletions": 27,
+      "changes": 64,
+      "top1_file": "frontend/internal-packages/e2e/playwright.config.ts",
+      "top1_changes": 20,
+      "top1_change_ratio": 0.313,
+      "files_by_status": {
+        "added": 1,
+        "modified": 7
+      },
+      "directory_count": 1,
+      "directories": [
+        "frontend"
+      ]
+    },
+    "collaboration": {
+      "review_count": 6,
+      "review_states": {
+        "COMMENTED": 5,
+        "APPROVED": 1
+      },
+      "review_comment_count": 5,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 4,
+        "commented": 4,
+        "deployed": 12,
+        "ready_for_review": 1,
+        "review_requested": 6,
+        "review_request_removed": 1,
+        "reviewed": 2
+      },
+      "lifespan_hours": 4.47,
+      "first_review_delay_hours": 2.17,
+      "review_rounds": 6,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "redirect_avoidance",
+      "e2e_test_performance",
+      "navigation_path_optimization"
+    ],
+    "optimization_layer": "test_configuration",
+    "evidence_type": [
+      "narrative",
+      "ci_task_eval"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_redirects"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "code_organization",
+      "formatting"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin introduced DEFAULT_TEST_URL to avoid redirects; merged after code organization feedback and bot-assisted refactoring with narrative CI evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 64,
+        "interpretation": "At 64 changed lines across 8 files, this is a small edit by absolute volume. It fits a small-step, low-risk performance improvement PR and was merged successfully after addressing code organization feedback."
+      },
+      "lifecycle": {
+        "lifespan_hours": 4.47,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "code_structure_nitpick",
+      "concern_detail": "hoshinotsuyoshi suggested moving the DEFAULT_TEST_URL constant from playwright.config.ts to a dedicated default_test_url.ts file; claude bot implemented the refactoring.",
+      "performance_claim": "Eliminate 300-600ms redirect delay per test by directly navigating to the Mastodon schema ERD page.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_redirects (prior behavior)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "code_organization",
+        "formatting"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Simple configuration optimization in test files; no deep technical stack barrier. Merge relied on human review for code organization nitpicks.",
+      "success_factors": [
+        "small_scope",
+        "responsive_to_review",
+        "linked_issue",
+        "bot_assisted_refactoring"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "hoshinotsuyoshi reviewed the constant placement and suggested extracting to a separate file; MH4GF approved the suggestion and requested claude bot to perform the refactoring and formatting."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes screenshot of reduced redirects and CI run links, but no rigorous benchmark or before/after timing comparison beyond narrative claims.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions observed; only style/refactoring fixes applied before merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added DEFAULT_TEST_URL constant initially in playwright.config.ts, then extracted to dedicated default_test_url.ts after review. Updated all E2E test files and global-setup.ts to use the new constant, avoiding redirects from '/' to the schema page.",
+      "files_primary": [
+        "frontend/internal-packages/e2e/default_test_url.ts",
+        "frontend/internal-packages/e2e/playwright.config.ts",
+        "frontend/internal-packages/e2e/global-setup.ts",
+        "frontend/internal-packages/e2e/tests/e2e/commandPalette.test.ts",
+        "frontend/internal-packages/e2e/tests/e2e/navigation.test.ts",
+        "frontend/internal-packages/e2e/tests/e2e/page.test.ts",
+        "frontend/internal-packages/e2e/tests/e2e/toolbar.test.ts",
+        "frontend/internal-packages/e2e/tests/vrt/vrt.test.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "No secondary observability changes.",
+      "change_trajectory": [
+        "Initial commit (0435556): Added DEFAULT_TEST_URL to playwright.config.ts and updated all test files.",
+        "Formatting fix (4d4feee): Split long line for Biome lint compliance.",
+        "Refactor (94e4a80): Extracted DEFAULT_TEST_URL to default_test_url.ts per review suggestion.",
+        "Final formatting (72b5805): Added missing newline in default_test_url.ts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "hoshinotsuyoshi",
+        "channel": "inline_review_comment",
+        "signal": "code_organization_suggestion",
+        "summary": "Suggested extracting DEFAULT_TEST_URL to a dedicated file for better code organization.",
+        "blocking": false,
+        "action_taken": "claude bot implemented the refactoring in commit 94e4a80."
+      },
+      {
+        "source": "hoshinotsuyoshi",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED after refactoring and formatting fixes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "MH4GF",
+        "channel": "inline_review_comment",
+        "signal": "refactoring_request",
+        "summary": "Confirmed the suggestion and asked claude bot to implement the change.",
+        "blocking": false,
+        "action_taken": "claude bot performed the extraction."
+      },
+      {
+        "source": "MH4GF",
+        "channel": "inline_review_comment",
+        "signal": "formatting_request",
+        "summary": "Requested claude to run `pnpm fmt`.",
+        "blocking": false,
+        "action_taken": "claude bot ran formatting and committed fix."
+      },
+      {
+        "source": "claude[bot]",
+        "channel": "inline_review_comment",
+        "signal": "bot_refactoring_completed",
+        "summary": "Completed extraction of DEFAULT_TEST_URL to dedicated file and updated all imports.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "claude[bot]",
+        "channel": "inline_review_comment",
+        "signal": "bot_formatting_fix",
+        "summary": "Fixed missing newline after running `pnpm fmt`.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial implementation.",
+      "hoshinotsuyoshi reviewed and suggested extracting constant to separate file.",
+      "MH4GF approved the suggestion and requested claude to perform the refactoring.",
+      "claude bot extracted constant to default_test_url.ts and updated all imports.",
+      "MH4GF requested formatting fix; claude bot ran pnpm fmt and committed changes.",
+      "hoshinotsuyoshi approved the final state; PR merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

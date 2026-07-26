@@ -1,0 +1,188 @@
+{
+  "pr_id": 3142406085,
+  "meta": {
+    "title": "Improve retain performance",
+    "html_url": "https://github.com/moonbitlang/core/pull/2266",
+    "repo": "moonbitlang/core",
+    "agent": "OpenAI_Codex",
+    "user": "bobzhang",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-13 06:21:03+00:00",
+    "merged_at": "2025-06-13 07:36:47+00:00",
+    "closed_at": "2025-06-13 07:36:47+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 4,
+    "topic_name": "4",
+    "body_summary": "Refactor Array::retain in builtin/array.mbt to cache length and element access, avoiding repeated method calls in loop."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 5,
+      "deletions": 3,
+      "changes": 8,
+      "top1_file": "builtin/array.mbt",
+      "top1_changes": 8,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "builtin"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.262,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "array_retain_loop_optimization",
+      "caching_length",
+      "caching_element_access"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_method_calls"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Tiny 8-line refactor caching length and element access in Array::retain; merged quickly with bot approval and 100% coverage."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8,
+        "interpretation": "At 8 changed lines in one file, this is a minimal, surgical refactor. Consistent with a low-risk performance micro-optimization that merged quickly."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.262,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "documentation_suggested",
+      "concern_detail": "Bot reviewer suggested adding comments explaining performance benefit and safety of unsafe_get; no blocking concerns.",
+      "performance_claim": "Avoid repeated length lookups and reads in Array::retain loop.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_method_calls",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple caching of length and element access within a core array builtin requires minimal domain knowledge; the agent succeeded with a trivial change that passed tests and coverage.",
+      "success_factors": [
+        "micro_optimization",
+        "strong_test_coverage",
+        "bot_approval_only"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Peter-jerry-ye-code-review bot identified caching of length and element access as good optimizations, and noted missing documentation.",
+        "ci_auto": "Coveralls reported 100% coverage on changed lines and overall coverage increase."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiler evidence; only narrative claim and passing tests.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues; PR merged without fix cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In builtin/array.mbt, refactored Array::retain to cache the array length in a local variable len and cache the element at index i via `let item = self.unsafe_get(i)` before passing to filter, and set only if true, avoiding repeated method calls within the loop.",
+      "files_primary": [
+        "builtin/array.mbt"
+      ],
+      "files_secondary_observability": [],
+      "change_trajectory": [
+        "Single commit: Optimize Array::retain loop, modifying the loop to cache length and element access."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "peter-jerry-ye-code-review[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_performance_approval",
+        "summary": "Identified and approved caching of array length and element access as good performance optimizations, while suggesting documentation improvements for unsafe_get safety.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coveralls",
+        "channel": "pr_comment",
+        "signal": "coverage_report_pass",
+        "summary": "Coverage for changed lines is 100% (4/4), and overall coverage increased to 93.11%.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit refactoring retain loop.",
+      "Bot reviewer immediately commented approving the optimization and suggesting documentation.",
+      "Coveralls reported 100% coverage on changed lines.",
+      "Merged by maintainer ~1.26 hours later without further changes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

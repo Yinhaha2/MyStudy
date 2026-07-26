@@ -1,0 +1,239 @@
+{
+  "pr_id": 3077220365,
+  "meta": {
+    "title": "Refactor CSV line splitter",
+    "html_url": "https://github.com/stevehansen/csv/pull/82",
+    "repo": "stevehansen/csv",
+    "agent": "OpenAI_Codex",
+    "user": "stevehansen",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-20 14:23:52+00:00",
+    "merged_at": "2025-05-20 19:15:31+00:00",
+    "closed_at": "2025-05-20 19:15:31+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "6",
+    "body_summary": "Refactor CSV line splitting to avoid Regex by implementing manual character-by-character parsing, claiming improved performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 69,
+      "deletions": 71,
+      "changes": 140,
+      "top1_file": "Csv/CsvLineSplitter.cs",
+      "top1_changes": 140,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "Csv"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 2,
+        "CHANGES_REQUESTED": 1
+      },
+      "review_comment_count": 5,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "reviewed": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 4.86,
+      "first_review_delay_hours": 0.006,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "regex_replacement",
+      "manual_parsing",
+      "csv_splitting_performance"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "ignore",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex replaced Regex CSV splitter with manual char loop; Gemini bot flagged edge cases, but maintainer merged citing existing tests pass and no previous invalid CSV handling."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 140,
+        "interpretation": "At 140 changed lines in a single file, this is a small refactor by absolute volume. It fits a small-step performance optimization that was merged despite bot CHANGES_REQUESTED, as maintainer dismissed correctness concerns."
+      },
+      "lifecycle": {
+        "lifespan_hours": 4.86,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "csv_edge_case_correctness",
+      "concern_detail": "Gemini bot flagged that manual parser may mishandle characters after closing quotes and unterminated quoted fields, and noted IsUnterminatedQuotedValue still uses Regex; maintainer dismissed concerns because existing tests pass and invalid CSV was not handled previously.",
+      "performance_claim": "Avoid Regex for splitting CSV lines to improve performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "tests"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent produced a manual CSV parser that passes existing tests, but a code review bot flagged potential edge-case correctness issues; maintainer overrode concerns, suggesting agent can deliver working code that may not cover all spec compliance.",
+      "success_factors": [
+        "small_scope",
+        "passes_existing_tests",
+        "maintainer_acceptance"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Gemini bot performed static analysis and flagged correctness issues; maintainer acknowledged but dismissed citing existing test pass and no previous invalid CSV handling."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No benchmark or profiling data; only narrative claim of avoiding regex, but existing test suite passes.",
+      "regression_handling": "ignore",
+      "regression_detail": "Despite CHANGES_REQUESTED, maintainer merged without addressing flagged edge cases, stating existing tests pass and invalid CSV was not handled before.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In Csv/CsvLineSplitter.cs, replaced Regex-based field splitting with a manual character-by-character loop that handles quotes, separators, and escape sequences using Span<char> or string slicing.",
+      "files_primary": [
+        "Csv/CsvLineSplitter.cs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Single commit refactored Split method to manual parsing; no iterative changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "gemini-code-assist[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Initial formal review provided a summary of the change and a haiku, not blocking.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "gemini-code-assist[bot]",
+        "channel": "formal_review",
+        "signal": "changes_requested_correctness",
+        "summary": "Detailed CHANGES_REQUESTED review flagged correctness issues (characters after quotes, unterminated fields), partial Regex usage, and lack of comments in manual parsing loop.",
+        "blocking": true,
+        "action_taken": "Maintainer dismissed concerns and merged without addressing them."
+      },
+      {
+        "source": "gemini-code-assist[bot]",
+        "channel": "inline_review_comment",
+        "signal": "csv_edge_case_after_quote",
+        "summary": "Characters after closing quote before separator are incorrectly included in field; high priority.",
+        "blocking": true,
+        "action_taken": "Maintainer replied that tests pass and invalid CSV was not handled before."
+      },
+      {
+        "source": "gemini-code-assist[bot]",
+        "channel": "inline_review_comment",
+        "signal": "unterminated_quoted_field",
+        "summary": "Unterminated quoted field produces incorrect last value; should error or handle as multi‑line.",
+        "blocking": true,
+        "action_taken": "Maintainer dismissed without action."
+      },
+      {
+        "source": "gemini-code-assist[bot]",
+        "channel": "inline_review_comment",
+        "signal": "partial_regex_usage",
+        "summary": "IsUnterminatedQuotedValue still uses Regex, contradicting PR goal; interaction with new Split needs verification.",
+        "blocking": true,
+        "action_taken": "Not addressed; merged as‑is."
+      },
+      {
+        "source": "gemini-code-assist[bot]",
+        "channel": "inline_review_comment",
+        "signal": "complexity_no_comments",
+        "summary": "Manual parsing loop lacks comments, making it hard to understand and maintain.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "stevehansen",
+        "channel": "inline_review_comment",
+        "signal": "dismiss_edge_case",
+        "summary": "Responded that tests still succeed and invalid CSV was not handled previously.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit refactoring CSV splitter.",
+      "Gemini bot posted summary and then detailed CHANGES_REQUESTED within minutes.",
+      "Maintainer added an inline comment dismissing edge‑case concerns, citing existing test pass.",
+      "Maintainer merged ~4.8 hours later without addressing bot's changes requested."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

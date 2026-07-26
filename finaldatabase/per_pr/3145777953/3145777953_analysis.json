@@ -1,0 +1,201 @@
+{
+  "pr_id": 3145777953,
+  "meta": {
+    "title": "feat: Cache RPC health check in local storage for 1 hour",
+    "html_url": "https://github.com/polkadot-cloud/polkadot-staking-dashboard/pull/2828",
+    "repo": "polkadot-cloud/polkadot-staking-dashboard",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-14 08:28:44+00:00",
+    "merged_at": "2025-06-14 11:18:29+00:00",
+    "closed_at": "2025-06-14 11:18:30+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 2,
+    "topic_name": "2",
+    "body_summary": "Add localStorage caching for RPC health check with 1-hour expiration to reduce redundant API calls on every page load and improve app initialization performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 5,
+      "additions": 90,
+      "deletions": 19,
+      "changes": 109,
+      "top1_file": "packages/global-bus/src/networkConfig/local.ts",
+      "top1_changes": 55,
+      "top1_change_ratio": 0.505,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 19,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 3,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "ready_for_review": 1,
+        "reviewed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 2.831,
+      "first_review_delay_hours": 2.789,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache",
+      "api_call_reduction",
+      "localstorage_performance"
+    ],
+    "optimization_layer": "application_frontend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Copilot added localStorage caching for RPC health checks with 1-hour TTL; maintainer approved with a design note, merged after ~2.8h."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 109,
+        "interpretation": "At 109 changed lines, this is a small, targeted performance PR that fits a swift low‑risk merge. The outcome aligns with a typical small‑scope perf change where the agent adds a caching layer without complex side effects."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.831,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_note",
+      "concern_detail": "Approved with a non‑blocking note: 'We really need a generic localStorageOfDefault function to correctly type the returning value & default value.' No changes were requested for this PR.",
+      "performance_claim": "Caching RPC health check in local storage for 1 hour reduces unnecessary API calls and speeds up app initialization.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding client‑side caching with localStorage expiry is a standard pattern well within Copilot's capability. The PR required minimal maintainer input and merged quickly.",
+      "success_factors": [
+        "small_scope",
+        "linked_issue",
+        "maintainer_approval_with_note",
+        "no_blocking_concerns"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "rossbulat reviewed the cache logic and constants, and suggested future refactoring toward a generic localStorage typing utility."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or numeric latency reduction was provided; only narrative claims about performance.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression was reported; the PR was approved and merged without issue.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added rpcHealthCacheKey in consts and implemented getInitialRpcEndpoints caching in networkConfig/local.ts using localStorage with a 1‑hour TTL. The cache avoids redundant API calls on every page load.",
+      "files_primary": [
+        "packages/global-bus/src/networkConfig/local.ts",
+        "packages/consts/src/index.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/global-bus/src/networkConfig/util.ts",
+        "packages/global-bus/src/networkConfig/index.ts",
+        "pnpm-lock.yaml"
+      ],
+      "secondary_note": "util.ts and index.ts changes support the caching logic; pnpm-lock.yaml was updated for dependencies.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Implement caching: add cache key, get/set helpers, modify getInitialRpcEndpoints to check cache first.",
+        "Maintainer polished constant naming and amended cache key.",
+        "pnpm install lockfile update."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "rossbulat",
+        "channel": "formal_review",
+        "signal": "approved_with_note",
+        "summary": "Approved, noting the need for a generic localStorageOfDefault function for better typing in the future.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue with caching implementation.",
+      "Maintainer rossbulat polished cache key and approved the PR within ~2.8h.",
+      "PR merged immediately after approval."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

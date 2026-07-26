@@ -1,0 +1,199 @@
+{
+  "pr_id": 3164861006,
+  "meta": {
+    "title": "experiment that probably won't merge: native yoga bindings",
+    "html_url": "https://github.com/oven-sh/bun/pull/20535",
+    "repo": "oven-sh/bun",
+    "agent": "Cursor",
+    "user": "Jarred-Sumner",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-21 07:27:15+00:00",
+    "merged_at": null,
+    "closed_at": "2026-06-26 09:06:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "31",
+    "body_summary": "Experiment adding native Yoga layout engine bindings for Bun's JavaScript runtime, including C++ classes, JSC GC integration, and module exposure, acknowledging it likely won't merge."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 24,
+      "additions": 3625,
+      "deletions": 761,
+      "changes": 4386,
+      "top1_file": "src/bun.js/bindings/JSYogaPrototype.cpp",
+      "top1_changes": 1202,
+      "top1_change_ratio": 0.274,
+      "files_by_status": {
+        "added": 17,
+        "modified": 3,
+        "removed": 4
+      },
+      "directory_count": 6,
+      "directories": [
+        "cmake/sources",
+        "src/bun.js/bindings",
+        "src/bun.js/bindings/webcore",
+        "test/js/bun",
+        "docs/project",
+        "src/js/builtins"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 18,
+      "event_counts": {
+        "committed": 8,
+        "labeled": 1,
+        "commented": 1,
+        "mentioned": 4,
+        "subscribed": 4
+      },
+      "lifespan_hours": 8882,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "native_bindings",
+      "layout_performance",
+      "js_engine_integration"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "experimental_no_merge_build_failure",
+    "review_dimensions": [
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor authored complex C++ Yoga bindings for Bun; CI build failed on all platforms; PR title marked as experimental; closed without merge after a year."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4386,
+        "interpretation": "At 4386 changed lines across 24 files, this is a large feature addition by absolute volume, consisting of 17 new source files plus test and build config files. The PR was explicitly labeled as an experiment unlikely to merge, and the outcome (closed without merge) is consistent with its incomplete build and lack of human review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 8882,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "ci_failure",
+      "primary_concern": "ci_build_failure",
+      "concern_detail": "Robobun CI reported build failures across all supported platforms, with clang errors in JSYogaExports.cpp, JSYogaModule.cpp, and other files. No human review or approval was given.",
+      "performance_claim": "Native, API-compatible, high-performance Yoga bindings for Bun's JavaScript runtime.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR title declares 'experiment that probably won't merge'; CI build failures on all architectures; no human review or fix attempts; closed after one year."
+    },
+    "capability_boundary": {
+      "topic": "31",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Cursor generated a large set of C++ binding files integrating Yoga with Bun's JS engine and GC, but the implementation failed to compile across Bun's multi-platform build system, highlighting the difficulty of low-level engine extensions without deep integration testing.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "Robobun CI immediately reported build-cpp failures across all platforms, including clang errors at specific source lines."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks or profiling data provided; CI build fails prevent any performance evaluation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After CI failures, no commits attempted to fix the build; the PR was left open for over a year and then closed.",
+      "evidence_gap": "narrative_only_build_failure"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Adds native Yoga layout engine bindings for Bun, including C++ classes (JSYogaConfig, JSYogaNode, JSYogaConstructor, etc.), JSC GC integration, lazy class structures for constructors, and module/global exposure. Introduces test files for config, node, and constants.",
+      "files_primary": [
+        "src/bun.js/bindings/JSYogaPrototype.cpp",
+        "src/bun.js/bindings/JSYogaNodeImpl.cpp",
+        "test/js/bun/yoga-node.test.js",
+        "src/bun.js/bindings/JSYogaConstructor.cpp"
+      ],
+      "files_secondary_observability": [
+        "cmake/sources/CxxSources.txt",
+        "docs/project/yoga-implementation-summary.md",
+        "src/bun.js/bindings/GlobalYoga.cpp",
+        "src/bun.js/bindings/yoga.zig",
+        "src/js/builtins/YogaModule.ts"
+      ],
+      "secondary_note": "Several files were added then later removed by the background composer commit (yoga.zig, YogaModule.ts, GlobalYoga.cpp, and the docs summary), indicating feature churn.",
+      "change_trajectory": [
+        "Initial commit added core C++ binding files (Config, Node, Constructor, Prototype) and updated CxxSources.txt.",
+        "Second commit added Yoga.Config methods, JSYogaExports.cpp, and a test for config.",
+        "Third commit added comprehensive Node bindings (JSYogaNodeImpl.cpp with 730 lines) and a test.",
+        "Fourth commit added layout constants, JSYogaModule, GlobalYoga, yoga.zig, and YogaModule.ts.",
+        "Background composer commit removed yoga.zig, YogaModule.ts, GlobalYoga.cpp, and the docs summary.",
+        "Maintainer ran formatting scripts (glob-sources, prettier, clang-format) but no build fixes.",
+        "Robobun CI reported build failures across all platforms; PR left dormant and closed after a year."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "robobun",
+        "channel": "pr_comment",
+        "signal": "ci_build_failure",
+        "summary": "Reported build failures on all build-cpp targets with clang errors in JSYogaExports.cpp and JSYogaModule.cpp.",
+        "blocking": true,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor authored native Yoga bindings in four incremental commits.",
+      "Robobun CI reported build failures across all platforms within minutes.",
+      "Maintainer ran formatting scripts but did not address build errors.",
+      "PR left open for over a year and then closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

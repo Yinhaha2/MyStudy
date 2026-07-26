@@ -1,0 +1,213 @@
+{
+  "pr_id": 3222235753,
+  "meta": {
+    "title": "Restrict highest_value sort to open tickets only",
+    "html_url": "https://github.com/antiwork/helper/pull/734",
+    "repo": "antiwork/helper",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-11 09:28:18+00:00",
+    "merged_at": "2025-07-11 13:20:06+00:00",
+    "closed_at": "2025-07-11 13:20:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "12",
+    "body_summary": "Restrict highest_value sort to open tickets by coordinating changes across TRPC router, frontend, and backend search to prevent infinite loading when viewing closed tickets."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 14,
+      "deletions": 8,
+      "changes": 22,
+      "top1_file": "lib/data/conversation/search.ts",
+      "top1_changes": 11,
+      "top1_change_ratio": 0.5,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 3,
+      "directories": [
+        "app",
+        "lib",
+        "trpc"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 3
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 20,
+      "event_counts": {
+        "committed": 3,
+        "commented": 5,
+        "deployed": 6,
+        "reviewed": 3,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 3.86,
+      "first_review_delay_hours": 0.08,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sort_performance",
+      "conditional_sorting",
+      "backend_query_optimization"
+    ],
+    "optimization_layer": "backend_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_human_fix",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "user_report"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "medium",
+    "notes": "Devin's initial implementation had logical inconsistencies flagged by cursor bot; binary-koan committed a fix, and PR merged without performance benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 22,
+        "interpretation": "At only 22 changed lines, this is a tiny edit by absolute volume. It fits a small-step, targeted performance fix and was successfully merged after a maintainer corrected logical inconsistencies."
+      },
+      "lifecycle": {
+        "lifespan_hours": 3.86,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "incorrect_conditional_logic",
+      "concern_detail": "cursor[bot] flagged that the frontend array comparison `searchParams.status !== \"closed\"` fails to properly hide the option for closed tickets, and that the backend sort logic and TRPC router had inconsistent conditions leading to wrong default sorts.",
+      "performance_claim": "Restricting highest_value sort to open tickets only prevents infinite loading on the closed tickets list.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin's initial implementation had logical flaws in coordinating conditional logic across three files, which were caught by automated review and later fixed by a human. The core problem (multi-file conditional consistency) exceeded the agent's ability to get right on the first try for this codebase.",
+      "success_factors": [
+        "small_change_scope",
+        "automated_review_bot_feedback",
+        "human_fix_commit"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "user_report"
+      ],
+      "detection_detail": {
+        "code_reading": "cursor[bot] performed automated code review and flagged sorting inconsistencies.",
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR author stated changes are untested due to local environment issues; no before/after timing evidence.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "binary-koan committed a 'Fix' that corrected the TRPC router condition and backend sort logic to address the inconsistencies raised by cursor[bot].",
+      "evidence_gap": "narrative_only_no_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In three files, conditionally restrict the highest_value sort option to open tickets: the TRPC router only sets it as defaultSort when the input status includes 'open'; the frontend search bar hides the option when status is explicitly 'closed'; the backend search logic ensures closed-only queries default to 'newest' sort without expensive highest_value sorting.",
+      "files_primary": [
+        "trpc/router/mailbox/conversations/index.ts",
+        "lib/data/conversation/search.ts",
+        "app/(dashboard)/[category]/list/conversationSearchBar.tsx"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit by Devin: added conditional defaultSort in TRPC router, frontend visibility check, and backend sort default logic.",
+        "autofix-ci applied automated formatting fix on TRPC router file.",
+        "binary-koan committed 'Fix' to correct inconsistent conditions and inverted default sort behavior as flagged by cursor[bot]."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "sorting_mismatch_bug",
+        "summary": "Flagged that the TRPC router, frontend, and backend have inconsistent sorting logic for highest_value sort, leading to potential regressions.",
+        "blocking": false,
+        "action_taken": "Addressed by binary-koan's subsequent 'Fix' commit."
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "incorrect_frontend_hide_condition",
+        "summary": "Pointed out that frontend condition `searchParams.status !== 'closed'` fails to work for arrays, causing the highest_value option to appear when viewing only closed tickets.",
+        "blocking": false,
+        "action_taken": "binary-koan's fix adjusted frontend logic."
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "post_merge_bug",
+        "summary": "Reported sorting regressions after merge, including inconsistent highest_value sorting and inverted default sort for non-open tickets; submitted after the PR was merged.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created by Devin with initial implementation addressing Slack-reported infinite loading issue.",
+      "cursor[bot] posted three automated reviews pointing out logical inconsistencies in conditional sorting.",
+      "binary-koan committed a manual 'Fix' to correct the defects and merged the PR shortly after."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

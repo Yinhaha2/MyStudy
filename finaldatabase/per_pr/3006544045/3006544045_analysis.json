@@ -1,0 +1,180 @@
+{
+  "pr_id": 3006544045,
+  "meta": {
+    "title": "Spring Boneアニメーション処理の最適化: get_bone_name関数のキャッシュ戦略改善",
+    "html_url": "https://github.com/saturday06/VRM-Addon-for-Blender/pull/798",
+    "repo": "saturday06/VRM-Addon-for-Blender",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-19 16:53:13+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-19 17:28:03+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "50",
+    "body_summary": "Optimize get_bone_name caching by replacing full cache clear with targeted eviction and adding a secondary armature-level cache, claiming 3% function improvement and 1.4% overall Spring Bone speedup based on profiling."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 27,
+      "deletions": 2,
+      "changes": 29,
+      "top1_file": "src/io_scene_vrm/editor/property_group.py",
+      "top1_changes": 29,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.581,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_strategy",
+      "bone_name_lookup",
+      "spring_bone_animation"
+    ],
+    "optimization_layer": "application_data_access",
+    "evidence_type": [
+      "narrative",
+      "profiling"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_maintainer_no_feedback",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin provided profiling evidence for a 3% cache improvement; maintainer closed without review after Devin was archived."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 29,
+        "interpretation": "At 29 changed lines, this is a very small, focused edit. It fits a micro-optimization performance PR; however, it was closed without review, possibly due to bot inactivity."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.581,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_human_review",
+      "concern_detail": "No formal human reviews; maintainer closed the PR without comment after Devin bot was archived.",
+      "performance_claim": "3% reduction in get_bone_name function time and 1.4% overall Spring Bone animation processing improvement.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer closed PR shortly after opening without review; Devin bot reported being archived."
+    },
+    "capability_boundary": {
+      "topic": "50",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Devin produced a small, well-documented optimization with profiling evidence, but maintainer did not engage or review, closing the PR after bot was archived; indicates a process gap for bot-authored PRs in this repository.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes profiler output with before/after numbers but lacks reproduction instructions or environment details.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed without merge; no regression discussion occurred.",
+      "evidence_gap": "profiling_provided_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/io_scene_vrm/editor/property_group.py, get_bone_name was modified to evict only stale cache entries instead of clearing the entire cache, added a secondary per-armature cache, and reduced redundant get_bone_extension calls.",
+      "files_primary": [
+        "src/io_scene_vrm/editor/property_group.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: replaced cache-clearing with targeted eviction, added armature-level UUID-to-name mapping, and minimized bone extension lookups."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_archived",
+        "summary": "Devin bot reported being archived and cannot be woken up; implies end of agent support.",
+        "blocking": false,
+        "action_taken": "PR was closed shortly before this comment."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with optimization and profiling evidence.",
+      "No human review activity; maintainer closed PR without comment.",
+      "Devin bot commented it was archived after close."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "pr_id": 3146221157,
+  "meta": {
+    "title": "Set release LTO to thin",
+    "html_url": "https://github.com/IrreducibleOSS/binius/pull/759",
+    "repo": "IrreducibleOSS/binius",
+    "agent": "OpenAI_Codex",
+    "user": "pepyakin",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-14 14:20:29+00:00",
+    "merged_at": "2025-06-15 14:52:32+00:00",
+    "closed_at": "2025-06-15 14:52:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "build",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Switch release LTO from fat to thin to reduce build time, providing benchmark data showing ~2x build time reduction with minimal runtime performance impact."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "top1_file": "Cargo.toml",
+      "top1_changes": 2,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 2,
+        "commented": 2,
+        "ready_for_review": 1,
+        "reviewed": 1,
+        "referenced": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "unlabeled": 1
+      },
+      "lifespan_hours": 24.53,
+      "first_review_delay_hours": 24.27,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "build_time_optimization",
+      "link_time_optimization",
+      "lto_config"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative",
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_build_perf_config",
+    "review_dimensions": [
+      "perf_evidence",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Simple Cargo.toml change from fat to thin LTO; author provided build time and runtime IPC/wallclock data; approved and merged via Graphite queue."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2,
+        "interpretation": "At only 2 changed lines in a single Cargo.toml, this is a trivial build configuration edit. It is typical for a low-risk performance build optimization and the merge outcome aligns with small change scope."
+      },
+      "lifecycle": {
+        "lifespan_hours": 24.53,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none_explicit",
+      "concern_detail": "No explicit concerns raised; maintainer approved after review of the provided benchmark data.",
+      "performance_claim": "Switching from fat to thin LTO approximately halves build time (from 72s to 35s) with minimal runtime performance impact (0.5% IPC improvement, 0.7% fewer instructions, 0.8% wallclock improvement).",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence",
+        "ci_validation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple one-line config change in Cargo.toml; the agent merely proposed the change based on Codex's benchmarking, and the author validated it. Merge was straightforward with no technical hurdles.",
+      "success_factors": [
+        "provided_benchmark_data",
+        "small_scope",
+        "maintainer_validation",
+        "ci_passed"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer jimpo reviewed the PR and approved without comments, presumably accepting the benchmark data provided by the author."
+      },
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "Author measured build time and runtime performance on a Keccak example with fat vs thin LTO, reporting IPC, instructions, and wallclock; data is numeric and plausible.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No adverse performance effects noted; minimal runtime improvement with large build time gains.",
+      "evidence_gap": "none"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In Cargo.toml, changed [profile.release] lto from \"fat\" to \"thin\".",
+      "files_primary": [
+        "Cargo.toml"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "No other files changed.",
+      "change_trajectory": [
+        "Single commit: set release LTO to thin in Cargo.toml."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "jimpo",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved the PR without additional comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "merge_queue_process",
+        "summary": "Managed merge queue and merged via draft PR #761.",
+        "blocking": false,
+        "action_taken": "PR merged by Graphite merge queue."
+      },
+      {
+        "source": "jimpo",
+        "channel": "pr_comment",
+        "signal": "merge_activity",
+        "summary": "Added merge-ready label and commented on merge activity.",
+        "blocking": false,
+        "action_taken": "PR merged via queue."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by pepyakin with benchmark data for LTO change.",
+      "Maintainer jimpo approved after ~24 hours.",
+      "Graphite merge queue merged PR after CI."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

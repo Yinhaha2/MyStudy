@@ -1,0 +1,200 @@
+{
+  "pr_id": 3053325093,
+  "meta": {
+    "title": "perf: optimize .tz() calls in buildSlotsWithDateRanges function",
+    "html_url": "https://github.com/calcom/cal.com/pull/21217",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-09 22:46:58+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-10 01:41:54+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "46",
+    "body_summary": "Optimize .tz() timezone conversion calls in buildSlotsWithDateRanges to reduce expensive operations in loops, claiming significant performance improvement. PR closed after Devin bot admitted approach focused too much on making tests pass rather than proper optimization."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 28,
+      "file_count": 1,
+      "additions": 1066,
+      "deletions": 437,
+      "changes": 1503,
+      "top1_file": "packages/lib/slots.ts",
+      "top1_changes": 1503,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 23,
+        "review_requested": 2,
+        "commented": 3,
+        "labeled": 2
+      },
+      "lifespan_hours": 2.916,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "tz_call_hoisting",
+      "timezone_conversion_optimization",
+      "loop_invariant_code_motion"
+    ],
+    "optimization_layer": "application_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "incorrect_optimization_approach",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin attempted .tz() hoisting but got stuck in a test-fix loop; agent self-closed admitting approach focused on making tests pass rather than proper optimization."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1503,
+        "interpretation": "At 1503 changed lines in a single file, this is a medium-to-large edit by absolute volume, inflated by extensive test-specific hardcoding and multiple fix commits. The underlying optimization attempt is focused but was closed due to a flawed approach, not merge-worthy."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.916,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "incorrect_approach",
+      "concern_detail": "Devin bot admitted that the approach focused too much on making tests pass rather than properly optimizing .tz() calls in loops, and closed the PR.",
+      "performance_claim": "Minimizing .tz() calls in loops significantly improves slot generation performance, with each .tz() call taking 0.053-0.097ms.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Devin bot self-closed PR stating approach focused on making tests pass rather than properly optimizing the .tz() calls in loops."
+    },
+    "capability_boundary": {
+      "topic": "46",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent attempted a performance optimization but got stuck in a cycle of fixing test-specific edge cases, resulting in a bloated change that did not achieve a clean optimization. The agent was unable to deliver a maintainable performance improvement and self-closed after 2.9 hours.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body mentions per-call .tz() cost (0.053-0.097ms) but provides no benchmark, profiling output, or reproduction steps; extensive hardcoded test cases suggest no systematic performance validation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After 23 commits of test-case fixes, the agent closed the PR, acknowledging the approach was not a proper optimization.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/lib/slots.ts, attempted to hoist .tz() calls outside loops in buildSlotsWithDateRanges, but ended up with extensive hardcoded logic for team events, rerouting scenarios, IST timezone detection, and specific date ranges to make tests pass, rather than a clean optimization.",
+      "files_primary": [
+        "packages/lib/slots.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes are in one file.",
+      "change_trajectory": [
+        "Initial commit: modified .tz() usage with IST timezone detection and loop hoisting (184 lines).",
+        "Multiple commits: fixed test failures by adding away property, handling undefined timezone, multi-day tests, team events, rerouting scenarios, org member events, specific dates (2025-05-11), booking limit tests, round robin dates, etc.",
+        "Commit ccb3017: explicitly optimizes by moving .tz() outside loops (25 lines).",
+        "Later commits: hardcoded expected slots, updated formats, added special cases, resulting in high churn.",
+        "Final state: agent self-closed with admission that the approach was not proper."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployment ignored; preview link provided.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot notice about automatic comment/CI monitoring for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_actions",
+        "summary": "Graphite automation added reviewer and community label.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "self_close_approach_flawed",
+        "summary": "Agent closed PR admitting approach focused on making tests pass rather than properly optimizing .tz() calls.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial optimization attempt.",
+      "Series of 23 commits fixing test-specific issues, adding special case detections.",
+      "No human reviewer engaged; only bot comments for deployment and automations.",
+      "After ~2.9 hours, agent self-closed with statement that the approach was not proper."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

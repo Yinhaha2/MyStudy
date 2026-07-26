@@ -1,0 +1,215 @@
+{
+  "pr_id": 3242666013,
+  "meta": {
+    "title": "Optimize encounter page API calls",
+    "html_url": "https://github.com/ohcnetwork/care_fe/pull/12979",
+    "repo": "ohcnetwork/care_fe",
+    "agent": "Cursor",
+    "user": "rithviknishad",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-18 10:01:18+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-18 10:05:26+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Remove redundant duplicate allergy query in EncounterOverviewTab and switch AllergyList, SymptomsList, DiagnosisList to single fetch for overview views while keeping infinite queries only for timeline views."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 171,
+      "deletions": 111,
+      "changes": 282,
+      "top1_file": "src/components/Patient/allergy/list.tsx",
+      "top1_changes": 88,
+      "top1_change_ratio": 0.312,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 15,
+      "event_counts": {
+        "committed": 1,
+        "review_requested": 1,
+        "subscribed": 8,
+        "commented": 3,
+        "closed": 1,
+        "reviewed": 1
+      },
+      "lifespan_hours": 0.069,
+      "first_review_delay_hours": 0.102,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "api_call_reduction",
+      "query_strategy_optimization",
+      "remove_duplicate_fetch"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "closed_test_or_accidental",
+    "review_dimensions": [
+      "correctness",
+      "style"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor refactored queries but introduced React Hook rule violation; PR closed by author immediately as an AI tool test with no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 282,
+        "interpretation": "At 282 changed lines across 4 files, this is a small-to-medium frontend refactor by absolute volume. It fits a small-step performance PR but was closed immediately by the author as a test, not for real review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.069,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_react_hook_rules",
+      "concern_detail": "CodeRabbit flagged conditional useInfiniteQuery violating React Hook rules and requested prettier formatting fixes.",
+      "performance_claim": "Switch non-timeline views to single fetch with higher limits and remove duplicate allergy query to reduce initial API calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "duplicate_allergy_query_unnecessary_pagination",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "style"
+      ],
+      "rejection_signals": "Author stated PR was only an AI tool test, not meant for merge."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "Simple query refactor with introduced hook rule violation; PR was never intended for production merge and demonstrates process boundary of accidental/test submissions.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "CodeRabbit identified React Hook rule violation and formatting issues in allergy and symptom list components.",
+        "ci_auto": "Netlify deploy preview failed, indicating potential build errors from the changes."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics provided; only narrative claim of API call reduction.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by author without fixing Hook violation; no further iteration.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In allergy, diagnosis, and symptoms list components, replaced unconditional useInfiniteQuery with conditional call: infinite query for timeline view vs empty data fallback for overview; removed duplicate allergy query from EncounterOverviewTab.",
+      "files_primary": [
+        "src/components/Patient/allergy/list.tsx",
+        "src/components/Patient/diagnosis/list.tsx",
+        "src/components/Patient/symptoms/list.tsx",
+        "src/pages/Encounters/tabs/EncounterOverviewTab.tsx"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: implement dual-query strategy and remove duplicate allergy fetch.",
+        "PR closed 4 minutes later with no further commits."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "react_hook_rule_violation",
+        "summary": "Conditional useInfiniteQuery violates React Hook rules; should use enabled option instead.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "actionable_comments",
+        "summary": "Formal review with 2 actionable comments on hook rules and formatting.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "netlify[bot]",
+        "channel": "pr_comment",
+        "signal": "deploy_preview_failed",
+        "summary": "Netlify deploy preview failed due to build errors.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "rithviknishad",
+        "channel": "pr_comment",
+        "signal": "test_close",
+        "summary": "Author stated PR was just testing AI tools, not a real submission.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent committed query changes; PR opened by rithviknishad.",
+      "CodeRabbit submitted review with hook rule and formatting issues.",
+      "Netlify deploy preview failed.",
+      "Author closed PR after 4 minutes with comment indicating it was an AI tool test."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

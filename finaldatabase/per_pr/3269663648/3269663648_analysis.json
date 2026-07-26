@@ -1,0 +1,228 @@
+{
+  "pr_id": 3269663648,
+  "meta": {
+    "title": "Add field support to DynamicDataAttribute",
+    "html_url": "https://github.com/microsoft/testfx/pull/6203",
+    "repo": "microsoft/testfx",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-28 12:16:41+00:00",
+    "merged_at": "2025-07-31 10:43:59+00:00",
+    "closed_at": "2025-07-31 10:43:59+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 38,
+    "topic_name": "38",
+    "body_summary": "Add support for public static fields as data sources in DynamicDataAttribute to improve test data management performance by avoiding repeated object creation from property getters or methods."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 13,
+      "file_count": 142,
+      "additions": 5155,
+      "deletions": 1673,
+      "changes": 6828,
+      "top1_file": "test/UnitTests/MSTest.Analyzers.UnitTests/DynamicDataShouldBeValidAnalyzerTests.cs",
+      "top1_changes": 122,
+      "top1_change_ratio": 0.018,
+      "files_by_status": {
+        "added": 5,
+        "modified": 137
+      },
+      "directory_count": 3,
+      "directories": [
+        "src",
+        "test",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 2,
+        "APPROVED": 1
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 13,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 2,
+        "ready_for_review": 1,
+        "reviewed": 2,
+        "auto_squash_enabled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "unsubscribed": 1
+      },
+      "lifespan_hours": 70.45,
+      "first_review_delay_hours": 8.0,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "static_field_test_data",
+      "allocation_overhead_reduction"
+    ],
+    "optimization_layer": "framework_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_trivial_review_feedback",
+    "review_dimensions": [
+      "correctness",
+      "cleanliness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "medium",
+    "notes": "Copilot added field support to DynamicDataAttribute with analyzer/source gen; one reviewer requested removal of a backup file; merged without performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 6828,
+        "interpretation": "Although total line count is large due to merge commits bringing main changes and localization files, the core feature change is modest (~850 lines across feature commits). The PR was merged after trivial cleanup review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 70.45,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "cleanup_or_housekeeping",
+      "primary_concern": "accidental_backup_file",
+      "concern_detail": "Evangelink requested removal of global.json.bak that was committed by the agent.",
+      "performance_claim": "Static fields avoid repeated object creation compared to property getters/methods.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "cleanliness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "38",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding field detection to a test framework attribute across multiple layers (attribute, analyzer, source gen) is within agent capability when the change is additive and well-defined.",
+      "success_factors": [
+        "additive_feature",
+        "trivial_review_feedback",
+        "backward_compatible"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Evangelink noticed the accidental backup file in the diff and requested its removal."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks or before/after performance data; only narrative claim in PR body.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Backup file removed via Copilot commit 576bf64.",
+      "evidence_gap": "narrative_perf_claim_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Extended DynamicDataSourceType enum with Field=3, added field detection in DynamicDataOperations, updated DynamicDataAttribute to use field, updated analyzer DynamicDataShouldBeValidAnalyzer to accept fields, updated source generation model, added unit and integration tests.",
+      "files_primary": [
+        "src/TestFramework/TestFramework/Attributes/DataSource/DynamicDataAttribute.cs",
+        "src/TestFramework/TestFramework/Attributes/DataSource/DynamicDataOperations.cs",
+        "src/Analyzers/MSTest.Analyzers/DynamicDataShouldBeValidAnalyzer.cs",
+        "src/Analyzers/MSTest.SourceGeneration/ObjectModels/DynamicDataTestMethodArgumentsInfo.cs",
+        "test/UnitTests/TestFramework.UnitTests/Attributes/DynamicDataAttributeTests.cs",
+        "test/UnitTests/MSTest.Analyzers.UnitTests/DynamicDataShouldBeValidAnalyzerTests.cs"
+      ],
+      "files_secondary_observability": [
+        "src/TestFramework/TestFramework/Resources/FrameworkMessages.Designer.cs",
+        "src/TestFramework/TestFramework/Resources/FrameworkMessages.resx",
+        "src/Analyzers/MSTest.Analyzers/Resources.Designer.cs",
+        "src/Analyzers/MSTest.Analyzers/Resources.resx",
+        "global.json.bak",
+        "various xlf localization files"
+      ],
+      "secondary_note": "Large line counts mainly from localization xlf updates and merge commits bringing main branch changes.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Implementation of field support in DynamicDataAttribute and DynamicDataOperations.",
+        "Addition of analyzer support and unit tests.",
+        "Source generation model update.",
+        "Review request; Evangelink requests removal of global.json.bak.",
+        "Copilot removes backup file.",
+        "Maintainer fixes build issues, tests, and public API.",
+        "Merge of main branch to resolve conflicts.",
+        "Final test fix and public API update.",
+        "Approval and merge after 70 hours."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Evangelink",
+        "channel": "inline_review_comment",
+        "signal": "remove_backup_file",
+        "summary": "Requested removal of accidentally committed global.json.bak backup file.",
+        "blocking": false,
+        "action_taken": "Copilot removed the file in commit 576bf64."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "cleanup_confirmation",
+        "summary": "Confirmed removal of the backup file.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with field implementation across multiple layers.",
+      "Evangelink requested removal of global.json.bak in inline comment.",
+      "Copilot removed the file.",
+      "After build fixes, tests, and merge of main, Youssef1313 approved.",
+      "PR merged after ~70 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

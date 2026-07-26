@@ -1,0 +1,187 @@
+{
+  "pr_id": 3161160444,
+  "meta": {
+    "title": "Fix issue #23157 on GitHub",
+    "html_url": "https://github.com/different-ai/zero-finance/pull/177",
+    "repo": "different-ai/zero-finance",
+    "agent": "Cursor",
+    "user": "benjaminshafii",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-19 19:18:19+00:00",
+    "merged_at": "2025-06-19 19:18:32+00:00",
+    "closed_at": "2025-06-19 19:18:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 2,
+    "topic_name": "2",
+    "body_summary": "Introduce DECIMAL_CACHE to memoize token decimals, hard-code USDC-on-Base to 6 decimals, cache others, and add a fallback to 18 decimals to prevent RPC timeouts and ensure correct balance display in the ZeroFinance dashboard."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 37,
+      "deletions": 13,
+      "changes": 50,
+      "top1_file": "packages/web/src/server/services/safe.service.ts",
+      "top1_changes": 50,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.004,
+      "first_review_delay_hours": 0.001,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "rpc_call_caching",
+      "token_decimal_memoization",
+      "balance_display_fix"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-commit caching optimization for token decimals with hardcoded USDC value; merged instantly with only bot review and deployment preview."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 50,
+        "interpretation": "At 50 changed lines, this is a tiny single-file edit by absolute volume. It is a small-step performance fix that merged instantly, consistent with low-risk, low-friction PRs."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.004,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_human_review",
+      "primary_concern": "none",
+      "concern_detail": "No human review or substantive feedback; only Greptile bot notice about trial expiration and Vercel deployment preview.",
+      "performance_claim": "Eliminate unnecessary RPC calls for token decimals, hardcoding USDC-on-Base to 6, caching others, and adding fallback to prevent timeouts and incorrect balance display.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Straightforward server-side caching change with a hardcoded decimal value; within typical agent capability for small-scope optimizations.",
+      "success_factors": [
+        "small_scope",
+        "immediate_merge",
+        "low_risk"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review; merge occurred immediately without human evaluation in dataset.",
+        "ci_auto": "Vercel bot posted deployment preview but no performance CI validation."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body describes symptoms (timeouts, zero balance) but provides no benchmark, profiler output, or reproducible test case.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported or addressed; PR merged before any issues surfaced.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In safe.service.ts, added DECIMAL_CACHE Map to memoize token decimals, hardcoding USDC-on-Base to 6. Refactored getSafeBalance to fetch balance first then retrieve decimals from cache or chain, with fallback to 18 decimals on failure.",
+      "files_primary": [
+        "packages/web/src/server/services/safe.service.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Single file modified; no secondary observability files.",
+      "change_trajectory": [
+        "Single commit: introduced DECIMAL_CACHE, hardcoded USDC decimals, added caching for other tokens, and fallback logic."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "formal_review",
+        "signal": "trial_expired_notice",
+        "summary": "Greptile bot comment indicated free trial ended and requested payment for continued reviews.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview link.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit by Cursor agent; Greptile bot posted trial notice and Vercel deployed preview; merged by maintainer within seconds."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

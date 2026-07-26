@@ -1,0 +1,283 @@
+{
+  "pr_id": 3221072168,
+  "meta": {
+    "title": "Replace [KnownBuiltin] string-based comparisons with enum-based system",
+    "html_url": "https://github.com/shader-slang/slang/pull/7714",
+    "repo": "shader-slang/slang",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-11 00:30:43+00:00",
+    "merged_at": "2025-07-15 12:08:53+00:00",
+    "closed_at": "2025-07-15 12:08:53+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Replace string-based [KnownBuiltin] identification with enum-based system in the Slang compiler for faster builtin lookups and type safety."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 11,
+      "file_count": 135,
+      "additions": 4745,
+      "deletions": 3339,
+      "changes": 8084,
+      "top1_file": "diff-ptr-type-loop.slang-ast",
+      "top1_changes": 1462,
+      "top1_change_ratio": 0.181,
+      "files_by_status": {
+        "modified": 119,
+        "added": 15,
+        "removed": 5,
+        "renamed": 1
+      },
+      "directory_count": 8,
+      "directories": [
+        "(root)",
+        ".claude",
+        ".github",
+        "docs",
+        "examples",
+        "source",
+        "tests",
+        "tools"
+      ]
+    },
+    "collaboration": {
+      "review_count": 9,
+      "review_states": {
+        "COMMENTED": 8,
+        "APPROVED": 1
+      },
+      "review_comment_count": 8,
+      "pr_comment_count": 5,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 7,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "commented": 3,
+        "labeled": 2,
+        "renamed": 1,
+        "review_requested": 3,
+        "copilot_work_finished": 4,
+        "reviewed": 3,
+        "ready_for_review": 1
+      },
+      "lifespan_hours": 107.6,
+      "first_review_delay_hours": 0.774,
+      "review_rounds": 9,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "string_vs_enum_comparison",
+      "builtin_dispatch_optimization",
+      "compiler_performance"
+    ],
+    "optimization_layer": "compiler_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "string_traversal"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "tests",
+      "scope"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "load_test"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot replaced string‑based builtin lookups with an enum, iterating through review feedback to adopt preprocessor syntax and fix a regression; merged after approvals."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8084,
+        "interpretation": "At 8084 changed lines across 135 files, this is a large refactor by absolute volume, though much churn comes from adding/removing temporary AST dump files and merging master. The core performance change is concentrated in ~10 source files. Successful merge after intensive review and multiple fix rounds fits a collaborative, iterative performance improvement in a compiler codebase."
+      },
+      "lifecycle": {
+        "lifespan_hours": 107.6,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_approach_required_preprocessor_usage",
+      "concern_detail": "csyonghe requested eliminating the unnecessary string‑to‑enum conversion by using the preprocessor $(KnownBuiltinDeclName::...) syntax in meta.slang files, which required changing KnownBuiltin to store an int and updating all meta definitions.",
+      "performance_claim": "Replace O(n) string comparisons with O(1) enum comparisons for identifying builtin functions, improving compile‑time performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "string_comparison_for_constant_lookup",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "tests",
+        "scope"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot initially created a sub‑optimal string‑to‑enum helper; with iterative, precise guidance it adapted to a preprocessor‑based approach, showing ability to follow detailed compiler‑specific instructions while still needing human direction for correctness and design.",
+      "success_factors": [
+        "iterative_review_feedback",
+        "precise_reviewer_guidance",
+        "regression_quick_fix",
+        "maintainer_engagement"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "load_test"
+      ],
+      "detection_detail": {
+        "code_reading": "csyonghe reviewed the implementation and pushed for a preprocessor‑based approach to avoid runtime string‑to‑enum conversion; gtong‑nv requested descriptive constants in the test.",
+        "load_test": "csyonghe manually tested and reproduced a regression by compiling tests/autodiff/diff-ptr-type-call.slang and reported the failure."
+      },
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "Reviewer provided a concrete test file and compilation command to reproduce the regression; subsequent commit fixed the issue and tests passed.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After reporting a regression with IDifferentiablePtr mapping, Copilot fixed the bug in commit e880ba2b and removed the unused IDifferentiablePtrType enum case per request.",
+      "evidence_gap": "no_perf_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced KnownBuiltinDeclName enum in slang-ast-support-types.h, changed KnownBuiltin attribute to store int instead of string, updated core.meta.slang and hlsl.meta.slang to use preprocessor $( (int)KnownBuiltinDeclName::...) syntax, modified IRKnownBuiltinDecoration to hold enum value, and converted all string‑based builtin comparisons in IR processing files to enum comparisons.",
+      "files_primary": [
+        "source/slang/slang-ast-support-types.h",
+        "source/slang/slang-ast-support-types.cpp",
+        "source/slang/core.meta.slang",
+        "source/slang/hlsl.meta.slang",
+        "source/slang/slang-ir-insts.h",
+        "source/slang/slang-ir-util.cpp",
+        "source/slang/slang-lower-to-ir.cpp",
+        "source/slang/slang-ir-autodiff.cpp",
+        "source/slang/slang-ir-fuse-satcoop.cpp",
+        "source/slang/slang-ir-glsl-legalize.cpp",
+        "source/slang/slang-ir-legalize-varying-params.cpp",
+        "source/slang/slang-ir-link.cpp"
+      ],
+      "files_secondary_observability": [
+        "diff-ptr-type-array.slang-ast",
+        "diff-ptr-type-call.slang-ast",
+        "diff-ptr-type-loop.slang-ast",
+        "diff-ptr-type-smoke.slang-ast",
+        "tests/language-feature/known-builtin-enum-test.slang",
+        "tests/bugs/gh-4131.slang"
+      ],
+      "secondary_note": "Large line churn (≈2,800 lines) came from adding then removing temporary AST dump files; merge commit (9dc4d0f) brought in many unrelated master changes.",
+      "change_trajectory": [
+        "Initial implementation added KnownBuiltinDeclName enum and getKnownBuiltinDeclNameFromString() helper.",
+        "First review: requested elimination of string conversion via preprocessor, prompting revision to store int directly in KnownBuiltin attribute.",
+        "Second review: corrected preprocessor syntax to use $( (int)KnownBuiltinDeclName::...), needing a space after '(' to avoid a preprocessor bug.",
+        "Regression report: csyonghe found IDifferentiablePtr handled incorrectly; Copilot fixed mapping and removed unused IDifferentiablePtrType case.",
+        "Test improvement: gtong-nv requested a descriptive constant in the test; fix applied via follow‑up commit.",
+        "Final review: gtong-nv approved, and jkwak-work gave LGTM; PR merged after 4 days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "csyonghe",
+        "channel": "inline_review_comment",
+        "signal": "design_approach_preprocessor",
+        "summary": "Requested replacing string‑to‑enum conversion by using preprocessor $(KnownBuiltinDeclName::...) syntax in meta files to avoid runtime overhead entirely.",
+        "blocking": true,
+        "action_taken": "Copilot reworked the approach to store int directly and later adopted the preprocessor syntax in commit d0bade9b."
+      },
+      {
+        "source": "csyonghe",
+        "channel": "inline_review_comment",
+        "signal": "preprocessor_syntax_correction",
+        "summary": "Pointed out need for space between '(' after '$(' to work around a preprocessor bug when using $( (int)KnownBuiltinDeclName::...).",
+        "blocking": false,
+        "action_taken": "Copilot corrected the syntax in the same commit d0bade9b."
+      },
+      {
+        "source": "csyonghe",
+        "channel": "pr_comment",
+        "signal": "regression_report",
+        "summary": "Reported a regression in tests/autodiff/diff-ptr-type-call.slang due to mishandled IDifferentiablePtr builtin.",
+        "blocking": true,
+        "action_taken": "Copilot fixed the regression in commit e880ba2b and related commits."
+      },
+      {
+        "source": "gtong-nv",
+        "channel": "inline_review_comment",
+        "signal": "test_quality_constant",
+        "summary": "Suggested using a descriptive constant instead of hardcoded [KnownBuiltin(0)] in the test.",
+        "blocking": false,
+        "action_taken": "A follow‑up commit (4881947) replaced the magic number with a named constant."
+      },
+      {
+        "source": "jkwak-work",
+        "channel": "formal_review",
+        "signal": "lgtm",
+        "summary": "Looks good to me.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "gtong-nv",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "LGTM, approved the PR.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "csyonghe",
+        "channel": "pr_comment",
+        "signal": "approval_solicitation",
+        "summary": "Asked jkwak-work to approve, indicating maintainer acceptance.",
+        "blocking": false,
+        "action_taken": "jkwak-work subsequently gave LGTM."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial enum implementation; csyonghe immediately reviewed and requested design changes.",
+      "Over several hours, Copilot iterated: first switched to integer storage, then adopted preprocessor syntax with space workaround.",
+      "csyonghe reported a regression from manual testing; Copilot fixed it and cleaned up unused enum cases.",
+      "gtong-nv requested test improvements; Copilot applied them.",
+      "After approvals from gtong-nv and jkwak-work, PR was merged ~4 days after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

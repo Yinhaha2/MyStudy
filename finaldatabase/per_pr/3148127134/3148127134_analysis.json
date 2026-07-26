@@ -1,0 +1,182 @@
+{
+  "pr_id": 3148127134,
+  "meta": {
+    "title": "Optimize resolveType lookup with reverse map",
+    "html_url": "https://github.com/sikanhe/gqtx/pull/79",
+    "repo": "sikanhe/gqtx",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-15 22:48:07+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-24 14:26:29+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 36,
+    "topic_name": "36",
+    "body_summary": "Optimize Union/Interface resolveType in gqtx by replacing O(n) linear typeMap search with O(1) WeakMap reverse lookup, claiming better scalability for large schemas."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 3046,
+      "deletions": 4779,
+      "changes": 7825,
+      "top1_file": "yarn.lock",
+      "top1_changes": 7629,
+      "top1_change_ratio": 0.975,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 207.64,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "type_resolution_lookup",
+      "reverse_map_optimization",
+      "schema_build_performance"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added reverse map for O(1) type resolution with narrative perf claim; no human review; PR auto-closed after 7 days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 7825,
+        "interpretation": "At 7825 changed lines, this appears large, but 7629 of those are in yarn.lock. The core source change in build.ts is only 77 lines. As a modest performance PR it was closed without merge due to lack of maintainer engagement, rather than technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 207.64,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No human review or feedback in available data. PR auto-closed by Devin bot after 7 days of inactivity.",
+      "performance_claim": "O(1) reverse map lookup improves type resolution performance for Union/Interface types, eliminating O(n) linear search.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Auto-closed by Devin bot due to 7 days inactivity; no maintainer engagement."
+    },
+    "capability_boundary": {
+      "topic": "36",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "PR with moderate code change and narrative perf claim received no maintainer attention; Agent could not drive merge due to lack of review engagement, typical process boundary.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or numeric performance evidence; only complexity analysis in PR body and attached report.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No regressions identified; PR closed without merge due to inactivity.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/build.ts, added reverseTypeMap WeakMap alongside existing typeMap to enable O(1) lookup in resolveType for Union/Interface types; updated type creation functions to populate both maps.",
+      "files_primary": [
+        "src/build.ts"
+      ],
+      "files_secondary_observability": [
+        "EFFICIENCY_REPORT.md",
+        "yarn.lock"
+      ],
+      "secondary_note": "EFFICIENCY_REPORT.md contains narrative optimization analysis; yarn.lock has 7629 lines of dependency changes, likely from a lockfile regeneration or package addition.",
+      "change_trajectory": [
+        "Single commit adds reverse map, efficiency report, and yarn.lock changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit adding reverse map and report.",
+      "No human review or interaction; Devin bot auto-closed after 7 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

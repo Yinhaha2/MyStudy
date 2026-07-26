@@ -1,0 +1,247 @@
+{
+  "pr_id": 3084608702,
+  "meta": {
+    "title": "perf: Implement worker threads for getAvailableSlots to prevent CPU blocking",
+    "html_url": "https://github.com/calcom/cal.com/pull/21479",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-22 21:42:30+00:00",
+    "merged_at": "2025-06-12 11:56:13+00:00",
+    "closed_at": "2025-06-12 11:56:13+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 0,
+    "topic_name": "-1",
+    "body_summary": "Offload CPU-intensive getAvailableSlots to Node.js worker threads to prevent main thread blocking and reduce 502 errors on /v2/slots/available endpoint."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 9,
+      "file_count": 197,
+      "additions": 5440,
+      "deletions": 1719,
+      "changes": 7159,
+      "top1_file": "packages/app-store/googlecalendar/lib/__tests__/CalendarService.test.ts",
+      "top1_changes": 600,
+      "top1_change_ratio": 0.0838,
+      "files_by_status": {
+        "added": 21,
+        "modified": 170,
+        "removed": 6
+      },
+      "directory_count": 20,
+      "directories": [
+        ".github",
+        ".husky",
+        ".yarn",
+        "apps",
+        "docs",
+        "i18n.lock",
+        "package.json",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 9,
+      "review_states": {
+        "COMMENTED": 7,
+        "DISMISSED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 7,
+      "pr_comment_count": 6,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 4,
+        "review_requested": 3,
+        "commented": 6,
+        "labeled": 3,
+        "deployed": 7,
+        "renamed": 1,
+        "convert_to_draft": 1,
+        "closed": 1,
+        "reopened": 1,
+        "reviewed": 3
+      },
+      "lifespan_hours": 494.23,
+      "first_review_delay_hours": 0.01,
+      "review_rounds": 9,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "worker_threads",
+      "main_thread_offloading",
+      "cpu_blocking_mitigation",
+      "slot_calculation"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "main_thread_blocking"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach",
+      "error_handling"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin implemented worker pool; maintainer ThyMinimalDev added several fixes (error handling, E2E, memory leak) and approved after iterative review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 7159,
+        "interpretation": "At 7159 changed lines across 197 files, this is a large edit by absolute volume, but most churn comes from main merges. The performance-related changes are about 200–300 lines in a few new files. The PR merged after multiple rounds of human fixes and approval, which is consistent with medium-size cross-cutting concerns."
+      },
+      "lifecycle": {
+        "lifespan_hours": 494.23,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "error_handling_and_worker_correctness",
+      "concern_detail": "ThyMinimalDev raised multiple inline comments: questioning the use of TRPCError in the worker service, noting poor error handling in the worker file, and indicating that error propagation should not create TRPCError but handle properly. Also flagged a memory leak (later fixed).",
+      "performance_claim": "Offload CPU-intensive getAvailableSlots to worker threads to prevent main thread blocking and reduce 502 errors.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "main_thread_blocking (prior code blocked event loop)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "design_or_approach",
+        "error_handling"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Node.js worker_threads with NestJS integration required careful error handling, TRPCError usage correctness, E2E test compatibility, and memory leak avoidance; Devin provided an initial framework but needed significant human follow-up to reach production quality.",
+      "success_factors": [
+        "maintainer_fixes_in_PR",
+        "iterative_review_and_improvement",
+        "human_dismissed_initial_comments_and_approved"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "ThyMinimalDev reviewed the new worker service and worker file line-by-line, flagging TRPCError misuse and insufficient error handling."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or timing data provided to validate the performance claim; review focused on code quality not perf measurement.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After initial comments, ThyMinimalDev committed fixes for worker service, E2E compatibility (do not use workers in E2E), and attempted a memory leak fix; later approved after additional merges.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added slots.worker.ts and slots-worker.service.ts to run getAvailableSlots in Node.js worker threads with a pool of workers; updated the slots controller to use the worker service.",
+      "files_primary": [
+        "apps/api/v2/src/modules/slots/slots-2024-04-15/workers/slots.worker.ts",
+        "apps/api/v2/src/modules/slots/slots-2024-04-15/services/slots-worker.service.ts",
+        "apps/api/v2/src/modules/slots/slots-2024-04-15/controllers/slots.controller.ts",
+        "apps/api/v2/src/modules/slots/slots-2024-04-15/slots.module.ts"
+      ],
+      "files_secondary_observability": [
+        "apps/web/public/static/locales/*/common.json",
+        "packages/app-store/googlecalendar/lib/...",
+        "docs/api-reference/v2/openapi.json"
+      ],
+      "secondary_note": "Most of the 7159 changed lines come from a merge of main branch, bringing extensive unrelated changes (locale files, calendar service tests, etc.).",
+      "change_trajectory": [
+        "Devin bot's initial implementation: worker pool and worker script (c1c7574).",
+        "TypeScript fixes in worker implementation (04c61e1).",
+        "Maintainer merged main (0ad7add).",
+        "Maintainer committed 'chore: fix slot-worker-service.ts' addressing review comments (a2b21df).",
+        "Maintainer committed 'fix: do not use workers in E2E' for test compatibility (ad66eed).",
+        "Maintainer committed 'fix: try to fix memory leak' (05ff72e).",
+        "Further merges from main and final approval, then merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ThyMinimalDev",
+        "channel": "inline_review_comment",
+        "signal": "TRPCError_usage_question",
+        "summary": "Questioned why TRPCError was used in the worker service.",
+        "blocking": false,
+        "action_taken": "Maintainer later adjusted error handling in a follow-up commit."
+      },
+      {
+        "source": "ThyMinimalDev",
+        "channel": "inline_review_comment",
+        "signal": "poor_error_handling",
+        "summary": "Worker file uses minimal error handling; maintainer noted 'not great error handling'.",
+        "blocking": false,
+        "action_taken": "Fixed in subsequent maintainer commits."
+      },
+      {
+        "source": "ThyMinimalDev",
+        "channel": "inline_review_comment",
+        "signal": "incorrect_error_propagation",
+        "summary": "Error handling should not create TRPCError from worker success: false; should handle properly.",
+        "blocking": false,
+        "action_taken": "Addressed in chore/fix commits."
+      },
+      {
+        "source": "ThyMinimalDev",
+        "channel": "formal_review",
+        "signal": "comments_dismissed",
+        "summary": "Previous COMMENTED reviews were dismissed; final review was APPROVED.",
+        "blocking": false,
+        "action_taken": "Approved after fixes."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin bot opened PR with worker implementation.",
+      "GitHub Actions CI and E2E results triggered.",
+      "Devin bot auto-closed PR after 7 days inactivity.",
+      "Maintainer keithwillcode reopened PR and merged main.",
+      "ThyMinimalDev added several review comments and subsequent fix commits.",
+      "After fixes, ThyMinimalDev dismissed previous comments and approved; PR merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

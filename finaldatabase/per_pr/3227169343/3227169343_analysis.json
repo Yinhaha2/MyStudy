@@ -1,0 +1,168 @@
+{
+  "pr_id": 3227169343,
+  "meta": {
+    "title": "Enhance Go backend left join",
+    "html_url": "https://github.com/mochilang/mochi/pull/8629",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-14 02:37:50+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-14 02:38:21+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 5,
+    "topic_name": "5",
+    "body_summary": "Improve the Go backend compiler to special-case left join with map lookup, and update machine outputs and documentation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 108,
+      "deletions": 309,
+      "changes": 417,
+      "top1_file": "tests/machine/x/go/left_join.go",
+      "top1_changes": 326,
+      "top1_change_ratio": 0.781,
+      "files_by_status": {
+        "modified": 6
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.0086,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "left_join_optimization",
+      "compiler_backend",
+      "map_lookup_specialization"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_immediately_unknown",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "OpenAI_Codex optimized left join via map lookup but PR was self-closed within 31 seconds with no review; performance claim unsupported."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 417,
+        "interpretation": "At 417 changed lines across 6 files, this is a small-to-medium edit by absolute volume, heavily concentrated in a generated machine test file (326 deletions). The PR was self-closed immediately, making scale interpretation irrelevant; it fits a self-contained compiler optimization but outcome is inconsistent with merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0086,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review or comment text available; PR was self-closed immediately.",
+      "performance_claim": "Optimize Go backend left join using map lookup for special case, presumably improving performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR self-closed within 31 seconds by author without any review or comment; no rejection signals beyond immediate closure."
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The PR was closed immediately by the author, suggesting a process failure (possibly incorrect PR creation or test). No maintainer interaction to assess agent capability.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "Not applicable; PR self-closed without review."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark, profiler, or numeric claim; testing instructions are for correctness, not performance.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR self-closed before any regression could occur.",
+      "evidence_gap": "narrative_only_no_benchmark_self_closed"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In the Go backend compiler, added special-case handling for left join using map lookup in compiler.go and helpers.go. Updated machine output for left_join and TPCH/Q1, and documentation in TASKS.md.",
+      "files_primary": [
+        "compiler/x/go/compiler.go",
+        "compiler/x/go/helpers.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/go/left_join.go",
+        "tests/dataset/tpc-h/compiler/go/q1.go",
+        "compiler/x/go/TASKS.md",
+        "tests/machine/x/go/README.md"
+      ],
+      "secondary_note": "Machine test outputs regenerated to reflect new optimization; 326 changes in left_join.go are mostly deletions.",
+      "change_trajectory": [
+        "Single commit added left join map-based optimization in compiler, updated helpers, and regenerated machine outputs and documentation."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created and self-closed within 31 seconds by tamnd; no review or comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

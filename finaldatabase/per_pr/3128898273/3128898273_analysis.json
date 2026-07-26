@@ -1,0 +1,172 @@
+{
+  "pr_id": 3128898273,
+  "meta": {
+    "title": "Improve argsKey for memoization",
+    "html_url": "https://github.com/mochilang/mochi/pull/217",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-09 01:43:25+00:00",
+    "merged_at": "2025-06-09 01:46:47+00:00",
+    "closed_at": "2025-06-09 01:46:48+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 10,
+    "topic_name": "10",
+    "body_summary": "Improve memoization key generation by avoiding JSON serialization, likely replacing it with a direct string-building approach, and update benchmark outputs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 121,
+      "deletions": 64,
+      "changes": 185,
+      "top1_file": "BENCHMARK.md",
+      "top1_changes": 124,
+      "top1_change_ratio": 0.67,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "interpreter"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.056,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memoization_key_generation",
+      "json_serialization_elimination",
+      "benchmark_update"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex replaced JSON-based key with string-based method; PR merged self by author without review, with benchmark outputs in BENCHMARK.md as implicit evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 185,
+        "interpretation": "At 185 changed lines across 2 files, this is a small edit by absolute volume, focusing on memoization key efficiency and benchmark updates. It aligns with a small-step performance PR and the fast, low-friction merge without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.056,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback; PR merged without formal review.",
+      "performance_claim": "Avoid JSON serialization in memoization key generation to improve performance, as indicated by updated benchmark outputs.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "10",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The agent successfully replaced JSON serialization with a likely more efficient key building, and the maintainer merged immediately without review, suggesting trust in the agent's capability for small-scale interpreter tweaks.",
+      "success_factors": [
+        "small_scope",
+        "benchmark_output_included",
+        "author_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review or code reading evidence captured.",
+        "ci_auto": "No CI-based evaluation detected."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "BENCHMARK.md shows updated benchmark numbers, but no before/after comparison presented in PR body; the change itself is straightforward enough to infer performance improvement.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues; merged without incident.",
+      "evidence_gap": "benchmark_output_only_no_explicit_comparison"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In interpreter/interpreter.go, the memoization key function argsKey was changed from using JSON serialization to a direct string-building approach (likely concatenation or fmt.Sprintf). BENCHMARK.md was updated with new benchmark results.",
+      "files_primary": [
+        "interpreter/interpreter.go"
+      ],
+      "files_secondary_observability": [
+        "BENCHMARK.md"
+      ],
+      "secondary_note": "Updated benchmark outputs likely reflect the performance improvement.",
+      "change_trajectory": [
+        "Single commit introduces argsKey optimization and updates BENCHMARK.md; no iterative changes."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit; merged by author within ~3 minutes with no review interactions."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

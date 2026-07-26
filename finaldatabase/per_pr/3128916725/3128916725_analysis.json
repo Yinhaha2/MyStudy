@@ -1,0 +1,169 @@
+{
+  "pr_id": 3128916725,
+  "meta": {
+    "title": "Add optional memoization in interpreter",
+    "html_url": "https://github.com/mochilang/mochi/pull/219",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-09 01:57:48+00:00",
+    "merged_at": "2025-06-09 02:00:05+00:00",
+    "closed_at": "2025-06-09 02:00:05+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 0,
+    "topic_name": "0_cache_memoization",
+    "body_summary": "Add an optional memoization flag for pure functions in the interpreter, toggled via MOCHI_MEMO environment variable, and wire it into mochi run and mochi test commands."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 28,
+      "deletions": 8,
+      "changes": 36,
+      "top1_file": "interpreter/interpreter.go",
+      "top1_changes": 20,
+      "top1_change_ratio": 0.556,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "cmd",
+        "interpreter"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.038,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memoization",
+      "caching_pure_functions",
+      "optional_optimization"
+    ],
+    "optimization_layer": "interpreter_runtime",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex added optional memoization flag; no reviews or benchmarks; merged in ~2 min by the same user who authored the commit; small change."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 36,
+        "interpretation": "At 36 changed lines across 2 files, this is a tiny edit by absolute volume. It fits a small-step, low-risk performance optimization that merged immediately with no review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.038,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_provided",
+      "concern_detail": "No reviews or comments are present in the PR; it was merged by the same user without any external feedback.",
+      "performance_claim": "Adding optional memoization of pure functions to improve interpreter performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "0_cache_memoization",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The PR adds a flag to toggle memoization, a standard interpreter optimization. The agent can produce such feature flags; the change required no external evidence and was merged by the same user without review.",
+      "success_factors": [
+        "small_scope",
+        "self_contained_change",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "The PR body includes testing commands but no performance data; maintainer self-merged after presumably manual testing or trusting the change."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body lists benchmark commands (`go run ./cmd/mochi-bench`) but provides no before/after numbers.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In interpreter/interpreter.go, added a memoization toggle (likely a boolean flag) and conditional logic to skip memoization when disabled; in cmd/mochi/main.go, added MOCHI_MEMO environment variable parsing to set the flag for `run` and `test` commands.",
+      "files_primary": [
+        "interpreter/interpreter.go",
+        "cmd/mochi/main.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: added optional memoization flag and wiring."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created with one commit; merged by same user within ~2 minutes; no reviews or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

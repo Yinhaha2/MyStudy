@@ -1,0 +1,177 @@
+{
+  "pr_id": 3230465602,
+  "meta": {
+    "title": "Enable streaming response deltas",
+    "html_url": "https://github.com/openai/codex/pull/1574",
+    "repo": "openai/codex",
+    "agent": "OpenAI_Codex",
+    "user": "aibrahim-oai",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-15 01:31:38+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-17 16:38:34+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Forward OpenAI streaming response deltas (output text and reasoning summary) to the TUI incrementally, update conversation history, and handle deltas in exec/MCP tool runner."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 12,
+      "file_count": 17,
+      "additions": 1941,
+      "deletions": 887,
+      "changes": 2828,
+      "top1_file": "codex-rs/tui/src/conversation_history_widget.rs",
+      "top1_changes": 1640,
+      "top1_change_ratio": 0.58,
+      "files_by_status": {
+        "added": 1,
+        "modified": 16
+      },
+      "directory_count": 2,
+      "directories": [
+        "codex-cli",
+        "codex-rs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 16,
+      "event_counts": {
+        "committed": 12,
+        "labeled": 1,
+        "convert_to_draft": 1,
+        "closed": 1,
+        "locked": 1
+      },
+      "lifespan_hours": 63.116,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "streaming_deltas",
+      "tui_rendering",
+      "incremental_processing",
+      "latency_reduction"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "author_closed_not_ready",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex closed PR without external review after iterative bugfixes; no performance evidence or reviewer engagement."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2828,
+        "interpretation": "At 2828 changed lines across 17 files, this is a medium-to-large edit by absolute volume. It involves significant TUI widget changes (1640 lines in conversation_history_widget.rs). The PR was closed without merge, which is inconsistent with typical small-step fast-merge performance PRs; lack of review engagement and author self-close suggest the work was not ready or not aligned with project requirements."
+      },
+      "lifecycle": {
+        "lifespan_hours": 63.116,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review or comment text available in dataset; PR was closed by author without external feedback.",
+      "performance_claim": "Stream response text and reasoning deltas to the TUI incrementally instead of waiting for the full turn, reducing perceived latency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author converted to draft and closed PR after a series of bug-fix commits; no reviewer activity indicates the project maintainers did not engage."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The agent made large changes across Rust TUI and core components but did not initiate review process; author closed the PR with no external feedback, suggesting either the feature was not ready for review or the workflow required more polish before considering merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after data; only code changes with cargo check as validation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix-in-pr cycle by maintainers.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added streaming response delta forwarding in chat_completions, client, protocol, and codex core; updated event_processor for incremental messages; modified TUI chatwidget and conversation_history_widget to display streamed deltas; added test coverage for streaming.",
+      "files_primary": [
+        "codex-rs/tui/src/conversation_history_widget.rs",
+        "codex-rs/tui/src/chatwidget.rs",
+        "codex-rs/core/src/codex.rs",
+        "codex-rs/exec/src/event_processor.rs"
+      ],
+      "files_secondary_observability": [
+        "codex-rs/core/src/client.rs",
+        "codex-rs/core/src/config.rs",
+        "codex-rs/core/src/config_types.rs",
+        "codex-rs/core/tests/cli_stream.rs"
+      ],
+      "secondary_note": "Merge commits brought in unrelated changes (e.g., stage_release.sh, README).",
+      "change_trajectory": [
+        "Initial commit: enable streaming deltas across core and TUI components.",
+        "Merge main and multiple 'fixing bugs' commits, heavily iterating on TUI widgets.",
+        "Added rerendering logic and test fixes.",
+        "Author converted to draft, later closed without merge."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "OpenAI_Codex (as aibrahim-oai) opened PR with initial streaming implementation.",
+      "Iterated on bug fixes autonomously over 2+ days.",
+      "Author converted to draft and eventually closed the PR without any external review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

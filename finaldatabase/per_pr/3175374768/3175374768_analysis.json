@@ -1,0 +1,175 @@
+{
+  "pr_id": 3175374768,
+  "meta": {
+    "title": "Enable predicate pushdown in TS compiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/3170",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-25 11:57:33+00:00",
+    "merged_at": "2025-06-25 13:06:17+00:00",
+    "closed_at": "2025-06-25 13:06:17+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Push query filters/skip/take into _load calls in the TypeScript compiler and add a dataset predicate pushdown test."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 275,
+      "deletions": 0,
+      "changes": 275,
+      "top1_file": "compile/ts/compiler.go",
+      "top1_changes": 120,
+      "top1_change_ratio": 0.436,
+      "files_by_status": {
+        "modified": 1,
+        "added": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.14,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "predicate_pushdown",
+      "query_optimization",
+      "compiler_optimization"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_compiler_optimization_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Low-evidence merge: no reviews or comments; compiler optimization with test cases; merged by author."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 275,
+        "interpretation": "At 275 changed lines across 5 files, this is a small-to-medium change by absolute volume, mostly in compiler logic (120 lines) and test expectation files. It fits a targeted compiler optimization and was merged by the author without any review feedback."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.14,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No formal review or comments were recorded for this PR; it was merged directly by the author.",
+      "performance_claim": "Push query filters/skip/take down into _load calls in the TypeScript compiler to improve query performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "This compiler optimization targets query predicate pushdown in a TypeScript compiler. Agent successfully implemented the logic and test cases without requiring external benchmark evidence; merge suggests the agent's output was acceptable for the maintainer's workflow.",
+      "success_factors": [
+        "small_scope",
+        "test_coverage",
+        "fast_turnaround"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "ci_auto": "Testing instructions mention 'go test ./...', suggesting the maintainer relied on automated tests to validate correctness, but no explicit detection of performance regression was recorded."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Test files (dataset_pushdown.in/.mochi/.out/.ts.out) demonstrate the compiler transformation, but no before/after performance numbers.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "Merged without any reported regression or review feedback.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/ts/compiler.go, added logic to push down query filters, skip, and take operations into _load calls. Test files verify the transformation.",
+      "files_primary": [
+        "compile/ts/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/compiler/ts/dataset_pushdown.in",
+        "tests/compiler/ts/dataset_pushdown.mochi",
+        "tests/compiler/ts/dataset_pushdown.out",
+        "tests/compiler/ts/dataset_pushdown.ts.out"
+      ],
+      "secondary_note": "Test files are part of the compiler test infrastructure, showing that the pushdown transformation produces expected output.",
+      "change_trajectory": [
+        "Single commit 'ts compiler: push down query predicates' added compiler changes and test files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with single commit and 'codex' label.",
+      "No review or comments; PR merged by author ~1.1 hours later."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

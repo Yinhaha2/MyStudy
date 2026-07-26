@@ -1,0 +1,168 @@
+{
+  "pr_id": 3093078361,
+  "meta": {
+    "title": "Fix per-input refresh debouncing",
+    "html_url": "https://github.com/elsa-workflows/elsa-studio/pull/527",
+    "repo": "elsa-workflows/elsa-studio",
+    "agent": "OpenAI_Codex",
+    "user": "sfmskywalker",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-27 08:19:55+00:00",
+    "merged_at": "2025-05-27 08:21:30+00:00",
+    "closed_at": "2025-05-27 08:21:30+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 28,
+    "topic_name": "28",
+    "body_summary": "Handle refresh rate limiting per input descriptor in InputsTab to avoid unnecessary UI refreshes."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 5,
+      "additions": 43,
+      "deletions": 34,
+      "changes": 77,
+      "top1_file": "src/modules/Elsa.Studio.Workflows/Components/WorkflowDefinitionEditor/Components/ActivityProperties/Tabs/InputsTab.razor.cs",
+      "top1_changes": 65,
+      "top1_change_ratio": 0.844,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0264,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "refresh_debounce",
+      "rate_limiting"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Rate limiter fix per input descriptor with no review or performance evidence; merged within ~2 minutes by author."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 77,
+        "interpretation": "At 77 changed lines, this is a tiny edit by absolute volume. It fits a micro performance fix that was merged instantly by the author with no review. Outcome is consistent with a low‑risk quick fix."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0264,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback was provided.",
+      "performance_claim": "Improve refresh performance by rate limiting per input descriptor in InputsTab.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "28",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple Blazor component code‑behind change that required no performance measurement and was merged by the author without any review process.",
+      "success_factors": [
+        "very_narrow_scope",
+        "author_merge_without_review",
+        "trivially_low_risk"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance data or reproduction steps for the debounce effectiveness were provided; only a failing build test is mentioned.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression occurred; the PR was merged immediately by the author.",
+      "evidence_gap": "narrative_only_no_perf_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In InputsTab.razor.cs, the refresh logic was modified to apply rate limiting per input descriptor instead of globally, likely preventing unnecessary UI refreshes.",
+      "files_primary": [
+        "src/modules/Elsa.Studio.Workflows/Components/WorkflowDefinitionEditor/Components/ActivityProperties/Tabs/InputsTab.razor.cs"
+      ],
+      "files_secondary_observability": [
+        "src/modules/Elsa.Studio.Workflows/Components/WorkflowDefinitionEditor/Components/ActivityProperties/Tabs/InputsTab.razor",
+        "src/modules/Elsa.Studio.Workflows/Components/WorkflowDefinitionEditor/Components/ActivityProperties/Models.cs",
+        "src/modules/Elsa.Studio.UIHints/Extensions/InputDescriptorSelectListExtensions.cs",
+        "src/hosts/Elsa.Studio.Host.Server/Program.cs"
+      ],
+      "secondary_note": "These files were brought in from a merge with develop/3.5.0 and are not part of the performance fix.",
+      "change_trajectory": [
+        "Initial commit: Fix InputsTab refresh rate limiter per input (18 line change in InputsTab.razor.cs).",
+        "Merge branch develop/3.5.0 brought secondary changes across 5 files, including further modifications to InputsTab.razor.cs (47 line change)."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author created PR with a single fix commit and merged within 2 minutes; no human interaction or review occurred."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

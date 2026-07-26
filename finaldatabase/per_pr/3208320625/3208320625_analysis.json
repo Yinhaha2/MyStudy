@@ -1,0 +1,217 @@
+{
+  "pr_id": 3208320625,
+  "meta": {
+    "title": "fix(tabs): resolve memory leak caused by animation transitions",
+    "html_url": "https://github.com/NG-ZORRO/ng-zorro-antd/pull/9278",
+    "repo": "NG-ZORRO/ng-zorro-antd",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-07 09:57:24+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-14 01:59:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 9,
+    "topic_name": "9",
+    "body_summary": "Fix nz-tabset memory leak by separating animation transitions and adding a completion handler to prevent detached DOM elements from accumulating during tab destruction."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 159,
+      "deletions": 27,
+      "changes": 186,
+      "top1_file": "components/tabs/tabs-memory-leak.spec.ts",
+      "top1_changes": 145,
+      "top1_change_ratio": 0.78,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "components"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 18,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "commented": 4,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 160.03,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_leak",
+      "animation_transition",
+      "dom_cleanup"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative",
+      "repro_steps"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_design_concern_animation_behavior",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot attempted to fix nz-tabset memory leak by separating animation transitions, but maintainer pointed out it would break original animation behavior; after restoring behavior, PR was closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 186,
+        "interpretation": "At 186 changed lines, this is a small-to-medium edit concentrated in animation logic and a test file. It fits a targeted bug fix for a memory leak, but the outcome (closed without merge) suggests maintainer concerns about preserving animation behavior outweighed the fix."
+      },
+      "lifecycle": {
+        "lifespan_hours": 160.03,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "animation_behavior_preservation",
+      "concern_detail": "HyperLife1119 noted that separating animation transitions would destroy the original animation behavior, which required absolute positioning during leave to remove from document flow and smoothly transition opacity.",
+      "performance_claim": "Eliminates memory leak from detached DOM elements in nz-tabset during tab switching, with stable memory usage after fix.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "detached_dom_nodes_not_garbage_collected",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": "Maintainer raised that the fix would break original animation behavior; after Copilot restored original behavior, PR was closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Fixing a memory leak while preserving complex Angular animation behavior requires deep understanding of animation lifecycle; Copilot initially broke the animation, then restored it but PR not merged.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "HyperLife1119 manually examined the animation change and identified that the separation of '*' => leave' and ':leave' transitions would remove absolute positioning needed during tab leave animation, breaking visual behavior."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes StackBlitz repro and manual test steps for the memory leak, but no verification was done by reviewer; the concern was solely about animation impact.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After maintainer pointed out the animation breakage, Copilot restored the original combined transition, but the PR was still closed without merge, indicating the fix was not accepted.",
+      "evidence_gap": "animation_behavior_not_preserved"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified tabSwitchMotion animation in components/core/animation/tabs.ts to initially separate '* => leave' and ':leave' transitions, then reverted to combined transition while keeping an animation completion handler in tab-body.component.ts to help cleanup. A memory leak test spec was added.",
+      "files_primary": [
+        "components/core/animation/tabs.ts",
+        "components/tabs/tab-body.component.ts"
+      ],
+      "files_secondary_observability": [
+        "components/tabs/tabs-memory-leak.spec.ts"
+      ],
+      "secondary_note": "Test file added to verify no detached DOM accumulation; most line changes are in the new test file (145 lines).",
+      "change_trajectory": [
+        "Initial commit: separated animation transitions for leave states and added animation completion handler.",
+        "After maintainer commented that this would break original animation behavior, Copilot restored the original combined transition while retaining the handler."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "zorro-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "preview_notice",
+        "summary": "Preview link will be available after CI passes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "All modified lines are covered by tests; patch coverage unchanged at 92.11%.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "HyperLife1119",
+        "channel": "pr_comment",
+        "signal": "design_concern_animation_behavior",
+        "summary": "Questioned whether separating transitions would destroy the intended leave animation behavior (absolute positioning then opacity fade).",
+        "blocking": false,
+        "action_taken": "Copilot restored the original combined transition and confirmed in reply."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_acknowledgment",
+        "summary": "Acknowledged the concern and committed the fix to restore original animation behavior while keeping the leak prevention handler.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with memory leak fix linked to issue #9095.",
+      "No formal review; bot comments on preview and coverage.",
+      "After ~6.7 days, maintainer HyperLife1119 left a comment pointing out the animation behavior would be broken.",
+      "Copilot responded within minutes, committing a fix to restore original combined transition.",
+      "PR was closed by HyperLife1119 shortly after without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

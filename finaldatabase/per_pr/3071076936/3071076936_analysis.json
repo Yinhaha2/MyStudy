@@ -1,0 +1,247 @@
+{
+  "pr_id": 3071076936,
+  "meta": {
+    "title": "feat: Server-side pagination, filtering and search for eval results table",
+    "html_url": "https://github.com/promptfoo/promptfoo/pull/4054",
+    "repo": "promptfoo/promptfoo",
+    "agent": "OpenAI_Codex",
+    "user": "sklein12",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-17 21:29:21+00:00",
+    "merged_at": "2025-05-24 21:08:39+00:00",
+    "closed_at": "2025-05-24 21:08:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 28,
+    "topic_name": "28",
+    "body_summary": "Implement server-side pagination, filtering, and search for eval results to handle large evaluations, with a new /eval/table/:id endpoint, database indices, and frontend hooks."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 16,
+      "file_count": 38,
+      "additions": 4189,
+      "deletions": 985,
+      "changes": 5174,
+      "top1_file": "drizzle/meta/0013_snapshot.json",
+      "top1_changes": 845,
+      "top1_change_ratio": 0.1633,
+      "files_by_status": {
+        "added": 10,
+        "modified": 26,
+        "removed": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        "drizzle",
+        "src",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 8,
+      "review_states": {
+        "COMMENTED": 8
+      },
+      "review_comment_count": 15,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "labeled": 1,
+        "head_ref_force_pushed": 5,
+        "renamed": 1,
+        "ready_for_review": 1,
+        "commented": 1,
+        "mentioned": 1,
+        "reviewed": 4,
+        "committed": 15,
+        "review_requested": 1
+      },
+      "lifespan_hours": 167.65,
+      "first_review_delay_hours": 98.48,
+      "review_rounds": 8,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "server_side_pagination",
+      "search_functionality",
+      "filtering_functionality",
+      "large_eval_support"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_non_blocking_review",
+    "review_dimensions": [
+      "code_quality",
+      "security",
+      "design_consolidation",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "OpenAI Codex delivered large full-stack server-side pagination feature; reviews focused on code quality, SQL injection risk, and design consolidation; merged after non-blocking bot and human comments."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5174,
+        "interpretation": "At 5174 changed lines across 38 files, this is a large change by absolute volume. It fits a significant feature addition (server-side pagination) that merged after extensive reviews and bot suggestions without blocking requests."
+      },
+      "lifecycle": {
+        "lifespan_hours": 167.65,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_quality_and_security",
+      "primary_concern": "security_sql_injection",
+      "concern_detail": "Ellipsis bot flagged raw SQL query building in getTablePage as potential SQL injection risk, suggesting parameterized queries; Sourcery bot flagged various code style issues.",
+      "performance_claim": "Server-side pagination, filtering, and search improve performance for large eval results tables.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "sequential_fetch_in_getTablePage",
+      "human_review_dimensions": [
+        "code_quality",
+        "security",
+        "design_consolidation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "28",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Complex multi-file feature with significant testing; agent's code had style issues and SQL injection vectors flagged by bots but corrected non-blocking; human review clarified design decisions.",
+      "success_factors": [
+        "extensive_testing",
+        "non_blocking_bot_feedback",
+        "human_design_clarification",
+        "incremental_commits"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Bots performed static review (Ellipsis spotted SQL injection, Sourcery suggested code quality improvements); human reviewer will-holley asked about hook consolidation and URLSearchParams usage."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance metrics or load test; only narrative claim about handling large evals.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Several commits addressed test failures, circular dependencies, and misnamed indices. No revert occurred.",
+      "evidence_gap": "no_performance_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Implemented server-side pagination, filtering, and search for eval results by adding new endpoint /eval/table/:id, database indices for search/filter, and frontend hooks (useEvalData) and store updates.",
+      "files_primary": [
+        "src/models/eval.ts",
+        "src/server/routes/eval.ts",
+        "src/app/src/pages/eval/components/ResultsTable.tsx",
+        "src/app/src/pages/eval/components/store.ts",
+        "src/app/src/hooks/useEvalData.ts"
+      ],
+      "files_secondary_observability": [
+        "drizzle/0012_late_marten_broadcloak.sql",
+        "drizzle/meta/0012_snapshot.json",
+        "test/models/eval.test.ts",
+        "drizzle/0013_previous_dormammu.sql",
+        "src/app/src/pages/eval/components/MetricFilterSelector.tsx"
+      ],
+      "secondary_note": "Most line changes are in migration snapshots; core logic changes in eval model and frontend.",
+      "change_trajectory": [
+        "Initial commit: added server-side pagination with drizzle migration and basic endpoint.",
+        "Added server-side comparison view.",
+        "Added server-side searching with new indices.",
+        "Fixed tests and linting.",
+        "Refactored and fixed circular dependencies.",
+        "Fixed misnamed index and final cleanups; removed unused hook."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ellipsis-dev[bot]",
+        "channel": "inline_review_comment",
+        "signal": "sql_injection_risk",
+        "summary": "Warned about building raw SQL queries using string interpolation and suggested parameterized queries.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "ellipsis-dev[bot]",
+        "channel": "inline_review_comment",
+        "signal": "performance_bottleneck",
+        "summary": "Noted sequential await in loop inside getTablePage, recommended using Promise.all for concurrency.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "sourcery-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "code_quality",
+        "summary": "Multiple suggestions: rename filteredBody, check isFetching before 'No results', use object destructuring, inline variables.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "will-holley",
+        "channel": "inline_review_comment",
+        "signal": "design_question",
+        "summary": "Asked if fetchEvalData can be consolidated with fetchEvalById from useEvalData.",
+        "blocking": false,
+        "action_taken": "Discussed but no further action."
+      },
+      {
+        "source": "will-holley",
+        "channel": "inline_review_comment",
+        "signal": "api_usage_clarification",
+        "summary": "Pointed to react-router useSearchParams for URL search param handling; author clarified they are building a new URL, not reading existing.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial pagination commit, then multiple force-pushes and iterations over several days.",
+      "After marking ready for review, ellipsis and sourcery bots provided feedback within ~2 hours.",
+      "Human reviewer will-holley chimed in two days later with design questions, which led to brief discussion.",
+      "PR merged after 7 days with no blocking requests."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

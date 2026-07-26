@@ -1,0 +1,161 @@
+{
+  "pr_id": 3188613010,
+  "meta": {
+    "title": "Update VM constant reuse",
+    "html_url": "https://github.com/mochilang/mochi/pull/4191",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-30 14:01:21+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-30 14:04:13+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "15",
+    "body_summary": "Reuse empty list constants in the Mochi VM to avoid repeated allocations; regenerate IR for TPCH q14."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 5,
+      "deletions": 0,
+      "changes": 5,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 5,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "runtime"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.047,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "empty_list_constant_reuse",
+      "vm_allocation_reduction"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_allocation"
+    ],
+    "outcome_reason": "self_closed_no_merge",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "5-line VM constant reuse change; closed by author within minutes with no review, suggesting intentional abort or alternative merge path."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5,
+        "interpretation": "At 5 changed lines in a single file, this is a tiny edit by absolute volume. The PR was closed by the author within minutes without merge, inconsistent with a successful performance PR and indicating the change was abandoned or merged differently."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.047,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_self_closed",
+      "concern_detail": "Author closed the PR within minutes with no review interaction; no evidence of maintainer rejection.",
+      "performance_claim": "Reuse empty list constants to avoid repeated allocations in the VM.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_allocation",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author self-closed without merge; no maintainer rejection signals detected."
+    },
+    "capability_boundary": {
+      "topic": "15",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The small-scale VM constant reuse change was closed by the author immediately, suggesting either an intentional abort or a process where such changes are merged via other means; agent faced no review friction.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No reviewer engaged; no detection method observed."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No before/after data or repro steps provided; no performance evidence.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed by author without merge; no regression handling needed.",
+      "evidence_gap": "narrative_only_no_benchmark_closed"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added constants for empty list to reuse instead of creating new empty lists each time, reducing allocations.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit adding empty list constant reuse in runtime/vm/vm.go."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author opened PR with a single commit; no reviews or comments; PR closed by author within 4 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

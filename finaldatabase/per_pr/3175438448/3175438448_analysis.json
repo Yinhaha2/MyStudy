@@ -1,0 +1,174 @@
+{
+  "pr_id": 3175438448,
+  "meta": {
+    "title": "Add dataset query pushdown tests for C backend",
+    "html_url": "https://github.com/mochilang/mochi/pull/3171",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-25 12:18:17+00:00",
+    "merged_at": "2025-06-25 13:06:24+00:00",
+    "closed_at": "2025-06-25 13:06:24+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "test",
+    "aidev_task_confidence": 8,
+    "topic_id": 0,
+    "topic_name": "-1",
+    "body_summary": "Add golden tests for dataset queries with skip/take and optimize C compiler query loops by skipping limit bookkeeping when not needed."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 120,
+      "deletions": 9,
+      "changes": 129,
+      "top1_file": "tests/compiler/c/dataset_filter_paginate.c.out",
+      "top1_changes": 41,
+      "top1_change_ratio": 0.318,
+      "files_by_status": {
+        "added": 6,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.802,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "skip_take_pushdown",
+      "limit_bookkeeping_skip",
+      "golden_test_coverage"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Small optimization and golden tests added by Codex; self-merged by author with no external review and no performance evidence beyond narrative claim of skipping limit bookkeeping."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 129,
+        "interpretation": "At 129 changed lines across 7 files, this is a small edit by absolute volume. It consists mainly of new golden test files (103 lines) and a 26-line optimization in the C compiler. As a small-scope performance PR with no review, it was self-merged quickly by the author."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.802,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No reviews or comments provided; PR merged by author without external feedback.",
+      "performance_claim": "Optimize C compiler query loops by skipping limit bookkeeping when not needed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The PR was authored and merged by the same user (tamnd) with no external review, indicating a process where the agent produced acceptable changes without gatekeeping, possibly due to the small scope and test nature.",
+      "success_factors": [
+        "small_scope",
+        "self_merged_by_maintainer",
+        "tests_added"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Golden output tests cover the query pushdown; no benchmark or profiling information.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions observed; PR merged directly.",
+      "evidence_gap": "narrative_only_no_perf_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/x/c/compiler.go, modified query loop to skip limit bookkeeping when not needed; added golden test files (tests/compiler/c/) for dataset queries with skip/take and filter/paginate.",
+      "files_primary": [
+        "compile/x/c/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/compiler/c/dataset_filter_paginate.c.out",
+        "tests/compiler/c/dataset_filter_paginate.mochi",
+        "tests/compiler/c/dataset_filter_paginate.out",
+        "tests/compiler/c/dataset_skip_take.c.out",
+        "tests/compiler/c/dataset_skip_take.mochi",
+        "tests/compiler/c/dataset_skip_take.out"
+      ],
+      "secondary_note": "New golden test files verify the C compiler output for skip/take and filter/paginate datasets.",
+      "change_trajectory": [
+        "Single commit: 'compiler/c: skip/take pushdown' added test files and optimized compiler.go."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created and merged by same user (tamnd) with no external review, within ~48 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

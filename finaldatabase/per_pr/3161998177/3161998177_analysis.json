@@ -1,0 +1,201 @@
+{
+  "pr_id": 3161998177,
+  "meta": {
+    "title": "feat: optimize supabase start in CI with Docker caching and service exclusion",
+    "html_url": "https://github.com/liam-hq/liam/pull/2104",
+    "repo": "liam-hq/liam",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-20 05:47:43+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-23 08:24:10+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Add Docker image caching and exclude unnecessary Supabase services in CI workflows to reduce supabase start time from ~1:40 to ~0:40 minutes."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 12,
+      "deletions": 4,
+      "changes": 16,
+      "top1_file": ".github/workflows/database-ci.yml",
+      "top1_changes": 8,
+      "top1_change_ratio": 0.5,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 7,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "commented": 7,
+        "deployed": 6,
+        "ready_for_review": 3,
+        "review_requested": 6,
+        "review_request_removed": 1,
+        "convert_to_draft": 3,
+        "committed": 2,
+        "head_ref_force_pushed": 1,
+        "labeled": 1
+      },
+      "lifespan_hours": 74.61,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "docker_image_caching",
+      "service_exclusion",
+      "ci_workflow_optimization"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "ci_failure_no_merge",
+    "review_dimensions": [
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin CI optimization; frontend-ci failed due to missing gotrue service; human fix not merged; PR closed without performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 16,
+        "interpretation": "At 16 changed lines, this is a tiny edit by absolute volume, fitting a small-step infrastructure PR. It was closed due to CI failure and lack of evidence, which is consistent with the negligible change size that could not demonstrate claimed performance improvement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 74.61,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "ci_failure",
+      "concern_detail": "Frontend CI failed because extract-supabase-anon-key.sh could not find the anon key after service exclusions; qodo-merge bot also flagged exclusion of postgrest and postgres-meta as potentially breaking database tests.",
+      "performance_claim": "Reduce supabase start time from ~1:40 to ~0:40 minutes (~60% improvement).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "CI failure, missing performance measurement, PR converted to draft multiple times and eventually closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "CI configuration changes require precise knowledge of service dependencies; initial implementation broke critical anon key extraction, requiring human intervention, and still lacked validation of performance claims.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human code review recorded; bots provided automated analysis of service exclusion risks.",
+        "ci_auto": "GitHub Actions frontend-ci failed on extract-supabase-anon-key.sh; qodo-merge bot reported the failure and suggested cache key improvement."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Performance claim based on external GitHub issue comment; no before/after timing measurement in PR, and CI failure prevented any verification.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Human maintainer added a fix commit to re-enable gotrue service, but PR remained in draft and was closed without further attempts to merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added ScribeMD/docker-cache@0.5.0 step to cache Docker images in both CI workflows and modified supabase start command to exclude certain services via -x flag; later re-enabled gotrue service to fix anon key extraction.",
+      "files_primary": [
+        ".github/workflows/database-ci.yml",
+        ".github/workflows/frontend-ci.yml"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit (40784446): add Docker caching and exclude services (realtime, storage-api, imgproxy, kong, mailpit, postgrest, postgres-meta, studio, edge-runtime, logflare, vector, supavisor).",
+        "Fix commit (20df640): remove gotrue from exclusion list to allow extract-supabase-anon-key.sh to generate JWT keys."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "qodo-merge-for-open-source[bot]",
+        "channel": "pr_comment",
+        "signal": "service_exclusion_concern",
+        "summary": "Excluding postgrest and postgres-meta may break tests that need REST API or metadata; suggests caching key improvement.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "qodo-merge-for-open-source[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_failure_report",
+        "summary": "frontend-ci failed: extract-supabase-anon-key.sh could not extract anon key; environment variable warnings.",
+        "blocking": true,
+        "action_taken": "Human maintained re-enabled gotrue service but CI outcome ultimately not resolved."
+      },
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "no_changeset",
+        "summary": "Warning: no changeset added; merging will not cause version bumps.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with CI caching and service exclusion.",
+      "Frontend CI immediately failed on anon key extraction, reported by qodo-merge bot.",
+      "Maintainer force-pushed and merged baseline; then committed a fix enabling gotrue service (generated with Claude Code).",
+      "PR was converted to draft multiple times, received bot code suggestions, and was closed after ~74.6 hours without human review or merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

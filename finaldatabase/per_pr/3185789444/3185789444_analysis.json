@@ -1,0 +1,178 @@
+{
+  "pr_id": 3185789444,
+  "meta": {
+    "title": "feat(worker): Implement bulk event sending method",
+    "html_url": "https://github.com/novuhq/novu/pull/8605",
+    "repo": "novuhq/novu",
+    "agent": "Cursor",
+    "user": "scopsy",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-29 05:51:20+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-29 10:56:55+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "48",
+    "body_summary": "Add a /send/bulk endpoint to the socket worker and refactor SocketWorkerService to send multiple event types (message, unread, unseen) in a single HTTP request, reducing network overhead and improving performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 4,
+      "additions": 294,
+      "deletions": 36,
+      "changes": 330,
+      "top1_file": "libs/application-generic/src/services/socket-worker/socket-worker.service.ts",
+      "top1_changes": 189,
+      "top1_change_ratio": 0.573,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "enterprise",
+        "libs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 2,
+        "deployed": 3,
+        "commented": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 5.09,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bulk_event_sending",
+      "network_overhead_reduction",
+      "socket_worker_batching"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "author_closed_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Cursor added bulk endpoint; PR closed by author after 5h with no review or comment, leaving performance claim untested."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 330,
+        "interpretation": "At 330 changed lines, this is a small-to-medium sized feature/performance PR. It was closed by the author without merge after 5 hours, with no external review feedback, suggesting an internal decision to not proceed."
+      },
+      "lifecycle": {
+        "lifespan_hours": 5.09,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "PR received no formal reviews and no human comments. The only interaction was a Netlify deploy preview bot message. The author closed the PR without explanation.",
+      "performance_claim": "Bulk sending reduces network overhead by combining multiple events into a single HTTP request, replacing separate calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed PR after 5 hours with no external feedback or explanation."
+    },
+    "capability_boundary": {
+      "topic": "48",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "Agent submitted a functional change but the PR never entered review; closed quickly by the author, suggesting that Cursor may not have aligned with the project's process or that the change was preemptively withdrawn.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of human code reading or maintainer engagement."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmarks, profiling, or testing instructions are provided. Performance claim is narrative.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed by the author without any regression handling; no further commits were made.",
+      "evidence_gap": "narrative_perf_claim_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a /send/bulk endpoint in the socket worker that accepts up to 100 messages and returns per-message success/failure status. Refactored SocketWorkerService to combine message, unread count, and unseen count into a single bulk request when handling RECEIVED events with messageId.",
+      "files_primary": [
+        "enterprise/workers/socket/src/handlers/websocket.ts",
+        "libs/application-generic/src/services/socket-worker/socket-worker.service.ts",
+        "enterprise/workers/socket/src/types/index.ts",
+        "enterprise/workers/socket/src/index.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Commit dad66a20: Added /send/bulk endpoint with detailed error handling and request validation.",
+        "Commit 47beed21: Refactored SocketWorkerService to send multiple events in a single bulk request."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "netlify[bot]",
+        "channel": "pr_comment",
+        "signal": "deploy_preview_canceled",
+        "summary": "Netlify deploy preview for dashboard-v2-novu-staging was canceled.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with two commits adding bulk endpoint and refactoring service.",
+      "Netlify deploy preview canceled message; no human interaction.",
+      "Author scopsy closed PR after 5 hours with no explanation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

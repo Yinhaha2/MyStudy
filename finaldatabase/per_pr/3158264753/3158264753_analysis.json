@@ -1,0 +1,171 @@
+{
+  "pr_id": 3158264753,
+  "meta": {
+    "title": "Delay class resolution during parsing",
+    "html_url": "https://github.com/jdereg/json-io/pull/316",
+    "repo": "jdereg/json-io",
+    "agent": "OpenAI_Codex",
+    "user": "jdereg",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-18 21:49:25+00:00",
+    "merged_at": "2025-06-18 21:49:33+00:00",
+    "closed_at": "2025-06-18 21:49:33+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": 22,
+    "topic_name": "22",
+    "body_summary": "Defer class resolution from parse time to later in Resolver and JsonReader to reduce upfront class loading overhead."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 47,
+      "deletions": 7,
+      "changes": 54,
+      "top1_file": "src/main/java/com/cedarsoftware/io/Resolver.java",
+      "top1_changes": 24,
+      "top1_change_ratio": 0.444,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        ".",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.002,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lazy_class_resolution",
+      "parse_optimization",
+      "startup_time"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_maintainer_self_approval_small_change",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-commit refactor deferring class resolution; no review, merged instantly by maintainer."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 54,
+        "interpretation": "At 54 changed lines across 4 files, this is a small refactor by absolute volume. It fits a targeted library optimization PR that was merged instantly without review, consistent with a maintainer self-approval for a low-risk change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.002,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Delay class resolution from parse time to later processing to reduce class loading overhead during parsing.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A minor refactor within a Java serialization library that deferres class resolution; no external evidence or review required, within the agent's capability for small-scope library internals changes.",
+      "success_factors": [
+        "small_scope",
+        "maintainer_self_merge",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer reviewed the changes to delay class resolution and found them acceptable, merging immediately without additional testing or benchmark."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after performance data; only narrative description of change.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression issues because the PR was small and self-contained, merged without iterative fixing.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In JsonParser, store @type and @enum strings without resolving classes; in Resolver and JsonReader, add helper methods for late class resolution; update changelog.",
+      "files_primary": [
+        "src/main/java/com/cedarsoftware/io/Resolver.java",
+        "src/main/java/com/cedarsoftware/io/JsonReader.java",
+        "src/main/java/com/cedarsoftware/io/JsonParser.java"
+      ],
+      "files_secondary_observability": [
+        "changelog.md"
+      ],
+      "secondary_note": "changelog update with one line added.",
+      "change_trajectory": [
+        "Single commit: deferred class resolution from parsing to later stages."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit, no review activity; merged within seconds by the author/maintainer."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "pr_id": 3083186670,
+  "meta": {
+    "title": "Auto-generate ILLink.Substitutions.xml to Remove F# Metadata Resources",
+    "html_url": "https://github.com/dotnet/fsharp/pull/18592",
+    "repo": "dotnet/fsharp",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-22 12:20:07+00:00",
+    "merged_at": "2025-07-29 06:15:39+00:00",
+    "closed_at": "2025-07-29 06:15:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Auto-generate ILLink.Substitutions.xml during build to remove F# metadata resources (signature, optimization) during IL trimming to reduce assembly size."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 17,
+      "file_count": 170,
+      "additions": 4300,
+      "deletions": 1057,
+      "changes": 5357,
+      "top1_file": "tests/FSharp.Compiler.ComponentTests/EmittedIL/StaticOptimizations/String_Enum.fs.il.bsl",
+      "top1_changes": 543,
+      "top1_change_ratio": 0.101,
+      "files_by_status": {
+        "added": 30,
+        "modified": 138,
+        "removed": 2
+      },
+      "directory_count": 5,
+      "directories": [
+        ".github",
+        "eng",
+        "src",
+        "tests",
+        "vsintegration"
+      ]
+    },
+    "collaboration": {
+      "review_count": 16,
+      "review_states": {
+        "COMMENTED": 13,
+        "APPROVED": 3
+      },
+      "review_comment_count": 20,
+      "pr_comment_count": 11,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 5,
+        "copilot_work_finished": 4,
+        "mentioned": 4,
+        "subscribed": 4,
+        "commented": 5,
+        "unsubscribed": 1
+      },
+      "lifespan_hours": 1625.93,
+      "first_review_delay_hours": 20.93,
+      "review_rounds": 16,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "build_size_reduction",
+      "metadata_resource_removal",
+      "trimming_optimization"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative",
+      "ci_task_eval"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "perf_evidence",
+      "design_or_approach",
+      "build_integration"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot generated core MSBuild task; T-Gro fixed syntax errors, build integration, and test validation; merged after long collaboration and size validation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5357,
+        "interpretation": "At 5357 changed lines across 170 files, this is a large-scale change by absolute volume, but most churn is from merge commits bringing main branch updates; the core feature is a new MSBuild task (~160 lines) and test infrastructure. The merge outcome is consistent: after extensive human fixes and build integration, it was merged."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1625.93,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_syntax_error",
+      "concern_detail": "T-Gro identified that `[<o>]` instead of `[<Output>]` caused a build error, invalid XML generation, and missing resource embedding; also asked for improved test script to report actual sizes.",
+      "performance_claim": "Reduces trimmed assembly size by removing F# metadata resources automatically.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "build_integration",
+        "perf_evidence"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot handled core XML generation logic but introduced syntax errors ([<o>]) and required human intervention for MSBuild integration, test hookup, and resource embedding; demonstrates limitations in build system plumbing and F# attribute syntax.",
+      "success_factors": [
+        "human_review_fixed_build_errors",
+        "maintainer_provided_build_expertise",
+        "test_infrastructure_improvements",
+        "long_iteration"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "T‑Gro reviewed the F# code and identified `[<o>]` syntax error and XML generation issues.",
+        "ci_auto": "CI build failure revealed the compilation error; subsequent test runs validated size changes."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No before/after benchmark numbers; maintainer manually verified resource presence and size reduction via test script.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Syntax error, invalid XML, and resource embedding fixed within PR by both Copilot and human commits before final approval and merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added MSBuild task GenerateILLinkSubstitutions.fs that generates an ILLink.Substitutions.xml file listing F# metadata resources to remove during trimming, integrated into build targets and tested with a trimming test project.",
+      "files_primary": [
+        "src/FSharp.Build/GenerateILLinkSubstitutions.fs",
+        "src/FSharp.Build/Microsoft.FSharp.NetSdk.targets"
+      ],
+      "files_secondary_observability": [
+        "tests/AheadOfTime/Trimming/FSharpMetadataResource_Trimming_Test/FSharpMetadataResource_Trimming_Test.fsproj",
+        "tests/AheadOfTime/Trimming/check.ps1"
+      ],
+      "secondary_note": "Most file churn (thousands of lines) comes from merges of main branch bringing in unrelated changes; the core feature is ~160 lines.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Copilot implemented task with initial version (94 lines) and test project.",
+        "T‑Gro review: pointed out syntax error ([<o>]) and XML generation issues.",
+        "Copilot addressed feedback: fixed XML, refactored resource array, updated properties.",
+        "Human fix for [<o>] attribute.",
+        "T‑Gro requested improved test script to report actual sizes; Copilot updated.",
+        "Multiple merges of main to keep branch up to date.",
+        "T‑Gro registered task, handled special case for FSharp.Core.",
+        "After additional formatting fix, PR approved and merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "T-Gro",
+        "channel": "inline_review_comment",
+        "signal": "syntax_error",
+        "summary": "Flagged `[<o>]` as undefined type causing build failure.",
+        "blocking": true,
+        "action_taken": "Fixed by T‑Gro in subsequent commit."
+      },
+      {
+        "source": "T-Gro",
+        "channel": "inline_review_comment",
+        "signal": "msbuild_integration_question",
+        "summary": "Questioned the purpose of `<Output TaskParameter=… ItemName=EmbeddedResource/>`.",
+        "blocking": false,
+        "action_taken": "Copilot explained; later refined."
+      },
+      {
+        "source": "T-Gro",
+        "channel": "inline_review_comment",
+        "signal": "test_infra_request",
+        "summary": "Asked to update check.ps1 to output actual size values for the placeholder.",
+        "blocking": false,
+        "action_taken": "Copilot updated script."
+      },
+      {
+        "source": "abonie",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED after final changes; no additional comments.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue, initially with syntax and XML errors.",
+      "T‑Gro quickly reviewed and pointed out `[<o>]`, XML mistakes, and test gaps.",
+      "Copilot iterated fixing XML, property syntax, and resource prefixes; T‑Gro contributed direct fixes.",
+      "Maintainer requested better test output; Copilot added actual size reporting.",
+      "PR repeatedly merged with main, accumulating unrelated changes.",
+      "After final formatting fix and manual task registration, two maintainers approved and PR merged after ~68 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

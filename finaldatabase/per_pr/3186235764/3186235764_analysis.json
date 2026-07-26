@@ -1,0 +1,166 @@
+{
+  "pr_id": 3186235764,
+  "meta": {
+    "title": "Optimize set operations in VM",
+    "html_url": "https://github.com/mochilang/mochi/pull/3969",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-29 14:41:31+00:00",
+    "merged_at": "2025-06-29 14:41:46+00:00",
+    "closed_at": "2025-06-29 14:41:46+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 5,
+    "topic_name": "5_vm_set_operations",
+    "body_summary": "Optimize Union, Except, Intersect opcodes in VM using map-based lookups for better runtime performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 33,
+      "deletions": 40,
+      "changes": 73,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 73,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "runtime"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.004,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "set_operations",
+      "map_lookup",
+      "vm_opcode_optimization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit Go VM set op map-lookup refactor; self-merged with no review or benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 73,
+        "interpretation": "At 73 changed lines, this is a small edit by absolute volume, affecting one file. It fits a small-step, fast-turnaround performance PR and matches the immediate self-merge outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.004,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comment text present; PR was self-merged immediately.",
+      "performance_claim": "Improve runtime performance of Union, Except, Intersect by using map-based lookups.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "nested_loop",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5_vm_set_operations",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A single-file VM optimization using map lookups is within agent capability; merge friction minimal due to self-merge.",
+      "success_factors": [
+        "narrow_scope",
+        "self_merge_no_review"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review or code-reading evidence; PR self-merged by author."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after timing data or benchmark; only narrative claim of performance improvement via map lookup.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR merged without any regression or review issues.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, refactored Union, Except, Intersect opcodes to use map[string]struct{} lookups instead of nested loops for checking membership, reducing O(n^2) time to O(n) average.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit 6c7414a: refactored list set operations to use map lookups."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit; author self-merged immediately with no external review or comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

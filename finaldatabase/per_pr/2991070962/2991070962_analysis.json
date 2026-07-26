@@ -1,0 +1,195 @@
+{
+  "pr_id": 2991070962,
+  "meta": {
+    "title": "perf: optimize event types listing page load time",
+    "html_url": "https://github.com/calcom/cal.com/pull/20676",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-13 06:34:00+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-13 06:37:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 12,
+    "topic_name": "12",
+    "body_summary": "Optimize event types listing page by adding lightweight repository methods and 30-second TTL caching for event types, workflows, and integrations, aiming to reduce data transfer and improve load time."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 278,
+      "deletions": 8,
+      "changes": 286,
+      "top1_file": "packages/lib/server/repository/eventType.ts",
+      "top1_changes": 214,
+      "top1_change_ratio": 0.748,
+      "files_by_status": {
+        "modified": 6
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 1,
+        "commented": 3,
+        "labeled": 3,
+        "review_requested": 1,
+        "closed": 1,
+        "deployed": 2
+      },
+      "lifespan_hours": 0.0608,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "caching",
+      "lightweight_queries",
+      "markdown_skip"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_immediately_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin opened a caching/lightweight-query PR, but it was closed by the requester within 3.6 minutes with no review or human comment; likely premature closure or process issue."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 286,
+        "interpretation": "At 286 changed lines, this is a small edit by absolute volume; it is a small incremental performance PR that was closed immediately without review, suggesting a process issue rather than technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0608,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No human review or performance-related feedback provided; only bot comments (Devin integration, Vercel skipped deployments, Graphite automations) exist.",
+      "performance_claim": "Add lightweight repository methods and 30s TTL caching for event types, workflows, and integrations to reduce data transfer and improve page load time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR was closed by requester (anikdhabal) within 3.6 minutes of creation with no human interaction."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "A performance optimization PR with caching and query refactoring; no maintainer engagement, closed immediately by the requester, indicating a potential premature closure or process issue.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body lacks benchmark numbers, profiling results, or reproduction steps; only narrative claims of reduced data transfer.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix cycle occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add lightweight repository methods in eventType.ts that fetch only essential user/host fields, introduce mapEventTypeLightweight to skip markdown rendering, and wrap three tRPC endpoints (getEventTypesFromGroup, getAllActiveWorkflows, apps.integrations) with a 30-second in-memory cache.",
+      "files_primary": [
+        "packages/lib/server/repository/eventType.ts",
+        "packages/trpc/server/routers/viewer/eventTypes/getEventTypesFromGroup.handler.ts",
+        "packages/trpc/server/routers/viewer/eventTypes/util.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/trpc/server/routers/viewer/eventTypes/_router.ts",
+        "packages/trpc/server/routers/viewer/workflows/_router.tsx",
+        "packages/trpc/server/routers/viewer/apps/_router.tsx"
+      ],
+      "secondary_note": "Secondary files add cache wrappers and lightweight method invocations in route handlers; most of the new code (214 lines) is in the repository module.",
+      "change_trajectory": [
+        "Single commit: implements lightweight repository methods with caching for event types listing and related workflows/apps."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_skipped",
+        "summary": "Vercel bot posted skipped deployments info.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_reviewer_label",
+        "summary": "Graphite automations added reviewer and community label based on pre‑configured rules.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with caching and lightweight query changes.",
+      "No human review or comments; only bot-generated notices and automations.",
+      "PR closed by requester (anikdhabal) within 3.6 minutes, possibly accidentally or prematurely."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "pr_id": 3151002300,
+  "meta": {
+    "title": "Use async file system APIs instead of sync APIs in install.ts",
+    "html_url": "https://github.com/microsoft/kiota/pull/6671",
+    "repo": "microsoft/kiota",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-16 19:04:49+00:00",
+    "merged_at": "2025-06-17 20:07:52+00:00",
+    "closed_at": "2025-06-17 20:07:53+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 11,
+    "topic_name": "11",
+    "body_summary": "Replace synchronous file system API calls with async equivalents in VSCode extension install script for better performance and Node.js best practices."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 4,
+      "additions": 1451,
+      "deletions": 1282,
+      "changes": 2733,
+      "top1_file": "vscode/package-lock.json",
+      "top1_changes": 2528,
+      "top1_change_ratio": 0.925,
+      "files_by_status": {
+        "added": 1,
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "vscode"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "APPROVED": 3
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 29,
+      "event_counts": {
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 2,
+        "ready_for_review": 1,
+        "reviewed": 3,
+        "auto_merge_enabled": 1,
+        "commented": 2,
+        "mentioned": 2,
+        "subscribed": 2,
+        "committed": 5,
+        "head_ref_force_pushed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 25.05,
+      "first_review_delay_hours": 18.27,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": true
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "async_fs_apis",
+      "non_blocking_io",
+      "install_performance"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "blocking_io"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "tests",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot replaced sync fs calls with async in install.ts; maintainer requested test fix after CI failures; Copilot fixed tests, then merged with 3 approvals."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2733,
+        "interpretation": "At 2733 changed lines, this is a medium-sized change by absolute volume, though most churn is in the package-lock.json lockfile (2528 lines). The actual source changes are 205 lines. It fits a small-step performance refactor that merged after one round of test-fix review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 25.05,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "tests_failing",
+      "primary_concern": "failing_unit_tests",
+      "concern_detail": "baywet requested Copilot to fix failing unit tests. Copilot identified issues with integration test setup and incomplete fs mocking, then fixed in follow-up commit.",
+      "performance_claim": "Replacing sync fs calls with async versions improves performance and follows best practices.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "blocking_io_sync_fs_calls",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "11",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Node.js async fs conversion is a known pattern; Copilot delivered the change but tests needed fix due to mocking complexity in CI environment. Merge required passing unit tests.",
+      "success_factors": [
+        "linked_issue",
+        "responded_to_test_failure",
+        "multiple_approvals",
+        "auto_merge_enabled"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "CI ran unit tests and reported failures; baywet commented on PR to request fix."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Test failures were reproducible in CI; no performance measurement or profiling evidence provided.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Copilot corrected test config and mocking in commit b3bf920 after baywet's request, and all tests passed subsequently.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In vscode/npm-package/install.ts, replaced synchronous fs.existsSync and fs.readdirSync calls with new async helper functions checkFileExists and isDirectoryEmpty using fs.promises APIs. Added unit tests in install.spec.ts.",
+      "files_primary": [
+        "vscode/npm-package/install.ts",
+        "vscode/npm-package/tests/unit/install.spec.ts"
+      ],
+      "files_secondary_observability": [
+        "vscode/package-lock.json",
+        "vscode/npm-package/jest.config.unit.cjs"
+      ],
+      "secondary_note": "Lockfile churn (2528 lines) from dependency install/uninstall cycles; jest config tweak to isolate unit tests.",
+      "change_trajectory": [
+        "Initial plan commit (lockfile changes).",
+        "Main async conversion commit: install.ts changes and new test file.",
+        "Maintainer reverted lockfile changes.",
+        "Test fix commit: updated spec mocking and jest config.",
+        "Final lockfile revert."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "baywet",
+        "channel": "pr_comment",
+        "signal": "failing_unit_tests",
+        "summary": "Requested Copilot to fix failing unit tests.",
+        "blocking": true,
+        "action_taken": "Copilot fixed test config and mocking in follow-up commit."
+      },
+      {
+        "source": "baywet",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "First approval (no body text).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "baywet",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Second approval (no body text).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "peombwa",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Third approval (no body text).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed test fixes: removed integration setup, added missing mocks, all tests pass.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with async FS conversion and unit tests.",
+      "CI failed on unit tests; baywet requested fix.",
+      "Copilot fixed tests with better mocking and config.",
+      "Auto-merge enabled; approved by two reviewers; merged after ~25 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

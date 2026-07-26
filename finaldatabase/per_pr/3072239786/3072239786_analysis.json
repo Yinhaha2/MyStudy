@@ -1,0 +1,161 @@
+{
+  "pr_id": 3072239786,
+  "meta": {
+    "title": "Add t.Parallel to metrics subtests",
+    "html_url": "https://github.com/pomerium/pomerium/pull/5619",
+    "repo": "pomerium/pomerium",
+    "agent": "OpenAI_Codex",
+    "user": "desimone",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-19 01:34:19+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-19 16:20:46+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "test",
+    "aidev_task_confidence": 9,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Add t.Parallel to metric test subtests for parallel execution; an experiment using Codex noted test failure with 'no route to host'."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 10,
+      "deletions": 8,
+      "changes": 18,
+      "top1_file": "internal/telemetry/metrics/info_test.go",
+      "top1_changes": 18,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "internal"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 14.77,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "parallel_test_execution"
+    ],
+    "optimization_layer": "test_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "experiment_closed_failing_test",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "execution_testing"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Experiment PR; t.Parallel added but test failed due to network; author closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 18,
+        "interpretation": "At 18 changed lines in a single test file, this is a tiny edit by absolute volume. It fits a micro-experiment test improvement, but was closed without merge due to the test failing in the author's environment."
+      },
+      "lifecycle": {
+        "lifespan_hours": 14.77,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "functional_failure",
+      "concern_detail": "The PR body notes the test fails with 'no route to host', indicating the test environment cannot reach required services, so the change was not viable.",
+      "performance_claim": "Adding t.Parallel to subtests allows them to run concurrently, reducing overall test execution time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author self-closed after noting test failure; no review feedback."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Adding t.Parallel is a simple one-liner but depends on execution environment; Codex's change itself is minimal, but the experiment was terminated due to network-dependent test failure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "execution_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "Author ran go test and noted 'no route to host' failure, leading to closure."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body mentions test fails and gives no performance numbers; no benchmark or before/after timing.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after failure.",
+      "evidence_gap": "narrative_only_failing_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add t.Parallel() calls in Test_SetConfigInfo and Test_SetDBConfigInfo subtests within internal/telemetry/metrics/info_test.go to enable parallel execution.",
+      "files_primary": [
+        "internal/telemetry/metrics/info_test.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit adds t.Parallel to subtests."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "OpenAI_Codex (via author desimone) opened PR as experiment.",
+      "Author labeled 'codex'.",
+      "PR closed by author ~14 hours later without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

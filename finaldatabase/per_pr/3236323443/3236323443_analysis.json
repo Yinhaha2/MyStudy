@@ -1,0 +1,205 @@
+{
+  "pr_id": 3236323443,
+  "meta": {
+    "title": "🐞 Fix tree performance: only render children when parent is expanded",
+    "html_url": "https://github.com/taiga-family/taiga-ui/pull/11344",
+    "repo": "taiga-family/taiga-ui",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-16 15:01:33+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-17 09:13:16+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 2,
+    "topic_name": "2_hydration_species_component_children",
+    "body_summary": "Copilot fixed tree component performance by conditionally rendering children only when parent is expanded, claiming drastic reduction in DOM nodes for large datasets."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 1,
+      "additions": 8,
+      "deletions": 6,
+      "changes": 14,
+      "top1_file": "projects/kit/components/tree/components/tree/tree.template.html",
+      "top1_changes": 14,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "projects"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "commented": 4,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 18.195,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "tree_render_optimization",
+      "conditional_rendering",
+      "dom_node_reduction"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot added ngIf wrapper to tree children rendering; no formal review, closed by maintainer after ~18h with no human comments despite e2e test failures."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 14,
+        "interpretation": "At 14 changed lines in a single file, this is a minimal edit by absolute volume. It fits a tiny performance PR that could be merged quickly, but closure suggests either incomplete fix or missing maintainer engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 18.195,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No formal review or human comments provided. The only interaction is from automated bots reporting CI results and bundle size increase.",
+      "performance_claim": "Tree component now only renders children when parent is expanded, reducing DOM nodes from 3000 to 3-10 for large datasets.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "eager_rendering_all_nodes",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by maintainer without merge; CI e2e tests had failures but no explicit feedback; no human comment on performance or correctness."
+    },
+    "capability_boundary": {
+      "topic": "2_hydration_species_component_children",
+      "agent": "Copilot",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "A minimal Angular template change with a strong narrative performance claim but lacking benchmarks or automated profiling; the PR was closed without merge, possibly due to insufficient evidence or maintainer decision.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No code-reading review in dataset; maintainer closed PR without comment.",
+        "ci_auto": "CI e2e tests ran with some failures, but no performance-specific validation."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body claims 'Before: 3000 rendered, After: 3-10', but no before/after metric or benchmark artifact; no profiling data or load test.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after 18h; no fix-in-PR cycle despite CI e2e failures.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In tree.template.html, wrapped the *ngFor child rendering block with <ng-container *ngIf=\"!item || item.isExpanded\"> to prevent rendering of collapsed tree children.",
+      "files_primary": [
+        "projects/kit/components/tree/components/tree/tree.template.html"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only template file changed; no TypeScript logic modifications.",
+      "change_trajectory": [
+        "Initial plan commit (no code changes).",
+        "Single commit: added ngIf wrapper around child tui-tree elements; 8 lines added, 6 lines removed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "lumberjack-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_screenshot_cleanup",
+        "summary": "Bot commented that pull request was closed and screenshots deleted (likely a false positive at PR creation).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "nx-cloud[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_e2e_failures",
+        "summary": "CI pipeline showed 2 failed e2e tests and many passed; bundle size increased by 44B.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Preview URL provided for manual testing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "bundlemon[bot]",
+        "channel": "pr_comment",
+        "signal": "bundle_size_monitor",
+        "summary": "Main bundle increased by 44B (0.01%), overall bundle size change minimal.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot created PR with single-file template change and narrative performance case.",
+      "Automated bots provided CI results (e2e failures), preview deployment, and bundle size monitoring.",
+      "No human review or interaction occurred.",
+      "Maintainer closed PR after ~18 hours without comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "pr_id": 3170864491,
+  "meta": {
+    "title": "feat: Add timeout to sync Ids to prevent spinner hangs on slow connections & edge cases",
+    "html_url": "https://github.com/polkadot-cloud/polkadot-staking-dashboard/pull/2854",
+    "repo": "polkadot-cloud/polkadot-staking-dashboard",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-24 08:05:42+00:00",
+    "merged_at": "2025-06-24 09:54:23+00:00",
+    "closed_at": "2025-06-24 09:54:23+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Add a 10-second automatic timeout to sync IDs to prevent the loading spinner from hanging indefinitely on slow networks or edge cases."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 10,
+      "additions": 178,
+      "deletions": 63,
+      "changes": 241,
+      "top1_file": "pnpm-lock.yaml",
+      "top1_changes": 102,
+      "top1_change_ratio": 0.423,
+      "files_by_status": {
+        "modified": 9,
+        "added": 1
+      },
+      "directory_count": 3,
+      "directories": [
+        ".github",
+        "packages",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 19,
+      "event_counts": {
+        "committed": 7,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 2,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "ready_for_review": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.811,
+      "first_review_delay_hours": 1.581,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sync_timeout",
+      "spinner_hang_prevention"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unbounded_wait"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Copilot added 10s sync timeout with tests; maintainer made minor comments/formatting tweaks and approved; merged rapidly."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 241,
+        "interpretation": "At 241 changed lines (though lockfile accounts for ~100), this is a small, additive performance fix. It fits a fast-turnaround, low-risk improvement and was merged with a single approval after minor maintainer housekeeping."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.811,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No explicit review concerns recorded; maintainer added clarifying comments and merged after minor commits.",
+      "performance_claim": "Adding a 10-second automatic timeout removes hung spinners caused by slow networks or failed APIs.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_wait",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding a timeout mechanism in existing state management is within Copilot's capability; merge required no special evidence and maintainer contributed minor code comments.",
+      "success_factors": [
+        "small_scope",
+        "linked_issue",
+        "tests_included",
+        "maintainer_co_development"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer rossbulat reviewed the timeout logic, added clarifying comments in a follow‑up commit, and approved with no further feedback."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Unit tests cover timeout behaviour, but no benchmark or profiling evidence is provided.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression issues surfaced; PR merged without incident.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added 10‑second automatic timeout to sync IDs: a new Map tracks timers, setSyncing starts a timer, removeSyncing clears it, and setSyncingMulti handles multiple IDs. A constant SyncTimeoutDuration was added in packages/consts.",
+      "files_primary": [
+        "packages/global-bus/src/syncStatus/index.ts",
+        "packages/global-bus/src/syncStatus/private.ts",
+        "packages/consts/src/index.ts",
+        "packages/tests/src/syncTimeout.test.ts"
+      ],
+      "files_secondary_observability": [
+        "pnpm-lock.yaml",
+        ".github/dependabot.yml",
+        "packages/app/package.json",
+        "packages/dedot-api/package.json",
+        "packages/global-bus/package.json",
+        "packages/types/package.json"
+      ],
+      "secondary_note": "Secondary changes arise from merging main (lockfile, package.json adjustments) and routine lint/dependabot fixes.",
+      "change_trajectory": [
+        "Copilot initial implementation: timeout logic, tests, and new constant.",
+        "Maintainer added pnpm install, clarifying comments, merged main twice, and ran lint:fix.",
+        "Approval without further review comments; merged within ~1.8 hours."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "rossbulat",
+        "channel": "formal_review",
+        "signal": "approved_no_comments",
+        "summary": "Approved without inline comments; only added clarifying code comments in a separate commit.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue, providing implementation with tests.",
+      "Maintainer made minor improvements (pnpm install, comments, lint fix) and approved within ~1.5 hours.",
+      "PR merged ~1.8 hours after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

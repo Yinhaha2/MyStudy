@@ -1,0 +1,174 @@
+{
+  "pr_id": 3198202667,
+  "meta": {
+    "title": "Update SLT generator and refresh select1 outputs",
+    "html_url": "https://github.com/mochilang/mochi/pull/4811",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-03 06:29:32+00:00",
+    "merged_at": "2025-07-03 06:30:32+00:00",
+    "closed_at": "2025-07-03 06:30:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "test",
+    "aidev_task_confidence": 8,
+    "topic_id": 17,
+    "topic_name": "17",
+    "body_summary": "Speed up SLT generator execution timeout and regenerate select1 cases 1-1000, removing old .error files for cases that now pass."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 17,
+      "additions": 806,
+      "deletions": 20,
+      "changes": 826,
+      "top1_file": "tests/dataset/slt/out/select1/case10.out",
+      "top1_changes": 211,
+      "top1_change_ratio": 0.255,
+      "files_by_status": {
+        "modified": 11,
+        "removed": 6
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "tools"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0167,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "slt_generator_timeout",
+      "test_output_regeneration"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single commit adjusts SLT generator timeout and refreshes test outputs; merged within 1 minute without review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 826,
+        "interpretation": "At 826 changed lines, this is a moderate-sized change by volume, but most modifications are auto-generated test outputs; the core logic change in utils.go is only 4 lines. This fits a routine test maintenance PR that was quickly self-merged without review, consistent with low-risk test infrastructure tweaks."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0167,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_activity",
+      "concern_detail": "No review or comment text available; PR was merged without any formal feedback or discussion.",
+      "performance_claim": "Speed up SLT generator execution timeout.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": null,
+      "antipattern_in_fix": null,
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "17",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple timeout constant change in a test generator poses almost no technical challenge, requiring minimal understanding of the codebase.",
+      "success_factors": [
+        "trivial_change",
+        "self_merge_no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body mentions a command to regenerate test outputs but provides no timing data before/after the timeout change. Claim of execution speedup is entirely narrative.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression issues raised; PR merged without any review or CI feedback captured in the dataset.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In tools/slt/logic/utils.go, a timeout parameter was likely adjusted (e.g., reduced) to speed up the SLT generator. All select1 test output files (case1 through case10) were regenerated; old .error files for previously failing cases were removed.",
+      "files_primary": [
+        "tools/slt/logic/utils.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/slt/out/select1/case1.out",
+        "tests/dataset/slt/out/select1/case2.out",
+        "tests/dataset/slt/out/select1/case3.out",
+        "tests/dataset/slt/out/select1/case4.out",
+        "tests/dataset/slt/out/select1/case5.out",
+        "tests/dataset/slt/out/select1/case6.out",
+        "tests/dataset/slt/out/select1/case7.out",
+        "tests/dataset/slt/out/select1/case8.out",
+        "tests/dataset/slt/out/select1/case9.out",
+        "tests/dataset/slt/out/select1/case10.out"
+      ],
+      "secondary_note": "Most of the 826 lines are regenerated test outputs; the only production code change is in utils.go (4 lines).",
+      "change_trajectory": [
+        "Single commit adjusted timeout and regenerated 10 test output files, removing 6 .error files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR was created and immediately merged by the same user; no review, comments, or collaboration occurred."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

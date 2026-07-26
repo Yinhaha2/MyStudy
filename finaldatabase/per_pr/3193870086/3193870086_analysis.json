@@ -1,0 +1,239 @@
+{
+  "pr_id": 3193870086,
+  "meta": {
+    "title": "Fix O(n²) performance issue in CLI datatype declaration processing",
+    "html_url": "https://github.com/Z3Prover/z3/pull/7712",
+    "repo": "Z3Prover/z3",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-01 21:28:07+00:00",
+    "merged_at": "2025-07-02 16:54:36+00:00",
+    "closed_at": "2025-07-02 16:54:36+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "11",
+    "body_summary": "Fix O(n²) performance in Z3 CLI datatype declarations by using lazy hash table for constructor name lookups, reducing complexity from O(n²) to O(n)."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 3,
+      "additions": 102,
+      "deletions": 78,
+      "changes": 180,
+      "top1_file": "src/ast/datatype_decl_plugin.cpp",
+      "top1_changes": 131,
+      "top1_change_ratio": 0.728,
+      "files_by_status": {
+        "modified": 9
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 2,
+        "APPROVED": 1
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 22,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 3,
+        "reviewed": 2,
+        "commented": 2,
+        "ready_for_review": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 19.433,
+      "first_review_delay_hours": 7.167,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": true,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "algorithmic_complexity",
+      "constructor_lookup",
+      "hash_table_optimization"
+    ],
+    "optimization_layer": "algorithm_optimization",
+    "evidence_type": [
+      "narrative",
+      "profiling"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot fixed O(n²) CLI datatype processing with lazy hash table after initial flawed batch approach; maintainer guided towards correct solution and merged after two revisions."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 180,
+        "interpretation": "At 180 changed lines across 3 files, this is a small focused algorithm fix. It fits a targeted performance PR that merged after iterative review-driven improvements."
+      },
+      "lifecycle": {
+        "lifespan_hours": 19.433,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "algorithmic_bottleneck_not_fixed",
+      "concern_detail": "NikolajBjorner pointed out that the batch initialization still performed O(n²) linear searches, thus not fixing the root cause; agent then implemented lazy hash table.",
+      "performance_claim": "Fix O(n²) complexity in CLI datatype declaration processing, reducing execution time dramatically (e.g., 14s → ~10ms for 100k constructors).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "nested_loop",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "perf_evidence",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "11",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent initially failed to address the real bottleneck (still O(n²) due to linear lookups), requiring maintainer to point out the flaw and suggest hash table; after revision, agent correctly implemented hash table and small-datatype optimization.",
+      "success_factors": [
+        "maintainer_guided_correction",
+        "iterative_fix",
+        "clear_perf_claim_in_body",
+        "linked_issue"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "NikolajBjorner identified that batch initialization still had O(n²) linear searches, and later suggested using linear scan for small datatypes and passing func_decl* instead of name."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes profiler mention and expected speedups but no reproducible benchmark; maintainer accepted after code review.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After initial batch fix was rejected, agent implemented lazy hash table; after further review, added linear search optimization for small datatypes and postcondition assertion.",
+      "evidence_gap": "narrative_without_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/ast/datatype_decl_plugin.cpp, replaced O(n²) linear constructor name lookups with a lazy hash table (dictionary<constructor*>) to achieve O(1) lookup in get_constructor_recognizer and get_constructor_accessors. Also optimized get_constructor_by_name to take func_decl* and use linear scan for small datatype arity <10.",
+      "files_primary": [
+        "src/ast/datatype_decl_plugin.cpp",
+        "src/ast/datatype_decl_plugin.h"
+      ],
+      "files_secondary_observability": [
+        "src/cmd_context/cmd_context.cpp"
+      ],
+      "secondary_note": "cmd_context.cpp was modified in first commit to call batch initialization, then reverted in second commit; no lasting performance impact there.",
+      "change_trajectory": [
+        "Initial batch initialization commit (b51832): added util::batch_initialize_constructor_functions with O(n²) linear search inside loop.",
+        "Review comment (NikolajBjorner): batch fix still doesn't fix bottleneck.",
+        "Second commit (dfdc31): replaced batch with lazy hash table dictionary<constructor*> for O(1) lookups, removed batch function.",
+        "Further comment: suggested passing func_decl* instead of name and linear scan for small arity.",
+        "Third commit (2788b8): optimized get_constructor_by_name to take func_decl*, added linear scan for arity <10, and SASSERT postcondition.",
+        "Approved and merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "NikolajBjorner",
+        "channel": "inline_review_comment",
+        "signal": "algorithmic_flaw_in_batch_approach",
+        "summary": "Pointed out that batch initialization still uses O(n²) linear searches and does not fix the original bottleneck.",
+        "blocking": true,
+        "action_taken": "Copilot replaced batch with lazy hash table (dfdc31)."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "acknowledgement_and_fix_promise",
+        "summary": "Acknowledged the flaw; announced implementation of lazy hash table for O(1) lookups.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "NikolajBjorner",
+        "channel": "pr_comment",
+        "signal": "optimization_and_api_suggestion",
+        "summary": "Requested using func_decl* parameter in get_constructor_by_name, linear scan for arity<10, and non-null postcondition.",
+        "blocking": true,
+        "action_taken": "Copilot implemented changes in commit 2788b8."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "change_confirmation",
+        "summary": "Confirmed implementation of requested get_constructor_by_name changes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "NikolajBjorner",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED after all fixes (no body text).",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial batch fix and profiler motivation.",
+      "NikolajBjorner inline review rejected batch approach as still O(n²).",
+      "Copilot replaced batch with lazy hash table (dfdc31).",
+      "NikolajBjorner requested further tweaks for get_constructor_by_name (linear scan for small datatypes, func_decl* param).",
+      "Copilot applied tweaks; maintainer approved and merged after ~19.4 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

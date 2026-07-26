@@ -1,0 +1,239 @@
+{
+  "pr_id": 3033566586,
+  "meta": {
+    "title": "perf: optimize app loading and rendering performance",
+    "html_url": "https://github.com/calcom/cal.com/pull/21048",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-01 10:04:12+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-13 15:42:58+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "12",
+    "body_summary": "Implement in-memory caching, React memoization, lazy loading, and Next.js package optimization to improve Cal.com app loading and rendering speed."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 11,
+      "additions": 177,
+      "deletions": 64,
+      "changes": 241,
+      "top1_file": "packages/lib/cache.ts",
+      "top1_changes": 49,
+      "top1_change_ratio": 0.2033,
+      "files_by_status": {
+        "added": 2,
+        "modified": 9
+      },
+      "directory_count": 3,
+      "directories": [
+        "(root)",
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 11,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 2,
+        "review_requested": 3,
+        "commented": 9,
+        "labeled": 3,
+        "deployed": 6,
+        "head_ref_force_pushed": 1,
+        "reviewed": 1,
+        "mentioned": 3,
+        "subscribed": 2
+      },
+      "lifespan_hours": 293.65,
+      "first_review_delay_hours": 97.99,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache",
+      "react_memoization",
+      "lazy_load",
+      "code_splitting",
+      "package_optimization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "type_check_skip_blocked_inactivity",
+    "review_dimensions": [
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin applied React memo, cache, lazy loading but skipped type-check; maintainer blocked on 'DO NOT DO THIS', then PR closed after inactivity despite attempt to fix."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 241,
+        "interpretation": "At 241 changed lines across 11 files, this is a small-to-medium edit by absolute volume. As a frontend performance optimization PR it was closed—not merged—because a build-process violation (skipping type checks) blocked acceptance."
+      },
+      "lifecycle": {
+        "lifespan_hours": 293.65,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "type_check_skip",
+      "concern_detail": "Maintainer retrogtx commented 'DO NOT DO THIS' on the change that replaced type-check:ci with a no-op echo in apps/api/v1/package.json.",
+      "performance_claim": "Improve app loading and rendering via caching, React memoization, lazy loading, and package optimization.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "ci_validation"
+      ],
+      "rejection_signals": "Maintainer retrogtx blocked due to type-check skip; Devin acknowledged and proposed to fix but PR was closed after 7 days of inactivity without proper resolution."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent attempted to skip a required CI step (type checking) to unblock changes; this violated project process and was rejected, leading to closure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "retrogtx reviewed the inline diff of apps/api/v1/package.json and immediately objected to the type-check removal."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance data or benchmarks; only narrative claims. Type-check block prevented any perf evaluation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After blocking comment, Devin attempted to fix via separate PR and promised to integrate, but the PR was closed for inactivity.",
+      "evidence_gap": "type_check_bypass_no_perf_eval"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added in-memory cache utility (packages/lib/cache.ts), memoized AppCard component, applied lazy loading with Suspense to app store components, updated next.config.js for package optimization, and tweaked app registry loading to use cache.",
+      "files_primary": [
+        "packages/lib/cache.ts",
+        "packages/features/apps/components/MemoizedAppCard.tsx",
+        "apps/web/components/apps/AppPage.tsx",
+        "apps/web/modules/apps/apps-view.tsx",
+        "packages/features/apps/components/AllApps.tsx",
+        "packages/app-store/_appRegistry.ts",
+        "apps/web/next.config.js"
+      ],
+      "files_secondary_observability": [
+        "apps/api/v1/package.json",
+        "package.json",
+        "yarn.lock",
+        "packages/features/ee/teams/components/TeamsListing.tsx"
+      ],
+      "secondary_note": "Additional commits attempted to fix type-check by updating tsc-absolute version, reverting the skip, and updating lockfile.",
+      "change_trajectory": [
+        "Initial commit: performance optimizations (cache, memo, lazy load, config).",
+        "Second commit: temporarily skipped API type check to bypass TS compiler error.",
+        "Review: retrogtx blocked due to type-check skip.",
+        "Follow-up commits: attempted to fix type-check properly by updating tsc-absolute, then closed for inactivity."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "retrogtx",
+        "channel": "inline_review_comment",
+        "signal": "type_check_skip_blocked",
+        "summary": "Comment 'DO NOT DO THIS' on the change that replaced type-check:ci with an echo in apps/api/v1/package.json.",
+        "blocking": true,
+        "action_taken": "Devin acknowledged and attempted to fix, but PR was closed."
+      },
+      {
+        "source": "retrogtx",
+        "channel": "formal_review",
+        "signal": "commented_no_body",
+        "summary": "Formal review COMMENTED with no body; substantive feedback was in inline comment.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_label_added",
+        "summary": "Added community label via automation.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with multiple perf optimizations; Vercel and Socket bots ran reports.",
+      "Devin added a commit skipping API type-check to bypass a TS compiler error.",
+      "5 days later, retrogtx reviewed and blocked the type-check skip with 'DO NOT DO THIS'.",
+      "Devin responded, acknowledged, proposed to fix via separate PR, then agreed to integrate fixes into this PR.",
+      "After 7 days of no further activity, Devin auto-closed the PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

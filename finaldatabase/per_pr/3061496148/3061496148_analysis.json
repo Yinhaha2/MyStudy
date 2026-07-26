@@ -1,0 +1,194 @@
+{
+  "pr_id": 3061496148,
+  "meta": {
+    "title": "feat: implement true SSE streaming client for Hermes",
+    "html_url": "https://github.com/pyth-network/pyth-crosschain/pull/2684",
+    "repo": "pyth-network/pyth-crosschain",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-14 00:26:42+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-14 15:05:47+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Implement a true SSE streaming client in Rust for Hermes price service using tokio/futures streams, replacing previous polling-based implementation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 15,
+      "additions": 2692,
+      "deletions": 0,
+      "changes": 2692,
+      "top1_file": "apps/hermes/client/rust/Cargo.lock",
+      "top1_changes": 1970,
+      "top1_change_ratio": 0.732,
+      "files_by_status": {
+        "added": 15
+      },
+      "directory_count": 1,
+      "directories": [
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "deployed": 7,
+        "closed": 1
+      },
+      "lifespan_hours": 14.651,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sse_streaming",
+      "latency_reduction",
+      "polling_replacement"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "closed_by_author_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added true SSE client to replace polling; PR closed by requester with no maintainer review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2692,
+        "interpretation": "At 2692 changed lines across 15 new files, this is a large addition by absolute volume, mostly consisting of a new Rust client crate. It was closed without being merged, likely due to lack of maintainer engagement rather than code quality."
+      },
+      "lifecycle": {
+        "lifespan_hours": 14.651,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "No formal reviews or human comments were left on the PR; only bot notifications for Vercel deployment and Devin introduction.",
+      "performance_claim": "Replacing polling with SSE streaming claims improved latency and efficiency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author without any maintainer feedback or review activity."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Large feature addition without prior issue or maintainer buy-in resulted in no review; PR closed by requester.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance numbers, benchmarks, or profiling data provided; only narrative claims.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without any fix cycle; no regression occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a new Rust client crate under apps/hermes/client/rust with SSE streaming implementation, including models, API client, and examples.",
+      "files_primary": [
+        "apps/hermes/client/rust/src/streaming.rs",
+        "apps/hermes/client/rust/src/models/parsed_price_update.rs",
+        "apps/hermes/client/rust/examples/sse_price_stream.rs",
+        "apps/hermes/client/rust/examples/price_stream.rs",
+        "apps/hermes/client/rust/src/apis/rest_api.rs",
+        "apps/hermes/client/rust/src/models/price_update.rs",
+        "apps/hermes/client/rust/src/models/rpc_price.rs",
+        "apps/hermes/client/rust/src/models/mod.rs",
+        "apps/hermes/client/rust/src/apis/configuration.rs",
+        "apps/hermes/client/rust/src/lib.rs",
+        "apps/hermes/client/rust/src/apis/mod.rs",
+        "apps/hermes/client/rust/Cargo.toml"
+      ],
+      "files_secondary_observability": [
+        "apps/hermes/client/rust/.openapi-generator-ignore",
+        "apps/hermes/client/rust/Cargo.lock",
+        "apps/hermes/client/rust/README.md"
+      ],
+      "secondary_note": "Lockfile (1970 lines) is auto-generated; README is documentation.",
+      "change_trajectory": [
+        "Single commit introducing the entire client crate."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Posted Vercel deployment preview links for various frontend projects.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI monitoring assistance.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with SSE client implementation.",
+      "Vercel bot posted deployment previews.",
+      "No human interaction occurred; PR closed by author after 14.6 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

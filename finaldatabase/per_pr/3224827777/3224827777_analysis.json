@@ -1,0 +1,173 @@
+{
+  "pr_id": 3224827777,
+  "meta": {
+    "title": "Update C backend aggregates",
+    "html_url": "https://github.com/mochilang/mochi/pull/7897",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-12 04:52:02+00:00",
+    "merged_at": "2025-07-12 04:52:31+00:00",
+    "closed_at": "2025-07-12 04:52:31+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "25",
+    "body_summary": "Improve avg, sum, min, max implementations in C backend when input list length is known, and regenerate machine translation test outputs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 79,
+      "deletions": 111,
+      "changes": 190,
+      "top1_file": "tests/machine/x/c/min_max_builtin.c",
+      "top1_changes": 52,
+      "top1_change_ratio": 0.2736842105263158,
+      "files_by_status": {
+        "modified": 5,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.008055555555555555,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "aggregate_optimization",
+      "list_length_known",
+      "c_backend"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_merged_compiler_fix_small_scope",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Self-merged OpenAI Codex PR that avoids intermediate list_int allocation in C backend aggregates; no formal review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 190,
+        "interpretation": "At 190 changed lines across 6 files, this is a small edit by absolute volume. It fits a small-step compiler backend performance fix, consistent with the fast self-merged outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.008055555555555555,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": "No formal review or comments in dataset.",
+      "performance_claim": "Improve avg, sum, min, max when input list length is known by avoiding list_int materialization.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "25",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Self-merged compiler backend change without any review or performance evaluation; process boundary is minimal.",
+      "success_factors": [
+        "small_scope",
+        "author_is_maintainer",
+        "focused_on_well_known_aggregates"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark or profiling data; only narrative claim.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; PR was self-merged immediately.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/c/compiler.go, modified code generation for avg, sum, min, max to avoid creating an intermediate list_int when the input length is known; regenerated corresponding machine translation test fixtures.",
+      "files_primary": [
+        "compiler/x/c/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/c/avg_builtin.c",
+        "tests/machine/x/c/sum_builtin.c",
+        "tests/machine/x/c/min_max_builtin.c",
+        "tests/machine/x/c/break_continue.c",
+        "tests/machine/x/c/sum_builtin.error"
+      ],
+      "secondary_note": "Test file updates reflect changes in generated C code; sum_builtin.error removed.",
+      "change_trajectory": [
+        "Single commit: avoid list_int for basic aggregates, update tests."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and self-merged by tamnd within 29 seconds with no human or bot interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

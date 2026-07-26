@@ -1,0 +1,173 @@
+{
+  "pr_id": 3170118902,
+  "meta": {
+    "title": "Implement constant fold in vm",
+    "html_url": "https://github.com/mochilang/mochi/pull/2773",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-24 03:36:48+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-24 04:08:34+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "10",
+    "body_summary": "Add constant folding to VM compiler to evaluate constant expressions at compile time and update IR golden files."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 11,
+      "additions": 81,
+      "deletions": 55,
+      "changes": 136,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 42,
+      "top1_change_ratio": 0.309,
+      "files_by_status": {
+        "modified": 11
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.528,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_folding",
+      "compile_time_evaluation"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added constant folding in VM; PR self-closed by author after ~0.5h with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 136,
+        "interpretation": "At 136 changed lines across 11 files, this is a small refactor by absolute volume. As a compiler optimization PR, it was closed without merge by the author shortly after creation with no review or evidence provided."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.528,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_self_closed",
+      "concern_detail": "No formal review or comments; PR was self-closed by the author.",
+      "performance_claim": "Constant folding reduces runtime work by evaluating constant expressions at compile time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Self-closed by author without review; no feedback given."
+    },
+    "capability_boundary": {
+      "topic": "10",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Compiler optimization PR was self-closed without any review or engagement, suggesting process boundary for agent-authored changes in this repo.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No code-reading review occurred."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No evidence of testing beyond 'go test ./...' claim; no benchmark data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by author without review; no fix-in-PR cycle occurred.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added constant folding logic to evaluate constant expressions during compilation; updated IR golden files in tests/vm/valid/ to reflect new behavior.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/avg_builtin.ir.out",
+        "tests/vm/valid/basic_compare.ir.out",
+        "tests/vm/valid/count_builtin.ir.out",
+        "tests/vm/valid/len_builtin.ir.out",
+        "tests/vm/valid/len_map.ir.out",
+        "tests/vm/valid/len_string.ir.out",
+        "tests/vm/valid/let_and_print.ir.out",
+        "tests/vm/valid/map_membership.ir.out",
+        "tests/vm/valid/math_ops.ir.out",
+        "tests/vm/valid/str_builtin.ir.out"
+      ],
+      "secondary_note": "IR golden file updates reflect reduced IR due to constant folding.",
+      "change_trajectory": [
+        "Single commit: vm: add constant folding, modified vm.go and IR test outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created and self-closed after ~0.5h without any interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

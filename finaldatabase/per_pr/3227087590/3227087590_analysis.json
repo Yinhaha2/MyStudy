@@ -1,0 +1,169 @@
+{
+  "pr_id": 3227087590,
+  "meta": {
+    "title": "Add list deallocation in C backend",
+    "html_url": "https://github.com/mochilang/mochi/pull/8622",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-14 01:40:17+00:00",
+    "merged_at": "2025-07-14 01:40:32+00:00",
+    "closed_at": "2025-07-14 01:40:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 14,
+    "topic_name": "14",
+    "body_summary": "Add list deallocation in C backend by freeing allocated result lists, tracking allocations in compiler, and regenerating C test output."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 141,
+      "deletions": 55,
+      "changes": 196,
+      "top1_file": "tests/machine/x/c/cross_join.c",
+      "top1_changes": 181,
+      "top1_change_ratio": 0.923,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00417,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_deallocation",
+      "c_backend_list_free"
+    ],
+    "optimization_layer": "compiler_generated_runtime",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "memory_leak"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single commit adds free() calls to prevent memory leaks in C backend; self-merged instantly with no review or benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 196,
+        "interpretation": "At 196 changed lines across 4 files, this is a small edit by absolute volume. It is a focused memory-deallocation fix and was self-merged instantly, consistent with a low-risk, small-step performance PR."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00417,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback; PR was self-merged by the author without any review.",
+      "performance_claim": "Prevent memory leaks by freeing allocated result lists in the C backend.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "memory_leak",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "14",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding free() calls in compiler-generated C code is a low-level memory management task; the agent can handle simple deallocation patterns with low friction.",
+      "success_factors": [
+        "narrow_scope",
+        "maintainer_self_merge",
+        "no_review_barrier"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark, profiler, or before/after evidence; only narrative description in commit message.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling occurred; merged without testing evidence beyond go build.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In the C backend compiler, added tracking of allocated result lists and inserted calls to free them in compileQueryExpr; regenerated C test output for cross_join and updated TASKS.md.",
+      "files_primary": [
+        "compiler/x/c/compiler.go",
+        "tests/machine/x/c/cross_join.c"
+      ],
+      "files_secondary_observability": [
+        "compiler/x/c/TASKS.md",
+        "tests/machine/x/c/cross_join.out"
+      ],
+      "secondary_note": "TASKS.md and *.out file are documentation and test output updates; main change is in compiler logic and generated C file.",
+      "change_trajectory": [
+        "Single commit 'c: free result lists' modified compiler to track allocations, added free calls, and regenerated cross_join test C code."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created and immediately self-merged by tamnd with no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

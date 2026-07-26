@@ -1,0 +1,212 @@
+{
+  "pr_id": 3070954603,
+  "meta": {
+    "title": "Implement streaming uploads and tool formatting",
+    "html_url": "https://github.com/julep-ai/julep/pull/1398",
+    "repo": "julep-ai/julep",
+    "agent": "OpenAI_Codex",
+    "user": "creatorrr",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-17 17:33:28+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-09 14:52:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "16",
+    "body_summary": "Add streaming file uploads/downloads to reduce memory usage and extend tool formatting to system, integration, and API call tools."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 158,
+      "deletions": 23,
+      "changes": 181,
+      "top1_file": "agents-api/agents_api/activities/task_steps/prompt_step.py",
+      "top1_changes": 76,
+      "top1_change_ratio": 0.419889,
+      "files_by_status": {
+        "added": 2,
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "agents-api"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 3
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 2,
+        "commented": 3,
+        "reviewed": 3,
+        "convert_to_draft": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 1269.32,
+      "first_review_delay_hours": 0.0253,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "stream_file_upload",
+      "stream_file_download",
+      "stream_list_files",
+      "tool_formatting"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "full_file_memory_load"
+    ],
+    "outcome_reason": "stale_inactivity_with_ci_failure",
+    "review_dimensions": [
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Codex PR with streaming and tool formatting; closed after 53 days; CI typecheck failed due to undefined name in test; no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 181,
+        "interpretation": "At 181 changed lines, this is a small-to-medium edit. As a mixed performance/feature enhancement PR, it was closed without merge, likely due to inactivity and unresolved CI failure."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1269.32,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "ci_failure_test_code",
+      "concern_detail": "The test file test_file_streaming.py uses undefined name 's3_client' at line 10, causing a pytype failure. Bots also suggested code improvements (async removal, import placement). No benchmark or performance evidence provided.",
+      "performance_claim": "Streaming file uploads/downloads and listing reduces memory usage; tool formatting supports more types.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "full_file_memory_load",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed after 53 days with unresolved CI typecheck failure; no human engagement."
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Implementation required async IO, S3 streaming, and dynamic tool schema generation; agent code had test correctness issues that were not addressed.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "pytype CI job detected undefined name 's3_client' in test_file_streaming.py, causing check failure."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance benchmarks or measurable evidence; only narrative claim of reduced memory usage.",
+      "regression_handling": "reject_close",
+      "regression_detail": "CI failure not fixed; PR converted to draft and later closed without merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added streaming file upload (chunked base64 decoding) and download (streaming S3 read and base64 encoding), prepared streaming file listing, and extended format_tool to handle system, integration, and api_call tools.",
+      "files_primary": [
+        "agents-api/agents_api/routers/files/create_file.py",
+        "agents-api/agents_api/routers/files/get_file.py",
+        "agents-api/agents_api/activities/task_steps/prompt_step.py"
+      ],
+      "files_secondary_observability": [
+        "agents-api/agents_api/routers/files/list_files.py",
+        "agents-api/tests/test_file_streaming.py",
+        "agents-api/tests/test_format_tool.py"
+      ],
+      "secondary_note": "List files change is minor; test files validate functionality but contained a name error.",
+      "change_trajectory": [
+        "Single commit with all changes. CI typecheck failed due to undefined 's3_client'. No further activity; PR closed after 53 days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ellipsis-dev[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_no_block",
+        "summary": "Passed with no blocking comments; draft suggestions on error handling and async generator usage.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "qodo-merge-for-open-source[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_failure_notice",
+        "summary": "Reported pytype name error in test_file_streaming.py, causing CI failure.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "qodo-merge-for-open-source[bot]",
+        "channel": "inline_review_comment",
+        "signal": "code_style_suggestion",
+        "summary": "Suggested removing unnecessary async from _iter_decoded and moving imports outside function in format_tool.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "qodo-merge-for-open-source[bot]",
+        "channel": "pr_comment",
+        "signal": "pr_overview",
+        "summary": "Provided PR reviewer guide highlighting memory management and error handling focus areas.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit.",
+      "Bot reviews (ellipsis, qodo) promptly provided non-blocking feedback.",
+      "CI typecheck failed; no human intervened.",
+      "PR converted to draft and later closed after 53 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

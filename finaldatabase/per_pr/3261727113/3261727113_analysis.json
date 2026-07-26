@@ -1,0 +1,175 @@
+{
+  "pr_id": 3261727113,
+  "meta": {
+    "title": "Enable Swift benchmarking",
+    "html_url": "https://github.com/mochilang/mochi/pull/12867",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-25 02:00:18+00:00",
+    "merged_at": "2025-07-25 02:00:39+00:00",
+    "closed_at": "2025-07-25 02:00:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 17,
+    "topic_name": "17",
+    "body_summary": "Add benchmarking support to Swift transpiler: enable benchmark mode, record memory via /proc/self/status, update Rosetta checklist with table format, and regenerate code for 100-doors-2."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 9,
+      "additions": 445,
+      "deletions": 329,
+      "changes": 774,
+      "top1_file": "transpiler/x/swift/ROSETTA.md",
+      "top1_changes": 575,
+      "top1_change_ratio": 0.743,
+      "files_by_status": {
+        "modified": 9
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.006,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmarking_support",
+      "transpiler_testing",
+      "memory_measurement"
+    ],
+    "optimization_layer": "build_tooling",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_self_approved",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added benchmarking support for Swift transpiler; PR merged without review or perf evidence in 21 seconds."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 774,
+        "interpretation": "At 774 changed lines, this is a small-to-medium edit by absolute volume. It fits a tooling/infrastructure PR that was merged without external review and very quickly."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.006,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback.",
+      "performance_claim": "Enable benchmark mode in Swift transpiler to record memory usage via /proc/self/status and execution time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "17",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "PR merged without any human review interaction; the author (same as agent user) self-merged, illustrating a process boundary where no independent verification occurred.",
+      "success_factors": [
+        "self_review_author_merge",
+        "single_commit",
+        "clear_test_instructions"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body contains test commands, but no actual benchmark results, profiler output, or numeric performance data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No review or regression identified.",
+      "evidence_gap": "narrative_only_no_benchmark_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added benchmark mode to Swift transpiler: if MOCHI_BENCHMARK env var is set, the transpiler emits Swift code that records memory usage via /proc/self/status and execution time in nanoseconds. Updated the Rosetta checklist with a table format and benchmark data, and regenerated Swift code and outputs for program 100-doors-2.",
+      "files_primary": [
+        "transpiler/x/swift/transpiler.go",
+        "transpiler/x/swift/rosetta_test.go",
+        "transpiler/x/swift/ROSETTA.md"
+      ],
+      "files_secondary_observability": [
+        "transpiler/x/swift/transpiler_test.go",
+        "transpiler/x/swift/vm_valid_golden_test.go",
+        "tests/rosetta/transpiler/Swift/100-doors-2.swift",
+        "tests/rosetta/transpiler/Swift/100-doors-2.out",
+        "transpiler/x/swift/README.md",
+        "transpiler/x/swift/TASKS.md"
+      ],
+      "secondary_note": "Remaining files are minor updates or regeneration of golden test outputs.",
+      "change_trajectory": [
+        "Single commit fd055b21: added benchmark support in transpiler and tests; updated Rosetta checklist and regenerated outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created, labeled 'codex', merged and closed by author tamnd within 21 seconds with no external review or comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

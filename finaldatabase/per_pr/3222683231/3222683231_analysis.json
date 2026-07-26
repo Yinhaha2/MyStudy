@@ -1,0 +1,166 @@
+{
+  "pr_id": 3222683231,
+  "meta": {
+    "title": "Improve Java compiler string concatenation",
+    "html_url": "https://github.com/mochilang/mochi/pull/7751",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-11 12:09:49+00:00",
+    "merged_at": "2025-07-11 12:10:02+00:00",
+    "closed_at": "2025-07-11 12:10:02+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "18",
+    "body_summary": "Tweak the Java compiler backend to emit StringBuilder instead of raw string concatenation, improving generated code efficiency."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 26,
+      "deletions": 0,
+      "changes": 26,
+      "top1_file": "compiler/x/java/compiler.go",
+      "top1_changes": 16,
+      "top1_change_ratio": 0.615,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0036,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "compiler_string_builder_optimization",
+      "java_code_generation"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "inefficient_string_concatenation"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex added StringBuilder for Java code generation; 26 lines, merged instantly with no review or benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 26,
+        "interpretation": "At 26 changed lines, this is a very small edit by absolute volume. It fits a minimal incremental improvement in the compiler backend and aligns with the quick merge without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0036,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "",
+      "performance_claim": "Switching Java code generation to use StringBuilder improves string concatenation performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "inefficient_string_concatenation",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler backend optimization requires understanding of code generation patterns; agent successfully produced a small change.",
+      "success_factors": [
+        "small_scope",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance data or benchmark; only test command `go test ./...` which does not measure string concat performance.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions observed or handled.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/java/compiler.go, modified the Java code generator to emit StringBuilder instead of inline string concatenation, and added follow-up notes in tests/machine/x/java/README.md.",
+      "files_primary": [
+        "compiler/x/java/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/java/README.md"
+      ],
+      "secondary_note": "README update adds follow-up TODO items for the Java backend, not directly performance-related.",
+      "change_trajectory": [
+        "Single commit: java compiler: use StringBuilder for string concat, adding 16 lines of compiler logic and 10 lines of README notes."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged within 13 seconds without any review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

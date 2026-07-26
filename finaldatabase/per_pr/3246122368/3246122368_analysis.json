@@ -1,0 +1,222 @@
+{
+  "pr_id": 3246122368,
+  "meta": {
+    "title": "Improve temp cleanup performance",
+    "html_url": "https://github.com/Stirling-Tools/Stirling-PDF/pull/3992",
+    "repo": "Stirling-Tools/Stirling-PDF",
+    "agent": "OpenAI_Codex",
+    "user": "Frooodle",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-20 07:51:19+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 30,
+    "topic_name": "30",
+    "body_summary": "Add async executor for temp file cleanup, replace Files.list with DirectoryStream, introduce configurable batching and pause settings."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 11,
+      "additions": 566,
+      "deletions": 203,
+      "changes": 769,
+      "top1_file": "app/common/src/main/java/stirling/software/common/service/TempFileCleanupService.java",
+      "top1_changes": 365,
+      "top1_change_ratio": 0.475,
+      "files_by_status": {
+        "added": 1,
+        "modified": 10
+      },
+      "directory_count": 1,
+      "directories": [
+        "app"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 23,
+      "event_counts": {
+        "committed": 5,
+        "review_requested": 6,
+        "labeled": 9,
+        "reviewed": 1,
+        "unlabeled": 2
+      },
+      "lifespan_hours": 28.3,
+      "first_review_delay_hours": 0.011,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "temp_cleanup",
+      "async_execution",
+      "directory_stream",
+      "batching"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_without_merge",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex PR for temp cleanup async/batching; only bot review provided, no human engagement; closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 769,
+        "interpretation": "At 769 changed lines, this is a medium-sized refactor across 11 files. As a backend performance PR, it was closed without merge, likely due to lack of maintainer review or acceptance of the approach."
+      },
+      "lifecycle": {
+        "lifespan_hours": 28.3,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_batch_logic",
+      "concern_detail": "Copilot bot noted that batch counter increments regardless of pause, and batchSize=0 with pauseMs>0 would not cause pauses, plus counter reset inside pause condition bug.",
+      "performance_claim": "Improve temp cleanup performance through async exec and streaming",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Refactoring temp cleanup with async and DirectoryStream; closed without merge when no human engaged, despite bot identifying batching logic issues.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Copilot bot provided inline suggestions on batching logic and queue capacity."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or performance measurement provided; PR relies on general claims.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No human review; PR closed without addressing bot comments.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replace Files.list with DirectoryStream in TempFileCleanupService, add async executor configuration with single-threaded pool, and introduce configurable batchSize and pauseBetweenBatchesMs settings.",
+      "files_primary": [
+        "app/common/src/main/java/stirling/software/common/service/TempFileCleanupService.java",
+        "app/common/src/main/java/stirling/software/common/config/CleanupAsyncConfig.java",
+        "app/common/src/main/java/stirling/software/common/model/ApplicationProperties.java",
+        "app/core/src/main/resources/settings.yml.template"
+      ],
+      "files_secondary_observability": [
+        "app/common/src/test/java/stirling/software/common/service/TempFileCleanupServiceTest.java",
+        "app/core/src/main/java/stirling/software/SPDF/UI/impl/DesktopBrowser.java",
+        "app/core/src/main/java/stirling/software/SPDF/controller/api/converters/ConvertImgPDFController.java",
+        "app/core/src/main/java/stirling/software/SPDF/controller/api/misc/PrintFileController.java",
+        "app/core/src/main/java/stirling/software/SPDF/controller/api/misc/StampController.java",
+        "app/core/src/main/java/stirling/software/SPDF/controller/api/pipeline/PipelineProcessor.java",
+        "app/core/src/main/java/stirling/software/SPDF/controller/api/security/WatermarkController.java"
+      ],
+      "secondary_note": "Other file changes include UI/controller adjustments that may be unrelated to the core cleanup performance.",
+      "change_trajectory": [
+        "Initial commit introduced async config, DirectoryStream, batching in cleanup service.",
+        "Subsequent commits added further adjustments, including DesktopBrowser.java updates.",
+        "Pixeebot made hardening suggestions in test file.",
+        "No human review; PR closed without merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "batch_pause_logic",
+        "summary": "Batch counter increments even if pause not triggered; batchSize=0 with pauseMs>0 will not pause.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "batch_counter_reset",
+        "summary": "Counter reset inside pauseMs condition; should reset regardless.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "magic_number_queue_capacity",
+        "summary": "Queue capacity of 100 is a magic number; consider making it configurable.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview",
+        "summary": "Summarized PR changes and generated 3 inline comments.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with async/batching changes; Copilot bot reviewed immediately with three inline suggestions.",
+      "Author made several follow-up commits but no response to bot comments.",
+      "No human maintainer engaged; PR remained open for ~1 day and was then closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

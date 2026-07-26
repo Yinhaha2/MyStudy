@@ -1,0 +1,202 @@
+{
+  "pr_id": 3077061912,
+  "meta": {
+    "title": "perf: remove unused tRPC routes to reduce type generation load",
+    "html_url": "https://github.com/calcom/cal.com/pull/21418",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-20 13:36:19+00:00",
+    "merged_at": "2025-05-20 14:14:51+00:00",
+    "closed_at": "2025-05-20 14:14:51+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 7,
+    "topic_name": "7",
+    "body_summary": "Remove unused submitFeedback tRPC route to reduce TypeScript type generation load and improve build performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 0,
+      "deletions": 53,
+      "changes": 53,
+      "top1_file": "packages/trpc/server/routers/loggedInViewer/submitFeedback.handler.ts",
+      "top1_changes": 38,
+      "top1_change_ratio": 0.717,
+      "files_by_status": {
+        "modified": 1,
+        "removed": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 1,
+        "commented": 4,
+        "review_requested": 1,
+        "labeled": 2,
+        "reviewed": 1,
+        "deployed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.642,
+      "first_review_delay_hours": 0.112,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "remove_unused_trpc_route",
+      "type_generation_load_reduction",
+      "build_performance"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "scope"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin removed an explicitly marked unused tRPC route; maintainer approved quickly with no evidence beyond code review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 53,
+        "interpretation": "At 53 changed lines (all deletions), this is a tiny edit by absolute volume. It fits a minimal, low-risk build performance cleanup that merged quickly without formal performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.642,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "none",
+      "concern_detail": "No blocking concerns; maintainer approved with a positive remark.",
+      "performance_claim": "Removing unused submitFeedback tRPC route reduces TypeScript type generation load, improving build performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "scope",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Removing a single unused tRPC route with associated schema and handler files is a trivial task; Devin handled it correctly with zero additions.",
+      "success_factors": [
+        "narrow_scope",
+        "explicitly_marked_unused_comment",
+        "maintainer_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer manually reviewed diff and approved with 'Looking good :)'."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Performance claim relies solely on narrative; no before/after type generation time or build metrics provided.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR merged without any regression or revert.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Removed submitFeedback handler and schema files, and removed its router registration in _router.tsx, all deletions, no new code.",
+      "files_primary": [
+        "packages/trpc/server/routers/loggedInViewer/_router.tsx",
+        "packages/trpc/server/routers/loggedInViewer/submitFeedback.handler.ts",
+        "packages/trpc/server/routers/loggedInViewer/submitFeedback.schema.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes are deletions only; no new files or dependencies.",
+      "change_trajectory": [
+        "Single commit: removed unused route registration and associated handler/schema files."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "emrysal",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved with positive comment 'Looking good :)'",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin with removal of unused route.",
+      "Maintainer emrysal approved within ~7 minutes with positive comment.",
+      "Merged about 31 minutes later after deployment.",
+      "E2E results posted post-merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

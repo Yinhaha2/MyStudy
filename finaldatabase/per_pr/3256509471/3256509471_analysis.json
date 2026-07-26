@@ -1,0 +1,235 @@
+{
+  "pr_id": 3256509471,
+  "meta": {
+    "title": "BUS-1495: Implement Snowflake adapter streaming with network-level row limiting",
+    "html_url": "https://github.com/buster-so/buster/pull/605",
+    "repo": "buster-so/buster",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-23T13:57:48+00:00",
+    "merged_at": "2025-07-23T16:15:05+00:00",
+    "closed_at": "2025-07-23T16:15:05+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 2,
+    "topic_name": "2",
+    "body_summary": "Replace fetch-all-then-limit in SnowflakeAdapter with network-level streaming via stmt.streamRows to prevent OOM on large result sets, introducing a default 5000-row cap."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 54,
+      "additions": 2765,
+      "deletions": 712,
+      "changes": 3477,
+      "top1_file": "packages/ai/src/utils/models/ai-fallback.test.ts",
+      "top1_changes": 480,
+      "top1_change_ratio": 0.138,
+      "files_by_status": {
+        "added": 8,
+        "modified": 43,
+        "removed": 0,
+        "renamed": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        ".github",
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 17,
+      "event_counts": {
+        "committed": 5,
+        "mentioned": 1,
+        "subscribed": 1,
+        "commented": 2,
+        "reviewed": 1,
+        "deployed": 4,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 2.29,
+      "first_review_delay_hours": 0.024,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "streaming_query",
+      "network_row_limiting",
+      "oom_prevention"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "fetch_all_into_memory"
+    ],
+    "outcome_reason": "merged_after_maintainer_fixes",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "unit_test"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin implemented Snowflake streaming with network-level row limiting; bot identified API assumption risks; maintainer fixed test cases and merged within 2.3 hours."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3477,
+        "interpretation": "At 3477 changed lines across 54 files, this appears large, but much of the churn comes from a merge of staging branch that brought in unrelated AI package changes. The core Snowflake adapter change is only about 77 lines, with supporting test changes. It fits a small-scope, low-risk feature that required adjustment and was merged quickly after maintainer fixes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.29,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "unvalidated_sdk_assumptions",
+      "concern_detail": "Bot flagged that stmt.streamRows existence and parameter signature are unvalidated; default 5000 limit changes existing behavior; hasMoreRows logic may be incorrect for exactly limit rows.",
+      "performance_claim": "Prevent OOM errors and improve memory efficiency by limiting rows at network level.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "fetch_all_into_memory",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "perf_evidence"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin could not validate the Snowflake SDK streaming API, leading to potential misassumptions; maintainer needed to step in to fix test logic and adjust column name handling.",
+      "success_factors": [
+        "small_core_change",
+        "maintainer_active_fixes",
+        "no_blocking_human_review",
+        "fast_iteration"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "unit_test"
+      ],
+      "detection_detail": {
+        "code_reading": "Greptile bot reviewed code and flagged SDK API assumptions and edge cases.",
+        "unit_test": "Maintainer ran tests, discovered mismatches in column names and rowCount logic, and fixed them in follow-up commits."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR author acknowledges that streaming implementation is unvalidated; integration tests may not truly test streaming due to SDK limitations.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After initial commit, maintainer merged staging, then committed two more fixes to correct test expectations for lowercase column names and adjust row counting logic, all within the same PR before merge.",
+      "evidence_gap": "unvalidated_sdk_streaming"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/data-source/src/adapters/snowflake.ts, replaced fetch-all-then-limit with streaming using connection.execute({streamResult:true}) and stmt.streamRows({start:0, end:limit}), with default 5000 limit. Handle stream data/error/end events.",
+      "files_primary": [
+        "packages/data-source/src/adapters/snowflake.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/data-source/src/adapters/snowflake.test.ts",
+        "packages/data-source/src/adapters/snowflake.int.test.ts",
+        "packages/data-source/src/adapters/snowflake-memory-protection.int.test.ts",
+        "packages/data-source/src/adapters/max-rows-limiting.test.ts"
+      ],
+      "secondary_note": "Merge from staging introduced unrelated changes in packages/ai and apps/api, inflating line count.",
+      "change_trajectory": [
+        "Initial commit: Devin implemented streaming in Snowflake adapter with default 5000-row limit and updated tests.",
+        "Second commit: Fixed max-rows-limiting test mocks for new streaming behavior.",
+        "Maintainer merged staging branch, bringing in unrelated changes.",
+        "Maintainer committed fixes for row handling logic and test expectations (lowercase column names, rowCount > limit for hasMoreRows).",
+        "Final commit: adjusted test assertions for lowercase columns."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "inline_review_comment",
+        "signal": "sdk_api_assumption",
+        "summary": "Assumes stmt.streamRows exists and accepts { start, end } options; needs validation against actual SDK docs.",
+        "blocking": false,
+        "action_taken": "Maintainer committed later fixes but did not explicitly validate SDK; assumption remained."
+      },
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "inline_review_comment",
+        "signal": "default_limit_behavior_change",
+        "summary": "Adding default 5000 row limit changes behavior for existing code expecting unlimited results.",
+        "blocking": false,
+        "action_taken": "Not addressed in PR."
+      },
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "inline_review_comment",
+        "signal": "has_more_rows_logic",
+        "summary": "Logic that rowCount >= limit means more rows exist may be incorrect for exactly limit rows.",
+        "blocking": false,
+        "action_taken": "Maintainer later changed hasMoreRows to true only when rowCount > limit (commit d371a65)."
+      },
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "formal_review",
+        "signal": "critical_risks_warning",
+        "summary": "PR has critical implementation risks; streaming is based on unvalidated assumptions; confidence 1/5.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial streaming implementation; Greptile bot immediately flagged three issues in inline comments and gave low confidence.",
+      "Devin attempted to fix test mocks.",
+      "Maintainer merged staging, then made additional commits to fix hasMoreRows logic and test column name mismatches.",
+      "PR merged by maintainer within 2.3 hours despite bot warnings and unvalidated SDK usage."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

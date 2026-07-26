@@ -1,0 +1,221 @@
+{
+  "pr_id": 3107779459,
+  "meta": {
+    "title": "Migrate Figma plugin to support dynamic page loading API",
+    "html_url": "https://github.com/tokens-studio/figma-plugin/pull/3401",
+    "repo": "tokens-studio/figma-plugin",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-01 20:09:53+00:00",
+    "merged_at": null,
+    "closed_at": "2026-07-13 09:02:36+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "2",
+    "body_summary": "Migrate the Tokens Studio Figma plugin to use Figma's dynamic page loading API, replacing sync calls with async equivalents and adding loadAllPagesAsync to improve performance on large files."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 13,
+      "additions": 43,
+      "deletions": 32,
+      "changes": 75,
+      "top1_file": "packages/tokens-studio-for-figma/src/plugin/node.ts",
+      "top1_changes": 11,
+      "top1_change_ratio": 0.147,
+      "files_by_status": {
+        "modified": 13
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 15,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "commented": 2,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "reviewed": 1
+      },
+      "lifespan_hours": 9756.88,
+      "first_review_delay_hours": 59.47,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "dynamic_page_loading",
+      "async_api_migration",
+      "plugin_startup_performance",
+      "api_call_optimization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot attempted Figma dynamic page loading migration; maintainer found launch error and suggested handler change; Copilot fixed but PR never re-reviewed and closed after over a year of inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 75,
+        "interpretation": "At 75 changed lines across 13 files, this is a small, surgical edit. It fits a targeted performance migration PR, but it was closed due to inactivity rather than merged."
+      },
+      "lifecycle": {
+        "lifespan_hours": 9756.88,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_failure",
+      "concern_detail": "Maintainer six7 reported that launching the plugin doesn't work with a console error: 'Cannot register documentchange handler in incremental mode without calling figma.loadAllPagesAsync first.' Suggested replacing documentchange handler with currentpagechange to fix it.",
+      "performance_claim": "Dynamic page loading improves performance for large files by loading pages on-demand, reducing memory usage and improving responsiveness.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "perf_evidence"
+      ],
+      "rejection_signals": "PR closed after 13+ months of inactivity without re-review; no merge."
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Frontend plugin async migration for dynamic page loading; maintainer found a functional bug but did not re-review after Copilot's fix, leading to stall and closure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer six7 tested the plugin manually, observed a console error, and provided the exact error message and a fix suggestion."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Console error is reproducible, but no performance benchmark or measurement was provided to verify the claimed performance gains.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After Copilot committed a fix replacing documentchange with currentpagechange, no further review occurred; PR was left open and closed 13 months later without merge.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Updated manifest.json to set documentAccess: 'dynamic-page', replaced synchronous figma.getNodeById() with async getNodeByIdAsync() in multiple handler functions (NodeManager, node, gotoNode, selectNodes, removeTokensByValue, setNoneValuesOnNode, swapStyles), added figma.loadAllPagesAsync() before accessing figma.root.children in swapStyles and NodeManager, converted affected functions and callers to async/await, and in a later fix replaced documentchange handler with currentpagechange in controller.ts to resolve a launch error.",
+      "files_primary": [
+        "packages/tokens-studio-for-figma/manifest.json",
+        "packages/tokens-studio-for-figma/src/plugin/node.ts",
+        "packages/tokens-studio-for-figma/src/plugin/NodeManager.ts",
+        "packages/tokens-studio-for-figma/src/plugin/asyncMessageHandlers/swapStyles.ts",
+        "packages/tokens-studio-for-figma/src/plugin/asyncMessageHandlers/removeTokensByValue.ts",
+        "packages/tokens-studio-for-figma/src/plugin/asyncMessageHandlers/setNoneValuesOnNode.ts",
+        "packages/tokens-studio-for-figma/src/plugin/asyncMessageHandlers/gotoNode.ts",
+        "packages/tokens-studio-for-figma/src/plugin/asyncMessageHandlers/selectNodes.ts",
+        "packages/tokens-studio-for-figma/src/plugin/controller.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/tokens-studio-for-figma/src/plugin/__tests__/node.test.ts",
+        "packages/tokens-studio-for-figma/src/plugin/__tests__/controller.test.ts",
+        "packages/tokens-studio-for-figma/tests/__mocks__/figmaMock.d.ts",
+        "packages/tokens-studio-for-figma/tests/__mocks__/figmaMock.js"
+      ],
+      "secondary_note": "Test files and mock implementations were updated to support new async methods.",
+      "change_trajectory": [
+        "Initial plan commit (no code).",
+        "Commit feac366: Replaced sync getNodeById with async in 11 files and updated mocks.",
+        "Commit 69a8e9: Added loadAllPagesAsync calls before document-wide operations in NodeManager and swapStyles.",
+        "Commit e3b10ec: Fixed launch error by replacing documentchange handler with currentpagechange in controller.ts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "six7",
+        "channel": "formal_review",
+        "signal": "bug_report_and_suggestion",
+        "summary": "Reported launch error with console output and suggested replacing documentchange handler with currentpagechange.",
+        "blocking": false,
+        "action_taken": "Copilot committed a fix replacing documentchange with currentpagechange."
+      },
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "no_changeset",
+        "summary": "Bot warned no changeset found.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_applied",
+        "summary": "Fixed! Replaced documentchange handler with currentpagechange as suggested.",
+        "blocking": false,
+        "action_taken": "Commit e3b10ec applied the fix."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial async migration across 11 files.",
+      "Maintainer six7 reviewed and commented that plugin doesn't work, with error and suggestion to use currentpagechange.",
+      "Copilot responded and committed fix to replace documentchange handler.",
+      "No further review or activity for over a year; PR closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

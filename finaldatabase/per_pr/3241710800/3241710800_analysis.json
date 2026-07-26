@@ -1,0 +1,172 @@
+{
+  "pr_id": 3241710800,
+  "meta": {
+    "title": "Improve PHP join compilation",
+    "html_url": "https://github.com/mochilang/mochi/pull/9455",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-18 03:24:48+00:00",
+    "merged_at": "2025-07-18 03:25:09+00:00",
+    "closed_at": "2025-07-18 03:25:09+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": 5,
+    "topic_name": "5",
+    "body_summary": "Compile left_join_multi/right_join/outer_join queries without intermediate _query helper to reduce overhead; update README with PHP join improvements."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 312,
+      "deletions": 254,
+      "changes": 566,
+      "top1_file": "compiler/x/php/compiler.go",
+      "top1_changes": 253,
+      "top1_change_ratio": 0.447,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.006,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "join_compilation_optimization",
+      "query_helper_removal"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Merged instantly with no review or performance evidence; only narrative in PR body and golden test update."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 566,
+        "interpretation": "At 566 changed lines, this is a small-to-medium edit by absolute volume. It fits a fast-turnaround performance PR that was merged immediately without any review or discussion."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.006,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback available.",
+      "performance_claim": "Compile join queries without _query helper to reduce overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler-level optimization removing an intermediate helper; agent implemented the change and updated tests successfully. Immediate merge indicates low barrier and high maintainer trust.",
+      "success_factors": [
+        "narrow_scope",
+        "passing_tests",
+        "maintainer_auto_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after benchmark or profiler evidence; only a narrative summary and golden test for correctness.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/php/compiler.go, removed the use of _query helper to compile left_join_multi, right_join, and outer_join queries directly. Updated test golden files to reflect new compilation output. Noted PHP join improvements in README.",
+      "files_primary": [
+        "compiler/x/php/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/php/left_join_multi.php",
+        "tests/machine/x/php/outer_join.php",
+        "tests/machine/x/php/right_join.php",
+        "tests/machine/x/php/README.md"
+      ],
+      "secondary_note": "Test files updated to match new compilation output; README notes join improvements.",
+      "change_trajectory": [
+        "Single commit: php: compile joins without query helper, modifying compiler.go and updating test golden files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with a single commit, labeled as 'codex', and merged within 21 seconds by the same user with no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

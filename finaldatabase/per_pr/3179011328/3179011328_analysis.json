@@ -1,0 +1,241 @@
+{
+  "pr_id": 3179011328,
+  "meta": {
+    "title": "Implement parallel DB summary for BigQuery",
+    "html_url": "https://github.com/bruin-data/bruin/pull/843",
+    "repo": "bruin-data/bruin",
+    "agent": "OpenAI_Codex",
+    "user": "karakanb",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-26 12:44:21+00:00",
+    "merged_at": "2025-06-27 11:01:11+00:00",
+    "closed_at": "2025-06-27 11:01:11+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 0,
+    "topic_name": "30",
+    "body_summary": "Add concurrent fetching of BigQuery table columns in getDatabaseSummary and include column metadata in summary output, with test updates."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 46,
+      "additions": 1843,
+      "deletions": 232,
+      "changes": 2075,
+      "top1_file": "pkg/lint/policy_builtins_test.go",
+      "top1_changes": 332,
+      "top1_change_ratio": 0.16,
+      "files_by_status": {
+        "added": 8,
+        "modified": 38,
+        "removed": 0
+      },
+      "directory_count": 4,
+      "directories": [
+        "cmd",
+        "pkg",
+        "docs",
+        "integration-tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "DISMISSED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 3,
+        "labeled": 1,
+        "reviewed": 2,
+        "review_dismissed": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 22.27,
+      "first_review_delay_hours": 0.05,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "concurrent_fetch",
+      "database_summary_columns"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_approval",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added concurrent BigQuery column fetching with tests; reviewers approved without comments, merged after lint fix. No performance evidence beyond narrative."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2075,
+        "interpretation": "At 2075 changed lines across 46 files, this is a large change by absolute volume, but most churn comes from merging main branch. The core BigQuery concurrency change is confined to pkg/bigquery/db.go and db_test.go (~244 lines initially). The merge was fast and without blocking review, indicating low risk for the performance improvement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 22.27,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none_evident",
+      "concern_detail": "Both reviews had no body text; the first was DISMISSED after merging main, second APPROVED. No performance evidence requested.",
+      "performance_claim": "Concurrent fetching of BigQuery table columns improves database summary latency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding goroutine-based concurrency in Go requires expertise in request-level parallelism; the PR demonstrates ability to add concurrent fetch with tests, and maintainers approved without pushback.",
+      "success_factors": [
+        "incremental_change",
+        "includes_tests",
+        "fast_maintainer_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Tests included but no benchmark or performance data; claim is narrative only.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "A lint fix commit was added before merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In pkg/bigquery/db.go, GetDatabaseSummary now uses sync.WaitGroup and goroutines to fetch table columns concurrently, and returns column metadata in the summary. Updated db_test.go with test cases for the new columns field.",
+      "files_primary": [
+        "pkg/bigquery/db.go",
+        "pkg/bigquery/db_test.go"
+      ],
+      "files_secondary_observability": [
+        "cmd/datadiff.go",
+        "cmd/datadiff_test.go",
+        "cmd/fetch.go",
+        "cmd/helpers.go",
+        "cmd/internal.go",
+        "cmd/internal_test.go",
+        "cmd/lint.go",
+        "cmd/run.go",
+        "docs/.vitepress/config.mjs",
+        "docs/ingestion/google_analytics.md",
+        "docs/ingestion/isoc_pulse.md",
+        "docs/ingestion/media/zoom_ingestion.png",
+        "docs/ingestion/zoom.md",
+        "integration-tests/expected_connections_schema.json",
+        "pkg/bigquery/operator.go",
+        "pkg/config/connections.go",
+        "pkg/config/manager.go",
+        "pkg/config/manager_test.go",
+        "pkg/config/testdata/simple.yml",
+        "pkg/config/testdata/simple_win.yml",
+        "pkg/connection/connection.go",
+        "pkg/diff/datetime_test.go",
+        "pkg/diff/types.go",
+        "pkg/duckdb/db.go",
+        "pkg/duckdb/operator.go",
+        "pkg/emr_serverless/package.go",
+        "pkg/executor/defaults.go",
+        "pkg/isocpulse/config.go",
+        "pkg/lint/lint.go",
+        "pkg/lint/lint_test.go",
+        "pkg/lint/policy.go",
+        "pkg/lint/policy_builtins.go",
+        "pkg/lint/policy_builtins_test.go",
+        "pkg/lint/policy_test.go",
+        "pkg/lint/rules.go",
+        "pkg/lint/rules_test.go",
+        "pkg/pipeline/pipeline.go",
+        "pkg/postgres/db.go",
+        "pkg/postgres/operator.go",
+        "pkg/python/uv.go",
+        "pkg/snowflake/db.go",
+        "pkg/snowflake/operator.go",
+        "pkg/zoom/client.go",
+        "pkg/zoom/config.go"
+      ],
+      "secondary_note": "The merge from main (commit c9b113c) brought in 1794 lines of unrelated changes (docs, lint policies, new packages like zoom, etc.) which overwhelm the PR's diff but are not part of the performance change.",
+      "change_trajectory": [
+        "Initial commit added concurrent fetching and column data to BigQuery summary, with tests.",
+        "Merged latest main branch to resolve conflicts and incorporate unrelated changes.",
+        "Lint fix commit adjusted test file."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "terzioglub",
+        "channel": "formal_review",
+        "signal": "dismissed_no_text",
+        "summary": "Review dismissed after merging main; no text provided.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "turtleDev",
+        "channel": "formal_review",
+        "signal": "approved_no_text",
+        "summary": "Approved without comments.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit adding BigQuery parallel fetching.",
+      "Terzioglub dismissed review after merging main branch.",
+      "Terzioglub added lint fix commit.",
+      "turtleDev approved, and Terzioglub merged the PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

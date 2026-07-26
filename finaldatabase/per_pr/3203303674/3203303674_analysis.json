@@ -1,0 +1,247 @@
+{
+  "pr_id": 3203303674,
+  "meta": {
+    "title": "Refactor UNICHARSET script storage to use hash map instead of raw array",
+    "html_url": "https://github.com/tesseract-ocr/tesseract/pull/4435",
+    "repo": "tesseract-ocr/tesseract",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-07-04 16:56:43+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 33,
+    "topic_name": "33_ahash_uint_methods_fnv",
+    "body_summary": "Replace raw char** array for script storage in UNICHARSET with std::unordered_map and std::vector for O(1) lookup and automatic memory management."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 2,
+      "additions": 43,
+      "deletions": 55,
+      "changes": 98,
+      "top1_file": "src/ccutil/unicharset.cpp",
+      "top1_changes": 61,
+      "top1_change_ratio": 0.622,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 5,
+      "review_states": {
+        "COMMENTED": 5
+      },
+      "review_comment_count": 4,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 23,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "review_requested": 3,
+        "reviewed": 2,
+        "renamed": 1,
+        "copilot_work_finished": 3,
+        "commented": 5
+      },
+      "lifespan_hours": 62.65,
+      "first_review_delay_hours": 0.088,
+      "review_rounds": 5,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hash_map_script_storage",
+      "reduce_linear_search",
+      "memory_safety"
+    ],
+    "optimization_layer": "application_data_structure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_draft_pending_comparison",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "perf_evidence"
+    ],
+    "blocking": true,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "code_scanning"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Copilot refactored raw array to unordered_map for O(1) script lookup; maintainers request benchmark comparison before merging, PR still open as draft."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 98,
+        "interpretation": "At 98 changed lines over 2 files, this is a small refactoring by absolute volume. It fits a targeted performance-oriented data structure change that is not yet merged, as maintainers requested performance comparison before merging."
+      },
+      "lifecycle": {
+        "lifespan_hours": 62.65,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "missing_benchmark",
+      "concern_detail": "Maintainers stweil and egorpugin requested a comparison between the new hash map implementation and the old manual approach before merging, and questioned performance for small script counts.",
+      "performance_claim": "Script lookup is now O(1) with unordered_map instead of O(n) linear search, improving performance for many scripts.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "manual_array_linear_search",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "perf_evidence"
+      ],
+      "rejection_signals": "Maintainers blocking merge pending performance comparison; PR remains as draft."
+    },
+    "capability_boundary": {
+      "topic": "33_ahash_uint_methods_fnv",
+      "agent": "Copilot",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "C++ STL refactoring with claimed algorithmic improvement requires maintainer-requested benchmark evidence before merge, especially for small script counts where hash overhead may outweigh benefit.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "code_scanning"
+      ],
+      "detection_detail": {
+        "code_reading": "stweil and egorpugin reviewed the diff, suggested type improvements (size_t, auto), and requested a manual performance comparison.",
+        "code_scanning": "Original PR triggered by a GitHub code scanning report about potential use-after-free in UNICHARSET; the refactoring aimed to improve memory safety."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data provided; maintainers requested manual comparison before merging.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR is still open as draft; no regression has been merged, so no handling occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced raw char** array and manual resizing in UNICHARSET script storage with std::unordered_map for name-to-id and std::vector for id-to-name, eliminating manual memory management and O(n) lookup.",
+      "files_primary": [
+        "src/ccutil/unicharset.cpp",
+        "src/ccutil/unicharset.h"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Copilot agent initial plan commit.",
+        "Refactored to use unordered_map and vector, with O(1) lookup, replacing manual char** array.",
+        "Per maintainer review, changed script_table_size type from int with static_cast to size_t.",
+        "Changed variable to auto per stweil suggestion."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "stweil",
+        "channel": "inline_review_comment",
+        "signal": "type_improvement_suggestion",
+        "summary": "Suggested using size_t instead of int to avoid static_cast.",
+        "blocking": false,
+        "action_taken": "Copilot changed to size_t in commit 13a7f63."
+      },
+      {
+        "source": "egorpugin",
+        "channel": "inline_review_comment",
+        "signal": "style_suggestion",
+        "summary": "Suggested using auto for script_table_size variable.",
+        "blocking": false,
+        "action_taken": "Copilot changed to auto in commit 7e9fc5c."
+      },
+      {
+        "source": "stweil",
+        "channel": "pr_comment",
+        "signal": "performance_question",
+        "summary": "Questioned performance comparison for small script counts (e.g., 10).",
+        "blocking": false,
+        "action_taken": "Copilot responded with analysis, but no benchmark provided."
+      },
+      {
+        "source": "egorpugin",
+        "channel": "pr_comment",
+        "signal": "merge_blocking_pending_benchmark",
+        "summary": "Explicitly stated 'Don't merge this before we compare with manual impl.'",
+        "blocking": true,
+        "action_taken": "PR remains open as draft; merge blocked."
+      },
+      {
+        "source": "stweil",
+        "channel": "pr_comment",
+        "signal": "confirm_draft_status",
+        "summary": "Clarified that it is still a draft PR and started as an experiment for a code scanning report.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "wollmers",
+        "channel": "pr_comment",
+        "signal": "technical_discussion",
+        "summary": "Noted break-even around n=10 and suggested a perfect hash for read-only lookup.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Copilot bot review provided no substantive feedback; unable to review any files.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened draft PR refactoring UNICHARSET script storage with unordered_map.",
+      "Copilot bot review gave no substantive feedback.",
+      "stweil suggested using size_t; Copilot pushed fix.",
+      "egorpugin suggested using auto; Copilot pushed fix.",
+      "stweil questioned performance for small script counts; Copilot replied.",
+      "egorpugin demanded manual comparison before merging; stweil confirmed draft status.",
+      "wollmers added note about perfect hashes.",
+      "PR remains open as draft pending performance comparison."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

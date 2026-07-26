@@ -1,0 +1,198 @@
+{
+  "pr_id": 3206662836,
+  "meta": {
+    "title": "Analyze factors causing iOS to kill PWA",
+    "html_url": "https://github.com/jxxghp/MoviePilot-Frontend/pull/360",
+    "repo": "jxxghp/MoviePilot-Frontend",
+    "agent": "Cursor",
+    "user": "jxxghp",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-06 15:14:31+00:00",
+    "merged_at": "2025-07-06 22:40:43+00:00",
+    "closed_at": "2025-07-06 22:40:43+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 35,
+    "topic_name": "35",
+    "body_summary": "Implement PWA background optimization for iOS to reduce resource consumption and prevent app termination by introducing BackgroundManager and SSEManager that pause activity in the background."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 32,
+      "additions": 3196,
+      "deletions": 2356,
+      "changes": 5552,
+      "top1_file": "使用示例.md",
+      "top1_changes": 856,
+      "top1_change_ratio": 0.154,
+      "files_by_status": {
+        "added": 5,
+        "modified": 23,
+        "removed": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 10,
+      "event_counts": {
+        "committed": 6,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 7.44,
+      "first_review_delay_hours": 0.06,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "pwa_background_optimization",
+      "sse_connection_pausing",
+      "timer_management"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_no_human_review",
+    "review_dimensions": [
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Cursor restructured PWA background handling with no human review; a bot-reported timer bug was likely fixed in follow-up commit before merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5552,
+        "interpretation": "At 5552 changed lines across 32 files, this is a large change by absolute volume, but most churn comes from documentation markdown files added and later removed (over 2000 lines). The change is a cross-cutting PWA background optimization that was merged without human review, likely because the maintainer authored the PR via agent and self-approved."
+      },
+      "lifecycle": {
+        "lifespan_hours": 7.44,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_bug_in_refactor",
+      "concern_detail": "Cursor BugBot flagged that the data refresh timer in DownloaderCard always runs even when the downloader is disabled, leading to unnecessary resource usage.",
+      "performance_claim": "Reducing background resource consumption to prevent iOS termination and improve battery life.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "continuous_background_activity",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "35",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "PWA lifecycle management, Vue composables, and SSE connection handling are within Cursor capability; the agent delivered a large restructuring that merged without human review, with a bot-reported timer bug later fixed in commits.",
+      "success_factors": [
+        "self_merge_by_maintainer",
+        "implicit_bug_fix",
+        "no_blocking_review"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics for background optimization; only narrative claims about iOS termination.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "A bot-reported timer bug was addressed by a later commit that added conditional timer support, though no explicit review or testing was done.",
+      "evidence_gap": "narrative_only_no_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced backgroundManager and sseManager to pause SSE connections and timers when the app enters background, used via useBackgroundOptimization composable across many Vue components. Removed markdown documentation files that were added earlier.",
+      "files_primary": [
+        "src/utils/backgroundManager.ts",
+        "src/utils/sseManager.ts",
+        "src/composables/useBackgroundOptimization.ts"
+      ],
+      "files_secondary_observability": [
+        "Various Vue component files where polling timers and onMounted hooks were updated to use the new composable",
+        "src/App.vue",
+        "src/main.ts",
+        "Removed markdown docs (使用示例.md, 优化实施总结.md, etc.)"
+      ],
+      "secondary_note": "Much of the high change count is from markdown files added then later removed; core performance logic is in the three primary files.",
+      "change_trajectory": [
+        "Initial commit: Added managers and documentation (PWA_后台优化分析报告.md, 使用示例.md).",
+        "Subsequent commit: Replaced docs with composable and integrated into App.vue, main.ts, and many dashboard components.",
+        "Commit implementing background optimization composable for data refresh and SSE across more Vue components.",
+        "Bump version to 2.6.3 and remove all optimization documentation files.",
+        "Commit refactoring data refresh mechanism with conditional timer support, likely addressing bot bug.",
+        "Merge branch 'v2' bringing in usePWA changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bot_reported_bug",
+        "summary": "BugBot identified a data refresh timer bug in DownloaderCard where the timer runs continuously even when the downloader is disabled, causing unnecessary resource consumption.",
+        "blocking": false,
+        "action_taken": "Later commit 65b0acdc refactored data refresh with conditional timer support, likely addressing the issue."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with multiple agent commits adding managers and documentation.",
+      "Cursor BugBot commented with a timer bug (non-blocking).",
+      "Agent added more commits including a fix for the data refresh mechanism.",
+      "Maintainer merged after ~7.4h without any human review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "pr_id": 3105888579,
+  "meta": {
+    "title": "Use bumpalo for temporary buffers",
+    "html_url": "https://github.com/beowolx/rensa/pull/28",
+    "repo": "beowolx/rensa",
+    "agent": "OpenAI_Codex",
+    "user": "beowolx",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-31 18:33:27+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-31 18:53:04+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": 4,
+    "topic_name": "4",
+    "body_summary": "Add bumpalo allocator to temp buffers in minhash update functions; pytest fails with missing 'rensa' module."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 9,
+      "deletions": 2,
+      "changes": 11,
+      "top1_file": "src/cminhash.rs",
+      "top1_changes": 5,
+      "top1_change_ratio": 0.455,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.326,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bump_allocator",
+      "temporary_buffer_optimization"
+    ],
+    "optimization_layer": "runtime_memory",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_test_failure",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "low",
+    "notes": "Bumpalo allocation change; no review, self-closed after 19 minutes with a failing test note."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 11,
+        "interpretation": "At 11 changed lines across 3 files, this is a minimal change by absolute volume. It fits a small-step performance optimization that was closed quickly, consistent with a low-engagement PR that wasn't merged."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.326,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "functional_test_failure",
+      "concern_detail": "The body mentions pytest -q fails with ModuleNotFoundError: No module named 'rensa', indicating the change could not be properly tested. No human review text is available.",
+      "performance_claim": "Replace Vec allocations with bumpalo for temporary hashes to reduce memory allocations and improve speed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR self-closed by author after 19 minutes with a failing test note; no reviewer interaction."
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Tiny isolated change with no collaborative review; self-closed immediately, indicating a process boundary where agent work is not integrated into project workflow.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": null,
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or repro steps; test failure prevents verification.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without attempting fix.",
+      "evidence_gap": "narrative_only_failing_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add bumpalo to Cargo.toml; in cminhash.rs and rminhash.rs, replace temporary Vec allocations in update() with bumpalo Bump-allocated Vecs to reduce per-update allocation overhead.",
+      "files_primary": [
+        "Cargo.toml",
+        "src/cminhash.rs",
+        "src/rminhash.rs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit integrating bumpalo for temporary batches."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by beowolx with single commit using OpenAI_Codex.",
+      "Labeled 'codex'.",
+      "Self-closed without external review after 19 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

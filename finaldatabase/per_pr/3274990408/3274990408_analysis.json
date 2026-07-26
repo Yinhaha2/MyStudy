@@ -1,0 +1,178 @@
+{
+  "pr_id": 3274990408,
+  "meta": {
+    "title": "Add runtime rate target config",
+    "html_url": "https://github.com/copper-project/copper-rs/pull/410",
+    "repo": "copper-project/copper-rs",
+    "agent": "OpenAI_Codex",
+    "user": "gbin",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-29 21:06:22+00:00",
+    "merged_at": "2025-07-30 02:12:42+00:00",
+    "closed_at": "2025-07-30 02:12:42+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "37",
+    "body_summary": "Add RuntimeConfig with rate_target_hz, propagate through CuConfig and CuRuntime, enforce in generated run loop, and showcase in cu_rate_target example."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 9,
+      "additions": 208,
+      "deletions": 1,
+      "changes": 209,
+      "top1_file": "examples/cu_rate_target/src/main.rs",
+      "top1_changes": 105,
+      "top1_change_ratio": 0.5023923444976076,
+      "files_by_status": {
+        "added": 5,
+        "modified": 4
+      },
+      "directory_count": 3,
+      "directories": [
+        ".",
+        "core",
+        "examples"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 5.1056,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "runtime_rate_target",
+      "loop_timing_control"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_no_review_small_scope",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit feature adding runtime rate target config; no review, no benchmark; merged by maintainer/agent user with low friction."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 209,
+        "interpretation": "Small change (209 lines) across 9 files, mostly a new example and config/derive additions. Consistent with fast, unreviewed merge for a low-risk feature."
+      },
+      "lifecycle": {
+        "lifespan_hours": 5.1056,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comment text available; PR merged by the author without external feedback.",
+      "performance_claim": "Introduce a configurable rate target (rate_target_hz) to control the runtime loop execution frequency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding runtime configuration with derive macro support and loop timing enforcement requires understanding of Rust procedural macros and runtime scheduling; the PR succeeded without review friction.",
+      "success_factors": [
+        "single_commit",
+        "self-contained_example",
+        "maintainer_authored"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No explicit review text; the maintainer/author likely self-reviewed the code before merging.",
+        "ci_auto": null
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark, profiling, or numeric performance claim; only the new example is provided as usage reference.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions detected or reported.",
+      "evidence_gap": "narrative_only_for_rate_target"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added RuntimeConfig with rate_target_hz field, propagated through CuConfig and CuRuntime, and enforced in the generated run loop via cu29_derive macro; added a cu_rate_target example demonstrating end-to-end usage.",
+      "files_primary": [
+        "core/cu29_runtime/src/config.rs",
+        "core/cu29_runtime/src/curuntime.rs",
+        "core/cu29_derive/src/lib.rs"
+      ],
+      "files_secondary_observability": [
+        "examples/cu_rate_target/Cargo.toml",
+        "examples/cu_rate_target/build.rs",
+        "examples/cu_rate_target/copperconfig.ron",
+        "examples/cu_rate_target/src/main.rs"
+      ],
+      "secondary_note": "The new example showcases the rate target feature with a config file, build script, and main loop that prints at the target rate.",
+      "change_trajectory": [
+        "Single commit: added runtime rate target configuration, including config structs, runtime storage, derive macro code generation, and a full example."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by gbin (maintainer) with a single commit adding rate target feature.",
+      "No external review or comments; PR merged by the same author after approximately 5 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

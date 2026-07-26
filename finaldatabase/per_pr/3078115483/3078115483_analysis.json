@@ -1,0 +1,173 @@
+{
+  "pr_id": 3078115483,
+  "meta": {
+    "title": "Lazy load JBrowsePanel",
+    "html_url": "https://github.com/theosanderson/taxonium/pull/696",
+    "repo": "theosanderson/taxonium",
+    "agent": "OpenAI_Codex",
+    "user": "theosanderson",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-20 20:08:25+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-20 20:10:26+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Lazy load JBrowsePanel with React.lazy and show a loading spinner to improve initial bundle performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 8,
+      "deletions": 6,
+      "changes": 14,
+      "top1_file": "taxonium_component/src/Deck.jsx",
+      "top1_changes": 14,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "taxonium_component"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "labeled": 1,
+        "closed": 1,
+        "deployed": 1
+      },
+      "lifespan_hours": 0.034,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lazy_load",
+      "code_splitting",
+      "initial_bundle_size"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_author_immediately",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex lazy-load optimization; PR closed by author seconds after creation without review; sparse evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 14,
+        "interpretation": "At 14 changed lines, this is a very small change by absolute volume. It fits a typical small-step frontend performance optimization (code splitting). The PR was closed by the author almost immediately after creation, which is unusual and suggests the change was either premature or a mistake, not merged."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.034,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "closed_by_author",
+      "concern_detail": "PR closed by author without explanation within 2 minutes of creation; no review or discussion occurred.",
+      "performance_claim": "Lazy loading JBrowsePanel reduces initial bundle size and speeds up page load.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "large_initial_bundle (not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by author immediately without merge; no explicit rejection."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent-authored PR was closed by human author within minutes, suggesting either a mistake in generation or a decision that the change wasn't ready; no maintainer review occurred.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review or comment from maintainer; PR closed before any code reading could occur."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks, profiler data, or before/after metrics; only a one-line summary and a note that pre-commit failed.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge immediately after creation; no revert or fix cycle.",
+      "evidence_gap": "narrative_only_no_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In taxonium_component/src/Deck.jsx, replaced static import of JBrowsePanel with React.lazy(() => import('./JBrowsePanel')), wrapped in Suspense with a loading spinner, to defer loading of JBrowsePanel until needed.",
+      "files_primary": [
+        "taxonium_component/src/Deck.jsx"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only one file modified; no other changes.",
+      "change_trajectory": [
+        "Single commit adding React.lazy and Suspense for JBrowsePanel."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview for cov2tree.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with lazy loading change.",
+      "Closed by author within 2 minutes with no review or comment activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

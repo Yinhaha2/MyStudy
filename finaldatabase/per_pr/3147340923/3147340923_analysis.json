@@ -1,0 +1,192 @@
+{
+  "pr_id": 3147340923,
+  "meta": {
+    "title": "Replace HashMap/HashSet with FxHasher versions across Rspack codebase",
+    "html_url": "https://github.com/web-infra-dev/rspack/pull/10677",
+    "repo": "web-infra-dev/rspack",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-15 10:42:14+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-15 11:51:04+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 33,
+    "topic_name": "33_ahash_uint_methods_fnv",
+    "body_summary": "Replace std HashMap/HashSet with FxHasher equivalents across the Rspack codebase to improve hash performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 40,
+      "additions": 94,
+      "deletions": 78,
+      "changes": 172,
+      "top1_file": "crates/node_binding/src/rsdoctor.rs",
+      "top1_changes": 28,
+      "top1_change_ratio": 0.163,
+      "files_by_status": {
+        "modified": 40
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "crates"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "review_requested": 2,
+        "commented": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 1.147,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hash_map_replacement",
+      "fxhasher"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "no_performance_benefit",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin replaced HashMap/HashSet with FxHasher across 40 files; CodSpeed benchmark reported no performance alteration; PR closed shortly after without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 172,
+        "interpretation": "At 172 changed lines across 40 files, this is a small-to-medium refactor by absolute volume, touching many files but with minimal per‑file diff. It is a systematic hash‑map replacement intended for performance, but the PR was closed—not merged—after a CI benchmark showed no performance gain."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.147,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "no_performance_benefit",
+      "concern_detail": "CodSpeed CI performance report indicates that merging this PR will not alter performance (12 untouched benchmarks), contradicting the performance claim.",
+      "performance_claim": "Improve hash performance by using FxHasher instead of the default hasher.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed after CodSpeed benchmark reported no performance alteration; maintainer hardfist closed without comment."
+    },
+    "capability_boundary": {
+      "topic": "33_ahash_uint_methods_fnv",
+      "agent": "Devin",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "A broad, cross‑crate hasher replacement in a Rust build tool; without benchmarks or profiling data, the performance claim was not validated, and CI benchmarks refuted it. Merge required measurable improvement.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "CodSpeed bot ran performance benchmarks comparing the PR branch against main and reported that merging will not alter performance (12 untouched benchmarks)."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body contains only a narrative claim; CodSpeed provided post‑hoc benchmark but no reproducible steps or before/after metrics from the author.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No performance regression occurred; PR closed because expected improvement was not observed. The author/maintainer hardfist closed the PR after the benchmark report.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In 40 files across Rspack crates, replaced `std::collections::HashMap`/`HashSet` imports with `rustc_hash::FxHashMap`/`FxHashSet` via `use rustc_hash::{FxHashMap as HashMap, FxHashSet as HashSet}`; adapted initialization from `HashMap::new()` to `HashMap::default()` for FxHashMap compatibility; updated affected `Cargo.toml` files to add `rustc-hash` dependency.",
+      "files_primary": [
+        "crates/node_binding/src/rsdoctor.rs",
+        "crates/rspack_core/src/build_chunk_graph/incremental.rs",
+        "crates/rspack_core/src/exports/export_info_setter.rs",
+        "crates/rspack_plugin_javascript/src/plugin/flag_dependency_exports_plugin.rs"
+      ],
+      "files_secondary_observability": [
+        "Cargo.lock",
+        "crates/rspack_cacheable/Cargo.toml",
+        "crates/rspack_plugin_html/Cargo.toml",
+        "crates/rspack_plugin_limit_chunk_count/Cargo.toml",
+        "crates/rspack_plugin_rstest/Cargo.toml",
+        "crates/rspack_plugin_size_limits/Cargo.toml",
+        "crates/rspack_tracing/Cargo.toml"
+      ],
+      "secondary_note": "Remaining source files (30+) have 2‑6 line diffs each, mostly import changes and `HashMap::new()` → `HashMap::default()` fixes.",
+      "change_trajectory": [
+        "Single commit replacing HashMap/HashSet with FxHasher across 40 files, adding rustc-hash deps and fixing initialization."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "codspeed-hq[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_benchmark_no_change",
+        "summary": "CodSpeed performance report indicates merging will not alter performance (12 untouched benchmarks).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with single commit replacing hash maps across codebase.",
+      "CodSpeed CI benchmark automatically ran and reported no performance alteration.",
+      "Maintainer hardfist closed the PR shortly after without comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

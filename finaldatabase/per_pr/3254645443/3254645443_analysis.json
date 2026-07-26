@@ -1,0 +1,171 @@
+{
+  "pr_id": 3254645443,
+  "meta": {
+    "title": "Update F# transpiler for array usage",
+    "html_url": "https://github.com/mochilang/mochi/pull/12213",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-23 02:51:08+00:00",
+    "merged_at": "2025-07-23 02:51:32+00:00",
+    "closed_at": "2025-07-23 02:51:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 8,
+    "topic_id": 0,
+    "topic_name": "1",
+    "body_summary": "Switch F# transpiler from lists to arrays for performance, adjusting index operations and regenerating test artifacts."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 156,
+      "deletions": 90,
+      "changes": 246,
+      "top1_file": "transpiler/x/fs/transpiler.go",
+      "top1_changes": 144,
+      "top1_change_ratio": 0.585,
+      "files_by_status": {
+        "added": 1,
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.007,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "list_to_array",
+      "transpiler_refactor"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit list-to-array refactor in F# transpiler; merged instantly by maintainer without review, test failure noted but not blocking."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 246,
+        "interpretation": "At 246 changed lines, this is a small-to-medium edit by absolute volume, concentrated in transpiler core and test files. It fits a small-step performance refactor that was merged immediately without review, consistent with low-friction maintenance."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.007,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comment text available; PR merged without any recorded feedback.",
+      "performance_claim": "Using arrays instead of lists improves access speed and reduces overhead in the F# transpiler.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "List-to-array conversion in transpiler is a local data-structure change within a single package; no benchmark or review required for merge. Agent capability boundary is not tested because maintainer self-merged without inspection.",
+      "success_factors": [
+        "maintainer_self_merge",
+        "narrow_scope",
+        "existing_test_suite"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics; PR body only mentions a failing test and `go vet`.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling observed; test failures noted but did not block merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In transpiler/x/fs/transpiler.go, refactored data handling to use F# arrays instead of lists; updated index operations and list processing. Test files adjusted, including 100-prisoners problem and Rosetta test expectations.",
+      "files_primary": [
+        "transpiler/x/fs/transpiler.go"
+      ],
+      "files_secondary_observability": [
+        "transpiler/x/fs/rosetta_test.go",
+        "tests/rosetta/transpiler/FS/100-prisoners.fs",
+        "tests/rosetta/transpiler/FS/100-prisoners.error",
+        "transpiler/x/fs/ROSETTA.md"
+      ],
+      "secondary_note": "Test file updates adjust expected outputs and test logic to match array-based transpiler; a new error file for 100-prisoners was added.",
+      "change_trajectory": [
+        "Single commit: refactored transpiler to use arrays, updated tests and docs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created with refactoring commit; immediately merged by author without any review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

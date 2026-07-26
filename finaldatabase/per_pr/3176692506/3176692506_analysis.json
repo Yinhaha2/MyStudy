@@ -1,0 +1,211 @@
+{
+  "pr_id": 3176692506,
+  "meta": {
+    "title": "Fix event listener leak when caching data streams",
+    "html_url": "https://github.com/ar-io/ar-io-node/pull/438",
+    "repo": "ar-io/ar-io-node",
+    "agent": "OpenAI_Codex",
+    "user": "djwhitt",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-25 19:11:33+00:00",
+    "merged_at": "2025-06-25 22:53:28+00:00",
+    "closed_at": "2025-06-25 22:53:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "22",
+    "body_summary": "Introduce a PassThrough stream to decouple listeners from the original HTTP stream, avoiding MaxListenersExceededWarning and memory leaks in the read-through data cache."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 31,
+      "deletions": 9,
+      "changes": 40,
+      "top1_file": "src/data/read-through-data-cache.ts",
+      "top1_changes": 40,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 3
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 17,
+      "event_counts": {
+        "labeled": 1,
+        "review_requested": 2,
+        "reviewed": 3,
+        "commented": 4,
+        "head_ref_force_pushed": 2,
+        "mentioned": 1,
+        "committed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 3.698,
+      "first_review_delay_hours": 0.029,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "event_listener_leak",
+      "stream_tee",
+      "memory_usage_reduction"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-commit stream decoupling fix; only bot reviews (Copilot, CodeRabbit) with nitpicks, no human review objections; merged in 3.7 hours."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 40,
+        "interpretation": "At 40 changed lines in a single file, this is a very small and focused fix by absolute volume. It fits a targeted performance bugfix that merged quickly without human review friction."
+      },
+      "lifecycle": {
+        "lifespan_hours": 3.698,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "bot_suggestions",
+      "concern_detail": "Copilot bot suggested removing async keyword from pipeline callback and cautioned against async pipeline usage. CodeRabbit provided nitpick suggestions on collapsing pipelines and streaming hash computation. No human maintainer flagged any blocking issues.",
+      "performance_claim": "Prevent MaxListenersExceededWarning and memory leaks by decoupling listeners with a PassThrough stream.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Node.js stream handling fix in a single-file change; maintainer merged without human review, indicating low merge friction for this class of small correctness/perf tweak.",
+      "success_factors": [
+        "small_scope",
+        "quick_merge",
+        "bot_review_not_blocking"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No benchmark or before/after memory measurement; only narrative description of MaxListenersExceededWarning.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "",
+      "evidence_gap": "narrative_only_for_stream_leak"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/data/read-through-data-cache.ts, introduced a PassThrough stream, pipelined the original data.stream to it, and attached hash/metrics/caching listeners to the PassThrough to avoid multiple consumers on the original stream; switched from 'on' to 'once' for cache-hit metrics, and added a finished() cleanup.",
+      "files_primary": [
+        "src/data/read-through-data-cache.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: added PassThrough decoupling, changed event listeners to once, added finished for cleanup, updated caching pipeline to consume PassThrough."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Copilot bot posted PR Overview summarizing the PassThrough decoupling; no inline comments or blocking issues.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "nitpick_async_callback",
+        "summary": "Suggested removing async keyword from pipeline callback if no async operations inside.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "nitpick_async_pipeline_cleanup",
+        "summary": "Cautioned against using async callback with pipeline as it may not properly await cleanup.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_nitpick_suggestions",
+        "summary": "CodeRabbit provided nitpick suggestions including collapsing pipelines, streaming hash instead of data events, and verifying stream.pause impact.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with a single commit implementing the PassThrough fix.",
+      "Copilot bot posted overview within 2 minutes; CodeRabbit walked through and posted issues after 3 more minutes.",
+      "Maintainer force-pushed (possibly addressing feedback), then requested a full review from CodeRabbit.",
+      "CodeRabbit provided a more detailed review with nitpicks; maintainer merged shortly after with no further changes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "pr_id": 2798302866,
+  "meta": {
+    "title": "feat: Make RightPane resizable",
+    "html_url": "https://github.com/appsmithorg/appsmith/pull/38759",
+    "repo": "appsmithorg/appsmith",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-01-20 06:24:20+00:00",
+    "merged_at": null,
+    "closed_at": "2025-01-22 06:37:31+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "2",
+    "body_summary": "Replace drag-based RightPane resize with click-based expand/collapse using useResize hook and requestAnimationFrame for better performance and UX."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 12,
+      "file_count": 8,
+      "additions": 595,
+      "deletions": 427,
+      "changes": 1022,
+      "top1_file": "app/client/src/utils/hooks/useResize.tsx",
+      "top1_changes": 450,
+      "top1_change_ratio": 0.4403,
+      "files_by_status": {
+        "added": 1,
+        "modified": 5,
+        "removed": 1
+      },
+      "directory_count": 6,
+      "directories": [
+        "app/client/src/pages/Editor/IDE/Layout",
+        "app/client/src/pages/Editor/IDE/RightPane",
+        "app/client/src/pages/Editor/Explorer/Common",
+        "app/client/src/constants",
+        "app/client/src/pages/Editor/WidgetsEditor/components",
+        "app/client/src/utils/hooks"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 12,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 27,
+      "event_counts": {
+        "committed": 12,
+        "commented": 12,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 48.22,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ui_resize",
+      "click_to_toggle_width",
+      "useCallback_optimization",
+      "drag_to_click_migration"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_maintainer_after_testing",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "manual_testing"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin PR for RightPane resize with click-based expand/collapse; maintainer tested via deploy preview and closed without merge, no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1022,
+        "interpretation": "At 1022 changed lines across 8 files, this is a medium-sized frontend refactor. As an incremental UI performance feature, it was closed without merge, consistent with lack of maintainer adoption or possibly functional shortcomings."
+      },
+      "lifecycle": {
+        "lifespan_hours": 48.22,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No formal review or developer feedback on the performance claim or implementation; PR closed after manual testing without comment.",
+      "performance_claim": "Replace drag-based resize with click-based expand/collapse for better performance, using useCallback and smooth transitions.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer closed PR after deploying previews multiple times without any review comment; no merge."
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Frontend UI resize feature involving custom hook and component refactor; Agent delivered changes but maintainer did not accept, possibly due to functionality or UX issues not explicitly stated.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "manual_testing": "Maintainer requested multiple build-deploy-preview deployments (skip-tests=true) and tested the UI manually before closing without further comment."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance benchmarks or before/after metrics; only narrative claim that click-based is more performant.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after maintainer tested preview without providing feedback.",
+      "evidence_gap": "narrative_only_no_manual_evaluation_results"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced drag-based resize with click-based expand/collapse on RightPane using a new useResize hook with requestAnimationFrame, removed RightPaneResizeWrapper, refactored StaticLayout, and added smooth transitions.",
+      "files_primary": [
+        "app/client/src/utils/hooks/useResize.tsx",
+        "app/client/src/pages/Editor/IDE/RightPane/RightPaneResizableHandle.tsx",
+        "app/client/src/pages/Editor/IDE/Layout/StaticLayout.tsx"
+      ],
+      "files_secondary_observability": [
+        "app/client/src/pages/Editor/Explorer/Common/EntityExplorerResizeHandler.tsx",
+        "app/client/src/constants/AppConstants.ts",
+        "app/client/src/pages/Editor/WidgetsEditor/components/PropertyPaneResizableHandle.tsx",
+        "app/client/src/pages/Editor/WidgetsEditor/components/PropertyPaneWrapper.tsx",
+        "app/client/src/pages/Editor/IDE/Layout/RightPaneResizeWrapper.tsx"
+      ],
+      "secondary_note": "RightPaneResizeWrapper was added then removed; PropertyPaneResizableHandle is a rename of RightPaneResizableHandle; EntityExplorerResizeHandler and useResize changes were partially discarded.",
+      "change_trajectory": [
+        "Initial commit: added RightPaneResizeWrapper with drag-based resizing",
+        "Removed RightPaneResizeWrapper in favor of useResize hook, added RightPaneResizableHandle",
+        "State management and style fixes by maintainer",
+        "Added requestAnimationFrame for smoother resizing in useResize",
+        "Major refactor: replaced drag-based resize with click-based expand/collapse, removed many lines from useResize",
+        "Discarded changes to EntityExplorerResizeHandler and useResize, then re-applied via merge",
+        "Final chore improvements before close"
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_bot_user",
+        "summary": "CodeRabbit skipped review because a bot user was detected.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "hetunandu",
+        "channel": "pr_comment",
+        "signal": "build_deploy_preview_command",
+        "summary": "Requested multiple build-deploy-preview runs (skip-tests=true/empty) to test the changes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_notification",
+        "summary": "GitHub Actions posted deployment URLs for preview testing.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial drag-based resize implementation.",
+      "Maintainer hetunandu triggered multiple build-deploy-previews with and without tests skipped.",
+      "Devin iterated on the implementation, moving to click-based expand/collapse after maintainer's state management fixes.",
+      "No formal review or review comments were posted.",
+      "PR was closed by maintainer after ~48 hours with no merge comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "pr_id": 3175666211,
+  "meta": {
+    "title": "Add predicate pushdown and update Scala goldens",
+    "html_url": "https://github.com/mochilang/mochi/pull/3201",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-25 13:31:04+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-25 13:31:26+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Introduce predicate pushdown (preWhere) in Scala compiler and update golden test outputs; also register to_json as a builtin and update types/check.go."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 49,
+      "additions": 368,
+      "deletions": 162,
+      "changes": 530,
+      "top1_file": "tests/compiler/scala/dataset_where_pushdown.scala.out",
+      "top1_changes": 100,
+      "top1_change_ratio": 0.1887,
+      "files_by_status": {
+        "added": 3,
+        "modified": 46,
+        "removed": 0
+      },
+      "directory_count": 3,
+      "directories": [
+        "compile",
+        "tests",
+        "types"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0061,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "predicate_pushdown",
+      "compiler_optimization",
+      "scala_codegen"
+    ],
+    "optimization_layer": "compiler_optimization",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "author_closed_immediately",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Compiler optimization PR with no reviews; author closed within seconds, likely unintended or task artifact."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 530,
+        "interpretation": "At 530 changed lines across 49 files, this is a medium-sized change by absolute volume, mostly golden file updates. As a compiler optimization PR, it was closed immediately by the author without merge, indicating it may not have been intended as a standalone reviewable PR."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0061,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_available",
+      "concern_detail": "No reviews or comments were recorded; the PR was closed by the author seconds after creation.",
+      "performance_claim": "Introduce predicate pushdown (preWhere) to improve query performance by pushing filters closer to data sources.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed PR immediately after creation with no review or discussion."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent-generated compiler optimization PR was closed instantly by the author, suggesting process issues (e.g., the PR may have been created automatically as a task run artifact and not intended for human review).",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No maintainer code-reading review detected."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance evidence or benchmarks were provided; the PR body only mentions introducing preWhere optimization without any performance numbers.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR was closed immediately, so no regression handling process occurred.",
+      "evidence_gap": "narrative_only_no_perf_eval"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/x/scala/compiler.go and runtime.go, modified the Scala compiler to emit preWhere clauses (predicate pushdown) when no join sides are used, and updated the _query helper to use preWhere. Registered to_json as a builtin in types/check.go. Updated numerous Scala golden test output files to reflect the new generated code.",
+      "files_primary": [
+        "compile/x/scala/compiler.go",
+        "compile/x/scala/runtime.go",
+        "types/check.go"
+      ],
+      "files_secondary_observability": [
+        "tests/compiler/scala/dataset_where_pushdown.mochi",
+        "tests/compiler/scala/dataset_where_pushdown.out",
+        "tests/compiler/scala/dataset_where_pushdown.scala.out",
+        "tests/compiler/scala/*.scala.out (multiple)",
+        "tests/compiler/valid_scala/*.scala.out (multiple)"
+      ],
+      "secondary_note": "Golden file updates account for the majority of changed lines; the new dataset_where_pushdown.scala.out is the largest single addition.",
+      "change_trajectory": [
+        "Single commit updating compiler logic, runtime, type checker, and all affected golden outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created and immediately closed by the author with no interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

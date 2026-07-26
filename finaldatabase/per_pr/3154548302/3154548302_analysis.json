@@ -1,0 +1,164 @@
+{
+  "pr_id": 3154548302,
+  "meta": {
+    "title": "Improve zen-consumer batch timing",
+    "html_url": "https://github.com/carverauto/serviceradar/pull/951",
+    "repo": "carverauto/serviceradar",
+    "agent": "OpenAI_Codex",
+    "user": "mfreeman451",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-17 19:28:14+00:00",
+    "merged_at": "2025-06-17 19:28:35+00:00",
+    "closed_at": "2025-06-17 19:28:35+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Add a batch timeout constant to limit wait time for JetStream batches in zen-consumer."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 8,
+      "deletions": 2,
+      "changes": 10,
+      "top1_file": "cmd/zen-consumer/src/main.rs",
+      "top1_changes": 10,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "cmd"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0058,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "batch_timeout",
+      "jetstream_wait_limit"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex added a batch timeout constant to limit JetStream wait time; merged immediately with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 10,
+        "interpretation": "At 10 changed lines in a single file, this is a tiny, low-risk improvement. Fast self-merge without review aligns with the small scope."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0058,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or comments; the PR was merged by the author without maintainer feedback.",
+      "performance_claim": "Limit wait time for JetStream batches by adding a batch timeout constant.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Trivial constant addition and wait cap required no evidence; merged instantly without maintainer review, illustrating a low-friction process for small perf changes.",
+      "success_factors": [
+        "tiny_scope",
+        "self_merge",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or reproduction steps provided; only a narrative claim of batch timeout improvement.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "Merged immediately without any review or regression check.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In cmd/zen-consumer/src/main.rs, added a constant BATCH_TIMEOUT and limited the wait time for JetStream batches to that duration.",
+      "files_primary": [
+        "cmd/zen-consumer/src/main.rs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit 969fe23: add batch timeout constant and apply it to JetStream wait loop."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created with label 'codex' and merged by the same user within 21 seconds; no reviewer interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

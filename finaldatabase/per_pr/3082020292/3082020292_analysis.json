@@ -1,0 +1,195 @@
+{
+  "pr_id": 3082020292,
+  "meta": {
+    "title": "Fix Invoice Preview Re-rendering Issue",
+    "html_url": "https://github.com/legions-developer/invoicely/pull/23",
+    "repo": "legions-developer/invoicely",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-22 04:42:39+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-22 09:01:01+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 12,
+    "topic_name": "12",
+    "body_summary": "Fix excessive re-rendering of the invoice preview component when accordion sections open/close by isolating the PDF preview from React's rendering lifecycle using global state and DOM manipulation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 8,
+      "additions": 311,
+      "deletions": 53,
+      "changes": 364,
+      "top1_file": "apps/web/src/app/(dashboard)/create/invoice/invoice-preview-isolated.tsx",
+      "top1_changes": 163,
+      "top1_change_ratio": 0.448,
+      "files_by_status": {
+        "added": 2,
+        "modified": 6
+      },
+      "directory_count": 2,
+      "directories": [
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 16,
+      "event_counts": {
+        "committed": 6,
+        "commented": 2,
+        "deployed": 6,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 4.306,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "rerender_optimization",
+      "dom_isolation",
+      "react_performance"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "deployment_failure_closed",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin attempted to fix React re-rendering via DOM isolation; Vercel deploy failed and no human review occurred; PR manually closed by maintainer."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 364,
+        "interpretation": "At 364 changed lines across 8 files, this is a small-to-medium edit by absolute volume, primarily adding a new DOM-isolated preview component (163 lines) and wiring it into the page. As a targeted performance fix, it was closed—not merged—likely due to Vercel deployment failure and absence of maintainer review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 4.306,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "deployment_failure",
+      "concern_detail": "Vercel bot reported deployment failure; no human review feedback provided in the dataset.",
+      "performance_claim": "Preventing excessive re-renders of the invoice preview caused by accordion toggles by isolating the PDF preview from React rendering lifecycle using global state and DOM manipulation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "excessive_re_render (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by maintainer (legions-developer) after Vercel deployment failed and no review or fix-in-PR cycle; no explicit rejection comment."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Complex React rendering optimization requiring bypassing React's lifecycle with global state and DOM manipulation; deployment issue and lack of maintainer engagement led to closure without merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "ci_auto": "Vercel build/deploy failed, indicated by bot comment."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes console log evidence of reduced renders (count 0), but no benchmark or before/after performance metrics; deployment failure prevents verification.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without further fix attempts after Vercel deploy failure.",
+      "evidence_gap": "narrative_only_no_benchmark_deployment_failed"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced a new component InvoicePreviewIsolated that uses window state and event listeners to update PDF preview via DOM manipulation, bypassing React re-renders; updated page.tsx to use it and added test-isolated.js for debugging; also made PostHog env vars optional to fix deployment.",
+      "files_primary": [
+        "apps/web/src/app/(dashboard)/create/invoice/invoice-preview-isolated.tsx",
+        "apps/web/src/app/(dashboard)/create/invoice/page.tsx"
+      ],
+      "files_secondary_observability": [
+        "apps/web/src/app/(dashboard)/create/invoice/invoice-preview.tsx",
+        "apps/web/src/app/(dashboard)/create/invoice/test-isolated.js",
+        "apps/web/src/lib/posthog.ts",
+        "apps/web/src/providers/posthog-provider.tsx",
+        "apps/web/src/components/ui/posthog-analytics.tsx",
+        "packages/utilities/src/env/index.ts"
+      ],
+      "secondary_note": "Additional commits fixed Vercel deployment by making PostHog env vars optional and adding error handling.",
+      "change_trajectory": [
+        "Initial commit: basic memo/useCallback attempt.",
+        "Second commit: wrapper component with React.memo and custom comparison.",
+        "Third commit: DOM isolation approach with window state and new component.",
+        "Later commits: fix Vercel build by making env vars optional, conditional PostHog provider, error handling."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_failure",
+        "summary": "Vercel reported deployment failure for invoicely-web; preview URL not available.",
+        "blocking": false,
+        "action_taken": "PR closed, no further deploy fix."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with iterative commits to isolate invoice preview rendering.",
+      "Vercel bot reported deployment failure; Devin made additional commits to fix env var issues but deployment still failed.",
+      "Maintainer manually closed PR after ~4.3 hours with no human review or merge attempt."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

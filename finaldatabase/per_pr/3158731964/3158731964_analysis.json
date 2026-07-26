@@ -1,0 +1,223 @@
+{
+  "pr_id": 3158731964,
+  "meta": {
+    "title": "Add alternative hashing algorithms support for improved HashMap performance",
+    "html_url": "https://github.com/tomhrr/cosh/pull/182",
+    "repo": "tomhrr/cosh",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-19 02:59:59+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-26 11:59:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 33,
+    "topic_name": "33_ahash_uint_methods_fnv",
+    "body_summary": "Add optional hashing algorithms (AHash, FNV) via feature flags to improve HashMap performance, with benchmark claims of ~6.5% speedup for AHash on 10k iterations."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 10,
+      "additions": 479,
+      "deletions": 171,
+      "changes": 650,
+      "top1_file": "Cargo.lock",
+      "top1_changes": 312,
+      "top1_change_ratio": 0.48,
+      "files_by_status": {
+        "added": 2,
+        "modified": 8
+      },
+      "directory_count": 6,
+      "directories": [
+        "(root)",
+        "src",
+        "src/vm",
+        "tests",
+        ".github",
+        "src/bin"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 27,
+      "event_counts": {
+        "committed": 6,
+        "assigned": 2,
+        "copilot_work_started": 5,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "commented": 5,
+        "ready_for_review": 1,
+        "copilot_work_finished_failure": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 176.99,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hash_algorithm_swap",
+      "hashmap_speedup",
+      "feature_conditional_compilation"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "compilation_errors_unresolved",
+    "review_dimensions": [
+      "correctness",
+      "build_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot added AHash/FNV support with feature flags; maintainer requested default AHash, then asked to fix compilation errors; multiple attempts failed (copilot_work_finished_failure), PR closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 650,
+        "interpretation": "At 650 changed lines across 10 files, this is a medium-sized refactor. It fits a moderate performance feature addition, but was closed due to unresolved compilation errors rather than merged."
+      },
+      "lifecycle": {
+        "lifespan_hours": 176.99,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "compilation_failure",
+      "concern_detail": "After Copilot set AHash as default, maintainer reported compilation errors and repeatedly asked Copilot to fix them; multiple Copilot work attempts failed (copilot_work_finished_failure events), and no corrective commits were made.",
+      "performance_claim": "Alternative hashers (AHash, FNV) improve HashMap performance; AHash shows ~6.5% speedup over default IndexMap for 10k iterations.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "build_validation"
+      ],
+      "rejection_signals": "Compilation errors after default AHash change; multiple fix attempts failed; PR closed by maintainer after ~7 days."
+    },
+    "capability_boundary": {
+      "topic": "33_ahash_uint_methods_fnv",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot successfully implemented feature-gated hashers and conditional compilation, but could not resolve subsequent compilation errors (likely due to complex Cargo.lock and feature interactions), indicating the Agent's limit in debugging build failures without maintainer guidance.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "Compilation errors were detected after the change, prompting maintainer to request fixes multiple times."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Body includes benchmark numbers but no command or setup for replication; compilation errors were reproducible via CI, but performance claims could not be verified.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after Copilot failed to fix compilation errors across multiple attempts.",
+      "evidence_gap": "no_working_build_after_change"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduce optional AHash and FNV hashers via Cargo features, defaulting to AHash; create type aliases and helper functions for HashMap construction; update hashmap usage across src/chunk.rs, vm files; add HASHING.md documentation.",
+      "files_primary": [
+        "src/chunk.rs",
+        "Cargo.toml",
+        "HASHING.md"
+      ],
+      "files_secondary_observability": [
+        "Cargo.lock",
+        "tests/tests.rs",
+        "src/vm/vm_basics.rs",
+        "src/vm/vm_env.rs",
+        "src/vm/vm_list.rs"
+      ],
+      "secondary_note": "Cargo.lock and merge commits increased overall diff volume; the core logic change is in src/chunk.rs.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Fix test infrastructure (remove duplicate function).",
+        "Add alternative hashing algorithms support (ahash, fxhash).",
+        "Complete implementation with documentation and testing.",
+        "Set AHash as default per maintainer request.",
+        "Merge branch 'main' to resolve conflicts.",
+        "Maintainer reported compilation errors; multiple fix attempts failed; no further commits."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "tomhrr",
+        "channel": "pr_comment",
+        "signal": "design_change_request",
+        "summary": "Requested setting ahash as the default hashing algorithm.",
+        "blocking": false,
+        "action_taken": "Copilot changed default to AHash in commit 6af11fc."
+      },
+      {
+        "source": "tomhrr",
+        "channel": "pr_comment",
+        "signal": "compilation_fix_request",
+        "summary": "Multiple requests to fix compilation errors across three comments over two days; Copilot failed to fix (copilot_work_finished_failure events).",
+        "blocking": true,
+        "action_taken": "No fix provided; PR closed."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed setting AHash as default and detailed the changes made.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with hashing feature support and benchmark claims.",
+      "Maintainer asked to set AHash as default; Copilot made the change within minutes.",
+      "Maintainer then reported compilation errors and repeated requests for fix over two days.",
+      "Each Copilot work attempt failed with copilot_work_finished_failure; no corrective commits.",
+      "PR closed by maintainer after ~7 days without resolution."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

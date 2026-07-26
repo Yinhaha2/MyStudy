@@ -1,0 +1,170 @@
+{
+  "pr_id": 3235395709,
+  "meta": {
+    "title": "Fix file save blocking on entry refresh for improved hot reload performance",
+    "html_url": "https://github.com/zed-industries/zed/pull/34529",
+    "repo": "zed-industries/zed",
+    "agent": "Claude_Code",
+    "user": "sausaw",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-16 10:36:19+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-16 10:40:17+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 37,
+    "topic_name": "37",
+    "body_summary": "Make refresh_entry non-blocking during file save to reduce hot reload detection latency; moves the refresh to a background task so save returns immediately after disk write."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 21,
+      "deletions": 7,
+      "changes": 28,
+      "top1_file": "crates/worktree/src/worktree.rs",
+      "top1_changes": 28,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "crates"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "commented": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.066,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "async_io_non_blocking",
+      "hot_reload_latency",
+      "filesystem_save_responsiveness"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "cla_self_closed",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Claude Code produced a 28-line async fix for hot reload save latency; PR self-closed after CLA bot comment, with no human review or performance testing."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 28,
+        "interpretation": "At 28 changed lines in a single file, this is a tiny edit. As a narrowly scoped performance fix, it was closed, not merged, despite being small, likely due to CLA process rather than technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.066,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "process_cla_requirement",
+      "concern_detail": "The cla-bot flagged missing CLA sign-off; the author self-closed the PR minutes later without addressing it or awaiting review.",
+      "performance_claim": "Making refresh_entry non-blocking returns save success immediately, so hot reload tools detect file change sooner.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "blocking_file_save_on_worktree_refresh",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author after CLA bot comment, no maintainer engagement; likely abandoned due to CLA or self-realized issue."
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "Claude_Code",
+      "boundary_type": "process",
+      "boundary_notes": "Small technical fix feasible by agent, but blocked by external CLA requirement and no review engagement, resulting in immediate self-close.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark or profiler evidence; only narrative claim in PR body.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed without merge; no regression cycle.",
+      "evidence_gap": "narrative_only_process_block"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In crates/worktree/src/worktree.rs, modified write_file to detach the refresh_entry call, returning immediately after file write rather than awaiting the refresh.",
+      "files_primary": [
+        "crates/worktree/src/worktree.rs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only one file changed.",
+      "change_trajectory": [
+        "Single commit made the refresh non-blocking by spawning it as a detached task."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cla-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "cla_signoff_required",
+        "summary": "cla-bot notified that contributor identity could not be parsed and requested email configuration for CLA sign-off.",
+        "blocking": true,
+        "action_taken": "Author closed PR without further action."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with fix and linked issue.",
+      "cla-bot immediately flagged CLA issue.",
+      "Author closed PR within 4 minutes, no maintainer review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

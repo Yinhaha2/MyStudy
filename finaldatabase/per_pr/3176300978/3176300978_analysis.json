@@ -1,0 +1,172 @@
+{
+  "pr_id": 3176300978,
+  "meta": {
+    "title": "Update benchmarks and remove interpreter",
+    "html_url": "https://github.com/mochilang/mochi/pull/3266",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-25 16:45:54+00:00",
+    "merged_at": "2025-06-25 16:47:29+00:00",
+    "closed_at": "2025-06-25 16:47:29+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "27",
+    "body_summary": "Re-run benchmarks, drop interpreter from benchmark runs, and rename sum to sum_loop in benchmark template to avoid builtin conflict."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 36,
+      "additions": 124,
+      "deletions": 147,
+      "changes": 271,
+      "top1_file": "BENCHMARK.md",
+      "top1_changes": 134,
+      "top1_change_ratio": 0.494,
+      "files_by_status": {
+        "modified": 36
+      },
+      "directory_count": 3,
+      "directories": [
+        "",
+        "bench",
+        "bench/template"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0264,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmark_maintenance",
+      "remove_interpreter_overhead",
+      "rename_variable_to_avoid_builtin"
+    ],
+    "optimization_layer": "benchmarking_and_testing",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Chore PR updating benchmark artifacts and removing interpreter; self-merged by maintainer within ~1.5 minutes with no review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 271,
+        "interpretation": "At 271 changed lines across 36 files, this is a small chore update by absolute volume, mostly modifying benchmark output files. It fits a low-risk maintenance PR that merged instantly without review, consistent with maintainer self-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0264,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Dropping interpreter from benchmark runs to produce more representative VM performance measurements.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "27",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Updating benchmark results and removing interpreter from benchmark runs requires executing `make bench` and committing generated files, a task within agent capabilities.",
+      "success_factors": [
+        "straightforward_chore",
+        "no_review_required",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Testing instructions (`make bench`) are provided, but no numeric performance claims or before/after comparisons are given in the PR body.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Updated BENCHMARK.md and 35 benchmark output files under bench/out/ with re-run timing results, modified bench/runner.go to remove interpreter execution, and renamed sum to sum_loop in sum_loop.mochi template to avoid Python builtin conflict.",
+      "files_primary": [
+        "BENCHMARK.md",
+        "bench/runner.go",
+        "bench/template/math/sum_loop/sum_loop.mochi"
+      ],
+      "files_secondary_observability": [
+        "bench/out/* (35 files)"
+      ],
+      "secondary_note": "The bulk of changes are in benchmark output files reflecting re-run results; the core modifications are in runner.go and the template rename.",
+      "change_trajectory": [
+        "Single commit re-running benchmarks, updating all output files, removing interpreter from runner, and renaming sum to sum_loop."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd (maintainer) with benchmark update, labeled as 'codex'.",
+      "No reviews or comments; merged by same user after ~1.5 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

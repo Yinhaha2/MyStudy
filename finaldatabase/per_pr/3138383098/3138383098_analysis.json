@@ -1,0 +1,208 @@
+{
+  "pr_id": 3138383098,
+  "meta": {
+    "title": "Add parallel test runner",
+    "html_url": "https://github.com/vbpf/prevail/pull/892",
+    "repo": "vbpf/prevail",
+    "agent": "OpenAI_Codex",
+    "user": "elazarg",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-11 23:58:56+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-12 15:47:24+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Add Bash and PowerShell scripts to run Catch2 tests in parallel via sharding, update CI workflows and README, claiming faster execution."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 5,
+      "additions": 93,
+      "deletions": 5,
+      "changes": 98,
+      "top1_file": "scripts/run-tests-parallel.ps1",
+      "top1_changes": 41,
+      "top1_change_ratio": 0.418,
+      "files_by_status": {
+        "added": 2,
+        "modified": 3
+      },
+      "directory_count": 3,
+      "directories": [
+        ".github/workflows",
+        "scripts",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 8,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 10,
+      "event_counts": {
+        "committed": 3,
+        "labeled": 1,
+        "commented": 3,
+        "reviewed": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 15.807,
+      "first_review_delay_hours": 0.088,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "parallel_test_execution",
+      "ci_runtime_reduction",
+      "test_sharding"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "no_observed_speedup",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "ci_integration"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Codex added parallel test runner scripts but maintainer found no CI speed improvement, leading to PR closure."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 98,
+        "interpretation": "At 98 changed lines, this is a very small CI‑infrastructure edit. It was closed because the expected performance benefit from parallel test sharding was not observed, not because of review objections."
+      },
+      "lifecycle": {
+        "lifespan_hours": 15.807,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "performance_claim_not_met",
+      "concern_detail": "Maintainer closed PR after observing that CI runtime did not improve with parallel sharding.",
+      "performance_claim": "Reduce CI test execution time by running Catch2 tests in parallel across multiple CPUs.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer closed PR with comment 'Doesn't seem to make the CI run faster'."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Parallel test sharding is a common optimization but in this project it did not reduce overall runtime; the agent failed to validate the performance gain before proposing the change.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "Maintainer ran the CI with the parallel scripts deployed and did not observe any speed improvement."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or before/after timing data provided; only maintainer's informal observation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge because performance improvement was not realized.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added Bash and PowerShell scripts to shard Catch2 tests across CPUs using --shard-count and --shard-index. Updated GitHub Actions workflows (build.yml, coverage.yml) to invoke the parallel runner instead of the test binary directly. Updated README with documentation for sequential and parallel test execution.",
+      "files_primary": [
+        "scripts/run-tests-parallel.sh",
+        "scripts/run-tests-parallel.ps1"
+      ],
+      "files_secondary_observability": [
+        ".github/workflows/build.yml",
+        ".github/workflows/coverage.yml",
+        "README.md"
+      ],
+      "secondary_note": "CI workflow changes are mostly one‑line script invocations; README adds usage examples.",
+      "change_trajectory": [
+        "Initial commit (6c212326): Added Bash parallel run script, updated Linux CI and README.",
+        "Second commit (b7f71b1): Added Windows PowerShell parallel runner and updated workflow.",
+        "Third commit (ce7eb438): Fixed PowerShell runner."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_script_nitpicks",
+        "summary": "CoderaRabbit bot commented with actionable nits: hard‑coded test binary path, nproc portability, trap fix, argument quoting, and markdown linting.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_ps1_issues",
+        "summary": "Second bot review highlighted PowerShell script issues: missing build dir in path, NUM_JOBS validation, and argument quoting.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "elazarg",
+        "channel": "pr_comment",
+        "signal": "performance_claim_not_met",
+        "summary": "Maintainer closed PR noting that the parallel runner did not make CI faster.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Codex opened PR with Linux parallel runner.",
+      "CodeRabbit bot reviewed with script nits.",
+      "Author added Windows runner and fixed issues.",
+      "Coveralls reported unchanged coverage.",
+      "Maintainer closed PR after observing no CI speed improvement."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "pr_id": 3075349977,
+  "meta": {
+    "title": "Decrease OpenNext Bundle Size to Below 3MB",
+    "html_url": "https://github.com/unibeck/solstatus/pull/55",
+    "repo": "unibeck/solstatus",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-20 01:19:02+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-20 13:41:44+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 24,
+    "topic_name": "24_bundle_css_components_splitting",
+    "body_summary": "Reduce OpenNext bundle size below the Cloudflare worker 3MB limit via build config tweaks, dependency removal, and a post-build optimization script; compressed size achieved 2.14MB."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 8,
+      "additions": 305,
+      "deletions": 163,
+      "changes": 468,
+      "top1_file": "pnpm-lock.yaml",
+      "top1_changes": 178,
+      "top1_change_ratio": 0.38,
+      "files_by_status": {
+        "added": 1,
+        "modified": 7
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "scripts"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 12.378,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bundle_size",
+      "build_optimization",
+      "opennext_worker_limit"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative",
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_explanation",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot reduced bundle size with build optimizations and a post-build script; no review or comment, closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 468,
+        "interpretation": "At 468 changed lines, this is a small-to-medium change by absolute volume. As a bundle size optimization PR, it was closed with no review. The lack of engagement suggests process barriers or insufficient evidence for the maintainer."
+      },
+      "lifecycle": {
+        "lifespan_hours": 12.378,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No formal review or PR comment text exists. The PR was closed by the maintainer without any explanation.",
+      "performance_claim": "Reduce OpenNext bundle compressed size from ~6MB to 2.14MB, raw size from 24MB to 10.11MB.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer closed the PR without review or comment; only Copilot work-started/finished events and a review request with no response."
+    },
+    "capability_boundary": {
+      "topic": "24_bundle_css_components_splitting",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "No maintainer engagement on a bundle size optimization with explicit metrics. Copilot's PR was closed without review, indicating a process gap where the maintainer did not respond or found the change unsuitable.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review text; no evidence of code reading."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes a before/after benchmark table but no reproduction steps or profiler data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no regression cycle occurred.",
+      "evidence_gap": "narrative_benchmark_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Configured webpack optimizations, removed @scalar/nextjs-openapi, created a post-build script (optimize-opennext-bundle.js) to strip source maps and minify code, and updated next.config.ts to reduce server-side bundle size.",
+      "files_primary": [
+        "next.config.ts",
+        "src/app/api/openapi/[[...openapi]]/route.ts",
+        "scripts/optimize-opennext-bundle.js"
+      ],
+      "files_secondary_observability": [
+        "pnpm-lock.yaml",
+        "package.json",
+        "open-next.config.ts",
+        "src/components/app-sidebar.tsx",
+        "src/lib/fonts.ts"
+      ],
+      "secondary_note": "Lockfile updates reflect dependency changes; sidebar and font changes are incidental modifications.",
+      "change_trajectory": [
+        "Initial plan for reducing OpenNext bundle size.",
+        "Optimized OpenAPI routes and build configurations for reduced bundle size.",
+        "Further optimize bundle size with enhanced configuration.",
+        "Successfully reduced OpenNext bundle size below 3MB, adding post-build script."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial plan commits and submitted a review request.",
+      "Maintainer never responded; Copilot work sessions started and finished.",
+      "PR closed by maintainer after ~12.4 hours with no explanation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

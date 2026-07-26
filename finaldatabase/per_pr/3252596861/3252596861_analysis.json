@@ -1,0 +1,173 @@
+{
+  "pr_id": 3252596861,
+  "meta": {
+    "title": "Improve Prolog transpiler constant folding",
+    "html_url": "https://github.com/mochilang/mochi/pull/11961",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-22 12:59:08+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-22 12:59:30+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 1,
+    "topic_name": "1",
+    "body_summary": "Add constant folding for str() calls and string concatenation in the Prolog transpiler, and update Rosetta test outputs and checklist."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 14,
+      "additions": 4689,
+      "deletions": 10,
+      "changes": 4699,
+      "top1_file": "tests/rosetta/transpiler/Prolog/100-doors.pl",
+      "top1_changes": 2581,
+      "top1_change_ratio": 0.549,
+      "files_by_status": {
+        "added": 10,
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.0061,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_folding",
+      "string_concat_folding",
+      "transpiler_optimization"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_immediately_test_failure",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex PR for constant folding in Prolog transpiler; closed by author within seconds, likely due to test failure (unsupported features) and no review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4699,
+        "interpretation": "At 4699 changed lines across 14 files, this is a large change by absolute volume, but primarily driven by new test fixture files (2581 lines in one file alone); the core transpiler.go change is only 38 lines. Despite its size, the PR was closed within seconds by the author, suggesting it was not meant for merge or was premature."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0061,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback available.",
+      "performance_claim": "Enable constant folding for str() calls and string concatenation to improve transpiler output efficiency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author immediately after creation, with no review engagement. Body mentions a test failure with unsupported features, indicating the change may not have been fully functional."
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent attempted a compiler optimization (constant folding) but the generated code produced test failures (unsupported features), leading to immediate closure. This illustrates a boundary where the agent cannot fully implement a correct optimization pass without deeper compiler knowledge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {
+        "code_reading": "No reviewer code reading evidence available.",
+        "ci_auto": "No CI automation feedback captured."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body mentions a test command that fails; no performance benchmarks or before/after results provided.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by author immediately; no fix attempt.",
+      "evidence_gap": "test_failure_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add constant folding for str() calls and string concatenation in the Prolog transpiler, and update Rosetta test suite outputs and checklist.",
+      "files_primary": [
+        "transpiler/x/pl/transpiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/rosetta/transpiler/Prolog/100-doors.pl",
+        "tests/rosetta/transpiler/Prolog/100-doors-2.pl",
+        "tests/rosetta/transpiler/Prolog/100-doors-3.pl",
+        "tests/rosetta/transpiler/Prolog/15-puzzle-solver.pl",
+        "tests/rosetta/transpiler/Prolog/DNS-query.pl",
+        "tests/rosetta/transpiler/Prolog/*.out",
+        "tests/rosetta/transpiler/Prolog/*.error",
+        "transpiler/x/pl/README.md",
+        "transpiler/x/pl/ROSETTA.md",
+        "transpiler/x/pl/TASKS.md"
+      ],
+      "secondary_note": "Bulk of changes (over 4600 lines) are new test fixtures and updated task/readme files.",
+      "change_trajectory": [
+        "Single commit: add constant str folding logic and associated test outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and immediately closed by the same user (tamnd) with no collaboration or review events."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

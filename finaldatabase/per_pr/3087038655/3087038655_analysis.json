@@ -1,0 +1,173 @@
+{
+  "pr_id": 3087038655,
+  "meta": {
+    "title": "Fix message ordering in chat API",
+    "html_url": "https://github.com/ryokun6/ryos/pull/93",
+    "repo": "ryokun6/ryos",
+    "agent": "OpenAI_Codex",
+    "user": "ryokun6",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-23 17:24:42+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-12 05:23:14+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 48,
+    "topic_name": "48",
+    "body_summary": "Reorder system state message after user messages in the chat API to optimize caching."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 16,
+      "deletions": 13,
+      "changes": 29,
+      "top1_file": "api/chat.ts",
+      "top1_changes": 29,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "api"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 1,
+        "deployed": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 467.98,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "message_ordering_caching"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "PR reordered system message after user messages for caching; no review, no benchmark, closed after ~468h."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 29,
+        "interpretation": "At 29 changed lines in a single file, this is a very small edit by absolute volume. As a tiny optimization PR, it was closed without merge, likely due to lack of review engagement and insufficient evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 467.98,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none_identified",
+      "concern_detail": "No reviewer feedback was recorded; the PR received only a Vercel deployment preview comment.",
+      "performance_claim": "Reordering system state message after user messages optimizes caching.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by author after 20 days with no review activity; no explicit rejection signal in comments."
+    },
+    "capability_boundary": {
+      "topic": "48",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "This PR on a personal/small repository received no maintainer review. Without human engagement, the agent's change was left unmerged, illustrating that process barriers (lack of reviewer attention) can block simple, low-risk caching optimizations.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler output, or before/after metrics; only narrative in PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without any subsequent fix or merge.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In api/chat.ts, reorder messages so that the system state message is inserted after user messages to improve caching behavior.",
+      "files_primary": [
+        "api/chat.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial and only commit: reorder system messages for caching."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata; no performance feedback.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit reordering messages; labeled 'codex' by author.",
+      "Vercel bot posted deployment preview shortly after creation.",
+      "No human review or comments recorded; PR remained open for ~468 hours until closed by author."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "pr_id": 3155310952,
+  "meta": {
+    "title": "feat: switch lint:tsc from tsc to tsgo (@typescript/native-preview)",
+    "html_url": "https://github.com/liam-hq/liam/pull/2057",
+    "repo": "liam-hq/liam",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-18 03:08:18+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-19 08:53:38+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 27,
+    "topic_name": "27",
+    "body_summary": "Replace tsc with the native TypeScript implementation tsgo for faster linting across 12 packages, removing unsupported baseUrl settings."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 19,
+      "additions": 147,
+      "deletions": 106,
+      "changes": 253,
+      "top1_file": "pnpm-lock.yaml",
+      "top1_changes": 219,
+      "top1_change_ratio": 0.866,
+      "files_by_status": {
+        "modified": 19
+      },
+      "directory_count": 3,
+      "directories": [
+        ".",
+        ".github",
+        "frontend"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 26,
+      "event_counts": {
+        "committed": 3,
+        "commented": 4,
+        "assigned": 1,
+        "deployed": 7,
+        "ready_for_review": 1,
+        "review_requested": 6,
+        "review_request_removed": 1,
+        "convert_to_draft": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 29.756,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "tsgo_migration",
+      "lint_tool_performance",
+      "typecheck_speedup"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_in_draft_no_merge",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin migrated lint:tsc to tsgo across 12 packages; no maintainer review, converted to draft and closed; narrative perf claim of up to 10x."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 253,
+        "interpretation": "At 253 changed lines across 19 files, this is a small-to-medium tooling change by volume, with most churn in the lockfile. As a tool migration performance PR, it was closed without merge after being converted to draft, likely indicating maintainer caution about adopting tsgo."
+      },
+      "lifecycle": {
+        "lifespan_hours": 29.756,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_feedback",
+      "concern_detail": "No human review or comment; maintainer converted to draft shortly after opening, then closed without explanation.",
+      "performance_claim": "tsgo provides up to 10x speed improvement on TypeScript linting.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer converted to draft, then closed; no reasons provided in dataset."
+    },
+    "capability_boundary": {
+      "topic": "27",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Toolchain migration with many packages and configuration changes; merge requires maintainer validation of tsgo compatibility and performance benefits, which was not obtained.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review in dataset; no formal review occurred."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or CI perf data; only narrative claim.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after being converted to draft.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Migrated 12 package.json lint:tsc scripts from 'tsc --noEmit' to 'tsgo --noEmit', added @typescript/native-preview devDependency, removed baseUrl from 3 tsconfig.json files, and fixed TypeScript errors in jobs package for tsgo compatibility.",
+      "files_primary": [
+        "pnpm-lock.yaml",
+        "package.json",
+        "frontend/apps/docs/tsconfig.json",
+        "frontend/packages/pglite-server/tsconfig.json",
+        "frontend/packages/erd-core/tsconfig.json",
+        "frontend/internal-packages/jobs/src/functions/processRepositoryAnalysis.ts"
+      ],
+      "files_secondary_observability": [
+        "frontend/apps/app/package.json",
+        "frontend/apps/docs/package.json",
+        "frontend/internal-packages/agent/package.json",
+        "frontend/internal-packages/db/package.json",
+        "frontend/internal-packages/github/package.json",
+        "frontend/internal-packages/jobs/package.json",
+        "frontend/internal-packages/mcp-server/package.json",
+        "frontend/packages/cli/package.json",
+        "frontend/packages/db-structure/package.json",
+        "frontend/packages/erd-core/package.json",
+        "frontend/packages/pglite-server/package.json",
+        "frontend/packages/ui/package.json",
+        ".github/workflows/frontend-ci.yml"
+      ],
+      "secondary_note": "The remaining changed files are the 12 package.json files updated with the new lint:tsc script, plus a CI workflow tweak.",
+      "change_trajectory": [
+        "Initial commit: Replaced 'tsc --noEmit' with 'tsgo --noEmit' in 12 packages, installed @typescript/native-preview, removed baseUrl from 3 tsconfig.json files.",
+        "Second commit: Fixed TypeScript errors in jobs package for tsgo compatibility, converting metadata and vector to JSON strings.",
+        "Third commit: Added Supabase container cleanup to CI workflow to prevent port conflicts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin AI engineer announcement for automatic comment/CI monitoring.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "missing_changeset",
+        "summary": "No changeset found; merging will not cause a version bump.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployment previews ready for liam-app, liam-erd-sample, liam-storybook.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "supabase[bot]",
+        "channel": "pr_comment",
+        "signal": "preview_branch_update",
+        "summary": "Supabase preview branch updated with migrations and edge functions.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with tsgo migration across monorepo.",
+      "Changeset-bot warned about missing changeset.",
+      "Devin added commits to fix TypeScript errors and CI port conflicts.",
+      "Maintainer converted PR to draft within ~30 minutes, then closed after ~29.75 hours without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

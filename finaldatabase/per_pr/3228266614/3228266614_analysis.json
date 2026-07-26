@@ -1,0 +1,245 @@
+{
+  "pr_id": 3228266614,
+  "meta": {
+    "title": "Implement exponential backoff for Copilot refresh after commenting on Padawan PRs",
+    "html_url": "https://github.com/microsoft/vscode-pull-request-github/pull/7288",
+    "repo": "microsoft/vscode-pull-request-github",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-14 10:36:18+00:00",
+    "merged_at": "2025-07-14 18:47:52+00:00",
+    "closed_at": "2025-07-14 18:47:52+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": "37",
+    "topic_name": "37",
+    "body_summary": "Add exponential backoff with early exit detection to Copilot timeline refresh after commenting, reducing delay from fixed 1s to adaptable 500ms-5s polling, improving responsiveness."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 3,
+      "additions": 2776,
+      "deletions": 2742,
+      "changes": 5518,
+      "top1_file": "yarn.lock",
+      "top1_changes": 5296,
+      "top1_change_ratio": 0.9598,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 5,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 1,
+        "APPROVED": 3
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 8,
+        "assigned": 2,
+        "mentioned": 2,
+        "subscribed": 2,
+        "copilot_work_started": 2,
+        "unsubscribed": 2,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 2,
+        "closed": 1,
+        "reopened": 1,
+        "reviewed": 3,
+        "ready_for_review": 1,
+        "auto_squash_enabled": 1
+      },
+      "lifespan_hours": 8.193,
+      "first_review_delay_hours": 5.326,
+      "review_rounds": 5,
+      "has_revert": false,
+      "auto_merge_enabled": true
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "copilot_timeline_refresh",
+      "exponential_backoff",
+      "polling_optimization"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "scope",
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot added exponential backoff with early exit; alexr00 CHANGES_REQUESTED due to yarn.lock changes and later refined delays/test design; PR merged after fixes."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5518,
+        "interpretation": "Raw line count is large (5518) but most churn is yarn.lock (5296 lines, reverted). The functional change in issueOverview.ts (~64 lines) is small-to-medium. This small-step performance PR merged after scope correction and design adjustments, consistent with the outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 8.193,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "unrelated_file_changes",
+      "primary_concern": "unwanted_yarn_lock_changes",
+      "concern_detail": "Maintainer alexr00 CHANGES_REQUESTED because yarn.lock was touched unnecessarily. Copilot reverted it. Later, maintainer revised backoff intervals and deleted unit tests before approving.",
+      "performance_claim": "Exponential backoff with early exit reduces average refresh delay from fixed 1s to adaptive 500ms–5s polling, showing new Copilot sessions more responsively.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "fixed_delay_inefficiency (prior 1s hard-coded wait)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "scope",
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot implemented a polling backoff optimization in the extension code. Merge required scope isolation (no lockfile changes) and maintainer-driven parameter tuning.",
+      "success_factors": [
+        "linked_issue",
+        "responded_to_changes_requested",
+        "maintainer_collaboration_on_design",
+        "backward_compatible"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "alexr00 identified extraneous yarn.lock changes and requested removal; later revised delay intervals and test design manually."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body describes expected latency reduction but provides no before/after timing metrics; no benchmark or profiler evidence is present.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After CHANGES_REQUESTED, Copilot reverted yarn.lock; maintainer then adjusted delays, simplified refresh logic, and deleted tests within the same PR.",
+      "evidence_gap": "narrative_only_no_timing_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/github/issueOverview.ts, replaced a fixed 1-second timeout with a loop over [500,1000,2000,5000]ms delays that polls the timeline for new CopilotStarted events and refreshes early. Maintainer later changed delays to [200,500,1000,2000] and removed CopilotStarted filtering to refresh on any new timeline event. Unintended yarn.lock changes were reverted, and a test file was added then deleted.",
+      "files_primary": [
+        "src/github/issueOverview.ts"
+      ],
+      "files_secondary_observability": [
+        "yarn.lock",
+        "src/test/github/copilotRefresh.test.ts"
+      ],
+      "secondary_note": "yarn.lock was modified and later reverted; copilotRefresh.test.ts was added and then removed by maintainer.",
+      "change_trajectory": [
+        "Initial plan and analysis commits introduced unintended yarn.lock changes.",
+        "Implemented exponential backoff logic and added unit tests.",
+        "Maintainer CHANGES_REQUESTED 'Don't touch yarn.lock'.",
+        "Copilot reverted yarn.lock.",
+        "Maintainer adjusted delays to [200,500,1000,2000] and simplified refresh condition to any timeline event.",
+        "Maintainer deleted added unit tests as 'useless'.",
+        "Final tweak: smaller starting delay; approved and merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "alexr00",
+        "channel": "formal_review",
+        "signal": "changes_requested_no_body",
+        "summary": "CHANGES_REQUESTED review with empty body; substantive feedback delivered via inline comment.",
+        "blocking": true,
+        "action_taken": "Copilot addressed yarn.lock issue and other requested changes were later made by maintainer."
+      },
+      {
+        "source": "alexr00",
+        "channel": "inline_review_comment",
+        "signal": "unwanted_file_change",
+        "summary": "Requested not to touch yarn.lock.",
+        "blocking": true,
+        "action_taken": "Copilot reverted yarn.lock to original state in commit ab9dabb."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed yarn.lock revert was done.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "alexr00",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Multiple APPROVED reviews after adjustments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-swe-agent[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_gateway",
+        "summary": "Bot review with empty body, likely non-blocking.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with exponential backoff implementation and test, plus unintended yarn.lock change.",
+      "About 5 hours later, maintainer alexr00 CHANGES_REQUESTED due to yarn.lock; Copilot reverted it.",
+      "Maintainer then manually adjusted delays, simplified refresh logic, and deleted unit tests.",
+      "After review approvals, PR auto-squashed and merged about 8 hours after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

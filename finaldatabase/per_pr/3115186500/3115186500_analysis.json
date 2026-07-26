@@ -1,0 +1,170 @@
+{
+  "pr_id": 3115186500,
+  "meta": {
+    "title": "Optimize group_match masking",
+    "html_url": "https://github.com/static-frame/static-frame/pull/1069",
+    "repo": "static-frame/static-frame",
+    "agent": "OpenAI_Codex",
+    "user": "flexatone",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-03 19:30:02+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 21,
+    "topic_name": "21",
+    "body_summary": "Optimize boolean selection in group_match using vectorized mask operations in static-frame's type_blocks.py."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 6,
+      "deletions": 7,
+      "changes": 13,
+      "top1_file": "static_frame/core/type_blocks.py",
+      "top1_changes": 13,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "static_frame"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 1
+      },
+      "lifespan_hours": 0.028,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "group_match_mask_vectorization"
+    ],
+    "optimization_layer": "application_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Single-commit vectorization patch with no benchmark or review feedback; closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 13,
+        "interpretation": "A tiny 13-line change in type_blocks.py, consistent with a micro-optimization. Closure without merge is atypical for such small-scope perf PRs, likely due to lack of review or evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.028,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_text",
+      "concern_detail": "No formal review or review comments were recorded; the only comment is a Codecov coverage report.",
+      "performance_claim": "Optimize group_match boolean selection via vectorized masking.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed without merge, no maintainer feedback or benchmark provided."
+    },
+    "capability_boundary": {
+      "topic": "21",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "The agent proposed a low-level vectorization change in a core library function but provided no performance numbers; without maintainer review, the change was closed.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No maintainer code review detected."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or reproduction steps; only unit test commands listed.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge, likely due to absence of performance evidence.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In static_frame/core/type_blocks.py, group_match mask generation was refactored to use vectorized boolean operations instead of explicit loops.",
+      "files_primary": [
+        "static_frame/core/type_blocks.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit replacing iterative mask creation with vectorized approach."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "Codecov reported no change in coverage and confirmed all modified lines covered.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created with a single commit and labeled 'codex'.",
+      "No human reviews or performance feedback.",
+      "PR closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

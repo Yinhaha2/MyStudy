@@ -1,0 +1,206 @@
+{
+  "pr_id": 3173779555,
+  "meta": {
+    "title": "Use async generators for GitLab getGroups() method to improve memory efficiency",
+    "html_url": "https://github.com/faros-ai/airbyte-connectors/pull/2114",
+    "repo": "faros-ai/airbyte-connectors",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-25 01:45:27+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-25 17:04:03+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 36,
+    "topic_name": "36",
+    "body_summary": "Convert GitLab getGroups() to async generator to stream groups instead of collecting in memory, improving memory efficiency for large GitLab instances."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 5,
+      "additions": 41,
+      "deletions": 31,
+      "changes": 72,
+      "top1_file": "sources/gitlab-source/test/index.test.ts",
+      "top1_changes": 38,
+      "top1_change_ratio": 0.528,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "sources"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 27,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "commented": 3,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "mentioned": 2,
+        "subscribed": 2,
+        "closed": 1,
+        "locked": 1,
+        "head_ref_deleted": 1,
+        "labeled": 4,
+        "unlabeled": 3
+      },
+      "lifespan_hours": 15.31,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_efficiency",
+      "async_generator",
+      "streaming_processing"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_due_to_incorrect_branch",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot converted getGroups to async generator; maintainer closed due to branch mismatch, no performance review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 72,
+        "interpretation": "At 72 changed lines across 5 files, this is a small refactor. As a small-step performance optimization it was closed—not merged—because the maintainer redirected the work to a different branch."
+      },
+      "lifecycle": {
+        "lifespan_hours": 15.31,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "process_compliance",
+      "primary_concern": "incorrect_branch",
+      "concern_detail": "Maintainer ypc-faros instructed Copilot to use the `copilot-replay-pr2101` branch; Copilot claimed to have switched but PR was closed anyway.",
+      "performance_claim": "Memory efficiency and streaming via async generator instead of array collection.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "collect_all_groups_in_array_before_yield (prior memory-inefficient pattern)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer closed because PR was created on wrong branch despite prior instructions."
+    },
+    "capability_boundary": {
+      "topic": "36",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot commits changes on default branch despite maintainer direction to use a specific replay branch, leading to closure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer ypc-faros observed the PR was created on the wrong branch rather than copilot-replay-pr2101, as previously instructed."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or numeric performance evidence; only narrative claim of memory saving.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix attempted because the issue was branch compliance, not code quality.",
+      "evidence_gap": "narrative_only_no_branch_compliance"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Converted getGroups() in gitlab.ts from returning Promise<FarosGroupOutput[]> to AsyncGenerator<FarosGroupOutput> by directly yielding converted groups instead of building an array; removed @Memoize(); updated getOrgs() and onBeforeRead() consumers to use for await...of; updated tests to mock async generator.",
+      "files_primary": [
+        "sources/gitlab-source/src/gitlab.ts",
+        "sources/gitlab-source/src/index.ts",
+        "sources/gitlab-source/src/group-filter.ts"
+      ],
+      "files_secondary_observability": [
+        "sources/gitlab-source/test/group-filter.test.ts",
+        "sources/gitlab-source/test/index.test.ts"
+      ],
+      "secondary_note": "Test files updated to match the async generator signature (createAsyncGeneratorMock helper).",
+      "change_trajectory": [
+        "Initial plan commit (no code change).",
+        "Main commit: convert getGroups to async generator, update consumers, update tests."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "sonarqubecloud[bot]",
+        "channel": "pr_comment",
+        "signal": "quality_gate_failed",
+        "summary": "SonarQube quality gate failed: 12.2% duplication on new code (required ≤ 3%).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "ypc-faros",
+        "channel": "pr_comment",
+        "signal": "branch_mismatch_instruction",
+        "summary": "Instructed Copilot to use the `copilot-replay-pr2101` branch instead.",
+        "blocking": true,
+        "action_taken": "Copilot claimed to switch, but PR was closed."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "agent_response",
+        "summary": "Copilot acknowledged instruction, claimed to have applied changes to the correct branch (commit 29bc0a5).",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with async generator refactor; SonarQube flagged quality gate failure.",
+      "Maintainer directed to use correct branch; Copilot claimed switch.",
+      "Maintainer closed and locked PR without further review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

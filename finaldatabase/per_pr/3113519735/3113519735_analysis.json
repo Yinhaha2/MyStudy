@@ -1,0 +1,175 @@
+{
+  "pr_id": 3113519735,
+  "meta": {
+    "title": "Split IE prompt for caching",
+    "html_url": "https://github.com/ryokun6/ryos/pull/128",
+    "repo": "ryokun6/ryos",
+    "agent": "OpenAI_Codex",
+    "user": "ryokun6",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-03 11:10:49+00:00",
+    "merged_at": "2025-06-03 11:11:06+00:00",
+    "closed_at": "2025-06-03 11:11:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "48",
+    "body_summary": "Refactor the IE generation endpoint to split the prompt into a static system message for caching and a dynamic user message containing URL/year, reducing repeated LLM processing."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 21,
+      "deletions": 12,
+      "changes": 33,
+      "top1_file": "api/ie-generate.ts",
+      "top1_changes": 33,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "api"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 1,
+        "merged": 1,
+        "closed": 1,
+        "deployed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0047,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "prompt_caching",
+      "llm_prompt_split"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Trivial prompt splitting for caching; merged instantly with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 33,
+        "interpretation": "At 33 changed lines in a single file, this is a very small edit by absolute volume. It fits a micro-optimization that can be self-merged instantly, consistent with the fast-track outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0047,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review feedback; PR was self-merged without discussion.",
+      "performance_claim": "Reduce LLM processing cost/latency by caching the static portion of the IE generation prompt and sending only dynamic parts (URL/year) per request.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "48",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Trivial refactor to extract a static prompt part for caching; the agent easily handled this small, single‑file modification with no merge friction.",
+      "success_factors": [
+        "ultra_small_scope",
+        "single_file_change",
+        "no_review_blocking"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after measurements provided; only a narrative caching benefit.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling was needed; the PR was self-merged immediately.",
+      "evidence_gap": "narrative_only_no_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In api/ie-generate.ts, the IE generation prompt was refactored to use a static system message (suitable for caching) and a dynamic user message containing the URL and year, reducing redundant LLM token processing.",
+      "files_primary": [
+        "api/ie-generate.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit refactoring the prompt construction to separate static and dynamic parts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview link.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by ryokun6 with a single commit; self-merged within seconds with no human review interactions."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

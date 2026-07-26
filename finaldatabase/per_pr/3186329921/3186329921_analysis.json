@@ -1,0 +1,193 @@
+{
+  "pr_id": 3186329921,
+  "meta": {
+    "title": "Optimize runtime/vm",
+    "html_url": "https://github.com/mochilang/mochi/pull/3992",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-29 16:33:40+00:00",
+    "merged_at": "2025-06-29 16:34:06+00:00",
+    "closed_at": "2025-06-29 16:34:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 15,
+    "topic_name": "15",
+    "body_summary": "Add const folding for list operations in runtime/vm and regenerate TPC-H IR test outputs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 23,
+      "additions": 5087,
+      "deletions": 4512,
+      "changes": 9599,
+      "top1_file": "tests/dataset/tpc-h/out/q2.ir.out",
+      "top1_changes": 767,
+      "top1_change_ratio": 0.0799,
+      "files_by_status": {
+        "modified": 23
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.007,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "const_folding",
+      "list_operations",
+      "ir_optimization"
+    ],
+    "optimization_layer": "compiler_optimization",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Codex-generated const folding for list operations in liveness.go; merged instantly by maintainer without review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 9599,
+        "interpretation": "At 9599 changed lines, this appears as a large change by absolute volume, but the vast majority (over 95%) are regenerated TPC-H test IR files. The core optimization in runtime/vm/liveness.go changed only 83 lines. As a small-step compiler optimization PR, it was merged quickly with no review, fitting the maintainer's fast-paced development style."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.007,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "const folding for list operations reduces runtime overhead",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "15",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Compiler optimization with no review or benchmark; merged immediately by maintainer, indicating agent's code was accepted without formal verification.",
+      "success_factors": [
+        "self_merge_by_maintainer",
+        "small_core_change",
+        "no_external_review_needed"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance numbers or before/after measurements; only a narrative claim of const folding.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling observed; PR merged immediately without issues.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/liveness.go, added constant folding for list operations, likely simplifying IR generation. Regenerated TPC-H test IR outputs to reflect the optimized code.",
+      "files_primary": [
+        "runtime/vm/liveness.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/tpc-h/out/q1.ir.out",
+        "tests/dataset/tpc-h/out/q2.ir.out",
+        "tests/dataset/tpc-h/out/q3.ir.out",
+        "tests/dataset/tpc-h/out/q4.ir.out",
+        "tests/dataset/tpc-h/out/q5.ir.out",
+        "tests/dataset/tpc-h/out/q6.ir.out",
+        "tests/dataset/tpc-h/out/q7.ir.out",
+        "tests/dataset/tpc-h/out/q8.ir.out",
+        "tests/dataset/tpc-h/out/q9.ir.out",
+        "tests/dataset/tpc-h/out/q10.ir.out",
+        "tests/dataset/tpc-h/out/q11.ir.out",
+        "tests/dataset/tpc-h/out/q12.ir.out",
+        "tests/dataset/tpc-h/out/q13.ir.out",
+        "tests/dataset/tpc-h/out/q14.ir.out",
+        "tests/dataset/tpc-h/out/q15.ir.out",
+        "tests/dataset/tpc-h/out/q16.ir.out",
+        "tests/dataset/tpc-h/out/q17.ir.out",
+        "tests/dataset/tpc-h/out/q18.ir.out",
+        "tests/dataset/tpc-h/out/q19.ir.out",
+        "tests/dataset/tpc-h/out/q20.ir.out",
+        "tests/dataset/tpc-h/out/q21.ir.out",
+        "tests/dataset/tpc-h/out/q22.ir.out"
+      ],
+      "secondary_note": "All 22 TPC-H IR output files were regenerated due to the optimization, representing ~95% of the total diff.",
+      "change_trajectory": [
+        "Single commit by tamnd: chore: regenerate TPCH IR, combining the const folding change in liveness.go and all IR output updates."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with single commit combining liveness.go optimization and IR regeneration.",
+      "PR merged within 26 seconds with no external review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

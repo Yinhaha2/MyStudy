@@ -1,0 +1,180 @@
+{
+  "pr_id": 3213728031,
+  "meta": {
+    "title": "Optimize Error.ToString",
+    "html_url": "https://github.com/jscarle/LightResults/pull/63",
+    "repo": "jscarle/LightResults",
+    "agent": "OpenAI_Codex",
+    "user": "jscarle",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-08 20:42:00+00:00",
+    "merged_at": "2025-07-08 20:58:05+00:00",
+    "closed_at": "2025-07-08 20:58:05+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 0,
+    "topic_name": "43",
+    "body_summary": "Reduce reflection in Error.ToString by caching the type name when the runtime type is Error."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 8,
+      "additions": 77,
+      "deletions": 21,
+      "changes": 98,
+      "top1_file": "tests/LightResults.Tests/ErrorTests.cs",
+      "top1_changes": 35,
+      "top1_change_ratio": 0.357,
+      "files_by_status": {
+        "modified": 8
+      },
+      "directory_count": 3,
+      "directories": [
+        "src",
+        "tests",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 0.268,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "reflection_elimination",
+      "cached_type_name",
+      "tostring_optimization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_reflection"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "7-line change in Error.cs caching type name to avoid GetType().Name reflection; merged without review in 16 minutes."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 98,
+        "interpretation": "The total PR shows 98 changed lines, but only 7 lines in Error.cs are the actual optimization; the rest are merge artifacts. This is a tiny, low-risk change consistent with the fast self-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.268,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review occurred.",
+      "performance_claim": "Reducing reflection overhead in Error.ToString by using cached constant name.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_reflection",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "43",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent-minimal change merged without any human review; the PR process allowed self-merge by the author.",
+      "success_factors": [
+        "tiny_patch",
+        "no_review_required",
+        "author_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Author identified reflection call in ToString and replaced with cached constant."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiler data; only test command given.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_cached_name"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/LightResults/Error.cs, ToString now returns a cached literal \"Error\" string when the runtime type is exactly Error, avoiding a GetType().Name reflection call.",
+      "files_primary": [
+        "src/LightResults/Error.cs"
+      ],
+      "files_secondary_observability": [
+        "tests/LightResults.Tests/ErrorTests.cs",
+        "tests/LightResults.Tests/ResultTValueTests.cs",
+        "tests/LightResults.Tests/ResultTests.cs",
+        "src/LightResults/IResult.cs",
+        "src/LightResults/IResult`1.cs",
+        "src/LightResults/Result.cs",
+        "README.md"
+      ],
+      "secondary_note": "Merge from feature/work brought test updates (ErrorTests.cs) and minor interface/doc changes.",
+      "change_trajectory": [
+        "Initial commit (cd6865d): cached type name in Error.ToString.",
+        "Merge of feature/work (db05d25): brought test and doc changes from main."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit caching Error type name.",
+      "Author merged after 16 minutes with no external review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

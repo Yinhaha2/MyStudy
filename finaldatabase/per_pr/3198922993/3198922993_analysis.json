@@ -1,0 +1,241 @@
+{
+  "pr_id": 3198922993,
+  "meta": {
+    "title": "Detect and log dev drive at the start of build",
+    "html_url": "https://github.com/dotnet/msbuild/pull/12109",
+    "repo": "dotnet/msbuild",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-03 10:42:16+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "38",
+    "body_summary": "Add Dev Drive detection and logging at build start in MSBuild; on Windows, check file system type of project file path and log whether it's NTFS or ReFS at diagnostic level."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 17,
+      "additions": 621,
+      "deletions": 291,
+      "changes": 912,
+      "top1_file": "src/Framework/NativeMethods.cs",
+      "top1_changes": 200,
+      "top1_change_ratio": 0.219,
+      "files_by_status": {
+        "modified": 17
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 9,
+      "review_states": {
+        "COMMENTED": 8,
+        "CHANGES_REQUESTED": 1
+      },
+      "review_comment_count": 10,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 23,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "commented": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "renamed": 1,
+        "copilot_work_finished": 3,
+        "review_requested": 2,
+        "reviewed": 2,
+        "copilot_work_finished_failure": 1
+      },
+      "lifespan_hours": 52.81,
+      "first_review_delay_hours": 8.81,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "dev_drive_detection",
+      "file_system_logging",
+      "build_performance_observability"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_issues_unresolved",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "tests"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot added Dev Drive detection logging; maintainers identified incorrect volume path handling and inability to distinguish ReFS from Dev Drive; PR closed with unresolved CHANGES_REQUESTED."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 912,
+        "interpretation": "At 912 changed lines across 17 files, this is a medium-sized change by absolute volume, though much of the churn is in resource files. As an observability feature PR, it was closed due to unresolved technical issues rather than merged."
+      },
+      "lifecycle": {
+        "lifespan_hours": 52.81,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_correctness",
+      "concern_detail": "KalleOlaviNiemitalo pointed out that using Path.GetPathRoot to determine the volume is incorrect when the project is on a subdirectory of a Dev Drive mount point; suggested using GetVolumePathNameW. Additionally, rainersigwald noted that all ReFS is not Dev Drive, and distinguishing the two reliably is important.",
+      "performance_claim": "Dev Drive can reduce build times (e.g., 10-min copy reduced to ~2 min) and logging its presence helps performance investigations.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "tests"
+      ],
+      "rejection_signals": "Maintainer CHANGES_REQUESTED due to incorrect volume path handling; no follow-up fix; PR closed without merge."
+    },
+    "capability_boundary": {
+      "topic": "38",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Requires accurate Windows volume path resolution and distinct Dev Drive detection; Copilot's initial implementation used GetPathRoot incorrectly and conflated ReFS with Dev Drive. The needed OS-level knowledge exceeded the agent's initial scope.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainers read the implementation and identified the incorrect use of Path.GetPathRoot for volume detection and the need to distinguish Dev Drive from ReFS. Detailed API suggestions were provided in review comments."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No environment or benchmark to reproduce the Dev Drive detection logic; the correctness issues were identified by code analysis alone.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was not merged and was eventually closed; no fix was attempted after CHANGES_REQUESTED.",
+      "evidence_gap": "functional_issues_not_addressed"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added NativeMethodsShared.GetFileSystemStatus() that checks the file system type of the provided project file path using GetVolumeInformation; logs whether the file system is NTFS or ReFS at diagnostic verbosity in XMake.cs. The initial version incorrectly used Environment.CurrentDirectory and Path.GetPathRoot; it was later refactored to accept a file path and simplified to only report NTFS vs ReFS, but still used GetPathRoot incorrectly.",
+      "files_primary": [
+        "src/Framework/NativeMethods.cs",
+        "src/MSBuild/XMake.cs"
+      ],
+      "files_secondary_observability": [
+        "src/MSBuild/Resources/Strings.resx",
+        "src/MSBuild/Resources/xlf/*.xlf",
+        "src/Shared/UnitTests/NativeMethodsShared_Tests.cs"
+      ],
+      "secondary_note": "Majority of line changes are in localization resource files (xlf).",
+      "change_trajectory": [
+        "Initial commit: Added DevDriveStatus enum and IsOnDevDrive() using current directory and GetPathRoot, with logging in XMake.",
+        "rainersigwald commented that not all ReFS is Dev Drive; Copilot attempted to add heuristics but encountered an error.",
+        "JanProvaznik requested simplification to just log NTFS vs ReFS for project file path; Copilot committed refactored version using GetFileSystemStatus(filePath) but still incorrectly used GetPathRoot.",
+        "KalleOlaviNiemitalo CHANGES_REQUESTED pointing out that GetPathRoot does not resolve volume mount points correctly, and that Dev Drive detection via DeviceIoControl is possible without admin rights. No further commits."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "rainersigwald",
+        "channel": "inline_review_comment",
+        "signal": "dev_drive_vs_refs",
+        "summary": "Pointed out that not all ReFS volumes are Dev Drives; detection should differentiate.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "JanProvaznik",
+        "channel": "inline_review_comment",
+        "signal": "simplify_to_ntfs_refs",
+        "summary": "Requested simplification to just log NTFS vs ReFS for the project file path, removing complex Dev Drive detection.",
+        "blocking": true,
+        "action_taken": "Copilot committed a refactored version."
+      },
+      {
+        "source": "KalleOlaviNiemitalo",
+        "channel": "inline_review_comment",
+        "signal": "incorrect_volume_path",
+        "summary": "Showed that using Path.GetPathRoot incorrectly resolves volume when the path is a mount point subdirectory; suggested GetVolumePathNameW instead.",
+        "blocking": true,
+        "action_taken": "No fix committed; PR eventually closed."
+      },
+      {
+        "source": "KalleOlaviNiemitalo",
+        "channel": "inline_review_comment",
+        "signal": "dev_drive_detection_possible",
+        "summary": "Provided a detailed method using DeviceIoControl to detect Dev Drive without admin rights.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "copilot-swe-agent[bot]",
+        "channel": "formal_review",
+        "signal": "bot_summary",
+        "summary": "Multiple automated review responses from Copilot summarizing changes and acknowledging feedback.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "dotnet-policy-service[bot]",
+        "channel": "pr_comment",
+        "signal": "policy_reminder",
+        "summary": "Reminded about validation for VS insertion when changing certain files.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Copilot with initial Dev Drive detection and logging.",
+      "rainersigwald commented on Dev Drive vs ReFS; Copilot initiated work but encountered an error.",
+      "JanProvaznik requested simplification; Copilot refactored to log NTFS/ReFS.",
+      "KalleOlaviNiemitalo gave CHANGES_REQUESTED due to incorrect volume path resolution and provided alternative detection method.",
+      "No further commits; PR eventually closed."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

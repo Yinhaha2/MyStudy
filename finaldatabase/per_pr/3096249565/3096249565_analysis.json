@@ -1,0 +1,165 @@
+{
+  "pr_id": 3096249565,
+  "meta": {
+    "title": "Increase WebSocket reconnect wait time from 10 to 30 seconds",
+    "html_url": "https://github.com/microsoft/HydraLab/pull/695",
+    "repo": "microsoft/HydraLab",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-05-28 06:52:39+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Increase WebSocket reconnect delay for VIOLATED_POLICY close code from 10 to 30 seconds to reduce network churn."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 3,
+      "deletions": 3,
+      "changes": 12,
+      "top1_file": "agent/src/main/java/com/microsoft/hydralab/agent/socket/AgentWebSocketClient.java",
+      "top1_changes": 6,
+      "top1_change_ratio": 0.5,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "agent",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "wait_timeout_cap",
+      "websocket_reconnect_backoff"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Minimal constant change from 10s to 30s; PR remains open with no review or merge activity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 12,
+        "interpretation": "At 12 changed lines, this is a tiny absolute edit adjusting a single sleep constant. It fits a trivial parameter tweak performance PR, but it remains open with no review or merge activity, which is not typical for such small changes in this dataset."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_text",
+      "concern_detail": "No review text available; PR is open with no activity.",
+      "performance_claim": "Increase WebSocket reconnect delay from 10s to 30s for VIOLATED_POLICY to reduce reconnection frequency and network load.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Trivial constant change requiring no technical challenge; PR is open without any review activity, suggesting a process boundary where human maintainer engagement is missing.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No evidence beyond PR body; no benchmark or test demonstrating effect of changed timeout.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR is open; no regressions observed or handled.",
+      "evidence_gap": "narrative_only_no_review_activity"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In AgentWebSocketClient.java, increased Thread.sleep from 10000 to 30000 milliseconds in the onClose handler for VIOLATED_POLICY close code, and updated log messages accordingly.",
+      "files_primary": [
+        "agent/src/main/java/com/microsoft/hydralab/agent/socket/AgentWebSocketClient.java"
+      ],
+      "files_secondary_observability": [
+        "gradlew"
+      ],
+      "secondary_note": "gradlew file appears modified with no actual line changes (likely mode change).",
+      "change_trajectory": [
+        "Initial plan commit (no code change).",
+        "Actual change: increase sleep to 30s and update logs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Copilot opened PR with one-line constant change; no human review or comments recorded."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "pr_id": 3168705723,
+  "meta": {
+    "title": "Implement retry-after header handling for improved throttling in fetch requests",
+    "html_url": "https://github.com/microsoft/genaiscript/pull/1636",
+    "repo": "microsoft/genaiscript",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-23 16:02:38+00:00",
+    "merged_at": "2025-06-23 16:41:07+00:00",
+    "closed_at": "2025-06-23 16:41:07+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "37",
+    "body_summary": "Add retry-after header parsing to fetch retry logic so that throttled responses are respected instead of relying solely on exponential backoff, reducing unnecessary server load."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 3,
+      "additions": 250,
+      "deletions": 150,
+      "changes": 400,
+      "top1_file": "packages/core/src/fetch.ts",
+      "top1_changes": 150,
+      "top1_change_ratio": 0.375,
+      "files_by_status": {
+        "modified": 2,
+        "added": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "COMMENTED": 3
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 22,
+      "event_counts": {
+        "committed": 7,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "base_ref_changed": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "reviewed": 3,
+        "commented": 1,
+        "ready_for_review": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.641,
+      "first_review_delay_hours": 0.533,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "retry_after_handling",
+      "http_throttling",
+      "backoff_optimization"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot implemented retry-after header handling; bot review flagged three issues (undefined_variable, unit confusion, flaky test); pelikhan applied fixes and merged quickly."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 400,
+        "interpretation": "At an estimated 400 changed lines across 3 files, this is a small edit. The PR merged quickly after bot-flagged issues were fixed, consistent with a low-risk performance improvement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.641,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "automated_code_issues",
+      "concern_detail": "GitHub Actions automated reviews identified: an undefined_variable reference in catch block, potential milliseconds/seconds unit confusion in delay calculation, and a flaky test due to timing tolerance. These were not blocking; maintainer fixed or addressed them.",
+      "performance_claim": "Respecting retry-after header reduces unnecessary load on throttled services and can yield faster recovery than blind exponential backoff.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none_in_code",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "perf_evidence"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Retry-after header parsing is a well-defined HTTP feature; Copilot successfully delivered the change with unit tests, though automated review caught minor code issues that were fixed before merge.",
+      "success_factors": [
+        "linked_issue",
+        "automated_review_non_blocking",
+        "maintainer_quick_fix"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "github-actions bot performed static analysis and flagged potential bugs (undefined variable, unit confusion, flaky test)."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes unit tests for parseRetryAfter but no benchmark or profiler evidence for timing improvement.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Maintainer pelikhan applied fixes after bot comments, including commenting out flaky tests and addressing the undefined variable.",
+      "evidence_gap": "narrative_only_for_throttling_claim"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/core/src/fetch.ts, added parseRetryAfter() supporting seconds and HTTP-date formats; integrated into createFetch retry logic to use server-delayed backoff when available, with logging updates. Added packages/core/test/fetch-retry-after.test.ts with vitest tests.",
+      "files_primary": [
+        "packages/core/src/fetch.ts",
+        "packages/core/test/fetch-retry-after.test.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Build permissions update in later commit touched .github/workflows but not directly performance-related.",
+      "change_trajectory": [
+        "Initial Copilot commit: add parseRetryAfter and integration into fetch.ts; add unit test file.",
+        "Maintainer merged dev branch and refactored parseRetryAfter and test coverage.",
+        "Maintainer further refactored test files to vitest and improved coverage.",
+        "Maintainer removed package.json to eliminate module type configuration.",
+        "Maintainer updated build permissions and commented out flaky test cases."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "inline_review_comment",
+        "signal": "undefined_variable",
+        "summary": "Catch block uses `errorMessage(e)` but caught variable is `e`, not `error`; will cause ReferenceError.",
+        "blocking": false,
+        "action_taken": "Maintainer likely corrected the reference (exact fix not visible but merged)."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "inline_review_comment",
+        "signal": "milliseconds_seconds_confusion",
+        "summary": "Delay calculation uses `retryAfterSeconds * 1000` with `Math.min(maxDelay, ...)`, but unit consistency between `maxDelay` and `retryAfterSeconds` should be verified.",
+        "blocking": false,
+        "action_taken": "Presumably reviewed by maintainer; no further comment."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "inline_review_comment",
+        "signal": "flaky_test_due_to_timing",
+        "summary": "Test allows ±2s tolerance for HTTP date parsing; timing-based tests can be flaky; consider mocking time.",
+        "blocking": false,
+        "action_taken": "Maintainer later commented out flaky test cases in related tests."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "investigator_report",
+        "summary": "CI investigator report about a failed job, not directly related to PR quality.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with retry-after implementation and tests.",
+      "Maintainer merged dev branch and performed several refactoring/cleanup commits.",
+      "GitHub Actions bot posted three inline review comments flagging potential bugs.",
+      "Maintainer pushed final fix commit (build permissions, commented out flaky tests) and merged within 38 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

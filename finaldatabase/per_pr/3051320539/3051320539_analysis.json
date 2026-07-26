@@ -1,0 +1,203 @@
+{
+  "pr_id": 3051320539,
+  "meta": {
+    "title": "Fix issue #2798: Remove duplicate tool results in messages",
+    "html_url": "https://github.com/crewAIInc/crewAI/pull/2799",
+    "repo": "crewAIInc/crewAI",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-09 07:47:37+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-17 15:49:55+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 16,
+    "topic_name": "16",
+    "body_summary": "Remove duplicate appending of tool results to messages in agent_utils.py to reduce token usage and latency; adds a unit test to verify no duplication."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 2,
+      "additions": 106,
+      "deletions": 12,
+      "changes": 118,
+      "top1_file": "tests/test_tool_result_duplication.py",
+      "top1_changes": 113,
+      "top1_change_ratio": 0.958,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 7,
+        "commented": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 200.038,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "token_usage_reduction",
+      "message_deduplication",
+      "latency_reduction"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity_no_merge",
+    "review_dimensions": [
+      "tests",
+      "documentation",
+      "code_style"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Devin removed duplicate tool result append; AI crew review approved with minor suggestions; closed by bot after 7 days inactivity without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 118,
+        "interpretation": "At 118 changed lines, this is a small, focused bug fix. The PR was closed without merge due to inactivity, which is unusual for such a low-risk change; an AI-powered review recommended approval but no human reviewer took final action before the Devin auto-close timer triggered."
+      },
+      "lifecycle": {
+        "lifespan_hours": 200.038,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "code_quality_suggestions",
+      "concern_detail": "AI-powered review crew (posted by joaomdmoura) provided a detailed approval with non-blocking suggestions for type hints, parameterized tests, edge case tests, and an explanatory comment. No human maintainer provided feedback.",
+      "performance_claim": "Removing duplicate tool results from messages reduces token usage and latency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "duplicate_message_append (prior code appended tool results twice, causing token bloat)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests",
+        "documentation",
+        "code_style"
+      ],
+      "rejection_signals": "Closed due to Devin bot's 7-day inactivity timer despite a positive AI review. No human merge action occurred."
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "A trivial 2-line fix with a supporting test faced no technical blocker. Closure resulted from a process gap: the PR lacked timely human reviewer engagement and exceeded Devin's auto-close window.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "joaomdmoura's AI-powered review crew performed a static code review, noting style and testing improvements. No human maintainer directly examined the performance claim or tested the change."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or quantitative performance data was provided or requested. Only qualitative description of token bloat.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "The PR was closed without any performance validation or regression testing by maintainers.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In agent_utils.py, removed the line that appended tool_result.result to messages, preventing duplicate message entries. Added test_tool_result_duplication.py with a unit test mocking tools and asserting the result appears at most once in the messages array.",
+      "files_primary": [
+        "src/crewai/utilities/agent_utils.py",
+        "tests/test_tool_result_duplication.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit removes duplicate append (2 lines deleted).",
+        "Added test file with 77 lines initially.",
+        "Subsequent commits iterate on test: add type hints, fix CrewAgentExecutor initialization, adjust import sorting (ruff), add explanatory comment to agent_utils.py.",
+        "Final commit fixes ToolResult parameters in test."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "joaomdmoura",
+        "channel": "pr_comment",
+        "signal": "ai_crew_approval_with_suggestions",
+        "summary": "AI-powered crew review approved the PR with suggestions for type hints, parameterized tests, and edge cases; overall recommended for acceptance.",
+        "blocking": false,
+        "action_taken": "Devin made subsequent commits addressing some of the suggestions (type hints, import sorting)."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin with fix and test; Devin integration notice posted.",
+      "joaomdmoura's AI review crew posted detailed approval with improvement suggestions.",
+      "Devin responded by iterating on test improvements over several commits.",
+      "After 7 days of inactivity, Devin bot auto-closed the PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

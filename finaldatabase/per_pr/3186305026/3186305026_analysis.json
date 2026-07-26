@@ -1,0 +1,168 @@
+{
+  "pr_id": 3186305026,
+  "meta": {
+    "title": "Improve VM join optimizer",
+    "html_url": "https://github.com/mochilang/mochi/pull/3979",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-29 16:01:05+00:00",
+    "merged_at": "2025-06-29 16:01:18+00:00",
+    "closed_at": "2025-06-29 16:01:18+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Add hashed right join implementation in the VM and regenerate IR golden test for right join queries."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 258,
+      "deletions": 69,
+      "changes": 327,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 168,
+      "top1_change_ratio": 0.514,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0036,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hashed_right_join",
+      "vm_optimizer",
+      "join_algorithm"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "AI agent added hashed right join in VM with test update; self-merged instantly with no human review or benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 327,
+        "interpretation": "At 327 changed lines across 2 files, this is a small-to-medium edit by absolute volume. As a focused performance optimization (adding a hashed right join) it was merged instantly by the maintainer, consistent with a low-risk, self-reviewed workflow."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0036,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Hashed right join implementation improves join performance in the VM.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Implementing a hashed right join in a VM optimizer is within agent capability; the maintainer accepted the change without review, indicating trust in the agent for this kind of task.",
+      "success_factors": [
+        "focused_change",
+        "maintainer_self_merge",
+        "test_update_included"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or performance measurement; only testing for correctness via go test.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions discussed; PR merged without review.",
+      "evidence_gap": "narrative_only_for_join_perf"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added hashed right join implementation in runtime/vm/vm.go and updated the IR golden test for right_join to reflect the new join plan.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/right_join.ir.out"
+      ],
+      "secondary_note": "The IR golden output update is a consequence of the VM join plan change.",
+      "change_trajectory": [
+        "Single commit adding hashed right join logic with updated test expectations."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and immediately self-merged by maintainer with no review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

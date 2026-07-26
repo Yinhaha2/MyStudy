@@ -1,0 +1,195 @@
+{
+  "pr_id": 3205879151,
+  "meta": {
+    "title": "Support VM Reuse with Different Compiled Code",
+    "html_url": "https://github.com/deepnoodle-ai/risor/pull/400",
+    "repo": "deepnoodle-ai/risor",
+    "agent": "Cursor",
+    "user": "myzie",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-06 01:14:37+00:00",
+    "merged_at": "2025-07-06 13:35:23+00:00",
+    "closed_at": "2025-07-06 13:35:23+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 18,
+    "topic_name": "18",
+    "body_summary": "Add RunCode method to VM for reusing VMs with compiled code, improving performance for sequential script execution."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 11,
+      "additions": 1114,
+      "deletions": 441,
+      "changes": 1555,
+      "top1_file": "vm/vm_test.go",
+      "top1_changes": 788,
+      "top1_change_ratio": 0.507,
+      "files_by_status": {
+        "added": 2,
+        "modified": 7,
+        "removed": 2
+      },
+      "directory_count": 4,
+      "directories": [
+        "",
+        "design",
+        "examples/go/vm_reuse",
+        "vm"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 7,
+        "head_ref_force_pushed": 1,
+        "commented": 1,
+        "renamed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 12.346,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "vm_reuse",
+      "compilation_avoidance",
+      "state_preservation"
+    ],
+    "optimization_layer": "runtime",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_no_review_self_approve",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Cursor added RunCode method with tests; author self-merged after iterative improvements without formal perf evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1555,
+        "interpretation": "At 1555 changed lines, this is a medium-sized addition, with test code making up a large portion (vm_test.go ~788 lines). It is a moderate feature that merged quickly with no review friction."
+      },
+      "lifecycle": {
+        "lifespan_hours": 12.346,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review feedback; only Codecov bot commented on coverage.",
+      "performance_claim": "VM reuse with different compiled code improves performance by avoiding VM reinitialization overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding a VM method like RunCode requires understanding of Go, concurrency, VM lifecycle, and compilation pipeline. Cursor successfully delivered a working implementation with tests, showing capability in language runtime internals.",
+      "success_factors": [
+        "self-contained_feature",
+        "accompanied_by_tests",
+        "maintainer_engagement_via_iterative_commits"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Author/maintainer reviewed and refined the code through multiple commits after the initial agent submission."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data; performance improvement claimed but not measurable from PR artifacts.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added RunCode method to VirtualMachine struct to allow executing different compiled code objects without recreating the VM. Introduced runCompiledCode, adjusted state fields (e.g., code, constants), added tests, and provided a design doc and example.",
+      "files_primary": [
+        "vm/vm.go",
+        "vm/run.go",
+        "vm/vm_test.go",
+        "risor.go"
+      ],
+      "files_secondary_observability": [
+        "design/2025_07_run_code.md",
+        "examples/go/vm_reuse/main.go",
+        "risor_config.go",
+        "risor_options.go",
+        "risor_test.go"
+      ],
+      "secondary_note": "Design document and example were added for documentation; risor.go updated to utilize new method.",
+      "change_trajectory": [
+        "Initial commit by Cursor: Added RunCode method, test file, and design doc.",
+        "Maintainer committed formatting, moved design doc, and made significant refactoring and adjustments to more fully support VM reuse, including adding an example.",
+        "All changes self-approved and merged within ~12 hours."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "Codecov bot reported patch coverage 70.49% with 36 lines missing coverage. No blocking.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor initiated PR with RunCode implementation and tests.",
+      "Maintainer (myzie) iterated on design doc, code refactoring, and added example within ~12 hours before self-merging."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

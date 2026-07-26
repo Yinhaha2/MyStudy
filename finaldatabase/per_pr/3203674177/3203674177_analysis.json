@@ -1,0 +1,194 @@
+{
+  "pr_id": 3203674177,
+  "meta": {
+    "title": "Optimize dataset storage with pyarrow",
+    "html_url": "https://github.com/ucbepic/docetl/pull/380",
+    "repo": "ucbepic/docetl",
+    "agent": "Cursor",
+    "user": "shreyashankar",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-04 20:45:02+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-07 19:32:05+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 4,
+    "topic_name": "4",
+    "body_summary": "Implement PyArrow-based incremental checkpoint storage with deduplication, using a central dataset for unique records and an index, to reduce storage footprint and improve debugging."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 12,
+      "file_count": 11,
+      "additions": 3458,
+      "deletions": 2457,
+      "changes": 5915,
+      "top1_file": "docetl/checkpoint_manager.py",
+      "top1_changes": 1823,
+      "top1_change_ratio": 0.308,
+      "files_by_status": {
+        "added": 3,
+        "modified": 4,
+        "removed": 4
+      },
+      "directory_count": 4,
+      "directories": [
+        "(root)",
+        "docetl",
+        "tests",
+        "docs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 12,
+        "commented": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 70.783,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "pyarrow_storage",
+      "deduplication",
+      "checkpoint_optimization"
+    ],
+    "optimization_layer": "application_storage",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_failure_not_working",
+    "review_dimensions": [
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "manual_testing"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor implemented PyArrow checkpoint with deduplication; maintainer closed stating 'Does'nt work', indicating functional failure, no benchmark or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5915,
+        "interpretation": "At 5915 changed lines across 11 files with major refactoring in checkpoint_manager.py (1823 lines), this is a large change by absolute volume. It represents a significant architectural refactor for storage optimization. The PR was closed without merge due to functional failure, consistent with high churn that may introduce integration issues."
+      },
+      "lifecycle": {
+        "lifespan_hours": 70.783,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_failure",
+      "concern_detail": "Maintainer shreyashankar closed the PR with a single comment 'Does'nt work', indicating the implementation did not function as expected.",
+      "performance_claim": "Reduce disk usage and enhance debugging by using PyArrow-based incremental checkpoint storage with deduplication.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness"
+      ],
+      "rejection_signals": "PR closed by maintainer after stating 'Does'nt work'; no further review interaction."
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Large-scale storage refactor with PyArrow and deduplication required careful handling of incremental updates; Agent produced a non-functional implementation, suggesting challenges in wrapping external libraries and maintaining correctness during significant architectural changes.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "manual_testing": "Maintainer tested the implementation and found it non-functional, closing with 'Does'nt work'."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body lacked benchmark numbers or reproduction steps; maintainer's 'Does'nt work' indicates the feature failed to function, making reproducibility insufficient.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed immediately after maintainer's comment; no fix-in-PR cycle occurred.",
+      "evidence_gap": "narrative_storage_claim_no_working_implementation"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduce PyArrow-based CheckpointManager with deduplication: store unique records centrally and use an index for references, replacing separate JSON files per operation. Supports incremental storage via single dataset. Added checkpoint inspection docs and tests.",
+      "files_primary": [
+        "docetl/checkpoint_manager.py",
+        "docetl/runner.py",
+        "tests/test_checkpoint_manager.py"
+      ],
+      "files_secondary_observability": [
+        "PYARROW_CHECKPOINT_RESEARCH.md",
+        "example_checkpoint_inspection.py",
+        "docs/concepts/intermediate-outputs.md",
+        "poetry.lock",
+        "PR_DESCRIPTION.md"
+      ],
+      "secondary_note": "Several documentation and example files were added and then removed or iterated; lockfile changes likely from pyarrow dependency addition.",
+      "change_trajectory": [
+        "Initial addition of PyArrow checkpoint manager (checkpoint_manager.py, checkpoint_utils.py, runner.py changes, research doc).",
+        "Refactor to single dataset approach (removed checkpoint_utils.py, simplified manager, added example script and tests).",
+        "Added storage footprint benchmark test.",
+        "Added and iterated on documentation for intermediate outputs.",
+        "Removed research doc and example script.",
+        "Maintainer commits to update pyproject and lockfile, and a final 'update' commit to checkpoint_manager.py."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "shreyashankar",
+        "channel": "pr_comment",
+        "signal": "functional_failure_close",
+        "summary": "Maintainer stated the implementation does not work and closed the PR.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent authored 10 commits implementing PyArrow checkpoint, including incremental deduplication, tests, and documentation.",
+      "Maintainer added two commits to update pyproject.toml and modify checkpoint_manager.py.",
+      "After 3 days, maintainer closed the PR with 'Does'nt work', concluding the feature was non-functional."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

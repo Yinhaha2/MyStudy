@@ -1,0 +1,263 @@
+{
+  "pr_id": 3154652967,
+  "meta": {
+    "title": "Make GenerateDepsFile and GenerateRuntimeConfigurationFiles tasks internally-incremental",
+    "html_url": "https://github.com/dotnet/sdk/pull/49459",
+    "repo": "dotnet/sdk",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-17 20:14:14+00:00",
+    "merged_at": "2025-06-27 00:02:00+00:00",
+    "closed_at": "2025-06-27 00:02:00+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Add incremental output writing to GenerateDepsFile and GenerateRuntimeConfigurationFiles tasks: compute XxHash64 hash of new content, compare with existing file, and skip write when identical to prevent unnecessary cascading rebuilds."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 18,
+      "file_count": 5,
+      "additions": 586,
+      "deletions": 335,
+      "changes": 921,
+      "top1_file": "src/Tasks/Microsoft.NET.Build.Tasks/GenerateRuntimeConfigurationFiles.cs",
+      "top1_changes": 375,
+      "top1_change_ratio": 0.407,
+      "files_by_status": {
+        "added": 2,
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 7,
+      "review_states": {
+        "COMMENTED": 4,
+        "APPROVED": 3
+      },
+      "review_comment_count": 4,
+      "pr_comment_count": 18,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "renamed": 1,
+        "review_requested": 3,
+        "copilot_work_finished": 4,
+        "commented": 5,
+        "mentioned": 4,
+        "subscribed": 4,
+        "reviewed": 2,
+        "ready_for_review": 1
+      },
+      "lifespan_hours": 219.8,
+      "first_review_delay_hours": 6.908,
+      "review_rounds": 7,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "incremental_task_output",
+      "avoid_unnecessary_file_writes",
+      "cascading_rebuild_prevention"
+    ],
+    "optimization_layer": "build_tooling",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "design_or_approach",
+      "perf_evidence",
+      "correctness",
+      "code_quality"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot implemented incremental hashing for build tasks; extensive back-and-forth with maintainer on streaming, property names, and compilation; merged after multiple approvals and collaborator commits."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 921,
+        "interpretation": "At 921 changed lines across 5 files, this is a medium-sized edit by absolute volume. The change concentrates on two task files and tests, fitting a moderate incremental build optimization that merged after several review iterations."
+      },
+      "lifecycle": {
+        "lifespan_hours": 219.8,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "excessive_memory_allocation",
+      "concern_detail": "Maintainer baronfel requested that hash computation use streaming XxHash64 with stackalloc Span<byte> of size XxHash64.HashLengthInBytes, Append(stream) and GetCurrentHash, instead of loading entire file content into strings to avoid large allocations.",
+      "performance_claim": "Eliminate unnecessary file writes in GenerateDepsFile and GenerateRuntimeConfigurationFiles tasks, preventing cascading rebuilds and improving build performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io (always writing files even when content identical)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "perf_evidence",
+        "correctness",
+        "code_quality"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Implementing incremental build optimization with XxHash64 streaming and resource-safe code in .NET SDK tasks required detailed guidance on API usage (HashLengthInBytes instance property, stackalloc, Stream.CopyTo) and multiple maintainer commits to fix compilation, encodings, and test structure.",
+      "success_factors": [
+        "extensive_review_collaboration",
+        "maintainer_fixes_integrated",
+        "validated_by_unit_tests",
+        "linked_issue"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "baronfel and marcpopMSFT reviewed the code, identified excessive memory allocations, suggested streaming approach, and caught build errors and encoding issues."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance measurement or benchmark; performance claim relies on logical reasoning that skipping unnecessary writes reduces rebuilds.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Maintainer and Copilot iteratively fixed compilation errors, property names, streaming logic, and encoding issues across many commits within the PR.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add incremental output writing to GenerateDepsFile and GenerateRuntimeConfigurationFiles tasks by computing XxHash64 hash of new content in memory, comparing with hash of existing file, and only writing to disk if content differs; avoid unnecessary rebuilds caused by timestamp changes.",
+      "files_primary": [
+        "src/Tasks/Microsoft.NET.Build.Tasks/GenerateDepsFile.cs",
+        "src/Tasks/Microsoft.NET.Build.Tasks/GenerateRuntimeConfigurationFiles.cs"
+      ],
+      "files_secondary_observability": [
+        "src/Tasks/Microsoft.NET.Build.Tasks.UnitTests/GivenAGenerateDepsFile.cs",
+        "src/Tasks/Microsoft.NET.Build.Tasks.UnitTests/GivenAGenerateRuntimeConfigurationFiles.cs",
+        "src/Tasks/Microsoft.NET.Build.Tasks/HashingUtils.cs"
+      ],
+      "secondary_note": "HashingUtils.cs was extracted to deduplicate hash comparison logic; test files were added to verify timestamp preservation.",
+      "change_trajectory": [
+        "Initial implementation with full string-based comparison.",
+        "Review: switch to streaming hash with stackalloc and Append(stream).",
+        "Replace hardcoded hash buffer size with HashSizeInBytes, then fix to HashLengthInBytes instance property.",
+        "Use MemoryStream.CopyTo instead of double serialization.",
+        "Fix compilation errors: StreamWriter constructor and unused variable.",
+        "Resource management improvements and deduplication (extract HashingUtils).",
+        "Refactor tests to reduce duplication by extracting helper methods.",
+        "Maintainer fixes: close read streams, encoding corrections, revert to temp file comparison.",
+        "Reset MemoryStream position before CopyTo.",
+        "Final approvals and merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "baronfel",
+        "channel": "pr_comment",
+        "signal": "streaming_hash_recommendation",
+        "summary": "Suggested streaming hash approach with XxHash64, stackalloc, Append(stream), GetCurrentHash to avoid large string allocations.",
+        "blocking": true,
+        "action_taken": "Copilot implemented the streaming hash in commit 8c75475."
+      },
+      {
+        "source": "baronfel",
+        "channel": "pr_comment",
+        "signal": "named_property_request",
+        "summary": "Requested using named property for hash size instead of constant 8.",
+        "blocking": false,
+        "action_taken": "Copilot replaced with XxHash64.HashSizeInBytes, later corrected to HashLengthInBytes instance access."
+      },
+      {
+        "source": "baronfel",
+        "channel": "inline_review_comment",
+        "signal": "copytowrite_suggestion",
+        "summary": "Recommended using MemoryStream.CopyTo instead of double serialization.",
+        "blocking": false,
+        "action_taken": "Copilot changed to MemoryStream.CopyTo in commit ba29265."
+      },
+      {
+        "source": "marcpopMSFT",
+        "channel": "pr_comment",
+        "signal": "build_errors_report",
+        "summary": "Reported two build errors: StreamWriter constructor missing bufferSize and unused shouldWriteFile variable.",
+        "blocking": true,
+        "action_taken": "Copilot fixed both errors in commit 1ebc5a5."
+      },
+      {
+        "source": "baronfel",
+        "channel": "pr_comment",
+        "signal": "position_reset_reminder",
+        "summary": "Reminded to reset MemoryStream position before CopyTo to destination file.",
+        "blocking": true,
+        "action_taken": "Copilot added Position = 0 in commit 6e72e0e."
+      },
+      {
+        "source": "baronfel",
+        "channel": "inline_review_comment",
+        "signal": "test_deduplication_request",
+        "summary": "Asked to reduce duplication in test files.",
+        "blocking": false,
+        "action_taken": "Copilot extracted helper methods in commit 9e4e826."
+      },
+      {
+        "source": "baronfel",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved after fixes (multiple approvals throughout).",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial string-based comparison implementation.",
+      "Maintainer baronfel requested streaming hash approach to avoid allocations.",
+      "Copilot iteratively applied fixes for streaming, property names, CopyTo, and compilation.",
+      "Maintainer marcpopMSFT reported CI build errors.",
+      "Maintainer baronfel committed additional fixes for compilation, dedup, encodings, and stream handling.",
+      "PR approved by baronfel multiple times after final fixes; merged after ~9 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

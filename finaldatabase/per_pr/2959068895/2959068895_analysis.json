@@ -1,0 +1,249 @@
+{
+  "pr_id": 2959068895,
+  "meta": {
+    "title": "feat: implement HTTP caching with mitmproxy's native format",
+    "html_url": "https://github.com/airbytehq/PyAirbyte/pull/646",
+    "repo": "airbytehq/PyAirbyte",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-03-30 19:59:25+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-24 15:23:57+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "19",
+    "body_summary": "Add HTTP caching for PyAirbyte connectors using mitmproxy, with native format serialization instead of pickle, cache modes, and executor integration."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 21,
+      "file_count": 26,
+      "additions": 3322,
+      "deletions": 1249,
+      "changes": 5177,
+      "top1_file": "poetry.lock",
+      "top1_changes": 1297,
+      "top1_change_ratio": 0.25,
+      "files_by_status": {
+        "added": 10,
+        "modified": 14,
+        "removed": 2
+      },
+      "directory_count": 4,
+      "directories": [
+        "airbyte",
+        "tests",
+        "examples",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 5,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 3,
+        "APPROVED": 1
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 21,
+        "commented": 3,
+        "reviewed": 5,
+        "renamed": 1
+      },
+      "lifespan_hours": 595.4,
+      "first_review_delay_hours": 0.734,
+      "review_rounds": 5,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "http_caching",
+      "cache_replay",
+      "rate_limit_avoidance"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_stale_inactivity",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "scope"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin's initial pickle format was rejected by aaronsteers CHANGES_REQUESTED; after switching to mitmproxy native format and multiple maintainer refactors, PR was never finally approved and auto-closed for inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5177,
+        "interpretation": "At 5177 changed lines across 26 files, this is a large-scale feature addition with substantial lockfile and refactoring churn. The closure without merge is consistent with a PR that, despite review feedback fixes, remained inactive and lacked final human approval."
+      },
+      "lifecycle": {
+        "lifespan_hours": 595.4,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_and_correctness_issues",
+      "primary_concern": "incorrect_serialization_format",
+      "concern_detail": "aaronsteers CHANGES_REQUESTED because the binary format used pickle instead of mitmproxy's native format, and requested checking Airbyte's live-tests for correct format; also corrected HAL to HAR in README.",
+      "performance_claim": "HTTP caching with mitmproxy to reduce latency and avoid rate limiting for connectors.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "scope"
+      ],
+      "rejection_signals": "Initial CHANGES_REQUESTED for pickle usage; after fix, PR stalled without final approval and was closed by bot due to 7+ days inactivity."
+    },
+    "capability_boundary": {
+      "topic": "19",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin initially used pickle, lacking domain knowledge of mitmproxy's standard serialization; required maintainer to specify correct native format and later took over significant refactoring, indicating difficulty navigating complex proxy integration and executor design.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "aaronsteers manually reviewed the implementation and identified the incorrect use of pickle as well as the HAL/HAR naming mistake; also provided a TODO comment about future declarative caching support."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark data or reproduction steps were included; performance claims are purely narrative.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was not merged; after the initial format correction and subsequent maintainer-driven refactors, no final approval was given and the bot closed it for inactivity.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added airbyte/http_caching module with AirbyteConnectorCache, mitmproxy-based proxy, custom addons script, cache modes, and serialization using native format; integrated cache into source and executor infrastructure; initially used pickle but switched to mitmproxy's native format after review.",
+      "files_primary": [
+        "airbyte/http_caching/cache.py",
+        "airbyte/http_caching/mitm_proxy.py",
+        "airbyte/http_caching/mitm_addons_script.py",
+        "airbyte/http_caching/modes.py",
+        "airbyte/sources/base.py"
+      ],
+      "files_secondary_observability": [
+        "poetry.lock",
+        "pyproject.toml",
+        "airbyte/http_caching/README.md",
+        "examples/run_sync_w_http_caches.py",
+        "airbyte/_executors/base.py",
+        "airbyte/_executors/docker.py"
+      ],
+      "secondary_note": "poetry.lock contributed ~1297 lines of churn; many executor refactors were done by the maintainer after the initial agent submission.",
+      "change_trajectory": [
+        "Initial implementation with pickle and basic proxy/cache classes.",
+        "CHANGES_REQUESTED: use mitmproxy native format, correct HAR naming.",
+        "Devin replaced pickle with native format, corrected README, and added example script.",
+        "Asyncio and serialization fixes by Devin (stacked PR).",
+        "Maintainer took over: refactored executor integration, proxy implementation, added mitm_addons_script, working Docker redirect, curated example.",
+        "Final commits by maintainer: mypy fixes, test adjustments; PR left open with no final approval.",
+        "Bot auto-closed after 7 days of inactivity."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "aaronsteers",
+        "channel": "formal_review",
+        "signal": "incorrect_serialization_format",
+        "summary": "Rejected pickle binary format; requested migration to a format natively readable by other tools (mitmproxy native) and explanation of HAL/HAR.",
+        "blocking": true,
+        "action_taken": "Devin replaced pickle with mitmproxy's native format and fixed HAR naming."
+      },
+      {
+        "source": "aaronsteers",
+        "channel": "inline_review_comment",
+        "signal": "format_name_correction",
+        "summary": "HAL is wrong; should be HAR.",
+        "blocking": false,
+        "action_taken": "Devin corrected the name in the README."
+      },
+      {
+        "source": "aaronsteers",
+        "channel": "inline_review_comment",
+        "signal": "future_declarative_cache_todo",
+        "summary": "Suggested a future need for caching in declarative execution, possibly by patching requests library, but requested not to implement now.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-advanced-security[bot]",
+        "channel": "inline_review_comment",
+        "signal": "security_socket_bind_interface",
+        "summary": "Flagged that '' binds to all interfaces, potential security concern.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_archived",
+        "summary": "Devin became archived and could not be woken up.",
+        "blocking": false,
+        "action_taken": "Maintainer took over further development."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial HTTP caching implementation using pickle.",
+      "aaronsteers reviewed within 44 minutes, requested change to native format and HAR correction.",
+      "Devin responded with multiple fixes: replaced pickle, corrected HAR, added example script.",
+      "Devin became archived; maintainer started making extensive own commits refactoring proxy, executor integration, adding Docker support.",
+      "After a series of maintainer commits and no further review approval, the Devin bot auto-closed the PR ~25 days after opening."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

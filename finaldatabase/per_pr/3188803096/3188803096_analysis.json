@@ -1,0 +1,177 @@
+{
+  "pr_id": 3188803096,
+  "meta": {
+    "title": "Update VM const reuse and refresh TPC‑DS IR",
+    "html_url": "https://github.com/mochilang/mochi/pull/4233",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 14:56:07+00:00",
+    "merged_at": "2025-06-30 15:03:11+00:00",
+    "closed_at": "2025-06-30 15:03:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 8,
+    "topic_id": 15,
+    "topic_name": "15",
+    "body_summary": "Reuse constant registers when building grouped records in VM compiler; update TPC-DS IR disassembly for queries q60–q69."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 10,
+      "additions": 215,
+      "deletions": 248,
+      "changes": 463,
+      "top1_file": "tests/dataset/tpc-ds/out/q63.ir.out",
+      "top1_changes": 193,
+      "top1_change_ratio": 0.417,
+      "files_by_status": {
+        "modified": 10
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.118,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_reuse",
+      "ir_size_reduction",
+      "compiler_optimization"
+    ],
+    "optimization_layer": "runtime_compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex proposed VM constant reuse with TPC-DS IR test updates; merged quickly with no reviews or performance benchmarks."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 463,
+        "interpretation": "At 463 changed lines across 10 files, this is a small-to-medium refactor. The performance claim is implicit in the compiler improvement; the quick merge without review is consistent with a low-risk, test-update-only change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.118,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No reviews were performed; the PR was merged immediately by the author.",
+      "performance_claim": "Reusing constant registers in the VM reduces the number of constant objects created, potentially improving memory and compile time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "15",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The PR modifies the VM compiler to reuse constant registers, a low-level optimization that requires understanding the VM's register allocation. The agent successfully made the change and updated multiple test IR files, but without providing performance evidence.",
+      "success_factors": [
+        "narrow_change_scope",
+        "test_regression_validation",
+        "no_review_blocking"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "The PR updates TPC-DS IR test outputs, so correctness can be verified by running the provided Go tests. However, no before/after performance metrics are included, so the performance claim is not directly reproducible.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were flagged; the PR merged without issue.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, modified the compiler to reuse existing constant registers when building grouped records; updated TPC-DS query IR disassembly files in tests/dataset/tpc-ds/out/ to reflect the new compiler output.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/tpc-ds/out/q60.ir.out",
+        "tests/dataset/tpc-ds/out/q61.ir.out",
+        "tests/dataset/tpc-ds/out/q63.ir.out",
+        "tests/dataset/tpc-ds/out/q64.ir.out",
+        "tests/dataset/tpc-ds/out/q65.ir.out",
+        "tests/dataset/tpc-ds/out/q66.ir.out",
+        "tests/dataset/tpc-ds/out/q67.ir.out",
+        "tests/dataset/tpc-ds/out/q68.ir.out",
+        "tests/dataset/tpc-ds/out/q69.ir.out"
+      ],
+      "secondary_note": "The secondary files are test expectation IR outputs that were changed to match the new compiler behavior. They account for the majority of line changes (449 out of 463 lines).",
+      "change_trajectory": [
+        "Single commit: 'runtime/vm: reuse group constants' modifies vm.go and all TPC-DS IR test files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by OpenAI_Codex with compiler constant reuse and test updates.",
+      "PR merged by tamnd within 7 minutes with no reviews or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

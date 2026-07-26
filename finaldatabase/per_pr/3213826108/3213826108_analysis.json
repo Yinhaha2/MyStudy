@@ -1,0 +1,219 @@
+{
+  "pr_id": 3213826108,
+  "meta": {
+    "title": "[Cursor] Fix some bugs",
+    "html_url": "https://github.com/TanStack/router/pull/4603",
+    "repo": "TanStack/router",
+    "agent": "Cursor",
+    "user": "tannerlinsley",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-08 21:33:35+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-15 22:15:25+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Fix router memory leaks via timeout cleanup and improve case sensitivity consistency in route path matching."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 308,
+      "deletions": 250,
+      "changes": 558,
+      "top1_file": "packages/router-core/src/router.ts",
+      "top1_changes": 498,
+      "top1_change_ratio": 0.892,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 3,
+        "labeled": 2,
+        "commented": 2,
+        "renamed": 2,
+        "reviewed": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 168.697,
+      "first_review_delay_hours": 0.183,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_leak_timeout_cleanup",
+      "case_insensitive_path_matching"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "uncleared_timeout"
+    ],
+    "outcome_reason": "stale_inactivity_ci_failure",
+    "review_dimensions": [
+      "tests",
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Cursor PR fixing memory leaks and case sensitivity but lacking tests; CI failed and closed after inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 558,
+        "interpretation": "At 558 changed lines across 3 files, this is a medium-sized bugfix by absolute volume, with most churn in router.ts (498 lines) from automated fixes. As a multi-fix PR with memory leak claim it was closed without merge after CI failure and lack of tests."
+      },
+      "lifecycle": {
+        "lifespan_hours": 168.697,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "tests_missing_or_requested",
+      "primary_concern": "test_coverage_lack_ci_failure",
+      "concern_detail": "Reviewer requested tests for case-insensitive path matching changes and questioned ScriptOnce XSS validation logic; CI build and test jobs failed.",
+      "performance_claim": "Fix router memory leaks via timeout cleanup and improve case sensitivity consistency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "uncleared_timeout",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests",
+        "correctness",
+        "ci_validation"
+      ],
+      "rejection_signals": "CI failed, reviewer requested tests and questioned logic; PR closed after inactivity without addressing issues."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Memory leak and case sensitivity fix in router core; agent implementation broke the build and lacked test coverage, leading to closure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "schiller-manuel reviewed path.ts and ScriptOnce.tsx, requesting tests and questioning XSS logic.",
+        "ci_auto": "nx-cloud CI reported build and test failures."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body only claims memory leak fix; no runtime metrics or test results provided.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed after CI failure and reviewer request to close; no follow-up commits addressing issues.",
+      "evidence_gap": "narrative_only_no_tests_or_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified router.ts for timeout cleanup (memory leak fix) and path.ts for case-insensitive prefix/suffix matching; also added XSS validation in ScriptOnce.tsx.",
+      "files_primary": [
+        "packages/router-core/src/router.ts",
+        "packages/router-core/src/path.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/react-router/src/ScriptOnce.tsx"
+      ],
+      "secondary_note": "ScriptOnce XSS validation was added but not directly related to the stated perf fix; large formatting changes in router.ts from autofix.",
+      "change_trajectory": [
+        "Initial checkpoint commit adding ScriptOnce XSS validation.",
+        "Added case-insensitive path matching and error handling in path.ts and router.ts.",
+        "Automated ci fixes applied (large diff in router.ts).",
+        "CI builds and tests failed; no further resolution."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "schiller-manuel",
+        "channel": "inline_review_comment",
+        "signal": "test_coverage_request",
+        "summary": "We need tests to know which 'bugs' this actually fixes.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "schiller-manuel",
+        "channel": "inline_review_comment",
+        "signal": "correctness_concern",
+        "summary": "So a <script> inside a <script> is a problem? wouldn't any html tag be problematic?",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "nx-cloud[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_failure",
+        "summary": "CI pipeline failed: nx affected test:eslint,test:unit and build commands failed.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "schiller-manuel",
+        "channel": "pr_comment",
+        "signal": "close_request",
+        "summary": "can we close this?",
+        "blocking": false,
+        "action_taken": "PR closed by maintainer."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with timeout cleanup and case sensitivity changes.",
+      "Automatic labels and nx-cloud CI report failures within minutes.",
+      "Maintainer reviewed and requested tests on path.ts, questioned XSS logic.",
+      "No follow-up commits addressing review; maintainer requested to close, PR closed after a week."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

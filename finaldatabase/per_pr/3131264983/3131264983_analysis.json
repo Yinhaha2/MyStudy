@@ -1,0 +1,212 @@
+{
+  "pr_id": 3131264983,
+  "meta": {
+    "title": "fix: reduce DevTab rerenders on file tree",
+    "html_url": "https://github.com/onlook-dev/onlook/pull/2127",
+    "repo": "onlook-dev/onlook",
+    "agent": "OpenAI_Codex",
+    "user": "Kitenite",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-09 19:37:21+00:00",
+    "merged_at": "2025-06-09 19:46:21+00:00",
+    "closed_at": "2025-06-09 19:46:21+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "2_hydration_species_component_children",
+    "body_summary": "Memoize FileTree component and sandbox helpers in DevTab to reduce unnecessary re-renders, avoiding new callback creation on refresh/load."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 20,
+      "deletions": 19,
+      "changes": 39,
+      "top1_file": "apps/web/client/src/app/project/[id]/_components/right-panel/dev-tab/file-tree.tsx",
+      "top1_changes": 25,
+      "top1_change_ratio": 0.641,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 15,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "commented": 2,
+        "reviewed": 2,
+        "deployed": 4,
+        "renamed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.15,
+      "first_review_delay_hours": 0.023,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "react_memoization",
+      "use_callback",
+      "rerender_reduction"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex memoized FileTree and wrapped sandbox helpers with useCallback; bot reviews approved without blocking; merged quickly by author."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 39,
+        "interpretation": "At 39 changed lines across 2 files, this is a tiny refactor by absolute volume. It fits a small-step fix to reduce React re-renders, consistent with the fast, low-risk merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.15,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "non_blocking_suggestions",
+      "concern_detail": "Bot reviewers flagged potential improvements (dependency array completeness, moving helpers outside) but did not block merge.",
+      "performance_claim": "Reduce rerenders in DevTab file tree by memoizing components and callbacks.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "excessive_component_rerenders (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2_hydration_species_component_children",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple React memoization and useCallback optimizations are within agent capability; merge required only bot approval with non-blocking suggestions.",
+      "success_factors": [
+        "small_scope",
+        "no_human_blocking",
+        "bot_review_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": ""
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No render counts or performance metrics provided; only narrative description of rerender fix.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "",
+      "evidence_gap": "narrative_only_no_rerender_metrics"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Memoized FileTree with React.memo and wrapped sandbox helpers (isSandboxReady, handleRefreshFiles, loadFile) with useCallback in DevTab to prevent unnecessary re-renders.",
+      "files_primary": [
+        "apps/web/client/src/app/project/[id]/_components/right-panel/dev-tab/file-tree.tsx",
+        "apps/web/client/src/app/project/[id]/_components/right-panel/dev-tab/index.tsx"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "First commit d12c666: memoized FileTree and added useCallback for sandbox helpers.",
+        "Second commit 393b6ce: additional render reduction tweaks in file-tree.tsx."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ellipsis-dev[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_passed_with_suggestions",
+        "summary": "Approved the PR with draft suggestions for further improvement (moving helper outside, useCallback on handleRefresh, dependency array completeness).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "ellipsis-dev[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_passed_with_suggestions",
+        "summary": "Second review after new commit, again approved with similar draft suggestions (moving buildFileTree outside, useCallback on handleRefresh).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata (unrelated to perf validation).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "supabase[bot]",
+        "channel": "pr_comment",
+        "signal": "no_backend_changes",
+        "summary": "Supabase bot noted PR ignored because no changes in backend/supabase directory.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Kitenite with two commits spanning memoization and further render tweaks.",
+      "Ellipsis bot reviewed within one minute with non-blocking suggestions; Vercel and Supabase bots provided deployment feedback.",
+      "No human review feedback recorded; author self-merged after 9 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

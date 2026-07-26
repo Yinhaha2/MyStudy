@@ -1,0 +1,172 @@
+{
+  "pr_id": 3246020947,
+  "meta": {
+    "title": "Improve Prolog transpiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/10651",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-20 05:54:22+00:00",
+    "merged_at": "2025-07-20 05:55:03+00:00",
+    "closed_at": "2025-07-20 05:55:03+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "1",
+    "body_summary": "Improve Prolog transpiler by folding trivial zero-arg functions during compilation, add bool_chain golden test output, and update Prolog README checklist."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 55,
+      "deletions": 5,
+      "changes": 60,
+      "top1_file": "transpiler/x/pl/transpiler.go",
+      "top1_changes": 43,
+      "top1_change_ratio": 0.717,
+      "files_by_status": {
+        "added": 2,
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0114,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_folding",
+      "zero_arg_function_folding",
+      "compile_time_optimization"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "ignore",
+    "confidence": "medium",
+    "notes": "OpenAI Codex PR with compile-time optimization; merged in 41 seconds despite test failure mentioned in body, no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 60,
+        "interpretation": "At 60 changed lines, this is a very small edit by absolute volume, consistent with a low-risk, fast-tracked performance PR. The immediate self-merge fits the small scope and lack of formal review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0114,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or comment text available in dataset.",
+      "performance_claim": "Fold trivial zero-arg functions at compile time to improve Prolog transpiler efficiency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compile-time optimization within a transpiler is a moderate capability; merged without review indicates low friction for small, self-contained changes.",
+      "success_factors": [
+        "self_merge_by_author",
+        "small_scope",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or performance data; test command mentioned in body but fails; no reproduction steps for optimization effect.",
+      "regression_handling": "ignore",
+      "regression_detail": "Despite a failing golden test for bool_chain output mismatch, maintainer merged immediately; no fix cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In transpiler/x/pl/transpiler.go, added logic to fold trivial zero-argument functions during compilation. Also added golden test files (bool_chain.pl and .out) and updated Progress/Tasks documentation.",
+      "files_primary": [
+        "transpiler/x/pl/transpiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/transpiler/x/pl/bool_chain.out",
+        "tests/transpiler/x/pl/bool_chain.pl",
+        "transpiler/x/pl/README.md",
+        "transpiler/x/pl/TASKS.md"
+      ],
+      "secondary_note": "Secondary files are test additions and doc updates; no runtime performance measurement.",
+      "change_trajectory": [
+        "Single commit (9848455d) added function folding in transpiler.go, new golden test files, and updated docs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Merged by same user (tamnd) 41 seconds after creation; no review or discussion recorded."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

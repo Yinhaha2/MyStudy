@@ -1,0 +1,179 @@
+{
+  "pr_id": 3233770846,
+  "meta": {
+    "title": "fix: security, performance, and reliability issues in API",
+    "html_url": "https://github.com/mostafaalagamy/Metrolist/pull/984",
+    "repo": "mostafaalagamy/Metrolist",
+    "agent": "Cursor",
+    "user": "mostafaalagamy",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-15 21:37:11+00:00",
+    "merged_at": "2025-07-16 17:08:53+00:00",
+    "closed_at": "2025-07-16 17:08:53+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "9",
+    "body_summary": "Fixes three critical bugs: insecure cookie parsing, GlobalScope memory leaks, and potential infinite loops in API pagination."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 5,
+      "additions": 205,
+      "deletions": 163,
+      "changes": 368,
+      "top1_file": "BUGS_FIXED_REPORT.md",
+      "top1_changes": 306,
+      "top1_change_ratio": 0.832,
+      "files_by_status": {
+        "added": 1,
+        "modified": 5,
+        "removed": 1
+      },
+      "directory_count": 4,
+      "directories": [
+        "app",
+        "innertube",
+        "innertube/src",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 2,
+        "renamed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 19.528,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "coroutine_scope_leak_fix",
+      "pagination_infinite_loop_guard",
+      "cookie_parsing_security"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "coroutine_scope_leak",
+      "potential_infinite_loop"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Maintainer self-merged a small Kotlin agent PR addressing coroutine scope and loop issues with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 368,
+        "interpretation": "At 368 changed lines, this is a small edit by absolute volume, but over 80% of that is a docs file later deleted; real changes are only ~62 lines across four source files. This fits a tiny, low-risk performance fix that was merged by the maintainer without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 19.528,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Fix GlobalScope memory leaks and potential infinite loops in API pagination to improve performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Coroutine scope replacement and loop guard addition are within standard Kotlin/Android fix territory; the PR was merged by the same maintainer without external review, suggesting low friction for small-scope technical fixes.",
+      "success_factors": [
+        "maintainer_self_merge",
+        "tiny_scope"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance evidence, benchmarks, or reproduction steps in the PR; only a short body description of the issues.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues were raised; the PR was merged directly.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced GlobalScope.launch with lifecycle-aware coroutine scopes in App.kt, added pagination loop safeguards in YouTube.kt, and fixed cookie parsing in Utils.kt; LoginScreen.kt received a minor coroutine adjustment. A BUGS_FIXED_REPORT.md was added then deleted.",
+      "files_primary": [
+        "app/src/main/kotlin/com/metrolist/music/App.kt",
+        "innertube/src/main/kotlin/com/metrolist/innertube/YouTube.kt",
+        "innertube/src/main/kotlin/com/metrolist/innertube/utils/Utils.kt",
+        "app/src/main/kotlin/com/metrolist/music/ui/screens/LoginScreen.kt"
+      ],
+      "files_secondary_observability": [
+        "BUGS_FIXED_REPORT.md"
+      ],
+      "secondary_note": "The report file was added in the initial commit (153 lines) and then deleted in the second commit.",
+      "change_trajectory": [
+        "Single commit introduces all performance, security, and reliability fixes across four source files plus a documentation report.",
+        "Second commit removes the documentation report.",
+        "PR merged by maintainer with no review interaction."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Cursor agent pushed a single comprehensive commit with fixes and a report file.",
+      "Maintainer deleted the report file in a second commit.",
+      "PR was merged by the same maintainer approximately 19.5 hours after creation, with no external review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "pr_id": 3117664754,
+  "meta": {
+    "title": "Refactor Go compiler type handling",
+    "html_url": "https://github.com/mochilang/mochi/pull/34",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-04 12:29:21+00:00",
+    "merged_at": "2025-06-04 12:29:36+00:00",
+    "closed_at": "2025-06-04 12:29:36+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 47,
+    "topic_name": "47",
+    "body_summary": "Refactor Go compiler to use simple type inference for binary operators, reducing runtime helper calls by emitting native operations when possible."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 271,
+      "deletions": 20,
+      "changes": 291,
+      "top1_file": "compile/go/compiler.go",
+      "top1_changes": 277,
+      "top1_change_ratio": 0.952,
+      "files_by_status": {
+        "modified": 7
+      },
+      "directory_count": 4,
+      "directories": [
+        "bench",
+        "cmd",
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00417,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "runtime_helper_reduction",
+      "native_codegen",
+      "type_inference_optimization"
+    ],
+    "optimization_layer": "compiler_codegen",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex refactored Go compiler to infer primitive types for binary ops, reducing runtime helpers; merged instantly with no review, only narrative optimization claim."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 291,
+        "interpretation": "At 291 changed lines, this is a small-to-medium edit by absolute volume, concentrated in the Go compiler file with minor test updates. It fits a small-step, fast-turnaround compiler optimization PR and merged instantly without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00417,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none_no_review",
+      "concern_detail": "No review feedback was recorded; the PR was merged without human review or bot comments.",
+      "performance_claim": "Reduce runtime overhead by using simple type inference for binary operators, emitting native operations instead of runtime helper calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "47",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler codegen optimization leveraging type inference requires knowledge of Go language semantics; the agent produced a working solution that passed CI and was accepted without review.",
+      "success_factors": [
+        "single_focused_change",
+        "golden_file_tests_passing",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human code reading documented."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes test commands and updates golden files, but no benchmark or before/after performance data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; merge was immediate.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/go/compiler.go, introduced simple type inference for binary operations to emit native Go operators instead of runtime helper functions. Updated golden output files to reflect new codegen.",
+      "files_primary": [
+        "compile/go/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/gocompiler/valid/grouped_expr.go.out",
+        "tests/gocompiler/valid/if_else.go.out",
+        "tests/gocompiler/valid/let_and_print.go.out",
+        "compile/go/compiler_test.go",
+        "bench/runner.go",
+        "cmd/mochi/main.go"
+      ],
+      "secondary_note": "Minor changes in bench runner and main.go may be incidental; most line changes are in compiler logic and golden file expectations.",
+      "change_trajectory": [
+        "Single commit refactored compiler to infer primitive types and use native ops; updated golden files to match new output."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Maintainer authored and merged PR within 15 seconds with no review or bot activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

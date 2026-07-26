@@ -1,0 +1,194 @@
+{
+  "pr_id": 3243098553,
+  "meta": {
+    "title": "Add cache size limit support",
+    "html_url": "https://github.com/python-cachier/cachier/pull/300",
+    "repo": "python-cachier/cachier",
+    "agent": "OpenAI_Codex",
+    "user": "shaypal5",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-07-18 12:37:46+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "37",
+    "body_summary": "Implement cache_size_limit and replacement_policy parameters with LRU eviction across multiple backends (memory, pickle, redis), plus extensive test and CI improvements."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 30,
+      "file_count": 31,
+      "additions": 4119,
+      "deletions": 1452,
+      "changes": 5571,
+      "top1_file": "tests/test_coverage_gaps_simple.py",
+      "top1_changes": 1320,
+      "top1_change_ratio": 0.237,
+      "files_by_status": {
+        "added": 2,
+        "modified": 26,
+        "removed": 3
+      },
+      "directory_count": 4,
+      "directories": [
+        ".github",
+        "scripts",
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "deployed": 28
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_size_limit",
+      "lru_eviction",
+      "memory_management"
+    ],
+    "optimization_layer": "caching_infrastructure",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_pending_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI Codex added cache size limit and LRU across multiple backends with extensive test refactoring; no human reviews yet, only codecov bot report."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5571,
+        "interpretation": "At 5571 changed lines across 31 files, this is a large-scale change by absolute volume, including many test additions and infrastructure adjustments. As a major feature PR adding cache size limiting, it remains open without any human review comments."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "No explicit performance claim; feature addition for cache size limiting and LRU eviction.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent implements a cross-cutting feature (cache size limit with LRU) across multiple backend cores; the PR shows extensive test stabilization work and iteration but no performance benchmarks; it remains open without human review.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes pytest commands and test scripts but no performance benchmarks or profiling results.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_perf_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added cache_size_limit and replacement_policy (LRU only) to cachier's decorator, implemented eviction in memory core, extended support to pickle and redis cores, updated docs, and refactored test suite for parallel execution and better coverage.",
+      "files_primary": [
+        "src/cachier/config.py",
+        "src/cachier/core.py",
+        "src/cachier/cores/memory.py",
+        "src/cachier/cores/pickle.py",
+        "src/cachier/cores/redis.py",
+        "tests/test_cache_size_limit.py",
+        "README.rst"
+      ],
+      "files_secondary_observability": [
+        ".github/workflows/ci-test.yml",
+        "tests/conftest.py",
+        "tests/test_mongo_core.py",
+        "tests/test_redis_core.py",
+        "tests/test_pickle_core.py",
+        "tests/test_general.py",
+        "tests/test_coverage_gaps.py",
+        "tests/test_coverage_gaps_simple.py"
+      ],
+      "secondary_note": "Over half of the line churn is from test additions (e.g., test_coverage_gaps_simple.py added then removed, parallel test isolation) rather than the core cache-size logic.",
+      "change_trajectory": [
+        "Initial commit: core implementation of cache_size_limit and LRU in memory core, basic test and docs.",
+        "Extended LRU to pickle core.",
+        "Added LRU to redis core, introduced test parallelization and extensive CI/test script changes.",
+        "Iterative commits to fix flaky tests, improve test isolation, and adjust coverage.",
+        "Added mongo core support and additional test coverage, removed some provisional test files."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "Codecov reported patch coverage of 96.86% with 5 missing lines across mongo and redis cores.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial implementation; all subsequent commits by the same human user (shaypal5) to iteratively fix tests and extend backends.",
+      "No human reviewer has engaged; only automated codecov coverage comment present."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

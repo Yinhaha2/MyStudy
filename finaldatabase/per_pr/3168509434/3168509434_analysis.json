@@ -1,0 +1,167 @@
+{
+  "pr_id": 3168509434,
+  "meta": {
+    "title": "Optimize interpreter performance",
+    "html_url": "https://github.com/mochilang/mochi/pull/2721",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-23 14:56:56+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-23 15:13:30+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Optimize Mochi interpreter performance by caching builtin function table, pooling environment objects, using AcquireEnv/ReleaseEnv, and lowering inline call threshold."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 172,
+      "deletions": 21,
+      "changes": 193,
+      "top1_file": "types/env.go",
+      "top1_changes": 120,
+      "top1_change_ratio": 0.622,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "interpreter",
+        "types"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.276,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_builtin_table",
+      "environment_pooling",
+      "inline_threshold_reduction"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_no_merge",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex authored a small interpreter optimization PR with no benchmark; self-closed within 16 minutes with zero review engagement."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 193,
+        "interpretation": "At 193 changed lines, this is a small edit by absolute volume. It fits a targeted interpreter optimization PR. It was self-closed without merge, possibly due to the author's decision, not maintainer rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.276,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review or comment text available; PR was self-closed shortly after creation with no engagement.",
+      "performance_claim": "Improve interpreter performance via builtin caching, env pooling, and lower inline threshold.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR self-closed by author tamnd within 16 minutes with no review activity; no CHANGES_REQUESTED."
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Interpreter performance changes (Go) with no benchmark or review validation; self-closed quickly suggests agent output may be incomplete or not ready for merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling data, or reproduction instructions; only a claim of 'go test ./...' testing.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No merges or regressions; PR closed before any integration.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In interpreter/builtins.go, added caching of builtin function table. In interpreter/interpreter.go, added environment pooling helpers (AcquireEnv/ReleaseEnv) and applied them in loops, if-statements, and function calls; also lowered the inline call threshold. In types/env.go, added pooling support with 120 new lines.",
+      "files_primary": [
+        "interpreter/builtins.go",
+        "interpreter/interpreter.go",
+        "types/env.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit (c89cff3): all changes bundled together.",
+        "PR labeled 'codex' immediately after creation.",
+        "Self-closed by author without further activity after ~16 minutes."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with a single commit by tamnd, labeled 'codex'.",
+      "No reviews or comments received.",
+      "Author tamnd closed the PR himself after 16 minutes, deleting the branch."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

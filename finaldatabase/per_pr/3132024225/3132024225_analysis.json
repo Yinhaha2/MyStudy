@@ -1,0 +1,269 @@
+{
+  "pr_id": 3132024225,
+  "meta": {
+    "title": "fix: refactor EBS snapshots module (issue #665, #1414)",
+    "html_url": "https://github.com/cartography-cncf/cartography/pull/1623",
+    "repo": "cartography-cncf/cartography",
+    "agent": "OpenAI_Codex",
+    "user": "achantavy",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-10 03:26:37+00:00",
+    "merged_at": "2025-07-18 17:26:45+00:00",
+    "closed_at": "2025-07-18 17:26:45+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "7",
+    "body_summary": "Migrate EBS snapshots intel module to the new datamodel approach, addressing performance and stability issues from #665 and #1414, with integration tests and AGENTS.md update."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 200,
+      "additions": 14575,
+      "deletions": 1661,
+      "changes": 16236,
+      "top1_file": "cartography/intel/aws/ecs.py",
+      "top1_changes": 625,
+      "top1_change_ratio": 0.0385,
+      "files_by_status": {
+        "modified": 150,
+        "added": 48,
+        "removed": 2
+      },
+      "directory_count": 5,
+      "directories": [
+        "cartography",
+        "tests",
+        "docs",
+        "demo",
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 7,
+      "review_states": {
+        "COMMENTED": 4,
+        "DISMISSED": 1,
+        "APPROVED": 2
+      },
+      "review_comment_count": 4,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 10,
+        "labeled": 1,
+        "reviewed": 6,
+        "convert_to_draft": 1,
+        "renamed": 2,
+        "ready_for_review": 1,
+        "review_requested": 4,
+        "connected": 2,
+        "review_dismissed": 1,
+        "closed": 1,
+        "reopened": 1
+      },
+      "lifespan_hours": 926.0,
+      "first_review_delay_hours": 0.063,
+      "review_rounds": 7,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "datamodel_migration",
+      "graph_write_optimization",
+      "index_removal"
+    ],
+    "optimization_layer": "application_data_access",
+    "evidence_type": [
+      "narrative",
+      "integration_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_nits",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "design_or_approach",
+      "code_style"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "integration_test"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Codex migrated EBS snapshots from old intel module to new datamodel; reviewers requested minor nits (comment removal, test naming); after fixes, PR merged with test evidence but no benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 16236,
+        "interpretation": "At 16236 changed lines across 200 files, this is a large PR by absolute volume, but most changes come from a merge commit pulling in many unrelated new modules; the core snapshot refactor is only ~215 lines. This moderate-sized perf fix merged after addressing reviewer nits, consistent with outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 926.0,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_style",
+      "primary_concern": "code_style_nit",
+      "concern_detail": "kunaals requested removal of inline comments and a test naming fix; d-aggarwal suggested removing redundant test_load functions, but author chose to keep for backward-compatibility reassurance.",
+      "performance_claim": "Fixing perf and stability issues from #665 and #1414 by migrating to datamodel, removing indexes, and cleaning up JSON.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "code_style",
+        "tests",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Datamodel migration within existing project conventions; Codex successfully navigated the refactor, and merging hinged on minor code style adjustments and test coverage rather than benchmark evidence.",
+      "success_factors": [
+        "followed_project_conventions",
+        "good_test_coverage",
+        "addressed_reviewer_nits"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "integration_test"
+      ],
+      "detection_detail": {
+        "code_reading": "kunaals and d-aggarwal reviewed the code for style and test redundancy.",
+        "integration_test": "Author provided screenshots of passing integration tests and a test strategy."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes integration tests and screenshots proving they pass; no benchmark or profiler evidence for performance claims.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After reviewer nits (comment removal, linter), author made commits and re-requested review; PR eventually approved and merged.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In cartography/intel/aws/ec2/snapshots.py, replaced old intel module with new datamodel-based approach using TX functions, removed unnecessary indexes, updated test data, and added integration test for snapshots sync. The change also touched models, tests, and AGENTS.md guidance.",
+      "files_primary": [
+        "cartography/intel/aws/ec2/snapshots.py",
+        "cartography/models/aws/ec2/snapshots.py",
+        "tests/integration/cartography/intel/aws/ec2/test_ec2_snapshots.py"
+      ],
+      "files_secondary_observability": [
+        "cartography/intel/aws/ecs.py",
+        "cartography/intel/aws/cloudtrail_management_events.py",
+        "cartography/models/aws/ecs/clusters.py",
+        "docs/root/modules/aws/schema.md"
+      ],
+      "secondary_note": "Most churn (200 files, ~16k lines) came from merging master branch, bringing in unrelated new features; the core snapshot change is ~215 lines.",
+      "change_trajectory": [
+        "Initial commit: adjust snapshot tests for new transform (809d0d8).",
+        "Merged master branch (40346f9) bringing in hundreds of files from other features.",
+        "Several commits refining the snapshot implementation: using TX functions, adding tests, removing indexes, updating AGENTS.md.",
+        "After review, removed extra comments and linter fixes (f132aab, bd19c2d).",
+        "Reopened and eventually merged after approvals."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_pass_no_issues",
+        "summary": "Cubic bot reviewed 3 files and found no issues.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_pass_no_issues",
+        "summary": "Cubic bot reviewed 7 files and found no issues.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "kunaals",
+        "channel": "inline_review_comment",
+        "signal": "code_style_nit",
+        "summary": "Suggest removing inline comments from test data file.",
+        "blocking": true,
+        "action_taken": "Author removed comments in f132aab."
+      },
+      {
+        "source": "d-aggarwal",
+        "channel": "inline_review_comment",
+        "signal": "test_redundancy_suggestion",
+        "summary": "Suggested removing test_load functions as they may be covered by new tests.",
+        "blocking": false,
+        "action_taken": "Author explained rationale for keeping them; no further action."
+      },
+      {
+        "source": "d-aggarwal",
+        "channel": "formal_review",
+        "signal": "approved_with_comment",
+        "summary": "Approved with a small comment about test redundancy.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "kunaals",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved after dismissing previous review.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "achantavy",
+        "channel": "inline_review_comment",
+        "signal": "author_response",
+        "summary": "Explained keeping test_load functions for backward compatibility reassurance.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened as draft with initial code from Codex.",
+      "Several iterations by author (achantavy) adding tests, using TX functions, removing indexes.",
+      "Marked ready for review after ~38 days (draft period).",
+      "Cubic bot performed non-blocking reviews.",
+      "kunaals and d-aggarwal provided nits and suggestions; author addressed comment removal and linter.",
+      "kunaals dismissed previous review and later approved; d-aggarwal approved; PR merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

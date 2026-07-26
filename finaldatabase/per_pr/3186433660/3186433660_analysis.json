@@ -1,0 +1,162 @@
+{
+  "pr_id": 3186433660,
+  "meta": {
+    "title": "Improve VM join compilation",
+    "html_url": "https://github.com/mochilang/mochi/pull/4011",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-29 18:19:28+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 12:01:37+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Add constant-empty checks before join compilation and generate simple nil-right loops for constant empty right side in left join to improve VM join performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 95,
+      "deletions": 0,
+      "changes": 95,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 95,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "runtime"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 41.71,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "join_optimization",
+      "empty_constant_check",
+      "nil_right_loop"
+    ],
+    "optimization_layer": "virtual_machine_runtime",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex proposed join VM optimizations with no benchmark or review; PR self-closed after ~42h without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 95,
+        "interpretation": "95 lines added in a single file is a small edit. As a small-step VM optimization PR it was closed by the author without any review, which aligns with the absence of merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 41.71,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Improve VM join compilation performance by checking for constant empty tables and generating simpler nil-right loops for left joins.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed PR without any review interaction; no rejection signals from reviewers."
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "VM compiler optimization with no performance evidence and no review engagement; PR closed by author without merge, indicating a process gap rather than technical rejection.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review or code reading detected in available data."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling evidence; PR body only mentions updating golden IR outputs via test, not performance metrics.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no regression handling cycle.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added constant-empty checks before join compilation and generated simple nil-right loops for constant empty right side in left joins.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Single file change with 95 added lines.",
+      "change_trajectory": [
+        "Single commit adding join compilation optimizations."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with label 'codex'.",
+      "Author closed PR ~42 hours later with no review or comment activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

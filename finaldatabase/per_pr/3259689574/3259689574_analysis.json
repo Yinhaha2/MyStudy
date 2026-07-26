@@ -1,0 +1,358 @@
+{
+  "pr_id": 3259689574,
+  "meta": {
+    "title": "Implement ForestRun performance benchmark system with GitHub Actions",
+    "html_url": "https://github.com/microsoft/graphitation/pull/584",
+    "repo": "microsoft/graphitation",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-24 12:15:27+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 8,
+    "topic_name": "8",
+    "body_summary": "Add comprehensive performance benchmark system for ForestRun cache with configurable statistical confidence, GitHub Actions integration, and comparison against Apollo's InMemoryCache."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 80,
+      "additions": 20239,
+      "deletions": 10239,
+      "changes": 30478,
+      "top1_file": "packages/apollo-forest-run/benchmarks/performance/index.js",
+      "top1_changes": 1310,
+      "top1_change_ratio": 0.043,
+      "files_by_status": {
+        "added": 65,
+        "modified": 15
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 57,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "renamed": 3,
+        "review_requested": 1,
+        "copilot_work_finished": 3,
+        "commented": 5,
+        "mentioned": 4,
+        "subscribed": 4
+      },
+      "lifespan_hours": 860.0,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmark_framework",
+      "cache_perf_measurement",
+      "ci_integration"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_after_extensive_review_unresolved",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "scope"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading",
+      "manual_inspection"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot built a large benchmark system over many iterations guided by maintainer feedback; ultimately closed after extensive review without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 30478,
+        "interpretation": "At 30478 changed lines, this is a very large addition by absolute volume, mostly adding a new benchmark package with many files, making it a substantial feature PR. It was closed without merge after extensive iterative review and remained incomplete."
+      },
+      "lifecycle": {
+        "lifespan_hours": 860.0,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "overly_complex_design",
+      "concern_detail": "Maintainer pavelglac repeatedly requested simpler, more focused benchmark implementation, questioning statistical methods, asking for removal of comparison caches, deletion of build artifacts, and insisting on precise cache operation measurements.",
+      "performance_claim": "Provides a benchmark system to measure ForestRun cache operation performance against Apollo's InMemoryCache.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "scope"
+      ],
+      "rejection_signals": "Closed without merge after multiple iterations; maintainer found the implementation overly complex, statistical methods flawed, and not meeting requirements."
+    },
+    "capability_boundary": {
+      "topic": "8",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot attempted to build a complex benchmarking system but struggled with statistical correctness, unnecessary complexity, and following maintainer's design preferences. Required explicit step-by-step guidance and multiple iterations, ultimately not merged.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "pavelglac reviewed code and found issues with archived library usage, hardcoded mock data, complexity, statistical calculations, build artifacts.",
+        "manual_testing": "pavelglac ran benchmarks and observed that results differed by 20% between identical runs, indicating flawed confidence calculations."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Maintainer reported that two runs with 99% confidence differed by 20%, indicating the statistical methods were incorrect; no stable, reproducible results were achieved.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix-in-pr after maintainer's later comments.",
+      "evidence_gap": "statistical_validation_failed"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added packages/apollo-forest-run/benchmarks/performance/ with benchmark suite using custom NiceBenchmark, mock data generators, multiple GraphQL queries, and GitHub Actions workflow for ForestRun cache performance measurement. Later moved to new package @graphitation/apollo-forest-run-benchmarks.",
+      "files_primary": [
+        "packages/apollo-forest-run/benchmarks/performance/index.ts",
+        "packages/apollo-forest-run/benchmarks/performance/nice-benchmark.ts",
+        "packages/apollo-forest-run/benchmarks/performance/mock-data-generator.ts",
+        ".github/workflows/forest-run-benchmark.yml"
+      ],
+      "files_secondary_observability": [
+        "packages/apollo-forest-run/benchmarks/performance/queries/*",
+        "packages/apollo-forest-run/benchmarks/performance/src/*",
+        ".gitignore",
+        "packages/apollo-forest-run/benchmarks/performance/config.json"
+      ],
+      "secondary_note": "Subsequent commits removed and re-added many files as the implementation evolved; final state includes benchmark code and CI workflow.",
+      "change_trajectory": [
+        "Initial commits added benchmark infrastructure with archived benchmark library and hardcoded mock data.",
+        "Maintainer requested removal of archived library; custom NiceBenchmark implemented.",
+        "Mock data replaced with dynamic GraphQL-aware generator.",
+        "Code was simplified to focus only on ForestRun, more test suites added.",
+        "Timing measurement switched to milliseconds with comprehensive cache scenarios.",
+        "Statistical confidence calculation was iterated after maintainer found 20% variance between runs.",
+        "Configurable confidence levels added, then removed per maintainer request.",
+        "Build artifacts from shell scripts were added and later reverted.",
+        "Task-based parallelism attempted, then reverted to simple Promise.all due to complexity.",
+        "Benchmark code moved to new private package `@graphitation/apollo-forest-run-benchmarks` with yargs for CLI.",
+        "Mock data generation replaced with static JSON responses and observer tests expanded.",
+        "Confidence customization removed, fixed to 99.5%, reliability checks added.",
+        "Measurement isolation refined to measure only cache operations with direct hrtime calls.",
+        "Maintainer continued to identify issues with measurement isolation; PR closed without merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "archived_library_issue",
+        "summary": "Requested removal of archived `benchmark` library and use of no new library.",
+        "blocking": true,
+        "action_taken": "Copilot removed benchmark and implemented custom NiceBenchmark."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "hardcoded_mock_data",
+        "summary": "Asked to replace hardcoded mock data with dynamic generation, inspired by gqlc-bench.",
+        "blocking": true,
+        "action_taken": "Copilot created mock-data-generator.ts with AST parsing."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "reduce_complexity",
+        "summary": "Requested simpler, cleaner code focused only on ForestRun, more test suites, no cache comparisons.",
+        "blocking": true,
+        "action_taken": "Copilot simplified benchmarks and added multiple query suites."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "timing_and_scenarios",
+        "summary": "Wanted timing in milliseconds and more cache state scenarios (empty cache, observers, etc.).",
+        "blocking": true,
+        "action_taken": "Copilot converted to ms timing and added comprehensive scenarios."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "flawed_confidence",
+        "summary": "Observed 20% difference between identical runs, demanded correct confidence calculation.",
+        "blocking": true,
+        "action_taken": "Copilot implemented IQR outlier filtering, warmup phase, and higher sample counts."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "configurable_confidence",
+        "summary": "Requested manual confidence adjustment via config/CLI.",
+        "blocking": true,
+        "action_taken": "Copilot added CLI and config options for confidence level."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "build_artifacts",
+        "summary": "Reverted commit that added .sh and .js build artifacts; keep TypeScript only.",
+        "blocking": true,
+        "action_taken": "Copilot reverted and removed build files."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "config_doesnt_work",
+        "summary": "Config.json changes had no effect; requested new private package and use of graphql-js-operation-payload-generator.",
+        "blocking": true,
+        "action_taken": "Copilot created new package, used existing payload generator, fixed config handling."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "adaptive_confidence",
+        "summary": "Wanted confidence-based early stopping: run 50 samples, compute confidence, continue if below target.",
+        "blocking": true,
+        "action_taken": "Copilot implemented batch-based adaptive sampling."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "extract_comparison_script",
+        "summary": "Use standalone comparison script instead of inline GitHub Action script.",
+        "blocking": true,
+        "action_taken": "Copilot created compare-reports.ts with yargs."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "wrong_formulas",
+        "summary": "Statistical formulas still wrong; insisted on using his provided calculation; remove unused metrics.",
+        "blocking": true,
+        "action_taken": "Copilot reimplemented Stats class with specified formulas."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "parallel_execution",
+        "summary": "Wanted parallel test suite execution to speed up; less verbose output.",
+        "blocking": true,
+        "action_taken": "Copilot added parallel with Promise.all, but later reverted to worker pool attempts."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "workers_not_parallel",
+        "summary": "Said parallel implementation incorrect; must use Node.js workers.",
+        "blocking": true,
+        "action_taken": "Copilot replaced with SimpleWorkerPool, but issues persisted."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "move_to_private_package",
+        "summary": "Move benchmark to new private package, use yargs, validate TS errors, run twice to verify.",
+        "blocking": true,
+        "action_taken": "Copilot created @graphitation/apollo-forest-run-benchmarks, updated all references."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "static_json_responses",
+        "summary": "Replace mocking with static JSON response files; add more observer counts.",
+        "blocking": true,
+        "action_taken": "Copilot added 9 response JSON files and observer tests (5,20,50,100)."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "remove_confidence_config",
+        "summary": "Remove confidence customization; fix to 99.5%; add multi-run reliability check; min 200 samples.",
+        "blocking": true,
+        "action_taken": "Copilot removed CLI args, set fixed confidence, added reliability verification."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "validate_measurement",
+        "summary": "Empty cache read taking 22ms believed wrong; margin of error hardcoded; observers should subscribe, not just read.",
+        "blocking": true,
+        "action_taken": "Copilot fixed timing isolation, used watch() for observers, re-validated."
+      },
+      {
+        "source": "pavelglac",
+        "channel": "pr_comment",
+        "signal": "suspicion_of_overhead",
+        "summary": "Suspect tests measuring non-cache operations; move start/end timing into benchmarks directly.",
+        "blocking": true,
+        "action_taken": "Copilot refactored timing to use process.hrtime directly, isolated cache operations."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "auto_benchmark_reports",
+        "summary": "Multiple automated benchmark reports posted showing performance changes between baseline and current.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial benchmark framework.",
+      "Maintainer provided iterative feedback over several weeks, requesting specific changes in design, statistics, and code structure.",
+      "Copilot made numerous commits addressing each request, but often introduced new issues (build artifacts, flawed parallelism, incorrect formulas).",
+      "Maintainer manually tested and found statistical inconsistencies, demanded precise cache operation measurement.",
+      "After extensive back-and-forth (over 50 comments), the PR was closed without merge, as the implementation remained unsatisfactory."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

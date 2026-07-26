@@ -1,0 +1,206 @@
+{
+  "pr_id": 3047109765,
+  "meta": {
+    "title": "feat: optimize calendar cache retrieval with CachedCalendarService",
+    "html_url": "https://github.com/calcom/cal.com/pull/21172",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-07 20:34:40+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-17 15:47:10+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Add CachedCalendarService with in-memory cache to reduce database and Google Calendar API calls during booking."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 282,
+      "deletions": 3,
+      "changes": 285,
+      "top1_file": "packages/app-store/googlecalendar/lib/CachedCalendarService.ts",
+      "top1_changes": 158,
+      "top1_change_ratio": 0.554,
+      "files_by_status": {
+        "added": 3,
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 1,
+        "review_requested": 2,
+        "commented": 4,
+        "labeled": 3,
+        "deployed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 235.208,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache",
+      "api_call_optimization",
+      "in_memory_store"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin created CachedCalendarService but received no review; PR auto-closed after ~10 days of inactivity with no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 285,
+        "interpretation": "At 285 changed lines, this is a small-to-medium edit by absolute volume, concentrated in new cache service files. As a moderate incremental performance PR it was closed without merge due to inactivity, not technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 235.208,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No formal review or feedback from maintainers; Devin bot auto-closed after 7+ days of inactivity.",
+      "performance_claim": "Reduce database and Google Calendar API calls during booking by caching calendar availability in memory.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Auto-closed by Devin bot due to inactivity; no maintainer interaction."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Backend caching optimization PR with no maintainer engagement; auto-closed due to process gap of inactivity. Agent can produce code but requires human approval cycle.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or before/after metrics; only narrative claim of reduced calls.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without human review; no fix cycle.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added CachedCalendarService implementing Calendar interface with in-memory store to cache availability during booking; integrated into handleNewBooking to fetch all selected calendars at once and clear cache; modified getCalendarsEvents to use cached service when available.",
+      "files_primary": [
+        "packages/app-store/googlecalendar/lib/CachedCalendarService.ts",
+        "packages/features/calendar-cache/calendar-cache-store.ts",
+        "packages/app-store/_utils/getCachedCalendar.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/app-store/googlecalendar/index.ts",
+        "packages/features/bookings/lib/handleNewBooking.ts",
+        "packages/lib/getCalendarsEvents.ts",
+        "packages/lib/server/repository/selectedCalendar.ts"
+      ],
+      "secondary_note": "Remaining files are modifications to booking flow and repository to integrate cache; minimal deletions indicate mostly additive changes.",
+      "change_trajectory": [
+        "Single commit by Devin: added CachedCalendarService, cache store, utility, and integrated into booking pipeline."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_not_used",
+        "summary": "Vercel bot posted deployment status; deployment skipped.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_labels_and_reviewers",
+        "summary": "Graphite automations added reviewer and community label.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with CachedCalendarService implementation.",
+      "Bot reviewers (Vercel, Devin bot, Graphite) posted non-blocking comments.",
+      "No human reviewer interaction for 10 days.",
+      "Devin bot auto-closed due to inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

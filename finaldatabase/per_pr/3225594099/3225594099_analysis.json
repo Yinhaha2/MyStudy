@@ -1,0 +1,177 @@
+{
+  "pr_id": 3225594099,
+  "meta": {
+    "title": "Fix performance and lock issues with fine-grained locking strategy",
+    "html_url": "https://github.com/tarun7r/Vocal-Agent/pull/5",
+    "repo": "tarun7r/Vocal-Agent",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-12 17:16:10+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-12 17:25:07+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Split coarse-grained tts_lock into tts_lock and audio_playback_lock, move agent network call outside locks, reduce polling interval, increase max threads, claiming ~3x throughput improvement."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 4,
+      "additions": 49,
+      "deletions": 22,
+      "changes": 71,
+      "top1_file": "main.py",
+      "top1_changes": 65,
+      "top1_change_ratio": 0.915,
+      "files_by_status": {
+        "added": 2,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "__pycache__"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "ready_for_review": 1,
+        "locked": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "unlocked": 1
+      },
+      "lifespan_hours": 0.149,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lock_granularity",
+      "concurrent_pipeline",
+      "audio_playback_blocking",
+      "tts_model_access"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "lock_misuse"
+    ],
+    "outcome_reason": "closed_by_maintainer_no_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot proposed fine-grained locking with narrative speedup; PR closed in ~9 minutes by maintainer with zero review or comment."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 71,
+        "interpretation": "At 71 changed lines, this is a small edit by absolute volume. As a lock optimization PR, the immediate closure without review is inconsistent with a technical acceptance; likely a process gate."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.149,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "maintainer_closure_no_review",
+      "concern_detail": "PR was closed by maintainer 9 minutes after creation with no review comments or feedback of any kind.",
+      "performance_claim": "Fine-grained locking reduces blocking from ~500ms to ~100ms, ~3x higher throughput for concurrent requests.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "lock_misuse",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by maintainer immediately without any review; head branch deleted, no merge."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Despite a plausible lock-splitting refactor with performance narrative, the PR was closed instantly with no maintainer engagement, suggesting a process barrier (e.g., unsolicited agent PRs rejected without review).",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body contains before/after narrative and claimed unit test comparison (0.45s vs 0.75s) but no reproduction steps or benchmark artifacts; no maintainer validation attempted.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed with no merge and no feedback.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In main.py, refactored locking to use separate tts_lock (TTS model access) and audio_playback_lock (audio playback), moved agent network call outside locks, reduced polling interval, and increased MAX_THREADS from 2 to 3.",
+      "files_primary": [
+        "main.py"
+      ],
+      "files_secondary_observability": [
+        ".gitignore",
+        "__pycache__/agent_client.cpython-312.pyc",
+        "__pycache__/main.cpython-312.pyc"
+      ],
+      "secondary_note": "Copilot accidentally committed compiled __pycache__ Python bytecode; .gitignore was updated to exclude build artifacts.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Initial analysis commit with __pycache__ binary blobs.",
+        "Final commit with lock split in main.py and .gitignore update."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Copilot opened PR with fine-grained locking refactor and .gitignore changes.",
+      "Maintainer closed PR within ~9 minutes without any review or comment, deleting the head branch."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

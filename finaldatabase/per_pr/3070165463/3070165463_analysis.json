@@ -1,0 +1,230 @@
+{
+  "pr_id": 3070165463,
+  "meta": {
+    "title": "perf: Optimize getSlots function to handle large dateRanges arrays efficiently",
+    "html_url": "https://github.com/calcom/cal.com/pull/21371",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-17 01:51:47+00:00",
+    "merged_at": "2025-05-17 03:00:13+00:00",
+    "closed_at": "2025-05-17 03:00:13+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 46,
+    "topic_name": "46",
+    "body_summary": "Optimize getSlots function to process hundreds of date ranges in ~70ms instead of ~6s by replacing O(n²) nested loops with a Set-based lookup and skipping duplicate slots."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 2,
+      "additions": 102,
+      "deletions": 40,
+      "changes": 142,
+      "top1_file": "packages/lib/slots.ts",
+      "top1_changes": 61,
+      "top1_change_ratio": 0.43,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 25,
+      "event_counts": {
+        "committed": 4,
+        "review_requested": 2,
+        "commented": 4,
+        "labeled": 3,
+        "reviewed": 2,
+        "assigned": 1,
+        "auto_squash_enabled": 1,
+        "deployed": 1,
+        "unlabeled": 1,
+        "milestoned": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 2
+      },
+      "lifespan_hours": 1.14,
+      "first_review_delay_hours": 0.046,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "algorithmic_complexity_reduction",
+      "duplicate_skip",
+      "slot_boundary_lookup"
+    ],
+    "optimization_layer": "algorithm",
+    "evidence_type": [
+      "benchmark",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "tests",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "unit_test"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin delivered an algorithm optimization with a self-contained performance test; a minor test threshold was tightened per review and the PR merged in ~1 hour."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 142,
+        "interpretation": "At 142 changed lines in two files, this is a small, tightly scoped edit. It fits a classic small-step performance PR that merged quickly after a trivial test adjustment."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.14,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "tests_missing_or_requested",
+      "primary_concern": "test_threshold_too_high",
+      "concern_detail": "Reviewer keithwillcode suggested lowering the performance assertion from <6s to <1s to ensure the optimization meets practical expectations.",
+      "performance_claim": "Reduced getSlots execution time from ~6s to ~70ms for 288 date ranges (85x faster).",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "nested_loop",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests",
+        "perf_evidence"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "46",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Algorithmic optimization within a single utility function is within Devin's capability; merge was unblocked by a small, non-binding review suggestion that was immediately incorporated.",
+      "success_factors": [
+        "self_contained_change",
+        "included_performance_test",
+        "quick_review_cycle",
+        "non_blocking_feedback"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "unit_test"
+      ],
+      "detection_detail": {
+        "code_reading": "keithwillcode reviewed the test assertion and requested a tighter threshold (1s instead of 6s).",
+        "ci_auto": "github-actions provided E2E test results, but performance validation relied on the unit-level timing test."
+      },
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "The PR adds a performance test that measures execution time with 2000 date ranges, making the speedup independently verifiable.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After review, two follow-up commits lowered the test threshold from 6s to 1s and increased the input size to 2000 date ranges, ensuring stricter performance validation.",
+      "evidence_gap": "none"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/lib/slots.ts, replaced nested loops with a Set-based lookup to skip duplicates and optimized slot boundary checks; added a performance test in slots.test.ts that processes up to 2000 date ranges and asserts execution time under 1 second.",
+      "files_primary": [
+        "packages/lib/slots.ts",
+        "packages/lib/slots.test.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Initial commit (45bb78e): refactored getSlots algorithm and added a performance test with 500 date ranges, asserting <6s.",
+        "Review inline comment (keithwillcode): suggested lowering threshold to <1s; commit 33f9737 adopted the change.",
+        "Devin follow-up commits: increased test data to 2000 date ranges across multiple days to stress the function further.",
+        "PR merged after APPROVED review by emrysal."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "keithwillcode",
+        "channel": "inline_review_comment",
+        "signal": "test_threshold_tightening",
+        "summary": "Suggested updating the performance assertion from expect(executionTimeInMs).toBeLessThan(6000) to toBeLessThan(1000).",
+        "blocking": false,
+        "action_taken": "Devin applied the suggestion and later extended the test to use 2000 date ranges."
+      },
+      {
+        "source": "keithwillcode",
+        "channel": "formal_review",
+        "signal": "commented_no_body",
+        "summary": "Formal review COMMENTED with no body text; the substantive feedback was given inline.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "emrysal",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED with 'aside LGTM!' comment, confirming the PR as acceptable.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI monitoring for comments starting with 'DevinAI'.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with algorithm optimization and performance test.",
+      "Within ~3 minutes, keithwillcode left an inline suggestion to tighten the test threshold.",
+      "Devin updated the test threshold and then expanded the test data to 2000 ranges.",
+      "emrysal approved ~1 hour later; PR merged by keithwillcode."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

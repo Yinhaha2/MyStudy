@@ -1,0 +1,204 @@
+{
+  "pr_id": 3101459806,
+  "meta": {
+    "title": "Optimize source file tree building",
+    "html_url": "https://github.com/writer/writer-framework/pull/902",
+    "repo": "writer/writer-framework",
+    "agent": "OpenAI_Codex",
+    "user": "wassemgtk",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-29 20:51:58+00:00",
+    "merged_at": "2025-05-30 11:44:59+00:00",
+    "closed_at": "2025-05-30 11:44:59+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 2,
+    "topic_name": "2",
+    "body_summary": "Avoid quadratic path lookups in wf_project.build_source_files by replacing list.index with enumerate index."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "top1_file": "src/writer/wf_project.py",
+      "top1_changes": 4,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 10,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 2,
+        "reviewed": 1,
+        "mentioned": 1,
+        "subscribed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 14.883,
+      "first_review_delay_hours": 0.0972,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "quadratic_path_lookup_elimination",
+      "list_index_optimization"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Tiny algorithmic fix replacing O(n²) pattern with O(n) using enumerate; merged with only bot approval and no benchmark evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4,
+        "interpretation": "At only 4 changed lines, this is a micro-optimization by absolute volume. It fits a tiny performance tweak that was merged quickly with no friction."
+      },
+      "lifecycle": {
+        "lifespan_hours": 14.883,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "none",
+      "concern_detail": "No concerns raised; coderabbit bot review praised the optimization for fixing both O(n²) complexity and duplicate directory name handling.",
+      "performance_claim": "Eliminate quadratic path lookups by using enumerate index instead of list.index, reducing complexity from O(n²) to O(n).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "nested_loop",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "perf_evidence"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A straightforward algorithmic fix in a single Python file; Codex produced a trivial, correct patch that required no evidence bar or API changes.",
+      "success_factors": [
+        "tiny_scope",
+        "bot_positive_review",
+        "clear_complexity_improvement"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "coderabbitai bot provided a detailed static analysis confirming the performance and correctness improvements."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after benchmark or profiler data; only algorithmic reasoning from a bot review.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling needed; PR merged as-is.",
+      "evidence_gap": "narrative_only_bot_confirmation"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/writer/wf_project.py, replaced parts.index(part) with enumerate index i in a loop over path parts to avoid O(n²) complexity and fix duplicate directory name handling.",
+      "files_primary": [
+        "src/writer/wf_project.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit by wassemgtk rewrote the path-checking loop to use enumerate i instead of parts.index(part)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_perf_correctness_analysis",
+        "summary": "CodeRabbit bot praised the optimization for eliminating O(n²) and fixing duplicate dir-handling, noting it improves both performance and correctness.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "pullrequest[bot]",
+        "channel": "formal_review",
+        "signal": "security_scan_pass",
+        "summary": "PullRequest bot found no immediate security concerns.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "ramedina86",
+        "channel": "pr_comment",
+        "signal": "maintainer_acknowledgment",
+        "summary": "Maintainer thanked contributor and Codex, then merged.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "CodeRabbit bot provided an approving review highlighting algorithmic improvement.",
+      "Maintainer ramedina86 merged the PR within ~15 hours with a note of thanks."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

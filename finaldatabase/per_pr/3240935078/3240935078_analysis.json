@@ -1,0 +1,188 @@
+{
+  "pr_id": 3240935078,
+  "meta": {
+    "title": "Resolve db self-join memory bug",
+    "html_url": "https://github.com/TanStack/db/pull/280",
+    "repo": "TanStack/db",
+    "agent": "Cursor",
+    "user": "samwillis",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-17 21:15:07+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-18 10:18:19+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Add comprehensive self-join tests to verify correct behavior and investigate a reported cartesian product bug, suggesting the core join logic works correctly and the issue might lie in useLiveQuery integration."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 551,
+      "deletions": 0,
+      "changes": 551,
+      "top1_file": "packages/db/tests/query/join.test.ts",
+      "top1_changes": 551,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 1,
+        "commented": 4,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 13.053,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "self_join_memory_test"
+    ],
+    "optimization_layer": "test_suite",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "investigative_tests_closed_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Cursor added only self-join tests; no code fix or review; maintainer closed after ~13h, suggesting test-only investigation not merged."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 551,
+        "interpretation": "At 551 added lines, all in a single test file, this is a medium-sized test addition. As a test-only investigation PR triggered by a memory bug report, it was closed without merge, likely because no actual code fix was needed or the investigation determined the bug lies elsewhere."
+      },
+      "lifecycle": {
+        "lifespan_hours": 13.053,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_human_review",
+      "concern_detail": "No human review comments; only bot messages. PR closed by author.",
+      "performance_claim": "Core self-join logic correctly handles joins without cartesian product; memory exhaustion bug may be in useLiveQuery integration.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed without merge; tests only demonstrate no core bug, but no code changes were made."
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "Test-only investigation PR closed without merge; agent capability to produce tests may not be sufficient if outcome depends on maintainer decision about relevance.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling; only self-join tests added.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no code fix was required, so no regression handling.",
+      "evidence_gap": "test_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added 551 lines of self-join test cases in packages/db/tests/query/join.test.ts, covering join operations with 'as' aliases, limit clauses, and varying dataset sizes to verify no cartesian product and memory exhaustion.",
+      "files_primary": [
+        "packages/db/tests/query/join.test.ts"
+      ],
+      "files_secondary_observability": [],
+      "change_trajectory": [
+        "Single commit by Cursor agent adding self-join test cases."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "missing_changeset",
+        "summary": "No changeset found; version bump may not occur.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "pkg-pr-new[bot]",
+        "channel": "pr_comment",
+        "signal": "package_preview_available",
+        "summary": "PR preview packages published for testing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "size_check_pass",
+        "summary": "Bundle size unchanged (0 B change) for @tanstack/db package.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "size_check_pass",
+        "summary": "Bundle size unchanged (0 B change) for @tanstack/react-db package.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent opened PR with test-only commit.",
+      "Bot checks reported missing changeset and package previews.",
+      "Maintainer closed PR ~13h later without merging."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

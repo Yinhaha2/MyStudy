@@ -1,0 +1,170 @@
+{
+  "pr_id": 3246099511,
+  "meta": {
+    "title": "Optimize album art lookup",
+    "html_url": "https://github.com/Rello/audioplayer/pull/634",
+    "repo": "Rello/audioplayer",
+    "agent": "OpenAI_Codex",
+    "user": "Rello",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-20 07:14:31+00:00",
+    "merged_at": "2025-07-20 07:15:57+00:00",
+    "closed_at": "2025-07-20 07:15:57+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Remove repeated album art filesystem lookups in ScannerController.php to reduce I/O overhead, with a CHANGELOG entry."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 16,
+      "deletions": 38,
+      "changes": 54,
+      "top1_file": "lib/Controller/ScannerController.php",
+      "top1_changes": 46,
+      "top1_change_ratio": 0.852,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "lib",
+        "."
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.024,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "album_art_lookup",
+      "filesystem_reduction"
+    ],
+    "optimization_layer": "application_io",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Maintainer self-merged a small Codex-authored PHP optimization removing repeated album art lookups; no review, benchmark, or numeric performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 54,
+        "interpretation": "At 54 changed lines, this is a tiny edit by absolute volume, fitting a small-step, fast-turnaround performance PR. The maintainer self-merged it in under two minutes, consistent with its minimal scope and low risk."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.024,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comment text available; the PR was merged by the maintainer without external feedback.",
+      "performance_claim": "Reduce filesystem lookups by removing repeated album art checks.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small-scope PHP optimization merged by maintainer without any review or evidence requirement; the process boundary is extremely low for such trusted self-merges.",
+      "success_factors": [
+        "small_code_scope",
+        "maintainer_self_merge",
+        "trusted_codex_output"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {
+        "code_reading": "No review text available; no human detection recorded."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or numeric performance gain provided; only narrative claim of reducing repeated lookups.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions discussed or observed; PR merged without any review cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In ScannerController.php, refactored album art lookup logic to remove redundant filesystem checks that were performed multiple times, thereby reducing I/O overhead.",
+      "files_primary": [
+        "lib/Controller/ScannerController.php"
+      ],
+      "files_secondary_observability": [
+        "CHANGELOG.md"
+      ],
+      "secondary_note": "CHANGELOG entry documents the optimization.",
+      "change_trajectory": [
+        "Commit 20a8f0b: Optimize album art lookup by removing repeated filesystem lookups in ScannerController.php and update CHANGELOG.",
+        "Commit 2208ffd: Amend CHANGELOG.md wording."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Codex-authored PR submitted by maintainer Rello.",
+      "Maintainer self-merged within ~1.5 minutes without any review or comment interaction.",
+      "No human or bot review signals present."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

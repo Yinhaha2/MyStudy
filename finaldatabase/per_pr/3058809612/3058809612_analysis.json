@@ -1,0 +1,177 @@
+{
+  "pr_id": 3058809612,
+  "meta": {
+    "title": "Fix: Cache system info to prevent re-fetching on page navigation",
+    "html_url": "https://github.com/langbot-app/LangBot/pull/1399",
+    "repo": "langbot-app/LangBot",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-13 05:33:38+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-13 07:32:44+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 48,
+    "topic_name": "48",
+    "body_summary": "Add localStorage caching for system information to avoid re-fetching on every page navigation in LangBot web UI."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 1,
+      "additions": 68,
+      "deletions": 14,
+      "changes": 82,
+      "top1_file": "web/src/app/infra/http/HttpClient.ts",
+      "top1_changes": 82,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "web"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 10,
+      "event_counts": {
+        "committed": 5,
+        "review_requested": 1,
+        "assigned": 1,
+        "commented": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.985,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "frontend_caching",
+      "reduce_network_requests",
+      "localstorage_cache"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "closed_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added localStorage caching; PR closed 2h later with no review or explanation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 82,
+        "interpretation": "At 82 changed lines in a single file, this is a small edit. It fits a small frontend optimization PR but was closed without review, indicating maintainer did not accept it for unknown reasons."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.985,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No maintainer feedback; PR closed without comment or formal review.",
+      "performance_claim": "Caching system info in localStorage eliminates redundant server requests on page navigation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed without comment after 2 hours; no explicit rejection reason."
+    },
+    "capability_boundary": {
+      "topic": "48",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent implemented a straightforward frontend caching solution, but the PR was closed by the maintainer without any review or discussion, suggesting the change was not welcomed or the PR was not accepted.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code review in dataset; review was requested but no review text recorded."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling data, or before/after timing measurements provided; only a narrative description of repeated fetching.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after no discussion or validation.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In HttpClient.ts, introduced localStorage caching for systemInfo to avoid repeated network requests on each page navigation; added refreshSystemInfo() and ensured initial fetch on page refresh.",
+      "files_primary": [
+        "web/src/app/infra/http/HttpClient.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "None.",
+      "change_trajectory": [
+        "Initial implementation of localStorage caching for system info.",
+        "Multiple whitespace and formatting fixes across several commits.",
+        "Refined logic to always fetch system info on page refresh while keeping cache for navigations."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin bot opened PR with caching implementation and requested review.",
+      "No human review or comments occurred.",
+      "Maintainer RockChinQ closed the PR after approximately 2 hours without any explanation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

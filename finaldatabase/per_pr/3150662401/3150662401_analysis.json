@@ -1,0 +1,236 @@
+{
+  "pr_id": 3150662401,
+  "meta": {
+    "title": "send_feedback MCP tool",
+    "html_url": "https://github.com/WorkflowAI/WorkflowAI/pull/465",
+    "repo": "WorkflowAI/WorkflowAI",
+    "agent": "Cursor",
+    "user": "pierrevalade",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-16 16:54:29+00:00",
+    "merged_at": "2025-06-25 19:36:40+00:00",
+    "closed_at": "2025-06-25 19:36:40+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 16,
+    "topic_name": "16",
+    "body_summary": "Add send_feedback MCP tool with fire-and-forget async processing via asyncio.create_task and an AI feedback processing agent using AsyncOpenAI; update agent identification to metadata and correct prompt templating."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 24,
+      "file_count": 163,
+      "additions": 9750,
+      "deletions": 2356,
+      "changes": 35494,
+      "top1_file": "api/api/routers/mcp/_mcp_service.py",
+      "top1_changes": 1283,
+      "top1_change_ratio": 0.0361,
+      "files_by_status": {
+        "added": 50,
+        "modified": 80,
+        "removed": 5,
+        "renamed": 2
+      },
+      "directory_count": 5,
+      "directories": [
+        ".specs",
+        ".discussions",
+        "api",
+        "client",
+        "docsv2"
+      ]
+    },
+    "collaboration": {
+      "review_count": 16,
+      "review_states": {
+        "COMMENTED": 16
+      },
+      "review_comment_count": 9,
+      "pr_comment_count": 10,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "commented": 3,
+        "deployed": 11,
+        "renamed": 1,
+        "reviewed": 6,
+        "assigned": 1,
+        "ready_for_review": 1,
+        "review_requested": 2,
+        "mentioned": 2,
+        "subscribed": 2,
+        "committed": 1
+      },
+      "lifespan_hours": 218.7,
+      "first_review_delay_hours": 0.68,
+      "review_rounds": 16,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "async_background_processing",
+      "fire_and_forget_pattern",
+      "model_cost_performance"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_rework",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "tests",
+      "coding_style"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Cursor implemented send_feedback tool but code did not follow team's paradigms; maintainer yannbu reworked large parts, fixing style and bugs before merging."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 35494,
+        "interpretation": "At 35494 changed lines, this is a large change by absolute volume, though most lines came from a merge commit that brought unrelated main branch updates into the branch. The core send_feedback feature is smaller, and the PR was merged after maintainer rework."
+      },
+      "lifecycle": {
+        "lifespan_hours": 218.7,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "coding_style_does_not_follow_conventions",
+      "concern_detail": "yannbu noted that the code did not use the team's coding style and paradigms, offered to take over, and subsequently reworked the implementation. Multiple cursor bot reviews flagged bugs like unhandled exceptions, template rendering issues, tenant data access problems.",
+      "performance_claim": "Adding send_feedback MCP tool with async fire-and-forget processing and model change to gemini-2.0-flash for cost/performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "tests",
+        "coding_style"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent produced a functional feature but failed to adhere to repository coding paradigms (e.g., inline imports, aiso vs. background tasks, raw template handling), requiring extensive human rework before merge.",
+      "success_factors": [
+        "maintainer_rework",
+        "active_human_collaboration"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "yannbu reviewed the code, identified style deviations and incorrect patterns, suggested using event_router for background tasks, and ultimately reworked the implementation. Cursor bot also flagged bugs."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or repro steps for performance claims; only narrative assertions in PR body.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "yannbu and guillaq reworked the code, added tests, fixed cursor bot reported bugs, and ensured the feature conformed to team style within the same PR.",
+      "evidence_gap": "narrative_only"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add send_feedback MCP tool to mcp_server.py that acknowledges feedback and fires a background task via MCPService; create mcp_feedback_processing_agent.py that calls WorkflowAI's AsyncOpenAI with metadata tracking; update prompt templates and model to gemini-2.0-flash.",
+      "files_primary": [
+        "api/api/routers/mcp/_mcp_service.py",
+        "api/core/agents/mcp_feedback_processing_agent.py",
+        "api/api/routers/mcp/mcp_server.py"
+      ],
+      "files_secondary_observability": [
+        "api/api/routers/mcp/_mcp_service_test.py",
+        "api/core/agents/mcp_feedback_processing_agent_test.py",
+        ".specs/mcp-send-feedback-tool.md"
+      ],
+      "secondary_note": "Large line count mainly from merge commit 4549bc88 that pulled in unrelated main branch changes (e.g., _mcp_dependencies.py, docsv2 files).",
+      "change_trajectory": [
+        "Initial spec and agent code committed by Cursor agent.",
+        "Multiple Cursor commits refining fire-and-forget, metadata, model change.",
+        "yannbu rework commit (48fa11b) significantly restructured the feature, removing spec fluff and adapting to team conventions.",
+        "Follow-up commits by yannbu, pierrevalade, guillaq to fix bugs, enhance tests, and adjust prompt templates."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "yannbu",
+        "channel": "pr_comment",
+        "signal": "not_ready_takeover_offer",
+        "summary": "yannbu stated the PR was not ready to merge and offered to take over; also questioned need for separate feedback agent vs general tool call logging.",
+        "blocking": false,
+        "action_taken": "pierrevalade agreed to let yannbu rework; yannbu rebuilt most of the code."
+      },
+      {
+        "source": "yannbu",
+        "channel": "inline_review_comment",
+        "signal": "coding_style_issues",
+        "summary": "Multiple inline comments requesting avoidance of imports inside functions, use of BackgroundTasks.add() or event_router, and improved MCP tool descriptions.",
+        "blocking": false,
+        "action_taken": "yannbu addressed these in the subsequent rework commits."
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bug_report",
+        "summary": "Cursor bot reported several bugs: missing tenant data access, unhandled exceptions in background task, Jinja2 template syntax not rendered, and incorrect MCP tool parameter annotation.",
+        "blocking": false,
+        "action_taken": "Most bugs were fixed in follow-up commits (e.g., guillaq fixed template rendering, added exception handling)."
+      },
+      {
+        "source": "pierrevalade",
+        "channel": "pr_comment",
+        "signal": "request_user_agent_tracking",
+        "summary": "pierrevalade asked to add user-agent tracking in metadata; yannbu added it later.",
+        "blocking": false,
+        "action_taken": "yannbu added user_agent to metadata in commit fcdd82f."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent created spec and initial implementation, self-reviewed via bot.",
+      "yannbu performed code review, flagged style issues and offered to take over.",
+      "pierrevalade handed over; yannbu and later guillaq extensively reworked the code, fixed bugs, and added tests.",
+      "Cursor bot continued to flag remaining issues, which were addressed.",
+      "After ~9 days, the PR was merged with all review threads resolved."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "pr_id": 3182184191,
+  "meta": {
+    "title": "Fix performance issue: cache agent knowledge to avoid reloading on every kickoff",
+    "html_url": "https://github.com/crewAIInc/crewAI/pull/3077",
+    "repo": "crewAIInc/crewAI",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-27 09:53:02+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-05 16:03:29+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 19,
+    "topic_name": "19_knowledge_deepseek_crew_cache",
+    "body_summary": "Implement a caching mechanism in Agent.set_knowledge() to avoid unnecessary knowledge reloading on repeated crew kickoffs, tracking loaded state and embedder/sources changes."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 8,
+      "additions": 935,
+      "deletions": 58,
+      "changes": 993,
+      "top1_file": "tests/agent_test.py",
+      "top1_changes": 215,
+      "top1_change_ratio": 0.217,
+      "files_by_status": {
+        "modified": 8
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 4,
+        "commented": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 198.17,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "knowledge_caching",
+      "agent_kickoff_performance",
+      "reload_avoidance"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "stale_inactivity_auto_close",
+    "review_dimensions": [
+      "code_quality",
+      "tests",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin implemented knowledge caching with tests; joaomdmoura provided AI-generated code review with refactoring suggestions; PR auto-closed after 7 days inactivity without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 993,
+        "interpretation": "At 993 changed lines across 8 files, this is a small-to-medium sized performance fix by absolute volume, concentrated in agent.py, agent_test.py, and test cassette updates. As a caching performance PR it was closed without merge — though the change was non-trivial, the outcome resulted from inactivity rather than explicit rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 198.17,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "code_refactoring_suggestions",
+      "concern_detail": "joaomdmoura's AI-generated review suggested consolidating cache variables into a dictionary, extracting cache validation logic, using deepcopy for knowledge sources, adding type hints, and improving test practices (fixtures, assertion messages, edge cases). No functional issues were flagged.",
+      "performance_claim": "Caching agent knowledge prevents redundant chunking, embedding, and storing on repeated kickoffs, reducing performance overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "code_quality",
+        "tests",
+        "design_or_approach"
+      ],
+      "rejection_signals": "PR auto-closed due to 7-day inactivity; maintainer review provided positive feedback with suggestions but no explicit blocking or merge action."
+    },
+    "capability_boundary": {
+      "topic": "19_knowledge_deepseek_crew_cache",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Devin successfully implemented caching logic and fixed CI failures, but the PR required further manual integration from maintainers (code review suggestions were not acted upon, no performance validation was performed), and the PR was auto-closed for inactivity.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer provided a detailed code review generated by a crew of AI agents, focusing on encapsulation, test practices, and documentation, without any performance measurement tools."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "The body includes detailed manual test instructions and a diagram, but no before/after timing data or benchmark suite; only narrative performance claim.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No explicit rejection on functional grounds; inactivity led to auto-close.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In Agent.set_knowledge(), added caching with _knowledge_loaded, _last_embedder, _last_knowledge_sources private attributes; skip knowledge processing if sources and embedder unchanged; added reset_knowledge_cache(); updated tests to verify caching and invalidation; refreshed VCR cassettes for knowledge tests.",
+      "files_primary": [
+        "src/crewai/agent.py",
+        "tests/agent_test.py"
+      ],
+      "files_secondary_observability": [
+        "tests/cassettes/test_agent_with_knowledge_sources.yaml",
+        "tests/cassettes/test_agent_with_knowledge_sources_extensive_role.yaml",
+        "tests/cassettes/test_agent_with_knowledge_sources_generate_search_query.yaml",
+        "tests/cassettes/test_agent_with_knowledge_sources_with_query_limit_and_score_threshold.yaml",
+        "tests/cassettes/test_agent_with_knowledge_sources_with_query_limit_and_score_threshold_default.yaml",
+        "tests/cassettes/test_get_knowledge_search_query.yaml"
+      ],
+      "secondary_note": "Test cassettes were refreshed to reflect new caching behavior; no other secondary changes.",
+      "change_trajectory": [
+        "Initial commit: caching implementation in agent.py, unit tests in agent_test.py.",
+        "Second commit: address CI failures - add type hints, simplify tests, remove network calls.",
+        "Third commit: resolve type-checker and test isolation issues, adjust mocks.",
+        "Fourth commit: refresh VCR cassettes after local test runs."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Standard Devin AI engineer introduction.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "joaomdmoura",
+        "channel": "pr_comment",
+        "signal": "code_quality_suggestions",
+        "summary": "Provided AI-generated review with positive feedback and refactoring suggestions on encapsulation, testing, and documentation.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "auto_close_inactivity",
+        "summary": "Closed due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with caching implementation and tests.",
+      "Devin made three subsequent commits to fix CI and test isolation within a few hours.",
+      "Maintainer joaomdmoura posted a detailed, AI-generated code review with suggestions ~1.9 minutes after PR creation.",
+      "No further human interaction; Devin bot auto-closed PR after 7 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

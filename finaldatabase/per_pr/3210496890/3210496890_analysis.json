@@ -1,0 +1,180 @@
+{
+  "pr_id": 3210496890,
+  "meta": {
+    "title": "Increase TTL for older posts",
+    "html_url": "https://github.com/simonw/simonwillisonblog/pull/545",
+    "repo": "simonw/simonwillisonblog",
+    "agent": "OpenAI_Codex",
+    "user": "simonw",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-07 23:19:15+00:00",
+    "merged_at": "2025-07-07 23:20:09+00:00",
+    "closed_at": "2025-07-07 23:20:09+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Set a 24-hour Cache-Control header for blog posts older than six months to improve caching efficiency, with tests verifying TTL behavior."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 20,
+      "deletions": 0,
+      "changes": 20,
+      "top1_file": "blog/tests.py",
+      "top1_changes": 15,
+      "top1_change_ratio": 0.75,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "blog"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "commented": 1
+      },
+      "lifespan_hours": 0.015,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "http_cache_control",
+      "cache_ttl_extension"
+    ],
+    "optimization_layer": "application_web_framework",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex authored a small cache TTL change for older posts; merged immediately by simonw with no review and one post-merge comment explaining 24h choice."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 20,
+        "interpretation": "At 20 changed lines across 2 files, this is a very small edit by absolute volume. It fits a small-step, fast-turnaround caching performance PR and is consistent with the instant merge without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.015,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or blocking feedback; the PR was merged instantly by the author himself after the agent's commit.",
+      "performance_claim": "Set 24-hour Cache-Control header for older posts to improve caching and reduce server load.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Straightforward cache header adjustment in a Django view with clear age-based logic; no friction in merge.",
+      "success_factors": [
+        "narrow_scope",
+        "fast_author_merge",
+        "test_coverage"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Simonw merged the PR immediately after seeing the commit; post-merge comment explained the rationale for 24h based on existing post content."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Tests check TTL behavior for old and new items but no benchmark or load test.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were reported or handled.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In blog/views.py, added logic to set Cache-Control max-age=86400 (24 hours) for posts older than six months; in blog/tests.py, added tests verifying TTL for old and new items.",
+      "files_primary": [
+        "blog/views.py",
+        "blog/tests.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit adjusted cache TTL and added tests; merged immediately with no review iteration."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "simonw",
+        "channel": "pr_comment",
+        "signal": "design_rationale",
+        "summary": "Explained the decision for 24-hour TTL by referencing dynamic content pattern in older posts.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "OpenAI_Codex created the PR with cache TTL change and tests.",
+      "Simonw merged instantly (<1 min) without review.",
+      "Post-merge, simonw added a comment explaining the 24h choice."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

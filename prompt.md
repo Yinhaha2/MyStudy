@@ -155,6 +155,8 @@ Booleans reflecting what was available in the payload: `has_commit_details`, `ha
 
 ## Controlled Taxonomies
 
+**All enumerated fields may be extended when necessary**—add new `snake_case` labels when no listed value fits, ground them in evidence, and reflect uncertainty in overall `confidence`. The lists below are **preferred defaults**, not closed sets. If `schema.json`, few-shot examples, and this prompt disagree on wording or completeness, treat enums as **extensible** and prioritize evidence over literal list matching.
+
 Use these values consistently. You may introduce a new snake_case label only when no existing value fits and `confidence` is not `high`.
 
 ### `inefficiency_antipattern`

@@ -1,0 +1,194 @@
+{
+  "pr_id": 3067476387,
+  "meta": {
+    "title": "feat: add caching layer for frequent identical requests",
+    "html_url": "https://github.com/theopenco/llmgateway/pull/98",
+    "repo": "theopenco/llmgateway",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-15 22:08:58+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-17 09:43:46+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "45",
+    "body_summary": "Add a per-project caching layer for identical non-streaming API requests, with configurable cache duration and API endpoints to toggle; aims to reduce latency for frequent identical calls."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 13,
+      "additions": 430,
+      "deletions": 102,
+      "changes": 532,
+      "top1_file": "apps/api/src/content/projects.ts",
+      "top1_changes": 203,
+      "top1_change_ratio": 0.3816,
+      "files_by_status": {
+        "added": 2,
+        "modified": 11
+      },
+      "directory_count": 3,
+      "directories": [
+        "apps",
+        "packages",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 2,
+        "commented": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 35.58,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "response_caching",
+      "request_deduplication"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added caching layer but no human review; closed after Devin archived, likely due to inactivity and test failures."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 532,
+        "interpretation": "At 532 changed lines, this is a small-to-medium change concentrated in new projects API and caching logic. As a performance PR it was closed without merge—no human review or engagement, and the agent was archived."
+      },
+      "lifecycle": {
+        "lifespan_hours": 35.58,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_human_review",
+      "concern_detail": "No human maintainer provided review or feedback; the only interactions were bot comments. The PR was closed without merge.",
+      "performance_claim": "Reduce latency for frequent identical requests via project-level caching with configurable duration.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed without merge; no explicit rejection reason beyond bot indicating Devin was archived."
+    },
+    "capability_boundary": {
+      "topic": "45",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Adding caching across multiple packages (db schema, API, gateway) while handling non-streaming requests; agent unable to resolve test database schema mismatch and no maintainer guidance.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after timing evidence; PR body mentions test failures related to DB schema, but no steps to reproduce caching gains.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No fix cycle; maintainer closed PR without addressing test failures.",
+      "evidence_gap": "narrative_only_no_benchmark_and_test_failures"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added project-level caching layer: added cacheEnabled/cacheDuration columns to project DB schema, created /projects API to toggle caching, implemented cache middleware in gateway chat handler (non-streaming), and introduced an in-memory cache module (lib/cache.ts) with logging integration.",
+      "files_primary": [
+        "apps/gateway/src/chat/chat.ts",
+        "apps/gateway/src/lib/cache.ts",
+        "apps/api/src/content/projects.ts"
+      ],
+      "files_secondary_observability": [
+        "apps/api/src/content/activity.spec.ts",
+        "apps/api/src/content/index.ts",
+        "apps/api/src/content/keys-api.spec.ts",
+        "apps/api/src/content/keys-provider.spec.ts",
+        "apps/api/src/content/logs.spec.ts",
+        "apps/gateway/package.json",
+        "apps/gateway/src/api.spec.ts",
+        "packages/auth/src/auth.ts",
+        "packages/db/src/schema.ts",
+        "pnpm-lock.yaml"
+      ],
+      "secondary_note": "Test spec files received minor changes (mock adjustments), and lockfile was updated.",
+      "change_trajectory": [
+        "Single commit adds caching logic, new projects API, cache module, and test adjustments; second commit updates lockfile."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_auto_assistance_notice",
+        "summary": "Devin bot announced automatic comment/CI monitoring for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_archived",
+        "summary": "Devin is archived and cannot be woken up.",
+        "blocking": false,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with caching feature; no human reviews or feedback.",
+      "Devin bot posted initial assistance message.",
+      "No subsequent human interaction; Devin archived, and PR closed by maintainer after ~35.6 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "pr_id": 3276815242,
+  "meta": {
+    "title": "Add disable_samples column configuration flag",
+    "html_url": "https://github.com/elementary-data/dbt-data-reliability/pull/835",
+    "repo": "elementary-data/dbt-data-reliability",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-30 12:18:01+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-30 12:23:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "30",
+    "body_summary": "Add disable_samples column-level configuration flag to skip sample collection in dbt tests, with macros and integration tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 145,
+      "deletions": 0,
+      "changes": 145,
+      "top1_file": "integration_tests/tests/test_disable_samples_config.py",
+      "top1_changes": 121,
+      "top1_change_ratio": 0.834,
+      "files_by_status": {
+        "added": 1,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "integration_tests",
+        "macros"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 17,
+      "event_counts": {
+        "committed": 1,
+        "mentioned": 1,
+        "subscribed": 1,
+        "commented": 3,
+        "deployed": 10,
+        "closed": 1
+      },
+      "lifespan_hours": 0.091,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sample_collection_disable",
+      "test_overhead_reduction"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_author_quickly_unverified",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin added disable_samples config with tests; closed by arbiv after 5 minutes with no human review and failed local testing."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 145,
+        "interpretation": "At 145 lines added, this is a small feature addition to dbt macros. Its quick closure without merge is consistent with the author's own decision, likely due to inability to verify locally."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.091,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "closed_by_author_no_human_review",
+      "concern_detail": "PR was closed by requester arbiv within minutes; no human review or CI feedback was given; local integration tests failed.",
+      "performance_claim": "Skip sample collection for columns with disable_samples flag, reducing test overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by author within minutes; no human review; bot reviews positive but not blocking."
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Devin produced a feature implementation with tests, but local environment issues prevented verification, leading to quick closure by the requester.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body notes local integration tests failed; no CI evidence or manual testing by maintainers.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix cycles.",
+      "evidence_gap": "no_performance_evidence_only_narrative_feature"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added is_sampling_disabled_for_column macro to check column config in schema.yml, modified query_test_result_rows to skip sampling when disable_samples=true, and added integration tests for the feature.",
+      "files_primary": [
+        "macros/edr/materializations/test/test.sql",
+        "integration_tests/tests/test_disable_samples_config.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit (6841531) adds macro logic and tests."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_review_positive",
+        "summary": "CodeRabbit bot provided a detailed walkthrough and positive review of the implementation.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_reminder",
+        "summary": "GitHub Actions bot reminded to add tests and documentation.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with disable_samples feature and tests.",
+      "Bot reviews (CodeRabbit, Devin) provided positive feedback within seconds.",
+      "Requester arbiv closed the PR after 5 minutes with no human review or further action."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

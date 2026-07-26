@@ -1,0 +1,171 @@
+{
+  "pr_id": 3114659416,
+  "meta": {
+    "title": "[alpha_factory] inline wasm assets",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/1500",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-03 16:27:50+00:00",
+    "merged_at": "2025-06-03 16:27:57+00:00",
+    "closed_at": "2025-06-03 16:27:57+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "35",
+    "body_summary": "Inline pyodide.asm.wasm and wasm-gpt2.tar during manual build; decode embedded WASM in runtime loader; test that window.PYODIDE_WASM_BASE64 exists in the built UI."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 46,
+      "deletions": 2,
+      "changes": 48,
+      "top1_file": "tests/test_wasm_base64.py",
+      "top1_changes": 25,
+      "top1_change_ratio": 0.521,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "alpha_factory_v1",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.00194,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "wasm_inlining",
+      "asset_embedding"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_self_merge",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex inlined wasm assets; instant self-merge by author with no review; performance claim implicit in eliminating network fetches."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 48,
+        "interpretation": "At 48 changed lines across 3 files, this is a very small edit by absolute volume. It fits a small-step, fast-turnaround performance PR and is consistent with the instant self-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00194,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Inline WASM assets to eliminate network fetch and reduce startup time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "35",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Instant self-merge without any review or performance verification highlights a process gap rather than a technical barrier; such small, self-contained changes are readily accepted when the author has commit rights.",
+      "success_factors": [
+        "narrow_scope",
+        "self_contained_test",
+        "immediate_author_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes a test for embedded asset existence, but no before/after performance measurements; quick self-merge.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression; PR merged immediately.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In manual_build.py, read pyodide.asm.wasm and wasm-gpt2.tar, encode as base64, and inject into the build; bridge.js decodes and initializes WASM at runtime; test_wasm_base64.py verifies window.PYODIDE_WASM_BASE64 exists.",
+      "files_primary": [
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/manual_build.py",
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/src/wasm/bridge.js"
+      ],
+      "files_secondary_observability": [
+        "tests/test_wasm_base64.py"
+      ],
+      "secondary_note": "Test file added to verify base64 embedding.",
+      "change_trajectory": [
+        "Single commit: inline wasm assets via manual_build.py and bridge.js; add test."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and self-merged by MontrealAI within seconds; no human review or bot interaction recorded."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

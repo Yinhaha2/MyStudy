@@ -1,0 +1,198 @@
+{
+  "pr_id": 3238869981,
+  "meta": {
+    "title": "[WIP] Streaming still not working. Causing slow responses for something like 'write a report' #981",
+    "html_url": "https://github.com/MervinPraison/PraisonAI/pull/984",
+    "repo": "MervinPraison/PraisonAI",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-17 09:37:55+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-24 00:55:54+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Fix streaming real-time output in PraisonAI agents; adds StreamableResponse class to enable chunked iteration when stream=True, addressing issue where responses were accumulated internally."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 1,
+      "additions": 244,
+      "deletions": 0,
+      "changes": 244,
+      "top1_file": "src/praisonai-agents/praisonaiagents/agent/agent.py",
+      "top1_changes": 244,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 24,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "mentioned": 6,
+        "subscribed": 6,
+        "copilot_work_started": 2,
+        "commented": 3,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 159.3,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "real_time_streaming",
+      "response_latency",
+      "chunked_output"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot streaming fix without maintainer review; closed after 7 days of inactivity, no formal validation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 244,
+        "interpretation": "At 244 added lines in a single file, this is a small-to-medium change. As a streaming performance fix, it was closed without merge due to lack of review and validation."
+      },
+      "lifecycle": {
+        "lifespan_hours": 159.3,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no formal review",
+      "concern_detail": "No formal review submitted; PR comments only from Copilot and bot. Owner requested Claude review, but Claude encountered an error and no human follow-up occurred.",
+      "performance_claim": "Fix streaming to deliver real-time chunked output instead of internal accumulation, reducing user-perceived latency.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No maintainer review; closed after ~7 days. Owner requested Claude review but Claude encountered an error; no human follow-up."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Agent required human review and integration testing for a latency-sensitive feature; without maintainer engagement, the PR could not be merged.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body includes repro steps from the original issue, but no validation of the fix was performed. Copilot reported firewall restrictions preventing full integration tests.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no regression testing or fix cycle occurred.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/praisonai-agents/praisonaiagents/agent/agent.py, added StreamableResponse class that supports both iteration and string operations, implemented _chat_stream() method for real-time chunked output when stream=True, while preserving backward compatibility for non-streaming usage.",
+      "files_primary": [
+        "src/praisonai-agents/praisonaiagents/agent/agent.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes are confined to a single file with 244 additions; no test files or configuration changes included.",
+      "change_trajectory": [
+        "Initial plan commit (533733b) with no code changes.",
+        "Commit fda1ca3: Implement real-time streaming with StreamableResponse class and _chat_stream method in agent.py."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "MervinPraison",
+        "channel": "pr_comment",
+        "signal": "owner_request_claude_review",
+        "summary": "Owner asked @claude to review and fix if existing code doesn't have solution, ensuring backward compatibility.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "claude_error",
+        "summary": "Claude encountered an error while attempting to analyze; no review provided.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "copilot_implementation_summary",
+        "summary": "Detailed summary of streaming fix implementation, noting firewall restrictions prevented full integration testing.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial plan and issue reference.",
+      "Owner commented requesting Claude review ~3 hours later.",
+      "Claude bot reported error; no human review materialized.",
+      "Copilot committed streaming implementation and commented with technical summary.",
+      "PR remained unreviewed and was closed by owner after ~159 hours (7 days)."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "pr_id": 3196526840,
+  "meta": {
+    "title": "Investigate caching options for from_provider()",
+    "html_url": "https://github.com/567-labs/instructor/pull/1645",
+    "repo": "567-labs/instructor",
+    "agent": "Cursor",
+    "user": "jxnl",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-02 16:43:11+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-07 18:50:34+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 19,
+    "topic_name": "19_knowledge_deepseek_crew_cache",
+    "body_summary": "Introduce native caching support for from_provider with BaseCache, AutoCache, DiskCache, schema-aware cache keys, TTL, and documentation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 23,
+      "file_count": 26,
+      "additions": 3459,
+      "deletions": 1329,
+      "changes": 4788,
+      "top1_file": "instructor/cache/__init__.py",
+      "top1_changes": 381,
+      "top1_change_ratio": 0.08,
+      "files_by_status": {
+        "added": 9,
+        "modified": 9,
+        "removed": 8
+      },
+      "directory_count": 5,
+      "directories": [
+        "instructor",
+        "tests",
+        "docs",
+        "examples",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 18,
+      "review_states": {
+        "COMMENTED": 18
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 14,
+        "commented": 1,
+        "labeled": 4,
+        "reviewed": 11
+      },
+      "lifespan_hours": 122.12,
+      "first_review_delay_hours": 0.03,
+      "review_rounds": 18,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "native_caching",
+      "lru_cache",
+      "disk_cache",
+      "schema_cache_key"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_merge_reason_unknown",
+    "review_dimensions": [
+      "design_or_approach",
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Large caching feature PR with heavy bot review; closed by maintainer after iteration with no explicit merge block; no performance benchmark provided."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4788,
+        "interpretation": "At 4788 changed lines across 26 files, this is a large PR by absolute volume, adding a new caching module across multiple layers. The closure without merge despite active maintainer iteration is unusual and likely reflects a decision to integrate the work elsewhere or to close as investigation complete."
+      },
+      "lifecycle": {
+        "lifespan_hours": 122.12,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_improvements",
+      "concern_detail": "Ellipsis bot flagged code duplication between async/sync cache logic, broad exception catching, and suggested DRY refactoring; no human blocking feedback.",
+      "performance_claim": "Caching API calls reduces latency and cost by avoiding repeated LLM invocations.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No explicit rejection; PR closed by author after iterative improvements and applied suggestions."
+    },
+    "capability_boundary": {
+      "topic": "19_knowledge_deepseek_crew_cache",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "Large cross-module addition introducing caching; Cursor managed the initial implementation, but the PR was closed by the maintainer after extensive iteration, possibly superseded or considered not ready for merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Ellipsis bot reviewed multiple commits, highlighting design issues like code duplication and exception handling; maintainer jxnl applied his own corrections and eventually closed the PR."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiler evidence provided; only narrative about caching benefits.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling as PR was not merged.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduce instructor.cache module with BaseCache, AutoCache (in-process LRU), DiskCache; integrate caching into patch.py for sync/async create calls; add cache parameter to from_provider with TTL support; update documentation and add tests.",
+      "files_primary": [
+        "instructor/cache/__init__.py",
+        "instructor/patch.py",
+        "instructor/auto_client.py"
+      ],
+      "files_secondary_observability": [
+        "docs/concepts/caching.md",
+        "docs/blog/posts/caching.md",
+        "docs/blog/posts/native_caching.md",
+        "tests/test_cache_key.py",
+        "tests/test_cache_integration.py",
+        "examples/caching_prototype/run.py",
+        "examples/caching_prototype/run_real.py"
+      ],
+      "secondary_note": "Extensive documentation and example additions; several prototype files were later removed.",
+      "change_trajectory": [
+        "Initial commit: added caching module with BaseCache and cache key generation.",
+        "Added AutoCache, RedisCache adapters, and integration tests.",
+        "Enhanced raw response storage and serialization.",
+        "Added built-in caching documentation.",
+        "Added test for AutoCache passthrough and cache key design docs.",
+        "Added optional cache parameter to from_provider.",
+        "Added type ignore comments and debug logging.",
+        "Refactored caching implementation with TTL support.",
+        "Maintainer merged main and refactored cache helpers.",
+        "Implemented clean cache parameter flow via **kwargs.",
+        "Cleaned up caching examples.",
+        "Applied code review suggestions (version number, line removal).",
+        "Claude bot created native caching blog post.",
+        "PR closed by maintainer without merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ellipsis-dev[bot]",
+        "channel": "formal_review",
+        "signal": "bot_non_blocking_review",
+        "summary": "Multiple non-blocking reviews suggesting design improvements like DRY refactoring and exception handling.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jxnl",
+        "channel": "inline_review_comment",
+        "signal": "version_correction",
+        "summary": "Suggested changing version from 'v2.5' to 'v1.9.1'.",
+        "blocking": false,
+        "action_taken": "Applied by jxnl in commit c14848ed."
+      },
+      {
+        "source": "jxnl",
+        "channel": "inline_review_comment",
+        "signal": "remove_line",
+        "summary": "Empty suggestion to remove a line.",
+        "blocking": false,
+        "action_taken": "Applied."
+      },
+      {
+        "source": "cloudflare-workers-and-pages[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_failure",
+        "summary": "Cloudflare deployment failed but unrelated to performance review.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jxnl",
+        "channel": "pr_comment",
+        "signal": "request_blog_post",
+        "summary": "Asked @claude to write native caching blog post.",
+        "blocking": false,
+        "action_taken": "Claude created blog post in commit 5d01623."
+      },
+      {
+        "source": "claude[bot]",
+        "channel": "pr_comment",
+        "signal": "task_complete",
+        "summary": "Claude reported task completion.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor opened PR with initial caching module and integration.",
+      "Ellipsis bot reviewed each commit automatically, suggesting design improvements.",
+      "Maintainer jxnl made substantial additions: merging main, refactoring cache parameter flow, adding examples, and later cleaning up.",
+      "jxnl applied own inline suggestions and requested a blog post from Claude AI, which was completed.",
+      "After iterative improvements, jxnl closed the PR without merging, presumably because the investigation was complete or the feature was integrated elsewhere."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

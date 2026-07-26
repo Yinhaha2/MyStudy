@@ -1,0 +1,165 @@
+{
+  "pr_id": 3213850102,
+  "meta": {
+    "title": "Improve method inlining",
+    "html_url": "https://github.com/jscarle/LightResults/pull/74",
+    "repo": "jscarle/LightResults",
+    "agent": "OpenAI_Codex",
+    "user": "jscarle",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-08 21:47:05+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-08 21:52:48+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "43",
+    "body_summary": "Add AggressiveInlining attribute to Equals, GetHashCode, and ToString methods in core LightResults structs to enable JIT inlining."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 16,
+      "deletions": 0,
+      "changes": 16,
+      "top1_file": "src/LightResults/Result.cs",
+      "top1_changes": 7,
+      "top1_change_ratio": 0.4375,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "base_ref_changed": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.095,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "method_inlining",
+      "jit_optimization",
+      "struct_optimization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_review_author_action",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI Codex added AggressiveInlining to basic struct methods; PR self-closed by author in ~5 min without any review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 16,
+        "interpretation": "At 16 changed lines across 3 files, this is a tiny change adding attributes. Such small-scale JIT hint PRs can be merged quickly but was closed by author without review, which is inconsistent with typical small performance PR patterns."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.095,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback provided; PR was self-closed by author.",
+      "performance_claim": "Aggressive method inlining improves JIT performance for core structs.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR self-closed by author without merge; no substantive review feedback."
+    },
+    "capability_boundary": {
+      "topic": "43",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent successfully added AggressiveInlining attributes to core struct methods, but the PR was closed by the same user who opened it (likely the bot account or the maintainer) without merge. This suggests a process boundary where the agent opened a PR but the human maintainer did not find it acceptable or it was opened automatically but then closed manually. No technical rejection.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiler evidence; only test command provided to verify functional correctness.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; PR was closed by author without merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added [MethodImpl(MethodImplOptions.AggressiveInlining)] attribute to Equals, GetHashCode, ToString methods in Error, Result, and Result<T> structs in LightResults core library.",
+      "files_primary": [
+        "src/LightResults/Error.cs",
+        "src/LightResults/Result.cs",
+        "src/LightResults/Result`1.cs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes are addition of attributes only; no logic or other modifications.",
+      "change_trajectory": [
+        "Single commit (19b7e1d) by jscarle: Inline basic methods."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Single commit by jscarle adding inlining attributes.",
+      "No reviews or comments.",
+      "PR self-closed by author after ~5 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

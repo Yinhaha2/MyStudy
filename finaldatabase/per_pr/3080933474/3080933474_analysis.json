@@ -1,0 +1,217 @@
+{
+  "pr_id": 3080933474,
+  "meta": {
+    "title": "fix(api): Update mocha configuration to use SWC instead of ts-node",
+    "html_url": "https://github.com/novuhq/novu/pull/8363",
+    "repo": "novuhq/novu",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-21 17:17:57+00:00",
+    "merged_at": "2025-05-23 11:06:52+00:00",
+    "closed_at": "2025-05-23 11:06:52+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "7",
+    "body_summary": "Switch API test compilation from ts-node to SWC to improve test execution speed, break circular dependencies, and add S3 mocking for test reliability."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 30,
+      "file_count": 32,
+      "additions": 1495,
+      "deletions": 719,
+      "changes": 2214,
+      "top1_file": "pnpm-lock.yaml",
+      "top1_changes": 1723,
+      "top1_change_ratio": 0.778,
+      "files_by_status": {
+        "added": 4,
+        "modified": 27,
+        "removed": 1
+      },
+      "directory_count": 5,
+      "directories": [
+        "apps",
+        ".github",
+        "(root)",
+        "scripts",
+        "libs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 7,
+        "review_requested": 1,
+        "assigned": 1,
+        "commented": 2,
+        "deployed": 18,
+        "labeled": 1
+      },
+      "lifespan_hours": 41.81,
+      "first_review_delay_hours": 12.9,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_compilation_speed",
+      "swc_migration",
+      "circular_dependency_resolution"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative",
+      "maintainer_manual_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "manual_testing"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin's initial SWC migration faced circular dependency and ES module issues; maintainer scopsy made extensive follow-up fixes and merged after reporting ~8s to 4-5s test speedup."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2214,
+        "interpretation": "At 2214 changed lines across 32 files, this is a medium-to-large refactor, though much of the churn is in lockfile updates (1723 lines in pnpm-lock.yaml). The core SWC migration and circular dependency fixes are concentrated in fewer files. This size is consistent with a toolchain migration performance PR that merged after extensive human adjustments."
+      },
+      "lifecycle": {
+        "lifespan_hours": 41.81,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "configuration_misalignment",
+      "concern_detail": "Maintainer scopsy requested alignment of the SWC register script with .swcrc and removal of the lazy flag.",
+      "performance_claim": "SWC compilation should improve test execution speed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin handled initial SWC setup but struggled with circular dependencies and ES module compat; extensive human intervention required to finalize SWC config and mock S3. This reveals boundary in complex build tool migration in a NestJS monorepo.",
+      "success_factors": [
+        "maintainer_iterative_fixes",
+        "clear_config_feedback",
+        "manual_test_validation"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "scopsy reviewed swc-register.js and requested alignment with .swcrc and removal of lazy flag.",
+        "manual_testing": "scopsy manually timed test execution and reported speedup from ~8s to 4-5s."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes test run instructions but no automated benchmark; maintainer reported manual timing result.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After initial submission, scopsy made numerous commits to fix SWC config, circular deps, S3 mocking, and test failures, ultimately merging the PR.",
+      "evidence_gap": "narrative_only_manual_timing"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Changed API test compilation from ts-node to SWC by creating swc-register.js with pirates hook, updating .mocharc.json, package.json, and .swcrc. Added interface-based dependency injection to break circular dependency between PromoteNotificationTemplateChange and PromoteChangeToEnvironment. Mocked S3 storage for tests to avoid ECONNREFUSED. Removed the lazy flag from SWC config per review feedback.",
+      "files_primary": [
+        "apps/api/swc-register.js",
+        "apps/api/.swcrc",
+        "apps/api/src/app/change/usecases/shared/notification-template-change.interface.ts",
+        "apps/api/src/app/change/usecases/promote-notification-template-change/promote-notification-template-change.usecase.ts",
+        "apps/api/src/app/change/usecases/promote-change-to-environment/promote-change-to-environment.usecase.ts",
+        "apps/api/src/app/change/change.module.ts"
+      ],
+      "files_secondary_observability": [
+        "pnpm-lock.yaml",
+        ".github/workflows/reusable-api-e2e.yml",
+        "apps/api/package.json",
+        "apps/api/.mocharc.json"
+      ],
+      "secondary_note": "Lock file and CI workflow modifications are supportive; majority of line changes are in pnpm-lock.yaml.",
+      "change_trajectory": [
+        "Initial Devin commits added SWC config and mocha updates.",
+        "Subsequent Devin commits fixed circular dependency with new interface, added custom swc-register for .source files, and mocked S3.",
+        "Maintainer scopsy then made many fix commits to align configs, remove lazy, add pirates dependency, handle imports, fix test timeouts, and restore accidental deletions.",
+        "Merged after ~42 hours following manual timing validation."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "scopsy",
+        "channel": "inline_review_comment",
+        "signal": "config_alignment_request",
+        "summary": "Request to align SWC register config with .swcrc and remove the lazy flag.",
+        "blocking": false,
+        "action_taken": "scopsy himself made adjustments in subsequent commits to align config and remove lazy."
+      },
+      {
+        "source": "scopsy",
+        "channel": "formal_review",
+        "signal": "comment_no_block",
+        "summary": "Formal review with COMMENTED state and no body; substantive feedback given inline.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial SWC migration (~30 commits).",
+      "scopsy added an inline review requesting config alignment ~12.9h later.",
+      "Over the next ~29h, scopsy made extensive fix commits to resolve circular dependencies, ES module issues, and S3 mocking.",
+      "scopsy manually tested speed and reported improvement; PR merged after ~42h."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

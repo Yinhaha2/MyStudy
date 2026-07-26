@@ -1,0 +1,168 @@
+{
+  "pr_id": 3127297110,
+  "meta": {
+    "title": "Enable async stream handlers",
+    "html_url": "https://github.com/mochilang/mochi/pull/154",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-07 17:30:32+00:00",
+    "merged_at": "2025-06-07 17:31:12+00:00",
+    "closed_at": "2025-06-07 17:31:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "18",
+    "body_summary": "Make interpreter emit logic non-blocking by using runtime/stream Subscriber to concurrently process stream events from handlers."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 46,
+      "deletions": 11,
+      "changes": 57,
+      "top1_file": "interpreter/interpreter.go",
+      "top1_changes": 57,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "interpreter"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0111,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "async_stream_handlers",
+      "concurrent_event_processing",
+      "non_blocking_emit"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "sequential_blocking"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI Codex replaced sequential handler loop with async Subscriber pattern; merged immediately without review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 57,
+        "interpretation": "At 57 changed lines in a single file, this is a very small edit. It fits a small-step, low-risk performance improvement and was merged within 40 seconds with no review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0111,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No review feedback or comments recorded; PR was merged by the author without external inspection.",
+      "performance_claim": "Async stream handlers prevent one slow handler from blocking the entire emit loop, improving concurrency and responsiveness.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "sequential_handler_execution_blocking_emit",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Refactoring interpreter emit to use runtime/stream Subscriber for concurrent handler execution was within agent capability; the small, self-contained change required no benchmark or deep stack knowledge.",
+      "success_factors": [
+        "narrow_scope",
+        "no_review_required",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No before/after performance data, benchmark, or profiler output; only a narrative claim of non-blocking behavior in the PR body.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues were raised; PR merged without follow-up fixes.",
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In interpreter/interpreter.go, replaced the sequential loop over `i.handlers` with a subscriber-based pattern: for each handler, a goroutine reads from the stream via `Subscriber` and executes the handler body concurrently; cleanup of subscribers and streams is added to the interpreter's finish logic.",
+      "files_primary": [
+        "interpreter/interpreter.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Single file modification; no other files changed.",
+      "change_trajectory": [
+        "Single commit: refactor emit to use stream.Subscriber, add concurrent handler execution, and include cleanup."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created and immediately self-merged by the same maintainer (tamnd) within 40 seconds; no external review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

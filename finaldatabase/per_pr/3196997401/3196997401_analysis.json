@@ -1,0 +1,230 @@
+{
+  "pr_id": 3196997401,
+  "meta": {
+    "title": "[WIP] Further remove dependency of Compatibility.Layout on all modern .NET MAUI controls",
+    "html_url": "https://github.com/dotnet/maui/pull/30393",
+    "repo": "dotnet/maui",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-02 19:42:53+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-02 23:37:35+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Work-in-progress PR adding bypass logic to Compatibility.Layout and removing legacy dependencies to improve performance of modern .NET MAUI controls; maintainer guided Copilot to copy baseline changes from another PR and fix build errors."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 72,
+      "additions": 3405,
+      "deletions": 2349,
+      "changes": 5754,
+      "top1_file": "src/Controls/src/Core/ViewExtensions.cs",
+      "top1_changes": 255,
+      "top1_change_ratio": 0.044,
+      "files_by_status": {
+        "added": 4,
+        "modified": 72,
+        "removed": 9
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 20,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "review_requested": 1,
+        "copilot_work_finished_failure": 1,
+        "commented": 4,
+        "copilot_work_finished": 2,
+        "closed": 1,
+        "locked": 1
+      },
+      "lifespan_hours": 3.912,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "legacy_dependency_removal",
+      "layout_bypass",
+      "control_performance"
+    ],
+    "optimization_layer": "framework_layout",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_after_task_completion",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Copilot WIP refactoring to bypass legacy layout logic; maintainer guided agent to copy baseline and fix builds; PR closed after successful test run with no merge or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5754,
+        "interpretation": "At 5754 changed lines across 72 files, this is a large-scale refactor by absolute volume. The PR was a work-in-progress aimed at reducing legacy dependencies; it was closed without merge after maintainer guided the agent through iterations, including copying another PR's changes and fixing build errors. This is consistent with a complex refactoring that may be integrated later into a larger branch or served as a testing workspace, not a standalone merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 3.912,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "baseline_integration",
+      "concern_detail": "Maintainer PureWeen instructed Copilot to copy all changes from PR #29281 to establish a baseline, then to fix build errors and run unit tests, indicating a focus on integration and correctness rather than performance validation.",
+      "performance_claim": "Reducing dependency on Compatibility.Layout improves performance of modern MAUI controls by bypassing legacy layout logic.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "build_correctness",
+        "test_coverage"
+      ],
+      "rejection_signals": "PR closed after successful build/test run without merge; likely intended as a collaborative workspace rather than a mergeable branch."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Maintainer used Copilot as an assistant to replicate another PR's baseline and fix build errors; the PR served as a workspace for a larger compatibility removal effort and was closed without independent merge, indicating a process boundary where the agent's output is integrated manually by the maintainer.",
+      "success_factors": [
+        "clear_instructions_from_maintainer",
+        "successful_build_and_test_fix",
+        "reported_test_results"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer PureWeen reviewed the PR plan and provided step-by-step instructions to copy a baseline and fix build errors, without formal review.",
+        "ci_auto": "Copilot ran the unit test suite and reported 5207 passed, 30 skipped, 0 failed, which the maintainer used to verify no regressions."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance metrics, benchmark, or profiling provided; only a narrative claim of improved performance.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed after successful test run; no regression occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added bypass logic in Compatibility.Layout to skip legacy methods for ScrollView, ContentPresenter, and TemplatedView; introduced shared helpers (ClippedToBoundsElement, InputTransparentContainerElement); applied baseline changes from PR #29281 including removal of CarouselPage and compatibility renderers; fixed build errors and added missing extension methods for unit tests.",
+      "files_primary": [
+        "src/Controls/src/Core/LegacyLayouts/Layout.cs",
+        "src/Controls/src/Core/ClippedToBoundsElement.cs",
+        "src/Controls/src/Core/InputTransparentContainerElement.cs",
+        "src/Controls/src/Core/ContentPresenter.cs",
+        "src/Controls/src/Core/ScrollView/ScrollView.cs",
+        "src/Controls/src/Core/TemplatedView/TemplatedView.cs"
+      ],
+      "files_secondary_observability": [
+        "src/Controls/tests/Core.UnitTests/*.cs",
+        "src/Controls/src/Core/PublicAPI/*.txt"
+      ],
+      "secondary_note": "Test and public API files were updated to reflect the refactoring; many compatibility renderers were removed in the baseline commit.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Added bypass logic and shared helpers.",
+        "Partially updated ContentPresenter before error.",
+        "Copied all changes from PR #29281 as baseline (large commit).",
+        "Fixed build errors and added missing extension methods; reported all tests passing."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "PureWeen",
+        "channel": "pr_comment",
+        "signal": "baseline_copy_request",
+        "summary": "Instructed Copilot to copy all changes from PR #29281 into this PR as a starting point.",
+        "blocking": false,
+        "action_taken": "Copilot copied changes in commit 506f5cb."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "baseline_copy_complete",
+        "summary": "Confirmed all changes from PR #29281 copied successfully.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "PureWeen",
+        "channel": "pr_comment",
+        "signal": "build_fix_and_test_request",
+        "summary": "Asked to fix build errors for unit tests and run them in release mode, reporting failures.",
+        "blocking": false,
+        "action_taken": "Copilot fixed build errors and ran tests."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "build_fix_and_test_report",
+        "summary": "Reported build errors fixed and 5207 tests passed with no failures.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened WIP PR with initial plan and bypass logic.",
+      "Maintainer instructed Copilot to copy all changes from a related PR as baseline.",
+      "Copilot applied the baseline changes successfully.",
+      "Maintainer requested build error fixes and test run.",
+      "Copilot fixed build errors and reported 100% test pass rate.",
+      "Maintainer closed the PR without merge after the successful build and test run."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

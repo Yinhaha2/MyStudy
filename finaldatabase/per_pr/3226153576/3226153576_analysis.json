@@ -1,0 +1,169 @@
+{
+  "pr_id": 3226153576,
+  "meta": {
+    "title": "Improve Racket backend",
+    "html_url": "https://github.com/mochilang/mochi/pull/8307",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-13 05:31:35+00:00",
+    "merged_at": "2025-07-13 05:31:48+00:00",
+    "closed_at": "2025-07-13 05:31:48+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": 18,
+    "topic_name": "18",
+    "body_summary": "Specialize the Racket backend's len builtin for string literals in compiler.go, along with a TASKS.md tracker and README update."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 21,
+      "deletions": 6,
+      "changes": 27,
+      "top1_file": "compiler/x/racket/compiler.go",
+      "top1_changes": 15,
+      "top1_change_ratio": 0.556,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0036,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "specialize_len_for_string_literals",
+      "compiler_backend_optimization"
+    ],
+    "optimization_layer": "compiler_codegen",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI Codex added specialization for Racket len builtin on string literals; PR merged immediately by maintainer without any review comments, suggesting pre-trusted small change."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 27,
+        "interpretation": "At 27 changed lines across 3 files, this is a tiny change by absolute volume. It fits a small-step, fast-turnaround compiler optimization and is consistent with the immediate merge without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0036,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback captured.",
+      "performance_claim": "Specializing len builtin for string literals improves Racket backend performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Small-scope compiler backend optimization within racket codegen; agent demonstrated ability to add specialization for a builtin on string literals, which requires compiler knowledge. Merge was immediate without review, suggesting maintainer pre-trust.",
+      "success_factors": [
+        "tiny_scope",
+        "maintainer_self_merge",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling evidence provided; only a standard compiler test suite command is mentioned.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No issue reported; PR merged instantly.",
+      "evidence_gap": "narrative_only_no_benchmark_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/racket/compiler.go, the len builtin is specialized to emit a direct Racket string-length when the argument is a string literal, avoiding generic length dispatch. A TASKS.md file and a README note are added.",
+      "files_primary": [
+        "compiler/x/racket/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "compiler/x/racket/TASKS.md",
+        "tests/machine/x/racket/README.md"
+      ],
+      "secondary_note": "TASKS.md tracks remaining work; README adds a mention of the Racket machine test.",
+      "change_trajectory": [
+        "Single commit by tamnd implements len specialization and adds TASKS.md and README update."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged immediately by maintainer tamnd with no review or comment interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

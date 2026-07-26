@@ -1,0 +1,209 @@
+{
+  "pr_id": 2961010664,
+  "meta": {
+    "title": "fix: use DROP INDEX CONCURRENTLY for index removal",
+    "html_url": "https://github.com/antiwork/helper/pull/169",
+    "repo": "antiwork/helper",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-03-31 16:42:50+00:00",
+    "merged_at": "2025-03-31 16:54:29+00:00",
+    "closed_at": "2025-03-31 16:54:29+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Changed a migration to use DROP INDEX CONCURRENTLY instead of DROP INDEX to avoid table locks during deployment."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 2,
+      "deletions": 1,
+      "changes": 3,
+      "top1_file": "apps/nextjs/src/db/drizzle/0071_sudden_tattoo.sql",
+      "top1_changes": 3,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 1,
+        "commented": 3,
+        "deployed": 2,
+        "assigned": 1,
+        "reviewed": 1,
+        "renamed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 0.194,
+      "first_review_delay_hours": 0.039,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "index_drop_concurrently",
+      "deployment_lock_avoidance",
+      "migration_safety"
+    ],
+    "optimization_layer": "database_migration",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "lock_misuse"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin changed DROP INDEX to DROP INDEX CONCURRENTLY in a migration; maintainer approved immediately; merged in 11 minutes with CI validation, no benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3,
+        "interpretation": "At 3 changed lines, this is a minimal, atomic edit. It fits a micro-fix performance PR that merged very quickly after maintainer approval and CI success."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.194,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "",
+      "performance_claim": "Using DROP INDEX CONCURRENTLY avoids table locks during deployment.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "lock_misuse (the original DROP INDEX without CONCURRENTLY)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple SQL migration fix with well-understood performance semantics; no technical barrier for an agent to implement a keyword change.",
+      "success_factors": [
+        "micro_change",
+        "immediate_maintainer_approval",
+        "ci_validation_passed"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after timing or lock contention metrics; the performance claim is conceptual.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues occurred; the change was accepted as-is.",
+      "evidence_gap": "narrative_only_no_concurrency_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In apps/nextjs/src/db/drizzle/0071_sudden_tattoo.sql, changed DROP INDEX to DROP INDEX CONCURRENTLY to prevent table locks during deployment.",
+      "files_primary": [
+        "apps/nextjs/src/db/drizzle/0071_sudden_tattoo.sql"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "No other files touched; change is a single SQL keyword addition.",
+      "change_trajectory": [
+        "Single commit rewrote the DROP INDEX statement to use CONCURRENTLY."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "raphaelcosta",
+        "channel": "formal_review",
+        "signal": "approved_no_text",
+        "summary": "Human maintainer approved the PR without comment.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "supabase[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_deployment_success",
+        "summary": "Supabase preview branch deployed successfully with new migration.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduced itself and noted it would handle comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_unreachable_after_merge",
+        "summary": "After merge, Devin noted session may have died.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin created PR with one-commit change; raphaelcosta approved within minutes.",
+      "Supabase CI deployed migration successfully; no changes requested.",
+      "Merged by raphaelcosta after about 11 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "pr_id": 3186370979,
+  "meta": {
+    "title": "Improve group by compile-time performance",
+    "html_url": "https://github.com/mochilang/mochi/pull/4001",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-29 17:12:37+00:00",
+    "merged_at": "2025-06-29 17:28:05+00:00",
+    "closed_at": "2025-06-29 17:28:05+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "21",
+    "body_summary": "Optimize group-by query compilation by maintaining a list of groups during accumulation and regenerating IR outputs for group-by tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 10,
+      "additions": 1086,
+      "deletions": 1073,
+      "changes": 2159,
+      "top1_file": "tests/vm/valid/group_by_multi_join_sort.ir.out",
+      "top1_changes": 461,
+      "top1_change_ratio": 0.2135,
+      "files_by_status": {
+        "modified": 10
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.258,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "group_by_compilation",
+      "compiler_optimization"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_self_approved_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Compiler optimization with no review and no benchmark; merged by maintainer/author ~15min after creation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2159,
+        "interpretation": "At 2159 changed lines across 10 files, this is a medium-sized change by absolute volume; the 43-line Go source change is small, with the bulk (2116 lines) being IR output updates. As a compiler performance optimization PR, it was merged quickly without review by the maintainer/author."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.258,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comment text available.",
+      "performance_claim": "Optimize group-by query compilation by maintaining a list of groups during accumulation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "21",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Compiler optimization merged without human review; maintainer self-merged own PR, indicating trust in agent-generated code for this domain.",
+      "success_factors": [
+        "self_merge",
+        "clear_compiler_optimization",
+        "existing_test_regeneration"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review in dataset; PR merged without formal review."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after timing evidence; only IR output regeneration changes serve as functional confirmation.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; PR merged without feedback.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, the group-by compilation now maintains a list of groups during accumulation to improve compile-time performance; IR output files for various group-by test queries are regenerated to reflect the new compilation.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/group_by.ir.out",
+        "tests/vm/valid/group_by_conditional_sum.ir.out",
+        "tests/vm/valid/group_by_having.ir.out",
+        "tests/vm/valid/group_by_join.ir.out",
+        "tests/vm/valid/group_by_left_join.ir.out",
+        "tests/vm/valid/group_by_multi_join.ir.out",
+        "tests/vm/valid/group_by_multi_join_sort.ir.out",
+        "tests/vm/valid/group_by_sort.ir.out",
+        "tests/vm/valid/group_items_iteration.ir.out"
+      ],
+      "secondary_note": "IR output updates account for 2116 of the 2159 changed lines; the Go source change is only 43 lines.",
+      "change_trajectory": [
+        "Single commit: optimize group by compilation with Go source change and IR output regeneration."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd (likely with Codex output); merged by same user ~15 minutes later with no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

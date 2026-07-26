@@ -1,0 +1,240 @@
+{
+  "pr_id": 3158983348,
+  "meta": {
+    "title": "fix: docker container cleanup to prevent accumulation and system slowdown",
+    "html_url": "https://github.com/microsoft/RD-Agent/pull/975",
+    "repo": "microsoft/RD-Agent",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-19 05:22:42+00:00",
+    "merged_at": "2025-06-19 10:32:51+00:00",
+    "closed_at": "2025-06-19 10:32:51+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 9,
+    "topic_name": "9",
+    "body_summary": "Add try-finally blocks to ensure Docker containers are always cleaned up after experiments, preventing accumulation and system slowdown."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 7,
+      "additions": 356,
+      "deletions": 313,
+      "changes": 669,
+      "top1_file": "test_cleanup_logic.py",
+      "top1_changes": 252,
+      "top1_change_ratio": 0.3768,
+      "files_by_status": {
+        "added": 2,
+        "modified": 5,
+        "removed": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        "(root)",
+        "rdagent",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 8,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 8,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "renamed": 3,
+        "review_requested": 2,
+        "copilot_work_finished": 3,
+        "ready_for_review": 1,
+        "reviewed": 1,
+        "commented": 6
+      },
+      "lifespan_hours": 5.169,
+      "first_review_delay_hours": 2.666,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "docker_container_cleanup",
+      "resource_leak_prevention"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "code_deduplication",
+      "ci_passing",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot added try-finally cleanup; peteryang1 requested deduplication and CI fixes; PR merged after iterative improvements."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 669,
+        "interpretation": "At 669 changed lines across 7 files, this is a small-to-medium refactor that fixes a Docker resource leak. The outcome (merged after iterative review) is consistent with a performance fix that required multiple rounds of code-quality adjustments."
+      },
+      "lifecycle": {
+        "lifespan_hours": 5.169,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_quality",
+      "primary_concern": "code_deduplication_and_ci",
+      "concern_detail": "Peteryang1 requested to reuse cleanup code across functions and later fix mypy CI errors; Copilot responded iteratively.",
+      "performance_claim": "Prevent Docker container accumulation that causes system slowdown over long-running experiment sessions.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "resource_leak",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "code_deduplication",
+        "ci_passing"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Fixing a Docker resource leak with try-finally blocks is within Copilot's capability; the main review friction concerned code deduplication and CI type checking, not the core fix.",
+      "success_factors": [
+        "iterative_review_engagement",
+        "quick_response_to_feedback",
+        "linked_issue"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Peteryang1 manually reviewed the cleanup logic, requested reuse of shared functions, and enforced CI mypy compliance.",
+        "ci_auto": "CI/my failed with type errors, prompting comment and subsequent fixes."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body describes root cause and fix with code examples; no benchmark or timing data, but the performance impact is deductive.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After initial comment to deduplicate, Copilot refactored; then after CI errors, fixed type annotations; PR merged after all comments resolved.",
+      "evidence_gap": "narrative_only_no_performance_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added try-finally blocks to ensure Docker containers are stopped and removed after use in env.py, health_check.py, and GPU test code; later extracted common cleanup function and fixed type annotations per review.",
+      "files_primary": [
+        "rdagent/utils/env.py",
+        "rdagent/app/utils/health_check.py"
+      ],
+      "files_secondary_observability": [
+        "test/utils/test_env.py",
+        "test_docker_cleanup.py",
+        "test_cleanup_logic.py",
+        "rdagent/core/conf.py",
+        "rdagent/core/proposal.py"
+      ],
+      "secondary_note": "Temporary test files were added then removed during development; conf.py and proposal.py changes were incidental CI fixes.",
+      "change_trajectory": [
+        "Initial plan and commits: added try-finally cleanup in env.py, health_check.py, and GPU test; created test files.",
+        "Removed temporary test files.",
+        "After review comment 'reuse all the finally code in gpu check', refactored to extract reusable _cleanup_container methods across files.",
+        "Further review: 'health_check.py can call shared function'; refactored to single cleanup_container in env.py and imported in health_check.py.",
+        "Human maintainer pushed CI fixes and requested mypy type fixes.",
+        "Copilot added type annotations and resolved mypy errors.",
+        "Final cleanup: removed unnecessary wrapper method in DockerEnv class."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "peteryang1",
+        "channel": "formal_review",
+        "signal": "approved_early",
+        "summary": "Approved PR initially (no body text).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "peteryang1",
+        "channel": "pr_comment",
+        "signal": "request_dedup",
+        "summary": "Asked to reuse all the finally code in GPU check.",
+        "blocking": true,
+        "action_taken": "Refactored to shared helper methods."
+      },
+      {
+        "source": "peteryang1",
+        "channel": "pr_comment",
+        "signal": "further_dedup_request",
+        "summary": "Suggested health_check.py should call shared cleanup from env.py and always stop before remove.",
+        "blocking": true,
+        "action_taken": "Implemented shared cleanup_container function and updated health_check.py."
+      },
+      {
+        "source": "peteryang1",
+        "channel": "pr_comment",
+        "signal": "ci_fix_request",
+        "summary": "Provided mypy error list and requested CI fixes.",
+        "blocking": true,
+        "action_taken": "Fixed type annotations and resolved mypy errors."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with Docker cleanup fix and linked issue.",
+      "Peteryang1 initially approved the PR.",
+      "Peteryang1 then requested code deduplication in cleanup logic.",
+      "Copilot refactored to shared helper methods.",
+      "Peteryang1 further requested using a single shared function.",
+      "Copilot created cleanup_container function in env.py and imported it in health_check.py.",
+      "Human maintainer pushed CI fixes; peteryang1 provided mypy errors.",
+      "Copilot fixed mypy type annotations.",
+      "PR merged after final approval."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

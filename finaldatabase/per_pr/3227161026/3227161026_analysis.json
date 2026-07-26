@@ -1,0 +1,177 @@
+{
+  "pr_id": 3227161026,
+  "meta": {
+    "title": "Add map-based left join in Go compiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/8628",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-14 02:31:21+00:00",
+    "merged_at": "2025-07-14 02:31:42+00:00",
+    "closed_at": "2025-07-14 02:31:42+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Implement map-based left join in the Go compiler backend, regenerate machine outputs for left join programs and TPCH q1, and mark left join task complete."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 11,
+      "additions": 189,
+      "deletions": 380,
+      "changes": 569,
+      "top1_file": "tests/machine/x/go/left_join.go",
+      "top1_changes": 332,
+      "top1_change_ratio": 0.583,
+      "files_by_status": {
+        "modified": 11
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.006,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hash_join",
+      "map_based_left_join",
+      "compiler_optimization"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "merged_by_author_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex produced single-commit Go compiler left-join optimization; merged instantly by author with no review or benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 569,
+        "interpretation": "At 569 changed lines across 11 files, this is a medium-sized self-contained compiler optimization; it regenerates test outputs and was merged instantly by the author without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.006,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback recorded; PR merged instantly by author.",
+      "performance_claim": "Map-based left join improves performance over nested-loop joins in generated Go code.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "nested_loop",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Codex can generate a multi-file compiler optimization touching internal helpers, code generation, and regenerating machine output consistently.",
+      "success_factors": [
+        "author_self_merge",
+        "pre_tested_with_go_test",
+        "consistent_regeneration"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or before/after metrics provided; only test commands listed but no results.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No review or regression handling occurred.",
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Implemented map-based left join logic in Go compiler code generation (compiler.go and helpers.go), regenerated machine outputs for all left join test programs and TPCH q1, and marked left join task complete.",
+      "files_primary": [
+        "compiler/x/go/compiler.go",
+        "compiler/x/go/helpers.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/go/left_join.go",
+        "tests/machine/x/go/left_join_multi.go",
+        "tests/machine/x/go/group_by_left_join.go",
+        "tests/machine/x/go/left_join.error",
+        "tests/machine/x/go/left_join_multi.error",
+        "tests/machine/x/go/group_by_left_join.error",
+        "tests/dataset/tpc-h/compiler/go/q1.go",
+        "tests/machine/x/go/README.md",
+        "compiler/x/go/TASKS.md"
+      ],
+      "secondary_note": "Most changes are in regenerated test machine outputs and error files; the core compiler change is ~72 lines across compiler.go and helpers.go.",
+      "change_trajectory": [
+        "Single commit: added map-based left join logic in compiler and helpers, regenerated all relevant Go machine outputs and test error files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged instantly by author with no review interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

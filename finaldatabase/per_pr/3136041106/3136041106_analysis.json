@@ -1,0 +1,224 @@
+{
+  "pr_id": 3136041106,
+  "meta": {
+    "title": "Fix scroll wheel responsiveness in Windows App SDK by using system scroll settings",
+    "html_url": "https://github.com/microsoft/react-native-windows/pull/14760",
+    "repo": "microsoft/react-native-windows",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-11 08:58:57+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-14 15:23:48+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "28",
+    "body_summary": "Make scroll wheel in Windows App SDK respect system 'lines per notch' setting and DPI by using SystemParametersInfo, fixing sluggish scrolling in React Native Windows."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 7,
+      "file_count": 5,
+      "additions": 1173,
+      "deletions": 1139,
+      "changes": 2312,
+      "top1_file": "vnext/codegen/rnwcoreJSI.h",
+      "top1_changes": 2036,
+      "top1_change_ratio": 0.881,
+      "files_by_status": {
+        "added": 2,
+        "modified": 3,
+        "removed": 0
+      },
+      "directory_count": 2,
+      "directories": [
+        "change",
+        "vnext"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 11,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 6,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 3,
+        "mentioned": 3,
+        "subscribed": 3,
+        "commented": 6,
+        "ready_for_review": 1
+      },
+      "lifespan_hours": 798.41,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "windows_scroll_wheel_behavior",
+      "dpi_aware_scrolling",
+      "system_settings_integration"
+    ],
+    "optimization_layer": "native_platform_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "ignoring_os_scroll_preferences"
+    ],
+    "outcome_reason": "stale_inactive_no_approval",
+    "review_dimensions": [
+      "process_requirements",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot implemented Windows system scroll-awareness but maintainer only requested process changes (change file, lint) and PR was closed without merge or performance validation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2312,
+        "interpretation": "At 2312 changed lines, this is a medium-to-large change by absolute volume, but most churn is in codegen files (2036 lines) and a change file; the core fix in ScrollViewComponentView.cpp is ~30 lines. Closed without merge, consistent with procedural hurdles and lack of maintainer approval."
+      },
+      "lifecycle": {
+        "lifespan_hours": 798.41,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "process_requirements",
+      "primary_concern": "process_compliance",
+      "concern_detail": "Maintainer anupriya13 requested generating a change file, running lint:fix, and removing unnecessary codegen changes; Copilot addressed them, but PR eventually closed without performance-related review or approval.",
+      "performance_claim": "Scroll wheel becomes more responsive by respecting Windows system scroll settings (lines per notch) and DPI scaling, replacing raw delta with system-aware calculation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "ignoring_os_scroll_preferences",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "process_requirements",
+        "ci_validation"
+      ],
+      "rejection_signals": "PR closed after ~33 days without maintainer approval; no performance or functional feedback from reviewers; only procedural interactions."
+    },
+    "capability_boundary": {
+      "topic": "28",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Integrating Windows-specific SystemParametersInfo API requires platform expertise; Copilot handled the API call, but process requirements (change file, lint rules) and inability to self-trigger CI exposed process boundaries.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review for performance; maintainer focused only on process requirements.",
+        "ci_auto": "CI pipelines were triggered by maintainer, but no performance-specific validation was performed."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body provides numeric calculation scenarios but no before/after measurements or benchmark; maintainer did not test scroll behavior.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after ~33 days; no regression observed; procedural requests were addressed but no approval was given.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In vnext/Microsoft.ReactNative/Fabric/Composition/ScrollViewComponentView.cpp, OnPointerWheelChanged now uses SystemParametersInfo to retrieve wheel scroll lines and calculates scroll delta based on notches, system lines, and pointScaleFactor; added helper GetSystemWheelScrollLines with error handling.",
+      "files_primary": [
+        "vnext/Microsoft.ReactNative/Fabric/Composition/ScrollViewComponentView.cpp"
+      ],
+      "files_secondary_observability": [
+        "change/react-native-windows-56d5c52c-eafd-4d70-b086-128202d7593e.json",
+        "vnext/codegen/rnwcoreJSI-generated.cpp",
+        "vnext/codegen/rnwcoreJSI.h"
+      ],
+      "secondary_note": "Codegen files had large churn (2036 lines in rnwcoreJSI.h) due to regeneration; change file is a standard project artifact.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Implementation of system-aware scroll calculation and helper function.",
+        "Improved error handling in helper.",
+        "Several commits to add proper change file, with some attempts incorrectly adding codegen changes.",
+        "Lint fix and removal of unnecessary codegen changes.",
+        "PR closed without merge after ~33 days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "anupriya13",
+        "channel": "pr_comment",
+        "signal": "request_change_file",
+        "summary": "Asked Copilot to generate a change file with yarn change.",
+        "blocking": false,
+        "action_taken": "Copilot created change file in commit 48e7b6c."
+      },
+      {
+        "source": "anupriya13",
+        "channel": "pr_comment",
+        "signal": "request_lint_fix_and_codegen_cleanup",
+        "summary": "Requested yarn lint:fix and removal of codegen directory changes.",
+        "blocking": false,
+        "action_taken": "Copilot addressed in commit cae4d5d."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "task_completion",
+        "summary": "Confirmed completion of change file and lint fix work.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "azure-pipelines[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_started",
+        "summary": "Azure Pipelines started for CI validation.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR fixing scroll wheel linked to issue.",
+      "Maintainer requested change file generation; Copilot implemented.",
+      "Maintainer requested lint fixes and codegen cleanup; Copilot implemented.",
+      "CI pipelines triggered by maintainer.",
+      "No further interaction; PR closed after ~33 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

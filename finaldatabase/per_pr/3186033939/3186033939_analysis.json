@@ -1,0 +1,175 @@
+{
+  "pr_id": 3186033939,
+  "meta": {
+    "title": "Optimize vm grouping",
+    "html_url": "https://github.com/mochilang/mochi/pull/3947",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-29 10:35:42+00:00",
+    "merged_at": "2025-06-29 10:36:08+00:00",
+    "closed_at": "2025-06-29 10:36:08+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "21",
+    "body_summary": "Optimize group by in Mochi VM by precomputing count to reduce runtime overhead; regenerate IR golden files accordingly."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 10,
+      "additions": 492,
+      "deletions": 421,
+      "changes": 913,
+      "top1_file": "tests/vm/valid/group_by_left_join.ir.out",
+      "top1_changes": 131,
+      "top1_change_ratio": 0.143,
+      "files_by_status": {
+        "modified": 10
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.007,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "vm_group_by_count_precompute",
+      "group_by_optimization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex submitted a VM group-by optimization with IR test golden updates; merged within 26 seconds without review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 913,
+        "interpretation": "At 913 changed lines across 10 files, this is a medium-sized edit by absolute volume, though the core VM change is only 41 lines while the bulk is IR golden file updates. This fits a small-step, test-backed performance PR that merged without review in under 30 seconds."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.007,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "",
+      "performance_claim": "Precomputing count in group by reduces runtime overhead during VM execution.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "21",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "VM group-by optimization with test updates demonstrates ability to produce small, self-contained performance changes that pass tests and require no review for merge.",
+      "success_factors": [
+        "small_scope",
+        "test_updates_included",
+        "maintainer_fast_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance data; only test suite passes as validation.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions detected; PR merged immediately without review cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, the group-by implementation precomputes count instead of computing it per group, reducing runtime overhead. All IR golden files under tests/vm/valid/ are updated to reflect the new optimized IR output.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/group_by.ir.out",
+        "tests/vm/valid/group_by_conditional_sum.ir.out",
+        "tests/vm/valid/group_by_having.ir.out",
+        "tests/vm/valid/group_by_join.ir.out",
+        "tests/vm/valid/group_by_left_join.ir.out",
+        "tests/vm/valid/group_by_multi_join.ir.out",
+        "tests/vm/valid/group_by_multi_join_sort.ir.out",
+        "tests/vm/valid/group_by_sort.ir.out",
+        "tests/vm/valid/group_items_iteration.ir.out"
+      ],
+      "secondary_note": "IR golden file changes are purely output regeneration; the actual performance logic change is in vm.go.",
+      "change_trajectory": [
+        "Single commit introducing count precomputation in vm.go and regenerating IR golden files; merged immediately after creation."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created by tamnd (via OpenAI_Codex) and self-merged within 26 seconds without any review or comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "pr_id": 3261933492,
+  "meta": {
+    "title": "Fix swift rosetta benchmark runtime",
+    "html_url": "https://github.com/mochilang/mochi/pull/12958",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-25 04:20:51+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "17",
+    "body_summary": "Improve `_now` handling and seed PRNG in the Swift transpiler to speed up rosetta benchmark programs, with regenerated code and updated docs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 23,
+      "deletions": 12,
+      "changes": 35,
+      "top1_file": "transpiler/x/swift/transpiler_test.go",
+      "top1_changes": 14,
+      "top1_change_ratio": 0.4,
+      "files_by_status": {
+        "added": 1,
+        "modified": 6
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 2,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1
+      },
+      "lifespan_hours": 6345.56,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "_now_handling_improvement",
+      "prng_seeding",
+      "swift_rosetta_benchmark_speed"
+    ],
+    "optimization_layer": "transpiler_code_generation",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_stale_superseded",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex PR with 35-line change to Swift transpiler for rosetta benchmark speed; no review; closed months later as too old to merge, content superseded."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 35,
+        "interpretation": "Very small 35-line change across 7 files. Consistent with a small-step performance tweak, but it was closed without merge due to staleness and content being superseded."
+      },
+      "lifecycle": {
+        "lifespan_hours": 6345.56,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No formal review occurred. Author closed the PR 8+ months later, stating it was too old to resolve conflicts and the content was superseded by main.",
+      "performance_claim": "Improve `_now` handling and seed PRNG to keep rosetta programs fast.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR left unreviewed; author later closed as stale due to conflict and content superseded."
+    },
+    "capability_boundary": {
+      "topic": "17",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small-scale transpiler optimization; no maintainer engagement, PR abandoned, illustrating process boundary where lack of review leads to staleness.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance numbers, only a command to run golden test; no benchmark data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Closed by author due to age and supersession, not due to maintainer regression detection.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In transpiler/x/swift/transpiler.go, adjusted `_now` handling; in tests/rosetta/transpiler/Swift/100-prisoners.swift, seeded PRNG and updated generated code; added .bench file; minor doc updates.",
+      "files_primary": [
+        "transpiler/x/swift/transpiler.go",
+        "tests/rosetta/transpiler/Swift/100-prisoners.swift"
+      ],
+      "files_secondary_observability": [
+        "tests/rosetta/transpiler/Swift/100-prisoners.bench",
+        "transpiler/x/swift/README.md",
+        "transpiler/x/swift/ROSETTA.md",
+        "transpiler/x/swift/TASKS.md",
+        "transpiler/x/swift/transpiler_test.go"
+      ],
+      "secondary_note": "Test file updates reflect expected output changes; documentation updates accompany the change.",
+      "change_trajectory": [
+        "Single commit 66632ce: improve _now handling in transpiler, seed PRNG, regenerate code, update benchmark and docs."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "tamnd",
+        "channel": "pr_comment",
+        "signal": "author_close_stale",
+        "summary": "Author closed PR as too old to resolve conflicts cleanly; content superseded by main.",
+        "blocking": false,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "OpenAI_Codex submitted PR with 35-line Swift transpiler improvement for rosetta benchmark speed.",
+      "No reviews or comments for over 8 months.",
+      "Author closed PR as stale, noting content superseded by main."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

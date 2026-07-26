@@ -1,0 +1,207 @@
+{
+  "pr_id": 3075207290,
+  "meta": {
+    "title": "Avoid reopening /dev/kvm or /dev/mshv for every new sandbox",
+    "html_url": "https://github.com/hyperlight-dev/hyperlight/pull/510",
+    "repo": "hyperlight-dev/hyperlight",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-19 23:13:12+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-20 18:08:18+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "2_hydration_species_component_children",
+    "body_summary": "Cache /dev/kvm and /dev/mshv file handles using OnceLock globals to avoid reopening device files for every new sandbox, claiming significant reduction in file operations."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 9,
+      "file_count": 5,
+      "additions": 189,
+      "deletions": 63,
+      "changes": 252,
+      "top1_file": "src/hyperlight_host/src/hypervisor/kvm.rs",
+      "top1_changes": 125,
+      "top1_change_ratio": 0.496,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "CHANGES_REQUESTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 12,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 3,
+        "labeled": 2,
+        "commented": 4,
+        "mentioned": 4,
+        "subscribed": 4,
+        "reviewed": 1
+      },
+      "lifespan_hours": 18.92,
+      "first_review_delay_hours": 10.75,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "device_handle_caching",
+      "file_descriptor_reuse",
+      "hypervisor_optimization"
+    ],
+    "optimization_layer": "os_resource_management",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "closed_superseded_by_pr_469",
+    "review_dimensions": [
+      "tests",
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot added handle caching with tests after review, but PR was closed in favor of existing human PR #469 as a Copilot experiment."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 252,
+        "interpretation": "At 252 changed lines across 5 files, this is a small, concentrated refactor. As a small-step performance PR it was closed—not merged—because an alternative human PR (#469) superseded the work."
+      },
+      "lifecycle": {
+        "lifespan_hours": 18.92,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "tests_missing_or_requested",
+      "primary_concern": "tests_missing",
+      "concern_detail": "Maintainer simongdavies CHANGES_REQUESTED: 'Please add some tests for this new functionality'. Copilot responded with unit tests in subsequent commits.",
+      "performance_claim": "Avoid reopening /dev/kvm or /dev/mshv for every new sandbox, reducing file operations and speeding up sandbox creation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io (reopening device files for each sandbox)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "tests",
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": "Maintainer closed PR with note 'Closing in favour of #469, this was a good test of copilot coding agent'."
+    },
+    "capability_boundary": {
+      "topic": "2_hydration_species_component_children",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "PR closed despite being functionally correct and addressing review feedback, because an alternative human PR (#469) existed; Copilot's work was treated as an experiment.",
+      "success_factors": [
+        "responded_to_review_feedback"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "simongdavies reviewed the handle caching logic and requested tests; no benchmark or profiling evidence was required."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after timing data or benchmark; only a narrative claim of significant reduction in file operations.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed because alternative PR #469 superseded the approach, not due to performance regressions; no revert or fix cycle occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced static OnceLock globals KVM_HANDLE and MSHV_HANDLE in kvm.rs and hyperv_linux.rs to cache hypervisor device handles; modified driver constructors and is_hypervisor_present() to reuse cached handles instead of opening new file descriptors each sandbox.",
+      "files_primary": [
+        "src/hyperlight_host/src/hypervisor/kvm.rs",
+        "src/hyperlight_host/src/hypervisor/hyperv_linux.rs"
+      ],
+      "files_secondary_observability": [
+        "src/hyperlight_host/src/hypervisor/hypervisor_handler.rs"
+      ],
+      "secondary_note": "Unit tests for handle caching were added to these three files in a later commit.",
+      "change_trajectory": [
+        "Initial implementation (1e2faa8) cached KVM and MSHV handles using OnceLock globals.",
+        "Fix commit (a4f3a30) resolved type mismatches in the caching implementation.",
+        "Test commit (407ea32) added unit tests for handle reuse.",
+        "Several rebase/merge commits attempted to keep branch up to date; PR eventually closed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "simongdavies",
+        "channel": "formal_review",
+        "signal": "changes_requested_tests_missing",
+        "summary": "CHANGES_REQUESTED: 'Please add some tests for this new functionality'.",
+        "blocking": true,
+        "action_taken": "Copilot added unit tests in commit 407ea32."
+      },
+      {
+        "source": "simongdavies",
+        "channel": "pr_comment",
+        "signal": "closed_favor_alternative",
+        "summary": "Closing in favour of #469, this was a good test of copilot coding agent.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with handle caching implementation.",
+      "Maintainer simongdavies requested tests and assisted with firewall issues to allow building.",
+      "Copilot added tests and responded to rebase requests.",
+      "Maintainer closed PR in favor of existing human PR #469, noting it was a test of Copilot."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

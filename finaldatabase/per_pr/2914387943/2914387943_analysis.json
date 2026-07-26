@@ -1,0 +1,226 @@
+{
+  "pr_id": 2914387943,
+  "meta": {
+    "title": "fix: improve deploy history performance and code quality",
+    "html_url": "https://github.com/Cap-go/capgo/pull/1050",
+    "repo": "Cap-go/capgo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-03-12 15:39:53+00:00",
+    "merged_at": null,
+    "closed_at": "2025-03-13 22:27:01+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "34",
+    "body_summary": "Implement deploy history screen with database indexes, server-side search, and API call batching, claiming improved performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 11,
+      "file_count": 36,
+      "additions": 1517,
+      "deletions": 364,
+      "changes": 2052,
+      "top1_file": "src/components/tables/HistoryTable.vue",
+      "top1_changes": 531,
+      "top1_change_ratio": 0.2588,
+      "files_by_status": {
+        "added": 6,
+        "modified": 30,
+        "deleted": 0
+      },
+      "directory_count": 6,
+      "directories": [
+        "(root)",
+        "messages",
+        "scripts",
+        "src",
+        "supabase",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 7,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 20,
+      "event_counts": {
+        "committed": 11,
+        "commented": 7,
+        "mentioned": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 30.785,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "database_index",
+      "server_side_search",
+      "api_call_batching",
+      "data_transfer_reduction"
+    ],
+    "optimization_layer": "database",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_redundant_feature_exists",
+    "review_dimensions": [
+      "scope"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin implemented deploy history feature with DB indexes and server-side search; maintainer closed because similar functionality already existed."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2052,
+        "interpretation": "At 2052 changed lines across 36 files, this is a large refactor by absolute volume. As a feature-adding performance PR, it was closed because the maintainer indicated that most of the functionality already existed, making it redundant."
+      },
+      "lifecycle": {
+        "lifespan_hours": 30.785,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "redundant_functionality",
+      "concern_detail": "Maintainer riderx commented 'sorry dude you over runned we already have most of what you re did', indicating the PR duplicates existing work.",
+      "performance_claim": "Improved performance through database indexes, server-side search, and API call batching.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "scope"
+      ],
+      "rejection_signals": "Maintainer explicitly stated feature already exists, then closed PR."
+    },
+    "capability_boundary": {
+      "topic": "34",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent implemented a feature without awareness of existing similar functionality, leading to redundant work and maintainer rejection.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer riderx reviewed the PR content and determined that the deploy history feature was already implemented, thus closing the PR."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or reproduction steps provided; maintainer did not validate performance, only compared functionality.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge due to redundancy.",
+      "evidence_gap": "context_gap_existing_feature"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added deploy history screen with Vue HistoryTable, new database migrations for deploy_history table and indexes, backend metadata update endpoint, and frontend performance optimizations like server-side search and Promise.all for API calls.",
+      "files_primary": [
+        "src/components/tables/HistoryTable.vue",
+        "supabase/migrations/20250311041340_deploy_history.sql",
+        "supabase/functions/_backend/public/bundle/update_metadata.ts",
+        "src/types/deploy_history.ts",
+        "supabase/migrations/20250312153700_deploy_history_indexes.sql"
+      ],
+      "files_secondary_observability": [
+        "messages/en.json",
+        "src/pages/app/p/[p]/channel/[channel].vue",
+        "src/pages/app/p/[p]/bundle/[bundle].vue",
+        "supabase/functions/_backend/public/bundle/index.ts",
+        "tests/cli.test.ts",
+        "tests/bundle.test.ts",
+        "messages/de.json",
+        "messages/es.json",
+        "messages/fr.json",
+        "messages/id.json",
+        "messages/it.json",
+        "messages/ja.json",
+        "messages/ko.json",
+        "messages/pl.json",
+        "messages/pt-br.json",
+        "messages/ru.json",
+        "messages/tr.json",
+        "messages/vi.json",
+        "messages/zh-cn.json",
+        "src/types/supabase.types.ts",
+        "supabase/functions/_backend/utils/supabase.types.ts",
+        "supabase/migrations/20240513055310_base.sql",
+        "CHANGELOG.md",
+        "bun.lockb",
+        "package.json",
+        "src/components/ApiKeys.vue",
+        "src/styles/style.css",
+        "scripts/getTypes.mjs",
+        "src/components.d.ts",
+        "supabase/functions/_backend/utils/update.ts"
+      ],
+      "secondary_note": "Most line churn is from riderx's history display fix commit which heavily modified HistoryTable.vue and added many i18n entries.",
+      "change_trajectory": [
+        "Initial commit: added deploy history screen, migrations, metadata endpoint.",
+        "Fix commits for CLI tests, URL validation, operator precedence.",
+        "Added bundle metadata tests.",
+        "Merge main and riderx's 'fix: history display' with large i18n and type changes.",
+        "Devin performance improvement commit adding indexes and refactoring code.",
+        "Linting fixes.",
+        "Maintainer closed PR citing existing functionality."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "riderx",
+        "channel": "pr_comment",
+        "signal": "redundant_feature_rejection",
+        "summary": "Maintainer stated they already had most of the implemented functionality and closed the PR.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with deploy history feature.",
+      "Devin posted self-analysis and performance analysis comments.",
+      "Maintainer riderx closed PR with comment that feature already exists."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "pr_id": 3140054883,
+  "meta": {
+    "title": "Optimize GitHub sync functionality by using lastSyncedState instead of remote pulls",
+    "html_url": "https://github.com/tokens-studio/figma-plugin/pull/3422",
+    "repo": "tokens-studio/figma-plugin",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-12 12:13:25+00:00",
+    "merged_at": null,
+    "closed_at": "2026-07-13 09:02:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 6,
+    "topic_name": "6",
+    "body_summary": "Optimize GitHub sync by using lastSyncedState to skip remote pulls and only push changed files, reducing API calls and sync time."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 7,
+      "additions": 694,
+      "deletions": 15,
+      "changes": 709,
+      "top1_file": "packages/tokens-studio-for-figma/src/storage/__tests__/GithubOptimization.test.ts",
+      "top1_changes": 250,
+      "top1_change_ratio": 0.3526,
+      "files_by_status": {
+        "added": 3,
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "commented": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1
+      },
+      "lifespan_hours": 9501,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "github_sync",
+      "lastSyncedState_usage",
+      "push_changeset_optimization"
+    ],
+    "optimization_layer": "storage_sync",
+    "evidence_type": [
+      "narrative",
+      "unit_tests"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot PR to optimize GitHub sync via lastSyncedState; no human reviews, closed after ~1 year inactivity with no merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 709,
+        "interpretation": "At 709 changed lines, this is a medium-sized edit by absolute volume, concentrated in a new utility, tests, and modifications to sync logic. As a performance optimization PR, it was closed without review engagement, consistent with many stale agent PRs."
+      },
+      "lifecycle": {
+        "lifespan_hours": 9501,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No formal review or substantive feedback provided; the only comment is from changeset-bot noting missing changeset. PR remained open for over a year before closure without human review.",
+      "performance_claim": "Reduce GitHub API calls and data transfer by using lastSyncedState to avoid unnecessary remote pulls and only push changed files.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_remote_pulls_and_full_file_push",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed after ~1 year inactivity; no human review engagement or requested changes."
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "The PR's substance (sync optimization) is technically plausible, but without maintainer engagement and no benchmark validation, the process boundary prevented merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human review text; no code reading evidence.",
+        "ci_auto": "No CI performance evaluation observed."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body includes testing commands and narrative claims about reduced API calls, but no benchmark data or reproduction steps for performance measurement.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after prolonged inactivity.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added determineFileChanges utility to compare current state with lastSyncedState, identifying file-level changes (create/update/delete). Integrated into GitHub sync flow to skip remote pull and only push changed files. Also added writeChangesetOptimized method and comprehensive tests.",
+      "files_primary": [
+        "packages/tokens-studio-for-figma/src/utils/determineFileChanges.ts",
+        "packages/tokens-studio-for-figma/src/app/store/providers/github/github.tsx",
+        "packages/tokens-studio-for-figma/src/storage/GithubTokenStorage.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/tokens-studio-for-figma/src/utils/__tests__/determineFileChanges.test.ts",
+        "packages/tokens-studio-for-figma/src/storage/__tests__/GithubOptimization.test.ts",
+        "packages/tokens-studio-for-figma/src/selectors/index.ts"
+      ],
+      "secondary_note": "Test files add substantial line count; selectors/index.ts export addition is minor.",
+      "change_trajectory": [
+        "Initial plan commit (empty).",
+        "Implementation of determineFileChanges, changes to github.tsx, GithubTokenStorage.ts, and unit tests.",
+        "Follow-up fix for build errors and export tokenFormatSelector.",
+        "Added integration test file GithubOptimization.test.ts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "missing_changeset_notification",
+        "summary": "Noted that no changeset was included; this is a packaging concern, not a performance review.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with sync optimization, unit tests, and integration tests.",
+      "Changeset bot commented on missing changeset.",
+      "No human review occurred; PR left open for over a year before closure."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

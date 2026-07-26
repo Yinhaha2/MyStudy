@@ -1,0 +1,160 @@
+{
+  "pr_id": 3186409173,
+  "meta": {
+    "title": "Optimize inner joins",
+    "html_url": "https://github.com/mochilang/mochi/pull/4004",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-29 17:47:36+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 12:01:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "5",
+    "body_summary": "Improve join optimization in the VM by choosing the smaller side for non-equality inner joins; the PR includes a test command that fails."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 6,
+      "deletions": 0,
+      "changes": 6,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 6,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "runtime"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 42.23,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "join_order_optimization",
+      "small_table_selection",
+      "non_equality_join_speedup"
+    ],
+    "optimization_layer": "runtime",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_author_test_failure",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "No review or comment text; PR closed by author after self-reported test failure with no benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 6,
+        "interpretation": "At 6 lines added, this is a micro-change by absolute volume. This tiny join-heuristic tweak could be a low-risk optimization, but it was closed without merge, likely due to the failing test or lack of evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 42.23,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "test_failure_self_reported",
+      "concern_detail": "The PR body includes a test command that fails with 'go run error: exit status 1', and there are no human review comments; the author closed the PR two days later.",
+      "performance_claim": "Picking the smaller table side for non-equality inner joins should improve join performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed PR after self-reported test failure; no external review."
+    },
+    "capability_boundary": {
+      "topic": "5",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "This small VM join optimization PR received zero human review and was closed by the author with a self-reported test failure, indicating a process boundary where agent-authored changes may lack validation or maintainer interest.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Only a failing test command is provided; no before/after metrics or benchmark.",
+      "regression_handling": "reject_close",
+      "regression_detail": "The PR was closed by the author after two days with no further commits and a failing test.",
+      "evidence_gap": "narrative_only_test_failure"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added 6 lines to runtime/vm/vm.go to select the smaller table side for non-equality inner joins in compileJoinQuery, swapping the join sides based on estimated sizes.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: 'vm: choose smaller side for complex inner join' adding a heuristic to pick the smaller side for non-equality joins."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with a small VM join optimization and a failing test command.",
+      "No human or bot review; author closed PR after ~42 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

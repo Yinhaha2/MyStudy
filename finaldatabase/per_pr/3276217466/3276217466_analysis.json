@@ -1,0 +1,170 @@
+{
+  "pr_id": 3276217466,
+  "meta": {
+    "title": "Refactor json-ast go nodes",
+    "html_url": "https://github.com/mochilang/mochi/pull/14939",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-30 08:52:21+00:00",
+    "merged_at": "2025-07-30 08:52:32+00:00",
+    "closed_at": "2025-07-30 08:52:32+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 20,
+    "topic_name": "20",
+    "body_summary": "Make Go json-ast nodes omit positions unless IncludePositions is enabled and regenerate the cross_join AST without position info to reduce output size."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 143,
+      "deletions": 1303,
+      "changes": 1446,
+      "top1_file": "tests/json-ast/x/go/cross_join.go.json",
+      "top1_changes": 1418,
+      "top1_change_ratio": 0.98,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "tests",
+        "tools"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00306,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "json_ast_size_reduction",
+      "position_stripping",
+      "optional_positions"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit refactor making position inclusion optional in JSON AST nodes; merged instantly without review, likely pre-trusted by maintainer."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1446,
+        "interpretation": "At 1446 changed lines, this is a large edit by absolute volume, but most deletions (1293 lines) are from regenerating the cross_join.go.json fixture without position fields. The core logic change in ast.go is only 28 lines. This fits a fast-turnaround infrastructure cleanup merged without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00306,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Positions in JSON AST nodes are omitted by default to reduce AST size and improve serialization/parsing performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "20",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "This PR merged instantly with zero human interaction, indicating either high maintainer trust in agent-authored tool changes or pre‑approval via external task (Codex). The boundary is process‑related: a maintainer self‑merging without formal review.",
+      "success_factors": [
+        "narrow_scoped_logic",
+        "fast_self_merge",
+        "regenerated_fixture_no_conflict"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No formal review; maintainer merged instantly, possibly after offline review or via linked Codex task."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or before/after numbers; only a go test command for functional consistency, not performance.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No review or regression issues occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In tools/json-ast/x/go/ast.go, added an IncludePositions option to Node type and modified serialization to omit position fields when false. The cross_join.go.json test fixture was regenerated without any position properties, resulting in a net deletion of 1293 lines of position data.",
+      "files_primary": [
+        "tools/json-ast/x/go/ast.go"
+      ],
+      "files_secondary_observability": [
+        "tests/json-ast/x/go/cross_join.go.json"
+      ],
+      "secondary_note": "The fixture file had 1293 lines of position fields removed; the ast.go logic change is 28 lines.",
+      "change_trajectory": [
+        "Single commit: added optional positions logic in ast.go and regenerated cross_join.go.json fixture."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged within 11 seconds, with no human review or interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

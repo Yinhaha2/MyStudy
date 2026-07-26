@@ -1,0 +1,169 @@
+{
+  "pr_id": 3146329050,
+  "meta": {
+    "title": "[WIP] [tracking] Improve Sequence operator handling",
+    "html_url": "https://github.com/microsoft/onnxruntime/pull/25066",
+    "repo": "microsoft/onnxruntime",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-06-14 16:00:00+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 4,
+    "topic_name": "4_kernel_fp32_linear_operator",
+    "body_summary": "Reduce tensor copying in SequenceInsert and SequenceConstruct via move semantics and a CreateTensorOrtValue helper, with planned benchmarks not yet implemented; Copilot agent marked copilot_work_finished_failure."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 1,
+      "additions": 23,
+      "deletions": 6,
+      "changes": 29,
+      "top1_file": "onnxruntime/core/providers/cpu/sequence/sequence_ops.cc",
+      "top1_changes": 29,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "onnxruntime"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "copilot_work_started": 1,
+        "unsubscribed": 1,
+        "copilot_work_finished_failure": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "tensor_copy_reduction",
+      "move_semantics",
+      "sequence_operator"
+    ],
+    "optimization_layer": "runtime_kernel",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "agent_failed_to_complete_work",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Small copy-elision patch with no review engagement; copilot_work_finished_failure indicates Copilot agent did not complete the task; PR remains open with no maintainer activity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 29,
+        "interpretation": "At 29 changed lines in one file, this is a tiny edit by absolute volume. It is a small step toward optimizing sequence operators but remains open without any review or merge attempt; the Copilot agent encountered a copilot_work_finished_failure, indicating the planned work was not completed successfully."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review or comment text available in dataset; the PR body lists planned benchmarks and tests that were not implemented.",
+      "performance_claim": "Reduce unnecessary tensor copies in SequenceInsert and SequenceConstruct via move semantics and direct OrtValue creation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "tensor_copy_overhead (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4_kernel_fp32_linear_operator",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot produced a small code change but failed to complete the task (copilot_work_finished_failure); without benchmarks or maintainer interaction, the PR stalled as open.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of maintainer code review; only a copilot_work_finished_failure event and an unrelated unsubscription by a potential reviewer."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after measurements provided; only narrative claim of reduced copies.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No review feedback or regression indication; PR remains open.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In onnxruntime/core/providers/cpu/sequence/sequence_ops.cc, added CreateTensorOrtValue() function to construct OrtValue with move semantics; updated SequenceInsert and SequenceConstruct to use the helper, replacing previous copy-prone paths.",
+      "files_primary": [
+        "onnxruntime/core/providers/cpu/sequence/sequence_ops.cc"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial plan commit (empty).",
+        "Second commit introduces CreateTensorOrtValue and modifies SequenceInsert/SequenceConstruct (23 added, 6 deleted).",
+        "copilot_work_finished_failure recorded shortly after, no further commits or reviews."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue.",
+      "Copilot agent started work, committed a small optimization, then recorded a copilot_work_finished_failure.",
+      "No human review, comment, or further activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

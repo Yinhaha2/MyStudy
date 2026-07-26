@@ -1,0 +1,204 @@
+{
+  "pr_id": 3132536542,
+  "meta": {
+    "title": "Implement scene caching in canvas",
+    "html_url": "https://github.com/gridaco/grida/pull/385",
+    "repo": "gridaco/grida",
+    "agent": "OpenAI_Codex",
+    "user": "softmarshmallow",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-10 07:53:49+00:00",
+    "merged_at": "2025-06-10 15:11:33+00:00",
+    "closed_at": "2025-06-10 15:11:33+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "23",
+    "body_summary": "Introduce scene caching in the grida-canvas crate to record and reuse rendered scenes, reducing rendering overhead."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 36,
+      "additions": 3110,
+      "deletions": 546,
+      "changes": 4488,
+      "top1_file": "crates/grida-canvas/examples/camera.rs",
+      "top1_changes": 702,
+      "top1_change_ratio": 0.1564,
+      "files_by_status": {
+        "modified": 29,
+        "added": 8,
+        "renamed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "crates"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 6,
+        "labeled": 1,
+        "commented": 3,
+        "deployed": 20
+      },
+      "lifespan_hours": 7.296,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "scene_caching",
+      "canvas_rendering",
+      "reuse_recorded_pictures"
+    ],
+    "optimization_layer": "application_rendering",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added scene caching to canvas crate; merged without human review; no benchmark or performance evidence provided."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 4488,
+        "interpretation": "At 4488 changed lines, this is a medium-sized edit by absolute volume, but includes many lines from merged PRs and examples; the core caching logic is modest. It fits a feature addition that merged quickly with no review friction."
+      },
+      "lifecycle": {
+        "lifespan_hours": 7.296,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Scene caching reduces rendering overhead by reusing pre-recorded pictures across frames.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "23",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Canvas rendering caching in Rust with camera bounds; agent successfully implemented and merged with no code review, indicating the change was within capability and low risk.",
+      "success_factors": [
+        "small_scope_feature",
+        "no_review_friction",
+        "fast_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling evidence; only narrative performance claim.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; no review requested.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added SceneCache helper to record and reuse canvas scenes, modified Renderer to use cache, updated window example, and documented cache depth configuration.",
+      "files_primary": [
+        "crates/grida-canvas/src/scene_cache.rs",
+        "crates/grida-canvas/src/draw.rs"
+      ],
+      "files_secondary_observability": [
+        "crates/grida-canvas/examples/window.rs",
+        "crates/docs/optimization.md",
+        "crates/grida-canvas/README.md"
+      ],
+      "secondary_note": "Many files from merged PR #384 and canary branch inflate total line count; actual caching logic is concentrated in scene_cache.rs and draw.rs.",
+      "change_trajectory": [
+        "Added initial scene caching in draw.rs and scene_cache.rs (70e18ebb).",
+        "Fixed scene caching usage (ff583d89).",
+        "Fixed camera view matrix inversion (ef4f667).",
+        "Fixed scene recording bounds for camera panning (b23ea50).",
+        "Updated README and merged canary changes (7e0ac9, e265692).",
+        "Added configurable scene cache depth (a650474).",
+        "Inverted mouse wheel pan direction (f6a2dd5).",
+        "Merged Frame scheduler PR #384 (4fa2328)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_branch",
+        "summary": "CodeRabbit auto review skipped because target branch is not default.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "codesandbox[bot]",
+        "channel": "pr_comment",
+        "signal": "sandbox_links",
+        "summary": "CodeSandbox bot provided review/edit links.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview links; no perf evaluation.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with scene caching feature; bot comments from CodeSandbox, Vercel, and CodeRabbit; no human review; merged by softmarshmallow after ~7.3 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

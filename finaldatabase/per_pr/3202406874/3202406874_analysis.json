@@ -1,0 +1,174 @@
+{
+  "pr_id": 3202406874,
+  "meta": {
+    "title": "Optimize case builtins in Go backend",
+    "html_url": "https://github.com/mochilang/mochi/pull/5004",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-04 11:40:22+00:00",
+    "merged_at": "2025-07-04 11:40:38+00:00",
+    "closed_at": "2025-07-04 11:40:38+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Avoid runtime helpers for lower/upper builtins when argument type is known by specializing code generation; add regression tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 34,
+      "deletions": 0,
+      "changes": 34,
+      "top1_file": "compile/go/compiler.go",
+      "top1_changes": 10,
+      "top1_change_ratio": 0.294,
+      "files_by_status": {
+        "modified": 1,
+        "added": 6
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.004,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "compiler_optimization",
+      "builtin_case_conversion",
+      "codegen_specialization"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_self_merge",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "No review or benchmark; tiny self-merged compiler optimization with added regression tests; no performance evidence beyond test pass."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 34,
+        "interpretation": "At 34 added lines across 7 files, this is a tiny edit by absolute volume. It fits a small, conservative compiler optimization PR that was self-merged instantly without any review, consistent with low-risk, well-understood changes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.004,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No reviews or comments exist in the dataset.",
+      "performance_claim": "Avoid runtime helpers for lower and upper builtins when argument type is known to improve performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler backend specialization for builtins is within Agent capability for small, localized changes; self-merge suggests maintainer trusted the generated code without external evidence.",
+      "success_factors": [
+        "tiny_scope",
+        "added_regression_tests"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after measurements; only regression test additions provide correctness guard but no performance data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No review objection or regression observed; merged immediately after creation.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/go/compiler.go, added type-specific code generation for lower and upper builtins to avoid calling runtime helper functions when the argument type is known at compile time. Added corresponding test programs and expected output files in tests/compiler/go/.",
+      "files_primary": [
+        "compile/go/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/compiler/go/lower_builtin.mochi",
+        "tests/compiler/go/lower_builtin.out",
+        "tests/compiler/go/lower_builtin.go.out",
+        "tests/compiler/go/upper_builtin.mochi",
+        "tests/compiler/go/upper_builtin.out",
+        "tests/compiler/go/upper_builtin.go.out"
+      ],
+      "secondary_note": "New test files provide compile-output regression coverage for the optimization; actual compiler change is 10 lines.",
+      "change_trajectory": [
+        "Single commit adds optimization to compiler.go and corresponding regression tests."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with codex label; instant self-merge; no review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

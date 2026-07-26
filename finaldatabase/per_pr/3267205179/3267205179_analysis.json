@@ -1,0 +1,184 @@
+{
+  "pr_id": 3267205179,
+  "meta": {
+    "title": "Optimize OPD Income Report with DTO queries",
+    "html_url": "https://github.com/hmislk/hmis/pull/14263",
+    "repo": "hmislk/hmis",
+    "agent": "OpenAI_Codex",
+    "user": "buddhika75",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-27 15:35:45+00:00",
+    "merged_at": "2025-07-27 15:36:08+00:00",
+    "closed_at": "2025-07-27 15:36:08+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 32,
+    "topic_name": "32",
+    "body_summary": "Add OPD income report DTO and optimized page with navigation toggle between legacy and DTO-based views."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 8,
+      "additions": 975,
+      "deletions": 17,
+      "changes": 992,
+      "top1_file": "src/main/webapp/opd/analytics/summary_reports/opd_income_report_dto.xhtml",
+      "top1_changes": 538,
+      "top1_change_ratio": 0.542,
+      "files_by_status": {
+        "modified": 5,
+        "added": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0064,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "dto_query_optimization",
+      "report_page_navigation_toggle"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI Codex authored optimization with no performance evidence; self-merged instantly with no human review or blocking."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 992,
+        "interpretation": "At 992 changed lines across 8 files, this is a medium-sized edit by absolute volume, adding a DTO, service method, and UI page. It fits a moderate performance-optimization PR that merged instantly without review, consistent with the low-friction process on this repository."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0064,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review feedback; PR merged instantly by the same author.",
+      "performance_claim": "Optimize OPD income report with DTO-based queries to improve navigation and presumably reduce database load.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "32",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent-authored PR with substantial code changes was merged by the same author with zero human review; the repository process allows self-merge on this branch.",
+      "success_factors": [
+        "self_merge_by_author",
+        "no_blocking_review"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance evidence, no benchmarks, no before/after metrics; only narrative claim of optimization.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression was reported; merged immediately.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced OpdIncomeReportDTO with basic and detailed constructors, extended IncomeRow and IncomeBundle, added BillService.fetchOpdIncomeReportDTOs() method, created new XHTML page opd_income_report_dto.xhtml, and added navigation toggle on legacy page.",
+      "files_primary": [
+        "src/main/java/com/divudi/core/data/dto/OpdIncomeReportDTO.java",
+        "src/main/java/com/divudi/service/BillService.java",
+        "src/main/webapp/opd/analytics/summary_reports/opd_income_report_dto.xhtml"
+      ],
+      "files_secondary_observability": [
+        "src/main/java/com/divudi/bean/opd/OpdReportController.java",
+        "src/main/java/com/divudi/core/data/IncomeBundle.java",
+        "src/main/java/com/divudi/core/data/IncomeRow.java",
+        "src/main/webapp/opd/analytics/summary_reports/opd_income_report.xhtml",
+        "src/test/java/com/divudi/service/BillServiceOpdIncomeReportDtoTest.java"
+      ],
+      "secondary_note": "Controller modifications and data class extensions support the new DTO flow; unit tests added.",
+      "change_trajectory": [
+        "Single commit added all files: DTO, service method, UI pages, tests."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_review_skipped",
+        "summary": "CodeRabbit auto-review skipped because reviews are disabled on non-default branches.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by buddhika75 with all changes in one commit.",
+      "CodeRabbit bot posted review-skipped notice within seconds.",
+      "PR self-merged by same user within 23 seconds; no human interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

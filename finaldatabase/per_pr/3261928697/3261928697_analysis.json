@@ -1,0 +1,183 @@
+{
+  "pr_id": 3261928697,
+  "meta": {
+    "title": "Add benchmark support for transpiler and VM tests",
+    "html_url": "https://github.com/mochilang/mochi/pull/12955",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-25 04:17:24+00:00",
+    "merged_at": null,
+    "closed_at": "2026-04-16 13:54:10+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "1",
+    "body_summary": "Add benchmark output recording for transpiler and VM Rosetta tests, generating duration and memory usage checklists, with a benchMainFlag to wrap generated main in a benchmark block."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 8,
+      "additions": 460,
+      "deletions": 35,
+      "changes": 495,
+      "top1_file": "runtime/vm/ROSETTA.md",
+      "top1_changes": 293,
+      "top1_change_ratio": 0.592,
+      "files_by_status": {
+        "added": 2,
+        "modified": 6
+      },
+      "directory_count": 3,
+      "directories": [
+        "runtime",
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 2,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1
+      },
+      "lifespan_hours": 6369.6,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmark_infrastructure",
+      "transpiler_benchmark",
+      "vm_benchmark",
+      "rosetta_testing"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_conflicts_superseded",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex PR added benchmark infrastructure for transpiler/VM Rosetta tests; closed after ~9 months as stale/conflicted, superseded by main."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 495,
+        "interpretation": "At 495 changed lines across 8 files, this is a small-to-medium addition by absolute volume. As a test benchmarking infrastructure PR, it was closed without merge after going stale over ~9 months, consistent with lack of review and eventual conflict."
+      },
+      "lifecycle": {
+        "lifespan_hours": 6369.6,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_conflict",
+      "concern_detail": "Author closed the PR after ~9 months because it was too old to resolve conflicts cleanly and content was superseded by main branch.",
+      "performance_claim": "Add benchmark support to record transpiler/VM execution durations and memory usage for Rosetta tests.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed as stale/conflicted; no maintainer review interaction."
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Long-lived PR without review interaction became stale/conflicted; agent PRs may need timely review cycles to avoid discard.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No formal review or maintainer code-reading feedback recorded."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes commands to run benchmark tests, but no benchmark results or evidence of maintainer execution.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR ultimately closed without merge; no regression occurred.",
+      "evidence_gap": "narrative_only_no_benchmark_results"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added benchmark output recording for transpiler and VM Rosetta tests: generates ROSETTA.md checklist with durations and memory usage; wraps generated main in benchmark block via benchMainFlag for transpiler examples.",
+      "files_primary": [
+        "runtime/vm/rosetta_golden_test.go",
+        "transpiler/x/go/transpiler.go"
+      ],
+      "files_secondary_observability": [
+        "runtime/vm/ROSETTA.md",
+        "tests/rosetta/transpiler/Go/100-doors-2.bench",
+        "tests/rosetta/transpiler/Go/100-doors-2.go",
+        "tests/rosetta/x/Mochi/100-doors-2.bench",
+        "transpiler/x/go/README.md",
+        "transpiler/x/go/ROSETTA.md"
+      ],
+      "secondary_note": "Secondary files include generated ROSETTA checklists and benchmark .bench manifests; most are small additions/updates.",
+      "change_trajectory": [
+        "Single commit adds benchmark infrastructure: modifies VM rosetta test to record durations and memory, adds ROSETTA.md for VM, updates transpiler flag for benchmark block, adds .bench manifests for transpiler and Mochi benchmarks."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "tamnd",
+        "channel": "pr_comment",
+        "signal": "stale_close",
+        "summary": "Author closed the PR after ~9 months due to stale conflicts and content superseded by main.",
+        "blocking": false,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with benchmark infrastructure for transpiler/VM Rosetta tests.",
+      "No reviews or maintainer interaction recorded.",
+      "Author closed PR after ~9 months citing stale conflicts and content superseded by main."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

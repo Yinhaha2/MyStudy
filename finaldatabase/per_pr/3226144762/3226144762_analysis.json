@@ -1,0 +1,175 @@
+{
+  "pr_id": 3226144762,
+  "meta": {
+    "title": "Analyze performance issues and suggest improvements",
+    "html_url": "https://github.com/epicweb-dev/epicshop/pull/268",
+    "repo": "epicweb-dev/epicshop",
+    "agent": "Cursor",
+    "user": "kentcdodds",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-13 05:12:10+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-14 23:05:48+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "12",
+    "body_summary": "Comprehensive performance optimizations to fix cache thrashing and sequential operations causing 2.5x slowdown in workshop app loaders."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 5,
+      "additions": 362,
+      "deletions": 55,
+      "changes": 417,
+      "top1_file": "performance-analysis.md",
+      "top1_changes": 241,
+      "top1_change_ratio": 0.578,
+      "files_by_status": {
+        "added": 1,
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "packages",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 4,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 41.89,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_thrashing_fix",
+      "parallel_directory_scan",
+      "cache_capacity_increase",
+      "cached_running_state_check",
+      "minimum_cache_time"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "cache_thrashing",
+      "sequential_io"
+    ],
+    "outcome_reason": "closed_by_author_no_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Cursor proposed caching and parallel processing optimizations with narrative claims; PR closed by author without any review or comment."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 417,
+        "interpretation": "At 417 changed lines, this is a small-to-medium change. As a performance optimization PR, it was closed without merge, likely due to lack of maintainer engagement or author decision."
+      },
+      "lifecycle": {
+        "lifespan_hours": 41.89,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review or comment text available to infer primary concern.",
+      "performance_claim": "2.5x speedup for subsequent requests via cache thrashing fix, parallel directory scans, and increased cache capacity.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "cache_thrashing, sequential_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author without any review or comment; may have been an experiment or not ready for merge."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "Agent delivered a coherent perf PR with caching and parallel processing, but lack of maintainer review or feedback suggests process boundary for AI-authored contributions in this repo.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code review or performance testing."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body includes narrative description and numeric claims (2.5x slower) but no benchmark results, reproduction steps, or profiler data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed without merge; no regression handling observed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/workshop-utils/src/apps.server.ts, implement minimum cache time and cache app running states to reduce thrashing; in cache.server.ts, increase cache capacity; in utils.tsx and index.tsx, parallelize directory scans and use cached states; a performance-analysis.md documents findings.",
+      "files_primary": [
+        "packages/workshop-utils/src/apps.server.ts",
+        "packages/workshop-app/app/routes/_app+/exercise+/$exerciseNumber_.$stepNumber.$type+/__shared/utils.tsx",
+        "packages/workshop-utils/src/cache.server.ts",
+        "packages/workshop-app/app/routes/_app+/exercise+/$exerciseNumber_.$stepNumber.$type+/index.tsx",
+        "performance-analysis.md"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "performance-analysis.md is a documentation file summarizing the analysis; no other secondary files.",
+      "change_trajectory": [
+        "Checkpoint commit with initial changes to utils.tsx and apps.server.ts.",
+        "Optimize workshop app performance with cache and parallel processing, add performance-analysis.md.",
+        "Optimize app running state checks for deployed environments.",
+        "Enhance directory listing cache with file watcher and SWR invalidation."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Cursor agent opened PR with four commits implementing caching and parallel processing improvements.",
+      "Maintainer (kentcdodds) closed the PR without any review or comment after ~42 hours.",
+      "No interaction with other contributors or bots."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

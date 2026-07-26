@@ -1,0 +1,168 @@
+{
+  "pr_id": 3275298847,
+  "meta": {
+    "title": "Switch scrypt to wallycore",
+    "html_url": "https://github.com/3rdIteration/btcrecover/pull/615",
+    "repo": "3rdIteration/btcrecover",
+    "agent": "OpenAI_Codex",
+    "user": "3rdIteration",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-30 00:11:24+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-30 01:21:57+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Switch scrypt implementation to wallycore where available, document fallback slowdown, and remove wallycore from minimal requirements."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 3,
+      "additions": 46,
+      "deletions": 4,
+      "changes": 50,
+      "top1_file": "lib/pylibscrypt/__init__.py",
+      "top1_changes": 31,
+      "top1_change_ratio": 0.62,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 3,
+      "directories": [
+        "(root)",
+        "docs",
+        "lib"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 1.176,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "scrypt_optimization",
+      "dependency_switch",
+      "fallback_performance"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "author_closed_no_explanation",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex generated a small PR to switch scrypt to wallycore; closed by author shortly after without review or explanation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 50,
+        "interpretation": "At 50 changed lines across 3 files, this is a very small edit by absolute volume. It fits a minor dependency-switch performance PR, but was closed without merge, suggesting the author decided not to proceed despite the small size."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.176,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_text",
+      "concern_detail": "No formal review or PR discussion captured in dataset; author closed PR without any review interaction.",
+      "performance_claim": "wallycore.scrypt is faster than pylibscrypt; fallback yields ~20% slowdown.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "slow_pylibscrypt",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed PR without explanation one hour after creation."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "A small, low-risk library dependency switch closed by the author without any interaction; suggests a process gap where agent-created PRs may be opened and immediately closed without maintainer investment.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review in dataset; review was never requested or performed."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body provides testing command but no before/after measurements; the ~20% slowdown claim is an estimate without evidence.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed by author with no fix cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In lib/pylibscrypt/__init__.py, added preference for wallycore.scrypt when wallycore is available, with fallback to pylibscrypt and performance comment. Updated docs/INSTALL.md and requirements-full.txt to reflect the change.",
+      "files_primary": [
+        "lib/pylibscrypt/__init__.py",
+        "docs/INSTALL.md",
+        "requirements-full.txt"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit: remove wallycore from minimal requirements, add fallback logic in __init__.py with documentation.",
+        "Second commit: add source hash for wallycore in requirements-full.txt."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by 3rdIteration (OpenAI_Codex agent) with two commits.",
+      "No review activity recorded.",
+      "Author closed PR after approximately 1.2 hours with no explanation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

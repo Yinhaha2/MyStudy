@@ -1,0 +1,288 @@
+{
+  "pr_id": 3137892942,
+  "meta": {
+    "title": "Cleanup styled-components in *.stories.tsx files and convert to CSS modules",
+    "html_url": "https://github.com/primer/react/pull/6197",
+    "repo": "primer/react",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-11 19:28:59+00:00",
+    "merged_at": "2025-06-17 14:15:24+00:00",
+    "closed_at": "2025-06-17 14:15:24+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 24,
+    "topic_name": "24_bundle_css_components_splitting",
+    "body_summary": "Remove all styled-components imports from story files and convert them to CSS modules, eliminating runtime CSS-in-JS generation for story components."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 11,
+      "file_count": 182,
+      "additions": 861,
+      "deletions": 493,
+      "changes": 1354,
+      "top1_file": "package-lock.json",
+      "top1_changes": 424,
+      "top1_change_ratio": 0.313,
+      "files_by_status": {
+        "added": 10,
+        "modified": 172,
+        "removed": 0
+      },
+      "directory_count": 8,
+      "directories": [
+        ".changeset",
+        ".github",
+        ".playwright",
+        "contributor-docs",
+        "e2e",
+        "examples",
+        "packages",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 14,
+      "review_states": {
+        "COMMENTED": 9,
+        "APPROVED": 3,
+        "CHANGES_REQUESTED": 2
+      },
+      "review_comment_count": 15,
+      "pr_comment_count": 7,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "commented": 3,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 4,
+        "copilot_work_finished": 2,
+        "reviewed": 3,
+        "labeled": 2,
+        "deployed": 4,
+        "ready_for_review": 1,
+        "auto_merge_enabled": 1
+      },
+      "lifespan_hours": 138.77,
+      "first_review_delay_hours": 0.53,
+      "review_rounds": 14,
+      "has_revert": false,
+      "auto_merge_enabled": true
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "css_modules_migration",
+      "styled_components_removal",
+      "runtime_style_generation_elimination"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness",
+      "tests"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot converted story files from styled-components to CSS modules; two rounds of CHANGES_REQUESTED for design corrections; merged after approvals and manual testing."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1354,
+        "interpretation": "At 1354 changed lines but with many secondary files from a merge commit, the core change is a moderate-sized frontend refactor affecting 8 story files. It fits a typical incremental migration task that underwent multiple review iterations and merged successfully."
+      },
+      "lifecycle": {
+        "lifespan_hours": 138.77,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "css_layer_and_component_misuse",
+      "concern_detail": "Reviewers requested removal of CSS layers, replacement of Box with div, correction of duplicate className, removal of spurious overflow:hidden, and proper handling of maxWidth style; also questioned inline style for global theme.",
+      "performance_claim": "No runtime CSS-in-JS generation for story components, improving performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "tests"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "24_bundle_css_components_splitting",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot demonstrated ability to refactor multiple story files to CSS modules, respond to nuanced design feedback (CSS layers, component usage), and adapt to codebase conventions; merge required human guidance on style details.",
+      "success_factors": [
+        "responsive_to_review_feedback",
+        "aligned_with_ADR",
+        "preserved_visual_output",
+        "CI_checks_passed"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Jonrohan and francine reviewed CSS changes for consistency, demanded removal of CSS layers and use of div over Box; joshblack questioned global style migration approach.",
+        "ci_auto": "size-limit report showed no bundle size change."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No benchmark data; visual rendering verified via Storybook previews, but no performance metrics provided.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Two rounds of CHANGES_REQUESTED led to removal of CSS layers, correction of duplicate className, removal of overflow: hidden, and proper handling of maxWidth in ErsatzOverlay; global style migration was updated to :global.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Removed styled-components imports from 8 story files and replaced them with CSS modules. Created 7 new CSS module files with corresponding styles, using CSS custom properties for theming. Migrated dynamic styled props like maxWidth to CSS custom properties and conditional styles.",
+      "files_primary": [
+        "packages/react/src/stories/deprecated/ActionList.stories.tsx",
+        "packages/react/src/stories/deprecated/ActionMenu.stories.tsx",
+        "packages/react/src/LabelGroup/LabelGroup.stories.tsx",
+        "packages/react/src/LabelGroup/LabelGroup.features.stories.tsx",
+        "packages/react/src/stories/useAnchoredPosition.stories.tsx",
+        "packages/react/src/stories/useFocusTrap.stories.tsx",
+        "packages/react/src/stories/useFocusZone.stories.tsx",
+        "packages/react/src/stories/ThemeProvider.stories.tsx",
+        "packages/react/src/stories/deprecated/ActionListStories.module.css",
+        "packages/react/src/stories/deprecated/ActionMenuStories.module.css",
+        "packages/react/src/LabelGroup/LabelGroupStories.module.css",
+        "packages/react/src/stories/AnchoredPositionStories.module.css",
+        "packages/react/src/stories/FocusTrapStories.module.css",
+        "packages/react/src/stories/FocusZoneStories.module.css",
+        "packages/react/src/stories/ThemeProvider.module.css"
+      ],
+      "files_secondary_observability": [
+        "package-lock.json",
+        "package.json"
+      ],
+      "secondary_note": "The merge commit from main introduced many unrelated changes (docs, test snapshots, etc.) that inflated file count but are not part of the CSS modules migration.",
+      "change_trajectory": [
+        "Initial plan for issue.",
+        "Replace styled-components with CSS modules in ActionList, ActionMenu, and LabelGroup stories.",
+        "Complete styled-components cleanup in all remaining story files.",
+        "Remove CSS layers and replace Box components with div elements (review feedback).",
+        "Maintainer refactored CSS styles for consistency.",
+        "Fix duplicate className, overflow issue, and comment formatting (review feedback).",
+        "Merge main and fix ErsatzOverlay maxWidth style conditional.",
+        "Revert maxWidth fix, restore conditional approach per review.",
+        "Convert ThemeProvider inline style to CSS modules with :global.",
+        "Run npm format and commit."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "jonrohan",
+        "channel": "inline_review_comment",
+        "signal": "remove_css_layers_and_use_div",
+        "summary": "Requested removal of @layer declarations from CSS modules and using div instead of Box when no sx/as props.",
+        "blocking": true,
+        "action_taken": "Copilot removed layers and replaced Box with div in follow-up commit."
+      },
+      {
+        "source": "francinelucca",
+        "channel": "inline_review_comment",
+        "signal": "duplicate_classname_and_overflow_issue",
+        "summary": "Flagged duplicate className (clsx(classes.ErsatzOverlay, maxWidth && classes.ErsatzOverlay)) and pointed out overflow:hidden not present in original.",
+        "blocking": true,
+        "action_taken": "Copilot fixed duplicate and removed overflow property."
+      },
+      {
+        "source": "francinelucca",
+        "channel": "inline_review_comment",
+        "signal": "style_suggestion_for_maxwidth",
+        "summary": "Suggested setting style to 'none' when maxWidth absent, leading to further refinement.",
+        "blocking": true,
+        "action_taken": "Copilot initially set always, then reverted to conditional after jonrohan concern about style='none'."
+      },
+      {
+        "source": "jonrohan",
+        "channel": "inline_review_comment",
+        "signal": "question_on_style_attribute",
+        "summary": "Questioned if style='none' would be valid, prompting revert.",
+        "blocking": true,
+        "action_taken": "Copilot reverted commit and restored conditional style setting."
+      },
+      {
+        "source": "joshblack",
+        "channel": "inline_review_comment",
+        "signal": "global_style_migration_approach",
+        "summary": "Suggested using :global in CSS modules for global styles instead of inline <style>.",
+        "blocking": false,
+        "action_taken": "Copilot converted to CSS modules using :global."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "size_limit_report_no_change",
+        "summary": "size-limit report showed bundle sizes unchanged (0% change).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "changeset-bot[bot]",
+        "channel": "pr_comment",
+        "signal": "no_changeset_warning",
+        "summary": "Warning about missing changeset; later overridden by maintainer with skip label.",
+        "blocking": false,
+        "action_taken": "jonrohan added 'skip changeset' label."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial story conversions for ActionList, ActionMenu, LabelGroup.",
+      "jonrohan requested CSS layer removal and div usage; Copilot fixed within hours.",
+      "Remaining story files converted in follow-up commit.",
+      "jonrohan approved after fixes, enabled auto-merge.",
+      "francinelucca requested further changes: duplicate className, overflow, style handling.",
+      "Copilot addressed issues, then jonrohan and joshblack approved after global style adjustment.",
+      "PR merged after final formatting commit."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

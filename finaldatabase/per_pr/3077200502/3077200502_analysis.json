@@ -1,0 +1,192 @@
+{
+  "pr_id": 3077200502,
+  "meta": {
+    "title": "Optimize memory usage across the application to improve performance",
+    "html_url": "https://github.com/OWASP-BLT/BLT/pull/4290",
+    "repo": "OWASP-BLT/BLT",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-20 14:17:30+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-03 15:41:37+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "12",
+    "body_summary": "Copilot-authored PR implementing LRU cache, DOM reuse, batch processing, and Django cache configs to reduce memory usage and improve performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 6,
+      "additions": 635,
+      "deletions": 457,
+      "changes": 1092,
+      "top1_file": "website/static/js/repo_detail.js",
+      "top1_changes": 567,
+      "top1_change_ratio": 0.5192,
+      "files_by_status": {
+        "modified": 6
+      },
+      "directory_count": 2,
+      "directories": [
+        "blt",
+        "website"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "labeled": 1,
+        "commented": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1057.4,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lru_cache",
+      "dom_reuse",
+      "batch_processing",
+      "css_consolidation",
+      "django_cache_config",
+      "table_row_limit"
+    ],
+    "optimization_layer": "full_stack",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_dom_creation",
+      "unbounded_cache",
+      "string_concatenation_inefficiency"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot multi-file memory optimization PR with narrative claims; no human review or benchmark evidence, closed after ~44 days without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1092,
+        "interpretation": "At 1092 changed lines across 6 files, this is a medium-sized refactor by absolute volume, touching both frontend JS and Django settings. The PR was closed without merge after 44 days, consistent with lack of maintainer review and missing performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1057.4,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": null,
+      "performance_claim": "Reduce overall memory consumption across the application through LRU caching, DOM reuse, batch processing, and proper Django cache configuration.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "excessive_memory_allocation_and_unbounded_caching",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by maintainer DonnieBLT after 44 days with no human review or performance evidence provided."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Agent proposed a broad, multi-file memory optimization with narrative-only evidence; closed without human review or performance validation, indicating a process barrier for changes lacking benchmarks and requiring deeper review.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler output, or before/after metrics provided; only narrative claims in PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by maintainer without any feedback or review cycle; no regression testing evidence.",
+      "evidence_gap": "narrative_only_no_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Implement LRU cache with size limit in issue.js, add document fragment usage, batch DOM operations, limit table rows in jquery.tablesorter.js, consolidate inline styles, remove redundant event handlers, and configure Django cache timeouts and LocMemCache limits.",
+      "files_primary": [
+        "website/static/js/issue.js",
+        "website/static/js/repo_detail.js",
+        "website/templates/sizzle/sizzle.html",
+        "blt/settings.py"
+      ],
+      "files_secondary_observability": [
+        "website/static/js/jquery.tablesorter.js",
+        "website/static/js/notify.js"
+      ],
+      "secondary_note": "Changes also include minor adjustments in tablesorter and notify.js for memory efficiency.",
+      "change_trajectory": [
+        "Initial plan commit for linked issue.",
+        "Optimize issue.js with LRU cache and DOM reuse.",
+        "Complete memory optimization across application, adding Django cache settings and other JS improvements."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_bot",
+        "summary": "CodeRabbit bot skipped review due to bot user detection.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Copilot with initial plan.",
+      "Two commits for memory optimization pushed.",
+      "CodeRabbit bot skipped review.",
+      "PR left inactive for ~44 days and closed by maintainer DonnieBLT."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

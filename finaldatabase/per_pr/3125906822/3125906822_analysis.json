@@ -1,0 +1,215 @@
+{
+  "pr_id": 3125906822,
+  "meta": {
+    "title": "Add Turborepo configuration and scripts for improved monorepo management",
+    "html_url": "https://github.com/getsentry/sentry-docs/pull/13951",
+    "repo": "getsentry/sentry-docs",
+    "agent": "Cursor",
+    "user": "dcramer",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-06 21:29:48+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "build",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Add Turborepo configuration (turbo.json, yarn dependency) and scripts to optimize monorepo build times via caching and parallel task execution."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 13,
+      "file_count": 10,
+      "additions": 4708,
+      "deletions": 3958,
+      "changes": 8666,
+      "top1_file": "yarn.lock",
+      "top1_changes": 7909,
+      "top1_change_ratio": 0.913,
+      "files_by_status": {
+        "added": 1,
+        "modified": 9
+      },
+      "directory_count": 4,
+      "directories": [
+        ".",
+        "apps",
+        "src",
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 26,
+      "event_counts": {
+        "committed": 13,
+        "commented": 2,
+        "deployed": 10,
+        "reviewed": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": 1.1,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "build_cache",
+      "parallel_task_execution",
+      "monorepo_management"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement_and_questioned_scope",
+    "review_dimensions": [
+      "correctness",
+      "scope"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Cursor added Turborepo config with substantial yarn.lock churn; maintainer questioned a dependency resolution change; PR closed without merge and no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8666,
+        "interpretation": "At 8666 changed lines across 10 files, this is a large edit by absolute volume, heavily dominated by yarn.lock churn (7909 lines). The change includes a new turbo.json (603 lines) and workflow updates. As a build-tool performance PR it was closed—not merged—likely due to questionable dependency resolutions and lack of performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "scope_including_dependency_resolution_change",
+      "concern_detail": "Maintainer dcramer questioned why a resolution for @sentry/nextjs was added in the root package.json, suggesting it may be for a different site; no direct performance feedback.",
+      "performance_claim": "Turborepo caching and parallel execution will significantly improve build times for unchanged code.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "scope"
+      ],
+      "rejection_signals": "Maintainer commented questioning the inclusion of @sentry/nextjs resolution change; PR closed without further discussion or merge."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent-assembled Turborepo setup spans build config, CI workflows, and dependency resolutions; the large scope and questionable resolution changes likely led to closure without performance validation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "dcramer reviewed the diff and noted a suspicious resolution addition in package.json."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after build time measurements or benchmark; only narrative claims.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix attempts after review.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add turborepo (turbo@2.5.4) as dev dependency, create turbo.json with tasks for build/dev/lint/test, update package.json scripts and yarn.lock, add .turbo to .gitignore, and modify CI workflows to use turbo commands.",
+      "files_primary": [
+        "turbo.json",
+        "package.json",
+        ".github/workflows/test.yml"
+      ],
+      "files_secondary_observability": [
+        "yarn.lock",
+        "apps/changelog/package.json",
+        ".github/workflows/algolia-index.yml",
+        ".github/workflows/lint-404s.yml",
+        "src/instrumentation-client.ts",
+        "apps/changelog/src/instrumentation-client.ts",
+        ".gitignore"
+      ],
+      "secondary_note": "Most churn in yarn.lock due to dependency updates; other changes are small adjustments.",
+      "change_trajectory": [
+        "Initial commit adds turbo.json, scripts, and yarn.lock update.",
+        "Subsequent commits add yarn version, workflow updates, and environment variables to turbo.json.",
+        "Multiple checkpoint commits and dependency resolution updates.",
+        "Final commits adjust Sentry and Ariakit dependencies and resolve type conflicts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "dcramer",
+        "channel": "inline_review_comment",
+        "signal": "questioned_resolution_change",
+        "summary": "Questioned why @sentry/nextjs resolution was added in root package.json, suggesting it may be for a different site.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_status",
+        "summary": "Posted deployment preview statuses (changelog ready, others failed).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "bundle_size_report",
+        "summary": "Reported bundle size increase of 847.76kB (4.04%) within threshold.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created with initial Turborepo setup.",
+      "Additional commits iterated on workflow changes, environment variables, and dependency updates.",
+      "Maintainer dcramer reviewed within ~1 hour, leaving an inline comment questioning a resolution change.",
+      "No further discussion or commits; PR closed (timestamp unknown) without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

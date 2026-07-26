@@ -1,0 +1,182 @@
+{
+  "pr_id": 3128960984,
+  "meta": {
+    "title": "Enable AOT folding in interpreter",
+    "html_url": "https://github.com/mochilang/mochi/pull/222",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-09 02:37:23+00:00",
+    "merged_at": "2025-06-09 02:38:39+00:00",
+    "closed_at": "2025-06-09 02:38:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "10",
+    "body_summary": "Add FoldPureCalls for ahead-of-time constant folding in the interpreter, expose via --aot CLI flag, and use in benchmarks; also move TS runtime helpers before program execution, updating test outputs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 12,
+      "additions": 192,
+      "deletions": 21,
+      "changes": 213,
+      "top1_file": "interpreter/fold.go",
+      "top1_changes": 161,
+      "top1_change_ratio": 0.7559,
+      "files_by_status": {
+        "added": 1,
+        "modified": 11
+      },
+      "directory_count": 5,
+      "directories": [
+        "cmd",
+        "bench",
+        "compile",
+        "interpreter",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0211,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "aot_constant_folding",
+      "interpreter_optimization",
+      "compile_time_evaluation"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_merge_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit self-merge by author; no review text, no performance evidence; topic inferred as interpreter optimization."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 213,
+        "interpretation": "Small change (213 lines) with a 161‑line new file (fold.go) and minor updates to CLI, compiler, benchmarks, and test outputs. As a self‑merged, low‑risk performance feature, the fast merge without review is consistent with the small scope."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0211,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No reviews or comments exist in the dataset.",
+      "performance_claim": "Ahead‑of‑time constant folding reduces runtime interpretation overhead by evaluating pure calls at compile time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "10",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "PR was self‑merged by the author without any review, indicating a process where the agent’s output is accepted directly with no external quality gate beyond the author’s own testing.",
+      "success_factors": [
+        "small_scope",
+        "author_is_maintainer",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance data or benchmark numbers provided; body only mentions using the flag in benchmarks.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were reported or discussed.",
+      "evidence_gap": "narrative_only_no_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add FoldPureCalls function in interpreter/fold.go that performs ahead‑of‑time constant folding; wire it into the compiler via a new --aot CLI flag and use it in the benchmark runner; update TypeScript test output expectations because runtime helpers are now emitted before program execution.",
+      "files_primary": [
+        "interpreter/fold.go"
+      ],
+      "files_secondary_observability": [
+        "cmd/mochi/main.go",
+        "compile/ts/compiler.go",
+        "bench/runner.go",
+        "tests/compiler/valid/break_continue.ts.out",
+        "tests/compiler/valid/for_list_collection.ts.out",
+        "tests/compiler/valid/for_string_collection.ts.out",
+        "tests/compiler/valid/generate_echo.ts.out",
+        "tests/compiler/valid/generate_embedding.ts.out",
+        "tests/compiler/valid/len_builtin.ts.out",
+        "tests/compiler/valid/stream_on_emit.ts.out",
+        "tests/compiler/valid/two_sum.ts.out"
+      ],
+      "secondary_note": "Test output files are updated to reflect the new TypeScript code generation order; no semantic changes.",
+      "change_trajectory": [
+        "Single commit (908471d): feat: add AOT folding option – added FoldPureCalls implementation, wired --aot flag, and updated test expectations."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd and self‑merged within ~1 minute; no human interaction beyond the original author."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

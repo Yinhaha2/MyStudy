@@ -1,0 +1,227 @@
+{
+  "pr_id": 3079016065,
+  "meta": {
+    "title": "Make EnvironmentStatistics CPU usage collection interval configurable",
+    "html_url": "https://github.com/dotnet/orleans/pull/9510",
+    "repo": "dotnet/orleans",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-21 05:53:34+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-11 18:24:29+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Make the CPU usage collection interval in EnvironmentStatisticsProvider configurable via EnvironmentStatisticsOptions and extension methods, with default of 1 second, to reduce impact on other EventListener implementations like Application Insights."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 6,
+      "additions": 74,
+      "deletions": 6,
+      "changes": 80,
+      "top1_file": "src/Orleans.Core/Hosting/EnvironmentStatisticsHostingExtensions.cs",
+      "top1_changes": 36,
+      "top1_change_ratio": 0.45,
+      "files_by_status": {
+        "added": 2,
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 5,
+      "review_states": {
+        "COMMENTED": 5
+      },
+      "review_comment_count": 5,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 17,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 3,
+        "reviewed": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 1236.57,
+      "first_review_delay_hours": 0.184,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cpu_usage_collection_interval"
+    ],
+    "optimization_layer": "application_configuration",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [
+      "correctness",
+      "code_quality"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot made CPU collection interval configurable; maintainer flagged unintended SDK version change and redundant code, which were fixed, but PR closed without merge after 51 days."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 80,
+        "interpretation": "At 80 changed lines, this is a very small change by absolute volume, adding a configuration option. As a minor configuration tweak, it should have been low-risk, but was closed without merge after a long period of inactivity, suggesting maintainers did not find it sufficient to warrant merging."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1236.57,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "code_quality",
+      "concern_detail": "ReubenBond pointed out an accidental change in global.json (SDK version downgrade) and an unnecessary AddOptions call in DefaultClientServices.cs. Copilot addressed both in follow-up commits.",
+      "performance_claim": "Making CPU collection interval configurable reduces impact on other EventListener implementations like Application Insights.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "code_quality"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The change is a simple configuration addition; however, the agent introduced unintended side-effects (SDK version change, redundant line) that required maintainer intervention. The PR was eventually closed without merge, likely due to lack of compelling performance evidence or maintainer interest.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "ReubenBond reviewed the diff and questioned the SDK version change and redundant AddOptions line."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Only narrative claim that 1-second interval impacts Application Insights; no before/after evidence.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After two follow-up commits addressing review comments, no further activity; PR closed by maintainer after ~51 days.",
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added EnvironmentStatisticsOptions class with CPUUsageCollectionInterval property, modified EnvironmentStatisticsProvider to use it, and added extension methods ConfigureCPUUsageCollectionInterval for silo and client builders. Also fixed an accidental SDK version change in global.json.",
+      "files_primary": [
+        "src/Orleans.Core/Statistics/EnvironmentStatisticsOptions.cs",
+        "src/Orleans.Core/Statistics/EnvironmentStatistics.cs",
+        "src/Orleans.Core/Hosting/EnvironmentStatisticsHostingExtensions.cs"
+      ],
+      "files_secondary_observability": [
+        "global.json",
+        "src/Orleans.Core/Core/DefaultClientServices.cs",
+        "src/Orleans.Runtime/Hosting/DefaultSiloServices.cs"
+      ],
+      "secondary_note": "global.json had an unintended SDK version change; DefaultClientServices had an unnecessary AddOptions line.",
+      "change_trajectory": [
+        "Initial commit: Added configuration classes, extension methods, and modified provider.",
+        "Fix: Reverted global.json SDK version to 8.0.115 per review.",
+        "Fix: Removed redundant AddOptions call in DefaultClientServices."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ReubenBond",
+        "channel": "inline_review_comment",
+        "signal": "question_unintended_sdk_change",
+        "summary": "Questioned the change in global.json SDK version from 8.0.408 to 8.0.116.",
+        "blocking": false,
+        "action_taken": "Copilot fixed in commit 8e07dd3."
+      },
+      {
+        "source": "ReubenBond",
+        "channel": "inline_review_comment",
+        "signal": "ping_copilot",
+        "summary": "Pinged Copilot with '@copilot?' to request a response on the SDK change.",
+        "blocking": false,
+        "action_taken": "Same fix as above."
+      },
+      {
+        "source": "ReubenBond",
+        "channel": "inline_review_comment",
+        "signal": "unnecessary_code_pointed_out",
+        "summary": "Pointed out that the AddOptions<EnvironmentStatisticsOptions> line in DefaultClientServices.cs is unnecessary.",
+        "blocking": false,
+        "action_taken": "Copilot removed it in commit 0ba9152."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fix_confirmation_sdk",
+        "summary": "Responded that the SDK version change was unintentional and fixed, now set to 8.0.115.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fix_confirmation_addoptions",
+        "summary": "Responded that the redundant AddOptions line was removed.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial implementation, including unintended SDK version change.",
+      "Within ~15 minutes, ReubenBond reviewed and questioned the SDK version change and unnecessary AddOptions call.",
+      "Copilot responded and fixed both issues in two follow-up commits.",
+      "No further activity for ~51 days.",
+      "Maintainer closed the PR without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

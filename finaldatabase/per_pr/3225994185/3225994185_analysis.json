@@ -1,0 +1,188 @@
+{
+  "pr_id": 3225994185,
+  "meta": {
+    "title": "Enable AVX‑512 xof_many on Windows",
+    "html_url": "https://github.com/BLAKE3-team/BLAKE3/pull/495",
+    "repo": "BLAKE3-team/BLAKE3",
+    "agent": "OpenAI_Codex",
+    "user": "oconnor663",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-13 01:19:37+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-13 01:23:25+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Port blake3_xof_many_avx512 to Windows assembly (GNU .S and MSVC .asm), expose in C headers and Rust FFI, and enable dispatch on Windows."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 7,
+      "additions": 101,
+      "deletions": 8,
+      "changes": 109,
+      "top1_file": "c/blake3_avx512_x86-64_windows_msvc.asm",
+      "top1_changes": 51,
+      "top1_change_ratio": 0.468,
+      "files_by_status": {
+        "modified": 7
+      },
+      "directory_count": 2,
+      "directories": [
+        "c",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 0.0667,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "avx512_simd",
+      "xof_many",
+      "windows_assembly_enablement"
+    ],
+    "optimization_layer": "assembly",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "functional_failure",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "manual_test"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Codex-generated AVX-512 Windows xof_many port crashed with STATUS_ACCESS_VIOLATION in cargo test; maintainer closed immediately."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 109,
+        "interpretation": "At 109 changed lines across 7 files, this is a small change by absolute volume, consistent with a targeted performance enablement. The PR was closed before review due to a runtime crash, a non-merge outcome that aligns with the scale."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0667,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "functional_failure",
+      "concern_detail": "The PR received no formal review; the author ran cargo test on Windows and reported a STATUS_ACCESS_VIOLATION crash during testing, indicating incorrect memory access in the assembly code.",
+      "performance_claim": "Enable AVX-512 xof_many on Windows for improved XOF streaming hash performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author self-tested crash and closed PR; no external rejection signals."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Porting AVX-512 assembly to Windows requires OS-specific calling conventions and correct register handling; Codex produced code that compiled but crashed at runtime, illustrating a boundary in low-level platform-specific assembly generation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "manual_test"
+      ],
+      "detection_detail": {
+        "manual_test": "Maintainer ran cargo test on Windows, which failed with STATUS_ACCESS_VIOLATION, indicating a memory access error in the newly added assembly code."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Only a failing test run provided; no successful test or benchmark data to validate the performance claim.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed immediately upon failure without attempt to fix; no follow-up.",
+      "evidence_gap": "test_failure_no_perf_proof"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add blake3_xof_many_avx512 function in both GNU .S and MSVC .asm Windows assembly files, remove OS guards in C headers and Rust FFI to expose the function under Windows, and update dispatch/platform code to call it.",
+      "files_primary": [
+        "c/blake3_avx512_x86-64_windows_msvc.asm",
+        "c/blake3_avx512_x86-64_windows_gnu.S"
+      ],
+      "files_secondary_observability": [
+        "c/blake3_c_rust_bindings/src/lib.rs",
+        "c/blake3_dispatch.c",
+        "c/blake3_impl.h",
+        "src/ffi_avx512.rs",
+        "src/platform.rs"
+      ],
+      "secondary_note": "Non-assembly changes are minimal, mostly removing conditional compilation to enable xof_many on Windows.",
+      "change_trajectory": [
+        "Single commit introduces Windows xof_many implementations and updates bindings/dispatch; no subsequent commits."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "oconnor663",
+        "channel": "pr_comment",
+        "signal": "autogenerated_notice",
+        "summary": "Author noted PR was autogenerated by Codex for fun and untested.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "oconnor663",
+        "channel": "pr_comment",
+        "signal": "self_test_failure",
+        "summary": "Maintainer tested with cargo test on Windows, which hit STATUS_ACCESS_VIOLATION (0xc0000005) during test run, indicating memory access error.",
+        "blocking": false,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by oconnor663 with label 'codex' and autogenerated notice.",
+      "Author ran cargo test, observed STATUS_ACCESS_VIOLATION crash, and closed PR immediately."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

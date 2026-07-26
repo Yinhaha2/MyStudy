@@ -1,0 +1,192 @@
+{
+  "pr_id": 3006445782,
+  "meta": {
+    "title": "perf: optimize spring bone animation processing",
+    "html_url": "https://github.com/saturday06/VRM-Addon-for-Blender/pull/795",
+    "repo": "saturday06/VRM-Addon-for-Blender",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-19 13:49:23+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-19 15:11:53+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 0,
+    "topic_name": "50",
+    "body_summary": "Optimize spring bone animation processing in Blender VRM add-on by caching bone name and extension lookups, reducing redundant matrix operations, and micro-adjusting angle thresholds; includes cProfile benchmarks showing ~2.3% runtime improvement."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 5,
+      "additions": 212,
+      "deletions": 65,
+      "changes": 277,
+      "top1_file": "src/io_scene_vrm/editor/spring_bone1/handler.py",
+      "top1_changes": 144,
+      "top1_change_ratio": 0.5198555956678701,
+      "files_by_status": {
+        "modified": 3,
+        "added": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 8,
+        "commented": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.375,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "spring_bone_animation",
+      "cache_optimization",
+      "redundant_operation_elimination"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "benchmark"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin provided cProfile benchmarks showing ~2.3% improvement; PR closed after ~1.4h with archived bot, no human review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 277,
+        "interpretation": "At 277 changed lines across 5 files, this is a small-to-medium edit by absolute volume. As a performance PR with benchmark evidence, it was closed without merge due to lack of review engagement and bot archival."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.375,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or human comments were recorded in the dataset.",
+      "performance_claim": "Reduced spring bone animation processing time by ~2.3% (from 2.600s to 2.539s) and function calls by 2.0% via caching and redundant operation elimination.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed after ~1.4 hours; Devin bot was archived stating 'Devin is archived and cannot be woken up.'; maintainer closed branch with no further comments."
+    },
+    "capability_boundary": {
+      "topic": "50",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "PR targeted a niche Blender add-on performance optimization with detailed benchmarks, but no human review engagement occurred; Devin session was archived shortly after creation, halting any collaboration.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Benchmark before/after text files were attached, but PR closed before any human validation; no automated CI performance test visible.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no regression was observed as the change never landed.",
+      "evidence_gap": "no_review_engagement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In handler.py, refactored calculate_joint_pair_head_pose_bone_rotations to reduce redundant matrix transformations and reuse normalized vectors. Added early return and invalid-name caching to get_bone_name in property_group.py. Added caching to get_bone_extension in extension.py. Micro-adjusted angle threshold in update_pose_bone_rotations. Added benchmark text files.",
+      "files_primary": [
+        "src/io_scene_vrm/editor/spring_bone1/handler.py",
+        "src/io_scene_vrm/editor/property_group.py",
+        "src/io_scene_vrm/editor/extension.py"
+      ],
+      "files_secondary_observability": [
+        "benchmark_before.txt",
+        "benchmark_after.txt"
+      ],
+      "secondary_note": "Benchmark text files added for documentation; contain cProfile output.",
+      "change_trajectory": [
+        "Initial commit: optimize spring bone animation processing (handler.py refactor, property_group.py caching).",
+        "Lint formatting fix commit.",
+        "Added bone extension caching in extension.py.",
+        "More lint fixes.",
+        "Added benchmark result text files.",
+        "Fixed uuid property registration in extension.py.",
+        "Style and lint fixes.",
+        "Reverted StringProperty assignment syntax to resolve lint."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin AI Engineer introduction comment promising automatic comment and CI monitoring.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_archived",
+        "summary": "Devin is archived and cannot be woken up; suggests unarchiving to continue.",
+        "blocking": false,
+        "action_taken": "PR closed by maintainer shortly after."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened the PR with performance optimizations and benchmark data.",
+      "No human review occurred.",
+      "Devin bot posted archived notice.",
+      "Maintainer closed the PR and deleted the branch."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

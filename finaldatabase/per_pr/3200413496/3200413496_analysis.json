@@ -1,0 +1,239 @@
+{
+  "pr_id": 3200413496,
+  "meta": {
+    "title": "Fix cache not being used when scopes are empty in acquireTokenSilent",
+    "html_url": "https://github.com/AzureAD/microsoft-authentication-library-for-js/pull/7904",
+    "repo": "AzureAD/microsoft-authentication-library-for-js",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-03 19:18:55+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 12,
+    "topic_name": "12",
+    "body_summary": "Fix empty-scopes cache lookup in acquireTokenSilent by defaulting to OIDC scopes instead of throwing an error, reducing unnecessary network requests when cached tokens exist."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 13,
+      "additions": 29226,
+      "deletions": 35578,
+      "changes": 64804,
+      "top1_file": "package-lock.json",
+      "top1_changes": 64379,
+      "top1_change_ratio": 0.993,
+      "files_by_status": {
+        "added": 2,
+        "modified": 9,
+        "removed": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        "(root)",
+        "lib",
+        "change"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 6,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 27,
+      "event_counts": {
+        "committed": 8,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 4,
+        "commented": 6,
+        "labeled": 1
+      },
+      "lifespan_hours": 118.243,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": true,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_lookup_empty_scopes",
+      "acquire_token_silent",
+      "network_request_reduction"
+    ],
+    "optimization_layer": "library_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_network_call"
+    ],
+    "outcome_reason": "closed_due_to_housekeeping_concerns",
+    "review_dimensions": [
+      "process",
+      "formatting"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot fixed empty-scopes cache skip; maintainer focused on changelog, lint, and package-lock issues; PR closed without merge after back-and-forth process adjustments."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 64804,
+        "interpretation": "At 64804 changed lines, this is a massive change by absolute volume, but the vast majority (64379 lines) is package-lock.json churn; the actual source change is around 18 lines in ScopeSet.ts plus tests and changefiles. This is a small-scope performance fix that was closed without merge, likely due to process friction around formatting and lock file management rather than the performance claim itself."
+      },
+      "lifecycle": {
+        "lifespan_hours": 118.243,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "process_or_housekeeping",
+      "primary_concern": "housekeeping_requirements",
+      "concern_detail": "Maintainer tnorling requested changefiles, lint fixes, and package-lock reversion over several comments; the PR was closed after the final Copilot commit addressing all requests, with no approval or further review.",
+      "performance_claim": "Eliminates unnecessary network requests when cached tokens exist for empty-scope acquireTokenSilent calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_network_call_due_to_empty_scopes_error",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "process",
+        "formatting"
+      ],
+      "rejection_signals": "Maintainer closed PR after housekeeping iterations but never approved; no explicit rejection of the performance fix itself."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "The core code change is simple but Copilot struggled with repository conventions (changelog files, lint/formatting pre-commits, and avoiding package-lock churn), leading to extended back-and-forth and eventual closure without merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer reviewed the change superficially, requesting changelog and fixing lint errors but not engaging with the cache logic directly."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body describes problem but offers no benchmark or timing comparison; the fix prevents an error but there is no measurable performance improvement shown.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no performance regression, but the change never made it to the codebase.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In lib/msal-common/src/request/ScopeSet.ts, modified createSearchScopes to default to OIDC default scopes (openid, profile) when input is empty, instead of throwing an error. Added tests in ScopeSet.spec.ts covering empty arrays, null/undefined inputs.",
+      "files_primary": [
+        "lib/msal-common/src/request/ScopeSet.ts",
+        "lib/msal-common/test/request/ScopeSet.spec.ts"
+      ],
+      "files_secondary_observability": [
+        "package-lock.json",
+        ".gitignore",
+        "change/@azure-msal-common-fix-empty-scopes-cache-lookup.json"
+      ],
+      "secondary_note": "Massive package-lock.json churn from dev merge and subsequent revert/regeneration; unrelated dependency updates. Changelog file added; .gitignore updated to exclude package-lock.",
+      "change_trajectory": [
+        "Initial commit with ScopeSet fix and tests.",
+        "Maintainer requested changefiles and lint fixes; Copilot added changefile and fixed formatting (commit 6aadd68).",
+        "Further formatting commit introduced large package-lock.json changes; maintainer asked to revert package-lock changes.",
+        "Reverted package-lock changes (commit a3264d1).",
+        "Maintainer then asked to reset to specific commit, pull latest dev, follow pre-commit instructions, and not commit package-lock; Copilot performed reset, merged dev, and updated .gitignore (commit ef76925).",
+        "No further action; PR closed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "tnorling",
+        "channel": "pr_comment",
+        "signal": "housekeeping_changelog_lint",
+        "summary": "Requested changefiles and fixing lint errors.",
+        "blocking": true,
+        "action_taken": "Copilot created changefile and fixed lint (commit 6aadd68)."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed changefile and lint fixes applied; all tests passing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "tnorling",
+        "channel": "pr_comment",
+        "signal": "revert_package_lock",
+        "summary": "Requested reverting package-lock.json changes.",
+        "blocking": true,
+        "action_taken": "Copilot reverted package-lock changes (commit a3264d1)."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "confirmation_revert",
+        "summary": "Confirmed package-lock.json reverted.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "tnorling",
+        "channel": "pr_comment",
+        "signal": "reset_and_follow_instructions",
+        "summary": "Requested reverting to commit 6aadd68, pulling latest dev, following pre-commit instructions, and not committing package-lock.",
+        "blocking": true,
+        "action_taken": "Copilot performed reset, merged dev, and updated .gitignore (commit ef76925)."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "confirmation_reset",
+        "summary": "Confirmed reset, merge, and .gitignore update.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with ScopeSet fix and tests.",
+      "Maintainer requested changefile and lint fixes; Copilot addressed.",
+      "Large package-lock.json churn introduced; maintainer asked to revert; Copilot reverted.",
+      "Maintainer then asked for specific Git reset and merge procedure; Copilot followed.",
+      "PR closed without merge after final commit."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

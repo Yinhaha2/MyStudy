@@ -1,0 +1,198 @@
+{
+  "pr_id": 3141541564,
+  "meta": {
+    "title": "Direct FFI Integration for idb_companion",
+    "html_url": "https://github.com/facebook/idb/pull/882",
+    "repo": "facebook/idb",
+    "agent": "Claude_Code",
+    "user": "arkavo-com",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-12 20:58:00+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-12 20:59:11+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 11,
+    "topic_name": "11",
+    "body_summary": "Introduce Direct FFI integration as a lightweight alternative to gRPC, claiming 500x faster latency and 40x smaller binary size; includes Objective‑C interfaces, Rust FFI bindings, an extensive FBProcess→FBIDBProcess rename, CI workflows, and a Rust calibration client."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 27,
+      "file_count": 107,
+      "additions": 4687,
+      "deletions": 490,
+      "changes": 5177,
+      "top1_file": "rust-client-simple/DIRECT_FFI_IMPLEMENTATION_PLAN.md",
+      "top1_changes": 671,
+      "top1_change_ratio": 0.1296,
+      "files_by_status": {
+        "added": 38,
+        "modified": 58,
+        "removed": 7,
+        "renamed": 4
+      },
+      "directory_count": 10,
+      "directories": [
+        ".github",
+        "FBControlCore",
+        "FBSimulatorControl",
+        "XCTestBootstrap",
+        "idb_companion",
+        "CompanionLib",
+        "FBDeviceControl",
+        "rust-client-simple",
+        "idb_direct",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 27,
+        "commented": 1,
+        "mentioned": 1,
+        "subscribed": 1
+      },
+      "lifespan_hours": 0.02,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ffi_integration",
+      "grpc_replacement",
+      "latency_reduction",
+      "binary_size_reduction"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_procedural_cla_unsigned",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Claude Code generated large FFI integration PR with performance claims but no benchmark; closed immediately after CLA bot request; no review engagement."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5177,
+        "interpretation": "At 5177 changed lines across 107 files, this is a very large change by absolute volume. It includes a new Direct FFI integration, extensive renames across multiple modules, CI workflow changes, and a Rust client addition. As a large‑scale architectural change from a fork, it was closed without merge, likely due to procedural gates (CLA not signed) and lack of maintainer interest in such a broad contribution."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.02,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "cla_unsigned",
+      "concern_detail": "The only comment is from facebook-github-bot requiring CLA signing; no technical review occurred. The PR was closed approximately one minute after creation.",
+      "performance_claim": "500x faster than gRPC (microseconds vs milliseconds), 40x smaller binary (~500KB vs ~20MB), zero dependencies.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Procedural close: CLA bot requested signature; PR closed ~1 minute after creation."
+    },
+    "capability_boundary": {
+      "topic": "11",
+      "agent": "Claude_Code",
+      "boundary_type": "process",
+      "boundary_notes": "Large cross‑language refactor from a fork faces process barriers (CLA, maintainer reluctance) that prevent any technical evaluation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No maintainer review or detection occurred."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after data provided; only narrative claims of speedup and size reduction.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without any fix cycle, likely due to CLA not being signed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Adds a Direct FFI layer (idb_direct.h/m etc.) to bypass gRPC, a Rust FFI binding, extensive FBProcess→FBIDBProcess rename across many files, CI workflow changes, and a Rust gRPC calibration client. The performance claim is that FFI provides microsecond latency vs millisecond gRPC.",
+      "files_primary": [
+        "idb_direct/idb_direct.m",
+        "idb_direct/idb_direct.h",
+        "rust-client-simple/src/ffi.rs",
+        "rust-client-simple/DIRECT_FFI_IMPLEMENTATION_PLAN.md"
+      ],
+      "files_secondary_observability": [
+        "FBControlCore/Commands/FBDapServerCommands.h",
+        "FBControlCore/Tasks/FBIDBProcessBuilder.h",
+        ".github/workflows/build.yaml",
+        "rust-client-simple/Cargo.toml"
+      ],
+      "secondary_note": "Massive rename of internal classes across many directories; CI pipeline additions for release and signing.",
+      "change_trajectory": [
+        "Added fork documentation and GitHub Actions workflows.",
+        "Configured ARM64‑only builds, code signing, and notarization.",
+        "Performed extensive FBProcess→FBIDBProcess rename across dozens of files, with follow‑up fixes for missed references.",
+        "Added Rust gRPC client for simulator calibration testing.",
+        "Final commit: Implemented Direct FFI integration with C/Objective‑C interfaces, Rust bindings, and detailed documentation."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "facebook-github-bot",
+        "channel": "pr_comment",
+        "signal": "cla_required",
+        "summary": "Bot requested CLA signing as a merge requirement.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with 27 commits from Claude Code, covering a very large scope.",
+      "CLA bot commented immediately.",
+      "PR closed ~1 minute later without any human review or code interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

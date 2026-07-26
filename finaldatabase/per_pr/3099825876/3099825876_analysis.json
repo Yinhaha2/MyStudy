@@ -1,0 +1,196 @@
+{
+  "pr_id": 3099825876,
+  "meta": {
+    "title": "storcon: skip offline nodes in get_top_tenant_shards",
+    "html_url": "https://github.com/neondatabase/neon/pull/12057",
+    "repo": "neondatabase/neon",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-29 10:04:12+00:00",
+    "merged_at": "2025-05-29 11:17:51+00:00",
+    "closed_at": "2025-05-29 11:17:51+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Skip offline nodes in the storage controller's get_top_tenant_shards to avoid optimizer background loop delays caused by waiting for timeouts when nodes are unreachable."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 4,
+      "deletions": 2,
+      "changes": 6,
+      "top1_file": "storage_controller/src/service.rs",
+      "top1_changes": 6,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "storage_controller"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 1,
+        "review_requested": 2,
+        "commented": 2,
+        "labeled": 1,
+        "reviewed": 1,
+        "added_to_merge_queue": 1,
+        "merged": 1,
+        "closed": 1,
+        "removed_from_merge_queue": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.227,
+      "first_review_delay_hours": 1.009,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "skip_offline_nodes",
+      "reduce_timeout_latency",
+      "optimizer_loop_performance"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_timeout_wait"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin fixed storcon timeout by filtering offline nodes; reviewed and merged within ~1.2h with no objections."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 6,
+        "interpretation": "At 6 changed lines in a single file, this is an extremely small edit. It fits a minimal, targeted performance fix that was merged quickly without controversy."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.227,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "VladLazar approved without comments; no blocking concerns.",
+      "performance_claim": "Skipping offline nodes reduces delay in the optimizer background loop by avoiding timeouts.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_timeout_wait",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The change is small and focused within a single service file, requiring no benchmark or complex reasoning; Devin's ability to make a targeted performance fix was within its capabilities.",
+      "success_factors": [
+        "small_scope",
+        "minimal_change",
+        "quick_review_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "VladLazar performed a code review and approved without requesting additional benchmarks or tests."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or reproduction steps for the timeout delay were provided; only narrative description of the problem.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression was detected; the PR was merged with CI passing all tests.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In storage_controller/src/service.rs, added a filter to skip nodes that are offline before making API calls in get_top_tenant_shards, thereby eliminating timeout delays from inaccessible nodes.",
+      "files_primary": [
+        "storage_controller/src/service.rs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit introduced the filter: 4 additions, 2 deletions in service.rs."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "VladLazar",
+        "channel": "formal_review",
+        "signal": "approved_no_comment",
+        "summary": "Approved without providing a review body.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_test_results",
+        "summary": "Reported 8503 tests run, 7933 passed, 0 failed, 570 skipped, with 4 flaky tests.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with a single commit fixing timeout delays by filtering offline nodes.",
+      "Reviewer VladLazar approved within ~1 hour with no comments.",
+      "GitHub Actions reported test results with all tests passing.",
+      "Maintainer jcsp added PR to merge queue and merged shortly after."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

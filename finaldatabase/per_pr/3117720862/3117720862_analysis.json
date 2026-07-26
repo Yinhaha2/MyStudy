@@ -1,0 +1,176 @@
+{
+  "pr_id": 3117720862,
+  "meta": {
+    "title": "Add TS benchmark via compiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/37",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-04 12:49:07+00:00",
+    "merged_at": "2025-06-04 12:49:23+00:00",
+    "closed_at": "2025-06-04 12:49:23+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "27",
+    "body_summary": "Add a Mochi-to-TypeScript compilation step to the benchmark runner and remove manually written TypeScript template files, instead running benchmarks via Deno on compiler-generated output."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 8,
+      "additions": 30,
+      "deletions": 175,
+      "changes": 205,
+      "top1_file": "bench/template/math/matrix_mul/matrix_mul.ts",
+      "top1_changes": 39,
+      "top1_change_ratio": 0.1902,
+      "files_by_status": {
+        "modified": 1,
+        "removed": 7
+      },
+      "directory_count": 1,
+      "directories": [
+        "bench"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.004,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "compiler_codegen",
+      "benchmark_automation",
+      "template_removal"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit tooling addition replaces manual TS templates with compiler-generated benchmarks; merged instantly by author without review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 205,
+        "interpretation": "At 205 changed lines across 8 files, this is a small edit by absolute volume, mostly deletions of manual templates. It fits a small-step tooling improvement PR, consistent with the quick, no-review merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.004,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback was provided; the PR was self-merged by the author immediately.",
+      "performance_claim": "Replace hand-written TypeScript benchmark templates with compiler-generated code, reducing maintenance overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "27",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Adding a compilation benchmark step and removing hand-crafted templates is a low-risk tooling task; the PR merged instantly with zero review friction, illustrating a trivial process boundary for agent-authored contributions in a small project.",
+      "success_factors": [
+        "single_commit",
+        "self_merged",
+        "low_risk_tooling_change"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "Self-merged by author without review; no maintainer detection of performance issues occurred."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after benchmark results or numbers provided; only a narrative description of the change exists.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression identified; PR self-merged without any review cycle.",
+      "evidence_gap": "narrative_only_no_benchmark_results"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified bench/runner.go to compile Mochi code to TypeScript and then run the generated TS benchmarks via Deno, while removing all pre-existing hand-written TypeScript templates under bench/template/math/.",
+      "files_primary": [
+        "bench/runner.go"
+      ],
+      "files_secondary_observability": [
+        "bench/template/math/fact_rec/fact_rec.ts",
+        "bench/template/math/fib_iter/fib_iter.ts",
+        "bench/template/math/fib_rec/fib_rec.ts",
+        "bench/template/math/matrix_mul/matrix_mul.ts",
+        "bench/template/math/mul_loop/mul_loop.ts",
+        "bench/template/math/prime_count/prime_count.ts",
+        "bench/template/math/sum_loop/sum_loop.ts"
+      ],
+      "secondary_note": "The seven removed files were hand-coded TypeScript implementations of math algorithms; they are replaced by compiler-generated output.",
+      "change_trajectory": [
+        "Single commit (76af5309): replaced manual TS templates with compiler-driven generation and benchmark execution."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and self-merged by tamnd within 16 seconds; no reviews or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "pr_id": 3242174192,
+  "meta": {
+    "title": "feat: implement async timeout for segments with cache support",
+    "html_url": "https://github.com/JanDeDobbeleer/oh-my-posh/pull/6617",
+    "repo": "JanDeDobbeleer/oh-my-posh",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-18 07:09:18+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 0,
+    "topic_name": "37",
+    "body_summary": "Implement asynchronous segment execution with configurable timeout and caching to reduce prompt latency in large repositories, allowing cached data to be used when git operations exceed the threshold while background refresh updates the cache."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 5,
+      "additions": 457,
+      "deletions": 3,
+      "changes": 460,
+      "top1_file": "src/config/segment.go",
+      "top1_changes": 177,
+      "top1_change_ratio": 0.384,
+      "files_by_status": {
+        "added": 3,
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "async_timeout",
+      "cache",
+      "background_refresh",
+      "prompt_latency"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_maintainer_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Copilot async timeout/cache feature got community interest but no maintainer review; closed without merge or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 460,
+        "interpretation": "At 460 changed lines across 5 files, this is a medium-sized feature addition by absolute volume. The PR was closed without merge, likely due to lack of maintainer engagement despite a positive community comment; this is a process outcome rather than a technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_maintainer_response",
+      "concern_detail": "No formal review was conducted by the maintainer; the PR received only a positive comment and a sad face from community member syrm, indicating interest but no actionable feedback from the project maintainer, leading to closure without merge.",
+      "performance_claim": "Async timeout with caching for segments reduces prompt rendering latency by using cached data when git operations exceed timeout, enabling instant prompts in large repos.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed without merge after extended period with no maintainer response; PR received positive community reaction but no maintainer review."
+    },
+    "capability_boundary": {
+      "topic": "37",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "The PR was opened with a linked issue and completed with tests, but it failed to receive any maintainer response, indicating a process boundary where AI-authored PRs may not be reviewed without explicit human request or may be closed due to inactivity/staleness.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No maintainer code review detected."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling evidence; PR relies on narrative of slowness in large repos but provides no before/after measurements or reproduction steps for performance evaluation.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression was identified; the PR was closed without technical evaluation.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added async_timeout configuration field for segments, implemented AsyncSegmentCache system in src/cache/async.go, added CLI cache management commands, and integrated async execution logic into src/config/segment.go with background cache refresh.",
+      "files_primary": [
+        "src/config/segment.go",
+        "src/cache/async.go"
+      ],
+      "files_secondary_observability": [
+        "src/cli/cache.go",
+        "src/config/async_test.go",
+        "src/config/async_config_test.go"
+      ],
+      "secondary_note": "Test and CLI files support the feature but are not performance-critical.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Single implementation commit adding async timeout, cache, CLI, and tests."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "syrm",
+        "channel": "pr_comment",
+        "signal": "community_positive_comment",
+        "summary": "Commented 'nice feature', expressing support.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "syrm",
+        "channel": "pr_comment",
+        "signal": "community_disappointment",
+        "summary": "Commented ':''(' indicating disappointment, likely at the PR being closed or stale.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue #6094 with async timeout/cache implementation.",
+      "Community member syrm commented positively on 2025-09-04.",
+      "No maintainer response; PR eventually closed, with syrm expressing disappointment on 2025-09-11."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

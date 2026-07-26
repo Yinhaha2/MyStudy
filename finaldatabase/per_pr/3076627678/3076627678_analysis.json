@@ -1,0 +1,166 @@
+{
+  "pr_id": 3076627678,
+  "meta": {
+    "title": "Add ExecuteCompiledScriptAction source generator",
+    "html_url": "https://github.com/wieslawsoltes/Xaml.Behaviors/pull/102",
+    "repo": "wieslawsoltes/Xaml.Behaviors",
+    "agent": "OpenAI_Codex",
+    "user": "wieslawsoltes",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-20 11:09:56+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-20 11:10:49+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Add a source generator to compile scripts at build time, presumably improving runtime performance for Avalonia XAML Behaviors scripting."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 147,
+      "deletions": 5,
+      "changes": 152,
+      "top1_file": "src/Avalonia.Xaml.Interactions.Scripting.Generator/ExecuteCompiledScriptActionGenerator.cs",
+      "top1_changes": 58,
+      "top1_change_ratio": 0.382,
+      "files_by_status": {
+        "added": 3,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.015,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "build_time_script_compilation",
+      "source_generator"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_immediately",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex PR to add a C# source generator; closed by author within a minute, possibly due to invalid test command (dotnet: command not found) or other immediate issues."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 152,
+        "interpretation": "At 152 changed lines, this is a small edit; closed immediately without any review interaction, indicating a likely pre-merge failure or self-rejection by the author."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.015,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_available",
+      "concern_detail": "No formal reviews or comments were left on the PR; the author closed it almost instantly.",
+      "performance_claim": "Compile scripts at build time to improve runtime performance compared to runtime interpretation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR was closed by the author 53 seconds after creation with no review activity; the description mentions a failing test command (dotnet: command not found)."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Developing a Roslyn-based source generator for Avalonia XAML Behaviors scripting requires deep .NET ecosystem knowledge; the immediate closure suggests the generated code may not have been viable or the author pre-validated and found issues.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks, profiling data, or reproducible performance evidence; the test command mentioned in the body fails due to a missing dotnet CLI environment.",
+      "regression_handling": "reject_close",
+      "regression_detail": "The PR was closed immediately without any fix cycle.",
+      "evidence_gap": "no_review_and_invalid_test_command"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a new Roslyn source generator (ExecuteCompiledScriptActionGenerator) under src/Avalonia.Xaml.Interactions.Scripting.Generator/, a runtime action class (ExecuteCompiledScriptAction) under Scripting, a project file, and updated the solution and README.",
+      "files_primary": [
+        "src/Avalonia.Xaml.Interactions.Scripting.Generator/ExecuteCompiledScriptActionGenerator.cs",
+        "src/Avalonia.Xaml.Interactions.Scripting/ExecuteCompiledScriptAction.cs"
+      ],
+      "files_secondary_observability": [
+        "AvaloniaBehaviors.sln",
+        "README.md",
+        "src/Avalonia.Xaml.Interactions.Scripting.Generator/Avalonia.Xaml.Interactions.Scripting.Generator.csproj"
+      ],
+      "secondary_note": "Solution and README changes integrate the new generator project and document its purpose.",
+      "change_trajectory": [
+        "Single commit (481270c) introducing the source generator, the action class, and associated project infrastructure."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by wieslawsoltes with label 'codex'; no reviews or comments were posted, and the author closed the PR 53 seconds later."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

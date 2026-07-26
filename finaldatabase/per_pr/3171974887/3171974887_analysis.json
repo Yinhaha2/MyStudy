@@ -1,0 +1,199 @@
+{
+  "pr_id": 3171974887,
+  "meta": {
+    "title": "feat: optimize avatar flashing during sidebar navigation",
+    "html_url": "https://github.com/calcom/cal.com/pull/22009",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-24 13:16:42+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-25 12:34:58+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 49,
+    "topic_name": "49",
+    "body_summary": "Optimize avatar rendering during sidebar navigation by reducing unnecessary API calls and re-renders, eliminating avatar flashing and improving navigation smoothness."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 8,
+      "additions": 106,
+      "deletions": 45,
+      "changes": 151,
+      "top1_file": "packages/lib/defaultAvatarImage.ts",
+      "top1_changes": 44,
+      "top1_change_ratio": 0.291,
+      "files_by_status": {
+        "added": 1,
+        "modified": 7,
+        "removed": 0
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 5,
+        "commented": 2,
+        "deployed": 2,
+        "assigned": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 23.304,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "avatar_flashing",
+      "react_memoization",
+      "trpc_query_caching",
+      "shared_user_context"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_maintainer_with_partial_revert",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin attempted multi-pronged frontend perf optimization for avatar flashing; maintainer partially reverted memoization and closed without formal review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 151,
+        "interpretation": "At 151 changed lines across 8 files, this is a small-to-medium sized frontend performance refactor by absolute volume. It fits a moderate incremental optimization but was closed without merge. The maintainer partially reverted the avatar memoization work before closing, indicating a critical assessment that the approach or implementation was not accepted."
+      },
+      "lifecycle": {
+        "lifespan_hours": 23.304,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No explicit review feedback; maintainer assigned PR, committed a revert of defaultAvatarImage.ts changes, and then closed the PR without comment.",
+      "performance_claim": "Reduced avatar flashing and unnecessary API calls during sidebar navigation via React.memo, tRPC staleTime, and shared UserProvider context.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer assigned PR, committed a partial revert (defaultAvatarImage.ts) and then closed PR without comment or formal review."
+    },
+    "capability_boundary": {
+      "topic": "49",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Frontend performance optimization involving multiple React patterns was closed by maintainer without collaborative iteration, possibly indicating that the approach was not aligned with project standards or that the agent's implementation did not meet expectations.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No explicit evidence of code-reading review; maintainer may have manually tested and found issues with the memoization approach, leading to a revert of defaultAvatarImage.ts.",
+        "ci_auto": "Vercel deployment and delve-auditor security scan passed but no performance CI checks."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or reproduction steps; only narrative claims of reduced flashing and API calls.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Maintainer committed a revert of defaultAvatarImage.ts changes (memoization) before closing the PR, suggesting that at least that part was found problematic.",
+      "evidence_gap": "narrative_only_no_benchmark_or_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Implemented tRPC staleTime/refetchOnWindowFocus in useMeQuery, added React.memo to UserDropdown and Avatar components, created UserProvider context to share user data, and wrapped Shell with it. Also added avatar URL memoization in defaultAvatarImage.ts, which was later reverted by maintainer.",
+      "files_primary": [
+        "packages/features/shell/context/UserProvider.tsx",
+        "packages/trpc/react/hooks/useMeQuery.ts",
+        "packages/features/shell/Shell.tsx",
+        "packages/features/shell/user-dropdown/UserDropdown.tsx",
+        "packages/features/shell/useAppTheme.ts",
+        "packages/ui/components/avatar/UserAvatar.tsx",
+        "packages/ui/components/avatar/Avatar.tsx"
+      ],
+      "files_secondary_observability": [
+        "packages/lib/defaultAvatarImage.ts"
+      ],
+      "secondary_note": "The memoization cache in defaultAvatarImage.ts was reverted by maintainer in the final commit, indicating it may not have been needed or introduced issues.",
+      "change_trajectory": [
+        "Initial commit: add React.memo to UserDropdown, staleTime/refetchOnWindowFocus to useMeQuery.",
+        "Added UserProvider context to centralize user data, updated UserDropdown and useAppTheme.",
+        "Fixed circular dependency with ShellWithTheme wrapper.",
+        "Added avatar URL memoization and optimized Avatar components.",
+        "Maintainer reverted defaultAvatarImage.ts change and closed PR."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_info",
+        "summary": "Vercel bot posted deployment preview metadata (skipped deployments).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "delve-auditor[bot]",
+        "channel": "pr_comment",
+        "signal": "security_scan_pass",
+        "summary": "Security and compliance scan reported no issues; summarized detected code changes.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial optimizations and subsequent commits.",
+      "Maintainer assigned PR and Devin added further memoization commits.",
+      "Maintainer committed a revert of defaultAvatarImage.ts and then closed PR without comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

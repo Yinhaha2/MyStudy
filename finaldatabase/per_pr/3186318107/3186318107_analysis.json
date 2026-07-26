@@ -1,0 +1,174 @@
+{
+  "pr_id": 3186318107,
+  "meta": {
+    "title": "Improve group by compilation",
+    "html_url": "https://github.com/mochilang/mochi/pull/3988",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-29 16:17:31+00:00",
+    "merged_at": "2025-06-29 16:17:47+00:00",
+    "closed_at": "2025-06-29 16:17:47+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 21,
+    "topic_name": "",
+    "body_summary": "Optimize VM group-by compilation to avoid extra index lookups and update IR golden files accordingly."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 9,
+      "additions": 882,
+      "deletions": 913,
+      "changes": 1795,
+      "top1_file": "tests/vm/valid/group_by_multi_join_sort.ir.out",
+      "top1_changes": 434,
+      "top1_change_ratio": 0.242,
+      "files_by_status": {
+        "modified": 9
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.00444,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "vm_group_by_compile",
+      "index_lookup_removal",
+      "ir_optimization"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative",
+      "golden_file_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_self_review_trivial",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex optimized VM group-by compilation and updated IR golden files; merged in 16 seconds with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1795,
+        "interpretation": "At 1795 changed lines across 9 files, this is a medium-sized change by absolute volume, but most churn (1700+ lines) is in IR golden file updates for 8 group-by test cases; the core VM optimization in runtime/vm/vm.go is only 53 lines. It fits a small compiler optimization that updates many test expectations and was self-merged quickly."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.00444,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Optimize VM group-by compilation to avoid extra index lookups.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "redundant_index_lookups",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "21",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "AI generated a compiler optimization with expected IR changes; maintainer merged rapidly without independent review or performance validation, illustrating a low-friction process boundary for trusted contributors.",
+      "success_factors": [
+        "narrow_scope_vm_change",
+        "golden_file_test_coverage",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or numeric speedup claim; reproducibility is limited to golden IR tests that verify output correctness, not performance.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression detected or addressed; merged without review.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, refactored group-by compilation logic to eliminate redundant index lookups, with corresponding updates to 8 IR golden test files (group_by*.ir.out) to reflect the new generated code.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/group_by.ir.out",
+        "tests/vm/valid/group_by_conditional_sum.ir.out",
+        "tests/vm/valid/group_by_having.ir.out",
+        "tests/vm/valid/group_by_join.ir.out",
+        "tests/vm/valid/group_by_left_join.ir.out",
+        "tests/vm/valid/group_by_multi_join.ir.out",
+        "tests/vm/valid/group_by_multi_join_sort.ir.out",
+        "tests/vm/valid/group_by_sort.ir.out"
+      ],
+      "secondary_note": "These IR golden file updates represent the bulk of line changes and serve as automated correctness tests for the compiler optimization.",
+      "change_trajectory": [
+        "Single commit 9b85743: 'vm: optimize group by algorithm' with core VM change and IR golden file updates."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged within 16 seconds by the same author with no human review or comments; only a 'codex' label was applied upon creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "pr_id": 3221235980,
+  "meta": {
+    "title": "Implement pre-computed etag support for mbtiles sources",
+    "html_url": "https://github.com/maplibre/martin/pull/1918",
+    "repo": "maplibre/martin",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-11 02:11:57+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-11 09:44:48+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "",
+    "body_summary": "Implement pre-computed etag support in mbtiles sources to eliminate unnecessary xxhash CPU overhead by reusing stored hashes; adds trait method and pipeline integration with full backward compatibility."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 3,
+      "additions": 277,
+      "deletions": 63,
+      "changes": 340,
+      "top1_file": "martin/src/srv/tiles.rs",
+      "top1_changes": 247,
+      "top1_change_ratio": 0.726,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "martin"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 16,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "labeled": 1,
+        "unlabeled": 1,
+        "commented": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 7.55,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "precomputed_etag",
+      "cpu_reduction",
+      "tile_serving_optimization"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_human_rejection_code_quality",
+    "review_dimensions": [
+      "quality",
+      "approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot added pre-computed etag support; maintainers closed PR saying it's simpler to redo by a human, indicating insufficient Rust code quality."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 340,
+        "interpretation": "At 340 changed lines across 3 files, this is a small-to-medium edit by absolute volume. As a moderate performance enhancement PR it was closed—not merged—because maintainers rejected the code quality, preferring a human rewrite."
+      },
+      "lifecycle": {
+        "lifespan_hours": 7.55,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "implementation_quality",
+      "concern_detail": "Maintainers CommanderStorm and nyurik agreed that the PR's Rust code was not great and it would be simpler for a human to redo the implementation.",
+      "performance_claim": "Pre-computed etag support eliminates unnecessary CPU usage from xxhash computation, providing instant etag lookup for supported mbtiles types.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "quality",
+        "approach"
+      ],
+      "rejection_signals": "Maintainers explicitly stated the PR should be done by a human; closed by CommanderStorm with comment 'simpler if re-done by a human'."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot's Rust code quality was not suitable; maintainers believed a human rewrite would be simpler, indicating a gap in producing idiomatic, maintainable Rust code for this performance optimization task.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainers evaluated the PR's approach and code quality, concluding it was insufficient for merge."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmark or profiler evidence; performance claim is narrative only. Maintainers did not request or discuss performance evidence.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no further fixes attempted.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added `get_tile_etag()` method to `Source` trait with default returning `None`; implemented in `MbtSource` to extract pre-computed hash from `tiles_with_hash` or `images` tables; integrated into tile serving pipeline with fallback to xxhash; added tests in `martin/src/srv/tiles.rs`.",
+      "files_primary": [
+        "martin/src/source.rs",
+        "martin/src/mbtiles/mod.rs",
+        "martin/src/srv/tiles.rs"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Implementation commit: added trait method, mbtiles detection and etag extraction, pipeline integration.",
+        "Test commit: added tests for pre-computed etag handling.",
+        "Pre-commit autofix formatting."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "CommanderStorm",
+        "channel": "pr_comment",
+        "signal": "close_due_to_quality",
+        "summary": "Closed PR with comment 'simpler if re-done by a human'",
+        "blocking": true,
+        "action_taken": "Closed PR"
+      },
+      {
+        "source": "nyurik",
+        "channel": "pr_comment",
+        "signal": "agree_human_rewrite",
+        "summary": "Agreed that the PR should be done by a human, noting the goal was to test the system",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "CommanderStorm",
+        "channel": "pr_comment",
+        "signal": "rust_quality_comment",
+        "summary": "It can solve simpler tasks, but Rust code quality is not great",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with pre-computed etag implementation and tests.",
+      "Pre-commit CI applied auto formatting fixes.",
+      "~7.5 hours after creation, CommanderStorm closed the PR stating it's simpler to redo by a human.",
+      "Maintainer nyurik later confirmed agreement, noting the goal was to test the system."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

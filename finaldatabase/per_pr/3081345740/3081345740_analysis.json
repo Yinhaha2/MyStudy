@@ -1,0 +1,247 @@
+{
+  "pr_id": 3081345740,
+  "meta": {
+    "title": "Prevent double-building of Microsoft.DotNet.Cli.Utils.csproj by excluding PublishDir from global properties",
+    "html_url": "https://github.com/dotnet/sdk/pull/49090",
+    "repo": "dotnet/sdk",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-21 20:31:51+00:00",
+    "merged_at": "2025-07-16 22:02:28+00:00",
+    "closed_at": "2025-07-16 22:02:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 38,
+    "topic_name": "38",
+    "body_summary": "Add GlobalPropertiesToRemove=\"PublishDir\" to ProjectReferences across multiple projects to prevent double-build of Microsoft.DotNet.Cli.Utils.csproj and avoid PDB mismatches."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 193,
+      "additions": 4572,
+      "deletions": 3701,
+      "changes": 8273,
+      "top1_file": "sdk.sln",
+      "top1_changes": 1264,
+      "top1_change_ratio": 0.153,
+      "files_by_status": {
+        "added": 12,
+        "modified": 173,
+        "removed": 8
+      },
+      "directory_count": 5,
+      "directories": [
+        ".config",
+        ".github",
+        "documentation",
+        "eng",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 8,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "mentioned": 7,
+        "subscribed": 7,
+        "copilot_work_started": 2,
+        "commented": 3,
+        "unsubscribed": 3,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2
+      },
+      "lifespan_hours": 1345.5,
+      "first_review_delay_hours": 865.02,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "build_overhead_reduction",
+      "double_build_prevention",
+      "publishdir_exclusion"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "design_or_approach",
+      "scope",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot initially applied fix in GenerateLayout.targets; after maintainer correction, moved to ProjectReferences; merged with approval."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8273,
+        "interpretation": "At 8273 changed lines (much due to merge), the meaningful build-optimization change is small (~52 additions, ~42 deletions across .csproj files). This fits a targeted incremental build fix that merged after iterative review despite large merge noise."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1345.5,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_or_approach",
+      "concern_detail": "Maintainer marcpopMSFT corrected the initial implementation location from GenerateLayout.targets to ProjectReferences, requiring Copilot to adjust scope and add property removal to all ProjectReferences in identified projects.",
+      "performance_claim": "Prevent double-build of CLI.Utils.csproj to eliminate redundant build work and avoid PDB mismatches.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "scope",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "38",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Understanding MSBuild property propagation and correct placement of GlobalPropertiesToRemove required precise maintainer guidance; agent iterated successfully but needed explicit correction.",
+      "success_factors": [
+        "explicit_maintainer_feedback",
+        "linked_issue",
+        "iterative_scope_adjustment"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "marcpopMSFT reviewed the proposed changes and provided step-by-step correction through PR comments."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or before/after build comparison; fix relies on understanding of property propagation.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Fix was adjusted within the PR before merge; no revert or follow-up needed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added GlobalPropertiesToRemove=\"PublishDir\" to ProjectReference elements in multiple .csproj files (CLI, Containers, Resolvers) to stop PublishDir from propagating and causing double-build of Microsoft.DotNet.Cli.Utils.csproj.",
+      "files_primary": [
+        "src/Cli/dotnet/dotnet.csproj",
+        "src/Containers/packaging/package.csproj",
+        "src/Resolvers/Microsoft.NET.Sdk.WorkloadMSBuildSdkResolver/Microsoft.NET.Sdk.WorkloadMSBuildSdkResolver.csproj",
+        "src/Cli/Microsoft.DotNet.Configurer/Microsoft.DotNet.Configurer.csproj",
+        "src/Cli/Microsoft.TemplateEngine.Cli/Microsoft.TemplateEngine.Cli.csproj",
+        "src/Containers/containerize/containerize.csproj",
+        "src/Containers/Microsoft.NET.Build.Containers/Microsoft.NET.Build.Containers.csproj"
+      ],
+      "files_secondary_observability": [
+        "sdk.sln (removed in merge)",
+        "sdk.slnx (added)",
+        "documentation/manpages/*",
+        "eng/*"
+      ],
+      "secondary_note": "Merge of upstream/main introduced numerous unrelated documentation and build infrastructure changes; the performance fix itself is limited to the .csproj modifications.",
+      "change_trajectory": [
+        "Initial commit: added GlobalPropertiesToRemove to MSBuild tasks in GenerateLayout.targets (commit de8ced6).",
+        "After maintainer feedback, moved property removal to ProjectReferences of identified projects instead, removing from targets (commit 1cba47).",
+        "Expanded GlobalPropertiesToRemove to all ProjectReferences in those projects, not just the ones referencing CLI.Utils (commit 40a7ae).",
+        "Merge commit resolved conflicts with main branch."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Copilot bot posted PR Overview summarizing changes; reviewed 7/7 files with no inline comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "rainersigwald",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED with comment acknowledging reduction of overbuild and alignment with prior discussion.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "marcpopMSFT",
+        "channel": "pr_comment",
+        "signal": "design_correction",
+        "summary": "Corrected initial approach: instead of adding to MSBuild calls in GenerateLayout.targets, add GlobalPropertiesToRemove to ProjectReferences of projects called by those targets.",
+        "blocking": false,
+        "action_taken": "Copilot reimplemented the fix accordingly."
+      },
+      {
+        "source": "marcpopMSFT",
+        "channel": "pr_comment",
+        "signal": "scope_expansion_request",
+        "summary": "Requested to apply GlobalPropertiesToRemove to all ProjectReferences in the edited .csproj files, not just those for CLI.Utils.",
+        "blocking": false,
+        "action_taken": "Copilot expanded the change to all ProjectReferences."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed implementation of design correction and scope expansion in subsequent commits.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with first attempt in GenerateLayout.targets.",
+      "Maintainer quickly corrected to modify ProjectReferences instead.",
+      "Copilot reimplemented and further expanded coverage per feedback.",
+      "After a long period (likely waiting for merge), maintainer approved and merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

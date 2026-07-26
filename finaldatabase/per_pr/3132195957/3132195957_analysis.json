@@ -1,0 +1,181 @@
+{
+  "pr_id": 3132195957,
+  "meta": {
+    "title": "Prevent over-counting Blob memory usage",
+    "html_url": "https://github.com/oven-sh/bun/pull/20297",
+    "repo": "oven-sh/bun",
+    "agent": "Cursor",
+    "user": "Jarred-Sumner",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-10 05:29:06+00:00",
+    "merged_at": null,
+    "closed_at": "2026-06-26 09:06:35+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "31",
+    "body_summary": "Fix GC heap size reporting and Blob memory reporting to prevent over-counting memory usage during ReadableStream conversion."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 4,
+      "additions": 402,
+      "deletions": 180,
+      "changes": 582,
+      "top1_file": "test/js/web/streams/blob-stream-memory.test.js",
+      "top1_changes": 211,
+      "top1_change_ratio": 0.363,
+      "files_by_status": {
+        "modified": 3,
+        "added": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 3,
+        "commented": 1,
+        "mentioned": 4,
+        "subscribed": 4
+      },
+      "lifespan_hours": 9147.6,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_usage_accounting",
+      "blob_memory_reporting",
+      "gc_heap_size"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "test_failures_unaddressed_stale",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Cursor fix for memory over-counting; no human review, CI reported s3/spawn test timeouts, PR abandoned and closed after ~1 year."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 582,
+        "interpretation": "At 582 changed lines across Zig runtime and test files, this is a medium-sized change by absolute volume. As a memory-accounting performance PR it was closed without merge after over a year, consistent with unresolved CI test failures and inactivity."
+      },
+      "lifecycle": {
+        "lifespan_hours": 9147.6,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "test_failures",
+      "concern_detail": "robobun CI bot reported multiple test timeouts (s3.test.ts, spawn.test.ts) across platforms after the last commit; no human review text available.",
+      "performance_claim": "Fix GC heap size reporting and Blob memory reporting to prevent over-counting memory usage.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "incorrect_memory_accounting",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "CI test failures (s3/spawn timeouts) reported by robobun; PR closed after 381 days without further commits, indicating abandonment."
+    },
+    "capability_boundary": {
+      "topic": "31",
+      "agent": "Cursor",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Low-level Zig memory tracking fix; closure due to test failures and inactivity, not a perf-evidence gap.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human review text available."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiler; CI failures indicate potential regressions but not specific to the claimed memory fix.",
+      "regression_handling": "reject_close",
+      "regression_detail": "robobun reported test failures, possibly unrelated; PR closed after long inactivity without addressing failures.",
+      "evidence_gap": "narrative_only_ci_failures"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified ByteBlobLoader.zig to fix Blob memory reporting during ReadableStream conversion, updated GarbageCollectionController.zig for GC heap size reporting, and added blob-stream-memory.test.js.",
+      "files_primary": [
+        "src/bun.js/webcore/ByteBlobLoader.zig",
+        "src/bun.js/event_loop/GarbageCollectionController.zig",
+        "test/js/web/streams/blob-stream-memory.test.js"
+      ],
+      "files_secondary_observability": [
+        "test/cli/install/bun-workspaces.test.ts"
+      ],
+      "secondary_note": "bun-workspaces.test.ts change is a prettier auto-format unrelated to the memory fix.",
+      "change_trajectory": [
+        "Initial commit: GC heap fix and Blob stream conversion tests added.",
+        "Second commit: refined Blob memory reporting, removed temporary test files, added blob-stream-memory.test.js.",
+        "Prettier run adjusted formatting in workspaces test and blob-stream-memory test."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "robobun",
+        "channel": "pr_comment",
+        "signal": "ci_test_failures",
+        "summary": "Robobun reported timeout failures in s3.test.ts and spawn.test.ts across multiple platforms after the last commit.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent opened PR with GC heap and Blob memory reporting fixes.",
+      "CI failed with s3/spawn test timeouts (robobun comment).",
+      "No follow-up commits to address test failures; PR closed after 381 days without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

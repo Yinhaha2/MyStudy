@@ -1,0 +1,167 @@
+{
+  "pr_id": 3112047147,
+  "meta": {
+    "title": "[alpha_factory] tighten insight bundle size checks",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/1470",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-03 01:05:43+00:00",
+    "merged_at": "2025-06-03 01:05:54+00:00",
+    "closed_at": "2025-06-03 01:05:54+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "build",
+    "aidev_task_confidence": 8,
+    "topic_id": 13,
+    "topic_name": "13",
+    "body_summary": "Tighten bundle size checks by enabling tree shaking, reducing gzip max size to 2 MiB, and enforcing the limit in testing and manual build scripts."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 10,
+      "deletions": 3,
+      "changes": 13,
+      "top1_file": "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/manual_build.py",
+      "top1_changes": 6,
+      "top1_change_ratio": 0.462,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "alpha_factory_v1"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.003,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bundle_size_limit",
+      "tree_shaking",
+      "build_optimization"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit build config tweak with no review; merged instantly by author."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 13,
+        "interpretation": "At 13 changed lines, this is a trivial edit by absolute volume. It fits a small-step build configuration performance PR and was merged instantly without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.003,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": "No review or human feedback captured in the dataset.",
+      "performance_claim": "Enable tree shaking, enforce 2 MiB gzip bundle size limit to prevent large bundles.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "13",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Simple build config changes with no performance evidence required; agent merged without maintainer interaction, illustrating a boundary where process is bypassed.",
+      "success_factors": [
+        "trivial_change",
+        "author_merged_self",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, before/after metrics, or review discussion; only PR body narrative.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression handling needed; PR was merged without issue.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In build.js, enable treeShaking and reduce gzip max size to 2 MiB; in manual_build.py, add same gzip check; in test_bundle_size.py, update assert to enforce 2 MiB limit.",
+      "files_primary": [
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/build.js",
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/manual_build.py",
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/tests/test_bundle_size.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit 9bbf63d3b66d258f80a0e98f8357eae6eeb5d7a5: enabled tree shaking, tightened gzip limit, and updated test."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by MontrealAI with a single commit containing all changes.",
+      "No reviews or comments; PR merged by the same user within 11 seconds."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "pr_id": 3265223442,
+  "meta": {
+    "title": "14185 optimize stock deduction",
+    "html_url": "https://github.com/hmislk/hmis/pull/14186",
+    "repo": "hmislk/hmis",
+    "agent": "OpenAI_Codex",
+    "user": "buddhika75",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-26 06:40:50+00:00",
+    "merged_at": "2025-07-26 06:51:01+00:00",
+    "closed_at": "2025-07-26 06:51:01+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 32,
+    "topic_name": "32_pharmacy_stock_optimization",
+    "body_summary": "Add OptimizedPharmacyBean with batch stock deduction logic, integrate into fast sale controller, and include unit tests; closes #14185."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 3,
+      "additions": 284,
+      "deletions": 2,
+      "changes": 286,
+      "top1_file": "src/main/java/com/divudi/ejb/OptimizedPharmacyBean.java",
+      "top1_changes": 201,
+      "top1_change_ratio": 0.703,
+      "files_by_status": {
+        "added": 2,
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "commented": 1,
+        "mentioned": 1,
+        "subscribed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.17,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "batch_stock_deduction",
+      "database_access_optimization",
+      "pharmacy_fast_sale"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added batch stock deduction bean with unit test; merged within 10 minutes with no human review beyond coderabbit rate-limit comment."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 286,
+        "interpretation": "At 286 changed lines, this is a small-to-medium edit by absolute volume, concentrated in three files. It fits a focused, incremental performance PR that was accepted rapidly without objection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.17,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No substantive review feedback; only a bot rate-limit warning.",
+      "performance_claim": "Optimize stock deduction via batch processing in OptimizedPharmacyBean.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io (prior individual stock deduction calls replaced with batch lookup/update)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "32_pharmacy_stock_optimization",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent implemented a batch-deduction EJB and integrated it into an existing controller; merged without friction, indicating alignment with repository conventions and maintainer trust.",
+      "success_factors": [
+        "linked_issue",
+        "unit_tests_provided",
+        "small_scope",
+        "maintainer_trust"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Unit tests validate logic, but no performance benchmark or profiling data provided to verify improvement.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression issues surfaced.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added OptimizedPharmacyBean with batch stock deduction logic, integrated into PharmacyFastRetailSaleController with optional optimized mode, and included a unit test for the new bean.",
+      "files_primary": [
+        "src/main/java/com/divudi/ejb/OptimizedPharmacyBean.java",
+        "src/main/java/com/divudi/bean/pharmacy/PharmacyFastRetailSaleController.java"
+      ],
+      "files_secondary_observability": [
+        "src/test/java/com/divudi/ejb/OptimizedPharmacyBeanTest.java"
+      ],
+      "secondary_note": "Unit test file for the new batch deduction logic.",
+      "change_trajectory": [
+        "Initial commit: Added OptimizedPharmacyBean, integrated into fast sale controller with conditional optimized path, and added test.",
+        "Signed-off-by commit only."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "rate_limit_warning",
+        "summary": "CodeRabbit bot reported rate limit exceeded; no code review performed.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single large commit adding all files.",
+      "CodeRabbit bot commented on rate limit seconds after PR creation.",
+      "Merged 10 minutes later with no further human or bot interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

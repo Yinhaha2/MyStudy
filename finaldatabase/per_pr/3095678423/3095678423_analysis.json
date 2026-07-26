@@ -1,0 +1,176 @@
+{
+  "pr_id": 3095678423,
+  "meta": {
+    "title": "Split slow e2e tests",
+    "html_url": "https://github.com/seasonedcc/remix-forms/pull/367",
+    "repo": "seasonedcc/remix-forms",
+    "agent": "OpenAI_Codex",
+    "user": "danielweinmann",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-28 01:22:40+00:00",
+    "merged_at": "2025-05-28 01:26:48+00:00",
+    "closed_at": "2025-05-28 01:26:48+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "test",
+    "aidev_task_confidence": 8,
+    "topic_id": 6,
+    "topic_name": "6",
+    "body_summary": "Split several end-to-end test files into separate JS and no-JS variants to speed up parallel Playwright runs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 10,
+      "additions": 294,
+      "deletions": 279,
+      "changes": 573,
+      "top1_file": "apps/web/app/routes/examples/field-layout-without-js.spec.ts",
+      "top1_changes": 64,
+      "top1_change_ratio": 0.112,
+      "files_by_status": {
+        "added": 5,
+        "renamed": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.069,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_parallelization",
+      "ci_run_speed",
+      "e2e_test_splitting"
+    ],
+    "optimization_layer": "ci_pipeline",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex split e2e tests into JS/no-JS variants for parallelization; merged within 4 minutes with no review or evidence beyond narrative."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 573,
+        "interpretation": "At 573 changed lines across 10 files, this is a small-scale test refactoring by absolute volume. Splitting e2e tests is a small-step performance PR that was merged rapidly without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.069,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review comments or feedback in the dataset.",
+      "performance_claim": "Splitting e2e test files into JS and no-JS variants speeds up parallel Playwright runs.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "6",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Test file splitting is a mechanical refactoring; no runtime performance change or complex cross-cutting concern, making it a low-barrier task for an agent.",
+      "success_factors": [
+        "small_scope",
+        "no_review_required",
+        "author_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or CI timing data provided; only narrative claim about faster parallel runs.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues detected; PR merged without incident.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Split five existing e2e test files into separate -with-js and -without-js variants by extracting JS-specific tests into with-js files and leaving non-JS tests in without-js files, enabling parallel execution.",
+      "files_primary": [
+        "apps/web/app/routes/examples/async-validation-with-js.spec.ts",
+        "apps/web/app/routes/examples/async-validation-without-js.spec.ts",
+        "apps/web/app/routes/examples/auto-generated-with-js.spec.ts",
+        "apps/web/app/routes/examples/auto-generated-without-js.spec.ts",
+        "apps/web/app/routes/examples/field-layout-with-js.spec.ts",
+        "apps/web/app/routes/examples/field-layout-without-js.spec.ts",
+        "apps/web/app/routes/examples/global-error-with-js.spec.ts",
+        "apps/web/app/routes/examples/global-error-without-js.spec.ts",
+        "apps/web/app/routes/examples/hidden-field-with-js.spec.ts",
+        "apps/web/app/routes/examples/hidden-field-without-js.spec.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes are test file renames and additions; no application code changed.",
+      "change_trajectory": [
+        "Single commit splits five test files into with-js and without-js variants, renames originals to with-js and adds new without-js files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR created by danielweinmann (OpenAI_Codex) with test file splitting in one commit.",
+      "PR merged by author 4 minutes later with no reviews or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

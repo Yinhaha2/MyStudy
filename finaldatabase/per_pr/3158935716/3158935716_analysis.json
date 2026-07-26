@@ -1,0 +1,212 @@
+{
+  "pr_id": 3158935716,
+  "meta": {
+    "title": "Add ESLint rule for slow CSS properties that may impact GPU rendering",
+    "html_url": "https://github.com/remotion-dev/remotion/pull/5425",
+    "repo": "remotion-dev/remotion",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-19 04:57:31+00:00",
+    "merged_at": "2025-06-19 08:10:04+00:00",
+    "closed_at": "2025-06-19 08:10:04+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 44,
+    "topic_name": "44",
+    "body_summary": "Add ESLint rule @remotion/slow-css-property to warn about CSS properties (boxShadow, textShadow, filter) that may slow rendering on machines without GPU; later extended to string keys and Tailwind classes."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 3,
+      "additions": 352,
+      "deletions": 3,
+      "changes": 355,
+      "top1_file": "packages/eslint-plugin/src/tests/slow-css-property.test.ts",
+      "top1_changes": 223,
+      "top1_change_ratio": 0.628,
+      "files_by_status": {
+        "added": 2,
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "commented": 4,
+        "deployed": 7,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "mentioned": 3,
+        "subscribed": 3
+      },
+      "lifespan_hours": 3.209,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "gpu_sensitive_css_warning",
+      "lint_performance_guard"
+    ],
+    "optimization_layer": "lint_rule",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_scope_expansion",
+    "review_dimensions": [
+      "correctness",
+      "scope"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot added ESLint rule; maintainer requested extension to string keys and Tailwind; fixes provided and merged within ~3h."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 355,
+        "interpretation": "At 355 changed lines across 3 files, this is a small-scale addition that introduces a new lint rule with tests. It fits a typical safety/performance tooling PR, and the quick merge with comment-driven scope expansion is consistent with the outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 3.209,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "missing_detection_cases",
+      "concern_detail": "The initial rule did not cover string literal CSS properties (e.g., 'box-shadow') nor Tailwind CSS classes that apply the same effects. Maintainer JonnyBurger requested both extensions in PR comments.",
+      "performance_claim": "Warn about CSS properties that may slow down rendering on machines without a GPU.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "scope"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "44",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot successfully added and iteratively expanded an ESLint rule detection scope within the plugin ecosystem, demonstrating ability to follow incremental feedback but requiring human specification of missing cases.",
+      "success_factors": [
+        "linked_issue",
+        "comment_driven_iteration",
+        "comprehensive_tests"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "JonnyBurger reviewed the PR description and identified that string keys and Tailwind classes were not detected, then requested these features in comments."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Rule behavior is verified by unit tests; no runtime performance measurement needed.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After each comment, Copilot added the missing detection in subsequent commits; no rollback or revert required.",
+      "evidence_gap": "narrative_only_for_css_slowness_claim"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a new ESLint rule @remotion/slow-css-property that warns when using boxShadow, textShadow, filter CSS properties (camelCase and string keys) and corresponding Tailwind CSS classes (shadow-*, blur-*, brightness-*, etc.) in React style objects and className attributes.",
+      "files_primary": [
+        "packages/eslint-plugin/src/rules/slow-css-property.ts",
+        "packages/eslint-plugin/src/tests/slow-css-property.test.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/eslint-plugin/src/index.ts"
+      ],
+      "secondary_note": "index.ts was updated to export the rule and include it in the recommended config.",
+      "change_trajectory": [
+        "Initial plan commit (no code).",
+        "First commit (d4af0bb): added rule implementation for camelCase properties (boxShadow, textShadow, filter) and tests.",
+        "Second commit (e4b29bb): extended rule to detect string literal CSS properties like 'box-shadow'; updated tests.",
+        "Third commit (c631da5): added Tailwind CSS class detection for slow properties (shadow-*, blur-*, etc.); expanded tests."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "JonnyBurger",
+        "channel": "pr_comment",
+        "signal": "string_key_detection_missing",
+        "summary": "Requested detection of string literal CSS properties like 'box-shadow'.",
+        "blocking": false,
+        "action_taken": "Copilot added string key detection in e4b29bb."
+      },
+      {
+        "source": "JonnyBurger",
+        "channel": "pr_comment",
+        "signal": "tailwind_class_detection_missing",
+        "summary": "Requested detection of Tailwind CSS classes applying the slow properties.",
+        "blocking": false,
+        "action_taken": "Copilot added Tailwind class detection in c631da5."
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Posted deployment preview status for the bugs site.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial slow-css-property rule for camelCase style props.",
+      "JonnyBurger commented asking for string key support; Copilot pushed fix within minutes.",
+      "JonnyBurger then requested Tailwind class detection; Copilot added it.",
+      "PR merged without formal review ~3 hours after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

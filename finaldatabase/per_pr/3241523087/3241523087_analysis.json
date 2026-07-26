@@ -1,0 +1,243 @@
+{
+  "pr_id": 3241523087,
+  "meta": {
+    "title": "perf: cache GetRuntimeData usage for improved performance",
+    "html_url": "https://github.com/doodlum/skyrim-community-shaders/pull/1281",
+    "repo": "doodlum/skyrim-community-shaders",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-18 01:31:37+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-18 05:33:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 50,
+    "topic_name": "50",
+    "body_summary": "Cache GetRuntimeData/GetVRRuntimeData calls to eliminate repeated pointer arithmetic and VR checks, claiming performance improvement in the Skyrim Community Shaders mod."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 10,
+      "additions": 123,
+      "deletions": 40,
+      "changes": 163,
+      "top1_file": "src/Globals.h",
+      "top1_changes": 58,
+      "top1_change_ratio": 0.356,
+      "files_by_status": {
+        "modified": 10
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 3,
+      "review_states": {
+        "CHANGES_REQUESTED": 1,
+        "COMMENTED": 2
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 6,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "renamed": 3,
+        "review_requested": 4,
+        "copilot_work_finished": 4,
+        "reviewed": 3,
+        "commented": 4,
+        "mentioned": 1,
+        "subscribed": 1
+      },
+      "lifespan_hours": 4.027,
+      "first_review_delay_hours": 0.556,
+      "review_rounds": 3,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "runtime_data_caching",
+      "virtual_call_elimination",
+      "pointer_chasing_reduction"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_minimal_perf_gain_no_evidence",
+    "review_dimensions": [
+      "perf_evidence",
+      "design_or_approach",
+      "scope",
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "human_reviewer_analysis"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot proposed caching GetRuntimeData calls but after review and self-analysis found minimal actual performance benefit; PR closed without merge after maintainer questioned evidence of hot path."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 163,
+        "interpretation": "At 163 changed lines across 10 files, this is a small-to-medium edit by absolute volume. It fits a targeted performance PR that attempted to cache function calls. It was closed—not merged—because the actual performance benefit was deemed minimal and no benchmark evidence was provided."
+      },
+      "lifecycle": {
+        "lifespan_hours": 4.027,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "insufficient_evidence_and_scope",
+      "concern_detail": "Maintainer alandtse CHANGES_REQUESTED asking to handle other similar examples, evaluate if caching belongs in commonlib, and whether the approach is developer-friendly. Later, after Copilot's own analysis showed minimal gains, maintainer questioned evidence of hot path.",
+      "performance_claim": "Cache GetRuntimeData/GetVRRuntimeData calls to eliminate repeated pointer arithmetic and VR checks, improving frame performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence",
+        "design_or_approach",
+        "scope",
+        "correctness"
+      ],
+      "rejection_signals": "PR closed after maintainer questioned evidence of hot path and Copilot's own analysis admitted minimal benefit; no benchmark or additional justification provided."
+    },
+    "capability_boundary": {
+      "topic": "50",
+      "agent": "Copilot",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Optimization requiring deep understanding of underlying library (commonlib) and real-world profiling; Agent initially claimed performance gains but after investigation retracted, demonstrating the need for evidence before merging performance claims.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_analysis"
+      ],
+      "detection_detail": {
+        "code_reading": "alandtse reviewed the caching approach, questioned architecture, duplication, and later asked Copilot to examine commonlib implementation for actual savings."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling data, or before/after measurements; PR body only cited call counts and claimed elimination of virtual calls, but Copilot's analysis contradicted the claim.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After CHANGES_REQUESTED and subsequent investigation showing minimal gain, no further changes were made; PR closed without merge.",
+      "evidence_gap": "narrative_only_no_benchmark_and_self_contradiction"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/Globals.h, added cached runtime data pointer declarations and inline accessor functions (globals::cached::GetRendererRuntimeData(), etc.). In src/Globals.cpp, initialized caches during ReInit(). Updated multiple source files to replace direct GetRuntimeData() calls with cached accessors.",
+      "files_primary": [
+        "src/Globals.h",
+        "src/Globals.cpp"
+      ],
+      "files_secondary_observability": [
+        "src/Features/ScreenSpaceGI.cpp",
+        "src/Features/SubsurfaceScattering.cpp",
+        "src/TruePBR/BSLightingShaderMaterialPBR.cpp",
+        "src/TruePBR/BSLightingShaderMaterialPBRLandscape.cpp",
+        "src/Utils/Game.cpp",
+        "src/Features/TerrainBlending.cpp",
+        "src/Features/DynamicCubemaps.cpp",
+        "src/State.cpp"
+      ],
+      "secondary_note": "Subsequent commits extended caching to depthStencilData and IsVR, and consolidated VR caching with existing static variable in State.cpp.",
+      "change_trajectory": [
+        "Initial plan commit (no changes).",
+        "First implementation: added caching for renderer, shadowState, graphicsState runtime data, updated several files.",
+        "Second commit: added caching for IsVR() and depthStencilData, updated more files.",
+        "Third commit: consolidated VR caching in State.cpp to use centralized globals::game::isVR."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "alandtse",
+        "channel": "formal_review",
+        "signal": "changes_requested_scope_and_evidence",
+        "summary": "Requested handling other similar examples, evaluate commonlib vs client app placement, and assess developer friendliness.",
+        "blocking": true,
+        "action_taken": "Copilot expanded caching to more calls and consolidated VR caching."
+      },
+      {
+        "source": "alandtse",
+        "channel": "formal_review",
+        "signal": "duplicate_caching_concern",
+        "summary": "Noted existing VR caching in State.cpp and asked to reconcile approaches.",
+        "blocking": false,
+        "action_taken": "Copilot consolidated VR caching to centralized globals::game::isVR."
+      },
+      {
+        "source": "alandtse",
+        "channel": "formal_review",
+        "signal": "investigate_actual_perf_gain",
+        "summary": "Asked Copilot to analyze commonlib implementation to determine real-world savings, implying skepticism of claimed benefits.",
+        "blocking": false,
+        "action_taken": "Copilot analyzed and reported minimal performance gains."
+      },
+      {
+        "source": "alandtse",
+        "channel": "pr_comment",
+        "signal": "evidence_hot_path",
+        "summary": "Asked @doodlum for evidence that this was a hot path, referencing Copilot's analysis.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "scope_expansion_and_analysis",
+        "summary": "Added caching for IsVR and DepthStencilData, argued for client-app caching, but later conceded minimal performance benefit after analyzing commonlib.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue with initial caching implementation for runtime data.",
+      "alandtse CHANGES_REQUESTED asking to handle other similar examples, address architecture, and evaluate developer friendliness.",
+      "Copilot responded with expanded caching (IsVR, DepthStencilData) and argued caching should remain in client app.",
+      "alandtse pointed out existing VR caching in State.cpp; Copilot consolidated VR caching.",
+      "alandtse requested analysis of commonlib to determine real-world performance impact.",
+      "Copilot analyzed and reported minimal gains (pointer arithmetic, no virtual calls), undermining the original performance claim.",
+      "alandtse asked @doodlum for evidence of hot path; PR closed shortly after without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

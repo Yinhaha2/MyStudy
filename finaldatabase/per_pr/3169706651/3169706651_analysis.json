@@ -1,0 +1,237 @@
+{
+  "pr_id": 3169706651,
+  "meta": {
+    "title": "fix: resolve ESLint warnings by replacing img tags with Next.js Image",
+    "html_url": "https://github.com/ai-shifu/ai-shifu/pull/579",
+    "repo": "ai-shifu/ai-shifu",
+    "agent": "Devin",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-23 23:15:40+00:00",
+    "merged_at": "2025-06-24 03:52:48+00:00",
+    "closed_at": "2025-06-24 03:52:48+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Replace <img> with Next.js Image in four components to satisfy @next/next/no-img-element ESLint rule, improving LCP and bandwidth via automatic image optimization."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 4,
+      "additions": 35,
+      "deletions": 15,
+      "changes": 50,
+      "top1_file": "src/cook-web/src/components/shifu-setting/index.tsx",
+      "top1_changes": 17,
+      "top1_change_ratio": 0.34,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 5,
+      "review_states": {
+        "COMMENTED": 5
+      },
+      "review_comment_count": 5,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 26,
+      "event_counts": {
+        "committed": 6,
+        "commented": 5,
+        "renamed": 1,
+        "review_requested": 4,
+        "reviewed": 3,
+        "head_ref_force_pushed": 1,
+        "mentioned": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 2
+      },
+      "lifespan_hours": 4.617,
+      "first_review_delay_hours": 0.683,
+      "review_rounds": 5,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "image_optimization",
+      "eslint_compliance",
+      "nextjs_image_migration"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative",
+      "ci_task_eval"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "design_or_approach",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin replaced img with Next.js Image across 4 files; merged after addressing Copilot's fill prop suggestion and fixing CSS typo; ESLint compliance and narrative performance benefits claimed."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 50,
+        "interpretation": "At 50 changed lines, this is a very small, focused ESLint-driven update. It fits a trivial performance-enhancing refactor and resulted in a quick, low-friction merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 4.617,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "code_quality",
+      "concern_detail": "Copilot suggested using the fill prop for better responsive behavior instead of fixed dimensions, and a CSS class typo was flagged; both were addressed by Devin.",
+      "performance_claim": "Improved LCP and bandwidth usage via Next.js automatic image optimization.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent correctly identified the required migration and responded to code-quality feedback (fill prop, typo fix), showing capability with Next.js Image patterns.",
+      "success_factors": [
+        "responded_to_review_feedback",
+        "simple_change_scope",
+        "established_pattern"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer sunner reviewed inline comments, pointed out a CSS typo, and requested DevinAI to comment on Copilot suggestions; no profiler or CI performance evaluation was used."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "ESLint before/after output was shared, but no LCP or bandwidth metrics were provided to substantiate performance claims.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "CSS class typo and fill prop adoption were fixed within the PR; no regressions or reverts occurred.",
+      "evidence_gap": "narrative_only_no_lcp_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replace <img> tags with Next.js Image in four components: main page recipe icons, header avatar, image uploader preview, and shifu-setting avatar. Added width/height or fill props, and used window.Image to avoid conflict with Next.js Image.",
+      "files_primary": [
+        "src/cook-web/src/app/main/page.tsx",
+        "src/cook-web/src/components/header/index.tsx",
+        "src/cook-web/src/components/file-uploader/image-uploader.tsx",
+        "src/cook-web/src/components/shifu-setting/index.tsx"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit replaced <img> with <Image> using fixed dimensions in all four files.",
+        "Force-push maintained same changes.",
+        "Adopted fill prop for shifu-setting per Copilot suggestion.",
+        "Fixed CSS class typo (w-24 l h-24 → w-24 h-24).",
+        "Adopted fill prop for main page recipe icon.",
+        "Added comment about using window.Image in file uploader as per Copilot suggestion."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "typo_fix",
+        "summary": "Flagged extra 'l' in CSS class w-24 l h-24; suggested correct class w-24 h-24.",
+        "blocking": false,
+        "action_taken": "Typo fixed in subsequent commit."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fill_prop_suggestion",
+        "summary": "Suggested using fill prop instead of fixed width/height for better responsive behavior in shifu-setting and main page.",
+        "blocking": false,
+        "action_taken": "Devin adopted fill prop in relevant components."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "add_comment",
+        "summary": "Suggested adding comment explaining use of window.Image to avoid conflicts.",
+        "blocking": false,
+        "action_taken": "Comment added in file uploader via maintainer commit."
+      },
+      {
+        "source": "sunner",
+        "channel": "inline_review_comment",
+        "signal": "typo_reference",
+        "summary": "Noted that the CSS typo had been fixed in another PR (#581), but it was eventually fixed here as well.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "sunner",
+        "channel": "inline_review_comment",
+        "signal": "direct_agent_interaction",
+        "summary": "Instructed DevinAI to comment on Copilot's fill prop suggestion.",
+        "blocking": false,
+        "action_taken": "Devin agreed and implemented the suggestion."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial img-to-Image migration.",
+      "Copilot bot reviewed and flagged a CSS typo and suggested using fill prop.",
+      "Maintainer sunner reviewed, noted typo fixed elsewhere, and told DevinAI to respond to fill suggestion.",
+      "Devin acknowledged fill suggestion, agreed, and then implemented it in two components.",
+      "Additional Copilot suggestion about adding comment for window.Image was committed by maintainer.",
+      "PR merged within ~4.6 hours with no blocking reviews."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

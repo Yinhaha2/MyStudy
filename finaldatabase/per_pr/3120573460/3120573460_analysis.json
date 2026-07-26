@@ -1,0 +1,169 @@
+{
+  "pr_id": 3120573460,
+  "meta": {
+    "title": "Integrate cached block decomposition",
+    "html_url": "https://github.com/thorek1/MacroModelling.jl/pull/112",
+    "repo": "thorek1/MacroModelling.jl",
+    "agent": "OpenAI_Codex",
+    "user": "thorek1",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-05 09:53:19+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Add caching of the first-order block decomposition after derivative computation, reuse it across model solves, and update the benchmark script to use the cached decomposition for faster repeated evaluations."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 9,
+      "additions": 157,
+      "deletions": 75,
+      "changes": 232,
+      "top1_file": "src/perturbation.jl",
+      "top1_changes": 125,
+      "top1_change_ratio": 0.539,
+      "files_by_status": {
+        "modified": 9
+      },
+      "directory_count": 3,
+      "directories": [
+        "src",
+        "benchmark",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "block_decomposition_caching",
+      "solver_reuse"
+    ],
+    "optimization_layer": "application_solver",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "redundant_computation"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "PR caches block decomposition for repeated solves but closed without review; no performance evidence or reviewer feedback."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 232,
+        "interpretation": "At 232 changed lines across 9 files, this is a small-to-medium edit by absolute volume, concentrated in the core perturbation solver. As a performance caching PR it was closed without merge—no review engagement, consistent with a stale or abandoned patch."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No formal reviews, PR comments, or review comments in dataset; PR closed silently with no maintainer interaction.",
+      "performance_claim": "Reuse cached block decomposition to speed up repeated model solves.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "redundant_computation",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No review engagement; PR closed without merge. No explicit rejection reason available."
+    },
+    "capability_boundary": {
+      "topic": "unknown_topic",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "PR closed without any human review, possibly because the author decided to close it; agent change did not undergo maintainer validation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Test instructions include a step that fails due to missing Revise package; no benchmark or performance measurement provided.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Cached first-order block decomposition in perturbation.jl to reuse across calls to calculate_first_order_solution; updated benchmark to use cached decomposition and adjusted cache clearing in MacroModelling.jl.",
+      "files_primary": [
+        "src/perturbation.jl",
+        "src/MacroModelling.jl"
+      ],
+      "files_secondary_observability": [
+        "benchmark/benchmarks.jl",
+        "src/filter/inversion.jl",
+        "src/filter/kalman.jl",
+        "src/moments.jl",
+        "src/macros.jl",
+        "src/structures.jl",
+        "test/test_standalone_function.jl"
+      ],
+      "secondary_note": "Other files contain minor adjustments for cache handling and filter integration.",
+      "change_trajectory": [
+        "Initial commit: integrate cached block decomposition across src and benchmark files.",
+        "Second commit: fix variable naming conflict in perturbation.jl."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with 2 commits; labeled 'codex'; no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

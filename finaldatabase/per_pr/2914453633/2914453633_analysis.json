@@ -1,0 +1,204 @@
+{
+  "pr_id": 2914453633,
+  "meta": {
+    "title": "fix: performance improvements for deploy history screen",
+    "html_url": "https://github.com/Cap-go/capgo/pull/1054",
+    "repo": "Cap-go/capgo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-03-12 16:02:40+00:00",
+    "merged_at": null,
+    "closed_at": "2025-03-13 22:33:14+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 34,
+    "topic_name": "34",
+    "body_summary": "Add composite DB indexes, optimize trigger function, fix URL validation, and implement a new HistoryTable Vue component with selective Supabase queries to improve deploy history screen performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 8,
+      "additions": 713,
+      "deletions": 38,
+      "changes": 751,
+      "top1_file": "src/components/tables/HistoryTable.vue",
+      "top1_changes": 314,
+      "top1_change_ratio": 0.418,
+      "files_by_status": {
+        "added": 6,
+        "modified": 2
+      },
+      "directory_count": 4,
+      "directories": [
+        "messages",
+        "src",
+        "supabase",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 3,
+        "commented": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 30.51,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "deploy_history_screen",
+      "db_composite_index",
+      "trigger_optimization",
+      "frontend_selective_columns",
+      "url_validation_fix"
+    ],
+    "optimization_layer": "database_and_frontend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "outdated_base_merge_block",
+    "review_dimensions": [],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin submitted a multi-file DB + frontend perf PR; maintainer closed it immediately with 'merge block too old code base' without any technical review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 751,
+        "interpretation": "At 751 changed lines across 8 files, this is a medium-sized edit by absolute volume, spanning database migrations, a new Vue component, and test files. As a mixed backend/frontend performance PR, it was closed without review due to an outdated base branch rather than on technical merit."
+      },
+      "lifecycle": {
+        "lifespan_hours": 30.51,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "process_issue_outdated_base",
+      "primary_concern": "outdated_base_branch",
+      "concern_detail": "Maintainer riderx closed the PR with comment 'merge block too old code base', indicating the PR's base branch was too outdated to merge; no technical review occurred.",
+      "performance_claim": "Improve deploy history screen performance via DB indexes, trigger optimization, and selective column queries.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by maintainer due to outdated base code; no performance or correctness review comments."
+    },
+    "capability_boundary": {
+      "topic": "34",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Devin was able to produce a multi-file change with migrations and a new frontend component, but the PR went unreviewed and was closed because it was based on an outdated branch; process barrier (merge conflict / staleness) rather than technical failure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review activity detected; closure due to outdated base."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiler evidence; only narrative claims of performance improvement.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no corrective or performance-regression handling steps.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added composite indexes on deploy_history table, optimized trigger to update only current records, added URL validation fix, created a HistoryTable Vue component with optimized Supabase query selecting specific fields, and added tests.",
+      "files_primary": [
+        "src/components/tables/HistoryTable.vue",
+        "supabase/migrations/20250312154700_optimize_deploy_history.sql",
+        "supabase/functions/_backend/public/bundle/update_metadata.ts"
+      ],
+      "files_secondary_observability": [
+        "tests/deploy-history.test.ts",
+        "tests/bundle.test.ts",
+        "tests/test-utils.ts",
+        "messages/en/deploy_history.json"
+      ],
+      "secondary_note": "Test files and localization added to support the changes.",
+      "change_trajectory": [
+        "Initial commit: added HistoryTable component, database migration, URL validation fix, tests, and localizations.",
+        "Second commit: linting fixes in HistoryTable component.",
+        "Third commit: ensured deploy_history table creation migration includes indexes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot introduced itself for automatic comment/CI response.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_due_to_bot",
+        "summary": "CodeRabbit skipped review because the PR author is a bot.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "riderx",
+        "channel": "pr_comment",
+        "signal": "merge_block_outdated",
+        "summary": "Maintainer closed PR because it was based on an outdated code base.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin with multi-file performance changes.",
+      "Two bot comments appeared almost immediately (Devin intro and CodeRabbit skip).",
+      "No human review or interaction for ~30 hours.",
+      "Maintainer closed PR with comment that merge is blocked due to outdated code base."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

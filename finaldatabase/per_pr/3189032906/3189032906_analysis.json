@@ -1,0 +1,171 @@
+{
+  "pr_id": 3189032906,
+  "meta": {
+    "title": "Update vm substring folding and tpch q8",
+    "html_url": "https://github.com/mochilang/mochi/pull/4282",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 15:59:02+00:00",
+    "merged_at": "2025-06-30 16:01:56+00:00",
+    "closed_at": "2025-06-30 16:01:56+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "15",
+    "body_summary": "Enhance VM substring constant folding using clampSlice and update TPCH q8 IR expected output to match current compiler behavior."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 210,
+      "deletions": 208,
+      "changes": 418,
+      "top1_file": "tests/dataset/tpc-h/out/q8.ir.out",
+      "top1_changes": 384,
+      "top1_change_ratio": 0.919,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.048,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "substring_constant_folding",
+      "compiler_optimization",
+      "vm_improvement"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit VM substring folding optimization with TPCH IR update; merged without review in <3 minutes, no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 418,
+        "interpretation": "At 418 changed lines, mostly TPCH IR output update (384 lines), the actual VM code change is small (34 lines). This is a small-scale compiler optimization; the fast merge without review is consistent with its limited scope and self-contained test update."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.048,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Enhanced VM substring constant folding reduces runtime overhead by folding substring operations at compile time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "15",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Codex modified VM substring constant folding logic and updated corresponding IR output; the change required understanding of substring semantics and VM internals, but the small, self-contained nature allowed merge without review friction.",
+      "success_factors": [
+        "small_scope",
+        "self_contained_vm_change",
+        "accompanying_test_output_update"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer self-reviewed the VM change and TPCH IR output update; no external review."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No benchmark provided; only correctness verification via go test command for TPCH q8.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression; PR merged directly without issue.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, replaced substring constant folding logic using clampSlice to handle bounds correctly and reduce code. Updated tests/dataset/tpc-h/out/q8.ir.out to match new IR output.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/tpc-h/out/q8.ir.out"
+      ],
+      "secondary_note": "q8.ir.out update reflects compiler output changes due to folding improvement.",
+      "change_trajectory": [
+        "Single commit improves substring folding and updates TPCH q8 IR expected output."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with VM substring folding improvement and IR update.",
+      "Maintainer merged less than 3 minutes later without any review comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

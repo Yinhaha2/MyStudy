@@ -1,0 +1,170 @@
+{
+  "pr_id": 3218429525,
+  "meta": {
+    "title": "Improve Lua compiler output",
+    "html_url": "https://github.com/mochilang/mochi/pull/7246",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-10 08:38:11+00:00",
+    "merged_at": "2025-07-10 08:38:20+00:00",
+    "closed_at": "2025-07-10 08:38:20+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": 20,
+    "topic_name": "20",
+    "body_summary": "Update Lua compiler to generate inline print helpers instead of __print and sort map keys in for loops for deterministic output."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 19,
+      "deletions": 23,
+      "changes": 42,
+      "top1_file": "compiler/x/lua/runtime.go",
+      "top1_changes": 20,
+      "top1_change_ratio": 0.476,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "compiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0025,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "inline_print_helpers",
+      "deterministic_map_iteration",
+      "compiler_codegen"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_fast_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Tiny compiler codegen tweak, no review, merged instantly by author."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 42,
+        "interpretation": "At 42 changed lines across 3 files, this is a very small edit. It fits a tiny codegen improvement PR that merged instantly without any review, consistent with an author self-merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0025,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Inline print helpers instead of __print function calls; sort map keys for deterministic iteration order.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "20",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Trivial compiler tweak with no review; agent-created PR merged by same author without scrutiny, indicating process gate is low for small changes.",
+      "success_factors": [
+        "tiny_change",
+        "no_review_required",
+        "author_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No benchmarks or steps; two go test commands listed but no before/after.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In the Lua compiler backend, changed print code generation from calling a global __print function to inline printing logic, and added map key sorting in loops for deterministic iteration order.",
+      "files_primary": [
+        "compiler/x/lua/runtime.go",
+        "compiler/x/lua/expressions.go",
+        "compiler/x/lua/statements.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit moved print generation to inline helper and added map key sorting."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with single commit; immediately merged by same author without review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

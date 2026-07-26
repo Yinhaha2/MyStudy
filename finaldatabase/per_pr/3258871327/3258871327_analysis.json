@@ -1,0 +1,177 @@
+{
+  "pr_id": 3258871327,
+  "meta": {
+    "title": "Implement HTTP connection pooling for WxPayServiceApacheHttpImpl",
+    "html_url": "https://github.com/binarywang/WxJava/pull/3648",
+    "repo": "binarywang/WxJava",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-24 07:42:17+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 31,
+    "topic_name": "31",
+    "body_summary": "Add HTTP connection pooling via Apache HttpClient's PoolingHttpClientConnectionManager to WxPayServiceApacheHttpImpl, with separate SSL/non‑SSL pools, configurable max connections, and automatic reuse of pooled clients to eliminate per‑request HttpClient creation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 7,
+      "additions": 439,
+      "deletions": 68,
+      "changes": 507,
+      "top1_file": "weixin-java-pay/src/main/java/com/github/binarywang/wxpay/service/impl/WxPayServiceApacheHttpImpl.java",
+      "top1_changes": 138,
+      "top1_change_ratio": 0.272,
+      "files_by_status": {
+        "modified": 4,
+        "added": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "weixin-java-pay"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "base_ref_force_pushed": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "ready_for_review": 1
+      },
+      "lifespan_hours": 113.6,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "connection_pooling",
+      "http_client_reuse",
+      "ssl_pool_separation"
+    ],
+    "optimization_layer": "application_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot introduced connection pooling with no performance measurement; PR received zero human review and was closed without merge after ~5 days."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 507,
+        "interpretation": "At 507 changed lines over 7 files, this is a medium-sized edit by absolute volume. As a performance improvement adding connection pooling, it is a moderate change that was closed without merge, likely due to lack of review activity rather than technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 113.6,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No human review, comment, or formal review recorded in the dataset.",
+      "performance_claim": "Adding HTTP connection pooling eliminates per‑request HttpClient creation overhead, enabling connection reuse and better resource management for high‑concurrency payment workflows.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed without merge after remaining unreviewed for ~5 days; no explicit rejection reason was communicated."
+    },
+    "capability_boundary": {
+      "topic": "31",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "The PR introduced a medium‑sized infrastructure change but received zero human review, likely because the maintainer did not engage with the Copilot‑generated PR; closure suggests a process boundary where unsolicited PRs may be ignored.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, repro steps, or review comments to validate performance claims.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed without merge; no fix‑in‑PR or follow‑up cycle is visible.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced PoolingHttpClientConnectionManager in WxPayConfig with separate pools for SSL and non‑SSL clients; updated WxPayServiceApacheHttpImpl to reuse pooled clients instead of building a new CloseableHttpClient per request; added initHttpClient/initSslHttpClient methods and tests.",
+      "files_primary": [
+        "weixin-java-pay/src/main/java/com/github/binarywang/wxpay/config/WxPayConfig.java",
+        "weixin-java-pay/src/main/java/com/github/binarywang/wxpay/service/impl/WxPayServiceApacheHttpImpl.java"
+      ],
+      "files_secondary_observability": [
+        "weixin-java-pay/src/test/java/com/github/binarywang/wxpay/service/impl/WxPayServiceApacheHttpImplConnectionPoolTest.java",
+        "weixin-java-pay/src/test/java/com/github/binarywang/wxpay/service/impl/ConnectionPoolUsageExampleTest.java",
+        "weixin-java-pay/CONNECTION_POOL.md",
+        "weixin-java-pay/src/main/java/com/github/binarywang/wxpay/bean/notify/WxPayRefundNotifyResult.java",
+        "weixin-java-pay/src/test/java/com/github/binarywang/wxpay/bean/notify/WxPayRefundNotifyResultTest.java"
+      ],
+      "secondary_note": "The last two files contain an unrelated variable naming fix committed by binarywang before the connection pooling work; the connection pooling implementation is confined to the config, service impl, and test files.",
+      "change_trajectory": [
+        "Initial commit by binarywang: unrelated variable naming fix in refund notification classes.",
+        "Copilot empty plan commit.",
+        "Copilot implements connection pooling: PoolingHttpClientConnectionManager added to WxPayConfig, service impl switched to pooled clients, and connection pool unit test.",
+        "Follow‑up commit enhances SSL support, adds CONNECTION_POOL.md documentation and usage example test."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by Copilot with connection pooling implementation.",
+      "No human reviews or comments received; PR remained in ready‑for‑review state after Copilot work.",
+      "PR eventually closed without merge (no explicit close event in dataset, but status is closed)."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

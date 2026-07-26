@@ -1,0 +1,269 @@
+{
+  "pr_id": 3164503419,
+  "meta": {
+    "title": "Fix Claude animation flickering with vt10x-inspired terminal state deduplication",
+    "html_url": "https://github.com/amantus-ai/vibetunnel/pull/40",
+    "repo": "amantus-ai/vibetunnel",
+    "agent": "Claude_Code",
+    "user": "hjanuschka",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-20 22:47:18+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-21 11:51:22+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 41,
+    "topic_name": "41",
+    "body_summary": "Claude Code's PR to reduce terminal animation flickering by introducing vt10x-inspired deduplication, dirty tracking, and debouncing of WebSocket updates, claiming a 72% reduction in updates."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 12,
+      "additions": 1445,
+      "deletions": 140,
+      "changes": 1585,
+      "top1_file": "web/src/input.css",
+      "top1_changes": 749,
+      "top1_change_ratio": 0.4726,
+      "files_by_status": {
+        "added": 2,
+        "modified": 10
+      },
+      "directory_count": 2,
+      "directories": [
+        "linux",
+        "web"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 6,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 2,
+        "commented": 5,
+        "reviewed": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 13.07,
+      "first_review_delay_hours": 0.07,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "terminal_animation_flickering",
+      "websocket_update_reduction",
+      "state_deduplication",
+      "dirty_line_tracking",
+      "debouncing"
+    ],
+    "optimization_layer": "backend_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "closed_maintainer_rejection_ci_failures",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence",
+      "design_or_approach",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Claude Code PR with vt10x deduplication; coderabbit found multiple correctness and formatting issues; CI failed; maintainer closed with emphatic 'burned it with fire'."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1585,
+        "interpretation": "At 1585 changed lines across 12 files, this is a medium-to-large refactor by absolute volume. It targets terminal flickering through multiple backend changes. Despite the scale, the PR was closed without merge due to CI failures and a strong maintainer rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 13.07,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_and_quality_issues",
+      "concern_detail": "coderabbit flagged missing dirty line tracking in clear operations, incorrect callback unregistration, package-level variables, missing mutex for concurrent access, Go formatting errors, invalid CSS selectors, and error handling gaps. CI failures in Node.js and Swift tests also indicated integration problems.",
+      "performance_claim": "Reduces WebSocket updates by 72% and eliminates Claude animation flickering via vt10x-style deduplication and debouncing.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer steipete closed the PR with the comment 'burned it with fire' after CI failures and multiple correctness issues flagged by coderabbit, indicating strong rejection and no intent to proceed."
+    },
+    "capability_boundary": {
+      "topic": "41",
+      "agent": "Claude_Code",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Claude_Code attempted a multi-file Go refactor with terminal buffer logic, but the implementation had correctness issues (missing dirty tracking, concurrency concerns), formatting errors, and CI failures. The agent struggled to produce a quality, passing change in this complex domain.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "coderabbit provided detailed code review with multiple correctness and style issues; maintainer steipete responded with a dismissive rejection rather than a detailed review.",
+        "ci_auto": "CI failed for Node.js and Swift tests, indicating integration issues that the maintainer likely saw as blocking."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR provides a narrative claim and an unverified table but no profiler output, before/after logs, or test results to substantiate the 72% reduction.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Maintainer closed the PR after CI failures and code quality issues with no fix-in-pr cycle.",
+      "evidence_gap": "narrative_only_no_benchmark_and_ci_failures"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Implemented vt10x-inspired terminal state deduplication with dirty line tracking, change flags, sequence-based snapshot deduplication, and 50ms debouncing across Go backend files. Added raw WebSocket endpoint for direct PTY streaming, enhanced terminal buffer with incremental updates, and added a dark-themed CSS file. Intended to reduce WebSocket update frequency by 72% during Claude thinking animations.",
+      "files_primary": [
+        "linux/pkg/terminal/buffer.go",
+        "linux/pkg/termsocket/manager.go",
+        "linux/pkg/api/raw_websocket.go",
+        "linux/pkg/session/manager.go"
+      ],
+      "files_secondary_observability": [
+        "web/src/input.css",
+        "linux/pkg/api/sse.go",
+        "linux/pkg/session/eventloop_linux.go",
+        "linux/pkg/session/eventloop_darwin.go",
+        "linux/pkg/session/pty.go",
+        "linux/pkg/session/select.go",
+        "linux/pkg/session/terminal.go",
+        "linux/pkg/api/server.go"
+      ],
+      "secondary_note": "Additional files include eventloop timeout reduction, terminal flag changes, new raw WebSocket endpoint, SSE debouncing, and a full CSS dark theme for the web UI.",
+      "change_trajectory": [
+        "Initial commit: implemented terminal state deduplication and raw WebSocket streaming across 11 files.",
+        "Second commit: added debouncing and deduplication to /stream SSE endpoint in sse.go.",
+        "CI failed; coderabbit flagged multiple issues; maintainer closed without further changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "callback_unregistration_bug",
+        "summary": "UnregisterDirectOutputCallback incorrectly clears all callbacks instead of the specified one; suggested unique ID or clearing all.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "package_level_variables",
+        "summary": "rawPTYCallbacks and rawCallbackMutex are package-level; should be instance fields to avoid conflicts.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "go_formatting",
+        "summary": "Go files not formatted; run gofmt.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "invalid_css_selectors",
+        "summary": "Invalid CSS wildcard selectors 'terminal-*' in view-transition rules.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "missing_dirty_tracking",
+        "summary": "Clear operations in buffer.go don't mark lines as changed, causing incremental updates to miss changes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "concurrent_access_no_mutex",
+        "summary": "SSEStreamer fields accessed from multiple goroutines without synchronization.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "error_handling_gap",
+        "summary": "Timer callback error handling only logs without signaling main loop.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "steipete",
+        "channel": "pr_comment",
+        "signal": "strong_rejection",
+        "summary": "Closed PR with comment 'burned it with fire', indicating complete rejection.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_failure",
+        "summary": "CI failed for Node.js and Swift tests.",
+        "blocking": true,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial commit implementing deduplication and raw WebSocket handler.",
+      "coderabbit posted in-depth review with multiple correctness and style issues.",
+      "CI reported failures.",
+      "Additional commit added SSE deduplication.",
+      "Second coderabbit review on new file.",
+      "CI failed again.",
+      "Maintainer steipete closed PR with dismissive comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

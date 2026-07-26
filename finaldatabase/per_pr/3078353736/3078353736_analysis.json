@@ -1,0 +1,255 @@
+{
+  "pr_id": 3078353736,
+  "meta": {
+    "title": "feat: enable WAL mode for SQLite",
+    "html_url": "https://github.com/promptfoo/promptfoo/pull/4104",
+    "repo": "promptfoo/promptfoo",
+    "agent": "OpenAI_Codex",
+    "user": "mldangelo",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-20 22:19:23+00:00",
+    "merged_at": "2025-06-30 23:07:41+00:00",
+    "closed_at": "2025-06-30 23:07:41+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 2,
+    "topic_name": "2",
+    "body_summary": "Enable SQLite WAL mode via pragma to reduce database locking, with a unit test verifying the setting."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 197,
+      "additions": 8070,
+      "deletions": 525,
+      "changes": 8595,
+      "top1_file": "drizzle/meta/0015_snapshot.json",
+      "top1_changes": 1003,
+      "top1_change_ratio": 0.1167,
+      "files_by_status": {
+        "added": 50,
+        "modified": 100,
+        "removed": 10
+      },
+      "directory_count": 6,
+      "directories": [
+        ".cursor",
+        ".github",
+        "drizzle",
+        "examples",
+        "src",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 5,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 21,
+      "event_counts": {
+        "committed": 6,
+        "labeled": 1,
+        "ready_for_review": 1,
+        "unlabeled": 1,
+        "commented": 4,
+        "reviewed": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 984.805,
+      "first_review_delay_hours": 536.1,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sqlite_wal_mode",
+      "database_locking_reduction"
+    ],
+    "optimization_layer": "database_journal_mode",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "locking_contention"
+    ],
+    "outcome_reason": "merged_small_scope_no_review_blocking",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "code_style",
+      "observability"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI Codex added a single pragma to enable WAL mode with a unit test; only bot nitpicks, no blocking review; merged after a month with no human performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8595,
+        "interpretation": "The total changed lines are large (8595) due to an unrelated merge from main, but the core performance change is tiny (about 5 lines in src/database/index.ts to set journal_mode=WAL and a small test file). Despite the inflated line count, the actual change is minimal, consistent with a small-step performance PR that merged without objections."
+      },
+      "lifecycle": {
+        "lifespan_hours": 984.805,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_style_or_nitpick",
+      "primary_concern": "none_blocking_nitpicks",
+      "concern_detail": "Bots suggested TypeScript type improvements, logging WAL failures, and Node.js import protocol; none blocked the merge.",
+      "performance_claim": "Enables SQLite WAL mode to reduce database locking.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "locking_contention (prior default journal mode)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "code_style",
+        "observability"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A single pragma change to enable WAL mode is well within agent capability; the long merge delay and bot-only review reflect process rather than technical barrier.",
+      "success_factors": [
+        "small_scope",
+        "existing_test_framework",
+        "non_blocking_bot_reviews"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human code review detected; bots performed static analysis."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR includes a unit test that verifies WAL mode is set, but no before/after performance measurement or workload evidence for locking reduction.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions; bot suggestions were not implemented but non-blocking.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/database/index.ts, getDb() now sets journal_mode = WAL via sqliteInstance.pragma, with errors silently carried; added closeDb() to clean up connections; new test/database/index.test.ts verifies WAL mode and connection closure.",
+      "files_primary": [
+        "src/database/index.ts",
+        "test/database/index.test.ts"
+      ],
+      "files_secondary_observability": [
+        "drizzle/meta/0015_snapshot.json",
+        "examples/*",
+        ".cursor/*",
+        ".github/*"
+      ],
+      "secondary_note": "The vast majority of changed files (192/197) come from merging main and are unrelated to the WAL change; they include docs, examples, and configuration.",
+      "change_trajectory": [
+        "Initial commit: enable WAL mode and add a basic test (80bc76e).",
+        "Fix commit (496c95f) adjusted the implementation.",
+        "Bot added unit test for index.ts (e667300).",
+        "Merged main branch, causing large diff.",
+        "Update and lint commits.",
+        "Merged after ~31 days."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "typescript_type_suggestion",
+        "summary": "Suggested correcting Database.Database to InstanceType<typeof Database> for stronger typing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "logging_suggestion",
+        "summary": "Recommended logging WAL pragma failures instead of silently catching.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_non_blocking",
+        "summary": "Posted review summary with nitpick suggestions and walkthrough.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cursor[bot]",
+        "channel": "formal_review",
+        "signal": "bot_bug_report",
+        "summary": "Reported a bug about exporting database instances potentially causing initialization issues.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "use-tusk[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_test_env_note",
+        "summary": "No test execution environment matched for the commit.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "gru-agent[bot]",
+        "channel": "pr_comment",
+        "signal": "auto_test_assignment",
+        "summary": "TestGru assigned a unit test task and reported a finished test.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Author opened PR with a small WAL change and a basic test.",
+      "After 23 days, multiple bots reviewed and left non-blocking nitpick comments and a bug report.",
+      "A bot added a separate unit test file.",
+      "Author merged main branch (introducing a large diff) and applied linting updates.",
+      "PR merged after 31 days with no human review or objection."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

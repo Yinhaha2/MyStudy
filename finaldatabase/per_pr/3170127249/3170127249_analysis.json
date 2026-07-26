@@ -1,0 +1,184 @@
+{
+  "pr_id": 3170127249,
+  "meta": {
+    "title": "Add VM constant folding support",
+    "html_url": "https://github.com/mochilang/mochi/pull/2777",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-24 03:43:09+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-24 04:09:19+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 10,
+    "topic_name": "10",
+    "body_summary": "Implement constant folding and pure function evaluation in the VM compiler, with golden test updates reflecting the optimization."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 20,
+      "additions": 199,
+      "deletions": 125,
+      "changes": 324,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 81,
+      "top1_change_ratio": 0.25,
+      "files_by_status": {
+        "added": 3,
+        "modified": 17
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.433,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_folding",
+      "vm_compiler_optimization",
+      "pure_function_evaluation"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "golden_test_outputs",
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_quickly_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex implemented VM constant folding with golden test updates; PR self-closed 26 min later with no review or collaborative engagement."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 324,
+        "interpretation": "At 324 changed lines across 20 files, this is a small-to-medium sized optimization change by absolute volume. It was closed by the author quickly without review, likely incomplete or not ready for maintainer acceptance."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.433,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review text available to infer primary concern.",
+      "performance_claim": "Reduce runtime computation by evaluating constant expressions and pure functions at compile time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author self-closed PR 26 minutes after creation with no reviewer engagement; may be incomplete or exploratory."
+    },
+    "capability_boundary": {
+      "topic": "10",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The PR was self-closed quickly without any human review interaction; suggests either the agent output was a draft, or the author used it for exploratory purpose and closed it before review.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Golden output files provide expected IR after folding, but no before/after performance metrics or profiling evidence.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR self-closed by author without further iteration or review cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added constant folding logic for pure function evaluation and compile-time expression reduction; updated multiple .ir.out golden files to reflect expected folded outputs; added new test files const_fold_pure.mochi, const_fold_pure.ir.out, and const_fold_pure.out.",
+      "files_primary": [
+        "runtime/vm/vm.go",
+        "tests/vm/valid/const_fold_pure.mochi",
+        "tests/vm/valid/const_fold_pure.ir.out",
+        "tests/vm/valid/const_fold_pure.out"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/avg_builtin.ir.out",
+        "tests/vm/valid/basic_compare.ir.out",
+        "tests/vm/valid/count_builtin.ir.out",
+        "tests/vm/valid/fun_call.ir.out",
+        "tests/vm/valid/fun_three_args.ir.out",
+        "tests/vm/valid/if_else.ir.out",
+        "tests/vm/valid/len_builtin.ir.out",
+        "tests/vm/valid/len_map.ir.out",
+        "tests/vm/valid/len_string.ir.out",
+        "tests/vm/valid/let_and_print.ir.out",
+        "tests/vm/valid/map_literal_dynamic.ir.out",
+        "tests/vm/valid/map_membership.ir.out",
+        "tests/vm/valid/math_ops.ir.out",
+        "tests/vm/valid/str_builtin.ir.out",
+        "tests/vm/valid/var_assignment.ir.out",
+        "tests/vm/valid/while_loop.ir.out"
+      ],
+      "secondary_note": "Multiple golden output files changed to reflect constant folding effects; no runtime benchmark or profiling code added.",
+      "change_trajectory": [
+        "Single commit: 'vm: implement constant folding' adding constant folding logic and updating/adding test files; no further commits."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with constant folding implementation and golden test updates.",
+      "Self-closed by author 26 minutes later without any human or bot review comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

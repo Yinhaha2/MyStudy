@@ -1,0 +1,181 @@
+{
+  "pr_id": 2920983723,
+  "meta": {
+    "title": "perf: optimize MAU loading mechanism for better performance with large datasets",
+    "html_url": "https://github.com/Cap-go/capgo/pull/1066",
+    "repo": "Cap-go/capgo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-03-14 18:19:38+00:00",
+    "merged_at": null,
+    "closed_at": "2025-03-15 05:38:03+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 28,
+    "topic_name": "28",
+    "body_summary": "Optimize MAU loading by replacing per-app API calls with a bulk getAppMetrics call, adding caching, loading state, and optimizing watchEffect to avoid redundant requests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 51,
+      "deletions": 9,
+      "changes": 60,
+      "top1_file": "src/components/tables/AppTable.vue",
+      "top1_changes": 48,
+      "top1_change_ratio": 0.8,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 11.307,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bulk_api_call",
+      "caching",
+      "mau_loading_optimization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin frontend optimization with bulk API and caching; closed without human review or perf evidence; zero engagement."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 60,
+        "interpretation": "At 60 changed lines across 2 files, this is a small frontend refactor. It was closed without merge due to lack of maintainer engagement, not because of any explicit rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 11.307,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review or feedback was provided; only bot comments appeared.",
+      "performance_claim": "Reduce MAU loading time by replacing per-app API calls with a single getAppMetrics call, caching results, and optimizing watchEffect to avoid redundant calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed ~11 hours after creation with no human comments or review; maintainer likely deemed it stale or not worth reviewing."
+    },
+    "capability_boundary": {
+      "topic": "28",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Frontend caching optimization PR received no maintainer engagement and was closed after 11h, illustrating that agent-authored PRs can be passively ignored or deprioritized without explicit review triage.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "PR body mentions testing but provides no benchmarks, profiler output, or reproducible steps; no human validation recorded.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by maintainer without comment after 11 hours; no follow-up or fix-in-PR attempted.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/components/tables/AppTable.vue, replaced individual MAU API calls with a single getAppMetrics call, added loading state, and optimized watchEffect dependencies. In src/stores/main.ts, added MAU caching logic.",
+      "files_primary": [
+        "src/components/tables/AppTable.vue",
+        "src/stores/main.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Single commit by Devin: bulked MAU loading with caching and loading state."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI response for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_bot_user",
+        "summary": "CodeRabbit skipped review because PR author is a bot user.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with single commit optimizing MAU loading.",
+      "Only bot comments appeared; no human review was performed.",
+      "Maintainer riderx closed the PR ~11 hours later with no comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

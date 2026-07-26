@@ -1,0 +1,195 @@
+{
+  "pr_id": 3134916409,
+  "meta": {
+    "title": "Fix notebook sticky scroll flashing by using single reusable delayer",
+    "html_url": "https://github.com/microsoft/vscode/pull/251153",
+    "repo": "microsoft/vscode",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-06-10 21:45:31+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 28,
+    "topic_name": "28_notebook_sticky_scroll_flashing",
+    "body_summary": "Replace per-event `Delayer` creation with a single reusable delayer instance in notebook sticky scroll to prevent flashing caused by concurrent delayed updates."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 1,
+      "additions": 20,
+      "deletions": 6,
+      "changes": 26,
+      "top1_file": "src/vs/workbench/contrib/notebook/browser/viewParts/notebookEditorStickyScroll.ts",
+      "top1_changes": 26,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 13,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "commented": 2
+      },
+      "lifespan_hours": 0.533,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sticky_scroll_flashing",
+      "debouncing_optimization",
+      "ui_rendering_performance"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "open_awaiting_review",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "manual_testing"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Initial fix insufficient; maintainer diagnosed feedback loop; Copilot added recursive update guard; PR open pending re-review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 26,
+        "interpretation": "At 26 changed lines in a single file, this is a very small targeted fix. It fits a small-step UI performance PR, but the fix was insufficient and required a follow-up commit after maintainer feedback."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.533,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_failure",
+      "concern_detail": "Maintainer Yoyokrazy commented that the reusable delayer did not fix the flashing; suspected root cause is a layout feedback loop where sticky scroll height changes trigger recursive updates.",
+      "performance_claim": "Eliminate flashing by reusing a single delayer, preventing concurrent delayed updates.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "perf_evidence"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "28_notebook_sticky_scroll_flashing",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent initially misidentified root cause (debouncing vs recursive layout updates). Required maintainer diagnosis to uncover the feedback loop, indicating limited understanding of complex UI rendering pipelines.",
+      "success_factors": [
+        "quick_follow_up_fix",
+        "maintainer_diagnosis_assistance"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer Yoyokrazy manually tested the fix and observed persistent flashing, provided qualitative root cause hypothesis.",
+        "ci_auto": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiler data; only manual observation reported.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After Yoyokrazy's comment, Copilot added a guard flag `_isUpdatingContent` to prevent recursive scroll fires in commit a842e9d; PR awaiting re-review.",
+      "evidence_gap": "narrative_only_no_reproducible_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In notebookEditorStickyScroll.ts, replaced per-event `new Delayer(100)` with a single `this.scrollDelayer` reused across scroll events. After feedback, added `_isUpdatingContent` guard to prevent recursive `_onDidScroll.fire()` during content update, breaking flashing feedback loop.",
+      "files_primary": [
+        "src/vs/workbench/contrib/notebook/browser/viewParts/notebookEditorStickyScroll.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "All changes confined to one file.",
+      "change_trajectory": [
+        "Initial commit: replace Delayer creation with reusable instance (6 additions, 4 deletions).",
+        "Feedback commit: add _isUpdatingContent flag to prevent recursive scroll events (14 additions, 2 deletions)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "Yoyokrazy",
+        "channel": "pr_comment",
+        "signal": "functional_failure",
+        "summary": "Commented that reusable delayer does not fix flashing; suspected layout feedback loop.",
+        "blocking": false,
+        "action_taken": "Copilot added guard flag to prevent recursive updates."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Acknowledged root cause as feedback loop and explained guard flag fix.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with delayer reuse fix, linked to issue.",
+      "Yoyokrazy commented within ~23 minutes that fix doesn't work and pointed to potential layout feedback loop.",
+      "Copilot responded within ~8 minutes with a new commit adding recursive update guard; PR remains open awaiting re-review."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

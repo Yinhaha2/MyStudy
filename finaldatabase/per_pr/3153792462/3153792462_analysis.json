@@ -1,0 +1,178 @@
+{
+  "pr_id": 3153792462,
+  "meta": {
+    "title": "Disable slow tests",
+    "html_url": "https://github.com/mochilang/mochi/pull/1359",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-17 14:50:02+00:00",
+    "merged_at": "2025-06-17 14:51:51+00:00",
+    "closed_at": "2025-06-17 14:51:51+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "test",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "17",
+    "body_summary": "Skip slow interpreter and LeetCode example tests across multiple compiler test suites to speed up `go test ./...`."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 11,
+      "additions": 12,
+      "deletions": 0,
+      "changes": 12,
+      "top1_file": "interpreter/interpreter_test.go",
+      "top1_changes": 2,
+      "top1_change_ratio": 0.1667,
+      "files_by_status": {
+        "modified": 11
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "interpreter"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.03,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_suite_speedup",
+      "skip_slow_tests"
+    ],
+    "optimization_layer": "ci_configuration",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single commit skipping interpreter and LeetCode example tests using t.Skip; merged without review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 12,
+        "interpretation": "At 12 changed lines across 11 test files, this is a tiny, mechanical change; consistent with fast-track merge for test configuration."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.03,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Skipping slow interpreter and LeetCode example tests reduces overall test suite runtime.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "17",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Disabling tests requires minimal agent capability; the change is purely mechanical and merged instantly by the author.",
+      "success_factors": [
+        "low_scope",
+        "maintainer_self_merge",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null,
+        "ci_auto": null
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance evidence; body only mentions 'go test ./...' as testing method.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added t.Skip() calls to skip TestInterpreter and TestLeetCodeExample test functions across 11 compiler test files and the interpreter test file.",
+      "files_primary": [
+        "interpreter/interpreter_test.go",
+        "compile/c/compiler_test.go",
+        "compile/dart/compiler_test.go",
+        "compile/erlang/compiler_test.go",
+        "compile/go/compiler_test.go",
+        "compile/hs/compiler_test.go",
+        "compile/lua/compiler_test.go",
+        "compile/php/compiler_test.go",
+        "compile/py/compiler_test.go",
+        "compile/rb/compiler_test.go",
+        "compile/ts/compiler_test.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit adds t.Skip to each test file."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and self-merged by author within ~2 minutes; no external review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

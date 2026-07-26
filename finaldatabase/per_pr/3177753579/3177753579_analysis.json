@@ -1,0 +1,220 @@
+{
+  "pr_id": 3177753579,
+  "meta": {
+    "title": "feat: optimize slot generation with inverted algorithm",
+    "html_url": "https://github.com/calcom/cal.com/pull/22047",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-26 05:05:52+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 19:26:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Add an optimized slot generation algorithm for large team events (>10 members) using inverted approach with batching and feature flag, aiming to improve performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 5,
+      "additions": 485,
+      "deletions": 228,
+      "changes": 713,
+      "top1_file": "packages/trpc/server/routers/viewer/slots/util.test.ts",
+      "top1_changes": 430,
+      "top1_change_ratio": 0.603,
+      "files_by_status": {
+        "added": 1,
+        "modified": 4,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 20,
+      "event_counts": {
+        "committed": 5,
+        "commented": 5,
+        "labeled": 2,
+        "assigned": 1,
+        "milestoned": 1,
+        "deployed": 4,
+        "unlabeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 134.34,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "slot_generation_algorithm",
+      "team_event_performance",
+      "batch_processing"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_prioritization_shift",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin delivered a functional algorithm change with CI passing and integration tests; maintainer closed in favor of other optimizations first."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 713,
+        "interpretation": "At 713 changed lines across 5 files, this is a medium-sized change by absolute volume, including algorithm refactor (~200 lines in util.ts) and significant test churn (~430 lines in added then deleted test file). As an algorithm performance PR, it was closed without merge because the maintainer prioritized other optimization approaches rather than merging this one."
+      },
+      "lifecycle": {
+        "lifespan_hours": 134.34,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "prioritization_shift",
+      "concern_detail": "Maintainer keithwillcode commented they are trying other optimizations first and will revisit this PR if it makes sense, indicating strategic deprioritization rather than functional rejection.",
+      "performance_claim": "The inverted algorithm with batch processing of users in groups of 10 and short-circuiting aims to improve slot generation performance for teams with more than 10 members.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Maintainer deprioritized the optimization and closed the PR without merge, citing intent to pursue other performance improvements first."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Devin delivered a technically sound change with passing CI and integration tests, but the maintainer opted for a different optimization path, showing that agent-authored performance PRs may be deferred even when correct if they don't match current maintenance priorities.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarking data or before/after performance measurements were provided; the PR relies solely on narrative description and integration tests for correctness.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed without merge after maintainer comment about prioritizing other optimizations.",
+      "evidence_gap": "narrative_only_no_perf_measurement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added getAvailableSlotsOptimized() in util.ts that generates ideal slots first from event type settings, then processes users in batches of 10 with short-circuiting when minimum required users are met; added 'optimized-slot-generation' team feature flag in config.ts and hooks/index.ts; added integration test in getSchedule.test.ts verifying identical results between standard and optimized algorithms for a 10+ user round robin scenario.",
+      "files_primary": [
+        "packages/trpc/server/routers/viewer/slots/util.ts",
+        "packages/features/flags/config.ts",
+        "packages/features/flags/hooks/index.ts",
+        "apps/web/test/lib/getSchedule.test.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/trpc/server/routers/viewer/slots/util.test.ts"
+      ],
+      "secondary_note": "The util.test.ts file was added with initial unit tests, then later deleted in favor of integration tests.",
+      "change_trajectory": [
+        "Initial commit: added optimized algorithm in util.ts and initial unit tests.",
+        "Additional commit: expanded unit tests for large team scenarios.",
+        "Feature flag commit: introduced team feature flag and replaced unit tests with integration test.",
+        "Refactor commit: removed weak unit test file per feedback.",
+        "Final commit: fixed TypeScript errors in feature flag implementation."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "keithwillcode",
+        "channel": "pr_comment",
+        "signal": "closure_prioritization_shift",
+        "summary": "Maintainer stated they are trying other optimizations first and will revisit this PR if it makes sense.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI monitoring for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata; no impact on merge decision.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "delve-auditor[bot]",
+        "channel": "pr_comment",
+        "signal": "security_scan_pass",
+        "summary": "Security and compliance scan reported no issues.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results_available",
+        "summary": "E2E test results were published; no blocking failure mentioned.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with optimized algorithm implementation and tests.",
+      "CI checks (type check, E2E, integration) all passed; maintainer assigned self and labeled for E2E.",
+      "Devin iterated on tests (unit → integration) and fixed TypeScript errors based on CI feedback.",
+      "After ~5 days, maintainer commented that they are trying other optimizations first and closed the PR without further discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

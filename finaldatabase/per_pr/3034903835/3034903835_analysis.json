@@ -1,0 +1,228 @@
+{
+  "pr_id": 3034903835,
+  "meta": {
+    "title": "perf: replace OR conditions with UNION in bookings query",
+    "html_url": "https://github.com/calcom/cal.com/pull/21067",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-01 23:31:12+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-11 15:30:44+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 29,
+    "topic_name": "29",
+    "body_summary": "Optimized bookings query by replacing OR conditions with UNION in raw SQL, claiming 212x faster execution in production environments."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 19,
+      "file_count": 4,
+      "additions": 1414,
+      "deletions": 790,
+      "changes": 2204,
+      "top1_file": "packages/trpc/server/routers/viewer/bookings/get.handler.ts",
+      "top1_changes": 2123,
+      "top1_change_ratio": 0.963,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "packages",
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 11,
+        "commented": 4,
+        "labeled": 4,
+        "review_requested": 2,
+        "deployed": 7,
+        "milestoned": 1,
+        "assigned": 1
+      },
+      "lifespan_hours": 232.0,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "sql_query_optimization",
+      "union_vs_or_replacement",
+      "raw_sql_refactor"
+    ],
+    "optimization_layer": "database_query",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "slow_or_condition"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin attempted UNION-based SQL optimization; iterated on many type fixes but received no human review; closed stale."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2204,
+        "interpretation": "At 2204 changed lines across 4 files, this is a large edit by absolute volume, almost entirely concentrated in a single handler file (2123 lines). The iterative nature of the commits (many type and SQL parameter fixes) suggests a high-complexity change that ultimately failed to gain any human review, leading to closure."
+      },
+      "lifecycle": {
+        "lifespan_hours": 232.0,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No human review or approval occurred. The only human interaction was a single commit by joeauyeung to abstract WHERE and FROM clauses, but no formal review was recorded. Devin bot closed the PR after 7 days of inactivity.",
+      "performance_claim": "Replacing OR conditions with UNION in the bookings query yields 212x faster execution for large datasets.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "slow_or_condition",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by bot after 7+ days inactivity; no human review feedback or approval."
+    },
+    "capability_boundary": {
+      "topic": "29",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "A complex raw-SQL refactor with many follow-up type fixes overwhelmed the PR process; the change never received human review and was closed stale. The agent’s iterative corrections were insufficient to trigger a maintainer’s attention.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No record of human code review; the only human contribution was joeauyeung’s commit abstracting the WHERE and FROM clause, indicating acknowledgment but not formal review."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "The PR body contains a numeric claim (212x faster) but no benchmark table, profiler output, or reproduction steps. No testing evidence besides occasional e2e links.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after 7+ days of inactivity; no regression or failure fix cycle occurred.",
+      "evidence_gap": "narrative_only_no_benchmark_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/trpc/server/routers/viewer/bookings/get.handler.ts, the entire Prisma ORM query for fetching bookings was replaced by a series of raw SQL queries using UNION ALL instead of OR conditions. Multiple commits fixed type mismatches, SQL parameter handling, and sorting logic. The change also involved minor type adjustments in two frontend files (TeamsListing.tsx, bookings-listing-view.tsx, BookingListItem.tsx).",
+      "files_primary": [
+        "packages/trpc/server/routers/viewer/bookings/get.handler.ts"
+      ],
+      "files_secondary_observability": [
+        "apps/web/modules/bookings/views/bookings-listing-view.tsx",
+        "apps/web/components/booking/BookingListItem.tsx",
+        "packages/features/ee/teams/components/TeamsListing.tsx"
+      ],
+      "secondary_note": "Frontend files received only minor type alignment changes (e.g., RecurringInfo, attendee noShow).",
+      "change_trajectory": [
+        "Initial commit: full raw SQL query using UNION, removing Prisma OR calls.",
+        "Immediate follow-ups: added type safety, resolved TypeScript errors (RecurringInfo, attendee types).",
+        "Human commit by joeauyeung: abstracted common WHERE and FROM clauses, indicating partial review but no merge approval.",
+        "Agent continued with multiple fixes: consolidating into a single comprehensive query, correcting UNION ALL, adding row numbering, adjusting parameter arrays, fixing Prisma.sql calls.",
+        "After 7 days of inactivity, Devin bot auto-closed the PR."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI monitoring for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_label_and_review",
+        "summary": "Graphite automation added a community label and requested review based on the requester’s settings.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview URLs for the PR (ignored status).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results_ready",
+        "summary": "Posted a link to E2E test results (no pass/fail details in comment).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "joeauyeung",
+        "channel": "commit",
+        "signal": "human_refactor",
+        "summary": "joeauyeung committed an abstraction of the WHERE and FROM clause in get.handler.ts, indicating the PR was noticed but not formally reviewed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with an initial raw SQL UNION replacement.",
+      "Graphite automation immediately added labels and requested review.",
+      "Agent made many iterative commits to fix type errors and SQL parameter mismatches.",
+      "Maintainer joeauyeung made a single refactoring commit but did not submit a formal review or approval.",
+      "No further human interaction; E2E test results were posted but not acted upon.",
+      "After 7 days of inactivity, Devin bot closed the PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

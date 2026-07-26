@@ -1,0 +1,254 @@
+{
+  "pr_id": 3245424562,
+  "meta": {
+    "title": "feat: optimize web app bundle size (BUS-1459)",
+    "html_url": "https://github.com/buster-so/buster/pull/571",
+    "repo": "buster-so/buster",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-19 16:20:13+00:00",
+    "merged_at": "2025-07-22 19:47:42+00:00",
+    "closed_at": "2025-07-22 19:47:42+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "24",
+    "body_summary": "Implement bundle size optimizations for the web app targeting ~740KB: fix Next.js config for bundle analyzer, replace `export *` with explicit named exports, dynamic Chart.js loading, and restrict icon exports to 16 commonly used ones (later reverted)."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 199,
+      "additions": 10355,
+      "deletions": 2406,
+      "changes": 41787,
+      "top1_file": "apps/web/src/components/ui/streaming/AppMarkdownStreaming/AppMarkdownStreaming.stories.tsx",
+      "top1_changes": 744,
+      "top1_change_ratio": 0.0178,
+      "files_by_status": {
+        "added": 60,
+        "modified": 117,
+        "removed": 20,
+        "renamed": 2
+      },
+      "directory_count": 4,
+      "directories": [
+        "apps",
+        "packages",
+        ".github",
+        ".vscode"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 25,
+      "event_counts": {
+        "committed": 8,
+        "commented": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "reviewed": 1,
+        "deployed": 8,
+        "head_ref_force_pushed": 2,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 75.45,
+      "first_review_delay_hours": 0.012,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bundle_size_optimization",
+      "tree_shaking",
+      "dynamic_imports",
+      "icon_export_reduction"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative",
+      "bundle_analysis_report"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_maintainer_iteration",
+    "review_dimensions": [
+      "correctness",
+      "test_coverage",
+      "perf_evidence",
+      "code_quality"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "bundle_analysis",
+      "ci_auto"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin proposed bundle optimizations with bundle analyzer screenshots; maintainer iterated with commits for dynamic imports and test fixes; merged with no formal human review but successful deployment."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 41787,
+        "interpretation": "At 41787 changed lines across 199 files, this is a massive change by absolute volume, driven largely by a merge commit from staging that brought in many unrelated changes. The performance-specific changes are a small fraction (barrel exports, dynamic chart loading) within a larger refactor. The merge outcome is consistent with a maintainer-led iteration that bundled performance changes with other staging work."
+      },
+      "lifecycle": {
+        "lifespan_hours": 75.45,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "style_or_documentation",
+      "primary_concern": "no_blocking_concerns",
+      "concern_detail": "Greptile bot noted unused PostHog import in next.config.mjs and suggested adding a comment to explain icon selection choices; no blocking issues raised.",
+      "performance_claim": "Reduce web app bundle size from ~740KB by optimizing barrel exports, implementing dynamic Chart.js loading, and reducing icon exports.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "performance",
+        "design",
+        "tests"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "24",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin's initial changes covered bundle optimization techniques (barrel exports, dynamic imports, icon reduction) but required maintainer intervention to properly implement dynamic chart loading, fix unit tests, and merge staging updates. The bot-flagged icon risk was reverted by Devin preemptively, indicating awareness of compatibility concerns.",
+      "success_factors": [
+        "bundle_analyzer_evidence",
+        "maintainer_collaboration",
+        "preemptive_icon_revert",
+        "successful_deployment"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "bundle_analysis",
+        "code_reading",
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "greptile bot reviewed code and flagged style issues; maintainer likely reviewed code while making iterative commits.",
+        "ci_auto": "Vercel deployed previews and bundle analyzer ran, providing size evidence."
+      },
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "Baseline and optimized bundle analyzer screenshots are linked, but build failures prevented full end-to-end verification; maintainer later fixed build and merged.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Maintainer committed fixes for unit tests, import type, and dynamic loading after initial Devin PR; no separate revert.",
+      "evidence_gap": "build_failure_limited_full_verification"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Optimized web app bundle size by: fixing Next.js config to enable bundle analyzer; replacing `export *` with explicit exports in key UI components (buttons, charts, modal) for better tree-shaking; creating BusterChartJSDynamic.tsx for dynamic Chart.js import; initially restricting icon exports to 16 commonly used icons, later reverted to `export *` for compatibility; added @next/bundle-analyzer dependency.",
+      "files_primary": [
+        "apps/web/next.config.mjs",
+        "apps/web/src/components/ui/charts/BusterChartJSDynamic.tsx",
+        "apps/web/src/components/ui/icons/index.ts",
+        "apps/web/src/components/ui/buttons/index.ts",
+        "apps/web/src/components/ui/modal/index.ts",
+        "apps/web/src/components/ui/charts/BusterChartJS/index.ts"
+      ],
+      "files_secondary_observability": [
+        "apps/web/src/components/ui/streaming/AppMarkdownStreaming/AppMarkdownStreaming.stories.tsx",
+        "packages/ai/src/tools/file-tools/read-files-tool/read-files.ts"
+      ],
+      "secondary_note": "The merge from staging brought 14513 lines of changes across many files, overshadowing the targeted bundle optimizations (~100 lines in core files).",
+      "change_trajectory": [
+        "Initial Devin commit: bundle analyzer config, barrel exports, dynamic chart component, icon reduction.",
+        "Devin revert of icon reduction to 'export *' for compatibility.",
+        "Maintainer merges staging branch, adding many unrelated changes.",
+        "Maintainer iterates: dynamic imports for chart, simplify packages, fix unit tests, import type only.",
+        "Merged after successful deployment."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "inline_review_comment",
+        "signal": "style_unused_import",
+        "summary": "PostHog config import is unused after removing commented code; suggestion to remove it.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "inline_review_comment",
+        "signal": "documentation_suggestion",
+        "summary": "Consider adding a comment explaining which icons were selected and why, to prevent accidental removal of critical icons.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Greptile bot provided a summary with confidence score 3/5, highlighting risk of icon reduction and need for testing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployed preview and provided link; deployment ready.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with bundle optimizations.",
+      "Greptile bot reviewed and left style comments (unused import, comment suggestion) within seconds.",
+      "Devin preemptively reverted icon export reduction due to compatibility concerns.",
+      "Maintainer nate-kelley-buster merged staging, then iterated with several commits for dynamic imports, simplification, test fixes.",
+      "Maintainer merged after final import type commit."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

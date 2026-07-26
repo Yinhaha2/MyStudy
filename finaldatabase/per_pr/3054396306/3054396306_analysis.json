@@ -1,0 +1,215 @@
+{
+  "pr_id": 3054396306,
+  "meta": {
+    "title": "Add TanStack Virtual to documents table for vertical virtualization",
+    "html_url": "https://github.com/antiwork/flexile/pull/291",
+    "repo": "antiwork/flexile",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-10 17:29:20+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-19 20:35:37+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": "41",
+    "topic_name": "41",
+    "body_summary": "Adds @tanstack/react-virtual to implement vertical virtualization in the documents DataTable, claiming improved mobile performance and scrollability for large tables."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 10,
+      "file_count": 197,
+      "additions": 332,
+      "deletions": 3248,
+      "changes": 3580,
+      "top1_file": "apps/next/components/DataTable.tsx",
+      "top1_changes": 505,
+      "top1_change_ratio": 0.141,
+      "files_by_status": {
+        "modified": 10,
+        "added": 2,
+        "removed": 40,
+        "renamed": 145
+      },
+      "directory_count": 5,
+      "directories": [
+        "apps",
+        "backend",
+        ".github",
+        ".cursorrules",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 24,
+      "event_counts": {
+        "committed": 10,
+        "commented": 4,
+        "assigned": 1,
+        "deployed": 8,
+        "closed": 1
+      },
+      "lifespan_hours": 219.1,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "virtualization",
+      "table_rendering",
+      "ui_performance"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin attempted to add TanStack Virtual to documents table; no formal reviews, only 'resolve merge conflicts' request, closed without merge after ~9 days."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 3580,
+        "interpretation": "At 3580 changed lines, this is a medium-sized change by absolute volume, but the high deletion count is largely due to a backend directory rename/removal during merge. The core addition of TanStack Virtual is concentrated in DataTable.tsx (~500 lines). The PR was closed without merge, consistent with lack of review and inability to resolve merge conflicts."
+      },
+      "lifecycle": {
+        "lifespan_hours": 219.1,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "merge_conflict",
+      "concern_detail": "Maintainer slavingia requested to resolve merge conflicts on May 15; Devin performed a merge commit and attempted fixes but PR was eventually closed without further review.",
+      "performance_claim": "Improve mobile performance by adding TanStack Virtual vertical virtualization to the documents table.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed ~4 days after merge conflict resolution attempt; no maintainer approval or review discussion."
+    },
+    "capability_boundary": {
+      "topic": "41",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Adding a frontend virtualization library is within Devin's capability, but the PR failed to gain maintainer traction, possibly due to missing performance evidence and a complex merge conflict that wasn't fully resolved.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after metrics, profiler output, or benchmark provided; only narrative claim of improved mobile performance.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no regression issue reported, but the feature was not accepted.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added @tanstack/react-virtual dependency, modified DataTable component to support optional vertical virtualization via useVirtualizer hook with overscan=10, and enabled virtualization on the documents page. Also resolved merge conflicts from main branch which brought backend directory restructure.",
+      "files_primary": [
+        "apps/next/components/DataTable.tsx",
+        "apps/next/app/documents/page.tsx"
+      ],
+      "files_secondary_observability": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "backend/... (many renamed/removed files from merge)"
+      ],
+      "secondary_note": "The majority of file changes are from a merge commit that renamed the backend directory from apps/rails to backend and removed numerous GitHub-related files.",
+      "change_trajectory": [
+        "Initial commit: added TanStack Virtual dependency and implemented virtualization in DataTable and documents page.",
+        "Autofix CI committed formatting fixes.",
+        "MayaRainer committed a 'fix' to DataTable.tsx.",
+        "Devin merged main branch (large restructuring) to resolve merge conflicts.",
+        "Devin fixed linting errors and made virtualization optional.",
+        "Further commits: TypeScript fixes, autoformat."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_prompt_context",
+        "summary": "Posted original Slack thread context and task description.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Bot announced it would address comments and CI failures.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "skip_review_bot_detected",
+        "summary": "CodeRabbit skipped review due to bot user detection.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "slavingia",
+        "channel": "pr_comment",
+        "signal": "merge_conflict_request",
+        "summary": "Requested to resolve merge conflicts.",
+        "blocking": true,
+        "action_taken": "Devin merged main and made fixes, but PR later closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial TanStack Virtual implementation.",
+      "Autofix and maintainer minor fix committed.",
+      "Maintainer slavingia requested merge conflict resolution.",
+      "Devin merged main (large backend rename) and fixed resulting issues.",
+      "PR left unreviewed and closed by MayaRainer after ~9 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

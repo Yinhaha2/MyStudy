@@ -1,0 +1,222 @@
+{
+  "pr_id": 3070227634,
+  "meta": {
+    "title": "perf: parallelize getBusyTimes calls to improve performance",
+    "html_url": "https://github.com/calcom/cal.com/pull/21372",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-17 02:58:48+00:00",
+    "merged_at": "2025-05-24 12:43:06+00:00",
+    "closed_at": "2025-05-24 12:43:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 29,
+    "topic_name": "29",
+    "body_summary": "Parallelize getBusyTimes database calls using Promise.all in Cal.com availability logic to reduce sequential latency for large teams."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 151,
+      "deletions": 89,
+      "changes": 240,
+      "top1_file": "packages/lib/getBusyTimes.ts",
+      "top1_changes": 159,
+      "top1_change_ratio": 0.6625,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 17,
+      "event_counts": {
+        "committed": 1,
+        "review_requested": 2,
+        "commented": 4,
+        "labeled": 2,
+        "deployed": 1,
+        "assigned": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 2
+      },
+      "lifespan_hours": 177.738,
+      "first_review_delay_hours": 177.738,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "parallel_db_calls",
+      "sequential_to_concurrent",
+      "team_availability_performance"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Devin parallelized getBusyTimes DB calls; approved by keithwillcode without review comments; CI e2e passed; no benchmark evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 240,
+        "interpretation": "At 240 changed lines across 3 files, this is a small-to-medium refactor by absolute volume, fitting a focused performance improvement. The outcome is consistent with a low-risk merge approved without blocking comments."
+      },
+      "lifecycle": {
+        "lifespan_hours": 177.738,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No explicit concerns; maintainer approved without comment.",
+      "performance_claim": "Parallelizing getBusyTimes database calls reduces cumulative latency for large teams.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "sequential_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "29",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Parallelizing Prisma database queries with Promise.all is within Devin's capability; the merge required no manual intervention after CI passed.",
+      "success_factors": [
+        "ci_e2e_pass",
+        "small_scope",
+        "maintainer_approval_no_blocking"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "ci_auto": "github-actions bot posted E2E test results; presumably passed, enabling approval."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Testing instructions lack benchmark figures; no profiler results; performance claim is qualitative.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression reported.",
+      "evidence_gap": "narrative_only"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In getBusyTimes.ts, getBusyTimesFromLimits.ts, and getUserAvailability.ts, replaced sequential await calls with Promise.all to parallelize independent Prisma database queries for busy time calculation.",
+      "files_primary": [
+        "packages/lib/getBusyTimes.ts",
+        "packages/lib/intervalLimits/server/getBusyTimesFromLimits.ts",
+        "packages/lib/getUserAvailability.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit parallelizes key database queries by wrapping them in Promise.all."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment response for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted skipped deployment notice.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_reviewer_assignment",
+        "summary": "Graphite automation added reviewer.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_test_results",
+        "summary": "E2E test results posted.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "keithwillcode",
+        "channel": "formal_review",
+        "signal": "approved_no_comment",
+        "summary": "Formal APPROVED review with no body text.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with single commit parallelizing getBusyTimes calls.",
+      "Various bots provided automation, deployment, and E2E test results.",
+      "Maintainer keithwillcode approved after ~7 days with no review comments; PR merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

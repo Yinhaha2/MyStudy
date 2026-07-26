@@ -1,0 +1,181 @@
+{
+  "pr_id": 3127291716,
+  "meta": {
+    "title": "ci: skip expensive workflows on doc-only changes",
+    "html_url": "https://github.com/rsyslog/rsyslog/pull/5670",
+    "repo": "rsyslog/rsyslog",
+    "agent": "OpenAI_Codex",
+    "user": "rgerhards",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-07 17:24:35+00:00",
+    "merged_at": "2025-06-08 06:15:28+00:00",
+    "closed_at": "2025-06-08 06:15:28+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "ci",
+    "aidev_task_confidence": 10,
+    "topic_id": 0,
+    "topic_name": "",
+    "body_summary": "Add paths-ignore filters to six CI workflow YAML files to skip expensive compilation, static analysis, and integration jobs for documentation-only PRs, reducing CI resource consumption and queue time."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 28,
+      "deletions": 0,
+      "changes": 28,
+      "top1_file": ".github/workflows/codeql.yml",
+      "top1_changes": 8,
+      "top1_change_ratio": 0.2857,
+      "files_by_status": {
+        "modified": 6
+      },
+      "directory_count": 1,
+      "directories": [
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "assigned": 1,
+        "milestoned": 1,
+        "commented": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 12.85,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "ci_workflow_skip",
+      "doc_only_changes"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Codex-authored CI skip filter with ~4-line YAML changes per workflow, self-merged by maintainer after noting known CI false positive."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 28,
+        "interpretation": "At 28 lines distributed across 6 workflow YAML files, this is a tiny change by absolute volume. It fits a small-step, low-risk CI optimization and was merged without formal review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 12.85,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review feedback was provided; the only comment acknowledged a known false positive CI failure.",
+      "performance_claim": "Skip expensive CI workflows for documentation-only PRs to reduce resource usage and CI queue times.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Codex managed straightforward YAML path filters; no technical stack boundary encountered. Merge required no additional evidence beyond author confidence.",
+      "success_factors": [
+        "low_risk_config_change",
+        "self-merged",
+        "minimal_scope",
+        "clear_perf_narrative"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance metrics or before/after CI duration data provided; the performance claim is narrative.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; known CI failure was dismissed as false positive.",
+      "evidence_gap": "narrative_only_ci_skip_no_timing_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added paths-ignore conditions for documentation paths (docs/**, *.md, etc.) to the trigger sections of multiple expensive CI workflows, preventing them from running when only doc files are changed.",
+      "files_primary": [
+        ".github/workflows/ci.yml.template",
+        ".github/workflows/ci_compile.yml",
+        ".github/workflows/codeql.yml",
+        ".github/workflows/run_checks.yml",
+        ".github/workflows/run_journal.yml",
+        ".github/workflows/run_kafka_distcheck.yml"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit by rgerhards adding paths-ignore to six workflow YAMLs; no subsequent edits."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "rgerhards",
+        "channel": "pr_comment",
+        "signal": "ci_false_positive_dismissed",
+        "summary": "Author commented that a CI failure was a known false positive, indicating acceptance of the change despite CI issues.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened, milestone set, author commented about CI false positive",
+      "Merged by same author within ~13 hours with no external review"
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

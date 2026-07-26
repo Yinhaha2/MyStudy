@@ -1,0 +1,242 @@
+{
+  "pr_id": 3155815373,
+  "meta": {
+    "title": "Make benchmarks only run with release builds",
+    "html_url": "https://github.com/hyperlight-dev/hyperlight/pull/641",
+    "repo": "hyperlight-dev/hyperlight",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-18 07:37:33+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-29 23:00:13+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 27,
+    "topic_name": "27",
+    "body_summary": "Enforce that benchmarks only run with release/optimized builds by adding compile-time checks and updating CI/justfile to use release profile."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 6,
+      "additions": 96,
+      "deletions": 49,
+      "changes": 145,
+      "top1_file": "src/hyperlight_host/benches/benchmarks.rs",
+      "top1_changes": 103,
+      "top1_change_ratio": 0.71,
+      "files_by_status": {
+        "modified": 6
+      },
+      "directory_count": 3,
+      "directories": [
+        ".github",
+        "docs",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 13,
+      "review_states": {
+        "COMMENTED": 11,
+        "CHANGES_REQUESTED": 2
+      },
+      "review_comment_count": 15,
+      "pr_comment_count": 17,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "assigned": 2,
+        "copilot_work_started": 4,
+        "renamed": 1,
+        "review_requested": 9,
+        "copilot_work_finished": 3,
+        "commented": 2,
+        "mentioned": 2,
+        "subscribed": 2,
+        "labeled": 2,
+        "ready_for_review": 1,
+        "head_ref_force_pushed": 1,
+        "reviewed": 1
+      },
+      "lifespan_hours": 999.38,
+      "first_review_delay_hours": 9.24,
+      "review_rounds": 13,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmark_configuration",
+      "release_only_enforcement"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_unable_to_rebase",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot enforced release-only benchmarks via conditional compilation, but struggled with clippy/fmt fixes and final rebase; after multiple review rounds, closed to be restarted."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 145,
+        "interpretation": "At 145 changed lines across 6 files, this is a small build configuration change. As a small-step PR, it was closed—not merged—due to persistent CI issues and inability to rebase after 999 hours."
+      },
+      "lifecycle": {
+        "lifespan_hours": 999.38,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "compile_time_check_incompatible_with_clippy_and_build_config",
+      "concern_detail": "Initial compile_error! in benchmarks.rs broke `just clippy debug`. Reviewers requested checking optimization level instead of debug_assertions, and the agent struggled with conditional compilation placement and merge conflicts with upstream changes (PR #703).",
+      "performance_claim": "Enforcing release-only benchmarks ensures consistent performance data for regression testing.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "ci_validation"
+      ],
+      "rejection_signals": "Copilot unable to rebase after prolonged merge conflict resolution; maintainers closed to restart."
+    },
+    "capability_boundary": {
+      "topic": "27",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot implemented compile-time benchmark restriction but failed to resolve complex merge conflicts and rebase after multiple CI feedback rounds, leading to PR abandonment.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "ci_auto",
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Reviewers ludfjig, simongdavies, jsturtevant, syntactically inspected the conditional compilation logic and suggested improvements (e.g., using optimization level instead of debug_assertions).",
+        "ci_auto": "GitHub Actions CI caught clippy and formatting errors repeatedly, prompting multiple fix commits."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "The PR went through many iterations; final state was not merged, and clear reproduction steps for the final enforcement were not provided.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After multiple rounds of fixing clippy and rebasing, maintainers chose to close the PR and plan a fresh start due to merge conflicts.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added compile-time checks in hyperlight_host benchmarks to only allow compilation with optimized builds (opt-level 1+), removed debug target from just bench/bench-ci commands, updated CI workflows to use release-only bench commands, and adjusted documentation.",
+      "files_primary": [
+        "src/hyperlight_host/benches/benchmarks.rs",
+        "src/hyperlight_host/build.rs",
+        "Justfile"
+      ],
+      "files_secondary_observability": [
+        ".github/workflows/Benchmarks.yml",
+        ".github/workflows/dep_rust.yml",
+        "docs/benchmarking-hyperlight.md"
+      ],
+      "secondary_note": "Workflow and doc updates are secondary to the core Rust enforcement logic.",
+      "change_trajectory": [
+        "Initial commit: added compile_error! on debug_assertions, updated justfile to hardcode release profile, updated workflows and docs.",
+        "Review feedback: changed from debug_assertions to opt-level check via build.rs setting cfg flags; added compile-time conditional compilation.",
+        "Multiple iterations to fix clippy errors by excluding benchmarks in debug mode, adjusting conditional compilation placement (file-level vs item-level).",
+        "Final commits attempted to rebase onto main and resolve conflicts with PR #703 workflow changes, but rebase failed and PR closed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "simongdavies",
+        "channel": "pr_comment",
+        "signal": "ci_failure_clippy",
+        "summary": "just clippy failed in GitHub Actions; Copilot fixed by modifying clippy command and later by restructuring conditional compilation.",
+        "blocking": true,
+        "action_taken": "Copilot fixed across multiple commits (6236f65, 44e925c, etc.)"
+      },
+      {
+        "source": "ludfjig",
+        "channel": "formal_review",
+        "signal": "review_request_opt_level_check",
+        "summary": "Suggested checking opt level instead of debug_assertions to allow release builds with debug symbols.",
+        "blocking": false,
+        "action_taken": "Copilot adopted opt-level check via build.rs."
+      },
+      {
+        "source": "jsturtevant",
+        "channel": "formal_review",
+        "signal": "changes_requested_fmt_and_clippy",
+        "summary": "Requested to fix formatting and clippy errors; also suggested using #![cfg(optimized_build)] at top of file.",
+        "blocking": true,
+        "action_taken": "Copilot applied fixes in commits cbd9467 and subsequent."
+      },
+      {
+        "source": "syntactically",
+        "channel": "formal_review",
+        "signal": "changes_requested_cfg_placement_and_workflow",
+        "summary": "Flagged that workflow changes didn't align with PR #703 and suggested using not(optimized_build) instead of unoptimized_build.",
+        "blocking": true,
+        "action_taken": "Copilot fixed workflow flags and simplified cfg condition in commit f10e216."
+      },
+      {
+        "source": "jsturtevant",
+        "channel": "pr_comment",
+        "signal": "close_restart",
+        "summary": "Stated that Copilot cannot rebase, and the PR must be closed and restarted.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with compile_error! and justfile changes.",
+      "simongdavies reported `just clippy` failure; Copilot fixed by modifying clippy command.",
+      "ludfjig reviewed and requested opt-level check; Copilot switched to build.rs cfg flags.",
+      "Multiple rounds of clippy/fmt fixes and back-and-forth about cfg attribute placement.",
+      "jsturtevant requested CHANGES_REQUESTED to fix fmt and align with PR #703; Copilot applied fixes.",
+      "syntactically flagged workflow incompatibilities and redundant cfg; Copilot adjusted.",
+      "simongdavies asked to rebase onto main and resolve conflicts; Copilot attempted but ultimately failed, recommended restarting.",
+      "jsturtevant closed PR to restart due to rebase inability."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

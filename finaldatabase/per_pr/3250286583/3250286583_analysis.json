@@ -1,0 +1,167 @@
+{
+  "pr_id": 3250286583,
+  "meta": {
+    "title": "Optimize runtime helpers",
+    "html_url": "https://github.com/mochilang/mochi/pull/11614",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-21 23:05:59+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-21 23:17:40+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "18",
+    "body_summary": "Avoid emitting unused runtime helpers in Go and TypeScript compilers, updating golden compiler outputs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 32,
+      "additions": 155,
+      "deletions": 1348,
+      "changes": 1503,
+      "top1_file": "tests/gocompiler/valid/let_and_print.go.out",
+      "top1_changes": 107,
+      "top1_change_ratio": 0.071,
+      "files_by_status": {
+        "modified": 32
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.195,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "dead_code_elimination",
+      "compiler_output_size_reduction",
+      "runtime_helper_pruning"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex PR to strip unused runtime helpers from compiler output was closed by author after 12 minutes with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1503,
+        "interpretation": "At 1503 changed lines, this is a medium-to-large change by absolute volume, but mostly deletions in golden test files (1348 deletions vs 155 additions). The core compiler changes are ~156 lines. The PR is a code-size optimization (dead code elimination) and was closed without merge, likely because the author closed it prematurely or as part of an agent task that was not intended for public review. The outcome is consistent with an incomplete or abandoned performance PR."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.195,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comment text available.",
+      "performance_claim": "Avoid emitting unused runtime helpers, reducing output size.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author without any review or discussion; no maintainer rejection signal."
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The agent produced a large code-change with golden output updates but the PR was closed by the author almost instantly, without any review interaction. This suggests either the agent’s output was not intended for merge (perhaps an internal task) or the author closed it for unknown reasons. The PR lacks performance evidence and maintainer attention.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after output size comparison; only narrative and compiler golden test updates.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge by the author; no regression handling evidence.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/go/compiler.go and compile/ts/compiler.go, implement logic to emit runtime helpers only when used by the compiled code, removing dead code from output. Update all compiler golden test outputs (.go.out and .ts.out) to reflect the stripped helper code.",
+      "files_primary": [
+        "compile/go/compiler.go",
+        "compile/ts/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/gocompiler/valid/for_list_collection.go.out",
+        "tests/gocompiler/valid/for_loop.go.out",
+        "tests/gocompiler/valid/fun_call.go.out",
+        "tests/gocompiler/valid/grouped_expr.go.out",
+        "tests/tscompiler/valid/for_list_collection.ts.out"
+      ],
+      "secondary_note": "Golden test output files were updated to remove the now-absent runtime helper code, reflecting the expected compiler output.",
+      "change_trajectory": [
+        "Single commit: compiler: include runtime helpers only when used – modified both compiler files and all golden outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with a single commit and labeled 'codex' by author; closed by the author 12 minutes later with no reviews or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

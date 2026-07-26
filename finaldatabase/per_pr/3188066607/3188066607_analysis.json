@@ -1,0 +1,167 @@
+{
+  "pr_id": 3188066607,
+  "meta": {
+    "title": "Enable constant register reuse in VM",
+    "html_url": "https://github.com/mochilang/mochi/pull/4165",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 11:04:06+00:00",
+    "merged_at": "2025-06-30 11:04:25+00:00",
+    "closed_at": "2025-06-30 11:04:25+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Reuse constant registers in VM compiler to avoid re-emitting repeated constants, reducing IR output size; update TPC-H q22 IR reference."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 215,
+      "deletions": 252,
+      "changes": 467,
+      "top1_file": "tests/dataset/tpc-h/out/q22.ir.out",
+      "top1_changes": 429,
+      "top1_change_ratio": 0.9186,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.005278,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_register_reuse",
+      "ir_size_reduction"
+    ],
+    "optimization_layer": "runtime_compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "sufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-commit VM compiler optimization with test output update; self-merged in 19 seconds without review or performance metrics."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 467,
+        "interpretation": "At 467 changed lines, this is a small-to-medium change by absolute volume, with the bulk (429 lines) in a test reference file update. The core VM change is only 38 lines. This fits a small-step, quick-merge performance optimization PR and is consistent with the rapid, unreviewed merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.005278,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Reusing constant registers reduces IR output size by avoiding re-emitting repeated constants.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The change modifies VM compiler internals (constant register management) and a benchmark reference file; the agent could produce a correct optimization with test acceptance without human review.",
+      "success_factors": [
+        "small_scope",
+        "test_acceptance",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "sufficient",
+      "reproducibility_notes": "Test command with -update updates the IR output; the PR includes the updated q22.ir.out, suggesting local verification.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were reported; the PR merged immediately without discussion.",
+      "evidence_gap": "no_perf_metrics_only_ir_update_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, the VM compiler logic was modified to reuse constant registers when encountering the same constant value, preventing duplicate register allocation. The test reference file tests/dataset/tpc-h/out/q22.ir.out was updated to reflect the reduced IR output.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/tpc-h/out/q22.ir.out"
+      ],
+      "secondary_note": "The IR output file update shows the effect of the optimization on a large query benchmark, but is a test reference rather than a primary code change.",
+      "change_trajectory": [
+        "Single commit modifies vm.go to implement constant register reuse and updates q22.ir.out accordingly."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged by the same author (tamnd) within 19 seconds; labeled 'codex' by bot; no human review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

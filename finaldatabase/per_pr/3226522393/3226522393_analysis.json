@@ -1,0 +1,249 @@
+{
+  "pr_id": 3226522393,
+  "meta": {
+    "title": "Fix memory allocation issue for large files by capping StaticSparseDAG capacity",
+    "html_url": "https://github.com/messense/jieba-rs/pull/126",
+    "repo": "messense/jieba-rs",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-13 13:52:51+00:00",
+    "merged_at": "2025-07-13 14:30:53+00:00",
+    "closed_at": "2025-07-13 14:30:53+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 23,
+    "topic_name": "23",
+    "body_summary": "Copilot caps StaticSparseDAG capacity to prevent memory allocation failures when processing large input files, following maintainer instructions from issue #124."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 4,
+      "additions": 147,
+      "deletions": 141,
+      "changes": 288,
+      "top1_file": "tests/test_large_file_issue.rs",
+      "top1_changes": 190,
+      "top1_change_ratio": 0.6597,
+      "files_by_status": {
+        "added": 2,
+        "modified": 2,
+        "removed": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "commented": 5,
+        "mentioned": 3,
+        "subscribed": 3,
+        "review_requested": 2,
+        "copilot_work_finished": 3,
+        "reviewed": 1,
+        "renamed": 1,
+        "connected": 1,
+        "ready_for_review": 1,
+        "merged": 1
+      },
+      "lifespan_hours": 0.634,
+      "first_review_delay_hours": 0.354,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_capacity_cap",
+      "allocation_failure_fix"
+    ],
+    "optimization_layer": "application_memory",
+    "evidence_type": [
+      "narrative",
+      "ci_task_eval"
+    ],
+    "inefficiency_antipattern": [
+      "unbounded_memory_allocation"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "design_or_approach",
+      "tests",
+      "scope"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot capped StaticSparseDAG capacity to fix OOM for large files; maintainer guided cleanup and adjusted final constant."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 288,
+        "interpretation": "A small 288-line change that included temporary test files later removed; the core fix in sparse_dag.rs is only ~22 lines. The PR merged quickly after maintainer-guided cleanup."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.634,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "scope_test_cleanup",
+      "concern_detail": "Maintainer messense requested removal of new test files, keeping sparse_dag module private, and updating PR title/description to match the focused fix.",
+      "performance_claim": "Fix memory allocation failures for large files by capping StaticSparseDAG capacity.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unbounded_memory_allocation (prior behavior)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "tests",
+        "scope"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "23",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A straightforward memory limit configuration in a Rust library; Copilot could implement the fix but needed maintainer guidance on tests and module visibility.",
+      "success_factors": [
+        "clear_maintainer_instructions",
+        "quick_copilot_iteration",
+        "minimal_core_change"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "messense reviewed the PR diff, instructed removal of extraneous tests and module privacy restoration, and later adjusted the capacity constant."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "The PR references issue #124 which may contain reproduction steps; within the PR itself only a narrative claim is present. CI reports show no performance regression.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After Copilot's initial fix, the maintainer directly committed an adjustment to the maximum capacity (~32MB) before merging.",
+      "evidence_gap": "memory_fix_without_benchmark_or_explicit_repro_steps"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/sparse_dag.rs, introduced MAX_CAPACITY constant (initial 8_388_608, later updated to ~32MB) to cap StaticSparseDAG allocation; in src/lib.rs, changed sparse_dag module visibility back to private.",
+      "files_primary": [
+        "src/sparse_dag.rs",
+        "src/lib.rs"
+      ],
+      "files_secondary_observability": [
+        "tests/test_large_file_issue.rs",
+        "tests/test_moderate_size.rs"
+      ],
+      "secondary_note": "Test files were added then removed per maintainer request; CodSpeed CI reported no performance change.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Implemented capacity cap in sparse_dag with test files and public module.",
+        "Review: maintainer asked to remove tests and keep module private.",
+        "Copilot removed tests and restored module privacy.",
+        "Maintainer final commit adjusted capacity to ~32MB and merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "messense",
+        "channel": "pr_comment",
+        "signal": "issue_reference",
+        "summary": "Pointed Copilot to issue #124 as the source of the problem.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "intend_to_fix",
+        "summary": "Copilot acknowledged the issue and committed to reproduce and fix.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "messense",
+        "channel": "formal_review",
+        "signal": "cleanup_request",
+        "summary": "Requested removal of new tests, keep sparse_dag private, update title/description.",
+        "blocking": true,
+        "action_taken": "Copilot removed tests, restored module privacy, and updated metadata."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "changes_done",
+        "summary": "Copilot confirmed completion of requested cleanup in commit c8063d5.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "Reported 84.24% coverage, all modified lines covered.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "codspeed-hq[bot]",
+        "channel": "pr_comment",
+        "signal": "perf_report_no_change",
+        "summary": "CodSpeed performance report: merging will not alter performance.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Maintainer linked issue #124 within 2 minutes.",
+      "Copilot acknowledged and committed initial fix with tests within ~15 minutes.",
+      "Maintainer reviewed and requested removal of tests and module privacy restoration.",
+      "Copilot implemented changes within 8 minutes.",
+      "Maintainer added final capacity adjustment and merged within 8 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

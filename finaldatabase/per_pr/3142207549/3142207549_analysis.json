@@ -1,0 +1,205 @@
+{
+  "pr_id": 3142207549,
+  "meta": {
+    "title": "Improve list rev_fold performance",
+    "html_url": "https://github.com/moonbitlang/core/pull/2265",
+    "repo": "moonbitlang/core",
+    "agent": "OpenAI_Codex",
+    "user": "bobzhang",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-13 04:24:38+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-15 12:05:50+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "4",
+    "body_summary": "Avoid array allocation in list rev_fold by replacing it with direct recursion, and implement rev_foldi without list reversal."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 23,
+      "deletions": 6,
+      "changes": 29,
+      "top1_file": "list/list.mbt",
+      "top1_changes": 29,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "list"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 2,
+        "reviewed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 55.687,
+      "first_review_delay_hours": 3.242,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "list_fold_optimization",
+      "array_allocation_elimination",
+      "tail_recursion"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "missing_benchmark",
+    "review_dimensions": [
+      "perf_evidence",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "OpenAI_Codex rewrote rev_fold/rev_foldi without tail recursion; reviewer hackwaly disputed performance claim and no benchmark was provided, leading to closure."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 29,
+        "interpretation": "At 29 changed lines in a single file, this is a tiny edit by absolute volume. It is a typical small-step performance PR that was closed—not merged—because the reviewer doubted the performance improvement and no benchmark evidence was supplied."
+      },
+      "lifecycle": {
+        "lifespan_hours": 55.687,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "missing_benchmark_and_tail_recursion",
+      "concern_detail": "Reviewer hackwaly noted that the new implementation is not tail recursive and expressed doubt that it would improve performance; no benchmark or profiling data was provided.",
+      "performance_claim": "Avoid array allocation and use direct recursion to improve rev_fold/rev_foldi performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "array_allocation_in_list_fold (prior behavior; not in taxonomy enum)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer bobzhang closed the PR approximately two days after reviewer flagged the non-tail-recursive implementation, with no follow-up fix."
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent produced a non-tail-recursive fold but did not consider stack depth implications for large lists, requiring reviewer intervention to identify the potential performance pitfall.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "hackwaly read the diff and pointed out that the recursion is not tail-recursive, questioning whether the change would actually improve performance."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body contains no benchmark numbers, profiler references, or reproducible performance measurements; only a narrative description of the change.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No fix was attempted after the comment; the PR was closed by the author without further iteration.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In list/list.mbt, replaced array-based rev_fold with a direct non-tail-recursive helper function go, and implemented rev_foldi via recursion without reversing the list. Minor formatting via moon fmt.",
+      "files_primary": [
+        "list/list.mbt"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit: rewrote rev_fold and rev_foldi to eliminate array allocation with direct recursion."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "hackwaly",
+        "channel": "inline_review_comment",
+        "signal": "tail_recursion_concern",
+        "summary": "Pointed out that the new implementation is not tail recursive and expressed doubt about performance improvement.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "hackwaly",
+        "channel": "formal_review",
+        "signal": "commented_no_body",
+        "summary": "Formal review COMMENTED with no body text; substantive feedback delivered in inline comment.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "peter-jerry-ye-code-review[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_performance_approve",
+        "summary": "Bot review praised the removal of array allocation and list reversal as performance improvements.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coveralls",
+        "channel": "pr_comment",
+        "signal": "coverage_report",
+        "summary": "Coveralls reported 100% coverage on changed lines and a slight overall coverage increase.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Reviewer hackwaly left an inline comment questioning tail recursion and performance about three hours after PR creation.",
+      "PR remained unchanged and was closed by author two days later, likely due to the unresolved concern."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

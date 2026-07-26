@@ -1,0 +1,259 @@
+{
+  "pr_id": 3275149041,
+  "meta": {
+    "title": "N-API Go html-to-markdown",
+    "html_url": "https://github.com/mendableai/firecrawl/pull/1884",
+    "repo": "mendableai/firecrawl",
+    "agent": "Claude_Code",
+    "user": "mogery",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-29 22:34:55+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 8,
+    "topic_name": "8",
+    "body_summary": "Replace unstable koffi FFI HTML-to-Markdown with a new N-API Go module, adding a hybrid N-API → koffi → JavaScript fallback and integrating N-API build into Docker and CI, to eliminate panics and improve performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 26,
+      "additions": 1805,
+      "deletions": 35,
+      "changes": 1840,
+      "top1_file": "apps/api/src/lib/html-to-markdown-hybrid.ts",
+      "top1_changes": 206,
+      "top1_change_ratio": 0.112,
+      "files_by_status": {
+        "added": 20,
+        "modified": 6
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "apps"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 8,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 4,
+        "review_requested": 1,
+        "reviewed": 1,
+        "convert_to_draft": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": 0.177,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "napi",
+      "html_to_markdown",
+      "ffi_replacement",
+      "graceful_degradation"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "draft_converted_no_merge",
+    "review_dimensions": [
+      "correctness",
+      "error_handling",
+      "build_security",
+      "logging"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "draft_converted_no_fix",
+    "confidence": "high",
+    "notes": "Claude_Code added cross‑language N‑API module with hybrid fallback; cubic bot flagged 8 non‑blocking safety/logging issues; PR converted to draft by author and never merged."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1840,
+        "interpretation": "At 1840 changed lines across 26 files, this is a large‑scale change adding a complete native module with build, CI, and fallback infrastructure. The PR was closed as draft without merge, which is unusual for a claimed performance improvement and suggests incomplete work or lack of maintainer buy‑in after the initial bot review."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_and_safety",
+      "concern_detail": "8 non‑blocking suggestions from cubic‑dev‑ai bot covering concurrency race, unsafe C string handling, goroutine leak, supply‑chain checksum missing, logging format, and path robustness.",
+      "performance_claim": "Direct C++ interface eliminates FFI overhead for faster HTML‑to‑Markdown conversion.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR converted to draft by author after bot review, no further activity; never merged."
+    },
+    "capability_boundary": {
+      "topic": "8",
+      "agent": "Claude_Code",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Claude_Code attempted a multi‑language N‑API module with Go/C++/TypeScript integration, but the PR remained draft; the bot review flagged many correctness and safety gaps, suggesting the agent may have struggled to ensure robust native‑module loading and error handling across the stack.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "cubic‑dev‑ai bot performed static analysis on all new files, identifying issues related to concurrency, error handling, logging, and Docker supply‑chain security; no human maintainer review was recorded."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance data or benchmarks; the only evidence is the narrative claim of ‘no FFI overhead’.",
+      "regression_handling": "draft_converted_no_fix",
+      "regression_detail": "The author converted the PR to draft shortly after the bot review and did not apply any fixes; it was never merged.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced a new N‑API Go module (go‑html‑to‑md‑napi) with a C++ wrapper and TypeScript loaders that implement a hybrid fallback (N‑API → koffi → JavaScript turndown). Added a multi‑stage Docker Go build stage, CI steps, and a validation script, and integrated the new module into the existing html‑to‑markdown.ts."
+    },
+    "files_primary": [
+      "apps/api/sharedLibs/go-html-to-md-napi/main.go",
+      "apps/api/sharedLibs/go-html-to-md-napi/src/html_converter.cc",
+      "apps/api/src/lib/html-to-markdown-napi.ts",
+      "apps/api/src/lib/html-to-markdown-hybrid.ts"
+    ],
+    "files_secondary_observability": [
+      "apps/api/Dockerfile",
+      ".github/workflows/test-server.yml",
+      ".github/workflows/test-server-self-host.yml",
+      "apps/api/validate-html-conversion.js"
+    ],
+    "secondary_note": "Build and CI updates ensure the native module can be compiled in Docker and tested; the legacy html‑to‑markdown.ts is kept as a fallback.",
+    "change_trajectory": [
+      "Reverted previous koffi mutex fix to replace with N‑API.",
+      "Added full N‑API module with Go library, C++ wrapper, and TypeScript loaders.",
+      "Added CI build steps for N‑API compilation.",
+      "Checkpoint commit with further adjustments.",
+      "PR converted to draft by author after cubic‑dev‑ai bot review."
+    ],
+    "review_signals": [
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "logging_format_violation",
+        "summary": "Dynamic data interpolated in log message instead of using structured context object.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "concurrent_module_loading_race",
+        "summary": "Concurrent requests may receive a false negative because the guard returns napiModule before the asynchronous load completes.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "unsafe_require_native_addon",
+        "summary": "Unprotected require of the native addon will throw at runtime and breaks the documented fallback mechanism.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "error_metadata_discard",
+        "summary": "Only the error message is logged, discarding stack and metadata; pass the original Error object instead.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "path_robustness_cwd",
+        "summary": "Building the N‑API path with process.cwd() can fail if the service is started from a different folder; use __dirname instead.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "goroutine_leak_on_timeout",
+        "summary": "The goroutine performing conversion is not cancelled when the context times out, causing a potential goroutine leak.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "null_pointer_crash_cgo",
+        "summary": "C.GoString is called without a NULL check; passing a null C string will crash the process.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "inline_review_comment",
+        "signal": "supply_chain_checksum_missing",
+        "summary": "The downloaded Go toolchain archive is used without verifying its checksum or signature.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "cubic-dev-ai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_summary",
+        "summary": "Formal COMMENTED review linking to cubic.dev; 8 issues found across 20 files.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by mogery (co‑authored by Claude) with a large new N‑API module and hybrid fallback.",
+      "cubic‑dev‑ai bot posted 8 non‑blocking inline suggestions within minutes, covering safety, concurrency, and build security.",
+      "Author converted the PR to draft shortly after the bot review, and no further commits or review activity followed."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

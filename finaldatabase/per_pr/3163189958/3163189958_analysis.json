@@ -1,0 +1,179 @@
+{
+  "pr_id": 3163189958,
+  "meta": {
+    "title": "@remotion/google-fonts: Add AbortController support to loadFont() method",
+    "html_url": "https://github.com/remotion-dev/remotion/pull/5445",
+    "repo": "remotion-dev/remotion",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-20 12:37:37+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-20 14:29:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 40,
+    "topic_name": "40",
+    "body_summary": "Add optional AbortController support to loadFont() in remotion/google-fonts to enable cancellation of font loading requests, claiming improved responsiveness for virtualized font picker UIs."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 199,
+      "additions": 199,
+      "deletions": 0,
+      "changes": 199,
+      "top1_file": "packages/google-fonts/src/42dotSans.ts",
+      "top1_changes": 1,
+      "top1_change_ratio": 0.005025,
+      "files_by_status": {
+        "modified": 199
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "deployed": 4,
+        "commented": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 1.86,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "abort_control",
+      "request_cancellation",
+      "font_loading_latency"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "closed_quickly_no_review_interaction",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot added AbortController to loadFont() across 199 font files; PR closed ~1.9h by maintainer without review interaction; narrative performance claim for virtualized font pickers."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 199,
+        "interpretation": "At 199 changed lines across 199 files, this is a small but wide-reaching mechanical edit. It fits a feature enhancement that was closed quickly without review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.86,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "lack_of_maintainer_engagement",
+      "concern_detail": "No formal review or comment from maintainer on the PR; only a Vercel bot deployment comment. PR was closed by maintainer JonnyBurger without substantive feedback, possibly due to the mechanical nature of the change across 199 font files.",
+      "performance_claim": "Adding AbortController support allows cancellation of font loads, improving responsiveness in virtualized font pickers and avoiding unnecessary network requests.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by maintainer ~1.9h after creation with no review comments, suggesting it was deemed unnecessary or the approach not accepted."
+    },
+    "capability_boundary": {
+      "topic": "40",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot produced a mechanical 199-file change to add an optional AbortController parameter; despite linking an issue, no maintainer review was provided and the PR was closed. This suggests a process boundary where large but simple changes may still not be accepted without maintainer buy-in.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review in dataset; review was requested but no formal review text recorded."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics; only narrative claim about unnecessary network requests.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after ~1.9h with no review interaction; no fix-in-PR cycle occurred.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added optional `controller?: AbortController` parameter to `loadFont()` in all 199 individual font module files under `packages/google-fonts/src/`. Each file got a one-line addition to the options type. The core cancellation logic was likely added in a shared module, but only the per-font files appear in the commit stats.",
+      "files_primary": [
+        "packages/google-fonts/src/42dotSans.ts (and 198 other font files)"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only font-specific files are listed in commits; any shared loadFont logic changes are not captured in the file stats.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Second commit: Added AbortController option to 199 font files; each modified with one-line addition."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata; unrelated to perf validation.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR linked to issue with AbortController addition across 199 font files.",
+      "Vercel bot posted deployment previews.",
+      "PR closed by maintainer JonnyBurger after ~1.9h without review comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

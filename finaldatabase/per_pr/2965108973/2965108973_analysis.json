@@ -1,0 +1,194 @@
+{
+  "pr_id": 2965108973,
+  "meta": {
+    "title": "feat: Optimize default channel migration for performance",
+    "html_url": "https://github.com/Cap-go/capgo/pull/1109",
+    "repo": "Cap-go/capgo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-04-02 03:56:17+00:00",
+    "merged_at": null,
+    "closed_at": "2025-04-10 14:43:00+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 34,
+    "topic_name": "34",
+    "body_summary": "Implement performance optimizations for default channel migration and API endpoints by replacing row-by-row processing with set-based operations, adding indexes, and consolidating database operations."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 298,
+      "deletions": 20,
+      "changes": 318,
+      "top1_file": "supabase/functions/_backend/public/channel/post_optimized.ts",
+      "top1_changes": 136,
+      "top1_change_ratio": 0.4277,
+      "files_by_status": {
+        "added": 3,
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "supabase"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 3,
+        "commented": 3,
+        "closed": 1
+      },
+      "lifespan_hours": 202.778,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "database_query_optimization",
+      "api_endpoint_performance",
+      "migration_script_performance"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin added new optimized files but no benchmarks; no human review; auto-closed by bot after 8 days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 318,
+        "interpretation": "At 318 changed lines, this is a small-to-medium edit by absolute volume. It adds optimized versions of API handlers and a migration script, typical of a moderate incremental performance change. The closure without merge is consistent with the absence of review engagement and lack of performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 202.778,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No human reviews or substantive feedback were provided; coderabbit skipped review because the PR was opened by a bot user. Devin bot auto-closed after more than 7 days of inactivity.",
+      "performance_claim": "Significantly improve performance of default channel migration and API operations, especially for large databases with many apps and users.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "row_by_row_processing (replaced with set-based operations to eliminate repeated_io)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "No maintainer engagement; CodeRabbit review skipped; Devin bot closed due to >7 days inactivity."
+    },
+    "capability_boundary": {
+      "topic": "34",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent PRs in this repository require maintainer attention to trigger reviews or merges. Without any human interaction, the PR became stale and was auto-closed, illustrating a process gap for agent-driven contributions.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-level review was recorded in the dataset."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks, profiler usage, or before/after measurements were provided; only a narrative description of the optimizations.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed automatically by the Devin bot after 7 days without any fix-in-PR cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added optimized versions of channel API endpoints (get_optimized.ts, post_optimized.ts) and an optimized default channel migration SQL script. Changes include set-based operations instead of row-by-row processing, added indexes, array filtering for default channel identification, and consolidated database operations to reduce round-trips.",
+      "files_primary": [
+        "supabase/functions/_backend/public/channel/post_optimized.ts",
+        "supabase/functions/_backend/public/channel/get_optimized.ts",
+        "supabase/migrations/20250330054527_move_default_channel_to_app_table_optimized.sql"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "",
+      "change_trajectory": [
+        "Initial commit (c1bc58df): added new optimized files for channel endpoints and migration.",
+        "Subsequent commit (17fe022): autofix-ci applied automated formatting fixes to both endpoint files.",
+        "Final commit (b77a39d8): fixed Context import and corrected a type error in post_optimized.ts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_bot_user",
+        "summary": "CodeRabbit skipped review because the PR was opened by a bot user.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by Devin with optimized files and an agent integration notice.",
+      "CodeRabbit skipped review, noting the bot user.",
+      "Autofix bot committed formatting fixes; Devin committed a type-error fix.",
+      "After 8 days with no human interaction, Devin bot auto-closed the PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

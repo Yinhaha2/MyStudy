@@ -1,0 +1,243 @@
+{
+  "pr_id": 3082541069,
+  "meta": {
+    "title": "Add -M/--find-renames option and blame.renames config to control rename detection",
+    "html_url": "https://github.com/microsoft/git/pull/755",
+    "repo": "microsoft/git",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-22 08:37:59+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Add --find-renames option and blame.renames config to skip rename detection in git blame for performance, with documentation and tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 8,
+      "additions": 259,
+      "deletions": 111,
+      "changes": 370,
+      "top1_file": "builtin/blame.c",
+      "top1_changes": 148,
+      "top1_change_ratio": 0.4,
+      "files_by_status": {
+        "added": 2,
+        "modified": 6
+      },
+      "directory_count": 4,
+      "directories": [
+        "Documentation",
+        "builtin",
+        "t",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 9,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 16,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "reviewed": 1
+      },
+      "lifespan_hours": 8256.575,
+      "first_review_delay_hours": 3.836,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "rename_detection_control",
+      "blame_performance",
+      "disable_expensive_computation"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "incorrect_design_superseded",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "tests"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot attempted to add rename control to git blame but used conflicting -M option and incorrect linkage; dscho provided detailed feedback; PR later superseded by #894."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 370,
+        "interpretation": "At 370 changed lines across 8 files, this is a small-to-medium edit by absolute volume. It fits a targeted performance feature addition, but was closed without merge due to fundamental design issues and later superseded by another PR."
+      },
+      "lifecycle": {
+        "lifespan_hours": 8256.575,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "incorrect_design_conflict_with_existing_option",
+      "concern_detail": "dscho noted that existing -M in git blame means something else (detect moved or copied lines within a file), not whole-file rename detection, so reusing it is wrong. Also, the static variable in builtin/blame.c cannot be accessed from blame.c, and the similarity threshold was misused as boolean.",
+      "performance_claim": "Disabling rename detection improves git blame performance by avoiding expensive blob comparisons.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "correctness",
+        "tests"
+      ],
+      "rejection_signals": "Superseded by #894; maintainer indicated fundamental design issues with option name and implementation, and later closed in favor of alternative PR."
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Git internals and command-line option consistency require deep understanding of existing codebase and conventions; Copilot's initial approach conflicted with existing option semantics and static linking, and even after attempted fixes, the design was not accepted.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "dscho reviewed diff hunks in detail, pointing out each issue with code and documentation."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR includes a test script, but performance claims are not backed by benchmarks; test is more about functionality.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed after being superseded by #894; no fix-in-PR cycle led to acceptance.",
+      "evidence_gap": "narrative_only_without_perf_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add -M/--find-renames option and blame.renames config to control rename detection in git blame, modifying builtin/blame.c to parse new options and pass a rename score to blame.c, updating documentation, and adding a test script.",
+      "files_primary": [
+        "builtin/blame.c",
+        "blame.c",
+        "t/t8015-blame-rename-detection.sh"
+      ],
+      "files_secondary_observability": [
+        "Documentation/blame-options.adoc",
+        "Documentation/config/blame.adoc",
+        "Documentation/git-blame.adoc",
+        "blame.h"
+      ],
+      "secondary_note": "Documentation updates and blame.h change for new struct field; test script added then reduced per review.",
+      "change_trajectory": [
+        "Initial commit added option parsing and config, documentation, and test.",
+        "Review feedback pointed out incorrect use of -M and static variable scope.",
+        "Subsequent commits attempted to fix static issue by adding blame_scoreboard field, adjust option parsing, and simplify tests, but fundamental -M conflict remained.",
+        "PR later superseded by #894."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "dscho",
+        "channel": "formal_review",
+        "signal": "design_flaw_option_conflict",
+        "summary": "Noted that existing -M in git blame means something else and cannot be reused; suggested abandoning the idea of using -M.",
+        "blocking": true,
+        "action_taken": "Agent did not rename the option; PR ultimately superseded."
+      },
+      {
+        "source": "dscho",
+        "channel": "inline_review_comment",
+        "signal": "option_reuse_conflict",
+        "summary": "Inline comment on blame-options.adoc: cannot reuse -M; must introduce a new --find-renames option.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "dscho",
+        "channel": "inline_review_comment",
+        "signal": "static_variable_scoping",
+        "summary": "blame.c: static variable in builtin/blame.c cannot be accessed from blame.c; must add attribute to blame_scoreboard struct.",
+        "blocking": true,
+        "action_taken": "Later commit added rename_scoreboard field in blame.h."
+      },
+      {
+        "source": "dscho",
+        "channel": "inline_review_comment",
+        "signal": "boolean_misuse_of_rename_score",
+        "summary": "blame.c: rename_detection_mode used as boolean; must study diff*.c to use --find-renames value correctly.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "dscho",
+        "channel": "inline_review_comment",
+        "signal": "test_script_corrections",
+        "summary": "Test script: do not use git init, use test_write_lines, specify explicit file, add test_tick, and reduce test cases.",
+        "blocking": true,
+        "action_taken": "Agent simplified tests and addressed some syntax issues."
+      },
+      {
+        "source": "dscho",
+        "channel": "pr_comment",
+        "signal": "superseded_by_alternative",
+        "summary": "Commented that this PR is superseded by #894.",
+        "blocking": true,
+        "action_taken": "PR left open then eventually closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with initial implementation of rename detection control.",
+      "Maintainer dscho provided 9 inline review comments and a formal review pointing out design flaws.",
+      "Copilot responded with multiple commits addressing some feedback but did not change the option name.",
+      "PR remained open for a long period and was eventually closed after being superseded by #894."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

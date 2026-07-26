@@ -1,0 +1,165 @@
+{
+  "pr_id": 3183832117,
+  "meta": {
+    "title": "Add register coalescing",
+    "html_url": "https://github.com/mochilang/mochi/pull/3872",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-27 19:06:13+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-29 16:25:53+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 42,
+    "topic_name": "42_register_coalescing_pass",
+    "body_summary": "Add a register coalescing optimization pass to the Mochi runtime/VM, including a new coalesceRegisters pass and its integration into Optimize."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 260,
+      "deletions": 0,
+      "changes": 260,
+      "top1_file": "runtime/vm/regopt.go",
+      "top1_changes": 225,
+      "top1_change_ratio": 0.865,
+      "files_by_status": {
+        "modified": 2,
+        "added": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "runtime"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 45.327,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "register_coalescing",
+      "compiler_optimization",
+      "instruction_combining"
+    ],
+    "optimization_layer": "compiler_backend",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "test_environment_limitations_author_close",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex added a register coalescing pass in Go runtime/vm; no review or performance evidence; closed after ~45h without merge, likely due to environment limitations."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 260,
+        "interpretation": "At 260 added lines across 3 files, this is a small-to-medium edit by absolute volume. As a compiler optimization pass, it was closed without merge after ~45 hours with no review activity."
+      },
+      "lifecycle": {
+        "lifespan_hours": 45.327,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_activity",
+      "concern_detail": "No formal reviews or comments exist in dataset; PR closed by author without explanation.",
+      "performance_claim": "Register coalescing reduces register pressure and improves runtime performance (implied, no explicit claim).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author with no review feedback; likely due to Codex environment limitations preventing proper testing."
+    },
+    "capability_boundary": {
+      "topic": "42_register_coalescing_pass",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler optimization pass in a low-level runtime/VM requires precise test validation; Codex execution environment limitations may have prevented full testing, leading to author closure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or test results provided; Codex could not run go vet/test due to environment restrictions.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed by author without any review cycle.",
+      "evidence_gap": "narrative_only_no_test_results"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Add a register coalescing optimization pass in runtime/vm/regopt.go, with minimal liveness.go modification and a test file regopt_test.go.",
+      "files_primary": [
+        "runtime/vm/regopt.go",
+        "runtime/vm/regopt_test.go"
+      ],
+      "files_secondary_observability": [
+        "runtime/vm/liveness.go"
+      ],
+      "secondary_note": "liveness.go had a one-line change, probably a minor adjustment related to coalescing.",
+      "change_trajectory": [
+        "Single commit added the register coalescing pass implementation and test file."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Codex submitted PR with register coalescing pass.",
+      "No human review activity.",
+      "Author closed PR after ~45 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

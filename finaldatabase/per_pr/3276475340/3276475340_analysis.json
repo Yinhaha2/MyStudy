@@ -1,0 +1,178 @@
+{
+  "pr_id": 3276475340,
+  "meta": {
+    "title": "Refactor scanning API to stream files",
+    "html_url": "https://github.com/MihaiCristianCondrea/Smart-Cleaner-for-Android/pull/240",
+    "repo": "MihaiCristianCondrea/Smart-Cleaner-for-Android",
+    "agent": "OpenAI_Codex",
+    "user": "MihaiCristianCondrea",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-30 10:19:52+00:00",
+    "merged_at": "2025-07-30 12:35:38+00:00",
+    "closed_at": "2025-07-30 12:35:38+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 30,
+    "topic_name": "30",
+    "body_summary": "Refactor scanning from batch collection to streaming via Kotlin Flow for incremental file emission and improved responsiveness."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 7,
+      "additions": 145,
+      "deletions": 110,
+      "changes": 255,
+      "top1_file": "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/ui/CleanOperationHandler.kt",
+      "top1_changes": 123,
+      "top1_change_ratio": 0.482,
+      "files_by_status": {
+        "modified": 7
+      },
+      "directory_count": 1,
+      "directories": [
+        "app"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 3,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 2.263,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "streaming_file_scanning",
+      "kotlin_flow",
+      "incremental_emission",
+      "responsive_ui"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "medium",
+    "notes": "OpenAI Codex refactored scanning to use Kotlin Flow; no review, no benchmark, self-merged after fixing CI and error handling."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 255,
+        "interpretation": "At 255 changed lines across 7 files, this is a small-to-medium refactor by absolute volume. It fits a performance-oriented incremental streaming refactor that was self-merged without formal review, suggesting a fast personal project workflow."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2.263,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review occurred; PR was self-merged by the author.",
+      "performance_claim": "Streaming file scanning improves responsiveness and reduces memory usage compared to batch collection.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "full_collection_before_stream",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "No maintainer review; author self-merged after fixing CI issues, indicating an internal or personal project with no collaborative gate. The agent's change was accepted without external validation of performance claims.",
+      "success_factors": [
+        "self_merge_by_author",
+        "ci_fix_commits",
+        "small_scope",
+        "streaming_refactor_incremental"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No code reading by a separate reviewer."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or manual timing evidence provided; PR body relies on narrative of streaming benefits.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Subsequent commits addressed CI compilation failures and scan error handling, indicating that issues were fixed before merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Refactored ScannerRepositoryImpl to use Kotlin Flow for streaming file and folder scanning, updated use cases to collect from flows, adapted CleanOperationHandler and ScannerViewModel to process emitted items incrementally, and fixed AutoCleanWorker for compatibility.",
+      "files_primary": [
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/data/ScannerRepositoryImpl.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/ui/CleanOperationHandler.kt"
+      ],
+      "files_secondary_observability": [
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/domain/interface/ScannerRepositoryInterface.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/domain/usecases/AnalyzeFilesUseCase.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/domain/usecases/GetEmptyFoldersUseCase.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/scanner/ui/ScannerViewModel.kt",
+        "app/src/main/kotlin/com/d4rk/cleaner/app/auto/AutoCleanWorker.kt"
+      ],
+      "secondary_note": "Interface and use case updates are minor type changes from List to Flow; AutoCleanWorker adapted to collect from flows.",
+      "change_trajectory": [
+        "Initial commit: converted ScannerRepositoryImpl to return Flow, updated use cases and UI handler/view model to stream files.",
+        "Second commit: fixed CI compilation issues in AutoCleanWorker and UI components due to missing Flow imports or type mismatches.",
+        "Third commit: refined error handling in scan collectors to avoid premature termination."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author opened PR with streaming refactor, self-merged after two fix commits addressing CI and error handling, with no external review or interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

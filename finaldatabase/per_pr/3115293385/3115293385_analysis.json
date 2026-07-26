@@ -1,0 +1,229 @@
+{
+  "pr_id": 3115293385,
+  "meta": {
+    "title": "feat(editor): exclude storybook files and implement code splitting without lazy loading",
+    "html_url": "https://github.com/softmaple/softmaple/pull/245",
+    "repo": "softmaple/softmaple",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-03 20:06:22+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-12 15:23:07+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 24,
+    "topic_name": "24_bundle_css_components_splitting",
+    "body_summary": "Implement code splitting via Vite manual chunks, exclude Storybook files, and remove lazy loading for synchronous imports, claiming optimized bundle sizes."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 4,
+      "additions": 39,
+      "deletions": 37,
+      "changes": 76,
+      "top1_file": "packages/editor/vite.config.ts",
+      "top1_changes": 46,
+      "top1_change_ratio": 0.605,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages/editor"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 2,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 2,
+        "commented": 4,
+        "reviewed": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 211.28,
+      "first_review_delay_hours": 0.022,
+      "review_rounds": 1,
+      "has_revert": true,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "code_splitting",
+      "bundle_size_reduction",
+      "tree_shaking",
+      "storybook_exclusion"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "reverted_per_review_but_no_merge_approval",
+    "review_dimensions": [
+      "scope",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin removed lazy loading and added storybook exclusion; maintainer zhyd1997 reverted vite/layout changes, then PR closed by bot for inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 76,
+        "interpretation": "At 76 changed lines, this is a small edit by absolute volume, targeting build configuration and lazy loading removal. The PR was not merged; the maintainer flagged specific files not to be changed, and after revert, the PR was auto-closed due to inactivity."
+      },
+      "lifecycle": {
+        "lifespan_hours": 211.28,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "scope",
+      "primary_concern": "file_modification_disallowed",
+      "concern_detail": "Maintainer zhyd1997 left inline comments on vite.config.ts and layout.tsx saying 'Do not change the file'. This indicates these files should not be modified for this task.",
+      "performance_claim": "Improved code splitting and bundle size reduction via Vite manual chunks and removal of lazy loading.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "scope",
+        "design_or_approach"
+      ],
+      "rejection_signals": "After inline feedback requesting no changes to those files, Devin reverted them but no further review/approval occurred; bot auto-closed due to 7+ days inactivity."
+    },
+    "capability_boundary": {
+      "topic": "24_bundle_css_components_splitting",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent modified files that maintainer explicitly indicated should not be changed, suggesting a lack of contextual awareness of project-specific file ownership constraints.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "zhyd1997 inspected the diff and left inline 'Do not change the file' comments on vite.config.ts and layout.tsx."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance comparison or benchmark; only self-reported build output sizes in PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After inline review, Devin reverted the flagged files but the PR remained inactive and was auto-closed 9 days later.",
+      "evidence_gap": "narrative_only_no_approval"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified vite.config.ts manual chunks, removed lazy loading in layout.tsx, added storybook exclusions to tsconfig, and set sideEffects:false in package.json. After review, reverted vite.config.ts and layout.tsx to original.",
+      "files_primary": [
+        "packages/editor/vite.config.ts",
+        "packages/editor/src/layout.tsx"
+      ],
+      "files_secondary_observability": [
+        "packages/editor/tsconfig.app.json",
+        "packages/editor/package.json"
+      ],
+      "secondary_note": "The non-reverted files only add storybook exclusion and sideEffects flag.",
+      "change_trajectory": [
+        "Initial commit: enhanced Vite chunks, removed lazy loading, added tsconfig exclusions, set sideEffects.",
+        "After review 'Do not change the file' comments, second commit reverted vite.config.ts and layout.tsx changes, preserving tsconfig and package.json tweaks."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "zhyd1997",
+        "channel": "inline_review_comment",
+        "signal": "file_modification_disallowed",
+        "summary": "Maintainer stated 'Do not change the file' for vite.config.ts and layout.tsx.",
+        "blocking": true,
+        "action_taken": "Devin reverted those files in subsequent commit."
+      },
+      {
+        "source": "zhyd1997",
+        "channel": "formal_review",
+        "signal": "commented_no_body",
+        "summary": "Formal review left without body text; substantive feedback in inline comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "netlify[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Netlify deploy preview ready, including Lighthouse scores (perf 97, up 2).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "netlify[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Second Netlify project deploy preview.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR modifying build config and removing lazy loading.",
+      "Within minutes, maintainer left inline comments rejecting changes to vite.config.ts and layout.tsx.",
+      "Devin reverted those files in a follow-up commit, preserving storybook exclusion and sideEffects.",
+      "No further review or approval occurred; after 9 days, bot auto-closed due to inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

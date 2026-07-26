@@ -1,0 +1,185 @@
+{
+  "pr_id": 3118476500,
+  "meta": {
+    "title": "Add caching for QME doubling",
+    "html_url": "https://github.com/thorek1/MacroModelling.jl/pull/108",
+    "repo": "thorek1/MacroModelling.jl",
+    "agent": "OpenAI_Codex",
+    "user": "thorek1",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-04 16:52:18+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-04 17:28:01+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Add preallocated LinearCache objects for QME doubling solver to improve performance by caching linear solutions."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 9,
+      "additions": 169,
+      "deletions": 110,
+      "changes": 279,
+      "top1_file": "src/algorithms/quadratic_matrix_equation.jl",
+      "top1_changes": 120,
+      "top1_change_ratio": 0.43,
+      "files_by_status": {
+        "modified": 9
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "benchmark"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "commented": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.595,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "linear_solve_cache",
+      "quadratic_matrix_equation_caching"
+    ],
+    "optimization_layer": "numerical_computation",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_by_author_no_explanation",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "OpenAI Codex added caching for QME doubling but PR closed without review or benchmarks after Codecov flagged low patch coverage."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 279,
+        "interpretation": "At 279 changed lines across 9 files, this is a small-to-medium refactor by absolute volume. As a caching performance PR it was closed early without merge, likely due to insufficient evidence and no human validation."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.595,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_human_review",
+      "concern_detail": "No human maintainer review or comment was provided; only an automated Codecov coverage report flagged low patch coverage.",
+      "performance_claim": "Improve performance of QME doubling by reusing LinearSolve caches.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author 0.6 hours after creation with no human feedback; Codecov showed 3.33% patch coverage."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Requires deep Julia numerical computing knowledge (Quadratic Matrix Equation doubling, LinearSolve caching). Agent lacked evidence of improvement and the PR was closed early.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No human code review observed.",
+        "ci_auto": "Codecov provided coverage metrics but no performance validation."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks or before/after metrics; testing section in PR body fails at installation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Author closed PR without addressing missing evidence.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added QME_caches field of type LinearCache to problem options, preallocates caches for EI and FI systems, and passes them into the doubling solver to reuse linear solutions.",
+      "files_primary": [
+        "src/algorithms/quadratic_matrix_equation.jl",
+        "src/options_and_caches.jl"
+      ],
+      "files_secondary_observability": [
+        "src/MacroModelling.jl",
+        "src/perturbation.jl",
+        "src/get_functions.jl",
+        "src/moments.jl",
+        "src/filter/inversion.jl",
+        "src/filter/kalman.jl",
+        "benchmark/benchmarks.jl"
+      ],
+      "secondary_note": "These files propagate the new cache parameter through function calls and module initialization.",
+      "change_trajectory": [
+        "Initial commit 'Store LinearSolve caches for QME' added cache preallocation and passing to doubling solver.",
+        "Follow-up commit 'Improve LinearSolve cache handling' refined cache logic.",
+        "PR closed shortly after by author."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "codecov-commenter",
+        "channel": "pr_comment",
+        "signal": "codecov_low_patch_coverage",
+        "summary": "Codecov report indicated patch coverage of 3.33% with 58 lines missing coverage.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with two commits adding LinearSolve caching.",
+      "Automated Codecov reported low patch coverage.",
+      "Author closed PR within 0.6 hours with no further interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

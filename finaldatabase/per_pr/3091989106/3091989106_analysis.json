@@ -1,0 +1,171 @@
+{
+  "pr_id": 3091989106,
+  "meta": {
+    "title": "Defer class resolution in parser",
+    "html_url": "https://github.com/jdereg/json-io/pull/309",
+    "repo": "jdereg/json-io",
+    "agent": "OpenAI_Codex",
+    "user": "jdereg",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-26 20:10:52+00:00",
+    "merged_at": "2025-05-26 20:11:13+00:00",
+    "closed_at": "2025-05-26 20:11:13+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": 22,
+    "topic_name": "22",
+    "body_summary": "Defer class resolution in the JSON parser by storing unresolved type names in JsonValue instead of loading classes eagerly, and resolve them later in the Resolver, with a unit test verifying the deferred type behavior."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 86,
+      "deletions": 8,
+      "changes": 94,
+      "top1_file": "src/main/java/com/cedarsoftware/io/Resolver.java",
+      "top1_changes": 32,
+      "top1_change_ratio": 0.3404,
+      "files_by_status": {
+        "added": 1,
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.006,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "deferred_class_resolution",
+      "parser_optimization",
+      "type_loading_deferral"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "eager_class_loading"
+    ],
+    "outcome_reason": "merged_by_author_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Small-scope deferred class resolution refactor in parser; merged instantly by author/maintainer without review or benchmark, indicating low-risk change."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 94,
+        "interpretation": "At 94 changed lines across 6 files, this is a small edit by absolute volume. It fits a small-step, fast-turnaround performance PR that was merged immediately by the author without external review, consistent with a low-risk refactor."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.006,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_concern_recorded",
+      "concern_detail": "No review feedback available in the dataset.",
+      "performance_claim": "Deferring class resolution in JsonParser to avoid loading classes eagerly during parsing, potentially improving parsing speed by reducing class lookup overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "eager_class_loading",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The PR was merged by the author/maintainer within seconds, without any review or evidence requested, indicating the agent's output was accepted as-is for this small-scoped refactor.",
+      "success_factors": [
+        "small_scope",
+        "zero_review_friction",
+        "author_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No explicit detection method observed; the author/maintainer may have previewed the code before merging, but no review comments or evidence of manual testing were recorded."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling data, or before/after performance numbers provided. Only narrative description and a unit test for deferred type string storage.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR merged without any reported issues or regression handling.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified JsonParser to store unresolved type names in JsonValue instead of loading classes eagerly. Added type resolution deferred to Resolver class, and updated MapResolver/ObjectResolver to handle pending types. Added unit test.",
+      "files_primary": [
+        "src/main/java/com/cedarsoftware/io/JsonParser.java",
+        "src/main/java/com/cedarsoftware/io/JsonValue.java",
+        "src/main/java/com/cedarsoftware/io/Resolver.java"
+      ],
+      "files_secondary_observability": [
+        "src/main/java/com/cedarsoftware/io/MapResolver.java",
+        "src/main/java/com/cedarsoftware/io/ObjectResolver.java",
+        "src/test/java/com/cedarsoftware/io/JsonParserTypeStringTest.java"
+      ],
+      "secondary_note": "Resolver changes are minor additions; test file added to verify type name persistence.",
+      "change_trajectory": [
+        "Single commit deferred type resolution: JsonParser now stores type name string instead of loading class; JsonValue gains typeName field; Resolver resolves types later; unit test covers type string storage."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": []
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

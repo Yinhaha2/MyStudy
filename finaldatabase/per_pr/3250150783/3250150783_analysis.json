@@ -1,0 +1,224 @@
+{
+  "pr_id": 3250150783,
+  "meta": {
+    "title": "Livewrapped Analytics: cleanup analytics cache",
+    "html_url": "https://github.com/prebid/Prebid.js/pull/13639",
+    "repo": "prebid/Prebid.js",
+    "agent": "OpenAI_Codex",
+    "user": "patmmccann",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-21 21:58:08+00:00",
+    "merged_at": "2025-07-23 18:39:11+00:00",
+    "closed_at": "2025-07-23 18:39:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "22",
+    "body_summary": "robot found a memory leak in the livewrapped auction cache"
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 200,
+      "additions": 4667,
+      "deletions": 3805,
+      "changes": 8472,
+      "top1_file": "metadata/modules/conversantBidAdapter.json",
+      "top1_changes": 919,
+      "top1_change_ratio": 0.108,
+      "files_by_status": {
+        "added": 7,
+        "modified": 191,
+        "removed": 2
+      },
+      "directory_count": 8,
+      "directories": [
+        ".circleci",
+        ".github",
+        "creative",
+        "integrationExamples",
+        "libraries",
+        "metadata",
+        "modules",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 10,
+      "event_counts": {
+        "committed": 2,
+        "commented": 3,
+        "review_requested": 1,
+        "assigned": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 44.684,
+      "first_review_delay_hours": 44.237,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cache_cleanup",
+      "memory_leak_fix"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Codex identified a cache cleanup gap; maintainer verified via code reading and cross-module comparison, merged after discussion."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8472,
+        "interpretation": "At 8472 changed lines, the metrics are inflated by a large merge commit; the actual performance fix is small (23 lines in two files). This fits a small-scope, low-risk fix that was merged after review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 44.684,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "design_justification_robot_recommendation",
+      "concern_detail": "Reviewer questioned the robot's specificity and examined other analytics adapters to validate the fix; no blocking issues.",
+      "performance_claim": "Prevent memory leak by cleaning up analytics cache.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "memory_leak_cache_not_cleaned",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "22",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent identified a possible memory leak via pattern recognition; maintainer accepted the fix after manual verification and comparison with other modules, indicating that even simple fixes may require human validation of the agent's reasoning.",
+      "success_factors": [
+        "small_scope",
+        "clear_inefficiency",
+        "maintainer_reasoning_validation",
+        "low_risk"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "jefftmahoney manually inspected the code, compared cache management in other analytics adapters, and confirmed the fix was reasonable despite no benchmarking."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or reproduction steps provided; the fix relies on the robot's claim and maintainer's code review.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "The memory leak was addressed directly in the PR with no regression introduced.",
+      "evidence_gap": "narrative_only_with_code_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In modules/livewrappedAnalyticsAdapter.js, added cache cleanup logic to prevent memory leak across auctions. In test/spec/modules/livewrappedAnalyticsAdapter_spec.js, updated tests to verify cleanup.",
+      "files_primary": [
+        "modules/livewrappedAnalyticsAdapter.js",
+        "test/spec/modules/livewrappedAnalyticsAdapter_spec.js"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "A merge commit also updated ~198 unrelated files; not part of the cache fix.",
+      "change_trajectory": [
+        "Initial commit: Added cache cleanup in livewrappedAnalyticsAdapter.js and updated spec.",
+        "Merge commit: Brought in recent master changes; no additional performance changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "duplicate_code_warning",
+        "summary": "Bot detected duplicate code between adapters and suggested refactoring into a library; no action required.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jefftmahoney",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "APPROVED after reviewing cache management across modules; acknowledged the robot's specificity.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "jefftmahoney",
+        "channel": "pr_comment",
+        "signal": "design_discussion",
+        "summary": "Discussed cache management in other adapters, questioned why the robot targeted Livewrapped specifically.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "patmmccann",
+        "channel": "pr_comment",
+        "signal": "acknowledge_design_discussion",
+        "summary": "Acknowledged reviewer's thoughts, mentioned generic analytics behavior had no issue.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Agent Codex submitted PR with cache cleanup based on robot memory leak detection.",
+      "github-actions bot flagged duplicate code between adapters but no action required.",
+      "Reviewer jefftmahoney investigated cache management across adapters, approved after discussion.",
+      "Maintainer patmmccann acknowledged the reasoning and merged."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

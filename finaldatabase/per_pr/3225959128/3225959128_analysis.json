@@ -1,0 +1,172 @@
+{
+  "pr_id": 3225959128,
+  "meta": {
+    "title": "Avoid network downloads in tests",
+    "html_url": "https://github.com/stanford-crfm/levanter/pull/1055",
+    "repo": "stanford-crfm/levanter",
+    "agent": "OpenAI_Codex",
+    "user": "dlwh",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-13 00:17:21+00:00",
+    "merged_at": "2025-07-13 16:23:35+00:00",
+    "closed_at": "2025-07-13 16:23:35+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "test",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "4",
+    "body_summary": "Add local_gpt2_tokenizer fixture to avoid network downloads in GPT2-related tests; switch tests to use this fixture and use passthrough tokenizer for validation-set test."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 4,
+      "additions": 35,
+      "deletions": 13,
+      "changes": 48,
+      "top1_file": "tests/conftest.py",
+      "top1_changes": 20,
+      "top1_change_ratio": 0.417,
+      "files_by_status": {
+        "added": 1,
+        "modified": 3
+      },
+      "directory_count": 1,
+      "directories": [
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 16.104,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "test_determinism",
+      "avoid_network_download",
+      "local_fixture"
+    ],
+    "optimization_layer": "test_infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Small test fixture refactor to avoid network downloads; merged without formal review or benchmark evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 48,
+        "interpretation": "At 48 changed lines across 4 files, this is a very small edit by absolute volume. As a targeted test optimization, it is consistent with a fast, low-friction merge without formal review or performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 16.104,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "No formal review or comment text available; the PR was self-merged by the author.",
+      "performance_claim": "Avoid network downloads in tests, improving test speed and reliability.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Local fixture refactor touches test infrastructure; the agent can handle such simple changes with no review friction.",
+      "success_factors": [
+        "small_scope",
+        "author_self_merged",
+        "no_review_dependency"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR provides testing instructions but no benchmark or profiler data; reproducibility relies on local fixture and test execution.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression events observed; PR was self-merged without any revert or issue.",
+      "evidence_gap": "narrative_only_no_test_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added local_gpt2_tokenizer fixture in tests/conftest.py to load GPT2 tokenizer from local files; replaced network-dependent tokenizer loading in test_sft.py, test_supervised.py, and test_text.py with this fixture; used passthrough tokenizer for validation-set test in test_text.py.",
+      "files_primary": [
+        "tests/conftest.py",
+        "tests/test_sft.py",
+        "tests/test_supervised.py",
+        "tests/test_text.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit: added conftest.py fixture and updated test files to use it.",
+        "Follow-up commit: fixed missing import in test_text.py."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit by author dlwh.",
+      "Second commit added to fix missing import shortly after.",
+      "No review requested or comment thread; merged by author after ~16 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

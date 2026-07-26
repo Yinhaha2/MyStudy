@@ -1,0 +1,169 @@
+{
+  "pr_id": 3128738345,
+  "meta": {
+    "title": "Improve Go string indexing",
+    "html_url": "https://github.com/mochilang/mochi/pull/207",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-08 22:23:02+00:00",
+    "merged_at": "2025-06-08 22:23:50+00:00",
+    "closed_at": "2025-06-08 22:23:50+00:00",
+    "detection_source": "aidev_pr_task_type_perf_only",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "14",
+    "body_summary": "Specialize Go compiler index logic for strings with a new _indexString helper and update golden output tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 33,
+      "deletions": 95,
+      "changes": 128,
+      "top1_file": "tests/compiler/valid/string_index.go.out",
+      "top1_changes": 94,
+      "top1_change_ratio": 0.734375,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.013333333333333334,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "string_index_specialization",
+      "compiler_codegen_optimization"
+    ],
+    "optimization_layer": "compiler_codegen",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "OpenAI_Codex PR merged without review; specialized string index in Go compiler with golden output update."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 128,
+        "interpretation": "At 128 changed lines across 2 files, this is a small edit by absolute volume. It fits a small-step, fast-turnaround compiler optimization PR and is consistent with the successful, low-friction merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.013333333333333334,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": "No review or comment text available.",
+      "performance_claim": "Specializing Go string indexing may reduce code size and improve runtime performance by avoiding generic dispatch.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "14",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler backend optimization specializing indexing operations; merged without review, indicating agent can handle such low-level changes with low friction.",
+      "success_factors": [
+        "small_scope",
+        "author_merge",
+        "golden_test_update_ensures_correctness"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No detection method observed; PR merged by author without review."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or performance evidence; only test suite pass mentioned but no timing data.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression occurred.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/go/compiler.go, specialized string indexing by introducing _indexString helper, replacing generic handling; updated golden output in tests/compiler/valid/string_index.go.out to reflect new code generation.",
+      "files_primary": [
+        "compile/go/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/compiler/valid/string_index.go.out"
+      ],
+      "secondary_note": "Golden output update reflects the new specialized code paths; no functional change intended.",
+      "change_trajectory": [
+        "Single commit specialized string index and updated golden output; merged immediately."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with codex label; merged within 48 seconds; no review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

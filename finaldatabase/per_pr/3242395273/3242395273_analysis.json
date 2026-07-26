@@ -1,0 +1,166 @@
+{
+  "pr_id": 3242395273,
+  "meta": {
+    "title": "Improve Fortran compiler constant propagation",
+    "html_url": "https://github.com/mochilang/mochi/pull/9542",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-18 08:33:24+00:00",
+    "merged_at": "2025-07-18 08:36:49+00:00",
+    "closed_at": "2025-07-18 08:36:49+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "14",
+    "body_summary": "Extend Fortran compiler constant propagation to support scalar maps and fold the `values` builtin when its argument is a constant map."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 197,
+      "deletions": 9,
+      "changes": 206,
+      "top1_file": "compiler/x/fortran/compiler.go",
+      "top1_changes": 206,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "compiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0569,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_propagation",
+      "map_folding",
+      "values_builtin"
+    ],
+    "optimization_layer": "compiler_optimization",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Codex added constant propagation maps; PR merged by author without review despite mentioning a failing test."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 206,
+        "interpretation": "At 206 changed lines in a single file, this is a small edit by absolute volume. It fits a small‑step compiler optimization PR and was merged almost instantly, consistent with low‑risk scope."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0569,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none_review_absent",
+      "concern_detail": "No formal review was conducted; the maintainer merged the PR immediately without any feedback.",
+      "performance_claim": "Constant propagation of scalars (ints, bools, floats, maps) and folding of the `values` builtin when its argument refers to a constant map.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "14",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Compiler constant‑folding feature merged within minutes with no review; indicates maintainer trust, pre‑approval, or a self‑merge workflow.",
+      "success_factors": [
+        "isolated_single_file_change",
+        "trusted_maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review evidence; maintainer may have validated locally or relied on prior knowledge."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Body mentions a failing golden test (unsupported expression at line 1); no before/after performance metrics or benchmark results are provided.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issues were reported; PR merged in its initial state.",
+      "evidence_gap": "narrative_only_with_failed_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/fortran/compiler.go, extended constant propagation to support scalar maps (int, bool, float, map) and added folding of the `values` builtin when its argument is a known constant map, replacing previous limited propagation with richer map‑based handling.",
+      "files_primary": [
+        "compiler/x/fortran/compiler.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit `fortran: propagate constant scalars` added 197 lines and removed 9 in compiler.go."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged within 3 minutes by maintainer without any review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

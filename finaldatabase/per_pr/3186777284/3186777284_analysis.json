@@ -1,0 +1,183 @@
+{
+  "pr_id": 3186777284,
+  "meta": {
+    "title": "Refactor CLI parsing to separate syntax parsing from option validation",
+    "html_url": "https://github.com/livingbio/typed-ffmpeg/pull/742",
+    "repo": "livingbio/typed-ffmpeg",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-30 00:55:04+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 06:56:27+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 11,
+    "topic_name": "11",
+    "body_summary": "Refactor CLI parsing to separate syntax parsing from option validation, avoiding loading the full FFmpeg options dictionary and thus reducing package size and improving parsing speed."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 3,
+      "additions": 294,
+      "deletions": 25,
+      "changes": 319,
+      "top1_file": "src/ffmpeg/compile/tests/test_parse_cli.py",
+      "top1_changes": 137,
+      "top1_change_ratio": 0.429,
+      "files_by_status": {
+        "added": 1,
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "commented": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 30.023,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "lazy_loading",
+      "import_overhead_reduction",
+      "modular_parsing"
+    ],
+    "optimization_layer": "application_import_and_package_size",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot refactored CLI parsing to avoid loading full options dictionary; PR closed by maintainer after ~30h with no review engagement and no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 319,
+        "interpretation": "At 319 changed lines across 3 files, this is a small-to-medium refactor. It was closed without merge, consistent with a lack of review engagement and the absence of performance benchmarks."
+      },
+      "lifecycle": {
+        "lifespan_hours": 30.023,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "No formal review or substantive feedback from maintainers; only a codecov coverage report appeared in comments.",
+      "performance_claim": "Separating syntax parsing from validation avoids loading the full options dictionary, reducing package size and improving parsing speed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed without merge after ~30h; no review or explicit rejection reason."
+    },
+    "capability_boundary": {
+      "topic": "11",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Agent refactored CLI parsing to defer dictionary loading; PR closed without review engagement, illustrating a process boundary where maintainer attention is required for this type of refactor.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review; only automated coverage comment."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or package-size measurements provided; only narrative claims in the PR body.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Closed without merge, with no review cycle or fixes.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added parse_cli() and parse_with_validation() functions in compile_cli.py; made ffmpeg_options optional in helper parsers; added test coverage for the new parse_cli behavior.",
+      "files_primary": [
+        "src/ffmpeg/compile/compile_cli.py"
+      ],
+      "files_secondary_observability": [
+        "src/ffmpeg/compile/tests/test_compile_cli.py",
+        "src/ffmpeg/compile/tests/test_parse_cli.py"
+      ],
+      "secondary_note": "New test file test_parse_cli.py added for comprehensive parse_cli testing.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Refactor commit: introduced parse_cli, parse_with_validation, and optional dictionary parameters.",
+        "Added test file for parse_cli functionality."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_report_non_blocking",
+        "summary": "Codecov reported high line coverage and noted indirect changes across 51 files; non-blocking.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with refactored CLI parsing and tests.",
+      "Codecov bot posted a coverage report roughly 28 minutes after creation.",
+      "No human review or comments occurred; maintainer lucemia closed the PR after ~30 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "pr_id": 3246105987,
+  "meta": {
+    "title": "Improve indexing and sharing performance",
+    "html_url": "https://github.com/Rello/analytics/pull/522",
+    "repo": "Rello/analytics",
+    "agent": "OpenAI_Codex",
+    "user": "Rello",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-20 07:21:15+00:00",
+    "merged_at": "2025-07-20 07:23:39+00:00",
+    "closed_at": "2025-07-20 07:23:39+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "2",
+    "body_summary": "Refactor ReportService and DatasetService to use indexed lookups instead of O(n^2) scans, batch DOM updates in JS shares loading, and cache Context Chat availability lookup, with CHANGELOG updates."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 4,
+      "additions": 94,
+      "deletions": 67,
+      "changes": 161,
+      "top1_file": "lib/Service/DatasetService.php",
+      "top1_changes": 84,
+      "top1_change_ratio": 0.5217,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "js",
+        "lib"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.04,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "time_complexity_reduction",
+      "indexed_lookup",
+      "dom_batching",
+      "cache_lookup"
+    ],
+    "optimization_layer": "mixed",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "merged_no_review_self_merge",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex authored O(n^2) to indexed loop refactor, DOM batching, and cache lookup; self-merged quickly with no review or benchmark evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 161,
+        "interpretation": "At 161 changed lines across 4 files, this is a small-to-medium sized refactor by absolute volume. It fits a small-step performance PR that was self-merged by the author without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.04,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review or comments present; PR was self-merged by author.",
+      "performance_claim": "Reduce O(n^2) scans, batch DOM updates, cache lookup for improved indexing and sharing performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "nested_loop",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Multi-file refactor across PHP services and JavaScript, including time complexity reduction and DOM batching; agent's changes were accepted without review, indicating no technical stack boundary for this small change.",
+      "success_factors": [
+        "small_scope",
+        "author_self_merges",
+        "clear_perf_claim_in_body"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review; PR was self-merged.",
+        "ci_auto": "No CI evidence available."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks, profiling, or before/after metrics; only narrative claim of O(n^2) improvement and DOM batching.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions reported; second commit 'fixes' adjusts CHANGELOG only.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In DatasetService.php and ReportService.php, replaced O(n^2) nested loops with indexed lookups using associative arrays; in js/app.js, batched DOM fragment appends for share items; added cache for Context Chat availability in DatasetService; updated CHANGELOG.",
+      "files_primary": [
+        "lib/Service/DatasetService.php",
+        "lib/Service/ReportService.php",
+        "js/app.js"
+      ],
+      "files_secondary_observability": [
+        "CHANGELOG.md"
+      ],
+      "secondary_note": "CHANGELOG.md has some additions and a later fix commit adjusting its content.",
+      "change_trajectory": [
+        "Initial commit: Added indexed lookups, DOM batching, cache lookup, and CHANGELOG.",
+        "Fix commit: Adjusted CHANGELOG.md content."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by Rello with two commits; self-merged within 2 minutes without any review or discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

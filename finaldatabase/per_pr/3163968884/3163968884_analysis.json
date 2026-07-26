@@ -1,0 +1,222 @@
+{
+  "pr_id": 3163968884,
+  "meta": {
+    "title": "fix(wallet): fix wallet page jank during coin activation",
+    "html_url": "https://github.com/KomodoPlatform/komodo-wallet/pull/2806",
+    "repo": "KomodoPlatform/komodo-wallet",
+    "agent": "OpenAI_Codex",
+    "user": "CharlVS",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-20 17:25:10+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Avoids repeated pubkey fetch calls during coin activation by tracking in-flight requests in CoinsBloc, aiming to reduce wallet page jank."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 51,
+      "additions": 1229,
+      "deletions": 391,
+      "changes": 1620,
+      "top1_file": "test_units/tests/utils/transaction_history/sanitize_transaction_test.dart",
+      "top1_changes": 371,
+      "top1_change_ratio": 0.229,
+      "files_by_status": {
+        "added": 4,
+        "modified": 47,
+        "removed": 0
+      },
+      "directory_count": 10,
+      "directories": [
+        ".devcontainer",
+        ".docker",
+        ".github",
+        "app_theme",
+        "assets",
+        "docs",
+        "lib",
+        "linux",
+        "packages",
+        "test_units"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 2,
+        "commented": 4,
+        "labeled": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "mentioned": 1,
+        "subscribed": 1,
+        "convert_to_draft": 1
+      },
+      "lifespan_hours": 405.6,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "duplicate_requests",
+      "debounce_pubkey_fetch",
+      "wallet_ui_jank"
+    ],
+    "optimization_layer": "application_bloc",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "author_abandoned_no_evidence",
+    "review_dimensions": [
+      "perf_evidence"
+    ],
+    "blocking": false,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "manual_testing"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "OpenAI_Codex attempted to fix wallet jank by deduplicating pubkey fetches; maintainer tested but found no measurable improvement, author retracted to refine approach."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1620,
+        "interpretation": "At 1620 changed lines this PR appears medium-to-large by raw volume, but 93% of the changes (1512 lines) come from a merge of the dev branch. The actual performance fix touches only lib/bloc/coins_bloc/coins_bloc.dart with 108 changes. The PR was closed without merge because the author could not demonstrate measurable improvement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 405.6,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "unmeasurable_improvement",
+      "concern_detail": "Maintainer smk762 tested the CI build and found no significant speed difference compared to production; they requested additional tests to justify the change.",
+      "performance_claim": "Reduces wallet page jank by preventing repeated pubkey fetch calls during coin activation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence"
+      ],
+      "rejection_signals": "Author converted PR to draft after realizing the fix did not produce measurable improvement; planned to revisit."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "The agent proposed a reasonable deduplication change but could not provide benchmarks or measurable evidence; maintainer was unable to validate performance gains.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "manual_testing": "smk762 logged in with CI branch, observed UTXO and EMV load times, compared with production, found no significant difference."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, no repro steps beyond 'log in and compare feel'; author acknowledged need for empirical testing steps.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Author converted to draft and indicated intention to return after better testing, effectively abandoning the current PR.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In lib/bloc/coins_bloc/coins_bloc.dart, added tracking of in-progress pubkey fetch requests using a Set of coin abbreviations to avoid redundant calls during coin activation, intended to reduce jank.",
+      "files_primary": [
+        "lib/bloc/coins_bloc/coins_bloc.dart"
+      ],
+      "files_secondary_observability": [
+        "test_units/tests/utils/transaction_history/sanitize_transaction_test.dart",
+        "lib/views/wallet/coin_details/coin_details_info/coin_addresses.dart",
+        "app_theme/lib/src/light/theme_global_light.dart"
+      ],
+      "secondary_note": "Merge commit 4e5b8d5 brought in changes from dev branch across 50 files, unrelated to the performance fix.",
+      "change_trajectory": [
+        "Initial commit: implement in-progress request tracking for pubkey fetches in CoinsBloc.",
+        "Merge from dev branch to incorporate latest base.",
+        "Maintainer tested and found no measurable improvement; author converted PR to draft and planned to revisit."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_review_skip",
+        "summary": "CodeRabbit review skipped because auto reviews are disabled on non-default branches.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "GitHub Actions deployed a Firebase hosting preview URL for manual testing.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "smk762",
+        "channel": "pr_comment",
+        "signal": "unmeasurable_improvement",
+        "summary": "Tested CI build vs production, found no noticeable speed difference; requested additional tests to justify change.",
+        "blocking": false,
+        "action_taken": "Author acknowledged insufficient evidence and converted PR to draft."
+      },
+      {
+        "source": "CharlVS",
+        "channel": "pr_comment",
+        "signal": "author_abandon",
+        "summary": "Author said they will return to drawing board, test more thoroughly, and provide empirical steps; converted to draft.",
+        "blocking": false,
+        "action_taken": "PR left in draft state, effectively abandoned."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with deduplication change in CoinsBloc; bot CI preview deployed.",
+      "2 weeks later, maintainer smk762 manually tested, found no significant speed difference, requested more evidence.",
+      "Author responded that they will return with better testing, converted PR to draft."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

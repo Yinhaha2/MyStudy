@@ -1,0 +1,242 @@
+{
+  "pr_id": 3070936351,
+  "meta": {
+    "title": "chore: Improve memory usage when sharing results",
+    "html_url": "https://github.com/promptfoo/promptfoo/pull/4050",
+    "repo": "promptfoo/promptfoo",
+    "agent": "OpenAI_Codex",
+    "user": "sklein12",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-17 17:00:54+00:00",
+    "merged_at": "2025-05-19 21:58:14+00:00",
+    "closed_at": "2025-05-19 21:58:14+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "chore",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "4",
+    "body_summary": "Add batched sample and counting helpers on Eval and stream results in sendChunkedResults to reduce memory usage."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 7,
+      "additions": 186,
+      "deletions": 173,
+      "changes": 359,
+      "top1_file": "test/share.test.ts",
+      "top1_changes": 147,
+      "top1_change_ratio": 0.409,
+      "files_by_status": {
+        "modified": 7
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 17,
+      "review_states": {
+        "COMMENTED": 17
+      },
+      "review_comment_count": 19,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 29,
+      "event_counts": {
+        "committed": 6,
+        "labeled": 1,
+        "commented": 3,
+        "reviewed": 10,
+        "renamed": 1,
+        "review_requested": 3,
+        "mentioned": 1,
+        "subscribed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 52.956,
+      "first_review_delay_hours": 0.034,
+      "review_rounds": 17,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "memory_reduction",
+      "stream_processing",
+      "batch_fetching"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "manual_testing"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "correctness",
+      "design_or_approach",
+      "code_style",
+      "documentation",
+      "error_handling"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "manual_testing"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "OpenAI_Codex added streaming to share to reduce memory; reviewer will-holley left multiple inline suggestions, all addressed; merged after ~53h without numeric perf evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 359,
+        "interpretation": "At 359 changed lines across 7 files, this is a small-to-medium edit by absolute volume. It fits a targeted memory optimization PR that merged after a round of inline review feedback and test adjustments."
+      },
+      "lifecycle": {
+        "lifespan_hours": 52.956,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "code_redundancy_and_style",
+      "concern_detail": "will-holley asked why fetchSampleResults is needed over using fetchResultsBatched directly; also noted unreachable code in getResults and asked for comments and type improvements.",
+      "performance_claim": "Reduce memory usage by streaming results in sendChunkedResults instead of loading all results at once, using batched fetching from the database.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "design_or_approach",
+        "code_style",
+        "documentation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Implementing memory-efficient streaming with batched database fetch and chunked upload required understanding of async iterators and progress tracking; the agent succeeded but introduced minor issues (unreachable code, redundant method) that were caught in review.",
+      "success_factors": [
+        "addressed_all_review_feedback",
+        "maintainer_supportive",
+        "moderate_change_scope"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "code_reading": "will-holley carefully reviewed the code and left comments on the redundancy of fetchSampleResults, linter error, and need for comments.",
+        "manual_testing": "will-holley manually tested with a large dataset (5000 test cases) and noted a different breaking issue, but approved the PR's approach."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or before/after memory measurements provided; reviewer manually tested with large dataset but did not produce performance data.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Fixed unreachable code, removed redundant fetchSampleResults usage, and addressed other feedback in follow-up commits.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added fetchSampleResults and getResultsCount methods to Eval class, and rewrote sendChunkedResults to use batched result fetching and chunked upload, while removing the old createChunks function. Also added clearResults and _resultsLoaded flag.",
+      "files_primary": [
+        "src/models/eval.ts",
+        "src/share.ts"
+      ],
+      "files_secondary_observability": [
+        "test/share.test.ts",
+        "test/commands/eval/redteamWarning.test.ts",
+        "test/evaluator.test.ts",
+        "src/commands/eval.ts",
+        "src/evaluator.ts"
+      ],
+      "secondary_note": "Test files were updated for new methods; commands/eval.ts added clearResults call; evaluator.ts had a fix for type issue.",
+      "change_trajectory": [
+        "Initial commit: implement streaming in sendChunkedResults with fetchSampleResults and getResultsCount, remove createChunks.",
+        "Fix type issue in share.ts.",
+        "Fix tests and add clearResults in doEval.",
+        "Fix unreachable code (ellipsis bot flagged _resultsLoaded after return).",
+        "Address will-holley's PR feedback: remove redundant fetchSampleResults, improve code clarity, add comments.",
+        "Final fix in evaluator.ts."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "ellipsis-dev[bot]",
+        "channel": "inline_review_comment",
+        "signal": "unreachable_code_and_count_caching",
+        "summary": "Flagged unreachable _resultsLoaded assignment and potential bug in getResultsCount when count is 0.",
+        "blocking": false,
+        "action_taken": "Author fixed unreachable code in commit 'unreachable' and addressed count caching indirectly."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "clarity_and_consistency_suggestion",
+        "summary": "Suggested adding comment about chunk size vs total results consistency and resetting resultsCount in clearResults.",
+        "blocking": false,
+        "action_taken": "Author acknowledged and planned to clear related fields; later commit 'pr feedback' removed redundant method."
+      },
+      {
+        "source": "will-holley",
+        "channel": "inline_review_comment",
+        "signal": "design_question_and_improvements",
+        "summary": "Questioned necessity of fetchSampleResults over using fetchResultsBatched directly, noted linter error, and requested doc-string for sendInitialEvalData.",
+        "blocking": false,
+        "action_taken": "Author agreed fetchSampleResults was redundant, removed it, and addressed other feedback in 'pr feedback' commit."
+      },
+      {
+        "source": "will-holley",
+        "channel": "formal_review",
+        "signal": "general_approval_with_reservations",
+        "summary": "Stated PR looks good (LGTM) after small improvements requested, but noted an unrelated breakage with large dataset.",
+        "blocking": false,
+        "action_taken": "PR merged after final fix commit."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with initial streaming implementation.",
+      "Multiple bot reviews within minutes, flagging unreachable code and style suggestions.",
+      "Author fixed type issue and added tests.",
+      "will-holley reviewed in detail over the next two days, leaving multiple inline comments about design and clarity.",
+      "Author addressed feedback in commit 'pr feedback', removing redundant method and adding comments.",
+      "will-holley reported manual testing outcome and gave overall approval.",
+      "PR merged after one final fix."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

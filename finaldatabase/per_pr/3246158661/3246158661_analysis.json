@@ -1,0 +1,165 @@
+{
+  "pr_id": 3246158661,
+  "meta": {
+    "title": "Improve WhatsAppCleanerViewModel thread usage",
+    "html_url": "https://github.com/MihaiCristianCondrea/Smart-Cleaner-for-Android/pull/212",
+    "repo": "MihaiCristianCondrea/Smart-Cleaner-for-Android",
+    "agent": "OpenAI_Codex",
+    "user": "MihaiCristianCondrea",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-20 08:45:12+00:00",
+    "merged_at": "2025-07-20 08:45:21+00:00",
+    "closed_at": "2025-07-20 08:45:21+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "30",
+    "body_summary": "Optimize WhatsAppCleanerViewModel threading: offload heavy sorting to Dispatchers.Default, avoid collecting DataStore flows on IO threads, and remove redundant IO dispatcher for grid preference saving."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 23,
+      "deletions": 19,
+      "changes": 42,
+      "top1_file": "app/src/main/kotlin/com/d4rk/cleaner/app/clean/whatsapp/details/ui/WhatsAppDetailsViewModel.kt",
+      "top1_changes": 42,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "app"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0025,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "thread_optimization",
+      "sorting_offload",
+      "datastore_flow_threading"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "OpenAI_Codex applied coroutine dispatcher optimizations; self-merged instantly with no review, providing narrative claims only."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 42,
+        "interpretation": "At 42 changed lines in a single file, this is a tiny edit by absolute volume. It fits a minimal, low-risk performance tweak that was self-merged almost instantly, consistent with the outcome."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0025,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or comments recorded; PR was self-merged by the author immediately.",
+      "performance_claim": "Offload heavy sorting from main thread to Dispatchers.Default; avoid collecting DataStore flows on IO threads; remove redundant IO dispatcher for grid preference saving.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "ui_thread_blocking_and_io_misuse",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "30",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Threading/concurrency optimization in Android ViewModel is within agent's technical reach; merge required no maintainer verification, so no evidence boundary was tested.",
+      "success_factors": [
+        "tiny_scope",
+        "self_merge",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after performance data, profiler usage, or timing metrics provided; only narrative description.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No review or testing feedback; PR merged immediately, so no regression handling observed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In WhatsAppDetailsViewModel.kt, switched DataStore flow collection away from IO dispatchers, offloaded heavy sorting with withContext(Dispatchers.Default), and removed a redundant IO dispatcher when saving grid preference.",
+      "files_primary": [
+        "app/src/main/kotlin/com/d4rk/cleaner/app/clean/whatsapp/details/ui/WhatsAppDetailsViewModel.kt"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit 'Offload heavy sorting from main thread' with dispatcher changes in WhatsAppDetailsViewModel.kt."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and self-merged by author within 9 seconds; no human or bot interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

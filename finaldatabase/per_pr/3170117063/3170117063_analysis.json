@@ -1,0 +1,163 @@
+{
+  "pr_id": 3170117063,
+  "meta": {
+    "title": "Add tail call optimization to VM",
+    "html_url": "https://github.com/mochilang/mochi/pull/2772",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-24 03:35:22+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-24 03:35:49+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Add tail call optimization to VM by implementing TCO for OpCall, OpCall2, and OpCallV and including a tail-recursive factorial test."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 77,
+      "deletions": 0,
+      "changes": 77,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 39,
+      "top1_change_ratio": 0.506,
+      "files_by_status": {
+        "modified": 1,
+        "added": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0075,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "tail_call_optimization",
+      "vm_instruction_execution"
+    ],
+    "optimization_layer": "virtual_machine",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_immediately",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "Single-commit TCO with test, no review or discussion; closed by author within 30 seconds, likely not a mergeable PR."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 77,
+        "interpretation": "At 77 changed lines, this is a small edit by absolute volume. It adds TCO as a single commit with 77 additions across 4 files. As a new feature optimization PR, it was closed immediately by the author, which is inconsistent with a typical merge workflow. The small scope suggests it could have been a mergeable performance improvement if it were correct and properly reviewed."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0075,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review text available.",
+      "performance_claim": "Implement tail call optimization for OpCall, OpCall2, OpCallV to improve performance of recursive functions.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed PR within 30 seconds of creation, with no review engagement. No explicit rejection signals available."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "The PR was closed by the author without any maintainer interaction, so no capability boundary was tested. The edit itself (TCO in VM) is a complex optimization, but the outcome does not reflect technical inadequacy, rather a process outcome.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Only a tail-recursive factorial test added; no performance benchmarks or profiler evidence.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No merge, so no regression handling.",
+      "evidence_gap": "no_benchmark_and_closed_immediately"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added tail call optimization for OpCall, OpCall2, and OpCallV by reusing the current frame when the call is in tail position. Added tail-recursive factorial test in tests/vm/valid/ as a .mochi file with expected output.",
+      "files_primary": [
+        "runtime/vm/vm.go",
+        "tests/vm/valid/tail_recursive.mochi"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/tail_recursive.ir.out",
+        "tests/vm/valid/tail_recursive.out"
+      ],
+      "secondary_note": "Expected output files represent the post-optimization expected results.",
+      "change_trajectory": [
+        "Single commit adding TCO to VM and a validation test."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with TCO implementation and closed by author 27 seconds later with no review or comment activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

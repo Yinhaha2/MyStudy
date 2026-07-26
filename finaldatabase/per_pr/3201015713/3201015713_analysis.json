@@ -1,0 +1,166 @@
+{
+  "pr_id": 3201015713,
+  "meta": {
+    "title": "Speed up P(z) and fix Parquet write",
+    "html_url": "https://github.com/marin-community/marin/pull/1431",
+    "repo": "marin-community/marin",
+    "agent": "OpenAI_Codex",
+    "user": "ahmeda14960",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-04 01:20:53+00:00",
+    "merged_at": "2025-07-04 01:23:57+00:00",
+    "closed_at": "2025-07-04 01:23:57+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "4",
+    "body_summary": "Compute P(z) on device before CPU transfer and enforce explicit dtype on PyArrow rows to fix Parquet write."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 1,
+      "additions": 65,
+      "deletions": 55,
+      "changes": 120,
+      "top1_file": "marin/generation/sliding_logits.py",
+      "top1_changes": 120,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "marin"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 2,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.051,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "gpu_to_cpu_transfer_reduction",
+      "parquet_dtype_fix"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Small compute-device shift and dtype fix with no review; merged by author within minutes without performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 120,
+        "interpretation": "At 120 changed lines in a single file, this is a small edit by absolute volume. It fits a small-step, low-risk performance fix that merged quickly without reviewer input."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.051,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review feedback was recorded; PR merged by author without external review.",
+      "performance_claim": "Compute P(z) on device before transferring logits to CPU to reduce transfer overhead and fix Parquet write error.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_cpu_gpu_transfer (inferred prior behavior)",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "4",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent made a simple runtime optimization and data fix; merged without review, indicating low barrier for small, self-merged changes.",
+      "success_factors": [
+        "small_scope",
+        "low_risk",
+        "self_merge_no_review"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No maintainer review text available; PR merged without human code-reading evidence."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or before/after measurements; only a narrative description of computing P(z) on device.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In sliding_logits.py, P(z) computation moved to device before CPU transfer; rows built with explicit dtype to satisfy PyArrow requirements.",
+      "files_primary": [
+        "marin/generation/sliding_logits.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit: b5a9c889 - Improve P(z) speed and fix PyArrow dtype",
+        "Merge commit: 54a3b500 - Merge branch 'torch_logits' (likely integration with existing work)"
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by ahmeda14960 with speed-up and fix; no reviewer participation; merged by author after 3 minutes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

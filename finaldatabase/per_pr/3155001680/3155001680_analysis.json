@@ -1,0 +1,194 @@
+{
+  "pr_id": 3155001680,
+  "meta": {
+    "title": "Performance Optimization: Fix N+1 Database Queries in Search API",
+    "html_url": "https://github.com/sourcebot-dev/sourcebot/pull/357",
+    "repo": "sourcebot-dev/sourcebot",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-17 23:34:55+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-26 14:26:10+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 36,
+    "topic_name": "36",
+    "body_summary": "Fix N+1 database query pattern in search API by merging two prisma.repo.findMany() calls into one OR query, with a supporting PERFORMANCE_REPORT.md."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 105,
+      "deletions": 13,
+      "changes": 118,
+      "top1_file": "PERFORMANCE_REPORT.md",
+      "top1_changes": 89,
+      "top1_change_ratio": 0.754,
+      "files_by_status": {
+        "added": 1,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "commented": 3,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 206.854,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "n_plus_one_query",
+      "database_query_merge",
+      "search_api_performance"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "stale_inactivity_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin merged two findMany queries into one OR query with narrative 50% claim; no human review, auto-closed after 7+ days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 118,
+        "interpretation": "At 118 changed lines, this is a small edit by absolute volume. It fits a small-step performance PR but was closed without merge due to inactivity."
+      },
+      "lifecycle": {
+        "lifespan_hours": 206.854,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No human reviewer engaged; Devin bot auto-closed the PR after 7+ days of inactivity.",
+      "performance_claim": "50% reduction in database queries for search operations by merging two findMany calls into one OR query.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Auto-closed by Devin bot after 7+ days of inactivity; no human review or merge activity."
+    },
+    "capability_boundary": {
+      "topic": "36",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "The PR remained unreviewed and auto-closed after inactivity, illustrating a process gap where agent-authored PRs may not attract timely maintainer attention even when addressing genuine performance issues.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": null
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark data, profiling results, or reproduction steps provided; only a narrative claim of 50% query reduction.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed by Devin bot due to inactivity with no merges; no regression testing or fix cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In searchApi.ts, combined two separate prisma.repo.findMany() calls (one by numeric IDs, one by string names) into a single query with an OR condition, reducing database round trips. Added PERFORMANCE_REPORT.md documenting other performance opportunities.",
+      "files_primary": [
+        "packages/web/src/features/search/searchApi.ts"
+      ],
+      "files_secondary_observability": [
+        "PERFORMANCE_REPORT.md"
+      ],
+      "secondary_note": "The performance report adds documentation but no executable benchmarks.",
+      "change_trajectory": [
+        "Single commit merging two queries into one and adding performance report.",
+        "No further commits; PR auto-closed after 206.9 hours of inactivity."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI monitoring for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_bot_user",
+        "summary": "CodeRabbit skipped review because it detected a bot user.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closed due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with single commit optimizing search queries and adding performance report.",
+      "No human reviewers assigned or engaged; two bot comments (integration notice and review skip) within initial minutes.",
+      "After 7+ days, Devin bot auto-closed due to inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

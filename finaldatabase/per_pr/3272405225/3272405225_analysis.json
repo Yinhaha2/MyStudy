@@ -1,0 +1,200 @@
+{
+  "pr_id": 3272405225,
+  "meta": {
+    "title": "Optimize homepage post loading by eliminating N+1 queries for user data",
+    "html_url": "https://github.com/halo-dev/halo/pull/7644",
+    "repo": "halo-dev/halo",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-29 07:05:23+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "36",
+    "body_summary": "Eliminate N+1 queries in homepage post loading by implementing batch user fetching with a single IN query and cache-aware post conversion."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 7,
+      "additions": 205,
+      "deletions": 1,
+      "changes": 206,
+      "top1_file": "application/src/main/java/run/halo/app/theme/finders/impl/PostPublicQueryServiceImpl.java",
+      "top1_changes": 131,
+      "top1_change_ratio": 0.636,
+      "files_by_status": {
+        "modified": 7
+      },
+      "directory_count": 2,
+      "directories": [
+        "api",
+        "application"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 5,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 15,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "commented": 5,
+        "labeled": 2,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1
+      },
+      "lifespan_hours": 0.52,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "n_plus_one_query",
+      "batch_fetching",
+      "user_data_loading"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "n_plus_one_queries"
+    ],
+    "outcome_reason": "closed_missing_requirements",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot fixed N+1 queries with batch user fetch; PR closed without human review due to missing CLA, release note, and code duplication quality gate."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 206,
+        "interpretation": "At 206 changed lines, this is a small backend edit primarily in PostPublicQueryServiceImpl. The PR was closed, not merged, contrasting with typical small-step performance PRs that merge quickly; closure likely due to process barriers rather than technical rejection."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.52,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "process_requirements_unmet",
+      "concern_detail": "CLA not signed, missing release-note label, SonarQube quality gate failed with 9.8% duplication; no human reviewer engaged.",
+      "performance_claim": "Eliminate N+1 queries by batch fetching users, reducing queries from O(N) to O(1).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "n_plus_one_queries",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Bot labels (do-not-merge) and SonarQube duplication failure; PR closed without human review comment."
+    },
+    "capability_boundary": {
+      "topic": "36",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Agent implemented functional optimization but failed to satisfy repository CLA, release not labeling, and code quality gates; reveals dependency on process steps requiring human intervention.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or reproducible performance test; only narrative claim and a 93% reduction estimate.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix-in-PR cycle.",
+      "evidence_gap": "narrative_only_no_review_process_block"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added UserService.getUsersOrGhostByNames for batch user fetch, modified PostPublicQueryServiceImpl to collect usernames, fetch all users in one query, and process posts using a user cache; added overloaded convertToListedVo accepting user map.",
+      "files_primary": [
+        "application/src/main/java/run/halo/app/theme/finders/impl/PostPublicQueryServiceImpl.java",
+        "application/src/main/java/run/halo/app/core/user/service/impl/UserServiceImpl.java",
+        "api/src/main/java/run/halo/app/core/user/service/UserService.java"
+      ],
+      "files_secondary_observability": [
+        "application/src/main/java/run/halo/app/theme/finders/ContributorFinder.java",
+        "application/src/main/java/run/halo/app/theme/finders/impl/ContributorFinderImpl.java",
+        "application/src/test/java/run/halo/app/theme/finders/impl/PostPublicQueryServiceImplTest.java",
+        "application/src/main/java/run/halo/app/theme/finders/PostPublicQueryService.java"
+      ],
+      "secondary_note": "Most added lines implement batch loading logic; test file only incremented lines.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Implementation: batch user fetching, cache-aware post conversion."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "f2c-ci-robot[bot]",
+        "channel": "pr_comment",
+        "signal": "do_not_merge_label",
+        "summary": "Added do-not-merge/work-in-progress and do-not-merge/release-note-label-needed labels due to missing release note block.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "CLAassistant",
+        "channel": "pr_comment",
+        "signal": "missing_cla",
+        "summary": "Contributor License Agreement not signed.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "sonarqubecloud[bot]",
+        "channel": "pr_comment",
+        "signal": "quality_gate_failure",
+        "summary": "SonarQube quality gate failed: 9.8% duplication on new code exceeds 3% threshold.",
+        "blocking": true,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with batch user fetching optimization.",
+      "Bots flagged missing CLA, release-note label, and SonarQube duplication failure.",
+      "No human review received; PR closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

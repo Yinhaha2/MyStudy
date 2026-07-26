@@ -1,0 +1,175 @@
+{
+  "pr_id": 3111826436,
+  "meta": {
+    "title": "[alpha_factory] inline WASM assets",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/1464",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-02 22:32:54+00:00",
+    "merged_at": "2025-06-02 22:33:01+00:00",
+    "closed_at": "2025-06-02 22:33:01+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "35",
+    "body_summary": "Inline Pyodide asm and wasm-gpt2 placeholders in the Insight build, expose a base64 Pyodide loader, allow the LLM loader to read a base64 model, and verify Simulator initialization speed."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 68,
+      "deletions": 19,
+      "changes": 87,
+      "top1_file": "tests/test_simulator_init.py",
+      "top1_changes": 34,
+      "top1_change_ratio": 0.3908,
+      "files_by_status": {
+        "modified": 3,
+        "added": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "alpha_factory_v1",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.002,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "inline_assets",
+      "base64_loading",
+      "wasm_bundle",
+      "simulator_init_perf"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Self-merged with no review; inlines WASM assets for faster init; pytest failure noted but not blocking."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 87,
+        "interpretation": "At 87 changed lines, this is a very small edit by absolute volume. It fits a small-step, low-risk build optimization PR and its immediate merge without review is consistent with such low-friction changes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.002,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": null,
+      "performance_claim": "Inlining WASM assets and using base64 loading improves Simulator initialization speed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "35",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Build tooling optimization for WASM asset inlining; merge occurred with no review, suggesting a low‑barrier technical change within the agent's capability.",
+      "success_factors": [
+        "small_scope",
+        "self_merge",
+        "no_blocking_issues"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review evidence captured in the dataset.",
+        "ci_auto": "No CI performance evaluation; pytest failed with ValueError but did not block merge."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "Body includes setup steps but no benchmark numbers; pytest fails; no performance measurement present.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No revert or fix‑in‑PR cycle; merged as‑is despite pytest failure.",
+      "evidence_gap": "narrative_only_pytest_fail"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Inline Pyodide asm and wasm-gpt2 placeholders in build.js; add base64 loading support for Pyodide (lib/pyodide.js) and LLM models (llm.js); add simulator initialization performance test (simulator_perf.test.js) and a Python init test (test_simulator_init.py).",
+      "files_primary": [
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/build.js",
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/lib/pyodide.js",
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/src/utils/llm.js"
+      ],
+      "files_secondary_observability": [
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/tests/simulator_perf.test.js",
+        "tests/test_simulator_init.py"
+      ],
+      "secondary_note": "Test files added to verify simulator init speed and functionality.",
+      "change_trajectory": [
+        "Single commit: inlines WASM assets, exposes Pyodide base64 helper, updates LLM loader, adds simulator perf test and Python init test."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and merged by MontrealAI in 7 seconds with no review or comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

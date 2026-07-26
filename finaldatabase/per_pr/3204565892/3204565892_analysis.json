@@ -1,0 +1,210 @@
+{
+  "pr_id": 3204565892,
+  "meta": {
+    "title": "Replace ahash with rustc-hash throughout the codebase",
+    "html_url": "https://github.com/quarylabs/sqruff/pull/1749",
+    "repo": "quarylabs/sqruff",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-05 08:17:57+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-05 09:19:48+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "33",
+    "body_summary": "Replace the ahash hashmap dependency with rustc-hash (FxHashMap/FxHashSet) across the entire sqruff workspace for claimed better performance, smaller binary size, and Rust ecosystem consistency."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 107,
+      "additions": 366,
+      "deletions": 392,
+      "changes": 758,
+      "top1_file": "crates/lib/src/core/config.rs",
+      "top1_changes": 52,
+      "top1_change_ratio": 0.0686,
+      "files_by_status": {
+        "modified": 107
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "crates"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 2,
+        "review_requested": 2,
+        "copilot_work_finished": 1,
+        "reviewed": 1,
+        "commented": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.031,
+      "first_review_delay_hours": 0.548,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "hash_map_impl_swap",
+      "dependency_migration",
+      "performance_improvement_claim"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative",
+      "ci_task_eval"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_mixed_perf_evidence",
+    "review_dimensions": [
+      "perf_evidence",
+      "correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Copilot replaced ahash with rustc-hash; CI benchmark showed mixed results with regressions; PR closed without merge ~1h after creation."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 758,
+        "interpretation": "At 758 changed lines across 107 files, this is a medium-sized mechanical refactor by absolute volume. As a performance dependency swap, it was closed—not merged—after a CI benchmark showed mixed results with some regressions."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.031,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "performance_related_concern",
+      "primary_concern": "mixed_benchmark_regressions",
+      "concern_detail": "CI benchmark posted by github-actions showed regressions in parse_complex_query (+2.44%) and parse_expression_recursion (+4.35%), with only marginal improvements in other tests; no clear net benefit.",
+      "performance_claim": "Replace ahash with rustc-hash for better performance, smaller binary size, and Rust ecosystem consistency.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence",
+        "correctness"
+      ],
+      "rejection_signals": "No human review received; Copilot bot flagged Cargo.toml syntax issues; CI benchmark showed regressions; PR closed by co-author ~1h after creation without merge."
+    },
+    "capability_boundary": {
+      "topic": "33",
+      "agent": "Copilot",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Mechanical hash map dependency swap across entire codebase requires benchmark proof; CI benchmark revealed regressions, undermining the performance claim and preventing merge.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Copilot bot identified invalid Cargo.toml syntax (rustc-hash.workspace = true) in multiple crates, but these were suppressed low-confidence and not blocking.",
+        "ci_auto": "github-actions benchmark job automatically ran on the PR, producing a table of before/after timings with highlighted regressions."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "CI benchmark provides automated before/after measurements with confidence intervals, making the performance impact reproducible; however, no manual verification or profiler evidence.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After CI benchmark showed regressions, maintainer (gvozdvmozgu) closed the PR without further commits ~1h after creation.",
+      "evidence_gap": "mixed_benchmark_regressions_no_clear_benefit"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Swap all AHashMap/AHashSet uses to FxHashMap/FxHashSet across 107 Rust files in the sqruff workspace, update Cargo.toml dependency from ahash to rustc-hash, and adjust imports accordingly.",
+      "files_primary": [
+        "crates/lib/src/core/config.rs",
+        "crates/lib/src/utils/reflow/reindent.rs",
+        "crates/lib/src/core/rules.rs"
+      ],
+      "files_secondary_observability": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "crates/*/Cargo.toml"
+      ],
+      "secondary_note": "The Cargo.toml changes had invalid syntax (e.g., `rustc-hash.workspace = true` instead of `rustc-hash = { workspace = true }`) as noted by bot.",
+      "change_trajectory": [
+        "Initial plan commit (empty).",
+        "Single large commit replacing ahash with rustc-hash across all files.",
+        "CI benchmark triggered, showing mixed results with regressions in parsing benchmarks.",
+        "PR closed by gvozdvmozgu without merge."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_syntax_errors",
+        "summary": "Flagged invalid Cargo.toml syntax in multiple crates (low confidence, not blocking).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_benchmark_mixed",
+        "summary": "Posted benchmark results showing regressions in parse_complex_query (+2.44%) and parse_expression_recursion (+4.35%), with minor improvements elsewhere.",
+        "blocking": false,
+        "action_taken": "No action; PR closed after benchmark."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with large-scale hash map replacement within minutes of creation.",
+      "Copilot bot reviewed and noted Cargo.toml syntax issues (suppressed low confidence).",
+      "CI benchmark run automatically, posting mixed results with regressions.",
+      "Maintainer (gvozdvmozgu) closed the PR ~1 hour after creation, without merge or further discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

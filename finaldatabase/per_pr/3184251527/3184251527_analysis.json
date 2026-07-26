@@ -1,0 +1,224 @@
+{
+  "pr_id": 3184251527,
+  "meta": {
+    "title": "Add LittleEndian methods and optimize BigEndian performance in Extensions.cs",
+    "html_url": "https://github.com/kerryjiang/SuperSocket/pull/806",
+    "repo": "kerryjiang/SuperSocket",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-27 22:49:49+00:00",
+    "merged_at": "2025-06-28 02:51:00+00:00",
+    "closed_at": "2025-06-28 02:51:00+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 33,
+    "topic_name": "33",
+    "body_summary": "Add LittleEndian TryRead methods and replace Math.Pow/division loops with bit shifts for BigEndian in SuperSocket ProtoBase Extensions, claiming 10-100x faster uint/ulong reading."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 3,
+      "additions": 204,
+      "deletions": 31,
+      "changes": 235,
+      "top1_file": "src/SuperSocket.ProtoBase/Extensions.cs",
+      "top1_changes": 149,
+      "top1_change_ratio": 0.634,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 3,
+      "directories": [
+        "src",
+        "test",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 4,
+      "review_states": {
+        "COMMENTED": 3,
+        "APPROVED": 1
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 19,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 1,
+        "review_requested": 2,
+        "copilot_work_finished": 2,
+        "reviewed": 2,
+        "ready_for_review": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 4.02,
+      "first_review_delay_hours": 0.33,
+      "review_rounds": 4,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bigendian_bit_shift_optimization",
+      "littleendian_support",
+      "binary_reader_performance"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot added LittleEndian methods and optimized bit shifts; maintainer caught unintended global.json change; merged after revert with no performance benchmark requirement."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 235,
+        "interpretation": "At 235 changed lines, this is a small edit by absolute volume, concentrated in two primary files plus a minor config revert. It fits a small-step performance improvement PR and was merged after a quick review fix."
+      },
+      "lifecycle": {
+        "lifespan_hours": 4.02,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "unintended_config_change",
+      "concern_detail": "Maintainer kerryjiang noticed global.json was modified to change SDK version; requested revert to keep dotnet SDK 9.0.0. Copilot promptly reverted in follow-up commit.",
+      "performance_claim": "10-100x faster uint/ulong reading via bit shifts instead of Math.Pow and division loops, plus LittleEndian support.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "inefficient_floating_point_and_division_loop",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "33",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Low-level C# bit-shift optimization and endianness extension required no benchmark proof; merge depended only on reverting an unintended config change.",
+      "success_factors": [
+        "narrow_scope",
+        "responded_to_review_fix",
+        "added_tests",
+        "maintainer_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer kerryjiang manually reviewed the diff and identified an unintended change to global.json that downgraded the SDK version.",
+        "ci_auto": "No CI performance evidence captured in dataset."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No before/after timing data or profiler output; performance claim is narrative-based with unit tests verifying correctness only.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After review comment, Copilot reverted global.json to keep SDK 9.0.0; no other regressions.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In src/SuperSocket.ProtoBase/Extensions.cs, added TryReadLittleEndian methods for ushort/uint/ulong and replaced Math.Pow+division loops in BigEndian methods with direct bit shifts (e.g., value = (uint)((b0 << 24) | (b1 << 16) | (b2 << 8) | b3)). Added corresponding tests in test/SuperSocket.Tests/SequenceReaderExtensionTest.cs.",
+      "files_primary": [
+        "src/SuperSocket.ProtoBase/Extensions.cs",
+        "test/SuperSocket.Tests/SequenceReaderExtensionTest.cs"
+      ],
+      "files_secondary_observability": [
+        "global.json"
+      ],
+      "secondary_note": "global.json was inadvertently modified to SDK 8.0.117; corrected back to 9.0.0 after review.",
+      "change_trajectory": [
+        "Initial plan and implementation commits add LittleEndian methods and optimize BigEndian with bit shifts.",
+        "Review feedback: maintainer requested revert of global.json SDK version change.",
+        "Final commit reverts global.json; PR merged."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "kerryjiang",
+        "channel": "inline_review_comment",
+        "signal": "unintended_config_change",
+        "summary": "Noted that global.json should keep dotnet SDK 9.0.0 instead of the changed version.",
+        "blocking": true,
+        "action_taken": "Copilot reverted global.json in commit 98bf04b."
+      },
+      {
+        "source": "kerryjiang",
+        "channel": "inline_review_comment",
+        "signal": "revert_request",
+        "summary": "Requested Copilot to revert the global.json change.",
+        "blocking": true,
+        "action_taken": "Revert committed."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed revert of global.json to keep SDK 9.0.0.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "kerryjiang",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved PR after revert and no further issues.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with performance optimization and tests.",
+      "Maintainer kerryjiang spotted unintended global.json SDK version change and requested revert.",
+      "Copilot promptly reverted and PR was approved and merged within ~4 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

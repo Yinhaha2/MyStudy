@@ -1,0 +1,243 @@
+{
+  "pr_id": 3206861578,
+  "meta": {
+    "title": "Release v4.8.0: Bundle Size Optimization, Enhanced Coverage & Documentation",
+    "html_url": "https://github.com/ltwlf/json-diff-ts/pull/301",
+    "repo": "ltwlf/json-diff-ts",
+    "agent": "OpenAI_Codex",
+    "user": "ltwlf",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-06 18:19:33+00:00",
+    "merged_at": "2025-07-06 19:45:05+00:00",
+    "closed_at": "2025-07-06 19:45:05+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "11",
+    "body_summary": "Release v4.8.0 focusing on bundle size reduction by removing es-toolkit dependency, achieving 95%+ test coverage, and overhauling documentation with Star Wars themed examples."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 12,
+      "additions": 683,
+      "deletions": 467,
+      "changes": 1150,
+      "top1_file": "package-lock.json",
+      "top1_changes": 386,
+      "top1_change_ratio": 0.3356521739130435,
+      "files_by_status": {
+        "modified": 12
+      },
+      "directory_count": 4,
+      "directories": [
+        ".",
+        "src",
+        "tests",
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 17,
+      "event_counts": {
+        "committed": 8,
+        "labeled": 1,
+        "review_requested": 1,
+        "reviewed": 2,
+        "renamed": 1,
+        "commented": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 1.433,
+      "first_review_delay_hours": 0.017,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bundle_size_reduction",
+      "dependency_removal",
+      "tree_shaking"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_self_merge",
+    "review_dimensions": [
+      "correctness",
+      "tests"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex released v4.8.0 with dependency removal and extensive test coverage; merged by maintainer ltwlf without blocking reviews."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 1150,
+        "interpretation": "At 1150 changed lines across 12 files, this is a medium-sized release prep by absolute volume, including dependency removal, docs, CI updates, and tests. It fits a maintainer-led performance release PR and merged without blocking reviews."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1.433,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "correctness_edge_case",
+      "concern_detail": "Copilot bot flagged a sort comparator returning a boolean instead of a number, causing unreliable ordering; security bot warned of prototype pollution in the setByPath helper.",
+      "performance_claim": "Removing es-toolkit dependency reduces bundle size and improves loading performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "11",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The PR replaced a utility library with custom implementations and achieved high coverage; automated bots flagged minor issues but no blocking reviews, indicating this scope is well within Agent technical capability.",
+      "success_factors": [
+        "maintainer_self_merge",
+        "comprehensive_test_suite",
+        "ci_cd_integration",
+        "no_blocking_human_review"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "The author (ltwlf) authored the PR and likely performed code reading during development.",
+        "ci_auto": "SonarQube quality gate passed, CodeQL analysis ran, and tests passed in CI."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Coverage numbers (95%+ statement) are reported but no bundle size measurements are given; performance claim is unsubstantiated.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression reported; PR merged as-is.",
+      "evidence_gap": "no_bundle_measurement_narrative_claim"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced es-toolkit dependency with custom lightweight utility functions (arrayDifference, arrayIntersection, keyBy, setByPath) in helpers.ts; updated jsonCompare.ts and jsonDiff.ts to use internal helpers; removed es-toolkit from package.json; added extensive tests achieving 95%+ coverage; updated documentation and CI workflows.",
+      "files_primary": [
+        "src/helpers.ts",
+        "src/jsonCompare.ts",
+        "src/jsonDiff.ts",
+        "package.json"
+      ],
+      "files_secondary_observability": [
+        "package-lock.json",
+        "tests/jsonDiff.test.ts",
+        "tests/jsonCompare.test.ts",
+        "tests/helpers.test.ts",
+        "README.md",
+        ".github/workflows/ci.yml",
+        ".github/workflows/codeql-analysis.yml",
+        ".github/workflows/npm.yml"
+      ],
+      "secondary_note": "Most changes by volume are in package-lock.json (386 lines) and README (237 lines); core implementation changes are ~40 lines across src/ files.",
+      "change_trajectory": [
+        "chore: drop es-toolkit dependency - custom helpers added, package.json updated, lockfile regenerated.",
+        "chore: bump version to 4.8.0 and add release notes - version bump and initial release notes in README.",
+        "docs: improve Star Wars examples and fix consistency issues - extensive README rewrite.",
+        "fix: update deprecated CodeQL action from v1 to v3 - CI workflow updates.",
+        "improve: enhance GitHub workflows with best practices and security - CI and npm publish workflow improvements.",
+        "enhance: improve GitHub Actions workflows with best practices - concurrency, timeouts, summaries.",
+        "test: achieve 95% code coverage - added comprehensive Jest test cases.",
+        "chore: finalize v4.8.0 release preparations - coverage badge, README finalization, package.json keyword updates."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "test_coverage_suggestion",
+        "summary": "Suggested adding unit tests for new helper functions and JSDoc comments.",
+        "blocking": false,
+        "action_taken": "Extensive tests were added in later commits, though JSDoc was not added."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "sort_comparator_bug",
+        "summary": "Flagged that sort comparator returns boolean instead of number, causing unreliable ordering; suggested using localeCompare.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-advanced-security[bot]",
+        "channel": "inline_review_comment",
+        "signal": "prototype_pollution_warning",
+        "summary": "Flagged potential prototype pollution in setByPath helper function due to assignment using path parts.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "sonarqubecloud[bot]",
+        "channel": "pr_comment",
+        "signal": "quality_gate_passed",
+        "summary": "SonarQube Cloud quality gate passed with 0 new issues.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by maintainer ltwlf with initial dependency removal commit.",
+      "Within 1 minute, Copilot bot posted non-blocking overview and inline suggestions.",
+      "Security bot flagged prototype pollution within 3 minutes of opening.",
+      "Maintainer added additional commits for version bump, docs, CI, tests, and final release preparation over ~1.5 hours.",
+      "SonarQube bot reported quality gate passed shortly before merge.",
+      "Maintainer merged PR after ~1.43 hours with no blocking reviews."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

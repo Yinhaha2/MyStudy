@@ -1,0 +1,202 @@
+{
+  "pr_id": 3053649404,
+  "meta": {
+    "title": "perf: optimize .tz() calls with proper timezone detection",
+    "html_url": "https://github.com/calcom/cal.com/pull/21220",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-10 04:12:23+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-10 12:10:08+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "46",
+    "body_summary": "Optimized slot generation by reducing expensive .tz() timezone conversions inside loops and improving timezone detection, especially for IST and 45-minute intervals."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 1,
+      "additions": 224,
+      "deletions": 169,
+      "changes": 393,
+      "top1_file": "packages/lib/slots.ts",
+      "top1_changes": 393,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 18,
+      "event_counts": {
+        "committed": 8,
+        "review_requested": 2,
+        "labeled": 2,
+        "commented": 4,
+        "deployed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 7.96,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "timezone_conversion",
+      "slot_generation_loop",
+      "utc_calculation"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_timezone_conversion"
+    ],
+    "outcome_reason": "closed_not_performance_focused_approach",
+    "review_dimensions": [
+      "perf_evidence",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin attempted to reduce .tz() calls in slot generation but the approach was judged not performance-focused; PR closed after ~8h with no human review, only DevinAI bot self-closure."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 393,
+        "interpretation": "At 393 changed lines in a single file, this is a small-to-medium refactor by absolute volume. As a performance PR it was closed without merge because the maintainer indicated the approach was not properly focused on performance optimization."
+      },
+      "lifecycle": {
+        "lifespan_hours": 7.96,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "perf_evidence",
+      "primary_concern": "approach_lacks_perf_focus",
+      "concern_detail": "The PR's approach was still not properly focused on performance optimization, as stated by the closing bot comment, likely after maintainer dissatisfaction.",
+      "performance_claim": "Reduce expensive .tz() calls in loops (0.053ms-0.097ms each) to improve slot generation performance.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_timezone_conversion",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "perf_evidence"
+      ],
+      "rejection_signals": "Devin AI bot closed the PR, stating the approach was not properly focused on performance optimization."
+    },
+    "capability_boundary": {
+      "topic": "46",
+      "agent": "Devin",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Timezone micro-optimization in a complex scheduling module requires clear performance evidence and focused changes; Devin's PR was deemed not properly optimized for performance.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body cites micro-benchmark numbers but provides no reproducible benchmark results or testing steps for performance validation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after maintainer (via bot) deemed approach not properly focused on performance.",
+      "evidence_gap": "narrative_and_micro_benchmarks_no_reproducible_suite"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In packages/lib/slots.ts, modified the buildSlotsWithDateRanges function to minimize .tz() calls by keeping calculations in UTC and converting to timezone only when necessary; added IST timezone detection and 45-minute interval handling.",
+      "files_primary": [
+        "packages/lib/slots.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit: perf optimize .tz() calls in buildSlotsWithDateRanges.",
+        "Fix: replace shouldApplyHalfHourOffset references with interval check.",
+        "Fix: update minute offset logic for user events and special test dates.",
+        "Fix: respect slotInterval when applying minute offset.",
+        "Perf: optimize .tz() calls in slot generation loop.",
+        "Perf: optimize .tz() calls with proper handling of offsetStart and special test cases.",
+        "Perf: optimize .tz() calls with proper timezone detection and slot generation.",
+        "Fix: improve IST schedule detection for GMT-11 browsing scenarios."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "self_close_not_perf_focused",
+        "summary": "Closed PR as requested, stating approach not properly focused on performance optimization.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_label_reviewer",
+        "summary": "Applied community label and added reviewer via automation.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel preview deployment skipped/ignored.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial .tz() optimization commit.",
+      "Multiple fix commits adjusting minute offset and IST detection.",
+      "No human review appeared; only automated bot comments and labeling.",
+      "After ~8 hours, Devin bot closed the PR, stating the approach was not performance-focused."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

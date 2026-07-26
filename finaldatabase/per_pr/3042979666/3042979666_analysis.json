@@ -1,0 +1,246 @@
+{
+  "pr_id": 3042979666,
+  "meta": {
+    "title": "perf: Optimize team bookings query by fetching data for multiple users at once",
+    "html_url": "https://github.com/calcom/cal.com/pull/21137",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-06 14:08:17+00:00",
+    "merged_at": "2025-05-06 18:47:07+00:00",
+    "closed_at": "2025-05-06 18:47:07+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 29,
+    "topic_name": "29",
+    "body_summary": "Batch-load team bookings and busy times for multiple users to reduce sequential database calls, particularly beneficial for team and collective scheduling with many members."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 11,
+      "file_count": 4,
+      "additions": 715,
+      "deletions": 118,
+      "changes": 833,
+      "top1_file": "packages/trpc/server/routers/viewer/slots/util.ts",
+      "top1_changes": 587,
+      "top1_change_ratio": 0.705,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 9,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 11,
+        "review_requested": 2,
+        "commented": 7,
+        "labeled": 4,
+        "renamed": 1,
+        "deployed": 2,
+        "assigned": 1,
+        "milestoned": 1,
+        "head_ref_force_pushed": 1
+      },
+      "lifespan_hours": 4.65,
+      "first_review_delay_hours": 4.64,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "batch_query_optimization",
+      "team_availability_performance",
+      "db_query_reduction"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "repeated_io"
+    ],
+    "outcome_reason": "merged_after_approval_no_blockers",
+    "review_dimensions": [
+      "correctness",
+      "tests",
+      "ci_validation"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin batch-optimized team bookings and busy times queries; multiple fix commits for booking limits and timezone, merged after maintainer approval with passing CI."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 833,
+        "interpretation": "At 833 changed lines across 4 files, this is a medium-sized refactor concentrated in the slots utility module. It fits a moderate backend performance optimization that merged swiftly with a single approval and no blocking concerns."
+      },
+      "lifecycle": {
+        "lifespan_hours": 4.65,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No blocking concerns were raised; the only review feedback was an approving comment 'LGTM. Let's test of QA' by zomars after CI passed and a follow-up refactor was started.",
+      "performance_claim": "Reduce database queries by fetching team bookings and busy times for multiple users at once, avoiding per-user sequential calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "repeated_io",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "tests",
+        "ci_validation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "29",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Devin successfully implemented batch query optimization across multiple files, requiring integration with existing repository patterns, handling booking limits, timezone conversions, and null checks, with multiple fix commits before approval.",
+      "success_factors": [
+        "continuous_fix_iterations",
+        "ci_passing",
+        "follow-up_refactor_started",
+        "maintainer_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer zomars likely reviewed the batch query changes, focusing on correctness of booking limits and timezone handling.",
+        "ci_auto": "E2E test results were posted by github-actions and passed, providing confidence in the change."
+      },
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No before/after timing or query count metrics were provided; the PR narrative claims reduction in database calls but no quantitative evidence.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Devin pushed multiple commits to address booking limits globally, add null checks, and handle timezone differences after initial implementation, as evidenced by commit messages.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added getAllAcceptedTeamBookingsOfUsers in BookingRepository and new batch functions in util.ts to fetch team bookings and busy times for multiple users at once, then adapted getUserAvailability to use preloaded initialData to avoid per-user queries.",
+      "files_primary": [
+        "packages/trpc/server/routers/viewer/slots/util.ts",
+        "packages/lib/server/repository/booking.ts",
+        "packages/lib/getUserAvailability.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/lib/intervalLimits/limitManager.ts"
+      ],
+      "secondary_note": "limitManager.ts changes were minor timezone parameter additions.",
+      "change_trajectory": [
+        "Initial commit: batch query for multiple users in booking.ts and util.ts.",
+        "Second commit: optimize busyTimesFromLimits batch loading.",
+        "Series of fix commits: global booking limits application, null check for busyTime.source, restore per-user limits, handle timezone differences, improve timezone handling, add timezone parameters to limitManager and getPeriodStartDatesBetween.",
+        "Final force-push by maintainer and merge after approval."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "zomars",
+        "channel": "formal_review",
+        "signal": "approved_no_block",
+        "summary": "Formal APPROVED review with no body text.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "zomars",
+        "channel": "pr_comment",
+        "signal": "approval_with_qa_note",
+        "summary": "Commented 'LGTM. Let's test of QA', indicating approval pending manual QA.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "conventional_commit_title_fix",
+        "summary": "Flagged missing conventional commit prefix; Devin bot renamed the title to include 'perf:'.",
+        "blocking": false,
+        "action_taken": "Title was automatically corrected."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "e2e_results_posted",
+        "summary": "Posted link to E2E test results, indicating CI validation passed.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "keithwillcode",
+        "channel": "pr_comment",
+        "signal": "follow_up_refactor",
+        "summary": "Mentioned a follow-up PR to refactor common code, acknowledging this PR as part of a larger effort.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial batch optimization and bot integration notice.",
+      "Title fixed automatically after conventional commits bot comment.",
+      "CI/E2E results posted as passing.",
+      "Devin pushed multiple fix commits addressing booking limits, null checks, and timezone handling.",
+      "Maintainer keithwillcode mentioned a follow-up refactor PR.",
+      "zomars approved with 'LGTM. Let's test of QA' and merged within ~4.6 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

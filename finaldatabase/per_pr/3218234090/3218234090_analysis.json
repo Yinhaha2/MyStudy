@@ -1,0 +1,169 @@
+{
+  "pr_id": 3218234090,
+  "meta": {
+    "title": "Refine Kotlin compiler output",
+    "html_url": "https://github.com/mochilang/mochi/pull/7196",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-10 07:30:04+00:00",
+    "merged_at": "2025-07-10 07:30:19+00:00",
+    "closed_at": "2025-07-10 07:30:19+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 8,
+    "topic_id": -1,
+    "topic_name": "unknown",
+    "body_summary": "Trim Kotlin runtime to only include helper functions that are actually used, regenerating machine translations with the reduced runtime."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 99,
+      "additions": 110,
+      "deletions": 16941,
+      "changes": 17051,
+      "top1_file": "tests/machine/x/kotlin/basic_compare.kt",
+      "top1_changes": 179,
+      "top1_change_ratio": 0.0105,
+      "files_by_status": {
+        "modified": 99
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.004,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "runtime_trimming",
+      "dead_code_elimination",
+      "binary_size_reduction"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_self_approved_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Codex trimmed Kotlin runtime helpers; PR merged instantly by the author without any review, implying low-risk self-approved refactor, but missing benchmark evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 17051,
+        "interpretation": "At 17051 changed lines, this is a large change by volume, but >99% deletions are in 96 Kotlin test files removing duplicated runtime code. The core compiler change is a modest 177 lines. As a mechanical runtime-trimming optimization, it was merged instantly without review, consistent with a self-approved, low-risk cleanup."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.004,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback recorded; PR was merged immediately by the same user.",
+      "performance_claim": "Trim Kotlin output by including only actually used runtime helpers, reducing compiled code size.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "unknown",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Codex performed a dead-code elimination at the compiler target level. The maintainer self-merged without review, suggesting this type of mechanical, test-covered refactor encounters minimal friction in the contribution process.",
+      "success_factors": [
+        "self_approval",
+        "mechanical_refactor",
+        "test_coverage_specified"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or before/after size comparison; PR body mentions running tests but no quantitative performance evidence.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression reported; merged immediately.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler.go, the Kotlin code generation was changed to emit only runtime helper functions that are actually referenced. All machine test .kt files were regenerated, removing the bulk of previously included runtime code.",
+      "files_primary": [
+        "compiler/x/kotlin/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/machine/x/kotlin/README.md",
+        "96 regenerated Kotlin test files under tests/machine/x/kotlin/"
+      ],
+      "secondary_note": "The vast majority of deletions are in the regenerated test files; the core compiler change is limited to compiler.go.",
+      "change_trajectory": [
+        "Single commit: 'kotlin: include only used runtime' modified the compiler and regenerated all machine tests in one step."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened, labeled 'codex', and merged within seconds by the same user with no review interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

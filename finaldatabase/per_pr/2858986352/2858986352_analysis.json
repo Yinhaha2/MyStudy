@@ -1,0 +1,186 @@
+{
+  "pr_id": 2858986352,
+  "meta": {
+    "title": "Refactor: Implement automatic file watching",
+    "html_url": "https://github.com/onlook-dev/onlook/pull/1419",
+    "repo": "onlook-dev/onlook",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-02-17 23:50:05+00:00",
+    "merged_at": null,
+    "closed_at": "2025-02-26 16:48:14+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Replace manual addFileToWatcher calls with Chokidar glob-based directory watching to improve efficiency and automatically watch new files."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 22,
+      "deletions": 15,
+      "changes": 37,
+      "top1_file": "apps/studio/electron/main/run/index.ts",
+      "top1_changes": 28,
+      "top1_change_ratio": 0.7568,
+      "files_by_status": {
+        "modified": 4,
+        "added": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        "apps",
+        "packages",
+        "test"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "commented": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 208.97,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "automatic_file_watching",
+      "glob_pattern",
+      "chokidar_optimization"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin refactored file watching to glob patterns; no reviews, auto-closed after ~9 days of inactivity, no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 37,
+        "interpretation": "At 37 changed lines across 6 files, this is a very small edit by absolute volume. It fits a small-step, low-risk refactor that could have been merged quickly, but it was closed due to inactivity instead."
+      },
+      "lifecycle": {
+        "lifespan_hours": 208.97,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No human review or feedback was provided; the Devin bot auto-closed the PR due to inactivity after about 9 days.",
+      "performance_claim": "Improve performance of file watching by using Chokidar's native glob patterns instead of manual addFileToWatcher calls.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Auto-closed due to inactivity; no CHANGES_REQUESTED or merge."
+    },
+    "capability_boundary": {
+      "topic": "file_watching_glob_patterns",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Small file-watching refactor was not merged due to lack of maintainer review; the PR became stale and was auto-closed, highlighting a process boundary where agent PRs require timely human attention.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No performance metrics or benchmarks provided; only narrative claim of improved efficiency.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after 9 days of inactivity; no regression identified or fix attempted.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced manual addFileToWatcher calls with Chokidar glob-based directory watching in apps/studio/electron/main/run/index.ts, with minor adjustments in other files and added test page/component files.",
+      "files_primary": [
+        "apps/studio/electron/main/run/index.ts"
+      ],
+      "files_secondary_observability": [
+        "apps/studio/electron/main/code/files.ts",
+        "apps/studio/electron/main/pages/index.ts",
+        "packages/ui/src/components/color-picker/checkPattern.ts",
+        "test/app/test-page/page.tsx",
+        "test/components/test.tsx"
+      ],
+      "secondary_note": "Other files had minimal changes (2-3 lines) and test files were added for verification.",
+      "change_trajectory": [
+        "Single commit: refactored file watching to use glob patterns, added test files, and adjusted related files."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with automatic file watching refactor and no linked issues.",
+      "No human review occurred; Devin bot comments were the only activity.",
+      "PR auto-closed after ~9 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

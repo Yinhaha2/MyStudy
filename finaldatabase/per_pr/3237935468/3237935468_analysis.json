@@ -1,0 +1,257 @@
+{
+  "pr_id": 3237935468,
+  "meta": {
+    "title": "refactor(connector): split connector implementations into optional features",
+    "html_url": "https://github.com/risingwavelabs/risingwave/pull/22640",
+    "repo": "risingwavelabs/risingwave",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-17 03:09:32+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-23 09:03:16+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 3,
+    "topic_name": "3",
+    "body_summary": "Split connector implementations into optional Cargo features to reduce compilation time when not needed, addressing community request for better connector modularity."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 22,
+      "additions": 2821,
+      "deletions": 2481,
+      "changes": 5302,
+      "top1_file": "src/connector/src/sink/iceberg/imp.rs",
+      "top1_changes": 2426,
+      "top1_change_ratio": 0.4576,
+      "files_by_status": {
+        "added": 6,
+        "renamed": 4,
+        "modified": 12
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 7,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 5,
+        "assigned": 2,
+        "mentioned": 3,
+        "subscribed": 3,
+        "copilot_work_started": 3,
+        "unsubscribed": 2,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 3,
+        "ready_for_review": 1,
+        "labeled": 3,
+        "commented": 3
+      },
+      "lifespan_hours": 149.8956,
+      "first_review_delay_hours": 2.763,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cargo_feature_flags",
+      "connector_modularity",
+      "compilation_time_reduction"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "compilation_failure_unresolved",
+    "review_dimensions": [
+      "correctness",
+      "ci_validation"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Large Rust conditional compilation refactor could not pass build despite multiple fix attempts; PR closed after maintainer-reported compile failures."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 5302,
+        "interpretation": "At 5302 changed lines across 22 files, this is a large-scale refactor, primarily restructuring the connector crate with new feature flags. The closure is consistent with the unresolved compilation issues for a change this size."
+      },
+      "lifecycle": {
+        "lifespan_hours": 149.8956,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "compilation_failure",
+      "concern_detail": "Maintainer xxchan reported compilation failures repeatedly; Copilot attempted multiple fixes but the build remained broken, partly due to protobuf code generation issues.",
+      "performance_claim": "Reduce compilation time by making heavy connector dependencies optional behind feature flags, enabling faster development builds.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness",
+        "ci_validation"
+      ],
+      "rejection_signals": "Compilation failures repeatedly observed; no evidence of successful build; PR closed after inactivity."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Copilot failed to produce a compiling refactor of a large Rust connector crate with complex conditional compilation, suggesting difficulty with Rust feature flag intricacies and build system quirks in a large monorepo.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "xxchan checked buildkite compilation logs and identified failures.",
+        "ci_auto": "CI label 'ci/run-e2e-iceberg-tests' added, but no indication of successful CI runs."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Compilation errors were visible in CI logs, but network/firewall issues hindered Copilot's ability to fully rebuild.",
+      "regression_handling": "reject_close",
+      "regression_detail": "After multiple failed fix attempts, the PR was closed without merge, likely due to persistent build errors and inactivity.",
+      "evidence_gap": "no_benchmark_only_narrative_claim"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added Cargo feature flags (sink-iceberg, sink-clickhouse, etc.) to make 8 connector implementations optional, using cfg_if! and dummy implementations to allow conditional compilation. Moved implementation code into imp.rs files inside feature-gated mod.rs, updated Cargo.toml with optional dependencies and all-sinks default feature.",
+      "files_primary": [
+        "src/connector/Cargo.toml",
+        "src/connector/src/sink/iceberg/imp.rs",
+        "src/connector/src/sink/iceberg/mod.rs",
+        "src/connector/src/sink/mod.rs"
+      ],
+      "files_secondary_observability": [
+        "src/connector/README_FEATURES.md",
+        "src/connector/src/sink/clickhouse/mod.rs",
+        "src/connector/src/sink/big_query/mod.rs",
+        "src/connector/src/sink/mongodb/mod.rs",
+        "src/connector/src/sink/dynamodb/mod.rs"
+      ],
+      "secondary_note": "Most churn is in the Iceberg sink refactor (2400+ lines) and connector module restructure.",
+      "change_trajectory": [
+        "Initial plan commit.",
+        "Add feature flags for Iceberg, ClickHouse, MongoDB, BigQuery sinks.",
+        "Add feature flags for DynamoDB, ElasticSearch, OpenSearch sinks.",
+        "Add documentation and tests.",
+        "Fix compilation issues with conditional imports and macros.",
+        "Multiple subsequent commits to fix build environment and remaining conditional compilation errors.",
+        "Final commit enables all-connectors by default for backward compatibility."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "xxchan",
+        "channel": "pr_comment",
+        "signal": "compile_failure",
+        "summary": "Reported compilation failed and asked to check buildkite log.",
+        "blocking": true,
+        "action_taken": "Copilot attempted fix in commit 5efe740."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_attempt",
+        "summary": "Fixed conditional compilation issues and explained approach with dummy implementations.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "xxchan",
+        "channel": "pr_comment",
+        "signal": "retry_compile",
+        "summary": "Asked to retry compile.",
+        "blocking": true,
+        "action_taken": "Copilot noted protobuf generation issues but made further attempts."
+      },
+      {
+        "source": "xxchan",
+        "channel": "pr_comment",
+        "signal": "retry_compile",
+        "summary": "Repeated request to retry compile.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "compilation_hurdle",
+        "summary": "Reported that protobuf code generation failure is unrelated to connector feature flags and a pre-existing environment issue.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "xxchan",
+        "channel": "pr_comment",
+        "signal": "retry_compile",
+        "summary": "Third request to retry compile.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "claimed_fix",
+        "summary": "Claimed compilation resolved; successfully isolated heavy dependencies behind feature flags.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with large feature flag refactor.",
+      "Maintainer reported compilation failure; Copilot attempted fixes across multiple commits.",
+      "Build errors persisted, partly due to protobuf generation and network issues.",
+      "Maintainer repeatedly requested retry, but no successful build achieved.",
+      "PR was closed after ~6 days without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

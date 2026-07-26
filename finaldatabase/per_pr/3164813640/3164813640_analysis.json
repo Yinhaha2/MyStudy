@@ -1,0 +1,175 @@
+{
+  "pr_id": 3164813640,
+  "meta": {
+    "title": "Improve image flipper performance",
+    "html_url": "https://github.com/FarmBot/Farmbot-Web-App/pull/2493",
+    "repo": "FarmBot/Farmbot-Web-App",
+    "agent": "OpenAI_Codex",
+    "user": "roryaronson",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-21 06:22:21+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Add image preloading to the image flipper so that flipping through photos is snappy, with tests and tsconfig updates."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 6,
+      "additions": 136,
+      "deletions": 10,
+      "changes": 146,
+      "top1_file": "frontend/photos/images/__tests__/image_flipper_preload_test.tsx",
+      "top1_changes": 77,
+      "top1_change_ratio": 0.527,
+      "files_by_status": {
+        "added": 1,
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "frontend",
+        "(root)"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "image_preloading",
+      "snappy_ui"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Image preloading PR with tests but no maintainer review or engagement; closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 146,
+        "interpretation": "At 146 changed lines, this is a small edit by absolute volume. As a small performance PR it was closed without merge, likely due to lack of reviewer engagement rather than code quality."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "No formal review or human comment recorded; only codecov bot reported coverage.",
+      "performance_claim": "Preload next few images to make flipping snappy.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed without review engagement or explicit maintainer feedback."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent authored preloading code with tests but PR remained unreviewed and was closed, indicating process gap where Agent PRs may stall without active maintainer attention.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR includes test instructions but no before/after performance metrics; codecov reports 100% coverage.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without human review; no regression fixed.",
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added image preloading logic in image_flipper.tsx and flipper_image.tsx; preloads next few images when flipping through photos to reduce latency. Added tests and updated tsconfig for jest-dom types.",
+      "files_primary": [
+        "frontend/photos/images/image_flipper.tsx",
+        "frontend/photos/images/flipper_image.tsx"
+      ],
+      "files_secondary_observability": [
+        "frontend/photos/images/__tests__/image_flipper_preload_test.tsx",
+        "frontend/photos/images/interfaces.ts",
+        "tsconfig.dev.json",
+        "tsconfig.json"
+      ],
+      "secondary_note": "Test file and tsconfig updates support the feature.",
+      "change_trajectory": [
+        "Single commit adding preload logic, tests, and tsconfig changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "codecov[bot]",
+        "channel": "pr_comment",
+        "signal": "coverage_ok",
+        "summary": "Codecov reports 100% coverage for modified lines; no performance validation.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with preload implementation and tests; no human reviewer engaged; codecov bot reported coverage; PR closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

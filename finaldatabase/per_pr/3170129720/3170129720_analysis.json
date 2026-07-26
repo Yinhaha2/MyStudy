@@ -1,0 +1,174 @@
+{
+  "pr_id": 3170129720,
+  "meta": {
+    "title": "Add tail call optimization in VM",
+    "html_url": "https://github.com/mochilang/mochi/pull/2778",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-24 03:45:03+00:00",
+    "merged_at": "2025-06-24 03:45:25+00:00",
+    "closed_at": "2025-06-24 03:45:25+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Implement tail call optimization in the VM by reusing the current frame for immediately returned calls, along with a tail-recursive sum regression test."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 162,
+      "deletions": 72,
+      "changes": 234,
+      "top1_file": "runtime/vm/vm.go",
+      "top1_changes": 197,
+      "top1_change_ratio": 0.842,
+      "files_by_status": {
+        "modified": 1,
+        "added": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0061,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "tail_call_optimization",
+      "frame_reuse",
+      "stack_depth_reduction"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unoptimized_tail_calls"
+    ],
+    "outcome_reason": "merged_self_approved_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "low",
+    "notes": "OpenAI_Codex added tail call frame reuse in VM with regression test; merged within 22s by author, no human review, no benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 234,
+        "interpretation": "At 234 changed lines, this is a small edit by absolute volume. It fits a narrow, low-risk optimization that can be self-merged without external review, consistent with the fast merge observed."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0061,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review text available in the dataset.",
+      "performance_claim": "Tail call optimization reduces stack frame allocations, improving performance for recursive calls by reusing the current frame.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unoptimized_tail_calls",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Self-merged with no review; the agent's change was accepted without human validation of the tail call optimization correctness beyond included regression tests.",
+      "success_factors": [
+        "self_merged",
+        "included_regression_test",
+        "small_scope"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No review evidence",
+        "ci_auto": "No CI evidence"
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Regression test verifies tail recursion correctness but no performance benchmark is provided to substantiate the optimization benefit.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression occurred or was addressed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, tail calls are optimized by reusing the current VM frame when a call is immediately returned, eliminating unnecessary frame allocations. Added regression test files (tail_recursion.mochi, tail_recursion.ir.out, tail_recursion.out) to verify correct tail‑recursive execution.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/tail_recursion.mochi",
+        "tests/vm/valid/tail_recursion.ir.out",
+        "tests/vm/valid/tail_recursion.out"
+      ],
+      "secondary_note": "Test files are part of the regression suite for tail recursion correctness.",
+      "change_trajectory": [
+        "Single commit: tail call optimization in vm.go and regression test files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with tail call commit, labeled codex, and self-merged within 22 seconds, with no human interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "pr_id": 3061069405,
+  "meta": {
+    "title": "[source-mongo] Upgrade Debezium on mongo to 2.7.1.Final",
+    "html_url": "https://github.com/airbytehq/airbyte/pull/60253",
+    "repo": "airbytehq/airbyte",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-13 19:46:58+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-22 19:17:51+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Upgrade Debezium MongoDB connector to 2.7.1.Final to resolve buffer lock warning and improve sync performance for large databases."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 5,
+      "file_count": 3,
+      "additions": 17,
+      "deletions": 14,
+      "changes": 31,
+      "top1_file": "airbyte-integrations/connectors/source-mongodb-v2/build.gradle",
+      "top1_changes": 24,
+      "top1_change_ratio": 0.774,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "airbyte-integrations",
+        "docs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "CHANGES_REQUESTED": 1
+      },
+      "review_comment_count": 1,
+      "pr_comment_count": 9,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 27,
+      "event_counts": {
+        "committed": 5,
+        "review_requested": 1,
+        "commented": 9,
+        "labeled": 2,
+        "deployed": 5,
+        "renamed": 2,
+        "unlabeled": 1,
+        "reviewed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 215.51,
+      "first_review_delay_hours": 22.15,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "dependency_upgrade",
+      "buffer_lock_contention",
+      "mongo_change_stream_performance"
+    ],
+    "optimization_layer": "backend_connector",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_changes_requested_stale",
+    "review_dimensions": [
+      "design_or_approach",
+      "scope"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin attempted to copy an existing PR for Debezium upgrade but added unrelated Docker plugins; maintainer CHANGES_REQUESTED and PR closed for inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 31,
+        "interpretation": "At 31 changed lines across 3 files, this is a very small dependency update by absolute volume. The PR was closed—not merged—due to a maintainer-flagged unrelated change and subsequent inactivity, which is inconsistent with a typical small-step performance fix that would be merged quickly."
+      },
+      "lifecycle": {
+        "lifespan_hours": 215.51,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "unrelated_code_introduction",
+      "concern_detail": "Maintainer mwbayley questioned the addition of two Docker plugin lines in build.gradle, which were not related to the Debezium version upgrade and were likely copied from the original PR template. The agent's response did not address the concern and the PR was eventually closed.",
+      "performance_claim": "Upgrading Debezium to 2.7.1.Final fixes buffer lock contention and improves stability/performance for large MongoDB syncs.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "design_or_approach",
+        "scope"
+      ],
+      "rejection_signals": "Maintainer flagged unrelated changes, and PR was closed without merge after 7 days inactivity."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "The agent was instructed to copy an existing PR without changes but introduced unrelated Docker plugin lines. This shows a boundary in following precise instructions and maintaining scope.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "mwbayley reviewed the build.gradle diff and identified the Docker plugin additions as unrelated."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or reproduction steps provided; only narrative reference to Debezium issue.",
+      "regression_handling": "reject_close",
+      "regression_detail": "Maintainer requested changes but no fix was applied; PR auto-closed after inactivity.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "The PR updates the Debezium MongoDB connector dependency version from an unspecified version to 2.7.1.Final in build.gradle and metadata.yaml, and adds a changelog entry in docs/mongodb-v2.md. It also introduces unrelated Docker plugin imports.",
+      "files_primary": [
+        "airbyte-integrations/connectors/source-mongodb-v2/build.gradle",
+        "airbyte-integrations/connectors/source-mongodb-v2/metadata.yaml",
+        "docs/integrations/sources/mongodb-v2.md"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit introduced Debezium upgrade and also added Docker plugin lines.",
+        "Subsequent commits adjusted version numbers, but Docker plugins remained.",
+        "Maintainer flagged Docker plugins as unrelated, no removal committed.",
+        "PR auto-closed after 7 days inactivity."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "mwbayley",
+        "channel": "inline_review_comment",
+        "signal": "unrelated_code_introduced",
+        "summary": "Questioned Docker plugin additions in build.gradle as unrelated to the Debezium upgrade.",
+        "blocking": true,
+        "action_taken": "No action; PR eventually closed."
+      },
+      {
+        "source": "mwbayley",
+        "channel": "formal_review",
+        "signal": "changes_requested_no_body",
+        "summary": "CHANGES_REQUESTED formal review with no body text; substantive feedback delivered via inline comment.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_test_results",
+        "summary": "0 tests results posted.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with dependency upgrade and unexpected Docker plugin additions.",
+      "~22h later, maintainer mwbayley CHANGES_REQUESTED with inline question about unrelated plugins.",
+      "Devin responded that plugins were part of original PR but did not remove them.",
+      "No further commits; PR auto-closed after 7 days of inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

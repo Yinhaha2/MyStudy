@@ -1,0 +1,208 @@
+{
+  "pr_id": 3271747658,
+  "meta": {
+    "title": "Update hufilter URLs to jsDelivr CDN and add missing EF migration",
+    "html_url": "https://github.com/collinbarrett/FilterLists/pull/5001",
+    "repo": "collinbarrett/FilterLists",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-29 02:32:34+00:00",
+    "merged_at": "2025-07-29 02:55:00+00:00",
+    "closed_at": "2025-07-29 02:55:00+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "49",
+    "body_summary": "Updated hufilter filter list URLs from deprecated raw GitHub URLs to jsDelivr CDN for better reliability and performance; added missing EF Core migration and updated copilot instructions."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 7,
+      "additions": 88038,
+      "deletions": 8,
+      "changes": 88046,
+      "top1_file": "services/Directory/FilterLists.Directory.Infrastructure.Migrations/Migrations/20250729024745_UpdateHufilterUrlsToJsDelivr.Designer.cs",
+      "top1_changes": 87982,
+      "top1_change_ratio": 0.999,
+      "files_by_status": {
+        "added": 2,
+        "modified": 4,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "services"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 23,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "copilot_work_started": 2,
+        "renamed": 2,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "commented": 2,
+        "mentioned": 2,
+        "subscribed": 2,
+        "ready_for_review": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.374,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "cdn_migration",
+      "url_reliability_update"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_review_fix",
+    "review_dimensions": [
+      "process_compliance"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Copilot missed EF migration; maintainer requested fix and agent added it within 9 minutes; merged quickly."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 88046,
+        "interpretation": "At over 88,000 changed lines, this is a large edit by absolute volume, but the bulk is an auto-generated EF migration Designer file (~88k lines). The substantive change is just 2 URL lines in JSON and a few lines in copilot instructions. It fits a very small scope data fix PR, and the large auto-generated file is expected in .NET EF migrations. The merge was fast and expected for this kind of infrastructure change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.374,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "process_compliance",
+      "primary_concern": "missing_ef_migration",
+      "concern_detail": "Maintainer collinbarrett requested that Copilot add the missing EF Core migration to capture the URL changes and update copilot-instructions.md to prevent future oversights.",
+      "performance_claim": "jsDelivr CDN provides better reliability and performance compared to raw GitHub URLs.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "process_compliance"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "49",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Agent successfully performed the intended data change but omitted a required EF Core migration step, violating repository conventions. The maintainer caught this and the agent fixed it, illustrating a gap in following domain-specific processes for .NET data migrations.",
+      "success_factors": [
+        "maintainer_caught_missing_migration",
+        "agent_responded_quickly",
+        "linked_issue"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer collinbarrett reviewed the PR diff and noticed the missing EF Core migration, requesting the agent to add it."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "New CDN URLs return HTTP 200, old URLs 404; performance improvement is narrative without benchmark.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Agent added the missing EF migration and updated copilot instructions in the same PR; merged immediately after.",
+      "evidence_gap": "narrative_perf_claim_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Updated two hufilter filter-list URLs in FilterListViewUrl.json from raw.githubusercontent.com to cdn.jsdelivr.net, and added an EF Core migration to reflect the URL changes in the database, along with copilot-instructions.md update.",
+      "files_primary": [
+        "services/Directory/data/FilterListViewUrl.json",
+        "services/Directory/FilterLists.Directory.Infrastructure.Migrations/Migrations/20250729024745_UpdateHufilterUrlsToJsDelivr.cs"
+      ],
+      "files_secondary_observability": [
+        "services/Directory/FilterLists.Directory.Infrastructure.Migrations/Migrations/20250729024745_UpdateHufilterUrlsToJsDelivr.Designer.cs",
+        "services/Directory/FilterLists.Directory.Infrastructure.Migrations/Migrations/QueryDbContextModelSnapshot.cs",
+        ".github/copilot-instructions.md",
+        "global.json"
+      ],
+      "secondary_note": "The Designer.cs is a large auto-generated file; global.json had unrelated SDK version bumps; packages-microsoft-prod.deb was added then removed as part of bot environment changes.",
+      "change_trajectory": [
+        "Initial plan and URL update in FilterListViewUrl.json.",
+        "Maintainer comment requesting EF migration and instructions update.",
+        "Agent commit added EF migration (Designer.cs, .cs, snapshot update) and enhanced copilot-instructions.md."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "collinbarrett",
+        "channel": "pr_comment",
+        "signal": "missing_ef_migration_request",
+        "summary": "Requested EF Core migration and update to copilot-instructions.md.",
+        "blocking": true,
+        "action_taken": "Copilot added migration and updated instructions in commit 7d15af6."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed addition of EF migration and instructions update.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with URL changes and no migration.",
+      "Within minutes maintainer @collinbarrett requested EF migration and instructions update.",
+      "Copilot responded with commit adding migration and instructions file; PR merged immediately after."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "pr_id": 3175127708,
+  "meta": {
+    "title": "Optimize dataset query loops",
+    "html_url": "https://github.com/mochilang/mochi/pull/3168",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-25 10:33:48+00:00",
+    "merged_at": "2025-06-25 10:56:06+00:00",
+    "closed_at": "2025-06-25 10:56:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Implement predicate pushdown in dataset query loops by detecting variables referenced in WHERE filters and pushing filters down to reduce intermediate data; add cross join filter pushdown test."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 252,
+      "deletions": 6,
+      "changes": 258,
+      "top1_file": "runtime/vm/queryutil.go",
+      "top1_changes": 139,
+      "top1_change_ratio": 0.539,
+      "files_by_status": {
+        "added": 4,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.372,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "predicate_pushdown",
+      "query_loop_optimization",
+      "filter_reduction"
+    ],
+    "optimization_layer": "query_execution_engine",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "nested_loop"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Codex implemented a VM-level predicate pushdown optimization; author self-merged within 22 minutes with no review and only narrative/test evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 258,
+        "interpretation": "At 258 changed lines, this is a small edit by absolute volume. It fits a small-step, fast-turnaround performance PR and is consistent with the low-friction self-merge observed."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.372,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback; PR self-merged by author.",
+      "performance_claim": "The PR claims to optimize dataset query loops by pushing down WHERE filter predicates, reducing intermediate data processing.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "nested_loop",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Codex implemented a VM-level predicate pushdown optimization in Go; the change was correct and required understanding of query plan manipulation. The self-merge suggests high maintainer trust in the agent's output for this class of optimization.",
+      "success_factors": [
+        "small_scope",
+        "author_self_merge",
+        "test_coverage"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "The PR author reviewed and tested the predicate pushdown implementation before self-merging."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "The PR includes a test command `go test ./tests/vm -update` and adds test files for cross join filter pushdown, but provides no performance benchmark or before/after metrics.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions were reported; the change added new functionality and tests.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/queryutil.go (new file), implements detection of variables referenced in query predicates and pushes down WHERE filters into dataset query loops to avoid processing unnecessary rows. Modifies runtime/vm/vm.go to integrate the optimization. Adds test case cross_join_filter.mochi and expected outputs.",
+      "files_primary": [
+        "runtime/vm/queryutil.go",
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/vm/valid/cross_join_filter.ir.out",
+        "tests/vm/valid/cross_join_filter.mochi",
+        "tests/vm/valid/cross_join_filter.out"
+      ],
+      "secondary_note": "Test files added to validate the new predicate pushdown feature.",
+      "change_trajectory": [
+        "Single commit 'vm: push down where predicate' adds queryutil.go with variable detection and predicate pushdown logic, updates vm.go to call it, and adds test case with expected outputs."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit implementing predicate pushdown.",
+      "Author self-merged within ~22 minutes with no review or comment activity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

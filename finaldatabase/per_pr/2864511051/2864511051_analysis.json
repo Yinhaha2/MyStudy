@@ -1,0 +1,213 @@
+{
+  "pr_id": 2864511051,
+  "meta": {
+    "title": "source-open-exchange-rates: Remove stream_state interpolation, update CDK",
+    "html_url": "https://github.com/airbytehq/airbyte/pull/54165",
+    "repo": "airbytehq/airbyte",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-02-19 22:14:23+00:00",
+    "merged_at": null,
+    "closed_at": "2025-02-25 21:59:52+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "chore",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "3",
+    "body_summary": "Remove stream_state interpolation from source-open-exchange-rates connector and update to latest CDK to support concurrent stream execution; bump patch version."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 196,
+      "additions": 5156,
+      "deletions": 4486,
+      "changes": 9642,
+      "top1_file": "airbyte-integrations/connectors/source-amazon-ads/source_amazon_ads/manifest.yaml",
+      "top1_changes": 1073,
+      "top1_change_ratio": 0.1113,
+      "files_by_status": {
+        "added": 8,
+        "modified": 172,
+        "removed": 15,
+        "renamed": 1
+      },
+      "directory_count": 4,
+      "directories": [
+        ".secrets",
+        "airbyte-cdk",
+        "airbyte-integrations",
+        "docs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 22,
+      "event_counts": {
+        "committed": 8,
+        "review_requested": 2,
+        "commented": 2,
+        "labeled": 4,
+        "reviewed": 1,
+        "deployed": 3,
+        "unlabeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 143.758,
+      "first_review_delay_hours": 0.175,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "concurrent_stream_support",
+      "stream_state_removal",
+      "connector_refactor"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_after_approval",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "unknown",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Devin updated source-open-exchange-rates to remove stream_state interpolation and update CDK; pnilan approved with empty review body but PR was closed without merge after ~6 days."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 9642,
+        "interpretation": "At 9642 changed lines across 196 files, this appears as a large change by absolute volume, but the vast majority comes from a merge of master; the actual source-open-exchange-rates changes are small (~50 lines). The PR was closed without merge despite an approval, likely due to inactivity or superseding."
+      },
+      "lifecycle": {
+        "lifespan_hours": 143.758,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No substantive review feedback; approval was submitted with empty body.",
+      "performance_claim": "Enable concurrent stream execution by removing deprecated stream_state interpolation, replacing it with stream_interval.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed without merge after approval; no explicit rejection comment. Likely stale or superseded."
+    },
+    "capability_boundary": {
+      "topic": "3",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Required updating a low-code connector to align with CDK version removal of stream_state; the change was straightforward manifest edits and version bumps, with no performance evidence needed. PR was approved but closed without merge, possibly due to process or alternative implementation.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "unknown",
+      "reproducibility_notes": "No performance claim was quantified; the change is a structural refactor to remove a deprecated feature, so performance reproducibility is not relevant.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "PR closed without merge; no regression fix cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In manifest.yaml, replaced stream_state usage with stream_interval in the increments configuration; updated CDK version in metadata.yaml and bumped patch version; added changelog entry. The large merge commit from master brought in unrelated changes to many other connectors.",
+      "files_primary": [
+        "airbyte-integrations/connectors/source-open-exchange-rates/manifest.yaml",
+        "airbyte-integrations/connectors/source-open-exchange-rates/metadata.yaml",
+        "docs/integrations/sources/open-exchange-rates.md"
+      ],
+      "files_secondary_observability": [
+        "airbyte-integrations/connectors/source-amazon-ads/source_amazon_ads/manifest.yaml",
+        "airbyte-integrations/connectors/source-amazon-ads/unit_tests/test_report_streams.py",
+        "airbyte-integrations/connectors/destination-mssql-v2/src/main/kotlin/io/airbyte/integrations/destination/mssql/v2/convert/AirbyteValueToSqlValueTest.kt"
+      ],
+      "secondary_note": "All files under airbyte-integrations/connectors/ touched by the merge of master at commit 7fcd817d; the majority of diff is from bulk CDK and unrelated connector updates.",
+      "change_trajectory": [
+        "Initial commit to trigger CI (metadata tweak).",
+        "Removed stream_state interpolation in manifest.yaml and added stream_interval.",
+        "Updated CDK version and bumped patch in metadata.yaml.",
+        "Reverted baseImage to specific version with SHA (ci fix).",
+        "Added changelog entry in open-exchange-rates.md.",
+        "pnilan manually edited changelog entry.",
+        "pnilan fixed an error in manifest.yaml.",
+        "Merged latest master branch, bringing thousands of unrelated changes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "pnilan",
+        "channel": "formal_review",
+        "signal": "approved_empty_body",
+        "summary": "Formal APPROVED review with no comment.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot introduced the PR and noted it will watch for comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployment preview for airbyte-docs.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR based on internal Airbyte issue to remove stream_state.",
+      "pnilan approved within minutes with no feedback.",
+      "Over ~6 days, pnilan made minor edits (changelog, manifest fix) and merged master.",
+      "pnilan closed the PR without merge; no further discussion."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

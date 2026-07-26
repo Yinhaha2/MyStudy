@@ -1,0 +1,172 @@
+{
+  "pr_id": 3241741490,
+  "meta": {
+    "title": "Improve Fortran set-op folding",
+    "html_url": "https://github.com/mochilang/mochi/pull/9475",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-18 03:43:44+00:00",
+    "merged_at": "2025-07-18 03:44:46+00:00",
+    "closed_at": "2025-07-18 03:44:46+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 14,
+    "topic_name": "14",
+    "body_summary": "Add constant folding for chained Fortran set operations when all operands are constants, with documentation updates."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 114,
+      "deletions": 4,
+      "changes": 118,
+      "top1_file": "compiler/x/fortran/compiler.go",
+      "top1_changes": 104,
+      "top1_change_ratio": 0.881,
+      "files_by_status": {
+        "modified": 3
+      },
+      "directory_count": 2,
+      "directories": [
+        "compiler",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.017,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "set_operation_constant_folding",
+      "compiler_optimization"
+    ],
+    "optimization_layer": "compiler_optimization",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit compiler optimization self-merged by author with no review or explicit performance evidence; relies on inherent compile-time improvement and existing test suite."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 118,
+        "interpretation": "At 118 changed lines, this is a small edit by absolute volume. It fits a small-step, self-contained compiler performance PR and was immediately self-merged without review, consistent with low-friction acceptance."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.017,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_reviewer_engagement",
+      "concern_detail": "No formal review, inline comments, or PR discussion; the PR was merged by the author within about 1 minute of creation.",
+      "performance_claim": "Chained set operations with all constant operands are now folded at compile time, eliminating runtime evaluation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none_identified_in_review",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "14",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler constant folding is a domain-specific backend optimization; the agent successfully delivered a small, working change that required no reviewer intervention.",
+      "success_factors": [
+        "small_scope",
+        "passed_existing_tests",
+        "no_review_barrier",
+        "self_merge_by_maintainer"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No code-review interactions recorded.",
+        "ci_auto": "CI status not reflected in the payload; the PR description mentions 'go test ./...' as the testing instruction."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data; the optimization is validated only implicitly by the existing tests, with no before/after performance measurement.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or review issues were raised; the PR was merged without modifications.",
+      "evidence_gap": "narrative_only_no_perf_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compiler/x/fortran/compiler.go, lighten constant folding logic to evaluate chained set operations (union, intersection, etc.) when all operands are constants, with corresponding documentation updates in TASKS.md and machine README.",
+      "files_primary": [
+        "compiler/x/fortran/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "compiler/x/fortran/TASKS.md",
+        "tests/machine/x/fortran/README.md"
+      ],
+      "secondary_note": "Documentation files record the new feature and add a test entry; no runtime measurement artefacts.",
+      "change_trajectory": [
+        "Single commit adds constant folding logic in compiler.go, updates TASKS.md, and machine README."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR self-merged by tamnd within 1 minute of creation; no review or external interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "pr_id": 3128833247,
+  "meta": {
+    "title": "Improve compiler string slicing",
+    "html_url": "https://github.com/mochilang/mochi/pull/209",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-09 00:46:12+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-09 00:58:55+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": null,
+    "topic_name": "14",
+    "body_summary": "Specialize string slicing helpers for Go, Python, and TypeScript compilers and add compilation tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 8,
+      "additions": 245,
+      "deletions": 29,
+      "changes": 274,
+      "top1_file": "compile/py/compiler.go",
+      "top1_changes": 73,
+      "top1_change_ratio": 0.266,
+      "files_by_status": {
+        "modified": 3,
+        "added": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "compile",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.212,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "string_slicing_optimization",
+      "compiler_codegen_specialization",
+      "type_selection_lowering"
+    ],
+    "optimization_layer": "compiler",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_closed_no_explanation",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "unknown",
+    "confidence": "medium",
+    "notes": "Single-commit compiler string slicing specialization closed by author ~12 min after creation with no review or comments; lacks benchmarks."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 274,
+        "interpretation": "At 274 changed lines, this is a small-to-medium edit by absolute volume, touching compiler backends and test files. As a performance-oriented compiler specialization PR, it was closed without merge by the author shortly after opening with no reviewer engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.212,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No review or comments were provided before the PR was closed.",
+      "performance_claim": "Specialized string slicing helpers for each compiler backend (Go, Python, TypeScript) should improve performance over generic slicing code.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by author tamnd ~12 minutes after creation with no merge; labeled 'codex'; no explanation given."
+    },
+    "capability_boundary": {
+      "topic": "14",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Compiler code generation specialization requires deep backend knowledge; without validation or maintainer engagement, the PR was self-closed.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmarks or profiler data; only compilation tests added.",
+      "regression_handling": "unknown",
+      "regression_detail": "No review, so no feedback on correctness.",
+      "evidence_gap": "no_performance_evidence"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added specialized string slicing helper functions in Go, Python, and TypeScript compilers (compile/go/compiler.go, compile/py/compiler.go, compile/ts/compiler.go) and corresponding test output files (tests/compiler/valid/slice.*.out). Also added a slice test source (tests/compiler/valid/slice.mochi).",
+      "files_primary": [
+        "compile/go/compiler.go",
+        "compile/py/compiler.go",
+        "compile/ts/compiler.go"
+      ],
+      "files_secondary_observability": [
+        "tests/compiler/valid/slice.go.out",
+        "tests/compiler/valid/slice.mochi",
+        "tests/compiler/valid/slice.out",
+        "tests/compiler/valid/slice.py.out",
+        "tests/compiler/valid/slice.ts.out"
+      ],
+      "secondary_note": "Test files validate the output of the new slicing helpers.",
+      "change_trajectory": [
+        "Single commit adding specialization per backend and test cases."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author opened PR with compiler specialization and test, labeled it 'codex', and closed it after 12 minutes with no review or comment."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

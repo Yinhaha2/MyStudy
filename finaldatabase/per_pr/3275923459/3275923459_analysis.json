@@ -1,0 +1,205 @@
+{
+  "pr_id": 3275923459,
+  "meta": {
+    "title": "Add tx_index and block_number to dex.trades",
+    "html_url": "https://github.com/duneanalytics/spellbook/pull/8572",
+    "repo": "duneanalytics/spellbook",
+    "agent": "Cursor",
+    "user": "0xRobin",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-07-30 07:03:53+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 2,
+    "topic_name": "2",
+    "body_summary": "Add tx_index column to dex.trades and propagate to related models (enrichment macros, OneInch, 0x) to improve efficiency of spells like dex.sandwiches and dex.atomic_arbitrages."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 14,
+      "additions": 27,
+      "deletions": 10,
+      "changes": 37,
+      "top1_file": "dbt_subprojects/dex/models/_projects/zeroex/zeroex_native_trades.sql",
+      "top1_changes": 5,
+      "top1_change_ratio": 0.135,
+      "files_by_status": {
+        "modified": 14
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "dbt_subprojects"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 7,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 20,
+      "event_counts": {
+        "committed": 4,
+        "review_requested": 2,
+        "convert_to_draft": 1,
+        "reviewed": 1,
+        "labeled": 3,
+        "commented": 7,
+        "ready_for_review": 1,
+        "unlabeled": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": 0.0025,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "tx_index_addition",
+      "query_efficiency",
+      "transaction_ordering"
+    ],
+    "optimization_layer": "data_pipeline",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_no_merge_unknown_reason",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Cursor added tx_index column to dex.trades and related models; bot review found no issues; PR closed without merge and no human feedback; no performance evidence provided."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 37,
+        "interpretation": "At 37 changed lines across 14 files, this is a very small and scattered change typical of a simple column addition. The PR was closed without merge, which is unexpected for such a low-risk change; likely due to missing reviewer attention or submission process issues."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No human review feedback; only bot review which raised no issues.",
+      "performance_claim": "Improves efficiency of related spells like dex.sandwiches and dex.atomic_arbitrages by adding tx_index for accurate transaction ordering on sub-second blocks.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed without merge; no explicit rejection or feedback in review comments."
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Cursor",
+      "boundary_type": "process",
+      "boundary_notes": "Agent correctly added the column across many SQL models; merge failure lies in process (draft → ready-for-review but no maintainer action).",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Copilot bot reviewed changed files and generated no comments; no human maintainer code review occurred."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics for the claimed efficiency gain; only narrative claim in PR body.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression identified; PR closed without merge.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added tx_index column to dex.trades main model, enrichment macros (enrich_dex_trades, enrich_balancer_v3_dex_trades), and propagated to OneInch and 0x trade models and native fills across chains. Some files also had NULL tx_index placeholder.",
+      "files_primary": [
+        "dbt_subprojects/dex/models/trades/dex_trades.sql",
+        "dbt_subprojects/dex/macros/models/enrich_dex_trades.sql",
+        "dbt_subprojects/dex/macros/models/enrich_balancer_v3_dex_trades.sql",
+        "dbt_subprojects/dex/models/_projects/zeroex/zeroex_native_trades.sql"
+      ],
+      "files_secondary_observability": [
+        ".github/workflows/cla.yml"
+      ],
+      "secondary_note": "Most changes are small additions of tx_index column; .github/workflows/cla.yml change is unrelated merge artifact.",
+      "change_trajectory": [
+        "Initial commit: added tx_index to main dex_trades and enrichment macros.",
+        "Second commit: added tx_index with NULL value to 1inch and 0x trade models.",
+        "Merge main (non-performance CLA file update).",
+        "Third commit: propagated tx_index to OneInch and 0x native fills models across Ethereum, Arbitrum, BNB, Optimism, Polygon chains."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "copilot-pull-request-reviewer[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_no_issues",
+        "summary": "Copilot bot reviewed 3 changed files and found no issues.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "dune-eng",
+        "channel": "pr_comment",
+        "signal": "workflow_approval",
+        "summary": "Multiple workflow runs approved by dune-eng account.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "cla_signed",
+        "summary": "CLA signed confirmation.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Cursor agent opened PR as draft with initial column addition.",
+      "Copilot bot reviewed and found no issues.",
+      "Author (0xRobin) merged main, then Cursor added more column additions for chain-specific models.",
+      "Author marked PR ready for review but no human reviewer engaged; PR eventually closed without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

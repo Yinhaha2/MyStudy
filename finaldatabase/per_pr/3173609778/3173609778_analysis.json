@@ -1,0 +1,214 @@
+{
+  "pr_id": 3173609778,
+  "meta": {
+    "title": "feat: implement ISR for booking pages with Google Calendar webhook integration",
+    "html_url": "https://github.com/calcom/cal.com/pull/22017",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-24 23:47:46+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-04 17:03:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "-1",
+    "body_summary": "Add Next.js ISR with 1-hour TTL to booking pages and Google Calendar webhook revalidation with a fallback task queue."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 8,
+      "additions": 449,
+      "deletions": 200,
+      "changes": 649,
+      "top1_file": "apps/web/app/(booking-page-wrapper)/[user]/[type]/cache-eligibility.ts",
+      "top1_changes": 278,
+      "top1_change_ratio": 0.428,
+      "files_by_status": {
+        "added": 2,
+        "modified": 5,
+        "removed": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 20,
+      "event_counts": {
+        "committed": 6,
+        "commented": 4,
+        "deployed": 8,
+        "head_ref_force_pushed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 233.26,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "isr_caching",
+      "booking_page_revalidation",
+      "webhook_triggered_cache_invalidation"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin implemented ISR + webhook revalidation; PR auto-closed after 9 days of inactivity with no maintainer review; narrative performance claim only, insufficient evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 649,
+        "interpretation": "At 649 changed lines across 8 files, this is a medium-sized ISR caching feature by absolute volume. It was closed without merge due to over 9 days of inactivity with zero maintainer engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 233.26,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_feedback",
+      "concern_detail": "No formal review or human review comments in the dataset; only bot messages and a cleanup commit were present.",
+      "performance_claim": "ISR caching with 1-hour TTL reduces server load and speeds up page loads for booking pages; webhook triggers automatic revalidation.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "no_caching_for_booking_pages",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Devin bot auto-closed the PR due to >7 days inactivity; no maintainer interaction occurred."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Large-scale ISR + webhook feature spanning multiple packages; closed due to lack of maintainer engagement and testing limitations, indicating process-level barriers for Agent PRs requiring manual verification and integration testing.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body acknowledges local testing was blocked due to database schema error; no before/after metrics or deployment verification performed.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge due to inactivity; no regression analysis conducted.",
+      "evidence_gap": "narrative_only_no_benchmark_or_deployment_test"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added Next.js unstable_cache with 1-hour revalidation to the booking page ([user]/[type]) and Google Calendar webhook handler to trigger revalidation via server actions and a fallback task queue.",
+      "files_primary": [
+        "apps/web/app/(booking-page-wrapper)/[user]/[type]/page.tsx",
+        "apps/web/app/(booking-page-wrapper)/[user]/[type]/actions.ts",
+        "packages/app-store/googlecalendar/api/webhook.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/features/tasker/tasks/revalidate-booking-pages.ts",
+        "packages/features/tasker/tasker.ts",
+        "packages/features/tasker/tasks/index.ts",
+        "packages/lib/server/repository/eventType.ts",
+        "apps/web/app/(booking-page-wrapper)/[user]/[type]/cache-eligibility.ts (added then removed)"
+      ],
+      "secondary_note": "Most churn is from the cache-eligibility.ts file (278 lines added/removed) before migration to EventTypeRepository; final cleanup commit by hbjORbj reduced unnecessary code.",
+      "change_trajectory": [
+        "Initial commit (00ced425): added ISR caching, server actions, webhook integration, and tasker job.",
+        "Conditional ISR logic added (4aeef9e) for Google Calendar users.",
+        "Optimized cache eligibility check into cache-eligibility.ts (01494c) with lightweight query.",
+        "Migrated checkCacheEligibility to EventTypeRepository (7968ad) and simplified revalidation.",
+        "Removed cache-eligibility.ts file (a6272e) and finalized repository pattern.",
+        "hbjORbj cleanup commit (7279d274) refined imports and reduced redundancy.",
+        "Devin bot closed PR after 9+ days of inactivity (no human review)."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot introduced itself and offered automatic comment/CI assistance.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel posted skipped deployment previews for cal and cal-eu.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "delve-auditor[bot]",
+        "channel": "pr_comment",
+        "signal": "security_scan_pass",
+        "summary": "Security review found no vulnerabilities.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closed due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with ISR implementation and Google Calendar webhook integration.",
+      "Over the next few hours, Devin added conditional caching, optimized eligibility check, migrated to EventTypeRepository, and removed cache-eligibility.ts.",
+      "hbjORbj committed a cleanup commit on 2025-06-25.",
+      "No human review activity; after over 9 days, Devin bot closed the PR due to inactivity."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

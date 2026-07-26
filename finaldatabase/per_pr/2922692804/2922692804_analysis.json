@@ -1,0 +1,191 @@
+{
+  "pr_id": 2922692804,
+  "meta": {
+    "title": "fix: optimize user deletion process with queue-based system",
+    "html_url": "https://github.com/Cap-go/capgo/pull/1077",
+    "repo": "Cap-go/capgo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-03-16 01:34:01+00:00",
+    "merged_at": "2025-03-16 14:42:06+00:00",
+    "closed_at": "2025-03-16 14:42:06+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": 29,
+    "topic_name": "29",
+    "body_summary": "Implement queue-based user deletion with timeout handling, SQL migration, and tests to improve reliability and prevent Edge function timeouts."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 4,
+      "additions": 224,
+      "deletions": 23,
+      "changes": 247,
+      "top1_file": "supabase/functions/_backend/triggers/on_user_delete.ts",
+      "top1_changes": 81,
+      "top1_change_ratio": 0.328,
+      "files_by_status": {
+        "added": 2,
+        "modified": 2
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "supabase"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 7,
+      "event_counts": {
+        "committed": 2,
+        "commented": 2,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 13.135,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "queue_based_deletion",
+      "timeout_handling",
+      "sql_optimization"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "unknown"
+    ],
+    "outcome_reason": "merged_no_human_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Devin queue-based deletion PR merged without any human review or performance evidence; only bot comments present."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 247,
+        "interpretation": "At 247 changed lines across 4 files, this is a small-to-medium absolute edit. It fits a targeted backend performance fix that was merged without formal review, consistent with a low-friction process for bot-authored PRs."
+      },
+      "lifecycle": {
+        "lifespan_hours": 13.135,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or CHANGES_REQUESTED feedback was recorded; only automated bot introductory and skip messages.",
+      "performance_claim": "Queue-based deletion with timeout handling and SQL optimization improves reliability and prevents Edge function timeouts.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unknown",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "29",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent PR merged entirely without human review; the process boundary indicates that the repository trusts bot-authored changes for this component without requiring maintainer validation.",
+      "success_factors": [
+        "bot_authorship_accepted_by_repo",
+        "small_scope",
+        "automated_ci_fixes"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiler evidence; only unit tests and narrative performance claim in PR body.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions observed; PR merged without revert or human regression checks.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduce queue-based user deletion system with timeout handling and a new SQL migration table. Update the frontend delete account page and the backend trigger function to use a queue; add unit tests.",
+      "files_primary": [
+        "supabase/functions/_backend/triggers/on_user_delete.ts",
+        "supabase/migrations/20250316012705_user_deletion_queue.sql",
+        "src/pages/delete_account.vue",
+        "supabase/tests/user_deletion.test.ts"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Initial commit: queue-based deletion implementation across backend, frontend, and test files.",
+        "Autofix CI applied minor formatting corrections to delete_account.vue."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_introduction",
+        "summary": "Devin bot introduced itself and offered automatic comment/CI handling.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "review_skipped_bot_user",
+        "summary": "CodeRabbit skipped automated review because the PR author is a bot.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with all implementation changes and tests.",
+      "Autofix CI applied formatting fix within minutes; no human reviewer engaged.",
+      "Maintainer riderx merged the PR after ~13 hours with no additional comments."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

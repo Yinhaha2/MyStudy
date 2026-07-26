@@ -1,0 +1,177 @@
+{
+  "pr_id": 3240693840,
+  "meta": {
+    "title": "Disable uv-run",
+    "html_url": "https://github.com/marin-community/marin/pull/1458",
+    "repo": "marin-community/marin",
+    "agent": "OpenAI_Codex",
+    "user": "dlwh",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-17 19:33:10+00:00",
+    "merged_at": "2025-07-18 04:53:42+00:00",
+    "closed_at": "2025-07-18 04:53:42+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 9,
+    "topic_id": 9,
+    "topic_name": "9",
+    "body_summary": "Disable the uv-run command in executor.py to prevent out-of-memory errors caused by repeatedly reinstalling CUDA torch on every run."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 4,
+      "deletions": 4,
+      "changes": 8,
+      "top1_file": "marin/execution/executor.py",
+      "top1_changes": 8,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "marin"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 9.342,
+      "first_review_delay_hours": 1.039,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "disable_oom_causing_command",
+      "memory_usage_safety"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Tiny change commenting out uv-run to prevent OOM from CUDA torch reinstall; merged quickly with approval but no substantive review text."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 8,
+        "interpretation": "At 8 changed lines in a single file, this is a tiny edit by absolute volume. It fits a small-step quick-fix performance PR and is consistent with the fast, low-friction merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 9.342,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No substantive review text available; maintainer chiheem approved without comments.",
+      "performance_claim": "Disabling uv-run prevents OOM caused by reinstalling CUDA torch on each execution, improving memory stability.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "oom_causing_behavior",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Disabling a command-line tool call in a Python executor is a trivial change requiring no benchmark; the agent succeeded in producing a minimal, low-risk fix that merged without substantive review feedback.",
+      "success_factors": [
+        "tiny_change",
+        "low_risk",
+        "quick_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No repro steps or benchmark; PR body only mentions OOM from reinstalling CUDA torch.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions; the change simply comments out a problematic command.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In marin/execution/executor.py, commented out the uv-run command to prevent out-of-memory errors caused by reinstalling CUDA torch on every execution. 4 lines added, 4 deleted.",
+      "files_primary": [
+        "marin/execution/executor.py"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Only one file modified.",
+      "change_trajectory": [
+        "Single commit by dlwh with message 'Comment out uv run due to OOM'."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "chiheem",
+        "channel": "formal_review",
+        "signal": "approved_no_body",
+        "summary": "Approved without comments.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with the single commit.",
+      "chiheem approved within ~1 hour.",
+      "PR merged after ~9.3 hours."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

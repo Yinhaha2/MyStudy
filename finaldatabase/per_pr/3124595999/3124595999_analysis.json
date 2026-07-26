@@ -1,0 +1,227 @@
+{
+  "pr_id": 3124595999,
+  "meta": {
+    "title": "Add Python stub file generation with documentation parsing",
+    "html_url": "https://github.com/lvgl/lv_binding_micropython/pull/388",
+    "repo": "lvgl/lv_binding_micropython",
+    "agent": "Claude_Code",
+    "user": "andrewleech",
+    "status": "open",
+    "state": "open",
+    "created_at": "2025-06-06 12:10:03+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 11,
+    "topic_name": "11",
+    "body_summary": "Add Python stub file (.pyi) generation for LVGL MicroPython, with parallel documentation parsing to provide IDE autocompletion and type hints; claims 6 seconds vs minutes build time."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 16,
+      "additions": 5917,
+      "deletions": 734,
+      "changes": 6651,
+      "top1_file": "stubs/lvgl_stubs/lvgl.pyi",
+      "top1_changes": 3984,
+      "top1_change_ratio": 0.599,
+      "files_by_status": {
+        "added": 9,
+        "modified": 5,
+        "removed": 2
+      },
+      "directory_count": 3,
+      "directories": [
+        "(root)",
+        "gen",
+        "stubs"
+      ]
+    },
+    "collaboration": {
+      "review_count": 8,
+      "review_states": {
+        "COMMENTED": 8
+      },
+      "review_comment_count": 16,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 8,
+      "event_counts": {
+        "head_ref_force_pushed": 2,
+        "reviewed": 1,
+        "labeled": 1,
+        "commented": 1,
+        "committed": 3
+      },
+      "lifespan_hours": 1001.14,
+      "first_review_delay_hours": 908.22,
+      "review_rounds": 8,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "parallel_documentation_parsing",
+      "stub_generation_speedup",
+      "multi_core_processing"
+    ],
+    "optimization_layer": "build_tooling",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "pending_revision",
+    "review_dimensions": [
+      "naming_style",
+      "code_structure",
+      "ai_generated_correctness"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Claude_Code generated a large stubs tool with narrative performance claim; maintainer reviewed code structure and naming conventions, author is addressing feedback in draft PR."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "open",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 6651,
+        "interpretation": "At 6651 changed lines across 16 files, this is a medium-to-large code generation PR by absolute volume, with the bulk (3984 lines) in a newly generated stubs file. It is still open pending review feedback; maintainer requested structural and naming changes rather than performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 1001.14,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "ai_generated_correctness_and_structure",
+      "concern_detail": "Maintainer PGNetHun emphasized that AI-generated code often contains inaccuracies and requested separation of stubs generation into gen_stubs.py, moving search dirs to a constant, and using uppercase make target naming conventions. Author andrewleech agreed to make changes.",
+      "performance_claim": "Parallel processing reduces stub generation time from minutes to 6 seconds using all CPU cores.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "naming_style",
+        "code_organization",
+        "ai_generated_validation"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "11",
+      "agent": "Claude_Code",
+      "boundary_type": "process",
+      "boundary_notes": "A large AI-produced build‑tool contribution requires extensive human code review; maintainer flagged structural issues (naming, file organization, auxiliary AI artifacts) and stressed the need for manual verification before merge.",
+      "success_factors": [
+        "author_cooperation",
+        "clear_review_feedback",
+        "draft_status_for_iteration"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer reviewed the PR and left inline comments on naming conventions (make target casing), AI-generated file presence (CLAUDE.md), incorrect build command, and code organization (separate gen_stubs.py, move search dirs to constant)."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR provides build steps and output statistics but no timing benchmark or before/after comparison; performance claim is narrative only.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Author has acknowledged all review points and indicated plans to remove CLAUDE.md, split generation logic, and rename build target.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added Python stub file generation to the LVGL MicroPython binding build, including a parallel documentation parser for 209 header files, a new gen_stubs.py module, and build targets; refactored stub generation from gen_mpy.py into separate modules and adjusted naming conventions.",
+      "files_primary": [
+        "gen/gen_stubs.py",
+        "gen/gen_mpy.py",
+        "stubs/lvgl_stubs/lvgl.pyi",
+        "micropython.mk"
+      ],
+      "files_secondary_observability": [
+        "stubs/.gitignore",
+        "stubs/lvgl_stubs/__init__.py",
+        "stubs/pyproject.toml",
+        "README.md",
+        "CLAUDE.md (to be removed)"
+      ],
+      "secondary_note": "CLAUDE.md and LVGL_DEVELOPMENT_NOTES.md are AI development artifacts not intended for commit; author agreed to remove them.",
+      "change_trajectory": [
+        "First commit (45373766): Added initial stub generation code within gen_mpy.py, package structure, build targets.",
+        "Second commit (f8918f4): Added LVGL JSON generation for enhanced bindings.",
+        "Third commit (0e8f6ea): Refactored stub generation into separate gen_stubs.py and gen_utils.py, removed code from gen_mpy.py, renamed stubs directory, added generated lvgl.pyi."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "PGNetHun",
+        "channel": "inline_review_comment",
+        "signal": "naming_convention",
+        "summary": "Requested uppercase make target 'LVGL_STUBS' and following existing naming conventions.",
+        "blocking": false,
+        "action_taken": "Author agreed to rename target."
+      },
+      {
+        "source": "PGNetHun",
+        "channel": "inline_review_comment",
+        "signal": "ai_generated_artifact",
+        "summary": "Identified CLAUDE.md as AI-generated file and expressed concern about AI-generated correctness.",
+        "blocking": false,
+        "action_taken": "Author agreed to remove CLAUDE.md and other development notes before taking out of draft."
+      },
+      {
+        "source": "PGNetHun",
+        "channel": "inline_review_comment",
+        "signal": "code_organization",
+        "summary": "Requested moving stub generation into separate gen_stubs.py module and extracting search dirs as a constant array.",
+        "blocking": false,
+        "action_taken": "Author agreed to refactor and will implement the changes."
+      },
+      {
+        "source": "andrewleech",
+        "channel": "pr_comment",
+        "signal": "draft_acknowledgment",
+        "summary": "Explained that PR was left in draft for manual cleanup and that Claude Code assisted with high-quality design acceleration.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR created by Andrew Leech with significant Claude Code assistance.",
+      "Over a month later, maintainer PGNetHun left multiple inline comments on naming, code structure, and AI-generated concerns.",
+      "Author responded promptly, agreed to all suggestions, and is preparing revisions."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

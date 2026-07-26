@@ -1,0 +1,249 @@
+{
+  "pr_id": 3244866747,
+  "meta": {
+    "title": "Fix syntax highlighting flicker by replacing PrismAsyncLight with Shiki",
+    "html_url": "https://github.com/buster-so/buster/pull/565",
+    "repo": "buster-so/buster",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-19 04:15:15+00:00",
+    "merged_at": "2025-07-23 03:54:40+00:00",
+    "closed_at": "2025-07-23 03:54:40+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "2",
+    "body_summary": "Replaced react-syntax-highlighter with Shiki to fix syntax highlighting flicker in reasoning slide-out component by using synchronous highlighting."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 11,
+      "file_count": 199,
+      "additions": 10840,
+      "deletions": 2606,
+      "changes": 13446,
+      "top1_file": "apps/web/src/components/ui/streaming/AppMarkdownStreaming/AppMarkdownStreaming.stories.tsx",
+      "top1_changes": 744,
+      "top1_change_ratio": 0.0554,
+      "files_by_status": {
+        "added": 100,
+        "modified": 85,
+        "removed": 14
+      },
+      "directory_count": 4,
+      "directories": [
+        ".vscode",
+        ".github",
+        "apps",
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "COMMENTED": 1
+      },
+      "review_comment_count": 3,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 9,
+        "commented": 2,
+        "mentioned": 1,
+        "subscribed": 1,
+        "reviewed": 1,
+        "deployed": 8,
+        "head_ref_force_pushed": 8
+      },
+      "lifespan_hours": 95.65,
+      "first_review_delay_hours": 0.0128,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "syntax_highlighting_flicker",
+      "async_to_sync_rendering",
+      "ui_latency_reduction"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_after_human_rewrite",
+    "review_dimensions": [
+      "code_quality",
+      "error_handling",
+      "type_safety"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading",
+      "ci_auto"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin replaced PrismAsyncLight with Shiki to fix flicker; initial implementation had type safety and error handling issues flagged by bot; human maintainer heavily edited the branch with many commits focusing on proper transpilation, line numbers, and token loading before merging."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 13446,
+        "interpretation": "At 13446 changed lines across 199 files, this is a large-scale refactor by absolute volume, but much of the churn comes from merging staging (bringing in many unrelated changes); the core syntax highlight change is concentrated in a few files (~500 lines). The PR resulted in a merged fix after extensive human rework."
+      },
+      "lifecycle": {
+        "lifespan_hours": 95.65,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "code_quality",
+      "primary_concern": "implementation_quality",
+      "concern_detail": "Greptile bot flagged: highlighterInstance typed as any, isReady set to true even on error, unused isDarkMode prop, and typo 'magneta5'.",
+      "performance_claim": "Replace async PrismAsyncLight with synchronous Shiki to eliminate flicker.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "async_loading_flicker",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "code_quality",
+        "error_handling",
+        "design"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "2",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Replacing a core UI library with async considerations and theme conversion challenged the agent; initial code required significant human intervention to handle transpilation, SSR, and line numbers.",
+      "success_factors": [
+        "maintainer took over and fixed implementation",
+        "bot review provided early quality signals",
+        "successful Vercel preview deployment",
+        "linked issue provided context"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading",
+        "ci_auto"
+      ],
+      "detection_detail": {
+        "code_reading": "Greptile bot identified type safety and error handling issues via automated code analysis.",
+        "ci_auto": "Vercel preview deployments were used to verify the build and visual correctness."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes test plan but no performance evidence; Vercel deployment succeeded after fixes.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Maintainer added commits for line numbers, proper transpilation, custom hook for token loading, and merged after multiple iterations.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced react-syntax-highlighter with Shiki in SyntaxHighlighter component, added shiki-light-theme.ts, removed react-syntax-highlighter dependency, and updated pnpm-lock.yaml. Multiple follow-up commits by maintainer added proper line numbers, transpilation, token loading, and font family fallbacks.",
+      "files_primary": [
+        "apps/web/src/components/ui/typography/SyntaxHighlight/SyntaxHighlighter.tsx",
+        "apps/web/src/components/ui/typography/SyntaxHighlight/shiki-light-theme.ts",
+        "apps/web/package.json"
+      ],
+      "files_secondary_observability": [
+        "pnpm-lock.yaml",
+        "apps/web/src/components/ui/streaming/StreamingMessageCode/StreamingMessageCode.tsx"
+      ],
+      "secondary_note": "199 files changed overall due to merges; core PR changes focused on SyntaxHighlight folder (~500 lines).",
+      "change_trajectory": [
+        "Initial Devin commit: replaced PrismAsyncLight with Shiki, added theme, removed dependency.",
+        "Merge staging (multiple times) to stay up-to-date.",
+        "Maintainer commits: 'move to shiki', 'accept line numbers', 'shiki with proper transpilation', 'more props for container', 'custom hook for token loading', 'Update SyntaxHighlighter.tsx', 'font family fallback'.",
+        "Final merge after multiple force-pushes and Vercel deploys."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "inline_review_comment",
+        "signal": "typo",
+        "summary": "Variable 'magneta5' appears misspelled.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "inline_review_comment",
+        "signal": "unused_prop",
+        "summary": "isDarkMode prop is unused; should implement dark mode or remove.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "inline_review_comment",
+        "signal": "error_handling_silent_fail",
+        "summary": "isReady set to true on error hides failure; should show error or retry.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "greptile-apps[bot]",
+        "channel": "formal_review",
+        "signal": "bot_overview_no_block",
+        "summary": "Greptile bot provided summary with confidence 2/5, flagged type safety and error handling.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel deployment previews succeeded after each push.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_intro",
+        "summary": "Devin bot announced automatic comment/CI response capabilities.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with initial Shiki replacement.",
+      "Greptile bot reviewed within minutes, flagged code quality issues.",
+      "Over 4 days, maintainer made numerous commits (force-pushes) to fix issues, add features, and adjust implementation.",
+      "Vercel deployed successfully each time.",
+      "No explicit approval from human reviewer, but maintainer self-merged after final iteration."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

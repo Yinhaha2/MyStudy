@@ -1,0 +1,192 @@
+{
+  "pr_id": 3083875801,
+  "meta": {
+    "title": "Add ChunkSize option to DownloadStream API for Azure Files",
+    "html_url": "https://github.com/Azure/azure-sdk-for-go/pull/24667",
+    "repo": "Azure/azure-sdk-for-go",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-22 16:03:22+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "16",
+    "body_summary": "Add optional ChunkSize to DownloadStreamOptions for Azure Files to allow larger chunk sizes when downloading large files, aiming to improve throughput."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 5,
+      "additions": 54,
+      "deletions": 18,
+      "changes": 72,
+      "top1_file": "sdk/storage/azfile/file/client_test.go",
+      "top1_changes": 61,
+      "top1_change_ratio": 0.8472,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "sdk"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 12,
+      "event_counts": {
+        "committed": 2,
+        "assigned": 2,
+        "copilot_work_started": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 1,
+        "labeled": 1,
+        "commented": 1,
+        "mentioned": 1,
+        "subscribed": 1
+      },
+      "lifespan_hours": 2808.1,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "download_chunk_size_configuration",
+      "io_throughput_optimization"
+    ],
+    "optimization_layer": "runtime_library",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "PR added ChunkSize config to Azure Files download with tests; no review engagement; closed as stale after ~2800h with no performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 72,
+        "interpretation": "At 72 changed lines across 5 files, this is a small edit by absolute volume. It adds an optional parameter with tests. The PR was closed without merge, due to lack of review engagement and being marked stale."
+      },
+      "lifecycle": {
+        "lifespan_hours": 2808.1,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "stale_inactivity",
+      "concern_detail": "No substantive review feedback received. After ~2800 hours, maintainer RickWinter closed the PR as stale, with no explicit performance or correctness issue raised.",
+      "performance_claim": "Allowing custom chunk sizes (e.g., 8MB) improves download performance for large files compared to default 4MB chunks.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR was closed as stale by RickWinter after bot warning; no performance validation performed."
+    },
+    "capability_boundary": {
+      "topic": "16",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Adding a configurable chunk size to an existing SDK is technically within agent capability, but the PR did not attract maintainer attention, likely due to missing performance evidence or competing priorities. The process boundary of stale closure suggests that agent PRs need prompt reviewer engagement or compelling evidence to avoid being overlooked.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Tests cover different chunk sizes but provide no performance numbers; no benchmark or timing data.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed without merge; no fix-in-PR cycle occurred.",
+      "evidence_gap": "no_performance_evidence_no_review_engagement"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added ChunkSize field to DownloadStreamOptions struct, updated DownloadStream and NewRetryReader methods to use it, and added tests exercising different chunk sizes.",
+      "files_primary": [
+        "sdk/storage/azfile/file/models.go",
+        "sdk/storage/azfile/file/client.go",
+        "sdk/storage/azfile/file/retry_reader.go"
+      ],
+      "files_secondary_observability": [
+        "sdk/storage/azfile/file/client_test.go",
+        "sdk/storage/azfile/file/responses.go"
+      ],
+      "secondary_note": "Test file contains new test cases for custom chunk sizes; responses.go adds ChunkSize to httpGetterInfo.",
+      "change_trajectory": [
+        "Initial plan commit (no code changes).",
+        "Single implementation commit adding ChunkSize to options, passing it through to retry reader, and adding tests.",
+        "No subsequent changes; PR went stale and was closed."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "stale_warning",
+        "summary": "Warning about inactivity; PR to be closed in 7 days.",
+        "blocking": false,
+        "action_taken": "No response."
+      },
+      {
+        "source": "RickWinter",
+        "channel": "pr_comment",
+        "signal": "stale_close",
+        "summary": "Closed stale PR.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with ChunkSize addition and tests; review requested.",
+      "No formal review feedback received; maintainer vibhansa-msft did not engage beyond labeling.",
+      "After ~71 days, github-actions bot posted a stale warning.",
+      "After ~117 days, maintainer RickWinter closed the PR as stale."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

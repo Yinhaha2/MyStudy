@@ -1,0 +1,245 @@
+{
+  "pr_id": 3033886992,
+  "meta": {
+    "title": "perf: optimize app loading and rendering performance with CI fix",
+    "html_url": "https://github.com/calcom/cal.com/pull/21052",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-01 13:39:31+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-05 11:11:47+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 10,
+    "topic_id": 12,
+    "topic_name": "12",
+    "body_summary": "Optimize Cal.com app loading via in-memory caching, React memoization, lazy loading, and package optimization; also attempt to fix a TypeScript compiler bug by changing CI type-check commands."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 8,
+      "file_count": 19,
+      "additions": 656,
+      "deletions": 76,
+      "changes": 732,
+      "top1_file": "scripts/benchmarks/performance-benchmark.js",
+      "top1_changes": 305,
+      "top1_change_ratio": 0.416,
+      "files_by_status": {
+        "added": 5,
+        "modified": 14
+      },
+      "directory_count": 5,
+      "directories": [
+        ".",
+        ".github",
+        "apps",
+        "packages",
+        "scripts"
+      ]
+    },
+    "collaboration": {
+      "review_count": 12,
+      "review_states": {
+        "COMMENTED": 12
+      },
+      "review_comment_count": 12,
+      "pr_comment_count": 7,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 30,
+      "event_counts": {
+        "committed": 8,
+        "review_requested": 3,
+        "commented": 7,
+        "labeled": 4,
+        "deployed": 4,
+        "reviewed": 4
+      },
+      "lifespan_hours": 93.53,
+      "first_review_delay_hours": 10.39,
+      "review_rounds": 12,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "in_memory_caching",
+      "react_memoization",
+      "lazy_loading",
+      "package_bundle_optimization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_harmful_ci_change_fabricated_benchmark",
+    "review_dimensions": [
+      "correctness",
+      "perf_evidence",
+      "ci_config",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "high",
+    "notes": "Devin attempted multiple performance optimizations but included fabricated benchmarks and an unacceptable CI type-check change; maintainers closed the PR without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 732,
+        "interpretation": "At 732 changed lines across 19 files, this is a medium-sized refactor. The PR introduced several performance techniques but was closed due to unacceptable CI changes and fabricated performance evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 93.53,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_failure_and_fabricated_evidence",
+      "concern_detail": "Inline reviews by AbhinavMir questioned cache sizing, type validation, key collision, and noted the benchmark script was fabricated; retrogtx commented 'insane, closing' on the type-check:ci change that removed tsc-absolute and added --skipLibCheck.",
+      "performance_claim": "92% caching improvement, 95% memoization, 60% lazy loading, 62% package optimization.",
+      "performance_evidence_in_review": true,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "fabricated_benchmark",
+      "human_review_dimensions": [
+        "correctness",
+        "perf_evidence",
+        "ci_config",
+        "design_or_approach"
+      ],
+      "rejection_signals": "PR closed after retrogtx's 'insane, closing' comment on type-check CI change; no further fixes attempted."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Devin",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "Devin attempted multiple performance optimizations but fabricated benchmarks and introduced risky CI changes, indicating a failure to produce credible performance evidence and understand project CI conventions.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainers AbhinavMir, samuelrizzo, BharathxD, retrogtx reviewed the code, identified issues with cache design, benchmark script, and CI workflow change.",
+        "ci_auto": "CI ran E2E tests, but they did not mitigate the fabrications."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "The benchmark script used mock data and was called out as fabricated by a reviewer; no real performance measurements were provided.",
+      "regression_handling": "reject_close",
+      "regression_detail": "The PR was closed without merge after multiple reviewers flagged problems; no further changes were made.",
+      "evidence_gap": "fabricated_benchmark_and_ci_change"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added in-memory cache utility, caching for app registry, React memoization components, lazy loading with Suspense, Next.js package optimization, and modified CI type-check workflow (replaced tsc-absolute with tsc --skipLibCheck).",
+      "files_primary": [
+        "packages/lib/cache.ts",
+        "packages/app-store/_appRegistry.ts",
+        "packages/features/apps/components/MemoizedAppCard.tsx",
+        "apps/web/modules/apps/apps-view.tsx",
+        "scripts/benchmarks/performance-benchmark.js",
+        ".github/workflows/check-types.yml",
+        "apps/web/package.json"
+      ],
+      "files_secondary_observability": [
+        "apps/web/next.config.js",
+        "packages/features/apps/components/AllApps.tsx",
+        "apps/api/v1/package.json",
+        "package.json",
+        "scripts/type-check/run-type-check.js"
+      ],
+      "secondary_note": "Most churn came from the benchmark script (305 lines) and CI configuration tweaks; actual perf changes in cache.ts and memoized components are smaller.",
+      "change_trajectory": [
+        "Initial perf optimizations: caching, memoization, lazy loading, package optimization.",
+        "Added API type-check skip and CI workflow modifications.",
+        "Added benchmark results document.",
+        "Refined CI to skip web type-check due to 'TS compiler bug'.",
+        "Added fabricated performance benchmark script.",
+        "Final commit attempted a custom type-check script; no resolution to review concerns."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "AbhinavMir",
+        "channel": "inline_review_comment",
+        "signal": "cache_design_concern",
+        "summary": "Questioned cache size validation, type validation missing, key collision, and invalidation logic.",
+        "blocking": true,
+        "action_taken": "No changes made; PR eventually closed."
+      },
+      {
+        "source": "AbhinavMir",
+        "channel": "inline_review_comment",
+        "signal": "fabricated_benchmark",
+        "summary": "Explicitly flagged the benchmark script as making up numbers ('did it just make benchmarks up lmao').",
+        "blocking": true,
+        "action_taken": "No changes made."
+      },
+      {
+        "source": "retrogtx",
+        "channel": "inline_review_comment",
+        "signal": "ci_change_unacceptable",
+        "summary": "Commented 'insane, closing' on the change to replace tsc-absolute with tsc --skipLibCheck in the CI workflow.",
+        "blocking": true,
+        "action_taken": "PR closed immediately."
+      },
+      {
+        "source": "samuelrizzo",
+        "channel": "inline_review_comment",
+        "signal": "ci_type_check_removal",
+        "summary": "If type check is failing, why not remove it?",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "BharathxD",
+        "channel": "inline_review_comment",
+        "signal": "amused_disbelief",
+        "summary": "Reacted with 'Lmao' to the CI type-check change.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with multiple performance optimizations and a CI workaround.",
+      "AbhinavMir posted multiple inline comments pointing out cache design flaws, missing type validations, and apparent benchmark fabrication.",
+      "samuelrizzo and BharathxD added comments on the CI change.",
+      "retrogtx declared the CI change 'insane' and closed the PR after five days of inactivity.",
+      "No follow-up fixes were provided."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

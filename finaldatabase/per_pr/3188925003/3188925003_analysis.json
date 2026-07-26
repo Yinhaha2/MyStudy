@@ -1,0 +1,177 @@
+{
+  "pr_id": 3188925003,
+  "meta": {
+    "title": "Update lower builtin folding and TPC-DS IR outputs",
+    "html_url": "https://github.com/mochilang/mochi/pull/4261",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-30 15:29:04+00:00",
+    "merged_at": "2025-06-30 15:29:47+00:00",
+    "closed_at": "2025-06-30 15:29:47+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "15",
+    "body_summary": "Add support for constant folding of the `lower` builtin in the VM compiler, and regenerate TPC-DS query IR outputs for q50–q59 to match the updated compiler behavior."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 11,
+      "additions": 208,
+      "deletions": 178,
+      "changes": 386,
+      "top1_file": "tests/dataset/tpc-ds/out/q50.ir.out",
+      "top1_changes": 38,
+      "top1_change_ratio": 0.098,
+      "files_by_status": {
+        "modified": 11
+      },
+      "directory_count": 2,
+      "directories": [
+        "runtime",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.012,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "constant_folding",
+      "lower_builtin",
+      "compiler_optimization"
+    ],
+    "optimization_layer": "compiler_optimizer",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "self_merged_trivial_change",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit compiler optimization with auto-generated IR outputs, self-merged within 43 seconds with no review or performance evidence."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 386,
+        "interpretation": "At 386 changed lines, this appears medium-sized but the actual logic change is only 9 lines in vm.go; the rest are 10 TPC-DS IR output files updated to reflect the constant folding. The PR fits a trivial, low-risk compiler tweak and was merged instantly without review, consistent with self-merge of a routine optimization."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.012,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": null,
+      "concern_detail": "No review feedback provided; PR was merged by the author without any external comments or formal review.",
+      "performance_claim": "Constant folding of the `lower` builtin reduces runtime evaluation overhead by computing constant string lowering at compile time.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "15",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Agent added a small, well-understood optimization in a VM compiler and correctly regenerated downstream IR test outputs. This falls within routine compiler enhancement capability for simple built-in folding.",
+      "success_factors": [
+        "small_isolated_change",
+        "self_contained_with_expected_test_updates",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics are provided; only a narrative claim of constant folding support with TPC-DS IR outputs that must pass `go test`.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression or review issue occurred; change was accepted and merged without incident.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added a new case for the `lower` builtin in the constant folding switch in runtime/vm/vm.go, and regenerated the expected IR output for TPC-DS queries q50–q59 to include the folded constants.",
+      "files_primary": [
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [
+        "tests/dataset/tpc-ds/out/q50.ir.out",
+        "tests/dataset/tpc-ds/out/q51.ir.out",
+        "tests/dataset/tpc-ds/out/q52.ir.out",
+        "tests/dataset/tpc-ds/out/q53.ir.out",
+        "tests/dataset/tpc-ds/out/q54.ir.out",
+        "tests/dataset/tpc-ds/out/q55.ir.out",
+        "tests/dataset/tpc-ds/out/q56.ir.out",
+        "tests/dataset/tpc-ds/out/q57.ir.out",
+        "tests/dataset/tpc-ds/out/q58.ir.out",
+        "tests/dataset/tpc-ds/out/q59.ir.out"
+      ],
+      "secondary_note": "The 10 IR output files are TPC-DS test expectations that automatically reflect the compiler change; each file gains a few folded constant lines.",
+      "change_trajectory": [
+        "Single commit adds constant folding for lower builtin and updates all affected IR output files."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR was opened and self-merged by the author within approximately 43 seconds with no external review, comments, or linked issues."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "pr_id": 3261746125,
+  "meta": {
+    "title": "Enable bench mode flag in Haskell transpiler",
+    "html_url": "https://github.com/mochilang/mochi/pull/12878",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-25 02:11:24+00:00",
+    "merged_at": "2025-07-25 02:11:35+00:00",
+    "closed_at": "2025-07-25 02:11:35+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 1,
+    "topic_name": "1",
+    "body_summary": "Add benchMain flag to Haskell transpiler, update tests, and regenerate sample outputs for benchmarking."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 9,
+      "additions": 45,
+      "deletions": 74,
+      "changes": 119,
+      "top1_file": "tests/rosetta/transpiler/Haskell/100-doors-2.hs",
+      "top1_changes": 67,
+      "top1_change_ratio": 0.563,
+      "files_by_status": {
+        "modified": 9
+      },
+      "directory_count": 4,
+      "directories": [
+        "cmd",
+        "scripts",
+        "tests",
+        "transpiler"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.0031,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "bench_main_flag",
+      "code_generation_performance"
+    ],
+    "optimization_layer": "application_control_flow",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "medium",
+    "notes": "Single-commit feature flag added by author/maintainer and self-merged without review; no performance evidence or discussion."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 119,
+        "interpretation": "At 119 changed lines across 9 files, this is a small edit by absolute volume. It fits a small-step, fast-turnaround feature addition that maintains consistency and was self-merged without review."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0031,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review",
+      "concern_detail": "No formal review or comment text available; maintainer self-merged without feedback.",
+      "performance_claim": "Add benchMain flag to enable benchmarking mode in transpiled code.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Small feature flag added by author who is also repository maintainer; merged instantly without external review, indicating low process friction for self-contained changes.",
+      "success_factors": [
+        "small_scope",
+        "author_is_maintainer",
+        "no_review_required"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of code-reading review; PR self-merged without external review."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body provides test commands but no benchmarking results or numeric performance evidence.",
+      "regression_handling": "not_applicable",
+      "regression_detail": null,
+      "evidence_gap": "narrative_only_no_review"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added benchMain boolean flag to the Haskell transpiler, modified transpiler.go to conditionally generate a bench main, updated tests to pass the new flag, and regenerated the 100-doors-2 example with bench mode enabled.",
+      "files_primary": [
+        "transpiler/x/hs/transpiler.go",
+        "transpiler/x/hs/transpiler_test.go",
+        "transpiler/x/hs/rosetta_test.go"
+      ],
+      "files_secondary_observability": [
+        "tests/rosetta/transpiler/Haskell/100-doors-2.hs",
+        "tests/rosetta/transpiler/Haskell/100-doors-2.bench",
+        "transpiler/x/hs/ROSETTA.md",
+        "cmd/mochix/main.go",
+        "scripts/run_transpile.go",
+        "transpiler/x/hs/vm_valid_golden_test.go"
+      ],
+      "secondary_note": "Most line churn is in the generated Haskell output for the 100-doors-2 example (67 lines changed); the transpiler logic changes are small (8 lines).",
+      "change_trajectory": [
+        "Single commit: added benchMain flag to transpiler core, updated all tests and generated outputs accordingly."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author opened PR with single commit and self-merged within 11 seconds without any external interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

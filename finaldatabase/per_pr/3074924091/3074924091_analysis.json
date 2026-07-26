@@ -1,0 +1,172 @@
+{
+  "pr_id": 3074924091,
+  "meta": {
+    "title": "Optimize iPod component Zustand selectors",
+    "html_url": "https://github.com/ryokun6/ryos/pull/57",
+    "repo": "ryokun6/ryos",
+    "agent": "OpenAI_Codex",
+    "user": "ryokun6",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-19 20:20:34+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-21 21:28:27+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 1,
+    "topic_name": "1",
+    "body_summary": "Reduce Zustand subscriptions in IpodAppComponent by batching selectors to lower unnecessary re-renders."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 23,
+      "deletions": 8,
+      "changes": 31,
+      "top1_file": "src/apps/ipod/components/IpodAppComponent.tsx",
+      "top1_changes": 31,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 1,
+        "deployed": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 49.131,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "zustand_selector_batching",
+      "component_render_optimization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "scattered_selectors"
+    ],
+    "outcome_reason": "closed_no_review_ci_failure",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Small frontend selector optimization closed without merge; only bot deployment failure detected, no human review or benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 31,
+        "interpretation": "Very small single‑file change (31 lines) modifying Zustand selectors. As a micro‑optimization performance PR it was closed without merge, likely due to CI failure and lack of review engagement rather than change size."
+      },
+      "lifecycle": {
+        "lifespan_hours": 49.131,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "ci_failure",
+      "concern_detail": "PR body notes `npm run lint` fails with numerous pre‑existing lint errors; Vercel deployment failed. No human review or performance evidence requested.",
+      "performance_claim": "Reduce Zustand subscriptions in IpodAppComponent by batching selectors to decrease unnecessary re‑renders.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "scattered_selectors",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by author without merge; Vercel deployment failed and pre‑existing lint errors noted, no performance evidence provided."
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent produced a small, focused front‑end optimization, but without human review or passing CI the PR was closed. The failure to merge stems from process gaps (no reviewer engagement, pre‑existing lint issues) rather than technical or evidence barriers.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiling, or before/after metrics; only narrative claim of reduced renders.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed by the author after ~2 days, possibly due to CI failure and no activity. No fix‑in‑pr cycle observed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In IpodAppComponent.tsx, combined multiple individual Zustand selectors into fewer selectors (likely using shallow or object shape) to reduce re‑renders caused by separate selector updates.",
+      "files_primary": [
+        "src/apps/ipod/components/IpodAppComponent.tsx"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit fd856e5 replacing separate Zustand selectors with batched selectors."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_failure_deployment",
+        "summary": "Vercel deployment failed with no preview available.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened by ryokun6 with a single commit.",
+      "Vercel bot reported deployment failure shortly after.",
+      "No human review or follow‑up commits; author closed PR after ~2 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

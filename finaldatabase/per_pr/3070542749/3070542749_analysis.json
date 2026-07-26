@@ -1,0 +1,199 @@
+{
+  "pr_id": 3070542749,
+  "meta": {
+    "title": "Fix datagram socket leak",
+    "html_url": "https://github.com/dashpay/dash-wallet/pull/1394",
+    "repo": "dashpay/dash-wallet",
+    "agent": "OpenAI_Codex",
+    "user": "Syn-McJ",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-05-17 08:06:21+00:00",
+    "merged_at": "2025-05-20 16:26:46+00:00",
+    "closed_at": "2025-05-20 16:26:46+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "9",
+    "body_summary": "Ensure DatagramSocket is closed when querying NTP time to prevent resource leak."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 1,
+      "additions": 18,
+      "deletions": 18,
+      "changes": 36,
+      "top1_file": "wallet/src/de/schildbach/wallet/util/TimeUtils.kt",
+      "top1_changes": 36,
+      "top1_change_ratio": 1.0,
+      "files_by_status": {
+        "modified": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "wallet"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 1,
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 1,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 9,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "commented": 1,
+        "review_requested": 1,
+        "reviewed": 2,
+        "milestoned": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 80.34,
+      "first_review_delay_hours": 0.044,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "resource_leak_fix",
+      "datagram_socket_closure"
+    ],
+    "optimization_layer": "application_service",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "resource_leak"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "correctness",
+      "resource_management",
+      "code_quality"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Single-commit Kotlin use() wrapper fix for DatagramSocket leak; bot nitpicked style, human approved with LGTM, merged after 3 days."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 36,
+        "interpretation": "At 36 changed lines in a single file, this is a tiny fix. It fits a minimal, low-risk resource-leak performance PR and aligns with the fast merge without blocking reviews."
+      },
+      "lifecycle": {
+        "lifespan_hours": 80.34,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "code_quality_improvements",
+      "concern_detail": "coderabbitai bot provided nitpick comments suggesting exception handling, code readability improvements, and constant extraction, but none were blocking.",
+      "performance_claim": "Fix resource leak by ensuring DatagramSocket is closed after NTP time query, improving long‑running stability.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "resource_leak",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "resource_management",
+        "correctness"
+      ],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "9",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple resource management fix using Kotlin's `use` function, requiring no deep platform‑specific knowledge; merge was uncontroversial.",
+      "success_factors": [
+        "narrow_scope",
+        "no_blocking_review",
+        "automated_bot_nitpick_non_blocking",
+        "human_LGTM"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "coderabbitai bot automatically reviewed the diff, identified the resource leak fix and provided nitpick comments."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or before/after socket count; only code change indicates leak closure.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regressions or further issues; PR merged as‑is.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In wallet/src/de/schildbach/wallet/util/TimeUtils.kt, the queryNtpTime function now wraps the DatagramSocket in Kotlin's `use` block to automatically close the socket after use.",
+      "files_primary": [
+        "wallet/src/de/schildbach/wallet/util/TimeUtils.kt"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "Single file change with no secondary modifies.",
+      "change_trajectory": [
+        "Initial commit: replaced manual socket close with `use` extension to ensure cleanup."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "formal_review",
+        "signal": "bot_review_nitpicks",
+        "summary": "Provided non‑blocking nitpick comments (add SocketTimeoutException handling, extract constant, etc.) and confirmed the fix is correct.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "HashEngineering",
+        "channel": "formal_review",
+        "signal": "approved_lgtm",
+        "summary": "Maintainer HashEngineering approved with 'LGTM' after reviewing.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "coderabbitai bot posted automatic walkthrough summary and nitpick review within 3 minutes of PR creation.",
+      "HashEngineering added a milestone after ~1 day, then approved with LGTM ~3 days later.",
+      "PR merged without further changes."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

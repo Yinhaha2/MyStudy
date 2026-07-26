@@ -1,0 +1,202 @@
+{
+  "pr_id": 3046871630,
+  "meta": {
+    "title": "feat: implement streaming schedule loading for faster initial render",
+    "html_url": "https://github.com/calcom/cal.com/pull/21168",
+    "repo": "calcom/cal.com",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-05-07 18:42:52+00:00",
+    "merged_at": null,
+    "closed_at": "2025-05-17 15:47:12+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": -1,
+    "topic_name": "-1",
+    "body_summary": "Refactors schedule loading to stream data, showing the first week of availability right away and loading the remaining weeks in the background for at least 3x faster initial render."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 97,
+      "deletions": 33,
+      "changes": 130,
+      "top1_file": "packages/features/schedules/lib/use-schedule/useSchedule.ts",
+      "top1_changes": 102,
+      "top1_change_ratio": 0.785,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 1,
+        "commented": 4,
+        "labeled": 3,
+        "review_requested": 1,
+        "deployed": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 237.07,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "streaming_schedule_loading",
+      "phased_data_fetching",
+      "initial_render_speedup"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin implemented streaming schedule loading claiming 3x speedup; no human review or benchmark, closed by bot after 10 days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 130,
+        "interpretation": "At 130 changed lines across 5 files, this is a small absolute change. The PR attempted a streaming loading optimization but closed without merge, consistent with lack of review engagement."
+      },
+      "lifecycle": {
+        "lifespan_hours": 237.07,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "No formal review or comments from human maintainers; only automated bot comments.",
+      "performance_claim": "At least 3x faster initial render by loading 1 week of data first, then streaming the remaining 3 weeks.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_full_fetch",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "PR closed by Devin bot due to 7+ days inactivity with no human engagement."
+    },
+    "capability_boundary": {
+      "topic": "-1",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "A frontend data fetching optimization requiring maintainer validation; the PR received no human review and was closed automatically, indicating a process barrier where Agent PRs may go unexamined.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark data or profiling evidence; performance claim is purely narrative.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed automatically after 7 days of inactivity, no fix cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Modified useSchedule hook to implement two-phase loading: first fetches 1-week range, then streams the next 3 weeks; updated useTimesForSchedule to support phased ranges; changed BOOKER_NUMBER_OF_DAYS_TO_LOAD default from 0 to 7; fixed TypeScript errors in LargeCalendar components.",
+      "files_primary": [
+        "packages/features/schedules/lib/use-schedule/useSchedule.ts",
+        "packages/features/schedules/lib/use-schedule/useTimesForSchedule.ts"
+      ],
+      "files_secondary_observability": [
+        "packages/features/bookings/Booker/components/LargeCalendar.tsx",
+        "packages/features/troubleshooter/components/LargeCalendar.tsx",
+        "packages/lib/constants.ts"
+      ],
+      "secondary_note": "LargeCalendar and constants changes are minor (2 lines each) to accommodate the new loading strategy.",
+      "change_trajectory": [
+        "Single commit implementing streaming schedule loading with phased data fetching and minor fixes."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI response.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview (skipped).",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "graphite-app[bot]",
+        "channel": "pr_comment",
+        "signal": "automation_review_assignment",
+        "summary": "Graphite automation added reviewer and label.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed."
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with streaming loading implementation.",
+      "Automated bots (Graphite, Vercel, Dosu) applied labels and requested review; no human interaction.",
+      "After 10 days of inactivity, Devin bot auto-closed the PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

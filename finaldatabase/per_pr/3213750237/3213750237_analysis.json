@@ -1,0 +1,173 @@
+{
+  "pr_id": 3213750237,
+  "meta": {
+    "title": "Optimize enumerable error conversion",
+    "html_url": "https://github.com/jscarle/LightResults/pull/71",
+    "repo": "jscarle/LightResults",
+    "agent": "OpenAI_Codex",
+    "user": "jscarle",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-07-08 20:53:29+00:00",
+    "merged_at": "2025-07-08 21:03:24+00:00",
+    "closed_at": "2025-07-08 21:03:24+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 43,
+    "topic_name": "43",
+    "body_summary": "Avoid extra allocation when Result/Result<T> receive IEnumerable<IError> by reusing the list instance if already a list; verify list reuse in tests."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 4,
+      "additions": 70,
+      "deletions": 16,
+      "changes": 86,
+      "top1_file": "tests/LightResults.Tests/ResultTValueTests.cs",
+      "top1_changes": 29,
+      "top1_change_ratio": 0.337,
+      "files_by_status": {
+        "modified": 4
+      },
+      "directory_count": 2,
+      "directories": [
+        "src",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 6,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1,
+        "referenced": 1
+      },
+      "lifespan_hours": 0.165,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "avoid_extra_allocation",
+      "list_instance_reuse",
+      "enumerable_interface_optimization"
+    ],
+    "optimization_layer": "library",
+    "evidence_type": [
+      "narrative",
+      "unit_test"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_allocation"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "OpenAI_Codex avoided extra allocation by reusing list when IEnumerable already is a list; merged by maintainer ~10 min later with test coverage but no benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 86,
+        "interpretation": "At 86 changed lines, this is a small edit by absolute volume. It fits a small-step, fast-turnaround performance PR and is consistent with the successful, low-friction merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.165,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "",
+      "performance_claim": "Avoid extra allocation when Result/Result<T> receive IEnumerable<IError> by reusing list instance if already a list.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_allocation",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "43",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Self-merge by maintainer; agent's small optimization was accepted without external review or performance evidence.",
+      "success_factors": [
+        "small_scope",
+        "included_tests",
+        "maintainer_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No benchmark, but unit tests verify list reuse behavior.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No regression; change was merged immediately.",
+      "evidence_gap": "no_benchmark_self_merge"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In Result.cs and Result`1.cs, constructors that accept IEnumerable<IError> now check if the argument is already a List<IError> and reuse that list to avoid allocation; otherwise falling back to creating a new list.",
+      "files_primary": [
+        "src/LightResults/Result.cs",
+        "src/LightResults/Result`1.cs"
+      ],
+      "files_secondary_observability": [
+        "tests/LightResults.Tests/ResultTests.cs",
+        "tests/LightResults.Tests/ResultTValueTests.cs"
+      ],
+      "secondary_note": "Tests verify list instance reuse and update interface contract expectations.",
+      "change_trajectory": [
+        "Single commit: added list reuse logic and updated tests."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by maintainer jscarle with Codex-authored optimization.",
+      "No external reviews; maintainer merged within ~10 minutes after labeling as codex."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

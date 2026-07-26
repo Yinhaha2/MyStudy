@@ -1,0 +1,173 @@
+{
+  "pr_id": 3118042228,
+  "meta": {
+    "title": "Restore benchmark test",
+    "html_url": "https://github.com/maekawatoshiki/rapidus/pull/73",
+    "repo": "maekawatoshiki/rapidus",
+    "agent": "OpenAI_Codex",
+    "user": "maekawatoshiki",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-04 14:23:52+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-04 14:26:23+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "test",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "1",
+    "body_summary": "Restore the bench_fibo benchmark in vm_test.rs by re-adding '#![feature(test)]' and 'extern crate test', which fails on stable Rust."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 9,
+      "additions": 347,
+      "deletions": 267,
+      "changes": 614,
+      "top1_file": "Cargo.lock",
+      "top1_changes": 582,
+      "top1_change_ratio": 0.9476,
+      "files_by_status": {
+        "modified": 9
+      },
+      "directory_count": 5,
+      "directories": [
+        "(root)",
+        "core",
+        "lexer",
+        "parser",
+        "repl"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.042,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "benchmark_restoration",
+      "test_infrastructure"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "closed_without_merge_compilation_error",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Agent restored nightly-only Rust benchmark; maintainer closed immediately due to stable channel compilation failure."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 614,
+        "interpretation": "Medium-size change by line count, but dominated by Cargo.lock (582 lines). The actual benchmark restoration is tiny and fails on stable Rust, leading to instant closure without merge."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.042,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "compilation_failure_on_stable",
+      "concern_detail": "The PR body notes that `cargo test` fails because `#[feature]` is not allowed on the stable release channel. No review occurred; the author closed the PR within minutes.",
+      "performance_claim": "Restoring the bench_fibo benchmark to enable performance measurement.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed by author after discovering compilation failure on stable channel."
+    },
+    "capability_boundary": {
+      "topic": "1",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "The agent restored nightly-only Rust benchmark infrastructure; maintainer closed immediately due to compilation error on stable toolchain, indicating a gap in handling feature-gated benchmarks.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark run or performance data; only a narrative about restoring the benchmark. The PR was closed before any testing.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR was closed by the author without merge due to stable channel failure; no regression or review cycle occurred.",
+      "evidence_gap": "no_evidence_only_compilation_failure"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Restored the `bench_fibo` benchmark by re-adding `#![feature(test)]` and `extern crate test` in `vm.rs`, and updating `Cargo.toml` files to re-enable benchmarks.",
+      "files_primary": [
+        "core/src/vm/vm.rs",
+        "core/Cargo.toml"
+      ],
+      "files_secondary_observability": [
+        "Cargo.lock",
+        "Cargo.toml",
+        "core/src/lib.rs",
+        "core/src/builtins/mod.rs",
+        "lexer/Cargo.toml",
+        "parser/Cargo.toml",
+        "repl/Cargo.toml"
+      ],
+      "secondary_note": "Large lockfile diff from dependency resolution; the principal benchmark logic is in core/src/vm/vm.rs.",
+      "change_trajectory": [
+        "Single commit restored benchmark infrastructure and benchmark code.",
+        "PR was closed by the author 2.5 minutes after creation, without review or merge."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened and closed by maintainer within minutes without any human review or interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

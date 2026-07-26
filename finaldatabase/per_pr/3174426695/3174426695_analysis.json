@@ -1,0 +1,208 @@
+{
+  "pr_id": 3174426695,
+  "meta": {
+    "title": "Fix Gantt performance by removing useMouse from every column",
+    "html_url": "https://github.com/haydenbleasel/kibo/pull/166",
+    "repo": "haydenbleasel/kibo",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-25 06:48:22+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-13 21:22:08+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "fix",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "12",
+    "body_summary": "Fix Gantt chart performance by replacing per-column useMouse hook with hover events, claiming ~10,000x reduction in re-renders."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 4,
+      "file_count": 2,
+      "additions": 6446,
+      "deletions": 18,
+      "changes": 6464,
+      "top1_file": "package-lock.json",
+      "top1_changes": 6443,
+      "top1_change_ratio": 0.997,
+      "files_by_status": {
+        "added": 1,
+        "modified": 1
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "packages/gantt"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 3,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 23,
+      "event_counts": {
+        "committed": 4,
+        "assigned": 2,
+        "commented": 3,
+        "copilot_work_started": 2,
+        "deployed": 3,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "mentioned": 2,
+        "subscribed": 2,
+        "closed": 1
+      },
+      "lifespan_hours": 446.563,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "react_rerender_reduction",
+      "mouse_event_optimization",
+      "gantt_column_overhead",
+      "usemouse_hook_removal"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "excessive_rerenders_from_hooks"
+    ],
+    "outcome_reason": "closed_without_merge_functional_issue",
+    "review_dimensions": [
+      "correctness"
+    ],
+    "blocking": true,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "manual_testing"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "medium",
+    "notes": "Copilot removed per-column mouse tracking hooks; maintainer found helper disappeared, fixed in PR, but PR closed without merge after ~18 days."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 6464,
+        "interpretation": "At 6464 changed lines, most are from an added package-lock.json (6443) while the actual Gantt fix is only 21 lines. This small‑scope performance PR closed without merge after a regression was reported and fixed, which is inconsistent with typical quick merges for tiny fixes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 446.563,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "correctness_or_bug",
+      "primary_concern": "functional_regression",
+      "concern_detail": "Maintainer reported that the GanttAddFeatureHelper no longer appeared when hovering on columns after the code removal.",
+      "performance_claim": "Reduction of re‑renders from ~21,900/s to only 2 per hover (~10,000x improvement).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "excessive_rerenders_from_hooks",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "correctness"
+      ],
+      "rejection_signals": "Maintainer closed the PR without merge after bug was reported and fixed; no further comment or acceptance."
+    },
+    "capability_boundary": {
+      "topic": "12",
+      "agent": "Copilot",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Frontend performance optimization via hook removal in a React Gantt component; agent introduced a UI regression (missing helper) that required targeted fix, but ultimately PR was not merged.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "manual_testing"
+      ],
+      "detection_detail": {
+        "manual_testing": "Maintainer tested the UI and observed that the GanttAddFeatureHelper disappeared when hovering on columns."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "Reproduced by maintainer via manual interaction; no automated test or benchmark for performance gain or regression.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "After maintainer reported the missing helper, Copilot added a height fix in the same PR.",
+      "evidence_gap": "narrative_perf_claim_no_benchmark_and_functional_regression"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Removed useMouse, useThrottle, useWindowScroll from GanttColumn, replacing with onMouseEnter/onMouseLeave for hover state; removed top prop from GanttAddFeatureHelper and centered it; later added explicit height to fix visibility regression.",
+      "files_primary": [
+        "packages/gantt/index.tsx"
+      ],
+      "files_secondary_observability": [
+        "package-lock.json"
+      ],
+      "secondary_note": "package-lock.json added with 6443 lines likely due to new dependencies; not directly related to the performance fix.",
+      "change_trajectory": [
+        "Initial plan and analysis commit.",
+        "Removed per-column mouse tracking hooks from GanttColumn.",
+        "After maintainer feedback, fixed GanttAddFeatureHelper visibility by adding explicit height."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview link for the kibo app.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "haydenbleasel",
+        "channel": "pr_comment",
+        "signal": "correctness_bug",
+        "summary": "Reported that GanttAddFeatureHelper no longer appears on column hover after code removal.",
+        "blocking": true,
+        "action_taken": "Copilot fixed by adding explicit height in follow-up commit."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "fix_confirmation",
+        "summary": "Confirmed fix for GanttAddFeatureHelper visibility by adding height to container div.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with performance fix removing useMouse hooks.",
+      "Maintainer reported a regression where helper disappeared.",
+      "Copilot committed a fix within hours.",
+      "No further review or merge activity for ~18 days; maintainer closed the PR without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

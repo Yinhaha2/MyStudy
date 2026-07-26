@@ -1,0 +1,162 @@
+{
+  "pr_id": 3186332246,
+  "meta": {
+    "title": "Optimize group by algorithm",
+    "html_url": "https://github.com/mochilang/mochi/pull/3994",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-29 16:36:41+00:00",
+    "merged_at": null,
+    "closed_at": "2025-07-01 12:01:53+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "perf",
+    "aidev_task_confidence": 9,
+    "topic_id": 21,
+    "topic_name": "21",
+    "body_summary": "Add needItems tracking to VM compiler to omit storing group items when unused; conditionally accumulate group items only when required."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 2,
+      "additions": 280,
+      "deletions": 13,
+      "changes": 293,
+      "top1_file": "runtime/vm/queryutil.go",
+      "top1_changes": 252,
+      "top1_change_ratio": 0.86,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        "runtime"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 3,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 43.42,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "group_by_optimization",
+      "memory_reduction",
+      "vm_compiler_tracking"
+    ],
+    "optimization_layer": "runtime_vm",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "unnecessary_accumulation"
+    ],
+    "outcome_reason": "closed_by_author_no_review",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "evidence_required",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "low",
+    "notes": "Author closed without merge; no review text, slow test timed out; narrative optimization without benchmark."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 293,
+        "interpretation": "At 293 changed lines across two files, this is a small‑to‑medium‑sized optimization. As a small‑step VM performance PR it was closed without merge, consistent with the lack of review engagement and possible test timeout issues."
+      },
+      "lifecycle": {
+        "lifespan_hours": 43.42,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "unknown",
+      "concern_detail": "No formal review or comments; PR body mentions slow test timeout, which may have contributed to the author closing it.",
+      "performance_claim": "Reduce memory usage by omitting group item storage when items are not needed.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "unnecessary_accumulation",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Author closed PR ~43 hours after creation; no maintainer review; slow test timed out."
+    },
+    "capability_boundary": {
+      "topic": "21",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "evidence_required",
+      "boundary_notes": "OpenAI_Codex proposed a VM compiler optimization to skip group item storage, but provided no benchmarks or profiler evidence; the PR was closed without review, possibly due to missing performance proof or test failure.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "No evidence of review in dataset; detection method not apparent."
+      },
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or profiling data; slow test timed out, suggesting potential regressions or incomplete implementation.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge; no fix or follow‑up cycle.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In runtime/vm/vm.go, added needItems tracking in the compiler to conditionally generate code for storing group items; added helper functions in queryutil.go to detect aggregate usage. When items are not needed, they are not accumulated, reducing memory overhead.",
+      "files_primary": [
+        "runtime/vm/queryutil.go",
+        "runtime/vm/vm.go"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": null,
+      "change_trajectory": [
+        "Single commit 'optimize group by aggregation' modified both files; 252 additions in queryutil.go (new helper detection) and 28 additions/13 deletions in vm.go (tracking logic)."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened by tamnd with codex label; no reviews or comments; author closed PR after ~43 hours without merge."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

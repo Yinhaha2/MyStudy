@@ -1,0 +1,168 @@
+{
+  "pr_id": 3158765147,
+  "meta": {
+    "title": "Elixir runtime helpers emitted as needed",
+    "html_url": "https://github.com/mochilang/mochi/pull/2027",
+    "repo": "mochilang/mochi",
+    "agent": "OpenAI_Codex",
+    "user": "tamnd",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-19 03:17:37+00:00",
+    "merged_at": "2025-06-19 03:20:42+00:00",
+    "closed_at": "2025-06-19 03:20:42+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": null,
+    "topic_name": "18",
+    "body_summary": "Track Elixir runtime helper usage in the compiler and only emit _input, _count, and _avg when they are referenced, with updated README documentation."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 3,
+      "additions": 56,
+      "deletions": 14,
+      "changes": 70,
+      "top1_file": "compile/ex/compiler.go",
+      "top1_changes": 46,
+      "top1_change_ratio": 0.657,
+      "files_by_status": {
+        "modified": 2,
+        "added": 1
+      },
+      "directory_count": 1,
+      "directories": [
+        "compile/ex"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 5,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.051,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "helper_emission_on_demand",
+      "compiler_output_size_reduction"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Small compiler change tracking Elixir helper usage to emit only needed helpers; merged within ~3 minutes without review."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 70,
+        "interpretation": "At 70 changed lines, this is a tiny edit by absolute volume. It fits a small compiler optimization that was merged rapidly without review, consistent with low-risk, self-contained changes."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.051,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No review feedback recorded; change was merged directly by author.",
+      "performance_claim": "Reduce final compiled code size by emitting Elixir helper functions only when they are actually referenced.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "18",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "A simple on-demand emission optimization in the compiler demonstrates low friction for small, targeted compiler changes without evidence of performance impact.",
+      "success_factors": [
+        "narrow_scope",
+        "no_review_required",
+        "fast_merge_by_author"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark or runtime evidence; only go test suite for correctness.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "No reported regression; PR merged without issue.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In compile/ex/compiler.go, added tracking of which Elixir runtime helpers (_input, _count, _avg) are referenced during compilation, and only emit those helpers in the output. Added a new runtime.go file defining a map from helper name to usage boolean. Updated README to document helper emission behavior.",
+      "files_primary": [
+        "compile/ex/compiler.go",
+        "compile/ex/runtime.go"
+      ],
+      "files_secondary_observability": [
+        "compile/ex/README.md"
+      ],
+      "secondary_note": "README changes document the new on-demand emission feature.",
+      "change_trajectory": [
+        "Single commit: track helper references, emit only used helpers, update README."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "Author self-merged immediately after pushing the single commit; no human-bot interaction."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

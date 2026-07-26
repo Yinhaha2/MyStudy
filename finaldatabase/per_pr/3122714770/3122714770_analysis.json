@@ -1,0 +1,172 @@
+{
+  "pr_id": 3122714770,
+  "meta": {
+    "title": "[alpha_factory] Skip wasm preload when inlined",
+    "html_url": "https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/1637",
+    "repo": "MontrealAI/AGI-Alpha-Agent-v0",
+    "agent": "OpenAI_Codex",
+    "user": "MontrealAI",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-06-05 21:23:05+00:00",
+    "merged_at": "2025-06-05 21:23:26+00:00",
+    "closed_at": "2025-06-05 21:23:26+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 8,
+    "topic_id": 35,
+    "topic_name": "35",
+    "body_summary": "Avoid adding a WASM preload link tag when the WASM file is embedded inline, refresh generated dist/index.html, and update CSP/browser tests accordingly."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 1,
+      "file_count": 5,
+      "additions": 26,
+      "deletions": 12,
+      "changes": 38,
+      "top1_file": "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/manual_build.py",
+      "top1_changes": 19,
+      "top1_change_ratio": 0.5,
+      "files_by_status": {
+        "modified": 5
+      },
+      "directory_count": 2,
+      "directories": [
+        "alpha_factory_v1",
+        "tests"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 0,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 4,
+      "event_counts": {
+        "committed": 1,
+        "labeled": 1,
+        "merged": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 0.0058,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "wasm_preload_skip",
+      "inline_wasm_optimization",
+      "build_output_cleanup"
+    ],
+    "optimization_layer": "build_pipeline",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "not_applicable",
+    "confidence": "high",
+    "notes": "Trivial build-script change removing unnecessary WASM preload when inlined; merged instantly by maintainer with no review or discussion."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 38,
+        "interpretation": "At 38 changed lines across 5 files, this is a tiny edit by absolute volume. It is a minimal, targeted build optimization PR that merged instantly with no review, consistent with a small, low-risk change."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.0058,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "none",
+      "concern_detail": "No formal review or comments; PR was merged by the same user who created it.",
+      "performance_claim": "Skipping WASM preload link avoids an unnecessary network request when WASM is inlined, reducing load overhead.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "35",
+      "agent": "OpenAI_Codex",
+      "boundary_type": "process",
+      "boundary_notes": "Agent produced a straightforward build script change; maintainer (same user) merged immediately without review, showing no process boundary for such trivial changes.",
+      "success_factors": [
+        "trivial_build_fix",
+        "no_collaboration_required",
+        "immediate_self_merge"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "The change removes a preload link when WASM is inlined, a straightforward logic optimization in the build script."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "No before/after load-time measurements; PR includes updated browser and CSP tests that check for any WASM requests, but no performance benchmark.",
+      "regression_handling": "not_applicable",
+      "regression_detail": "Merged without review or reported regressions; no handling needed.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "In build.js and manual_build.py, skip adding a WASM preload link element when the WASM file is embedded inline. Updated dist/index.html to remove the redundant preload tag, and adjusted tests (test_single_network_request.py, test_csp.py) to verify no external WASM requests and CSP compliance.",
+      "files_primary": [
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/build.js",
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/manual_build.py"
+      ],
+      "files_secondary_observability": [
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/dist/index.html",
+        "alpha_factory_v1/demos/alpha_agi_insight_v1/insight_browser_v1/tests/test_single_network_request.py",
+        "tests/security/test_csp.py"
+      ],
+      "secondary_note": "Test files were updated to check that no wasm requests are made, and dist/index.html had the preload line removed; primary logic is in build scripts.",
+      "change_trajectory": [
+        "Single commit: feat: skip wasm preload when inlined. Modified build scripts, tests, and dist/index.html."
+      ]
+    },
+    "review_signals": [],
+    "collaboration_trajectory": [
+      "PR opened with single commit and immediately merged by the same user within 21 seconds; no interaction with other contributors."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": false,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "pr_id": 2795930781,
+  "meta": {
+    "title": "ci: optimize workflow timeouts based on timing analysis",
+    "html_url": "https://github.com/marimo-team/marimo/pull/3481",
+    "repo": "marimo-team/marimo",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "merged",
+    "state": "closed",
+    "created_at": "2025-01-17 17:08:56+00:00",
+    "merged_at": "2025-01-17 17:25:16+00:00",
+    "closed_at": "2025-01-17 17:25:16+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "ci",
+    "aidev_task_confidence": 10,
+    "topic_id": null,
+    "topic_name": "",
+    "body_summary": "Reduce GitHub Actions workflow timeouts (playwright.yml, test_cli.yaml) based on historical run duration analysis to save CI minutes while preserving sufficient buffers."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 2,
+      "file_count": 2,
+      "additions": 8,
+      "deletions": 8,
+      "changes": 16,
+      "top1_file": ".github/workflows/test_cli.yaml",
+      "top1_changes": 12,
+      "top1_change_ratio": 0.75,
+      "files_by_status": {
+        "modified": 2
+      },
+      "directory_count": 1,
+      "directories": [
+        ".github"
+      ]
+    },
+    "collaboration": {
+      "review_count": 1,
+      "review_states": {
+        "APPROVED": 1
+      },
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 14,
+      "event_counts": {
+        "committed": 2,
+        "commented": 4,
+        "deployed": 4,
+        "reviewed": 1,
+        "merged": 1,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 0.272,
+      "first_review_delay_hours": 0.093,
+      "review_rounds": 1,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "workflow_timeout_optimization",
+      "ci_resource_efficiency",
+      "cost_optimization"
+    ],
+    "optimization_layer": "infrastructure",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "merged_small_scope_low_risk",
+    "review_dimensions": [
+      "ci_validation",
+      "design_or_approach"
+    ],
+    "blocking": false,
+    "boundary_tag": "technical_stack",
+    "topic_difficulty": "low",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "ignore",
+    "confidence": "high",
+    "notes": "Devin analyzed historical run times and reduced CI timeouts; merged quickly after maintainer approval with no benchmarking beyond the PR narrative."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "merged",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 16,
+        "interpretation": "At 16 changed lines, this is a tiny edit by absolute volume. It fits a small-step, low-risk performance PR (CI configuration) and its quick merge is consistent with that profile."
+      },
+      "lifecycle": {
+        "lifespan_hours": 0.272,
+        "fast_merge": true
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_review_text",
+      "concern_detail": "Maintainer approved with empty body; no explicit concerns were raised in the review.",
+      "performance_claim": "Reduce workflow timeouts based on historical run times to save CI minutes while maintaining sufficient buffers.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "excessive_workflow_timeout",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": null
+    },
+    "capability_boundary": {
+      "topic": "",
+      "agent": "Devin",
+      "boundary_type": "technical_stack",
+      "boundary_notes": "Simple configuration change in CI workflows requiring historical data analysis and arithmetic; within agent's capability for data-driven petty optimization.",
+      "success_factors": [
+        "small_scope",
+        "data_backed_analysis",
+        "maintainer_trust_or_quick_approval"
+      ]
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer reviewed the timeout numbers and buffer percentages provided in the PR body before approving."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes max/avg runtimes and buffer calculations, but no raw data or scripts to regenerate the analysis.",
+      "regression_handling": "ignore",
+      "regression_detail": "Devin investigated a flaky e2e test failure and confirmed it was unrelated to the timeout changes.",
+      "evidence_gap": "narrative_only_no_raw_data"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Reduced timeout_minutes in GitHub Actions workflows (playwright.yml and test_cli.yaml) based on analysis of recent run durations, and added comments with avg/max run times.",
+      "files_primary": [
+        ".github/workflows/playwright.yml",
+        ".github/workflows/test_cli.yaml"
+      ],
+      "files_secondary_observability": [],
+      "secondary_note": "None",
+      "change_trajectory": [
+        "Initial commit: set timeout values (playwright 16→13 min, test_cli build_wheel 10→3, test_cli 15→10, test_examples 15→3).",
+        "Second commit: update timeout comments to include avg/max times with date stamp."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "mscolnick",
+        "channel": "formal_review",
+        "signal": "approved",
+        "summary": "Approved without comments.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_failure_analysis",
+        "summary": "Explained that a failed test (streams.spec.ts) is unrelated to timeout changes and is a pre-existing flaky test.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "vercel[bot]",
+        "channel": "pr_comment",
+        "signal": "deployment_preview",
+        "summary": "Vercel bot posted deployment preview metadata.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "github-actions[bot]",
+        "channel": "pr_comment",
+        "signal": "release_published",
+        "summary": "Development release published after merge.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with timeout optimization and analysis.",
+      "Maintainer mscolnick approved within ~6 minutes.",
+      "Devin commented with CI failure investigation (unrelated flaky test).",
+      "PR merged ~16 minutes after creation."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

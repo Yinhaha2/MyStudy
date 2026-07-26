@@ -1,0 +1,197 @@
+{
+  "pr_id": 2830596110,
+  "meta": {
+    "title": "refactor: Replace moment.js with date-fns",
+    "html_url": "https://github.com/appsmithorg/appsmith/pull/39016",
+    "repo": "appsmithorg/appsmith",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-02-04 15:28:23+00:00",
+    "merged_at": null,
+    "closed_at": "2025-02-12 08:01:16+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "refactor",
+    "aidev_task_confidence": 10,
+    "topic_id": 7,
+    "topic_name": "7",
+    "body_summary": "Replace moment.js with date-fns across the codebase to reduce bundle size and improve maintainability."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 6,
+      "file_count": 185,
+      "additions": 1811,
+      "deletions": 1178,
+      "changes": 6455,
+      "top1_file": "app/client/cypress/e2e/Regression/ServerSide/Datasources/Snowflake_Basic_Spec.ts",
+      "top1_changes": 235,
+      "top1_change_ratio": 0.0364,
+      "files_by_status": {
+        "added": 8,
+        "modified": 171,
+        "removed": 6
+      },
+      "directory_count": 2,
+      "directories": [
+        ".github",
+        "app"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 2,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 16,
+      "event_counts": {
+        "committed": 6,
+        "review_requested": 4,
+        "commented": 2,
+        "labeled": 1,
+        "ready_for_review": 1,
+        "assigned": 1,
+        "closed": 1
+      },
+      "lifespan_hours": 184.55,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": false
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "moment_to_datefns_migration",
+      "bundle_size_reduction",
+      "maintainability"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "high",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Devin replaced moment with date-fns across 185 files without human review or benchmark; closed without merge."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 6455,
+        "interpretation": "At 6455 changed lines across 185 files, this is a large-scale refactor by absolute volume. It fits a broad library migration that was closed without merge, likely due to lack of review engagement and insufficient evidence."
+      },
+      "lifecycle": {
+        "lifespan_hours": 184.55,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "no_review_text",
+      "primary_concern": "no_human_review",
+      "concern_detail": "No formal human review was performed; the PR received only bot comments (Devin integration notice, CodeRabbit skip). It was eventually closed without merge, likely due to inactivity or maintainer inability to validate the large migration.",
+      "performance_claim": "Replace moment.js with date-fns to reduce bundle size and improve maintainability.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [],
+      "rejection_signals": "Closed after no human review and 8-day lifespan; no performance evidence provided."
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Large-scale library migration across 185 files requires significant maintainer validation and performance benchmarking; without human engagement, the PR cannot be merged.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {},
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "No benchmark, profiler, or before/after bundle size comparisons; only narrative claim of improvement.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without any regression analysis; no follow-up fixes.",
+      "evidence_gap": "narrative_only_no_benchmark"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Replaced moment.js and moment-timezone dependencies with date-fns across the app/client codebase, updating date formatting, parsing, and validation logic in multiple components and utilities.",
+      "files_primary": [
+        "app/client/src/utils/helpers.tsx",
+        "app/client/src/widgets/DatePickerWidget2/component/index.tsx",
+        "app/client/src/workers/Evaluation/validations.ts",
+        "app/client/package.json",
+        "app/client/yarn.lock"
+      ],
+      "files_secondary_observability": [
+        "app/client/cypress/e2e/Regression/ServerSide/Datasources/Snowflake_Basic_Spec.ts",
+        "app/client/packages/design-system/ads/src/Select/styles.css",
+        ".github/workflows/ci-client-cyclic-deps-check.yml"
+      ],
+      "secondary_note": "Merge commit 1b1d28a from release branch introduced many unrelated changes; most large file churn (e.g., Snowflake test, Select styles) is not directly part of moment migration.",
+      "change_trajectory": [
+        "Initial commit removed moment dependencies from package.json and yarn.lock.",
+        "Main replacement commit refactored files to use date-fns.",
+        "Subsequent commits fixed remaining moment references and lint/type errors.",
+        "Merge commit from release branch added unrelated changes.",
+        "Final fix commit addressed type errors; no human review occurred."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "coderabbitai[bot]",
+        "channel": "pr_comment",
+        "signal": "bot_review_skip",
+        "summary": "CodeRabbit skipped review because bot user detected.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Devin opened PR with moment to date-fns migration.",
+      "Only bot comments appeared; no human review or feedback.",
+      "PR was closed without merge after ~8 days."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}

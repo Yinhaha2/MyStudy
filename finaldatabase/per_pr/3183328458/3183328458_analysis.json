@@ -1,0 +1,231 @@
+{
+  "pr_id": 3183328458,
+  "meta": {
+    "title": "Migrate from Vue CLI (webpack) to Vite build system",
+    "html_url": "https://github.com/johnsusek/praeco/pull/716",
+    "repo": "johnsusek/praeco",
+    "agent": "Copilot",
+    "user": "Copilot",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-27 16:06:13+00:00",
+    "merged_at": null,
+    "closed_at": null,
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 9,
+    "topic_id": 7,
+    "topic_name": "7",
+    "body_summary": "Migrate Praeco from Vue CLI/webpack to Vite for ~60% faster builds, instant HMR, and modern tooling, with updated component imports and environment variable handling."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 14,
+      "additions": 2173,
+      "deletions": 291,
+      "changes": 2464,
+      "top1_file": "package-lock.json",
+      "top1_changes": 2143,
+      "top1_change_ratio": 0.869,
+      "files_by_status": {
+        "added": 4,
+        "modified": 10
+      },
+      "directory_count": 2,
+      "directories": [
+        "(root)",
+        "src"
+      ]
+    },
+    "collaboration": {
+      "review_count": 0,
+      "review_states": {},
+      "review_comment_count": 0,
+      "pr_comment_count": 4,
+      "linked_issue_count": 1
+    },
+    "timeline": {
+      "event_count": 19,
+      "event_counts": {
+        "committed": 3,
+        "assigned": 2,
+        "copilot_work_started": 3,
+        "unassigned": 1,
+        "renamed": 1,
+        "review_requested": 1,
+        "copilot_work_finished": 2,
+        "commented": 4,
+        "copilot_work_finished_failure": 1,
+        "base_ref_changed": 1
+      },
+      "lifespan_hours": null,
+      "first_review_delay_hours": null,
+      "review_rounds": 0,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": true,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": true,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "vite_migration",
+      "build_performance",
+      "dev_server_startup",
+      "hot_module_replacement"
+    ],
+    "optimization_layer": "build",
+    "evidence_type": [
+      "narrative",
+      "manual_test"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_no_review_engagement",
+    "review_dimensions": [
+      "configuration",
+      "backward_compatibility"
+    ],
+    "blocking": false,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "unknown"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "reject_close",
+    "confidence": "medium",
+    "notes": "Copilot performed Vite migration with claimed build speed improvement; maintainer asked questions and requested retry but PR closed without merge at unknown time."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 2464,
+        "interpretation": "At 2464 changed lines across 14 files, this is a large-scale build tooling migration by absolute volume. It is not a small-step perf PR but an infrastructure change. The PR was closed without merge, likely due to maintainer not fully engaging beyond question comments and a request to retry."
+      },
+      "lifecycle": {
+        "lifespan_hours": null,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "configuration_inquiry",
+      "primary_concern": "configuration_clarity",
+      "concern_detail": "Maintainer nsano-rururu asked whether Vite runs on port 8080 and if vue.config.js becomes unnecessary; later requested a retry of the pull request. No performance-related review was provided.",
+      "performance_claim": "60% faster builds (50s to 18s), instant dev server, HMR, better tree shaking.",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "configuration",
+        "backward_compatibility"
+      ],
+      "rejection_signals": "Maintainer requested retry without formal approval; PR closed without merge after long inactivity."
+    },
+    "capability_boundary": {
+      "topic": "7",
+      "agent": "Copilot",
+      "boundary_type": "process",
+      "boundary_notes": "Copilot successfully migrated a frontend build system across 14 files, demonstrating ability in tooling migration. However, the PR lacked maintainer engagement and was closed without merge, highlighting a process boundary where even correct changes may not be accepted if maintainers are not invested in reviewing or merging.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "unknown"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer commented on configuration details (port, legacy config) but performed no code review of perf changes.",
+        "ci_auto": null
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes build steps and before/after comparison numbers, but no maintainer verification; agent claims self-testing passed.",
+      "regression_handling": "reject_close",
+      "regression_detail": "PR closed without merge after maintainer's request to retry; no fix cycle occurred.",
+      "evidence_gap": "narrative_and_self_test_no_maintainer_validation"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Introduced Vite configuration (vite.config.js) for Vue 2 project, updated package.json scripts, moved index.html to root, updated env variables to import.meta.env, added .vue extensions to component imports, and updated SCSS imports.",
+      "files_primary": [
+        "vite.config.js",
+        "package.json",
+        "index.html",
+        "src/main.js",
+        "src/App.vue",
+        "src/router.js"
+      ],
+      "files_secondary_observability": [
+        "src/components/config/alert/ConfigAlert.vue",
+        "src/components/UpdateIndicator.vue",
+        "src/style/style.scss",
+        "src/views/ConfigBuilder.vue",
+        ".env",
+        ".gitignore",
+        "VITE_MIGRATION.md",
+        "package-lock.json"
+      ],
+      "secondary_note": "Most changes are mechanical import updates across components and SCSS; the largest diff is package-lock.json (2143 lines) from dependency changes.",
+      "change_trajectory": [
+        "Initial plan commit (b849f10): no file changes.",
+        "Core migration (b464792): added vite.config.js, updated package.json and lock, modified all Vue components and main entry to use Vite-compatible imports and env variables.",
+        "Completion (5644e6d): added .env file, .gitignore for .vite, VITE_MIGRATION.md documentation."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "nsano-rururu",
+        "channel": "pr_comment",
+        "signal": "configuration_inquiry",
+        "summary": "Asked about Vite port configuration.",
+        "blocking": false,
+        "action_taken": "Copilot responded that port 8080 is configured in vite.config.js."
+      },
+      {
+        "source": "nsano-rururu",
+        "channel": "pr_comment",
+        "signal": "configuration_inquiry",
+        "summary": "Asked whether vue.config.js becomes unnecessary after migration.",
+        "blocking": false,
+        "action_taken": "Copilot responded that vue.config.js is still needed for backward compatibility with testing/linting."
+      },
+      {
+        "source": "nsano-rururu",
+        "channel": "pr_comment",
+        "signal": "retry_request",
+        "summary": "Requested a retry of the pull request without specifying reason.",
+        "blocking": true,
+        "action_taken": "Copilot defended the migration and asked for clarification."
+      },
+      {
+        "source": "Copilot",
+        "channel": "pr_comment",
+        "signal": "agent_response",
+        "summary": "Copilot answered all questions and defended migration, noting firewall restrictions for cypress.",
+        "blocking": false,
+        "action_taken": null
+      }
+    ],
+    "collaboration_trajectory": [
+      "Copilot opened PR with Vite migration and detailed performance claims.",
+      "Maintainer asked two configuration questions on Jun 28.",
+      "Copilot answered questions on Jun 30 after a request to retry, while also encountering a firewall block for cypress.",
+      "No formal review or approval; PR left unmerged and eventually closed (exact close event not recorded)."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": false,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": true,
+    "per_pr_folder": true
+  }
+}

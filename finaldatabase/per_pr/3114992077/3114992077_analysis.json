@@ -1,0 +1,265 @@
+{
+  "pr_id": 3114992077,
+  "meta": {
+    "title": "feat(editor): implement code splitting and tree shaking optimizations",
+    "html_url": "https://github.com/softmaple/softmaple/pull/244",
+    "repo": "softmaple/softmaple",
+    "agent": "Devin",
+    "user": "devin-ai-integration[bot]",
+    "status": "closed",
+    "state": "closed",
+    "created_at": "2025-06-03 18:22:54+00:00",
+    "merged_at": null,
+    "closed_at": "2025-06-12 15:23:07+00:00",
+    "detection_source": "llm_title_body_classifier",
+    "aidev_task_type": "feat",
+    "aidev_task_confidence": 10,
+    "topic_id": 24,
+    "topic_name": "24_bundle_css_components_splitting",
+    "body_summary": "Implement code splitting and tree shaking in the editor package via React.lazy, Suspense, and Vite manual chunks, aiming to reduce bundle size and improve initial load performance."
+  },
+  "quantitative_metrics": {
+    "change_scale": {
+      "commit_count": 3,
+      "file_count": 14,
+      "additions": 175,
+      "deletions": 57,
+      "changes": 232,
+      "top1_file": "packages/editor/src/components/core/plugins/ToolbarPlugin/ToolbarPlugin.tsx",
+      "top1_changes": 47,
+      "top1_change_ratio": 0.2026,
+      "files_by_status": {
+        "added": 4,
+        "modified": 10
+      },
+      "directory_count": 1,
+      "directories": [
+        "packages"
+      ]
+    },
+    "collaboration": {
+      "review_count": 2,
+      "review_states": {
+        "COMMENTED": 2
+      },
+      "review_comment_count": 5,
+      "pr_comment_count": 4,
+      "linked_issue_count": 0
+    },
+    "timeline": {
+      "event_count": 11,
+      "event_counts": {
+        "committed": 3,
+        "commented": 4,
+        "reviewed": 2,
+        "closed": 1,
+        "head_ref_deleted": 1
+      },
+      "lifespan_hours": 213.01,
+      "first_review_delay_hours": 1.42,
+      "review_rounds": 2,
+      "has_revert": false,
+      "auto_merge_enabled": false
+    },
+    "evidence_signals": {
+      "body_has_benchmark_table": false,
+      "body_mentions_profiler": false,
+      "body_has_repro_steps": false,
+      "body_has_numeric_perf_claim": true
+    }
+  },
+  "perf_labels": {
+    "perf_focus": [
+      "code_splitting",
+      "lazy_loading",
+      "tree_shaking",
+      "vite_chunk_optimization"
+    ],
+    "optimization_layer": "frontend_ui",
+    "evidence_type": [
+      "narrative"
+    ],
+    "inefficiency_antipattern": [
+      "none"
+    ],
+    "outcome_reason": "stale_inactivity_after_scope_violations",
+    "review_dimensions": [
+      "scope",
+      "design_or_approach"
+    ],
+    "blocking": true,
+    "boundary_tag": "process",
+    "topic_difficulty": "medium",
+    "detection_method": [
+      "code_reading"
+    ],
+    "reproducibility": "partial",
+    "regression_handling": "fix_in_pr",
+    "confidence": "high",
+    "notes": "Devin added lazy components and Vite chunk splitting with bundle size claims; maintainer blocked due to unnecessary file modifications; partial reverts made but auto-closed after 7+ days inactivity."
+  },
+  "structured_analysis": {
+    "merge_outcome_context": {
+      "outcome": "closed",
+      "change_scale_vs_repository": {
+        "pr_change_lines": 232,
+        "interpretation": "At 232 changed lines across 14 files, this is a small-to-medium frontend performance refactor. It fits a moderate incremental optimization PR, but was closed—not merged—because the agent changed files that were outside the intended scope and activity stalled."
+      },
+      "lifecycle": {
+        "lifespan_hours": 213.01,
+        "fast_merge": false
+      }
+    },
+    "review_details": {
+      "review_comment_bucket": "scope_too_large",
+      "primary_concern": "scope_violation",
+      "concern_detail": "Maintainer zhyd1997 repeatedly flagged changes to postcss.config.mjs, main.tsx, PlaygroundNodes.ts, and layout.tsx as 'Do not change the file', indicating the agent modified files not required for code splitting.",
+      "performance_claim": "Code splitting and tree shaking with lazy loading and granular Vite chunks, claiming reduced initial load and specific chunk sizes (e.g., vendor-react 11.84 kB, lexical 263.73 kB).",
+      "performance_evidence_in_review": false,
+      "antipattern_addressed": "none",
+      "antipattern_in_fix": "none",
+      "human_review_dimensions": [
+        "scope",
+        "design_or_approach"
+      ],
+      "rejection_signals": "Maintainer comments directed at unauthorized file changes; no explicit CHANGES_REQUESTED but clear rejection; PR auto-closed after >7 days inactivity."
+    },
+    "capability_boundary": {
+      "topic": "24_bundle_css_components_splitting",
+      "agent": "Devin",
+      "boundary_type": "process",
+      "boundary_notes": "Agent could implement code splitting but lacked awareness of which files were off-limits, leading to repeated scope violations and eventual closure; demonstrates a process boundary where agent changes must respect maintainer policy.",
+      "success_factors": []
+    },
+    "maintainer_practices": {
+      "maintainer_detection": [
+        "code_reading"
+      ],
+      "detection_detail": {
+        "code_reading": "Maintainer reviewed diff and used inline comments to demand restoration of original files that were unnecessarily modified."
+      },
+      "material_reproducibility": "partial",
+      "reproducibility_notes": "PR body includes chunk-size listing as evidence, but no before/after runtime metrics or profiler; Netlify preview showed Performance 0 (down 95 from production), indicating a regression not captured in the claim.",
+      "regression_handling": "fix_in_pr",
+      "regression_detail": "Two follow-up commits reverted changes to build script, postcss config, CSS import, and layout.tsx, but PR remained open and eventually auto-closed without further review resolution.",
+      "evidence_gap": "narrative_and_chunk_sizes_no_runtime_metrics"
+    }
+  },
+  "evidence": {
+    "core_change_summary": {
+      "description": "Added React.lazy and Suspense wrappers for toolbar sub-components (FormatButtonGroup, HistoryButtonGroup, BlockFormatDropdown), editor plugins (MarkdownPlugin, ShortcutsPlugin), and export functionality; created LazyComponents.tsx, LazyPlugins.tsx, LazyExportFiles.tsx; updated ToolbarPlugin.tsx to use lazy imports; added sideEffects: false to package.json; configured Vite manual chunks for vendor-react, lexical, utils, ui, toolbar-components.",
+      "files_primary": [
+        "packages/editor/src/components/core/plugins/ToolbarPlugin/LazyComponents.tsx",
+        "packages/editor/src/components/core/plugins/LazyPlugins.tsx",
+        "packages/editor/src/components/core/ExportFiles/LazyExportFiles.tsx",
+        "packages/editor/src/components/core/plugins/ToolbarPlugin/ToolbarPlugin.tsx",
+        "packages/editor/vite.config.ts",
+        "packages/editor/package.json"
+      ],
+      "files_secondary_observability": [
+        "packages/editor/postcss.config.mjs",
+        "packages/editor/src/main.tsx",
+        "packages/editor/src/nodes/PlaygroundNodes.ts",
+        "packages/editor/src/layout.tsx",
+        "packages/editor/tsconfig.build.json",
+        "packages/editor/tsconfig.app.json"
+      ],
+      "secondary_note": "Several files (postcss.config.mjs, main.tsx, PlaygroundNodes.ts, layout.tsx) were changed unnecessarily and later reverted per review feedback; tsconfig changes remained but were not flagged.",
+      "change_trajectory": [
+        "Initial commit (9f0587c): add lazy loading components, vite manual chunks, sideEffects, and modify multiple config/source files.",
+        "Review feedback: maintainer requested not to change postcss.config.mjs, main.tsx, PlaygroundNodes.ts.",
+        "Second commit (bd056bef): revert build script, postcss config, CSS import, and temporary CodeNode comment while keeping code splitting.",
+        "Additional review on layout.tsx SITE_CONFIG change.",
+        "Third commit (9d6a2f): revert layout.tsx import to original."
+      ]
+    },
+    "review_signals": [
+      {
+        "source": "zhyd1997",
+        "channel": "inline_review_comment",
+        "signal": "do_not_change_file",
+        "summary": "Requested to restore original postcss.config.mjs; 'Do not change the file'.",
+        "blocking": true,
+        "action_taken": "Reverted in commit bd056bef."
+      },
+      {
+        "source": "zhyd1997",
+        "channel": "inline_review_comment",
+        "signal": "do_not_change_it",
+        "summary": "Requested to restore original main.tsx CSS import.",
+        "blocking": true,
+        "action_taken": "Reverted in commit bd056bef."
+      },
+      {
+        "source": "zhyd1997",
+        "channel": "inline_review_comment",
+        "signal": "do_not_change_it",
+        "summary": "Requested to restore original PlaygroundNodes.ts CodeNode import.",
+        "blocking": true,
+        "action_taken": "Reverted in commit bd056bef."
+      },
+      {
+        "source": "zhyd1997",
+        "channel": "inline_review_comment",
+        "signal": "do_not_change_file",
+        "summary": "Requested to restore original package.json build script.",
+        "blocking": true,
+        "action_taken": "Reverted in commit bd056bef."
+      },
+      {
+        "source": "zhyd1997",
+        "channel": "inline_review_comment",
+        "signal": "do_not_change_file",
+        "summary": "Requested to restore original layout.tsx SITE_CONFIG import.",
+        "blocking": true,
+        "action_taken": "Reverted in commit 9d6a2f."
+      },
+      {
+        "source": "zhyd1997",
+        "channel": "formal_review",
+        "signal": "commented_no_body",
+        "summary": "Two formal COMMENTED reviews with no body text; substantive feedback delivered via inline comments.",
+        "blocking": true,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "agent_integration_notice",
+        "summary": "Devin bot announced automatic comment/CI assistance for write-access users.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "netlify[bot]",
+        "channel": "pr_comment",
+        "signal": "deploy_preview",
+        "summary": "Netlify deployed preview; Lighthouse Performance 0, Accessibility 100, Best Practices 92.",
+        "blocking": false,
+        "action_taken": null
+      },
+      {
+        "source": "devin-ai-integration[bot]",
+        "channel": "pr_comment",
+        "signal": "inactivity_auto_close",
+        "summary": "Closing due to inactivity for more than 7 days.",
+        "blocking": true,
+        "action_taken": "PR closed without merge."
+      }
+    ],
+    "collaboration_trajectory": [
+      "PR opened with full code splitting implementation.",
+      "~1.5h later, maintainer posted inline comments flagging unauthorized file changes.",
+      "Devin made two revert commits to address flagged files.",
+      "No further review activity; after >7 days, Devin bot auto-closed the PR."
+    ]
+  },
+  "data_coverage": {
+    "has_commit_details": true,
+    "has_timeline": true,
+    "has_formal_review": true,
+    "has_review_or_comment_text": true,
+    "has_linked_issue": false,
+    "per_pr_folder": true
+  }
+}
