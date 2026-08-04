@@ -9,18 +9,32 @@ Jupyter 可视化笔记本，基于根目录 `full_analysis_distilled.csv`。
 | `perf_pr_visualization.ipynb` | 主笔记本：规模/存活/评论 vs 合并率，反模式、识别方式、优化层级、退化处置等 |
 | `figures/` | 运行后生成的 PNG（已 gitignore） |
 
-## 运行
+## 运行（Jupyter 新手）
+
+### 第一次用？按这个来
 
 ```bash
-# 在仓库根目录刷新 CSV（可选）
+# 1. 安装依赖（只需一次）
+pip install -r requirements.txt jupyter
+
+# 2. （可选）生成/刷新 CSV
 python3 generate_full_analysis.py
 
-# 启动笔记本（需安装 jupyter）
-cd analysis_viz
-jupyter notebook perf_pr_visualization.ipynb
+# 3. 启动笔记本（在仓库根目录或 analysis_viz/ 里打开都行）
+jupyter notebook analysis_viz/perf_pr_visualization.ipynb
 ```
 
-或在 VS Code / Cursor 中直接打开 `.ipynb` 逐格运行。
+打开后：**菜单 Run → Run All**，等跑完即可。
+
+### 常见报错
+
+| 报错 | 怎么办 |
+|------|--------|
+| `NameError: df is not defined` 或 `❌ 还没加载数据` | 没跑初始化。Run All，或先跑第一格代码直到看到 `✅ 初始化完成` |
+| `FileNotFoundError` ... `full_analysis_distilled.csv` | 在仓库根目录执行 `python3 generate_full_analysis.py` |
+| `ModuleNotFoundError: pandas` 等 | `pip install -r requirements.txt` |
+
+**提示**：Jupyter 里每个格子要按顺序跑；重启内核（Restart）之后也要重新 Run All。
 
 ## 图表一览（18 张）
 
