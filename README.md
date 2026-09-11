@@ -2,6 +2,8 @@
 
 本目录在 [AIDev](https://huggingface.co/datasets/hao-li/AIDev) 的 **AIDev-pop**（`>100 stars` 仓库）子集上，抽取 `pr_task_type` / `human_pr_task_type` 中 **`type == perf`** 的 PR，并与原文 `analysis/productivity.ipynb` 的 **合并率（merged_pct）** 口径对齐，做描述统计与可视化。
 
+当前研究问题定稿见 [`RQ_README.md`](RQ_README.md)。按该定稿撰写的中文分析报告见 [`RQ_Analysis.md`](RQ_Analysis.md)（`python3 generate_rq_analysis.py` 可复现）。聚合结果见 `FullAnalysis.md`。
+
 ## 数据集之间的关联（核心外键）
 
 | 表 | 说明 | 与 PR 的关联 |
