@@ -382,7 +382,6 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
     reviewed_closed = closed[closed["is_reviewed_closed"]]
     abandon = closed[closed["close_motivation"] == "silent_abandonment"]
     abandon_sub = abandon["abandon_subtype"].value_counts()
-    waiting_n = len(open_)
 
     # ---- RQ2 ----
     life_bins = [0, 1, 24, 168, 10**9]
@@ -485,7 +484,6 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
     ex_abn = pick_examples(
         ranked_closed[ranked_closed["close_motivation"] == "silent_abandonment"].sort_values("_score", ascending=False)
     )
-    ex_wait = pick_examples(open_)
     ex_func = pick_examples(
         ranked_rev[ranked_rev["failure_type"] == "functional_or_correctness"].sort_values("_score", ascending=False)
     )
@@ -499,10 +497,12 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         "merged": int(len(merged)),
         "closed": int(len(closed)),
         "open": int(len(open_)),
+        "terminal_n": int(len(terminal)),
+        "closed_is_rejected_at_status": True,
+        "open_excluded_from_merged_closed_contrast": True,
         "terminal_merge_rate": term_rate,
         "merged_path": path_counts.to_dict(),
         "close_motivation": mot_counts.to_dict(),
-        "waiting": waiting_n,
         "reviewed_closed_n": int(len(reviewed_closed)),
         "fast_merge_in_merged": fast_n,
         "boundary_terminal_merge": {
@@ -527,11 +527,17 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         "RQ1.1 Merge rate by agent (n≥30)",
         "Merge rate (%)",
     )
+    mot_fig_label = {
+        "silent_abandonment": "silent abandonment",
+        "real_rejection": "real rejection",
+        "other_process": "other process",
+        "unclear": "unclear",
+    }
     save_barh(
         FIG_DIR / "rq1_closed_motivation.png",
-        mot_counts.index.tolist(),
+        [mot_fig_label.get(k, k) for k in mot_counts.index],
         mot_counts.values.tolist(),
-        "RQ1.3 Closed motivation (rule-based)",
+        "RQ1.3 Closed = unmerged/rejected; internal types",
         "Closed PRs",
     )
     save_barh(
@@ -596,15 +602,16 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         "# RQ 分析报告：Agent 性能 Pull Request 的合入、遗弃与拒绝",
         "",
         "> 按 [`RQ_README.md`](RQ_README.md) 的 RQ1–RQ4 定稿撰写。数字由 `python3 generate_rq_analysis.py` 从 `finaldatabase/per_pr/{id}/{id}_analysis.json`（及根目录 few-shot 金标）聚合生成，可复现。",
-        f"> 样本量 **{n}**；merged **{len(merged)}**，closed **{len(closed)}**，open **{len(open_)}**。终态合并率 **{pct(len(merged), len(terminal))}**（{len(merged)}/{len(terminal)}）。",
+        f"> 全库 n=**{n}**（含 open {len(open_)}）；研究对照终态 n=**{len(terminal)}**（merged {len(merged)} / closed 被拒 {len(closed)}）。终态合并率 **{pct(len(merged), len(terminal))}**。",
         "> 结论均为**描述性关联**，不是因果推断。`outcome_reason` 等为 LLM 分析标签，不是 GitHub 官方关闭原因。",
         "",
         "## 数据与方法",
         "",
         "- **语料**：与 `FullAnalysis.md` 同一批分析 JSON，宽表字段复用 `generate_full_analysis.flatten_record`。",
-        "- **新增**：Merged 路径四分、Closed 动机三分（real rejection / silent abandonment / other+unclear），Waiting = 仍 open；在「真正被审过」的 closed 子集上再标失败类型。",
+        "- **状态口径**：`merged` = 已合入；`open` = 仍开放（**只计入全库总数 n，不进入后续 merged vs closed 对照**）；`closed` = 非 merged 且非 open，即本研究的 **GitHub 终态被拒**。",
+        "- **新增**：在 closed（被拒）内部再划分为 real rejection / silent abandonment / other_process / unclear；在「真正被审过」的 closed 子集上再标失败类型。Merged 路径四分。",
         "- **图**：`rq_analysis_figures/`。配套机器可读摘要：`rq_analysis_metrics.json`。",
-        "- **与旧报告关系**：总体合并率、Agent 分层、寿命/规模、detection_method、boundary_tag、材料评级直接复用同一数据源；Closed=Rejected 的拆分、被审子集失败类型、边界×结果对照是本报告相对 `FullAnalysis.md` 的增量。",
+        "- **与旧报告关系**：总体合并率、Agent 分层、寿命/规模、detection_method、boundary_tag、材料评级直接复用同一数据源。相对 `FullAnalysis.md` 的增量是：把 closed 明确写成终态被拒后再做拒因细分，而不是把 open 算进 closed 生态。",
         "",
         "---",
         "",
@@ -613,23 +620,34 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         "### RQ1.1 总体分布与不同 Agent 的合并率表现如何",
         "",
         md_table(
-            ["状态", "数量", "占全库"],
+            ["状态", "操作定义", "数量", "占全库 n"],
             [
-                ["merged", len(merged), pct(len(merged), n)],
-                ["closed（关闭未合并）", len(closed), pct(len(closed), n)],
-                ["open（Waiting）", len(open_), pct(len(open_), n)],
+                ["merged", "已合入（`merged_at` 非空）", len(merged), pct(len(merged), n)],
+                [
+                    "closed（被拒）",
+                    "非 merged 且非 open：GitHub 终态未合入",
+                    len(closed),
+                    pct(len(closed), n),
+                ],
+                [
+                    "open",
+                    "仍开放；计入全库 n，后续对照不使用",
+                    len(open_),
+                    pct(len(open_), n),
+                ],
             ],
         ),
         "",
-        f"- 含 open 的合并率：**{pct(len(merged), n)}**。",
-        f"- 终态合并率（仅 merged+closed）：**{pct(len(merged), len(terminal))}**。",
+        f"- 全库合并率（分母含 open，n={n}）：**{pct(len(merged), n)}**。",
+        f"- **研究用终态合并率**（仅 merged vs closed，n={len(terminal)}）：**{pct(len(merged), len(terminal))}**；终态被拒率：**{pct(len(closed), len(terminal))}**。",
+        f"- 下文 RQ1.2 起的 merged / closed 对照均剔除 open。",
         "",
         "![status](rq_analysis_figures/rq1_status.png)",
         "",
-        "**按 Agent**（合并率为含 open 的全状态口径；终态合并率剔除 open）：",
+        "**按 Agent**：`PR 数` 含 open（算进该 Agent 总数）；**研究对照看终态合并率**（仅 merged+closed）。",
         "",
         md_table(
-            ["Agent", "PR 数", "merged", "closed", "open", "合并率", "终态合并率"],
+            ["Agent", "PR 数（含 open）", "merged", "closed（被拒）", "open", "全库合并率", "终态合并率"],
             agent_rows,
         ),
         "",
@@ -645,8 +663,9 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
             [[f"`{k}`", v, pct(v, n)] for k, v in opt_layer.items()],
         ),
         "",
-        "**小结**：约一半多的 Agent 性能 PR 最终合入，四成关闭未合并，极少数仍开放。"
-        "不同 Agent 的合入机会差一倍以上；改动主要落在应用服务、构建和前端，而不是清一色的底层 runtime。",
+        f"**小结**：全库把 open 算进总数后，合入约占 {pct(len(merged), n)}、被拒（closed）约占 {pct(len(closed), n)}、仍开放约 {pct(len(open_), n)}。"
+        f"对照研究只用终态：合并率 {pct(len(merged), len(terminal))}，被拒率 {pct(len(closed), len(terminal))}。"
+        "不同 Agent 的合入机会差一倍以上；改动主要落在应用服务、构建和前端。",
         "",
         "### RQ1.2 Merged 的真实情况如何划分",
         "",
@@ -686,53 +705,75 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         "",
         "### RQ1.3 Closed 的真实情况如何划分",
         "",
-        "**Closed ≠ Rejected。** 建议把全库看成四类终态：Merged / Waiting / Silent abandonment / Real rejection。",
+        f"**口径**：凡是非 merged、非 open 的 PR，一律记为 `closed`，即 GitHub 终态上的 **未合入 / 被拒**（n={len(closed)}，占全库 {pct(len(closed), n)}，占终态 {pct(len(closed), len(terminal))}）。"
+        f"open（n={len(open_)}）只出现在 RQ1.1 的全库总数里，**不进入本小节，也不进入后文 merged vs closed 对照**。",
+        "",
+        "Closed=被拒 是状态层定义，不是「维护者写了拒绝意见」。被拒内部还要按机制再拆，否则会把沉默遗弃和技术否决混成一类。",
         "",
         md_table(
-            ["终态", "操作定义", "数量", "口径"],
+            ["Closed 内部类型（均属被拒）", "操作定义", "数量", "占 closed", "占终态", "占全库"],
             [
-                ["Merged", "已合并", len(merged), pct(len(merged), n) + " 全库"],
-                ["Waiting", "快照时仍 open", waiting_n, pct(waiting_n, n) + " 全库"],
                 [
-                    "Silent abandonment",
-                    "已关闭未合并，且无明确技术/设计否决",
-                    int(mot_counts.get("silent_abandonment", 0)),
-                    pct(int(mot_counts.get("silent_abandonment", 0)), len(closed)) + " of closed",
-                ],
-                [
-                    "Real rejection",
-                    "已关闭未合并，且有否决信号（blocking / CHANGES_REQUESTED / 技术类标签等）",
+                    "真正拒绝 real rejection",
+                    "有否决信号：blocking / CHANGES_REQUESTED / 技术或设计类标签",
                     int(mot_counts.get("real_rejection", 0)),
-                    pct(int(mot_counts.get("real_rejection", 0)), len(closed)) + " of closed",
+                    pct(int(mot_counts.get("real_rejection", 0)), len(closed)),
+                    pct(int(mot_counts.get("real_rejection", 0)), len(terminal)),
+                    pct(int(mot_counts.get("real_rejection", 0)), n),
                 ],
                 [
-                    "其他流程",
-                    "被替代、误提交撤回、重复 PR 等",
+                    "沉默遗弃 silent abandonment",
+                    "关闭但无明确技术/设计否决：stale、无审查、作者放弃、自动过期",
+                    int(mot_counts.get("silent_abandonment", 0)),
+                    pct(int(mot_counts.get("silent_abandonment", 0)), len(closed)),
+                    pct(int(mot_counts.get("silent_abandonment", 0)), len(terminal)),
+                    pct(int(mot_counts.get("silent_abandonment", 0)), n),
+                ],
+                [
+                    "其他流程 other_process",
+                    "被替代 PR、误提交撤回、重复提交等（仍未合入）",
                     int(mot_counts.get("other_process", 0)),
-                    pct(int(mot_counts.get("other_process", 0)), len(closed)) + " of closed",
+                    pct(int(mot_counts.get("other_process", 0)), len(closed)),
+                    pct(int(mot_counts.get("other_process", 0)), len(terminal)),
+                    pct(int(mot_counts.get("other_process", 0)), n),
                 ],
                 [
-                    "原因不明",
-                    "现有文本不足以归入以上三类",
+                    "原因不明 unclear",
+                    "现有文本不足以归入以上三类（仍未合入）",
                     int(mot_counts.get("unclear", 0)),
-                    pct(int(mot_counts.get("unclear", 0)), len(closed)) + " of closed",
+                    pct(int(mot_counts.get("unclear", 0)), len(closed)),
+                    pct(int(mot_counts.get("unclear", 0)), len(terminal)),
+                    pct(int(mot_counts.get("unclear", 0)), n),
+                ],
+                [
+                    "**closed 合计（被拒）**",
+                    "非 merged 且非 open",
+                    len(closed),
+                    "100%",
+                    pct(len(closed), len(terminal)),
+                    pct(len(closed), n),
                 ],
             ],
         ),
         "",
         "![closed motivation](rq_analysis_figures/rq1_closed_motivation.png)",
         "",
-        f"相对旧 `FullAnalysis.md` 的 `close_reason_group`（other 曾占 closed 的 39.9%），本规则把技术否决从「其他」里捞回来："
-        f"真正拒绝约占 closed 的 **{pct(int(mot_counts.get('real_rejection', 0)), len(closed))}**，"
-        f"沉默遗弃约占 **{pct(int(mot_counts.get('silent_abandonment', 0)), len(closed))}**。"
-        f"技术性拒绝是少数但不是「极少数」。Waiting 是 {waiting_n} 条仍开放 PR，不要塞进 Closed。",
+        f"在 **{len(closed)}** 条被拒 PR 里，沉默遗弃约占 **{pct(int(mot_counts.get('silent_abandonment', 0)), len(closed))}**，"
+        f"真正拒绝约占 **{pct(int(mot_counts.get('real_rejection', 0)), len(closed))}**。"
+        "也就是说：状态层全部算被拒；机制层里更多是没人跟、被放下，而不是审完后的技术否决。"
+        "相对旧 `FullAnalysis.md` 把大量 closed 打进 `other`（曾占 39.9%），本表把技术否决从「其他」捞回，但不明项仍单独列出，不再把 open 算进来充数。",
         "",
-        "沉默遗弃再拆：",
+        "沉默遗弃再拆（分母 = silent abandonment）：",
         "",
         md_table(
-            ["遗弃子类", "数量", "占 silent abandonment"],
+            ["遗弃子类", "数量", "占沉默遗弃", "占 closed（被拒）"],
             [
-                [abandon_label.get(k, k), int(v), pct(int(v), len(abandon) or 1)]
+                [
+                    abandon_label.get(k, k),
+                    int(v),
+                    pct(int(v), len(abandon) or 1),
+                    pct(int(v), len(closed)),
+                ]
                 for k, v in abandon_sub.items()
             ],
         )
@@ -741,7 +782,7 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         "",
         f"Closed 中 `blocking=true` 仅 {blocking_closed} 条；"
         f"「真正被审过或有否决信号」的子集 {len(reviewed_closed)} 条（{pct(len(reviewed_closed), len(closed))} of closed）。"
-        "其余多数关闭发生在几乎没有审查文本的情况下。",
+        "其余多数被拒发生在几乎没有审查文本的情况下——这是遗弃，不是书面 reject，但终态仍是未合入。",
         "",
         "**真正拒绝示例：**",
         "",
@@ -751,16 +792,14 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         "",
         fmt_examples(ex_abn),
         "",
-        "**Waiting（仍开放）示例：**",
-        "",
-        fmt_examples(ex_wait),
-        "",
-        "**小结**：未合并包含至少三种完全不同的故事——还在等、被放下、被否决。"
-        "用 Closed 当 Rejected 会把评审注意力失败和技术失败混在一起。",
+        "**小结**：研究对照里 closed 就是被拒。"
+        "被拒再分成真正拒绝、沉默遗弃、其他流程、原因不明四类；主导机制是沉默遗弃，真正技术/设计否决大约占被拒的三分之一。",
         "",
         "---",
         "",
         "## RQ2 成功路径与评审注意力：为何能极短周期低审查合入？为何不审？",
+        "",
+        "本节对照样本仅为终态 PR（merged vs closed）；open 不进入。",
         "",
         "### RQ2.1 合并成功的 PR 呈现出哪些行为与特征？",
         "",
@@ -1098,7 +1137,7 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         "",
         "## 总结",
         "",
-        "1. **RQ1**：终态合并率约 57%，Agent 之间差距大；Merged 以低摩擦快合并为主；Closed 不能等同于 Rejected，沉默遗弃不小于真正拒绝，Waiting 是仍开放的 3%。",
+        "1. **RQ1**：全库 n 含 open；对照只用 merged vs closed。Closed 即终态被拒，内部以沉默遗弃为主，真正技术/设计拒绝约占被拒三分之一。Merged 以低摩擦快合并为主。Agent 之间终态合并率差一倍以上。",
         "2. **RQ2**：成功 PR 极短命、常无审查；放行靠读码和小补丁，不靠 profiler。无人审同时出现在合入和关闭两侧，更像注意力 / 流程问题。",
         "3. **RQ3**：真正被审的失败以正确性、设计、CI 为主；证据边界和流程边界比「又套了一层循环」更能解释合不进去；同 PR 修复少且依赖人类。",
         "4. **RQ4**：寿命、边界类型、优化层面差异清楚，材料差异方向与「多写 benchmark 就能合」相反。改进必须分快路径和难路径。",
@@ -1112,12 +1151,18 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         "3. 仍无 review 或标签含 no_review / self_merge → `no_formal_review`。",
         "4. 其余 `other`。",
         "",
-        "### Closed 动机 `close_motivation`",
+        "### GitHub 状态（先于 Closed 动机）",
         "",
-        "1. 替代 PR / 误提交撤回等 → `other_process`（若同时有强技术否决则仍算拒绝）。",
-        "2. `blocking`、CHANGES_REQUESTED、技术类 `outcome_reason` / `primary_concern` / review 分桶、明确 rollback/CI fail 文本 → `real_rejection`。",
+        "- `merged`：已合入。",
+        "- `open`：仍开放；**只计入全库 n，不进入 merged vs closed 研究对照**。",
+        "- `closed`：非 merged 且非 open = 本研究的终态被拒。",
+        "",
+        "### Closed 动机 `close_motivation`（closed 的内部划分，全部仍是被拒）",
+        "",
+        "1. 替代 PR / 误提交撤回等 → `other_process`（若同时有强技术否决则仍算真正拒绝）。",
+        "2. `blocking`、CHANGES_REQUESTED、技术类 `outcome_reason` / `primary_concern` / review 分桶、明确 rollback 文本 → `real_rejection`。",
         "3. stale / 无审查 / 作者自行关闭 / 自动过期 → `silent_abandonment`。",
-        "4. 其余 `unclear`。Waiting 只用 `status=open`。",
+        "4. 其余 `unclear`。",
         "",
         "### 被审 closed 子集",
         "",
@@ -1126,7 +1171,7 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         "## 附录 B 方法边界",
         "",
         "1. 标签来自 LLM 分析 JSON，建议对 real rejection / silent abandonment 各抽检数十条 `rejection_signals`。",
-        "2. Agent 差异、边界与合并率、benchmark 与合并率都是相关不是因果。",
+        "2. Agent 差异、边界与合并率、benchmark 与合并率都是相关不是因果。open 只计入全库 n。",
         "3. `fix_in_pr` 主体与 `antipattern_in_fix` 是启发式。",
         "4. 与 `FullAnalysis.md` 若有个别计数差，以本脚本现场聚合为准（分类规则已更新）。",
         "",

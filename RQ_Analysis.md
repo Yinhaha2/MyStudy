@@ -1,15 +1,16 @@
 # RQ 分析报告：Agent 性能 Pull Request 的合入、遗弃与拒绝
 
 > 按 [`RQ_README.md`](RQ_README.md) 的 RQ1–RQ4 定稿撰写。数字由 `python3 generate_rq_analysis.py` 从 `finaldatabase/per_pr/{id}/{id}_analysis.json`（及根目录 few-shot 金标）聚合生成，可复现。
-> 样本量 **1219**；merged **671**，closed **509**，open **39**。终态合并率 **56.9%**（671/1180）。
+> 全库 n=**1219**（含 open 39）；研究对照终态 n=**1180**（merged 671 / closed 被拒 509）。终态合并率 **56.9%**。
 > 结论均为**描述性关联**，不是因果推断。`outcome_reason` 等为 LLM 分析标签，不是 GitHub 官方关闭原因。
 
 ## 数据与方法
 
 - **语料**：与 `FullAnalysis.md` 同一批分析 JSON，宽表字段复用 `generate_full_analysis.flatten_record`。
-- **新增**：Merged 路径四分、Closed 动机三分（real rejection / silent abandonment / other+unclear），Waiting = 仍 open；在「真正被审过」的 closed 子集上再标失败类型。
+- **状态口径**：`merged` = 已合入；`open` = 仍开放（**只计入全库总数 n，不进入后续 merged vs closed 对照**）；`closed` = 非 merged 且非 open，即本研究的 **GitHub 终态被拒**。
+- **新增**：在 closed（被拒）内部再划分为 real rejection / silent abandonment / other_process / unclear；在「真正被审过」的 closed 子集上再标失败类型。Merged 路径四分。
 - **图**：`rq_analysis_figures/`。配套机器可读摘要：`rq_analysis_metrics.json`。
-- **与旧报告关系**：总体合并率、Agent 分层、寿命/规模、detection_method、boundary_tag、材料评级直接复用同一数据源；Closed=Rejected 的拆分、被审子集失败类型、边界×结果对照是本报告相对 `FullAnalysis.md` 的增量。
+- **与旧报告关系**：总体合并率、Agent 分层、寿命/规模、detection_method、boundary_tag、材料评级直接复用同一数据源。相对 `FullAnalysis.md` 的增量是：把 closed 明确写成终态被拒后再做拒因细分，而不是把 open 算进 closed 生态。
 
 ---
 
@@ -17,20 +18,21 @@
 
 ### RQ1.1 总体分布与不同 Agent 的合并率表现如何
 
-| 状态 | 数量 | 占全库 |
-|---|---|---|
-| merged | 671 | 55.0% |
-| closed（关闭未合并） | 509 | 41.8% |
-| open（Waiting） | 39 | 3.2% |
+| 状态 | 操作定义 | 数量 | 占全库 n |
+|---|---|---|---|
+| merged | 已合入（`merged_at` 非空） | 671 | 55.0% |
+| closed（被拒） | 非 merged 且非 open：GitHub 终态未合入 | 509 | 41.8% |
+| open | 仍开放；计入全库 n，后续对照不使用 | 39 | 3.2% |
 
-- 含 open 的合并率：**55.0%**。
-- 终态合并率（仅 merged+closed）：**56.9%**。
+- 全库合并率（分母含 open，n=1219）：**55.0%**。
+- **研究用终态合并率**（仅 merged vs closed，n=1180）：**56.9%**；终态被拒率：**43.1%**。
+- 下文 RQ1.2 起的 merged / closed 对照均剔除 open。
 
 ![status](rq_analysis_figures/rq1_status.png)
 
-**按 Agent**（合并率为含 open 的全状态口径；终态合并率剔除 open）：
+**按 Agent**：`PR 数` 含 open（算进该 Agent 总数）；**研究对照看终态合并率**（仅 merged+closed）。
 
-| Agent | PR 数 | merged | closed | open | 合并率 | 终态合并率 |
+| Agent | PR 数（含 open） | merged | closed（被拒） | open | 全库合并率 | 终态合并率 |
 |---|---|---|---|---|---|---|
 | OpenAI_Codex | 639 | 452 | 177 | 10 | 70.7% | 71.9% |
 | Devin | 225 | 73 | 152 | 0 | 32.4% | 32.4% |
@@ -59,7 +61,7 @@ n≥30 的断层仍然清楚：OpenAI_Codex 合并率最高，Devin / Copilot �
 | `compiler_codegen` | 14 | 1.1% |
 | `test_infrastructure` | 12 | 1.0% |
 
-**小结**：约一半多的 Agent 性能 PR 最终合入，四成关闭未合并，极少数仍开放。不同 Agent 的合入机会差一倍以上；改动主要落在应用服务、构建和前端，而不是清一色的底层 runtime。
+**小结**：全库把 open 算进总数后，合入约占 55.0%、被拒（closed）约占 41.8%、仍开放约 3.2%。对照研究只用终态：合并率 56.9%，被拒率 43.1%。不同 Agent 的合入机会差一倍以上；改动主要落在应用服务、构建和前端。
 
 ### RQ1.2 Merged 的真实情况如何划分
 
@@ -103,31 +105,32 @@ n≥30 的断层仍然清楚：OpenAI_Codex 合并率最高，Devin / Copilot �
 
 ### RQ1.3 Closed 的真实情况如何划分
 
-**Closed ≠ Rejected。** 建议把全库看成四类终态：Merged / Waiting / Silent abandonment / Real rejection。
+**口径**：凡是非 merged、非 open 的 PR，一律记为 `closed`，即 GitHub 终态上的 **未合入 / 被拒**（n=509，占全库 41.8%，占终态 43.1%）。open（n=39）只出现在 RQ1.1 的全库总数里，**不进入本小节，也不进入后文 merged vs closed 对照**。
 
-| 终态 | 操作定义 | 数量 | 口径 |
-|---|---|---|---|
-| Merged | 已合并 | 671 | 55.0% 全库 |
-| Waiting | 快照时仍 open | 39 | 3.2% 全库 |
-| Silent abandonment | 已关闭未合并，且无明确技术/设计否决 | 282 | 55.4% of closed |
-| Real rejection | 已关闭未合并，且有否决信号（blocking / CHANGES_REQUESTED / 技术类标签等） | 164 | 32.2% of closed |
-| 其他流程 | 被替代、误提交撤回、重复 PR 等 | 26 | 5.1% of closed |
-| 原因不明 | 现有文本不足以归入以上三类 | 37 | 7.3% of closed |
+Closed=被拒 是状态层定义，不是「维护者写了拒绝意见」。被拒内部还要按机制再拆，否则会把沉默遗弃和技术否决混成一类。
+
+| Closed 内部类型（均属被拒） | 操作定义 | 数量 | 占 closed | 占终态 | 占全库 |
+|---|---|---|---|---|---|
+| 真正拒绝 real rejection | 有否决信号：blocking / CHANGES_REQUESTED / 技术或设计类标签 | 164 | 32.2% | 13.9% | 13.5% |
+| 沉默遗弃 silent abandonment | 关闭但无明确技术/设计否决：stale、无审查、作者放弃、自动过期 | 282 | 55.4% | 23.9% | 23.1% |
+| 其他流程 other_process | 被替代 PR、误提交撤回、重复提交等（仍未合入） | 26 | 5.1% | 2.2% | 2.1% |
+| 原因不明 unclear | 现有文本不足以归入以上三类（仍未合入） | 37 | 7.3% | 3.1% | 3.0% |
+| **closed 合计（被拒）** | 非 merged 且非 open | 509 | 100% | 43.1% | 41.8% |
 
 ![closed motivation](rq_analysis_figures/rq1_closed_motivation.png)
 
-相对旧 `FullAnalysis.md` 的 `close_reason_group`（other 曾占 closed 的 39.9%），本规则把技术否决从「其他」里捞回来：真正拒绝约占 closed 的 **32.2%**，沉默遗弃约占 **55.4%**。技术性拒绝是少数但不是「极少数」。Waiting 是 39 条仍开放 PR，不要塞进 Closed。
+在 **509** 条被拒 PR 里，沉默遗弃约占 **55.4%**，真正拒绝约占 **32.2%**。也就是说：状态层全部算被拒；机制层里更多是没人跟、被放下，而不是审完后的技术否决。相对旧 `FullAnalysis.md` 把大量 closed 打进 `other`（曾占 39.9%），本表把技术否决从「其他」捞回，但不明项仍单独列出，不再把 open 算进来充数。
 
-沉默遗弃再拆：
+沉默遗弃再拆（分母 = silent abandonment）：
 
-| 遗弃子类 | 数量 | 占 silent abandonment |
-|---|---|---|
-| 作者自行关闭 / 放弃 | 100 | 35.5% |
-| 无审查互动后被关 | 80 | 28.4% |
-| 长期不活跃后关闭 | 64 | 22.7% |
-| bot / 自动过期关闭 | 38 | 13.5% |
+| 遗弃子类 | 数量 | 占沉默遗弃 | 占 closed（被拒） |
+|---|---|---|---|
+| 作者自行关闭 / 放弃 | 100 | 35.5% | 19.6% |
+| 无审查互动后被关 | 80 | 28.4% | 15.7% |
+| 长期不活跃后关闭 | 64 | 22.7% | 12.6% |
+| bot / 自动过期关闭 | 38 | 13.5% | 7.5% |
 
-Closed 中 `blocking=true` 仅 89 条；「真正被审过或有否决信号」的子集 195 条（38.3% of closed）。其余多数关闭发生在几乎没有审查文本的情况下。
+Closed 中 `blocking=true` 仅 89 条；「真正被审过或有否决信号」的子集 195 条（38.3% of closed）。其余多数被拒发生在几乎没有审查文本的情况下——这是遗弃，不是书面 reject，但终态仍是未合入。
 
 **真正拒绝示例：**
 
@@ -147,20 +150,13 @@ Closed 中 `blocking=true` 仅 89 条；「真正被审过或有否决信号」�
 - [2920951577](https://github.com/Cap-go/capgo/pull/1064) `Devin` — feat: improve search functionality with pagination and visual feedback  
   `outcome_reason=closed_by_maintainer_no_comment`；拒因摘要：Closed by maintainer riderx without any review or comment after ~11.5 hours.
 
-**Waiting（仍开放）示例：**
-
-- [3070949788](https://github.com/EricLBuehler/mistral.rs/pull/1343) `OpenAI_Codex` — Add blockwise fp8 gemm kernel  
-  `outcome_reason=open_pending_review_fixes`
-- [3074606452](https://github.com/robertpenner/as3-signals/pull/74) `Copilot` — Convert internal Arrays to Vectors for better performance  
-  `outcome_reason=open_pending_review`
-- [3078518733](https://github.com/lwyBZss8924d/DeepSearchAgents/pull/9) `OpenAI_Codex` — Add FastMCP server  
-  `outcome_reason=open_no_review`
-
-**小结**：未合并包含至少三种完全不同的故事——还在等、被放下、被否决。用 Closed 当 Rejected 会把评审注意力失败和技术失败混在一起。
+**小结**：研究对照里 closed 就是被拒。被拒再分成真正拒绝、沉默遗弃、其他流程、原因不明四类；主导机制是沉默遗弃，真正技术/设计否决大约占被拒的三分之一。
 
 ---
 
 ## RQ2 成功路径与评审注意力：为何能极短周期低审查合入？为何不审？
+
+本节对照样本仅为终态 PR（merged vs closed）；open 不进入。
 
 ### RQ2.1 合并成功的 PR 呈现出哪些行为与特征？
 
@@ -425,7 +421,7 @@ Closed 中 `blocking=true` 仅 89 条；「真正被审过或有否决信号」�
 
 ## 总结
 
-1. **RQ1**：终态合并率约 57%，Agent 之间差距大；Merged 以低摩擦快合并为主；Closed 不能等同于 Rejected，沉默遗弃不小于真正拒绝，Waiting 是仍开放的 3%。
+1. **RQ1**：全库 n 含 open；对照只用 merged vs closed。Closed 即终态被拒，内部以沉默遗弃为主，真正技术/设计拒绝约占被拒三分之一。Merged 以低摩擦快合并为主。Agent 之间终态合并率差一倍以上。
 2. **RQ2**：成功 PR 极短命、常无审查；放行靠读码和小补丁，不靠 profiler。无人审同时出现在合入和关闭两侧，更像注意力 / 流程问题。
 3. **RQ3**：真正被审的失败以正确性、设计、CI 为主；证据边界和流程边界比「又套了一层循环」更能解释合不进去；同 PR 修复少且依赖人类。
 4. **RQ4**：寿命、边界类型、优化层面差异清楚，材料差异方向与「多写 benchmark 就能合」相反。改进必须分快路径和难路径。
@@ -439,12 +435,18 @@ Closed 中 `blocking=true` 仅 89 条；「真正被审过或有否决信号」�
 3. 仍无 review 或标签含 no_review / self_merge → `no_formal_review`。
 4. 其余 `other`。
 
-### Closed 动机 `close_motivation`
+### GitHub 状态（先于 Closed 动机）
 
-1. 替代 PR / 误提交撤回等 → `other_process`（若同时有强技术否决则仍算拒绝）。
-2. `blocking`、CHANGES_REQUESTED、技术类 `outcome_reason` / `primary_concern` / review 分桶、明确 rollback/CI fail 文本 → `real_rejection`。
+- `merged`：已合入。
+- `open`：仍开放；**只计入全库 n，不进入 merged vs closed 研究对照**。
+- `closed`：非 merged 且非 open = 本研究的终态被拒。
+
+### Closed 动机 `close_motivation`（closed 的内部划分，全部仍是被拒）
+
+1. 替代 PR / 误提交撤回等 → `other_process`（若同时有强技术否决则仍算真正拒绝）。
+2. `blocking`、CHANGES_REQUESTED、技术类 `outcome_reason` / `primary_concern` / review 分桶、明确 rollback 文本 → `real_rejection`。
 3. stale / 无审查 / 作者自行关闭 / 自动过期 → `silent_abandonment`。
-4. 其余 `unclear`。Waiting 只用 `status=open`。
+4. 其余 `unclear`。
 
 ### 被审 closed 子集
 
@@ -453,6 +455,6 @@ Closed 中 `blocking=true` 仅 89 条；「真正被审过或有否决信号」�
 ## 附录 B 方法边界
 
 1. 标签来自 LLM 分析 JSON，建议对 real rejection / silent abandonment 各抽检数十条 `rejection_signals`。
-2. Agent 差异、边界与合并率、benchmark 与合并率都是相关不是因果。
+2. Agent 差异、边界与合并率、benchmark 与合并率都是相关不是因果。open 只计入全库 n。
 3. `fix_in_pr` 主体与 `antipattern_in_fix` 是启发式。
 4. 与 `FullAnalysis.md` 若有个别计数差，以本脚本现场聚合为准（分类规则已更新）。
