@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import time
 from datetime import datetime, timezone
@@ -89,44 +90,79 @@ def save_cache(cache: dict[str, Any]) -> None:
     CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def wait_for_rate_limit(resp: requests.Response) -> None:
-    if resp.status_code != 403:
-        return
-    reset = resp.headers.get("X-RateLimit-Reset")
-    if not reset:
-        time.sleep(60)
-        return
-    wait_s = max(int(reset) - int(time.time()) + 2, 5)
-    print(f"Rate limited; sleeping {wait_s}s …")
-    time.sleep(wait_s)
+_HTML_JSON_SCRIPT = re.compile(r'<script type="application/json"[^>]*>(.*?)</script>', re.S)
+
+
+def parse_pr_status_from_html(html: str) -> dict[str, Any]:
+    """Read state from the public PR page's embedded pullRequestsLayoutRoute JSON."""
+    if "This is not the web page you are looking for" in html:
+        return {"deleted": True, "source": "html"}
+    pr = None
+    for blob in _HTML_JSON_SCRIPT.findall(html):
+        try:
+            data = json.loads(blob)
+        except json.JSONDecodeError:
+            continue
+        candidate = (
+            data.get("payload", {}).get("pullRequestsLayoutRoute", {}).get("pullRequest")
+            if isinstance(data, dict)
+            else None
+        )
+        if isinstance(candidate, dict) and candidate.get("state"):
+            pr = candidate
+            break
+    if not pr:
+        return {"deleted": False, "error": "no_pullRequest_json", "source": "html"}
+    gh_state = str(pr.get("state") or "").upper()
+    merged_at = pr.get("mergedTime")
+    closed_at = pr.get("closedTime")
+    api_state = "open" if gh_state in {"OPEN", "DRAFT"} else "closed"
+    return {
+        "deleted": False,
+        "state": api_state,
+        "merged_at": merged_at,
+        "closed_at": closed_at,
+        "github_state": gh_state,
+        "source": "html_json",
+    }
+
+
+def fetch_github_status_html(session: requests.Session, html_url: str) -> dict[str, Any]:
+    resp = session.get(html_url, timeout=45, allow_redirects=True)
+    now = datetime.now(timezone.utc).isoformat()
+    if resp.status_code == 404:
+        return {"deleted": True, "fetched_at": now, "source": "html"}
+    if resp.status_code >= 400:
+        return {"deleted": False, "error": f"HTML HTTP {resp.status_code}", "fetched_at": now, "source": "html"}
+    parsed = parse_pr_status_from_html(resp.text)
+    parsed["fetched_at"] = now
+    return parsed
 
 
 def fetch_github_status(session: requests.Session, html_url: str) -> dict[str, Any]:
     api = html_to_api_url(html_url)
-    while True:
-        resp = session.get(api, timeout=60)
-        if resp.status_code == 403:
-            wait_for_rate_limit(resp)
-            continue
-        if resp.status_code == 404:
-            return {"deleted": True, "fetched_at": datetime.now(timezone.utc).isoformat()}
-        if resp.status_code == 401:
-            raise RuntimeError("GitHub token unauthorized (401). Update MyStudy/.github_token or GITHUB_TOKEN.")
-        if resp.status_code >= 400:
-            return {
-                "deleted": False,
-                "error": f"HTTP {resp.status_code}",
-                "fetched_at": datetime.now(timezone.utc).isoformat(),
-            }
-        data = resp.json()
+    resp = session.get(api, timeout=60)
+    if resp.status_code == 404:
+        return {"deleted": True, "fetched_at": datetime.now(timezone.utc).isoformat()}
+    if resp.status_code in {401, 403}:
+        print(f"  API {resp.status_code}; falling back to HTML page …", flush=True)
+        return fetch_github_status_html(session, html_url)
+    if resp.status_code >= 400:
         return {
             "deleted": False,
-            "state": data.get("state"),
-            "merged_at": data.get("merged_at"),
-            "closed_at": data.get("closed_at"),
-            "updated_at": data.get("updated_at"),
+            "error": f"HTTP {resp.status_code}",
             "fetched_at": datetime.now(timezone.utc).isoformat(),
         }
+    data = resp.json()
+    return {
+        "deleted": False,
+        "state": data.get("state"),
+        "merged_at": data.get("merged_at"),
+        "closed_at": data.get("closed_at"),
+        "updated_at": data.get("updated_at"),
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "source": "api",
+    }
 
 
 def scan_prs(master: pd.DataFrame, session: requests.Session, token: str | None) -> dict[str, Any]:

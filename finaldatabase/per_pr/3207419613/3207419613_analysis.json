@@ -6,17 +6,17 @@
     "repo": "shiosyakeyakini-info/miria",
     "agent": "Copilot",
     "user": "Copilot",
-    "status": "open",
-    "state": "open",
+    "status": "closed",
+    "state": "closed",
     "created_at": "2025-07-07 03:24:11+00:00",
     "merged_at": null,
-    "closed_at": null,
+    "closed_at": "2026-08-05 22:05:39+00:00",
     "detection_source": "llm_title_body_classifier",
     "aidev_task_type": "fix",
     "aidev_task_confidence": 9,
-    "topic_id": null,
+    "topic_id": 6,
     "topic_name": "6",
-    "body_summary": "Add pagination to muted users list by replacing ListView.builder with PushableListView, improving load performance for large lists."
+    "body_summary": "Implement PushableListView pagination for the muted users list so the load-more button appears and initial loading is improved for many muted users; linked to issue #777."
   },
   "quantitative_metrics": {
     "change_scale": {
@@ -54,7 +54,7 @@
         "copilot_work_finished": 1,
         "review_requested": 1
       },
-      "lifespan_hours": null,
+      "lifespan_hours": 9474.691,
       "first_review_delay_hours": null,
       "review_rounds": 0,
       "has_revert": false,
@@ -69,8 +69,9 @@
   },
   "perf_labels": {
     "perf_focus": [
-      "pagination",
+      "list_pagination",
       "lazy_load",
+      "muted_users_list",
       "initial_load_reduction"
     ],
     "optimization_layer": "frontend_ui",
@@ -78,86 +79,86 @@
       "narrative"
     ],
     "inefficiency_antipattern": [
-      "none"
+      "eager_loading"
     ],
-    "outcome_reason": "open_no_review_yet",
+    "outcome_reason": "stale_inactivity",
     "review_dimensions": [],
     "blocking": false,
-    "boundary_tag": "technical_stack",
+    "boundary_tag": "process",
     "topic_difficulty": "low",
     "detection_method": [
       "unknown"
     ],
-    "reproducibility": "unknown",
-    "regression_handling": "unknown",
+    "reproducibility": "insufficient",
+    "regression_handling": "reject_close",
     "confidence": "medium",
-    "notes": "Copilot added pagination to muted users list following existing patterns; no review or performance evidence provided; PR remains open."
+    "notes": "No review or comment text is available; the small pagination PR remained unreviewed for over a year and was closed, so outcome is inferred as stale/abandoned rather than explicit technical rejection."
   },
   "structured_analysis": {
     "merge_outcome_context": {
-      "outcome": "open",
+      "outcome": "closed",
       "change_scale_vs_repository": {
         "pr_change_lines": 96,
-        "interpretation": "At 96 changed lines across 3 files, this is a small edit by absolute volume. It is a focused refactor to use an existing pagination component, fitting a small-step incremental improvement. The PR is still open with no reviews, so its outcome is undetermined."
+        "interpretation": "At 96 changed lines across 3 files, this is a small pagination-focused edit by absolute volume. The closed outcome is not explained by change size; instead, the PR received no review or comment text and was closed after more than a year, consistent with stale/abandoned agent PR."
       },
       "lifecycle": {
-        "lifespan_hours": null,
+        "lifespan_hours": 9474.691,
         "fast_merge": false
       }
     },
     "review_details": {
       "review_comment_bucket": "no_review_text",
-      "primary_concern": null,
-      "concern_detail": null,
-      "performance_claim": "Pagination using PushableListView improves initial load time for large muted user lists.",
+      "primary_concern": "no_review_engagement",
+      "concern_detail": "The dataset contains no formal reviews, PR comments, or inline review comments. The PR was created on 2025-07-07 and closed on 2026-08-05; with no maintainer reaction, the most plausible closure reason is stale inactivity rather than an explicit technical rejection.",
+      "performance_claim": "PushableListView pagination shows the load more button and improves initial load time for large muted-user lists by fetching pages via mute/list untilId.",
       "performance_evidence_in_review": false,
-      "antipattern_addressed": "none",
+      "antipattern_addressed": "eager_loading_all_muted_users",
       "antipattern_in_fix": "none",
       "human_review_dimensions": [],
-      "rejection_signals": null
+      "rejection_signals": "No review or rejection text available; closure is inferred as stale/abandoned due to absence of engagement and the >1-year lifespan."
     },
     "capability_boundary": {
       "topic": "6",
       "agent": "Copilot",
-      "boundary_type": "technical_stack",
-      "boundary_notes": "Replacing a standard ListView with a library pagination component is within the agent's capability; merge depends on maintainer acceptance of the pattern and functional validation.",
-      "success_factors": [
-        "small_scope",
-        "follows_existing_patterns"
-      ]
+      "boundary_type": "process",
+      "boundary_notes": "Copilot completed a small Flutter pagination refactor following existing PushableListView patterns and linked the issue, but the PR received no review or feedback and was eventually closed without merge. This illustrates a process boundary where lack of maintainer engagement, not technical failure, determines outcome.",
+      "success_factors": []
     },
     "maintainer_practices": {
       "maintainer_detection": [
         "unknown"
       ],
       "detection_detail": {},
-      "material_reproducibility": "unknown",
-      "reproducibility_notes": "No maintainer feedback or performance benchmarks available.",
-      "regression_handling": "unknown",
-      "regression_detail": "PR is open, no regression events observed.",
-      "evidence_gap": "narrative_only_no_review"
+      "material_reproducibility": "insufficient",
+      "reproducibility_notes": "PR body provides code snippets and API support claims but no benchmark, timings, profiler, or reproducible test instructions; no review text offers verification.",
+      "regression_handling": "reject_close",
+      "regression_detail": "No review issues were raised in the available data. The PR was closed without merge after an extremely long inactive period; no fix cycle or revert occurred.",
+      "evidence_gap": "narrative_only_no_review_perf_metrics"
     }
   },
   "evidence": {
     "core_change_summary": {
-      "description": "Replaced ListView.builder with PushableListView<Muting> to enable 'load more' pagination on the muted users page, using dedicated initializeFuture and nextFuture callbacks with untilId pagination parameter.",
+      "description": "In muted_users_page.dart, Copilot replaced the all-at-once ListView.builder with PushableListView<Muting>, using initializeFuture to load the first page from the misskey mute/list endpoint and nextFuture to fetch subsequent pages via MuteListRequest(untilId: lastItem.id). The muted-users state notifier was updated for pagination, and the widget test was adjusted.",
       "files_primary": [
         "lib/view/several_account_settings_page/muted_users_page/muted_users_page.dart",
-        "lib/state_notifier/muted_users_page/muted_users_notifier.dart",
+        "lib/state_notifier/muted_users_page/muted_users_notifier.dart"
+      ],
+      "files_secondary_observability": [
         "test/view/muted_users_page/muted_users_page_test.dart"
       ],
-      "files_secondary_observability": [],
-      "secondary_note": null,
+      "secondary_note": "Only four new lines in the test file; no CI result or review text was available to validate behavior.",
       "change_trajectory": [
-        "Initial plan commit (empty).",
-        "Commit a950829: replaced ListView with PushableListView, added pagination logic using Misskey mute.list API's untilId parameter, updated test file."
+        "Initial plan commit by Copilot (92513f5).",
+        "Implementation commit by Copilot (a950829) added PushableListView pagination, updated notifier, and test.",
+        "Review was requested at 2025-07-07T03:33:46Z, but no review or comment text followed.",
+        "PR closed without merge on 2026-08-05."
       ]
     },
     "review_signals": [],
     "collaboration_trajectory": [
-      "PR created by Copilot with linked issue; pagination implementation added in single substantive commit.",
-      "Review requested but no human or bot reviews have been submitted yet.",
-      "PR remains open with no further activity."
+      "Copilot opened PR linked to issue #777 and completed copilot_work_started/finished events within ~10 minutes.",
+      "Review was requested from Copilot, but no maintainer or bot review text appears.",
+      "PR remained unreviewed and was closed after >1 year without interaction."
     ]
   },
   "data_coverage": {

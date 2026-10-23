@@ -319,6 +319,11 @@ def fmt_examples(examples: list[dict]) -> str:
     return "\n".join(lines)
 
 
+def paper_title(title: str) -> str:
+    """Drop leading 'RQ1.1 ' / 'RQ4.2 ' prefixes from figure titles."""
+    return re.sub(r"^RQ\d+(?:\.\d+)?\s+", "", title).strip()
+
+
 def save_barh(path: Path, labels: list[str], values: list[float], title: str, xlabel: str) -> None:
     fig, ax = plt.subplots(figsize=(8.5, max(3.2, 0.42 * len(labels) + 1.4)))
     y = list(range(len(labels)))
@@ -327,7 +332,7 @@ def save_barh(path: Path, labels: list[str], values: list[float], title: str, xl
     ax.set_yticklabels(labels)
     ax.invert_yaxis()
     ax.set_xlabel(xlabel)
-    ax.set_title(title)
+    ax.set_title(paper_title(title))
     fig.tight_layout()
     fig.savefig(path, dpi=160, bbox_inches="tight")
     plt.close(fig)
@@ -516,7 +521,7 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         FIG_DIR / "rq1_status.png",
         ["merged", "closed", "open"],
         [len(merged), len(closed), len(open_)],
-        "RQ1.1 Status counts",
+        "Status counts",
         "PRs",
     )
     ag_plot = agent_tbl[agent_tbl["n"] >= 30]
@@ -524,7 +529,7 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         FIG_DIR / "rq1_agent_merge.png",
         ag_plot["agent"].tolist(),
         (ag_plot["merge_rate"] * 100).tolist(),
-        "RQ1.1 Merge rate by agent (n≥30)",
+        "Merge rate by agent (n≥30)",
         "Merge rate (%)",
     )
     mot_fig_label = {
@@ -537,21 +542,21 @@ def build_report(df: pd.DataFrame, records: list[dict]) -> tuple[str, dict]:
         FIG_DIR / "rq1_closed_motivation.png",
         [mot_fig_label.get(k, k) for k in mot_counts.index],
         mot_counts.values.tolist(),
-        "RQ1.3 Closed = unmerged/rejected; internal types",
+        "Closed = unmerged/rejected; internal types",
         "Closed PRs",
     )
     save_barh(
         FIG_DIR / "rq2_lifespan.png",
         [str(x) for x in merge_by_life.index.tolist()],
         (merge_by_life * 100).tolist(),
-        "RQ2.1 Terminal merge rate by lifespan",
+        "Terminal merge rate by lifespan",
         "Merge rate (%)",
     )
     save_barh(
         FIG_DIR / "rq4_boundary.png",
         bound_term.index.astype(str).tolist(),
         (bound_term["merge_rate"] * 100).tolist(),
-        "RQ4.2 Terminal merge rate by boundary_tag",
+        "Terminal merge rate by boundary_tag",
         "Merge rate (%)",
     )
 

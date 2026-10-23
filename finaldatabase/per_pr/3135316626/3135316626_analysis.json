@@ -6,17 +6,17 @@
     "repo": "microsoft/vs-mef",
     "agent": "Copilot",
     "user": "Copilot",
-    "status": "open",
-    "state": "open",
+    "status": "merged",
+    "state": "closed",
     "created_at": "2025-06-11 02:50:00+00:00",
-    "merged_at": null,
-    "closed_at": null,
+    "merged_at": "2026-09-01 04:15:54+00:00",
+    "closed_at": "2026-09-01 04:15:54+00:00",
     "detection_source": "llm_title_body_classifier",
     "aidev_task_type": "fix",
     "aidev_task_confidence": 10,
     "topic_id": null,
     "topic_name": "38",
-    "body_summary": "Prevent unnecessary instantiation of declaring class when accessing static member exports in MEF by checking IsStatic before creating part lifecycle trackers, and bypass instantiation for static members."
+    "body_summary": "Fix MEF static member exports so the declaring type is not unnecessarily instantiated, improving performance and avoiding constructor side effects."
   },
   "quantitative_metrics": {
     "change_scale": {
@@ -33,9 +33,9 @@
       },
       "directory_count": 3,
       "directories": [
+        "(root)",
         "src",
-        "test",
-        "."
+        "test"
       ]
     },
     "collaboration": {
@@ -61,9 +61,9 @@
         "reviewed": 4,
         "commented": 6
       },
-      "lifespan_hours": 12.127,
-      "first_review_delay_hours": 0.368,
-      "review_rounds": 3,
+      "lifespan_hours": 10729.42,
+      "first_review_delay_hours": 0.3678,
+      "review_rounds": 11,
       "has_revert": false,
       "auto_merge_enabled": false
     },
@@ -71,27 +71,29 @@
       "body_has_benchmark_table": false,
       "body_mentions_profiler": false,
       "body_has_repro_steps": false,
-      "body_has_numeric_perf_claim": false
+      "body_has_numeric_perf_claim": true
     }
   },
   "perf_labels": {
     "perf_focus": [
-      "static_member_export",
-      "lazy_instantiation_avoidance",
-      "mef_optimization"
+      "static_member_export_instantiation_bypass",
+      "constructor_execution_avoidance",
+      "mef_runtime_lazy_instantiation"
     ],
-    "optimization_layer": "application_control_flow",
+    "optimization_layer": "runtime_library",
     "evidence_type": [
-      "narrative"
+      "narrative",
+      "unit_test"
     ],
     "inefficiency_antipattern": [
       "unnecessary_instantiation"
     ],
-    "outcome_reason": "open_awaiting_merge_or_ci",
+    "outcome_reason": "merged_after_review_fix",
     "review_dimensions": [
       "correctness",
+      "tests",
       "design_or_approach",
-      "tests"
+      "ci_validation"
     ],
     "blocking": true,
     "boundary_tag": "technical_stack",
@@ -103,32 +105,33 @@
     "reproducibility": "partial",
     "regression_handling": "fix_in_pr",
     "confidence": "high",
-    "notes": "Copilot fixed MEF static member instantiation; multiple review rounds resolved config regressions and MEFv2 engine compatibility; PR open after ~12h with iterative fixes."
+    "notes": "Copilot fixed static export instantiation with unit tests; AArnott required config reverts and MEF engine compatibility fixes before approving and merging."
   },
   "structured_analysis": {
     "merge_outcome_context": {
-      "outcome": "open",
+      "outcome": "merged",
       "change_scale_vs_repository": {
         "pr_change_lines": 172,
-        "interpretation": "At 172 changed lines across 5 files, this is a small edit by absolute volume. It targets a specific MEF inefficiency and aligns with a small-step performance PR, which typically suffers low merge friction if correctness is ensured; currently open after multiple review rounds addressing SDK version, nuget source, MEF engine compatibility."
+        "interpretation": "At 172 changed lines, this is a small edit by absolute volume, concentrated in two production files plus a test file. It fits a narrow framework performance fix that nevertheless required multiple interactive review rounds before eventual merge."
       },
       "lifecycle": {
-        "lifespan_hours": 12.127,
+        "lifespan_hours": 10729.42,
         "fast_merge": false
       }
     },
     "review_details": {
-      "review_comment_bucket": "correctness_or_bug",
-      "primary_concern": "correctness",
-      "concern_detail": "Maintainer AArnott requested reverts to global.json and nuget.config, advised running tests against all MEF engines (V1Compat, V2Compat) with MEFv2 attributes, then flagged that MEFv2 does not support exporting fields/methods, requiring removal of those attributes; these concerns revolve around correctness and compatibility.",
-      "performance_claim": "Avoid unnecessary instantiation of declaring class for static member exports, reducing performance overhead and side effects.",
+      "review_comment_bucket": "design_or_approach",
+      "primary_concern": "test_engine_compatibility_and_config_cleanup",
+      "concern_detail": "AArnott first requested reverting global.json/nuget.config changes and running tests against all MEF engines with MEFv2 attributes; a later CHANGES_REQUESTED required dropping MEFv2 attributes from static field/method tests because MEFv2 does not support exporting fields or methods.",
+      "performance_claim": "Static member exports should not instantiate the declaring type, avoiding unnecessary constructor execution and performance overhead.",
       "performance_evidence_in_review": false,
       "antipattern_addressed": "unnecessary_instantiation",
       "antipattern_in_fix": "none",
       "human_review_dimensions": [
         "correctness",
+        "tests",
         "design_or_approach",
-        "tests"
+        "ci_validation"
       ],
       "rejection_signals": null
     },
@@ -136,11 +139,12 @@
       "topic": "38",
       "agent": "Copilot",
       "boundary_type": "technical_stack",
-      "boundary_notes": "Copilot made correct core logic changes but initially introduced unrelated build config changes (SDK version, nuget source) that were incorrect for the repository; subsequent rounds revealed lack of understanding of MEF engine capabilities (MEFv2 doesn't support field/method exports). This shows boundary in navigating existing project-specific configuration and nuanced engine version constraints.",
+      "boundary_notes": "The change required deep familiarity with MEF engine semantics and repository build configuration; Copilot needed multiple human-guided iterations to align tests and config changes with maintainer expectations.",
       "success_factors": [
-        "addressed_review_feedback",
-        "added_comprehensive_tests",
-        "collaborative_copilot_work_start"
+        "linked_issue",
+        "responsive_iterative_fixes",
+        "maintainer_guidance",
+        "narrow_core_change"
       ]
     },
     "maintainer_practices": {
@@ -149,89 +153,101 @@
         "ci_auto"
       ],
       "detection_detail": {
-        "code_reading": "AArnott identified unnecessary config changes and MEF engine capability mismatches during review.",
-        "ci_auto": "Azure Pipelines triggered multiple times via /azp run to validate changes."
+        "code_reading": "AArnott reviewed inline diff hunks and requested reverts of SDK/package source changes, broader MEF engine coverage, and removal of unsupported static member attributes.",
+        "ci_auto": "Maintainer triggered Azure Pipelines multiple times via /azp run; CI execution is visible through azure-pipelines bot confirmations."
       },
       "material_reproducibility": "partial",
-      "reproducibility_notes": "PR provides unit tests verifying that static fields/properties/methods do not trigger constructor, but no before/after timing evidence.",
+      "reproducibility_notes": "Unit tests verify constructor behavior for static field/property/method exports and mixed classes, but no benchmark or profiling data is provided for the performance overhead claim.",
       "regression_handling": "fix_in_pr",
-      "regression_detail": "Initial commit inadvertently modified global.json and nuget.config, which were reverted; MEFv2 engine compatibility was iteratively refined over several commits.",
-      "evidence_gap": "narrative_only_no_benchmark"
+      "regression_detail": "Copilot iteratively reverted config changes, adjusted test attributes, and removed unsupported MEFv2 marks in response to CHANGES_REQUESTED feedback; maintainer fixed whitespace before merge.",
+      "evidence_gap": "unit_tests_only_no_benchmark"
     }
   },
   "evidence": {
     "core_change_summary": {
-      "description": "Modified ExportProvider.CreateExport() and RuntimeExportProvider.GetExportedValue() to check MemberRef.IsStatic() before creating part lifecycle trackers; for static members, bypass instantiation and call GetValueFromMember with null instance. Added unit tests for various static export scenarios.",
+      "description": "In ExportProvider.cs and RuntimeExportProviderFactory+RuntimeExportProvider.cs, static member exports now check MemberRef.IsStatic() and call GetValueFromMember(null, ...) directly, bypassing part lifecycle instantiation. Comprehensive tests were added in StaticMemberExportsTests.cs.",
       "files_primary": [
         "src/Microsoft.VisualStudio.Composition/ExportProvider.cs",
-        "src/Microsoft.VisualStudio.Composition/RuntimeExportProviderFactory+RuntimeExportProvider.cs"
+        "src/Microsoft.VisualStudio.Composition/RuntimeExportProviderFactory+RuntimeExportProvider.cs",
+        "test/Microsoft.VisualStudio.Composition.Tests/StaticMemberExportsTests.cs"
       ],
       "files_secondary_observability": [
-        "test/Microsoft.VisualStudio.Composition.Tests/StaticMemberExportsTests.cs",
         "global.json",
         "nuget.config"
       ],
-      "secondary_note": "global.json and nuget.config were transiently modified and then reverted; final test file has many iterative changes.",
+      "secondary_note": "Initial exploration temporarily changed global.json SDK version and nuget.config source; these were reverted during review.",
       "change_trajectory": [
-        "Initial exploration commit changed global.json and nuget.config (later reverted).",
-        "Implemented core fix: static member checks in ExportProvider and RuntimeExportProvider.",
-        "Added initial comprehensive tests.",
-        "Review: AArnott requested reverts of global.json/nuget.config and added MEFv2 support.",
-        "Copilot reverted config files, added MEFv2 attributes and expanded test engines.",
-        "Review: AArnott noted redundant engine flags; Copilot removed them.",
-        "Review: AArnott flagged MEFv2 doesn't support field/method exports; Copilot removed MEFv2 attributes from those and V2Compat from tests.",
-        "Maintainer whitespace fix commit; multiple Azure Pipeline runs triggered."
+        "Initial plan and exploration commit modified global.json and nuget.config.",
+        "Core fix commit updated ExportProvider and RuntimeExportProvider to bypass instantiation for static members.",
+        "Test commit added coverage for static field, property, method, and mixed-class exports.",
+        "Review feedback led to reverting global.json/nuget.config and adding MEFv2 support to tests.",
+        "Subsequent commits removed redundant engine flags and unsupported MEFv2 attributes for static field/method exports.",
+        "Maintainer applied whitespace fix before final merge."
       ]
     },
     "review_signals": [
       {
         "source": "AArnott",
         "channel": "formal_review",
-        "signal": "changes_requested_revert_config",
-        "summary": "Requested revert of temporary global.json and nuget.config changes, and to run tests against all MEF engines.",
+        "signal": "changes_requested_initial",
+        "summary": "CHANGES_REQUESTED with substantive inline feedback on config reverts and MEF engine test coverage.",
         "blocking": true,
-        "action_taken": "Copilot reverted those files and added MEFv2 attributes."
+        "action_taken": "Copilot responded with commits c4ecf24 and 4648648."
       },
       {
         "source": "AArnott",
         "channel": "inline_review_comment",
-        "signal": "drop_mefv2_unsupported",
-        "summary": "MEFv2 does not support exporting fields or methods; drop MEFv2 attributes and V2Compat for those test cases.",
+        "signal": "revert_config_files",
+        "summary": "Requested reverting global.json SDK version and nuget.config package source changes.",
         "blocking": true,
-        "action_taken": "Copilot removed MEFv2 attributes from static field and method exports and adjusted tests."
+        "action_taken": "Reverted in commit c4ecf24."
       },
       {
         "source": "AArnott",
         "channel": "inline_review_comment",
-        "signal": "remove_redundant_engine_flags",
-        "summary": "V1Compat includes V3EmulatingV1, etc.; drop redundant flags.",
+        "signal": "expand_test_engine_coverage",
+        "summary": "Advised running tests against all MEF engines and adding MEFv2 attributes to test classes.",
         "blocking": true,
-        "action_taken": "Copilot removed V3EmulatingV1/V2 flags."
+        "action_taken": "Copilot added MEFv2 support, then later removed redundant flags."
       },
       {
         "source": "AArnott",
-        "channel": "pr_comment",
-        "signal": "trigger_ci",
-        "summary": "Manually triggered Azure Pipeline run multiple times.",
+        "channel": "inline_review_comment",
+        "signal": "drop_mefv2_unsupported_members",
+        "summary": "MEFv2 does not support exporting fields or methods; requested removing V2Compat and MEFv2 attributes for those tests.",
+        "blocking": true,
+        "action_taken": "Copilot removed the unsupported attributes in commit 1c817b6."
+      },
+      {
+        "source": "Copilot",
+        "channel": "inline_review_comment",
+        "signal": "fix_confirmation",
+        "summary": "Copilot confirmed reverts and removal of redundant/unsupported test attributes.",
         "blocking": false,
         "action_taken": null
       },
       {
-        "source": "Copilot",
+        "source": "AArnott",
         "channel": "pr_comment",
-        "signal": "firewall_block",
-        "summary": "Warned about firewall rules blocking NuGet package restore.",
+        "signal": "ci_trigger",
+        "summary": "Maintainer triggered Azure Pipelines via /azp run after fixes.",
+        "blocking": false,
+        "action_taken": "CI pipeline executed."
+      },
+      {
+        "source": "azure-pipelines[bot]",
+        "channel": "pr_comment",
+        "signal": "ci_started",
+        "summary": "Azure Pipelines successfully started running the requested pipeline.",
         "blocking": false,
         "action_taken": null
       }
     ],
     "collaboration_trajectory": [
-      "Copilot opened PR with core fix and tests, but inadvertently modified global.json and nuget.config.",
-      "AArnott CHANGES_REQUESTED reverting those files and expanding test coverage to all MEF engines.",
-      "Copilot reverted config files, added MEFv2 attributes, and adjusted tests.",
-      "AArnott flagged redundant engine flags; Copilot removed them.",
-      "AArnott pointed out MEFv2 limitations on fields/methods; Copilot removed those attributes.",
-      "Maintainer added whitespace fix and triggered CI runs; PR remains open awaiting final merge."
+      "Copilot opened the PR linked to issue and made initial exploration changes to global.json/nuget.config.",
+      "AArnott issued CHANGES_REQUESTED within ~22 minutes with config reverts and test coverage guidance.",
+      "Copilot iterated across multiple commits, including reverting config files, adjusting MEF engine flags, and removing unsupported MEFv2 attributes.",
+      "Maintainer fixed whitespace and triggered Azure Pipelines; PR eventually merged after extensive review."
     ]
   },
   "data_coverage": {
