@@ -2,7 +2,7 @@ import json
 import urllib.request
 from pathlib import Path
 
-key = Path(".deepseekToken").read_text(encoding="utf-8").strip()
+key = (Path(__file__).resolve().parents[2] / ".deepseekToken").read_text(encoding="utf-8").strip()
 body = {
     "model": "deepseek-chat",
     "temperature": 0,

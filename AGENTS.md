@@ -3,33 +3,42 @@
 ## Cursor Cloud specific instructions
 
 ### What this repo is
-This is the standalone `MyStudy` research project: Python scripts that analyze performance
-(`perf`) Pull Requests from the HuggingFace dataset `hao-li/AIDev`. There is no web/GUI app —
-the "application" is a set of data-analysis scripts run from the repo root. See `README.md`
-(Chinese) for metric definitions and dataset join keys.
+Standalone `MyStudy` research project. Python scripts analyze agent-authored performance
+pull requests. There is no web/GUI app. Layout and file roles are in `README.md`
+(Chinese). Papers and datasets are in `REFERENCES.md`.
 
 ### Runnable application (verified working)
-- `python performance_pr_analysis.py` — streams parquet from `hf://datasets/hao-li/AIDev`,
-  computes perf-PR merge rates, and writes `output/` (parquet, `all_perfPR.json`,
-  `summary_metrics.json`, `SUMMARY_zh.md`, `figures/performance_pr_dashboard.png`). Fast (~10s).
-- `python performance_pr_analysis_all.py` — same idea over the full `all_pull_request.parquet`;
-  writes `output_all/`. Slow (~2–3 min) because it streams the full ~930k-row table.
-- Both accept `--local` to read parquet from a sibling `../AIDev/` directory instead of HF.
+Run from the repository root:
+
+- `python phase1/scripts/performance_pr_analysis.py` — streams parquet from
+  `hf://datasets/hao-li/AIDev`, computes perf-PR merge rates, and writes
+  `phase1/output/` (parquet, `all_perfPR.json`, `summary_metrics.json`,
+  `SUMMARY_zh.md`, `figures/performance_pr_dashboard.png`). Fast (~10s).
+- `python phase1/scripts/performance_pr_analysis_all.py` — same idea over
+  `all_pull_request.parquet`; writes `phase1/output_all/`. Slow (~2–3 min)
+  because it streams the full ~930k-row table.
+- Both accept `--local` to read parquet from a sibling `../AIDev/` directory
+  (the parent of this repo) instead of Hugging Face.
 
 ### Non-obvious caveats
-- **Network required by default.** Scripts read from HuggingFace over the network; there is no
-  bundled copy of the AIDev parquet files. If the environment lacks network access, these
-  scripts cannot fetch data (the `--local` path below is not available in this standalone repo).
-- **`--local` mode does NOT work in this repo.** The scripts compute `ROOT = parents[1]` and look
-  for `../AIDev/*.parquet`. This repo is the `MyStudy` subfolder extracted on its own, so the
-  sibling `AIDev/` directory is absent. Use the default (HF streaming) mode.
-- **`extract_databasephase1.py` and `build_finaldatabase.py` are NOT runnable standalone.** They
-  require external paper-source data at `../AIDev/` and `../AIDevPerf/LLM-performance/Outputs/`
-  that is not part of this repo. They were used to produce the already-committed `finaldatabase/`
-  directory (a pre-built artifact); do not expect to regenerate it here.
-- **Generated outputs are not tracked.** `output/`, `output_all/`, and `__pycache__/` are created
-  at runtime. Do not commit them.
+- **Network required by default.** Scripts read from Hugging Face over the network.
+  This repo does not bundle the AIDev parquet files. Without network, the default
+  path cannot fetch data.
+- **`--local` mode needs a sibling checkout.** The scripts set the external root to
+  this repo's parent and look for `../AIDev/*.parquet`. That directory is not part
+  of this repo. Use the default Hugging Face mode here.
+- **`phase1/scripts/extract_databasephase1.py` and `phase1/scripts/build_finaldatabase.py`
+  are not runnable standalone.** They require external paper-source data at
+  `../AIDev/` and `../AIDevPerf/LLM-performance/Outputs/`. They produced the
+  committed `phase1/data/finaldatabase/` tree; do not expect to regenerate it here.
+- **Generated outputs are not tracked.** `output/`, `output_all/`,
+  `output_pr_analysis/`, `output_workflow_size/`, and `__pycache__/` are created
+  at runtime (Phase 1 scripts write the first four under `phase1/`). Do not commit them.
+- **Phase 2 classification** continues with
+  `python phase2/scripts/classify_performance_purpose.py`. It reads
+  `phase2/data/` and a local `.deepseekToken` at the repo root. It stops on HTTP 402.
 
 ### Lint / test
-- There is no test suite and no linter config. As a smoke check, `python -m py_compile *.py`
-  confirms all scripts parse.
+There is no test suite and no linter config. As a smoke check,
+`python -m py_compile phase1/scripts/*.py phase2/scripts/*.py` confirms the
+maintained scripts parse.
