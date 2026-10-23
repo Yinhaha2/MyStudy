@@ -2,7 +2,7 @@ import json
 import urllib.request
 from pathlib import Path
 
-token = Path(r"C:\Users\Y2698\Desktop\研究生\毕设\datebase\影子仓\.github_token").read_text(encoding="utf-8").strip()
+token = (Path(__file__).resolve().parents[2] / ".github_token").read_text(encoding="utf-8").strip()
 
 
 def get(url: str, accept: str = "application/vnd.github+json"):
