@@ -202,6 +202,10 @@ def performance_count() -> int:
 
 
 def main() -> None:
+    raise SystemExit(
+        "Use phase2/scripts/run_offpeak_classify.py. "
+        "deepseek-chat is retired, thinking is on by default, and this entry would ignore the half-price window."
+    )
     key = KEY_PATH.read_text(encoding="utf-8").strip()
     rows = load_texts()
     finished = done_ids()

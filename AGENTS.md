@@ -34,9 +34,11 @@ Run from the repository root:
 - **Generated outputs are not tracked.** `output/`, `output_all/`,
   `output_pr_analysis/`, `output_workflow_size/`, and `__pycache__/` are created
   at runtime (Phase 1 scripts write the first four under `phase1/`). Do not commit them.
-- **Phase 2 classification** continues with
-  `python phase2/scripts/classify_performance_purpose.py`. It reads
-  `phase2/data/` and a local `.deepseekToken` at the repo root. It stops on HTTP 402.
+- **Phase 2 classification** is finished: 51,141 labels, 4,146 performance.
+  `python phase2/scripts/run_offpeak_classify.py` is the off-peak runner. It reads
+  `phase2/data/` and a local `.deepseekToken` at the repo root. It does not call
+  during Beijing peak hours, and it stops when the balance is nearly gone.
+  `classify_performance_purpose.py` exits immediately.
 
 ### Lint / test
 There is no test suite and no linter config. As a smoke check,

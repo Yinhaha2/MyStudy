@@ -2,9 +2,9 @@
 
 文件放在哪、之后怎么接着扩，见 [FILES.md](FILES.md)。随机 6 条的性能测试能不能复现，见 [sample6_repro.md](sample6_repro.md)。
 
-用论文 *How Do Agentic AI Systems Address Performance Optimizations?* 的判定（PR 的主要目的是不是提升性能）筛到 **992** 条时，DeepSeek 返回 402，账户余额用完，判定停在这里。这 992 条是：仓库里有性能测试，并且标题和正文被判为性能优化。名单在 [`../data/prs_performance_and_tests.csv`](../data/prs_performance_and_tests.csv)。
+用论文 *How Do Agentic AI Systems Address Performance Optimizations?* 的判定（PR 的主要目的是不是提升性能）筛完 51,141 条之后，得到 **4,146** 条：仓库里有性能测试，并且标题和正文被判为性能优化。名单在 [`../data/prs_performance_and_tests.csv`](../data/prs_performance_and_tests.csv)。
 
-这 992 条目前全是 OpenAI Codex。分类是按数据表里的存放顺序往下走的，Codex 排在前面，余额用完时还没走到 Copilot、Devin、Cursor、Claude Code 和 Jules。已合并 682，关掉未合并 235，仍 open 75。
+这 4,146 条来自 289 个仓库。Copilot 1,875，OpenAI Codex 1,484，Claude Code 294，Devin 187，Google Jules 158，Cursor 148。已合并 2,709，关掉未合并 1,174，仍 open 263。
 
 下面是上一层、更大的集合：仓库里能看到性能测试的 51,141 条，不要求这条 PR 本身是在做性能优化。
 
