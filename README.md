@@ -79,15 +79,17 @@ python phase1/scripts/generate_rq_analysis.py
 
 | 路径 | 作用 |
 | --- | --- |
+| `phase2/data/curated/` | **后续主用**：4,146 条主表 + 950 条 AgentLogs 抽取 |
 | `phase2/data/prs_with_perf_tests.csv` | 51,141 条：仓库含性能测试，PR 自己不必改到该文件 |
 | `phase2/data/prs_performance_and_tests.csv` | 其中被判成性能优化的 4,146 条 |
 | `phase2/data/llm_labels.jsonl` | 已完成的 LLM 判定；同一 PR 多行时以最后一次成功结果为准 |
 | `phase2/data/llm_summary.json` | 判定计数 |
 | `phase2/data/keyword_candidates.csv` | 关键词粗筛，不是论文判定 |
 | `phase2/data/summary.json` | 51,141 这一层的规模 |
-| `phase2/docs/sample6_repro.md` | 从 992 条里抽 6 条，看仓库里的性能测试能不能复现 |
+| `phase2/docs/sample6_repro.md` | 抽 6 条看仓库里的性能测试能不能复现 |
+| `phase2/scripts/build_curated_dataset.py` | 重建 `data/curated/`（需根目录 `agentlogs/`） |
 | `phase2/scripts/extract_prs_with_perf_tests.py` | 重抽 51,141 条名单 |
-| `phase2/scripts/run_offpeak_classify.py` | 半价时段继续 LLM 判定，读 `.deepseekToken` |
+| `phase2/scripts/run_offpeak_classify.py` | 半价时段 LLM 判定，读 `.deepseekToken` |
 | `phase2/scripts/classify_performance_purpose.py` | 旧判定入口。直接跑会退出 |
 | `phase2/scripts/keyword_screen.py` | 重跑关键词粗筛 |
 | `phase2/scripts/scan_test_prs.py` | 按测试文件名扫 commit |
@@ -96,10 +98,10 @@ python phase1/scripts/generate_rq_analysis.py
 | `phase2/archive/test_pr_scan/` | 扫描中间名单和示例 |
 | `phase2/scratch/` | 余额探测和抽样检查脚本 |
 
-继续判定：
+重建规整集：
 
 ```bash
-python phase2/scripts/run_offpeak_classify.py
+python phase2/scripts/build_curated_dataset.py
 ```
 
 ## 运行产物

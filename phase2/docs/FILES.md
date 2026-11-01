@@ -10,6 +10,7 @@
 | `llm_summary.json` | 51,141 条全部判完后的计数：性能 4,146，非性能 46,995 |
 | `keyword_candidates.csv` | 关键词粗筛，27,019 条，不是论文用的判定 |
 | `summary.json` | 51,141 这一层的规模 |
+| `curated/` | **后续主用的规整集**：4,146 条主表 + 950 条 AgentLogs 抽取。见 [`../data/curated/README.md`](../data/curated/README.md) |
 
 ## 接着扩
 
@@ -27,6 +28,7 @@ python phase2/scripts/run_offpeak_classify.py
 
 | 脚本 | 作用 |
 | --- | --- |
+| `build_curated_dataset.py` | 规整 4,146 条主表，并把 950 条对应的 AgentLogs 抽到 `../data/curated/` |
 | `run_offpeak_classify.py` | 半价时段做 LLM 判定，读写 `../data/` |
 | `classify_performance_purpose.py` | 旧入口。直接跑会退出，避免在高峰或思考模式下扣费 |
 | `keyword_screen.py` | 用论文附录里的关键词再扫一遍 51,141 条，写出 `../data/keyword_candidates.csv` |
