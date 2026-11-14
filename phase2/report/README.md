@@ -3,6 +3,16 @@
 数据来源：`phase2/data/curated/prs_master.csv`（性能目的 PR，共 **4,146** 条，**289** 个仓库）。  
 本目录图表与表格可用 `python phase2/report/build_repo_distribution_report.py` 重跑生成。
 
+## 目录
+
+| 路径 | 内容 |
+| --- | --- |
+| `build_repo_distribution_report.py` | 生成脚本 |
+| `repo_pr_distribution.csv` 等 CSV / `summary_stats.json` | 全量分布结果 |
+| `build_checklist.csv` / `build_checklist.md` | 289 仓构建清单（含 `human_buildable`） |
+| `figures/` | 图（`fig_*.png`） |
+| `examples/meteostat_build/` | meteostat 试编日志与相关脚本 |
+
 ## 结论先行
 
 1. **高度集中**：Top 10 仓库约占全部 PR 的 **51%**；Top 3（`mochilang/mochi`、`github/gh-aw`、`dotnet/runtime`）约占 **34%**；约 **55** 个仓库就覆盖 **80%** PR。
@@ -74,10 +84,10 @@
 
 | 文件 | 内容 |
 | --- | --- |
-| [`fig_repo_pr_top40.png`](fig_repo_pr_top40.png) | Top 40 仓库横向条形图（按 PR 数递减；红=heavy，蓝=mid，绿=light） |
-| [`fig_repo_pr_all289.png`](fig_repo_pr_all289.png) | 全部 289 仓纵向条形图，横轴按 PR 数从左到右递减 |
-| [`fig_repo_pr_cumulative.png`](fig_repo_pr_cumulative.png) | 累积占比曲线（50% / 80% 标注） |
-| [`fig_lang_ext_by_pr.png`](fig_lang_ext_by_pr.png) | 性能测试文件扩展名条形图 |
+| [`figures/fig_repo_pr_top40.png`](figures/fig_repo_pr_top40.png) | Top 40 仓库横向条形图（按 PR 数递减；红=heavy，蓝=mid，绿=light） |
+| [`figures/fig_repo_pr_all289.png`](figures/fig_repo_pr_all289.png) | 全部 289 仓纵向条形图，横轴按 PR 数从左到右递减 |
+| [`figures/fig_repo_pr_cumulative.png`](figures/fig_repo_pr_cumulative.png) | 累积占比曲线（50% / 80% 标注） |
+| [`figures/fig_lang_ext_by_pr.png`](figures/fig_lang_ext_by_pr.png) | 性能测试文件扩展名条形图 |
 
 ## 关于「刚编过的轻量项目」
 
@@ -86,7 +96,7 @@
 | 在 3090 上编的是什么？ | `meteostat/meteostat`：Python 天气库；**安装成功**，unit **306 passed** |
 | 算轻量吗？ | **算。** 无原生大编译；依赖以 pandas/requests 为主 |
 | 有没有对应 benchmark？ | 历史上有 `benchmarks/interpolation.py`（#217）；**当前 main 已删**。名单写的 `interpolation_benchmark.py` 文件名不准确 |
-| 安装/测试日志在哪？ | [`meteostat_build/`](meteostat_build/)（含 `03_install.log`、`04_unittest.log`、历史 bench 源码与超时跑分日志） |
+| 安装/测试日志在哪？ | [`examples/meteostat_build/`](examples/meteostat_build/)（含 `03_install.log`、`04_unittest.log`、历史 bench 源码与超时跑分日志；试编脚本在其 `scripts/`） |
 | 它对应多少条性能 PR？ | **2** 条（#269、#293），都在 `light_py` |
 | 像这样的轻量 Python 仓大概多少？ | 粗筛 **约 43 个仓库 / 113 条 PR**（见 [`light_repo_candidates.csv`](light_repo_candidates.csv) 中 `tier=light_py`） |
 | 若加上小 Go？ | 再 **约 35 仓 / 125 PR**；轻量合计约 **238 PR** |
@@ -99,9 +109,11 @@
 - `perf_file_language_by_pr.csv` — 扩展名汇总
 - `build_tier_summary.csv` — 分层汇总
 - `light_repo_candidates.csv` — light_py + light_go 候选名单
+- `build_checklist.csv` — 构建清单（人工 `human_buildable`）
 - `summary_stats.json` — 机器可读摘要
-- `build_repo_distribution_report.py` — 生成脚本
+- `build_repo_distribution_report.py` — 生成脚本（图写入 `figures/`）
+- `examples/meteostat_build/` — 试编示例
 
 ## 和此前 sample6 的关系
 
-`phase2/docs/sample6_repro.md` 谈的是**随机 6 条的性能测试复现难度**（多数难）。本报告谈的是**全量 4,146 在仓库维度的分布**，以及「先编小仓走量」的池子有多大。两者互补：分布说明为什么随机抽样容易抽到难仓；轻量名单说明若改成定向抽样，仍有一小撮可先动手。
+`phase2/docs/examples/sample6_repro.md` 谈的是**随机 6 条的性能测试复现难度**（多数难）。本报告谈的是**全量 4,146 在仓库维度的分布**，以及「先编小仓走量」的池子有多大。两者互补：分布说明为什么随机抽样容易抽到难仓；轻量名单说明若改成定向抽样，仍有一小撮可先动手。

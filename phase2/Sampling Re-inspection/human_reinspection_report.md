@@ -1,6 +1,6 @@
 # 人工复检简报（100 条）
 
-- 样本：`sample_human_100.*`（种子 `20261114`，与 DeepSeek 机器复检样本互不重叠）
+- 样本：`samples/sample_human_100.*`（种子 `20261114`，与 DeepSeek 机器复检样本互不重叠）
 - 时间：2026-11-14
 - **判定口径**：与初筛及论文 *How Do Agentic AI Systems Address Performance Optimizations?* 中的 performance-purpose filter 一致——根据标题与正文判断 PR 的**主要目的**是否为提升性能（`1` / `0`）。
 
@@ -34,6 +34,7 @@
 
 | 文件 | 说明 |
 | --- | --- |
-| `sample_human_100.md` / `.csv` | 人工复检标注 |
+| `samples/sample_human_100.md` / `.csv` | 人工复检标注 |
 | `human_reinspection_report.md` | 本简报 |
 | `human_reinspection_summary.json` | 摘要 |
+| `deepseek_recheck/` | 另一 100 条机器复检输出 |

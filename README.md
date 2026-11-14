@@ -17,7 +17,9 @@ Agent 性能 Pull Request 研究。分两个阶段：Phase 1 做实证研究，P
 └── phase2/                # 性能测试仓库上的性能 PR
     ├── scripts/
     ├── data/
-    ├── docs/
+    ├── docs/              # 说明；examples/ 下放复现笔记
+    ├── report/            # 分布结果；figures/ + examples/
+    ├── Sampling Re-inspection/
     ├── archive/
     └── scratch/
 ```
@@ -86,7 +88,9 @@ python phase1/scripts/generate_rq_analysis.py
 | `phase2/data/llm_summary.json` | 判定计数 |
 | `phase2/data/keyword_candidates.csv` | 关键词粗筛，不是论文判定 |
 | `phase2/data/summary.json` | 51,141 这一层的规模 |
-| `phase2/docs/sample6_repro.md` | 抽 6 条看仓库里的性能测试能不能复现 |
+| `phase2/docs/examples/sample6_repro.md` | 抽 6 条看仓库里的性能测试能不能复现 |
+| `phase2/report/` | 仓库–PR 分布结果、构建清单；图在 `figures/`；meteostat 试编在 `examples/meteostat_build/` |
+| `phase2/Sampling Re-inspection/` | 200 条复检抽样；结论在根目录，样本/脚本/机器输出分子目录 |
 | `phase2/scripts/build_curated_dataset.py` | 重建 `data/curated/`（需根目录 `agentlogs/`） |
 | `phase2/scripts/extract_prs_with_perf_tests.py` | 重抽 51,141 条名单 |
 | `phase2/scripts/run_offpeak_classify.py` | 半价时段 LLM 判定，读 `.deepseekToken` |
@@ -96,7 +100,7 @@ python phase1/scripts/generate_rq_analysis.py
 | `phase2/scripts/scan_repo_test_suites.py` | 判断仓库是否已有测试 |
 | `phase2/scripts/scan_perf_tests.py` | 判断路径是不是性能测试；三个 scan 脚本的输出在 `phase2/archive/test_pr_scan/` |
 | `phase2/archive/test_pr_scan/` | 扫描中间名单和示例 |
-| `phase2/scratch/` | 余额探测和抽样检查脚本 |
+| `phase2/scratch/` | 一次性探测（`agentlogs/`、`deepseek/`） |
 
 重建规整集：
 

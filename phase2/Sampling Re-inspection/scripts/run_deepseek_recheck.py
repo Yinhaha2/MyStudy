@@ -10,7 +10,7 @@ By default the script refuses to call the API during Beijing peak hours
 (Mon–Fri 09:00–12:00 and 14:00–18:00). Pass --force only if you deliberately
 want to spend at peak rates. Prefer --status / --dry-run first.
 
-Outputs (same folder):
+Outputs (under ../deepseek_recheck/):
   deepseek_recheck_labels.jsonl   one JSON object per finished PR (append-safe)
   deepseek_recheck_results.csv    merged sample + recheck columns
   deepseek_recheck_summary.json   counts and agreement vs original_verdict
@@ -30,16 +30,19 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-PHASE = HERE.parent
+BASE = HERE.parent
+PHASE = BASE.parent
 ROOT = PHASE.parent
-SAMPLE_CSV = HERE / "sample_deepseek_100.csv"
+SAMPLES = BASE / "samples"
+OUT = BASE / "deepseek_recheck"
+SAMPLE_CSV = SAMPLES / "sample_deepseek_100.csv"
 CACHE = PHASE / "data" / "pr_texts_cache.jsonl"
 KEY_PATH = ROOT / ".deepseekToken"
 
-LABELS_JSONL = HERE / "deepseek_recheck_labels.jsonl"
-RESULTS_CSV = HERE / "deepseek_recheck_results.csv"
-SUMMARY_JSON = HERE / "deepseek_recheck_summary.json"
-LOG = HERE / "deepseek_recheck.log"
+LABELS_JSONL = OUT / "deepseek_recheck_labels.jsonl"
+RESULTS_CSV = OUT / "deepseek_recheck_results.csv"
+SUMMARY_JSON = OUT / "deepseek_recheck_summary.json"
+LOG = OUT / "deepseek_recheck.log"
 
 MODEL = "deepseek-flash"
 BODY_LIMIT = 2500
@@ -107,9 +110,14 @@ def is_peak(moment: datetime) -> bool:
     return (9 * 60 <= minutes < 12 * 60) or (14 * 60 <= minutes < 18 * 60)
 
 
+def ensure_out_dir() -> None:
+    OUT.mkdir(parents=True, exist_ok=True)
+
+
 def log(message: str) -> None:
     line = f"{now_cst().isoformat(timespec='seconds')} {message}"
     print(line, flush=True)
+    ensure_out_dir()
     with LOG.open("a", encoding="utf-8") as handle:
         handle.write(line + "\n")
 
@@ -274,6 +282,7 @@ def classify_one(key: str, pr_id: int, text: str) -> dict:
 
 
 def write_results(sample: list[dict], labels: dict[int, dict]) -> dict:
+    ensure_out_dir()
     fieldnames = list(sample[0].keys())
     for extra in ("recheck_label", "recheck_raw", "recheck_model", "recheck_at", "agree_with_original"):
         if extra not in fieldnames:

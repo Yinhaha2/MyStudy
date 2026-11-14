@@ -1,6 +1,6 @@
 # Phase 2：有性能测试的 PR
 
-文件放在哪、之后怎么接着扩，见 [FILES.md](FILES.md)。随机 6 条的性能测试能不能复现，见 [sample6_repro.md](sample6_repro.md)。
+文件放在哪、之后怎么接着扩，见 [FILES.md](FILES.md)。随机 6 条的性能测试能不能复现，见 [examples/sample6_repro.md](examples/sample6_repro.md)。
 
 用论文 *How Do Agentic AI Systems Address Performance Optimizations?* 的判定（PR 的主要目的是不是提升性能）筛完 51,141 条之后，得到 **4,146** 条：仓库里有性能测试，并且标题和正文被判为性能优化。名单在 [`../data/prs_performance_and_tests.csv`](../data/prs_performance_and_tests.csv)。
 

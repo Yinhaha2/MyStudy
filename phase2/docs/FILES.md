@@ -41,4 +41,4 @@ python phase2/scripts/run_offpeak_classify.py
 
 `../archive/test_pr_scan/` 保存扫描中间文件：diff 里有测试文件的名单、仓库本来就有测试的名单，以及按「diff 碰到性能测试」收下来的名单。`examples/` 是抽出来的测试文件。`_peek_*.py`、`_fetch_*.py`、`_count_repos.py` 把路径写死在作者本机目录上，不要再跑。
 
-`../scratch/` 里是查 DeepSeek 余额和抽查 GitHub 文件的小脚本。
+`../scratch/` 里是一次性探测脚本（`agentlogs/`、`deepseek/`）。meteostat 试编示例在 `../report/examples/meteostat_build/`。随机 6 条复现笔记在 `examples/sample6_repro.md`。仓库–PR 分布报告在 `../report/`；抽样复检在 `../Sampling Re-inspection/`。

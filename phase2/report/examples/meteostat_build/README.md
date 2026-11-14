@@ -1,5 +1,7 @@
 # meteostat/meteostat 试编与执行日志
 
+本目录是 Phase 2 报告下的**试编示例**（`phase2/report/examples/meteostat_build/`）：日志与历史 bench 源码在根下，一次性服务器脚本在 `scripts/`。
+
 机器：`yzy@10.131.191.2`（dellserver），Python **3.11**，代理 `127.0.0.1:7890`。  
 时间：2026-11-11。仓库检出：GitHub `main` 当时 HEAD（`c2f4c94`，含 #323）。
 
@@ -29,6 +31,7 @@
 | `10_run_historical_interpolation_bench.log` | 历史脚本 `py_compile` 成功；执行 **超时 124** |
 | `11_api_check.txt` | 当前包仍有 `interpolate` / `hourly` / `stations` |
 | `historical_benchmarks_interpolation.py` | 从 commit `d0166c51` 拉下来的历史 benchmark 源码副本 |
+| `scripts/` | 当时在服务器上用的 smoke / 拉 bench / 比对 PR 脚本（一次性） |
 
 ## Benchmark 说明（重要）
 

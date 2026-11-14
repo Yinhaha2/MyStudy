@@ -9,6 +9,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent
+FIG = OUT / "figures"
 MASTER = ROOT / "phase2" / "data" / "curated" / "prs_master.csv"
 AIDEV_REPO = ROOT.parent / "AIDev" / "repository.parquet"
 
@@ -238,6 +239,7 @@ def main() -> None:
     light.to_csv(OUT / "light_repo_candidates.csv", index=False)
 
     # ---- figures ----
+    FIG.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update(
         {
             "figure.dpi": 140,
@@ -267,7 +269,7 @@ def main() -> None:
     ax.set_title("Top 40 repositories by performance-PR count (n=4,146)")
     ax.grid(axis="x", alpha=0.25)
     fig.tight_layout()
-    fig.savefig(OUT / "fig_repo_pr_top40.png")
+    fig.savefig(FIG / "fig_repo_pr_top40.png")
     plt.close(fig)
 
     # Figure 2: all 289 repos, sorted descending (dense bars)
@@ -293,7 +295,7 @@ def main() -> None:
     ax.set_xticklabels([df.loc[i, "repo"].split("/")[-1] for i in ticks], rotation=35, ha="right")
     ax.grid(axis="y", alpha=0.25)
     fig.tight_layout()
-    fig.savefig(OUT / "fig_repo_pr_all289.png")
+    fig.savefig(FIG / "fig_repo_pr_all289.png")
     plt.close(fig)
 
     # Figure 3: cumulative share
@@ -310,7 +312,7 @@ def main() -> None:
     ax.annotate(f"80% ≈ top {n80} repos", xy=(n80, 80), xytext=(n80 + 15, 72))
     ax.grid(alpha=0.25)
     fig.tight_layout()
-    fig.savefig(OUT / "fig_repo_pr_cumulative.png")
+    fig.savefig(FIG / "fig_repo_pr_cumulative.png")
     plt.close(fig)
 
     # Figure 4: language bars
@@ -321,7 +323,7 @@ def main() -> None:
     ax.set_title("Language proxy from performance-test file extensions")
     ax.grid(axis="x", alpha=0.25)
     fig.tight_layout()
-    fig.savefig(OUT / "fig_lang_ext_by_pr.png")
+    fig.savefig(FIG / "fig_lang_ext_by_pr.png")
     plt.close(fig)
 
     # short markdown stats for README assembly
