@@ -1,0 +1,79 @@
+==== git ====
+origin	https://github.com/meteostat/meteostat.git (fetch)
+origin	https://github.com/meteostat/meteostat.git (push)
+commit c2f4c94ece4792dcc420d9e17e4c9162e2404e39
+Author:     Christian Lamprecht <christian.lamprecht@aol.de>
+AuthorDate: Tue Nov 10 09:32:58 2026 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Nov 10 09:32:58 2026 +0100
+
+    feat: add bias-corrected ERA5-Land reanalysis provider entry (#323)
+    
+    * feat: add bias-corrected ERA5-Land reanalysis provider entry
+    
+    Registers a "reanalysis" provider so the bias-corrected ERA5-Land
+    output produced by the bulk worker (TEMP/RHUM/WSPD/SNWD corrected,
+    WDIR raw passthrough) carries its own metadata, license, and
+    priority distinct from the raw ERA5 provider. Also tidies the raw
+    ERA5 provider's name/license fields and lowers its priority relative
+    to the bias-corrected variant.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+    
+    * Modify comment for bias-corrected parameters
+    
+    Updated comment to reflect inclusion of raw wind direction.
+    
+    Co-authored-by: Copilot Autofix powered by AI <175728472+Copilot@users.noreply.github.com>
+    
+    * fix: guard fetch_data against providers with no module
+    
+    Providers like the metadata-only 'reanalysis' entry have no backing
+    fetch module. Skip them gracefully instead of crashing in
+    import_module(None).
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+    
+    * test: cover fetch_data's no-module guard
+    
+    Adds unit tests for ProviderService.fetch_data(): unknown provider,
+    provider without a module (the reanalysis-entry case), and normal
+    module dispatch via a dummy fixture provider.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+    
+    * fix: widen fetch_data's provider_id type to Provider | str
+    
+    ProviderSpec.id and get_provider() already accept bare string ids
+    (e.g. the reanalysis metadata entry), but fetch_data() was typed as
+    Provider-only, which the ty checker correctly flagged once a test
+    exercised it with a string id.
+    
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+    
+    * chore: bump version to 2.2.2
+    
+    ---------
+    
+    Co-authored-by: Claude Sonnet 5 <noreply@anthropic.com>
+    Co-authored-by: Copilot Autofix powered by AI <175728472+Copilot@users.noreply.github.com>
+==== top-level ====
+total 232
+drwxrwxr-x 8 yzy yzy   4096 Nov 11 17:18 .
+drwxrwxr-x 5 yzy yzy   4096 Nov 11 17:17 ..
+-rw-rw-r-- 1 yzy yzy    742 Nov 11 17:18 AGENTS.md
+-rw-rw-r-- 1 yzy yzy    304 Nov 11 17:18 CITATION.cff
+-rw-rw-r-- 1 yzy yzy    223 Nov 11 17:18 CONTRIBUTING.md
+drwxrwxr-x 2 yzy yzy   4096 Nov 11 17:18 examples
+drwxrwxr-x 7 yzy yzy   4096 Nov 11 17:18 .git
+-rw-rw-r-- 1 yzy yzy     63 Nov 11 17:18 .gitattributes
+drwxrwxr-x 5 yzy yzy   4096 Nov 11 17:18 .github
+-rw-rw-r-- 1 yzy yzy   1830 Nov 11 17:18 .gitignore
+-rw-rw-r-- 1 yzy yzy   1066 Nov 11 17:18 LICENSE
+drwxrwxr-x 7 yzy yzy   4096 Nov 11 17:18 meteostat
+-rw-rw-r-- 1 yzy yzy 164802 Nov 11 17:18 poetry.lock
+-rw-rw-r-- 1 yzy yzy   1303 Nov 11 17:18 pyproject.toml
+-rw-rw-r-- 1 yzy yzy   4403 Nov 11 17:18 README.md
+drwxrwxr-x 6 yzy yzy   4096 Nov 11 17:18 tests
+drwxrwxr-x 2 yzy yzy   4096 Nov 11 17:18 .vscode
+==== search bench/perf paths ====

@@ -1,0 +1,2398 @@
+sample_set,sample_index,pr_id,number,repo,html_url,agent,outcome,title,body_preview,body_chars,perf_files,original_verdict,original_model,original_raw,recheck_verdict,recheck_notes,recheck_by,recheck_at,recheck_label,recheck_raw,recheck_model,agree_with_original
+deepseek,1,3541389584,2860,mabel-dev/opteryx,https://github.com/mabel-dev/opteryx/pull/2860,Copilot,closed_unmerged,Optimize queries by pushing LIMIT/HeapSort before expensive projections,"## LIMIT/HeapSort Pushdown Before Expensive Projections - Fixed ✅
+
+Enhanced the `LimitPushdownStrategy` to push both LIMIT and HEAPSORT operations before expensive projection steps when safe to do so.
+
+### Latest Fix (commit 6)
+**Fixed critical bug:** HeapSort nodes were being incorrectly pushed into scan operations, which only pushed the LIMIT portion and lost the ORDER BY sorting logic. Now only pure LIMIT nodes are pushed to scans, while HeapSort nodes remain as separate operations to preserve sorting semantics.
+
+### Optimization Rules
+
+1. **LIMIT nodes**: 
+   - Always safe to push before projections (no column dependencies)
+   - Can be pushed into scan operations when supported
+
+2. **HEAPSORT nodes**: 
+   - Can be pushed before projections if ALL ORDER BY columns existed before the projection (not created by it)
+   - **Cannot** be pushed into scan operations (must remain separate to perform sorting)
+
+The strategy uses column dependency analysis via `pre_update_columns` metadata from ProjectionPushdownStrategy.
+
+### How It Works
+
+**Example 1: LIMIT only**
+```sql
+SELECT name, LENGTH(name) * 2 AS calc FROM planets LIMIT 5
+```
+- Before: Scan(9) → Project(9 calculations) → Limit(5)
+- After:  Scan(9) → Limit(5) → Project(5 calculations)
+- Result: 5x fewer calculations
+
+**Example 2: ORDER BY + LIMIT (HeapSort)**
+```sql
+SELECT name, LENGTH(name) AS len FROM planets ORDER BY name LIMIT 3
+```
+- Before: Scan(9) → Project(9 calculations) → HeapSort(sort by name, LIMIT 3)
+- After:  Sc…",2500,tests/performance/test_regexp_replace_performance.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:42:55+08:00,1,1,deepseek-flash,1
+deepseek,2,3301744849,1350,devantler-tech/ksail,https://github.com/devantler-tech/ksail/pull/1350,Copilot,closed_unmerged,Implement Go-based proof of concept for KSail with native library integration,"This PR introduces a complete Go-based proof of concept for KSail that demonstrates the viability of reimplementing KSail using native Go libraries instead of relying on external binaries. The POC maintains full CLI feature parity with the existing .NET implementation while showcasing significant architectural improvements.
+
+## 🎯 Key Features
+
+### Complete CLI Implementation
+- **12 commands** implemented using Cobra framework with identical interface to .NET version
+- **Production-ready `init` command** that generates all required configuration files
+- **Framework ready** for all other commands with native Go integration points
+- Full flag compatibility and help system matching existing KSail behavior
+
+### Configuration Fidelity
+The POC generates configuration files with exact schema compatibility:
+
+```yaml
+# Generated ksail.yaml matches .NET structure
+apiVersion: ksail.io/v1alpha1
+kind: Cluster
+metadata:
+  name: demo-cluster
+spec:
+  distribution: K3d
+  deploymentTool: Flux
+  cni: Cilium
+  # ... all options supported
+```
+
+### Native Library Integration
+- **`github.com/spf13/cobra`** - Modern CLI framework (as requested in issue)
+- **`k8s.io/client-go`** - Native Kubernetes API operations
+- **`sigs.k8s.io/kind`** - Direct Kind cluster management APIs
+- **`gopkg.in/yaml.v3`** - YAML configuration handling
+
+## 🚀 Architectural Benefits
+
+### Dependency Reduction (95% improvement)
+- **Before**: 15+ NuGet packages + 12+ external binaries
+- **After**: 4 Go modules + 0 external binari…",2490,pkg/client/docker/engine_bench_test.go | pkg/client/docker/registry_bench_test.go | pkg/client/kubectl/client_bench_test.go | pkg/cli/parallel/executor_benchmark_test.go | pkg/client/argocd/manager_bench_test.go,performance,deepseek-flash,performance,non-performance,,deepseek-recheck,2026-11-14T16:42:56+08:00,0,0,deepseek-flash,0
+deepseek,3,3960296071,124577,dotnet/runtime,https://github.com/dotnet/runtime/pull/124577,Copilot,closed_unmerged,Vectorize custom polynomial CRC-32/-64,"- [x] Explore codebase and understand existing architecture
+- [x] Run baseline build (`./build.sh clr+libs -rc release`)
+- [x] Add initial implementation for generalized CRC parameter-set vectorization
+- [ ] Debug failing CRC parameter-set tests (currently failing for custom forward CRC-32 and custom/NVMe CRC-64)
+- [ ] Fix CRC-32 parameter-set vectorized path correctness
+- [ ] Fix CRC-64 parameter-set vectorized path correctness
+- [ ] Run targeted System.IO.Hashing CRC test suites to verify fixes
+- [ ] Run code review and CodeQL checks
+- [ ] Reply to PR comment with commit hash
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>Vectorize custom polynomial CRC-32/-64</issue_title>
+> <issue_description>Extracting https://github.com/dotnet/runtime/pull/124117#discussion_r2801739721 to a new issue:
+> 
+> For `poly64: 0x104C11DB7` I match Intel's answers for forward constants with
+> 
+> ```C#
+> private static ulong ComputeFoldingConstant(ulong poly, int power)
+> {
+>     UInt640 value = new(1);
+>     value.ShiftLeftEquals(power);
+>     int polyDeg = 32;
+> 
+>     while (value.Degree >= polyDeg)
+>     {
+>         int shift = value.Degree - polyDeg;
+>         UInt640 polyShifted = new(poly);
+>         polyShifted.ShiftLeftEquals(shift);
+>         value.XorEquals(ref polyShifted);
+>     }
+> 
+>     return value.ToUInt64();
+> }
+> ```
+> 
+> Along with `priva…",2500,src/libraries/System.Runtime/tests/PerformanceTests/FileStreamBufferingBenchmark/FileStreamBufferingBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:42:57+08:00,1,1,deepseek-flash,1
+deepseek,4,4117094778,65901,dotnet/aspnetcore,https://github.com/dotnet/aspnetcore/pull/65901,Copilot,merged,[browser][wasm] Implement IL trimming for OTEL,"# Enable trimming of metrics and activity source types in Blazor WebAssembly
+
+## Summary
+
+Adds `[FeatureSwitchDefinition]`-based `IsSupported` static properties to `ComponentsMetrics` and `ComponentsActivitySource`, and guards all callsites with these checks. This allows the .NET trimmer to eliminate metrics and tracing infrastructure from published Blazor WebAssembly apps when `System.Diagnostics.Metrics.Meter.IsSupported` is set to `false` (the default for trimmed apps).
+
+## Motivation
+
+Metrics and activity/tracing types add to the published size of Blazor WebAssembly applications. Since most client-side Blazor apps don't use OpenTelemetry, these types should be trimmable. By gating all metrics and activity callsites behind `[FeatureSwitchDefinition]` properties, the linker can statically evaluate the feature switch at trim time and dead-code eliminate the entire metrics/tracing code paths and their associated types.
+
+## Changes
+
+### Core changes
+
+- **`ComponentsActivitySource.cs`** — Added `[FeatureSwitchDefinition(""System.Diagnostics.Metrics.Meter.IsSupported"")]` on a new `IsSupported` static property. Since there is no dedicated `ActivitySource.IsSupported` switch yet, this reuses the `Meter.IsSupported` switch to gate both metrics and activities together.
+- **`ComponentsMetrics.cs`** — Added the same `[FeatureSwitchDefinition]` and `IsSupported` property.
+- **`Renderer.cs`** — All metrics and activity callsites now check `ComponentsMetrics.IsSupported` /…",2500,src/Http/Http/perf/Microbenchmarks/ValidatableTypesBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:42:58+08:00,1,1,deepseek-flash,1
+deepseek,5,3741236412,585,fighthealthinsurance/fighthealthinsurance,https://github.com/fighthealthinsurance/fighthealthinsurance/pull/585,Copilot,merged,Optimize run_local.sh startup time with caching and parallelization,"The `run_local.sh` script was rebuilding JavaScript assets and running network checks sequentially on every invocation, causing ~13+ second delays in typical development workflows.
+
+## Changes
+
+### JS Build Caching (build_static.sh)
+- Checksum source files (.ts/.tsx/.js/.jsx), package.json, and webpack.config.js
+- Skip webpack build when checksums match and dist exists
+- **Impact**: 10s → 0.04s when unchanged (99.6% reduction)
+
+```bash
+# Checksum calculation and cache logic
+CURRENT_JS_CHECKSUM=$(find ""${JS_PATH}"" -maxdepth 1 -type f \( -name ""*.ts"" -o -name ""*.tsx"" ... \) | md5sum)
+if [ ""$CURRENT_JS_CHECKSUM"" = ""$STORED_JS_CHECKSUM"" ] && [ -d ""${JS_PATH}/dist"" ]; then
+  echo ""JavaScript source files unchanged, skipping build...""
+  SKIP_JS_BUILD=true
+fi
+```
+
+### Parallel Network Checks (run_local.sh)
+- Run kubectl and ping commands in parallel via background jobs
+- Collect environment variables through temp files
+- **Impact**: 5s → 1s (80% reduction)
+
+### Python Environment Check
+- Combine version and dependency checks into single invocation
+- Fixed string comparison bug: `sys.version >= ""3.10""` → `sys.version_info >= (3, 10)`
+
+## Total Savings
+~13 seconds on typical development runs with no code changes.
+
+> [!WARNING]
+>
+> <details>
+> <summary>Firewall rules blocked me from connecting to one or more addresses (expand for details)</summary>
+>
+> #### I tried to connect to the following addresses, but was blocked by firewall rules:
+>
+> - `10.69.200.180`
+>   - Triggering command: …",2500,tests/sync/test_performance_settings.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:42:59+08:00,1,1,deepseek-flash,1
+deepseek,6,3312143098,18467,mochilang/mochi,https://github.com/mochilang/mochi/pull/18467,OpenAI_Codex,merged,java: update Collatz sequence algorithm output,"## Summary
+- refresh Java transpiled Collatz sequence algorithm using 64-bit integers and floor division
+- record benchmark data for the Collatz sequence algorithm
+- update Algorithms progress table for Java transpiler
+
+## Testing
+- `MOCHI_ALG_INDEX=550 go test -tags=slow -run TestJavaTranspiler_Algorithms_Golden ./transpiler/x/java`
+- `MOCHI_ALG_INDEX=550 MOCHI_BENCHMARK=1 go test -tags=slow -run TestJavaTranspiler_Algorithms_Golden ./transpiler/x/java -update-algorithms-java`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_689a8f9d6d508320977cd7e57ce73632",563,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:00+08:00,0,0,deepseek-flash,0
+deepseek,7,4076754425,20987,github/gh-aw,https://github.com/github/gh-aw/pull/20987,Copilot,merged,Optimize qmd-docs workflows: explicitly instruct models to use qmd-query for doc search,"All 7 workflows importing `shared/mcp/qmd-docs.md` had the `qmd-query` vector search tool available but never told the model to use it — so models defaulted to slower, less precise `find`/`bash` file listing instead of semantic search.
+
+## Changes
+
+### `shared/mcp/qmd-docs.md`
+Expanded the `<qmd>` section from a single vague sentence into actionable guidance:
+- **When to use**: before `find`/`bash`, before writing new content, when discovering relevant files or understanding a concept
+- **Usage tips**: natural language query phrasing, `min_score` tuning, always reading returned paths, combining targeted queries
+
+### Per-workflow prompt updates
+Each workflow gets a targeted addition at the relevant decision point:
+
+| Workflow | Where `qmd-query` added |
+|---|---|
+| `technical-doc-writer.md` | Step 2 — find relevant files for the given topic before browsing |
+| `developer-docs-consolidator.md` | Phase 1 discovery — before `find specs -name '*.md'` |
+| `unbloat-docs.md` | Step 2 — find bloat candidates semantically before full directory scan |
+| `daily-doc-updater.md` | Step 4 — search existing docs per identified change before `find` |
+| `glossary-maintainer.md` | Step 4 — find authoritative documentation for each candidate term |
+| `daily-doc-healer.md` | Step 2 — find docs related to each confirmed gap |
+| `dictation-prompt.md` | Step 1 — replaced generic ""scan all files"" with 4 targeted domain queries |
+
+Example of the updated `qmd-docs.md` `<qmd>` block:
+
+```markdown
+**Alwa…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:01+08:00,1,1,deepseek-flash,1
+deepseek,8,3977158802,22487,paradigmxyz/reth,https://github.com/paradigmxyz/reth/pull/22487,OpenAI_Codex,closed_unmerged,perf(engine): precompute tx root during payload validation,"**Summary**
+
+Precompute `transactions_root` off the engine thread so tx-root trie construction overlaps other work instead of blocking `validate_post_execution`.
+
+**Motivation**
+
+Traces on a 200-block bench (blocks 24485390→24485589, 6B gas) show `calculate_tx_root` takes ~0.45ms median inside `validate_block_inner` on the engine thread. Since tx-root is a pure function of the transaction list (no state dependency), it can be computed off-thread during payload conversion and reused in post-execution validation.
+
+**Changes**
+
+- Add `validate_block_pre_execution_with_tx_root` to `Consensus` trait + `reth-consensus-common` + `EthBeaconConsensus` — accepts an optional precomputed tx-root to skip recomputation
+- In `payload_validator`: spawn tx-root computation off-thread after payload viability checks pass, pass result into post-execution validation
+- Default path unchanged — `Block` input without precomputed root still recomputes
+
+**Testing**
+
+```
+cargo test -p reth-consensus-common -p reth-engine-tree --lib
+```
+
+<details>
+<summary><b>Appendix: Trace Data</b></summary>
+
+**newPayload latency** (200 blocks, 0.77 Ggas/s):
+
+| Percentile | Latency |
+|---|---|
+| min | 12.1ms |
+| p50 | 34.0ms |
+| p90 | 57.5ms |
+| p95 | 71.1ms |
+| max | 156.1ms |
+
+**Post-execution spans on engine thread** (50-block sample):
+
+| Span | Median | Mean | P95 | Max |
+|---|---|---|---|---|
+| `validate_post_execution` | 0.71ms | 0.91ms | — | — |
+| `validate_block_inner` | 0.45ms | 0.61ms | — | — |
+| `calculate_…",1745,crates/engine/tree/benches/sparse_trie_small_work.rs | crates/chain-state/benches/canonical_hashes_range.rs | crates/engine/tree/benches/state_root_task.rs | crates/engine/tree/benches/validation_parallel.rs,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:01+08:00,1,1,deepseek-flash,1
+deepseek,9,3492118832,8260,OpenMS/OpenMS,https://github.com/OpenMS/OpenMS/pull/8260,Copilot,merged,Fix: SageAdapter now passes threads parameter to Sage via RAYON_NUM_THREADS + Add environment variable support to runExternalProcess_,"## Problem
+
+SageAdapter registered a `threads` parameter but never passed it to the Sage executable. This prevented users from controlling the level of parallelism used by Sage, which could lead to overcommitting resources in multi-process environments.
+
+## Solution
+
+This PR adds code to retrieve the `threads` parameter and pass it to the Sage executable via the `RAYON_NUM_THREADS` environment variable, which controls Sage's thread usage.
+
+To implement this cleanly, a new optional parameter was added to `runExternalProcess_()` methods to pass environment variables to external processes. This provides a general-purpose mechanism for any adapter to pass environment variables without global side effects.
+
+### Changes
+
+#### 1. Added Environment Variable Support to Core Classes
+
+**ExternalProcess** (`src/openms/include/OpenMS/SYSTEM/ExternalProcess.h` & `.cpp`):
+- Added optional `env` parameter: `const std::map<QString, QString>& env = std::map<QString, QString>()`
+- Merges custom environment variables with system environment using `QProcessEnvironment::insert()`
+- Variables only affect the spawned child process
+
+**TOPPBase** (`src/openms/include/OpenMS/APPLICATIONS/TOPPBase.h` & `.cpp`):
+- Added optional `env` parameter to both `runExternalProcess_()` overloads
+- Default empty map maintains backward compatibility with existing code
+- Forwards environment variables to `ExternalProcess::run()`
+
+#### 2. Updated SageAdapter to Use New Parameter
+
+**SageAdapter** (`src/topp/SageAdapter…",2500,comprehensive_boost_benchmark.cpp,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:02+08:00,1,1,deepseek-flash,1
+deepseek,10,3238407264,9170,mochilang/mochi,https://github.com/mochilang/mochi/pull/9170,OpenAI_Codex,merged,Improve Scala compiler map handling,"## Summary
+- enhance Scala compiler: detect map literals in len builtin and sort context
+- propagate map element types for vars used as maps
+- mark `values` builtin as a map usage
+- update machine outputs for `len_map`, `map_nested_assign`, and `values_builtin`
+- record progress in Scala TASKS and README
+
+## Testing
+- `go test ./compiler/x/scala -run TestScalaCompilerVMValid/len_map -tags slow`
+
+------
+https://chatgpt.com/codex/tasks/task_e_6878995978888320a948d06638dd7c54",477,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:03+08:00,0,0,deepseek-flash,0
+deepseek,11,4125994233,53534,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/53534,OpenAI_Codex,open,fix(feishu): refine streaming card delivery,"## Summary
+- throttle tiny intermediate streaming-card edits so Feishu cards update on meaningful deltas or natural text boundaries
+- prefer a single markdown card for long structured final replies when live streaming is unavailable
+- fall back to chunked markdown cards only after single-card delivery fails, with updated dispatcher coverage
+
+## Testing
+- pnpm test -- extensions/feishu/src/reply-dispatcher.test.ts
+- pnpm test -- extensions/feishu/src/streaming-card.test.ts
+
+## Notes
+- this PR is scoped to streaming-card delivery behavior and its tests",556,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:04+08:00,1,1,deepseek-flash,1
+deepseek,12,3955595888,19673,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/19673,OpenAI_Codex,closed_unmerged,fix(telegram): avoid starting streaming replies with only 1-2 words,"fix(telegram): avoid starting streaming replies with only 1-2 words
+
+## Summary
+
+- Problem: Telegram streaming could show incomplete text for short replies before the full text appeared.
+- Why it matters: For example when receiving ""No problem"" I first received ""No"" (appearing as if that was the full message) then a bit later the full message ""No problem"" appeared. This also made it feel a bit laggy (see for example https://github.com/openclaw/openclaw/issues/18269#issuecomment-3911346635) 
+- What changed: When Telegram streaming finalizes before any preview message was sent, we now use the final text for the first preview instead of stale partial text. Added a regression test for this case.
+- What did NOT change (scope boundary): No throttle/cadence changes, no config changes, and no non-Telegram changes.
+
+## Change Type (select all)
+
+- [x] Bug fix
+
+## Scope (select all touched areas)
+
+- [x] Integrations
+
+## Linked Issue/PR
+
+- Related #18269
+
+## User-visible / Behavior Changes
+
+List user-visible changes (including defaults/config).  
+Telegram streaming no longer shows an incomplete first preview fragment.
+
+## Security Impact (required)
+
+- New permissions/capabilities? (`No`)
+- Secrets/tokens handling changed? (`No`)
+- New/changed network calls? (`No`)
+- Command/tool execution surface changed? (`No`)
+- Data access scope changed? (`No`)
+- If any `Yes`, explain risk + mitigation: N/A
+
+## Repro + Verification
+
+### Environment
+
+- OS: macOS (…",2500,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:05+08:00,1,1,deepseek-flash,1
+deepseek,13,4031191382,9941,microsoft/typespec,https://github.com/microsoft/typespec/pull/9941,Copilot,open,feat(http-client-csharp): use Utf8JsonReader for untyped CollectionResult body parsing,"The untyped `CollectionResult` (no item model type) was deserializing the full response into the envelope model type just to extract the continuation token or next link. This PR replaces that with targeted `Utf8JsonReader` parsing that reads only the needed properties.
+
+## Changes
+
+- **`Utf8JsonReaderSnippets.cs`** — Added `ValueTextEquals(string)` and `Skip()` snippet helpers
+- **`JsonTokenTypeSnippets.cs`** — Added `PropertyName` enum value
+- **`CollectionResultDefinition.cs`** — New code generation path for untyped `CollectionResult` (when `ItemModelType == null`) at `InputResponseLocation.Body`:
+  - `AssignAndCheckNextPageVariable`: uses `Utf8JsonReader` instead of model cast
+  - `BuildGetContinuationToken`: uses `Utf8JsonReader` instead of model cast
+  - New helpers: `BuildReadNextPageWithUtf8JsonReader`, `BuildReaderLoopForSegments` (recursive for nested paths), `BuildTerminalPropertyReadStatements`
+  - Handles both `string` (continuation token) and `Uri` (next link) target types
+- **Test data files** — Updated all 10 untyped body test cases; typed `*OfT` variants unchanged
+
+## Generated code example
+
+Before (full model deserialization):
+```csharp
+nextToken = ((Page)result).NextPage;
+```
+
+After (targeted JSON read):
+```csharp
+nextToken = null;
+BinaryData data = result.GetRawResponse().Content;
+Utf8JsonReader reader = new Utf8JsonReader(data.ToMemory().Span);
+reader.Read();
+while (reader.Read())
+{
+    if (((reader.TokenType == JsonTokenType.PropertyName) && reader.ValueT…",2500,packages/http-client-csharp/generator/Microsoft.TypeSpec.Generator/perf/CodeWriterBenchmark.cs | packages/http-client-csharp/generator/Microsoft.TypeSpec.Generator/perf/ModelReaderWriterContextDefinitionBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:05+08:00,1,1,deepseek-flash,1
+deepseek,14,4048435460,7730,microsoft/CCF,https://github.com/microsoft/CCF/pull/7730,Copilot,merged,"Backport 6.x: On recovery, set UVM descriptor SVN to min(existing, new)","- [x] CHANGELOG.md: Add entry about UVM descriptor SVN minimum fix
+- [x] CMakeLists.txt: Add `internal_tables_access_test` unit test
+- [x] src/node/uvm_endorsements.h: Add `parse_svn` declaration
+- [x] src/node/uvm_endorsements.cpp: Extract `parse_svn` utility function
+- [x] src/service/internal_tables_access.h: Add `recovering` param to `trust_node_uvm_endorsements`
+- [x] src/node/rpc/node_frontend.h: Pass `recovering` to `trust_node_uvm_endorsements`
+- [x] src/node/rpc/test/internal_tables_access_test.cpp: Custom main() with openssl_sha256_init/shutdown
+- [x] tests/e2e_operations.py: Update `run_initial_uvm_descriptor_checks` to bump SVN before recovery
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+## Backport of PR #7717 to `release/6.x`
+
+This is a backport of https://github.com/microsoft/CCF/pull/7717 (merged into `main` on 2026-03-06, merge commit `5a41a9519f2aa1d86fbda85191dc262e97ed3f46`).
+
+### Original PR Description
+
+During recovery, the node was unconditionally overwriting the UVM descriptor SVN with the value from the new node's endorsements. This could raise the SVN above what was previously stored, which is incorrect — recovery should never increase the SVN.
+
+### Changes to backport
+
+The following files were changed in #7717 and need to be cherry-picked / applied to the `release/6.x` branch:
+
+1. **`CHANGELOG.md`** — Add changelog entry: ""On recovery, the UVM descriptor SVN is now set to the minimum of the previously sto…",2500,src/tasks/test/bench/merge_bench.cpp | src/tasks/test/bench/contention_bench.cpp | src/tasks/test/bench/flush_all_tasks.h | src/tasks/test/bench/merge_sort.h,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:06+08:00,1,1,deepseek-flash,1
+deepseek,15,4037671716,116,ra1nty/DXcam,https://github.com/ra1nty/DXcam/pull/116,OpenAI_Codex,merged,DXcam 2026 update,"- Switched frame transfer from full-surface CopyResource to region-aware CopySubresourceRegion
+- Made IDXGIOutput5.DuplicateOutput1 the default capture path, with env-var fallback to legacy DuplicateOutput.
+- Added explicit DXGI access-lost/session-disconnect handling with safe recovery
+- Reduced capture-thread lock hold time
+- Optimized NumPy/OpenCV processing
+- Added per-frame DXGI timestamp tracking and optional timestamp return
+- Optimized timer pacing
+
+Huge thanks to @AI-M-BOT  & @Agade09",506,benchmarks/timer_benchmark.py | tests/benchmarks/test_processor_microbenchmark.py,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:07+08:00,1,1,deepseek-flash,1
+deepseek,16,2910104788,1043,Cap-go/capgo,https://github.com/Cap-go/capgo/pull/1043,Devin,merged,fix: display API key start and linkages to orgs/apps,"# API Key Display Enhancement with Performance Optimizations
+
+Fixes #1042 - Cannot see what API keys are linked to what organizations and apps
+
+## Improvements
+
+This PR enhances the API Keys section with the following improvements:
+
+1. **API Key Display**: Shows the first 5 and last 5 characters of each API key for visual identification while maintaining security
+2. **Organization & App Linkages**: Displays badges for linked organizations and apps with proper color coding
+3. **Responsive Design**: Ensures proper layout on both mobile and desktop with appropriate spacing and wrapping
+
+## Performance Optimizations
+
+The implementation includes several performance optimizations:
+
+1. **Computed Properties**: Uses Vue computed properties for memoized helper functions to avoid repeated lookups
+2. **Parallel Fetching**: Fetches organization and app names in parallel using Promise.all
+3. **Efficient Caching**: Only fetches uncached organization and app IDs to minimize database queries
+4. **Set for Unique IDs**: Uses Set for collecting unique IDs before database queries
+
+## Testing
+
+- Tested on both mobile and desktop screen sizes
+- Verified that API keys display correctly with proper truncation
+- Confirmed that organization and app badges render properly
+
+Link to Devin run: https://app.devin.ai/sessions/442da7710ca44aefbefa1ceeea8e2969
+
+Requested by: Cap-go",1370,benches/cloudflare-utils.bench.ts | benches/device-comparison.bench.ts | benches/password-policy.bench.ts,performance,deepseek-flash,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:07+08:00,0,0,deepseek-flash,0
+deepseek,17,4042353222,40324,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/40324,OpenAI_Codex,merged,fix(agents): bound compaction retry wait and drain embedded runs on restart,"## Summary
+
+This addresses the compaction deadlock/recovery gap where a session lane can remain blocked when compaction retry resolution is lost, and where SIGUSR1 restarts can race with in-flight embedded compaction runs.
+
+Fixes included:
+
+1. Add an aggregate timeout around `waitForCompactionRetry()` in the embedded runner attempt path.
+2. Mark `timedOutDuringCompaction=true` and continue with pre-compaction snapshot fallback when that aggregate timeout is hit.
+3. Add embedded-run drain helpers (`waitForActiveEmbeddedRuns`) plus targeted abort modes (`compacting` / `all`) in the embedded run registry.
+4. During gateway restart drain, account for both active command tasks and active embedded runs.
+5. Raise restart drain/deferral budget from 30s to 90s to better match observed compaction durations.
+
+## Why
+
+Recent reports show `/new` and `/reset` can queue behind compaction wait and fail to recover sessions promptly when compaction retry never resolves.
+
+Related:
+- #40295
+- #17444
+- #38233
+- #21621
+- #25272
+
+## Tests
+
+Added:
+- `src/agents/pi-embedded-runner/run/compaction-retry-aggregate-timeout.test.ts`
+- `src/agents/pi-embedded-runner/runs.test.ts`
+
+Updated:
+- `src/cli/gateway-cli/run-loop.test.ts`
+- `src/infra/infra-runtime.test.ts`
+
+Local validation run:
+
+- `pnpm build`
+- `pnpm check`
+- `pnpm vitest run src/agents/pi-embedded-runner/run/*.test.ts src/agents/pi-embedded-runner/runs.test.ts src/cli/gateway-cli/run-loop.test.ts src/infra/infra-runtime.test.ts`
+
+## Notes
+
+Ther…",1626,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:08+08:00,1,1,deepseek-flash,1
+deepseek,18,3784850008,501,OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager,https://github.com/OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager/pull/501,Google_Jules,merged,⚡ Bolt: Optimize micro-thumbnail generation,"💡 What: Implemented `img.draft('RGB', (64, 64))` in `generate_micro_thumbnail` for JPEG images.
+🎯 Why: Scanning large photo libraries was slow due to decoding full-resolution images for 16x16 thumbnails.
+📊 Impact: ~4.4x speedup in micro-thumbnail generation for JPEGs.
+🔬 Measurement: Validated with a benchmark script on a 12MP JPEG (162ms vs 37ms). Confirmed correctness with existing tests.
+
+---
+*PR created automatically by Jules for task [1491757360075524045](https://jules.google.com/task/1491757360075524045) started by @OliverZhaohaibin*",544,tests/test_performance_sorting.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:09+08:00,1,1,deepseek-flash,1
+deepseek,19,3245559231,10363,mochilang/mochi,https://github.com/mochilang/mochi/pull/10363,OpenAI_Codex,closed_unmerged,Enhance Dart transpiler,"## Summary
+- improve Dart transpiler output and built‑in handling
+- refresh Dart TASKS roadmap
+
+## Testing
+- `go test ./transpiler/x/dart -tags=slow -run TestDartTranspiler_VMValid_Golden -count=1`
+
+------
+https://chatgpt.com/codex/tasks/task_e_687be6d8b4848320a63261a1b4d1cd57",277,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:10+08:00,0,0,deepseek-flash,0
+deepseek,20,3800960101,146,github/gh-aw-mcpg,https://github.com/github/gh-aw-mcpg/pull/146,Copilot,merged,Remove file locking from gateway.log to enable concurrent read access,"The gateway.log file was using `syscall.Flock` with a shared lock, which could interfere with external processes attempting to read the log file. Additionally, buffered writes were not being flushed immediately, delaying log visibility.
+
+## Changes
+
+- **Removed file locking**: Eliminated all `syscall.Flock` calls and the `locked` field from `FileLogger`
+- **Added immediate flushing**: Call `file.Sync()` after each log write to ensure data is immediately visible
+- **Simplified Close()**: Sync buffered data before closing, removed lock release logic
+- **Added integration test**: Added `TestBinaryInvocation_LogFileCreation` to validate log file creation, permissions (0644), concurrent readability, startup message content, and immediate flushing behavior
+
+## Implementation
+
+```go
+func (fl *FileLogger) Log(level LogLevel, category, format string, args ...interface{}) {
+    // ... write log line ...
+    
+    // Flush immediately to ensure external processes can read
+    if fl.logFile != nil {
+        if err := fl.logFile.Sync(); err != nil {
+            log.Printf(""WARNING: Failed to sync log file: %v"", err)
+        }
+    }
+}
+```
+
+The file continues to use 0644 permissions, making it readable by all users without special access requirements.
+
+## Testing
+
+- ✅ All unit tests pass (7/7 logger tests)
+- ✅ All integration tests pass (17/17 tests including new log file test)
+- ✅ New test validates log file creation, permissions, concurrent access, and immediate flushing
+- ✅ Build and lint…",2424,internal/middleware/jqschema_bench_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:11+08:00,1,1,deepseek-flash,1
+deepseek,21,3896825727,354,ROCm/iris,https://github.com/ROCm/iris/pull/354,Copilot,closed_unmerged,"Test suite analysis: 530K tests, parallelism-aware optimization plan (61% reduction possible)","## Analysis Only - No Code Changes
+
+Comprehensive test suite review identifying massive redundancy and optimization opportunities, **based on ACTUAL CI timing data from PR #370's parallelization improvements, with new parallelism-aware optimization strategy**.
+
+## Current Status Update
+
+**PR #356 Status**: CLOSED - Single-rank markers approach was too aggressive and has been reverted. All current improvements from **parallelization only** (PR #370).
+
+**Current Baseline** (after PR #370):
+- **Wall clock time**: **102.6 minutes (1.7 hours)** 
+- Serial time: 365.4 minutes
+- Parallelization speedup: **3.6×**
+- Jobs: 30 parallel jobs
+
+## Findings
+
+**Test Count**
+- Expected: 2,454 tests (per issue)
+- Actual: **530,877 base test cases**
+- CI executions: **6,370,524** (base × 4 ranks × 3 install methods)
+- Distribution: 99.91% in `tests/unittests/`, 98.8% from 10 files
+
+**Current CI Performance** *(After PR #370 Parallelization)*
+- **Original Baseline (PR #348)**: 210 minutes wall clock
+- **After Parallelization (PR #370)**: **102.6 minutes wall clock (1.7 hours)** with 3.6× speedup
+- **Current improvement**: **51.1% reduction** from baseline
+
+**Per-Test Timing by Directory** (amortized over all configurations):
+- Unittests: 12.10ms/test (530K tests, fast but high volume)
+- CCL: 4.6 seconds/test (multi-GPU synchronization)
+- Examples: 9.1 seconds/test (benchmarks)
+- Ops: 126.6 seconds/test (expensive collective operations)
+- X: **165.6 seconds/test** (most expensive per-test!)
+
+**Top…",2500,tests/unittests/test_bench.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:12+08:00,1,1,deepseek-flash,1
+deepseek,22,3645876233,20407,mui/mui-x,https://github.com/mui/mui-x/pull/20407,Copilot,merged,[docs] Migrate to `next/font` for fonts loading,"Ports https://github.com/mui/material-ui/pull/47347 and https://github.com/mui/material-ui/pull/47351 to eliminate render-blocking Google Fonts resources and improve Lighthouse performance scores.
+
+## Changes
+
+- **docs/pages/_app.js**: Migrate Inter and Roboto to `next/font/google`, export `fontClasses`
+- **docs/babel.config.js**: Delete (next/font requires SWC instead of Babel)
+- **package.json**: Update `@mui/monorepo` to latest version (d5e68b88) that includes the next/font changes from PR #47347
+
+The `_document.js` file imports from the monorepo package, which now applies `fontClasses` to the body tag and removes old Google Fonts link tags. Fonts are now optimized and self-hosted by Next.js instead of loaded from external CDN.
+
+---
+
+- [x] I have followed (at least) the [PR section of the contributing guide](https://github.com/mui/mui-x/blob/HEAD/CONTRIBUTING.md#sending-a-pull-request).
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> port https://github.com/mui/material-ui/pull/47347 to this repo
+
+
+</details>
+
+
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💡 You can make Copilot smarter by setting up custom instructions, customizing its development environment and configuring Model Context Protocol (MCP) servers. Learn more [Copilot coding agent tips](https://gh.io/copilot-coding-agent-tips) in the docs.",1409,test/performance-charts/tests/ScatterChartPro.bench.tsx | packages/x-charts/src/internals/domUtils.bench.ts,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:13+08:00,1,1,deepseek-flash,1
+deepseek,23,4139527063,2253,cloudposse/atmos,https://github.com/cloudposse/atmos/pull/2253,Copilot,merged,fix: prevent JIT source TTL from wiping varfiles/backend mid-execution,"`AutoProvisionSource` is called twice per command invocation — once directly from `resolveAndProvisionComponentPath`, and again via the `before.terraform.init` hook in `prepareInitExecution`. With `ttl: ""0s""`, the second call treats the workdir as always-expired, invokes `os.RemoveAll(targetDir)`, and wipes the varfiles and backend configs written between the two calls. The subprocess then fails with `""file does not exist""`.
+
+## Changes
+
+- **`pkg/provisioner/source/provision_hook.go`** — adds an in-memory idempotency guard (`invocationDoneKey = ""_atmos_source_provisioned""`) to `AutoProvisionSource`. A named-return `defer` sets the marker in `componentConfig` on successful return. Any subsequent call with the same map (same in-memory invocation) short-circuits immediately. The guard is scoped to the per-invocation `componentConfig`; separate `atmos` runs are unaffected.
+
+- **`pkg/provisioner/source/provision_hook_test.go`** — two regression tests:
+  - `TestAutoProvisionSource_InvocationGuard_PreventsDoubleProvisioning`: asserts the guard short-circuits a second call even with `ttl: ""0s""`
+  - `TestAutoProvisionSource_InvocationGuard_SetAfterProvisioning`: asserts the marker is written to `componentConfig` after a skipped provision (TTL not expired), ensuring the hook path is a no-op
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title># Bug: JIT …",2500,pkg/merge/provenance_benchmark_test.go | internal/exec/describe_affected_benchmark_test.go | internal/exec/yaml_func_resolution_context_bench_test.go | pkg/perf/perf_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:13+08:00,1,1,deepseek-flash,1
+deepseek,24,3916526645,13010,web-infra-dev/rspack,https://github.com/web-infra-dev/rspack/pull/13010,OpenAI_Codex,closed_unmerged,perf: Optimize ModuleGraph API implementation,"Summary
+- Refine the ModuleGraph API with performance-focused improvements to better support downstream work on the codex/modulegraph branch.
+- Keep behavior consistent while targeting efficiency gains in the module graph operations.
+
+Testing
+- Not run (not requested)",268,xtask/benchmark/benches/benches.rs | xtask/benchmark/benches/groups/compilation_stages.rs | tests/bench/module-graph-api.bench.ts | xtask/benchmark/benches/groups/build_chunk_graph.rs | xtask/benchmark/benches/groups/module_graph_api.rs,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:15+08:00,1,1,deepseek-flash,1
+deepseek,25,3246223763,10788,mochilang/mochi,https://github.com/mochilang/mochi/pull/10788,OpenAI_Codex,merged,Improve clj transpiler loop control,"## Summary
+- update the list of golden tests in the Clojure transpiler README
+- log current progress in TASKS with timestamp
+- handle `break`/`continue` using `cond` and simplify tail `recur`
+- avoid inserting `partial` when built-in calls add arguments
+- generate output for `break_continue`
+
+## Testing
+- `go test ./transpiler/x/clj -run TestTranspile_Golden -update -tags slow`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_687cbaba85e4832083f3a6769d55d0f1",461,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:15+08:00,0,0,deepseek-flash,0
+deepseek,26,4077010389,46638,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/46638,OpenAI_Codex,closed_unmerged,Fix scroll behaviour to be more natural,"## Summary
+
+Describe the problem and fix in 2–5 bullets:
+
+- Problem: While the assistant is streaming in Control UI chat, manually scrolling upward can be overridden by auto-follow and pull the viewport back down.
+- Why it matters: It makes reviewing earlier messages during active responses frustrating and creates a jumpy, disruptive reading experience.
+- What changed: Auto-follow now releases on intentional upward manual scroll, cancels pending follow/retry scroll work, avoids false detachment when the chat cannot actually scroll, and only re-enables follow once the user returns to the bottom.
+- What did NOT change (scope boundary): This only changes Control UI chat scroll behavior; it does not change chat content, ordering, backend behavior, or session logic.
+
+## Change Type (select all)
+
+- [x] Bug fix
+- [ ] Feature
+- [ ] Refactor
+- [ ] Docs
+- [ ] Security hardening
+- [ ] Chore/infra
+
+## Scope (select all touched areas)
+
+- [ ] Gateway / orchestration
+- [ ] Skills / tool execution
+- [ ] Auth / tokens
+- [ ] Memory / storage
+- [ ] Integrations
+- [ ] API / contracts
+- [x] UI / DX
+- [ ] CI/CD / infra
+
+## Linked Issue/PR
+
+- Closes #
+- Related #37500
+
+This approach is related to #37500, but additionally cancels already-scheduled follow/retry scroll work once upward user scroll intent is detected, keeps auto-follow locked off until the user actually returns to bottom, and avoids detaching follow on wheel input when the chat cannot scroll.
+
+## Use…",2499,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:17+08:00,1,1,deepseek-flash,1
+deepseek,27,3906751627,10411,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/10411,OpenAI_Codex,closed_unmerged,Subagents: align wait timeout with default run timeout when unset,"## Summary
+- make subagent wait-timeout resolution treat `runTimeoutSeconds: 0` as ""use default agent timeout"" (matching `sessions_spawn` runtime behavior)
+- avoid the overflow-prone path where `agent.wait` got a ~30-day timeout window when the spawned run itself still used default timeout
+- add regression coverage in `subagent-registry.persistence.test.ts`
+
+## Root Cause
+`sessions_spawn` omits `agent.timeout` when `runTimeoutSeconds=0`, so the child run uses default timeout (typically 600s). But registry wait tracking interpreted `0` as a no-timeout sentinel and used a huge wait timeout, creating mismatch and overflow risk in downstream timer usage.
+
+## Validation
+- `pnpm vitest run src/agents/subagent-registry.persistence.test.ts`
+- `pnpm vitest run src/agents/openclaw-tools.subagents.sessions-spawn-prefers-per-agent-subagent-model.test.ts`
+- `pnpm exec oxlint --type-aware src/agents/subagent-registry.ts src/agents/subagent-registry.persistence.test.ts`
+
+Fixes #10339.
+
+<!-- greptile_comment -->
+
+<h2>Greptile Overview</h2>
+
+<h3>Greptile Summary</h3>
+
+- Updates subagent wait-timeout resolution so `runTimeoutSeconds: 0` is treated as “use default agent timeout”, matching `sessions_spawn` behavior.
+- Prevents the registry’s `agent.wait` call from using an extremely large timeout window when the spawned run is still using the default timeout.
+- Adds a regression test in `subagent-registry.persistence.test.ts` to verify the `agent.wait` timeout parameters when `runTimeoutSeconds`…",2107,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:18+08:00,1,1,deepseek-flash,1
+deepseek,28,3722021763,1305,spellshift/realm,https://github.com/spellshift/realm/pull/1305,Google_Jules,closed_unmerged,Resolve deadlocks in imixv2 PTY and REPL execution,"This change resolves two critical concurrency issues in `imixv2`:
+1.  **Deadlock in PTY**: The PTY reader was performing blocking I/O in an async task, which could starve the runtime. It now runs in a blocking task.
+2.  **Panic in REPL**: The REPL loop was running in a `spawn_blocking` task but could trigger calls to `block_on` (via agent methods), which panics inside the Tokio runtime. It now runs in a dedicated OS thread.
+
+---
+*PR created automatically by Jules for task [7481861192762989894](https://jules.google.com/task/7481861192762989894) started by @KCarretto*",572,tavern/internal/cryptocodec/cryptocodec_bench_test.go | tavern/internal/benchmarks/portal_benchmark_test.go | implants/lib/eldritchv2/eldritch-core/benches/interpreter.rs | implants/lib/eldritchv2/eldritch-core/benches/builtins.rs | implants/lib/eldritch/benches/reverse_shell.rs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:19+08:00,1,1,deepseek-flash,1
+deepseek,29,3506158547,120630,dotnet/runtime,https://github.com/dotnet/runtime/pull/120630,Copilot,merged,Replace Marshal.AllocHGlobal with NativeMemory.Alloc in cross-platform code,"- [x] Audit all usages of Marshal.AllocHGlobal in the codebase
+- [x] Identify usages that can safely be replaced with NativeMemory.Alloc
+- [x] Analyze alignment and platform requirements
+- [x] Replace Marshal.AllocHGlobal with NativeMemory.Alloc in JavaScript interop (9 allocations)
+- [x] Revert System.Reflection.Metadata (targets older frameworks)
+- [x] Update corresponding FreeHGlobal calls to NativeMemory.Free
+- [x] Add unsafe keyword to marshaling methods
+- [x] Build System.Runtime.InteropServices.JavaScript successfully
+- [x] Replace Marshal allocations in CoreCLR JIT interface (CorInfoImpl.cs)
+- [x] Replace Marshal allocations in JitConfigProvider.cs
+- [x] Replace Marshal allocations in ThunkGenerator/Program.cs
+- [x] Replace Marshal.FreeHGlobal in BindJSImportImpl for exception pointer
+- [x] Replace Marshal.AllocCoTaskMem in CorInfoImpl_generated.cs
+- [x] Use sizeof(void*) instead of sizeof(IntPtr) for consistency
+- [x] Build and verify all affected projects
+- [x] Final verification and summary
+
+## Summary
+
+Successfully audited and replaced `Marshal.AllocHGlobal` with `NativeMemory.Alloc` in cross-platform code where LocalAlloc behavior is not required.
+
+### Changes Made:
+1. **System.Runtime.InteropServices.JavaScript** (WASM/browser): 9 allocations + 10 frees
+   - JSFunctionBinding.cs: 2 allocations + 1 free (exception pointer from native JS side)
+   - JSHostImplementation.cs: 1 allocation + free
+   - JSHostImplementation.Types.cs: 2 allocations
+   - JSProxyContext.cs…",2500,src/libraries/System.Runtime/tests/PerformanceTests/FileStreamBufferingBenchmark/FileStreamBufferingBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:20+08:00,1,1,deepseek-flash,1
+deepseek,30,3687773662,294,OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager,https://github.com/OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager/pull/294,Copilot,merged,Prevent race condition in AlbumsDashboard refresh via generation tracking,"When `refresh()` is called while worker threads from a previous refresh are still running, those workers complete and process results for cards that no longer exist, unnecessarily queueing thumbnail loads.
+
+## Changes
+
+- **Generation tracking**: Added `_current_generation` counter that increments on each refresh
+- **Worker tagging**: `AlbumDataWorker` receives and emits generation ID with results
+- **Stale result filtering**: `_on_album_data_ready()` ignores results from outdated generations
+
+```python
+def refresh(self) -> None:
+    # Increment generation to invalidate pending workers
+    self._current_generation += 1
+    # ... clear cards and create new ones
+
+def _on_album_data_ready(self, node, count, cover_path, root, generation):
+    # Ignore results from outdated refresh operations
+    if generation != self._current_generation:
+        return
+    # ... process result
+```
+
+This prevents orphaned workers from triggering thumbnail requests for cleared UI state.
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💡 You can make Copilot smarter by setting up custom instructions, customizing its development environment and configuring Model Context Protocol (MCP) servers. Learn more [Copilot coding agent tips](https://gh.io/copilot-coding-agent-tips) in the docs.",1277,tests/test_performance_sorting.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:20+08:00,1,1,deepseek-flash,1
+deepseek,31,3437621861,1114,frostwire/frostwire,https://github.com/frostwire/frostwire/pull/1114,Copilot,merged,[desktop] Fix EDT freeze caused by blocking native calls in torrent state checking,"The FrostWire desktop application was experiencing EDT (Event Dispatch Thread) freezes when checking torrent download states during UI refresh cycles. The issue manifested as unresponsive GUI for 100+ milliseconds at regular intervals.
+
+## Root Cause
+
+The stack trace revealed a problematic call chain:
+1. `RefreshTimer` triggers UI refresh on EDT
+2. `BTDownloadMediator.doRefresh()` checks download states
+3. `BittorrentDownload.getState()` → `BTDownload.getState()` 
+4. `engine.isPaused()` makes blocking native call to `SessionManager.isPaused()`
+5. JLibTorrent's `session_handle.is_paused()` blocks EDT for 100+ ms
+
+## Solution
+
+Implemented a cached paused state mechanism in `BTEngine` to eliminate blocking native calls on the EDT:
+
+- **Added `cachedPausedState` volatile field** to maintain engine state without blocking calls
+- **Created `isPausedCached()` method** providing microsecond-level state access instead of blocking native calls  
+- **Updated `pause()` and `resume()` methods** to synchronously maintain cache accuracy
+- **Safe background initialization** during engine startup to avoid EDT blocking during bootstrap
+- **Comprehensive coverage** of all `engine.isPaused()` calls in desktop GUI components
+
+## Performance Impact
+
+- **Before**: 100+ milliseconds blocking EDT per state check
+- **After**: ~4 microseconds non-blocking cache access
+- **Improvement**: >25,000x faster with zero EDT blocking
+
+## Example Usage
+
+```java
+// Old blocking approach (caused EDT freeze)
+if (en…",2500,common/src/test/java/com/frostwire/util/StringSanitizersBenchmark.java | common/src/test/java/com/frostwire/search/PerformersHelperPerformanceTest.java | common/src/test/java/com/frostwire/search/SearchManagerPerformanceTest.java | common/src/test/java/com/frostwire/search/LevenshteinBenchmark.java,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:21+08:00,1,1,deepseek-flash,1
+deepseek,32,3202763859,5067,mochilang/mochi,https://github.com/mochilang/mochi/pull/5067,OpenAI_Codex,merged,Improve Python compiler list operations,"## Summary
+- reduce use of runtime helpers for `union`, `union_all`, `except` and `intersect`
+- infer resulting list element type when possible
+
+## Testing
+- `go test ./... --vet=off -run TestPyCompiler_SubsetPrograms -count=1`
+
+------
+https://chatgpt.com/codex/tasks/task_e_6867d5cdcb3c8320b49589ac64cc4233",307,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:22+08:00,1,1,deepseek-flash,1
+deepseek,33,4051889716,125384,dotnet/runtime,https://github.com/dotnet/runtime/pull/125384,Copilot,merged,Initialize WebProxy credentials from URI UserInfo,"## Description
+
+`WebProxy` ignores credentials embedded in proxy URIs (e.g., `******host:1080`). The `UserInfo` component is never parsed, so `Credentials` stays `null` — causing SOCKS5 auth failures and forcing users to set credentials separately.
+
+**Changes:**
+- `Address` property setter now extracts `NetworkCredential` from `Uri.UserInfo` when present, using `Uri.UnescapeDataString` for proper percent-decoding. Uses the C# `field` keyword to avoid an explicit backing field.
+- Constructor delegates credential extraction to the setter; explicit `Credentials` parameter still takes precedence
+- Added `GetCredentialsFromUri` helper (follows the same pattern as `HttpEnvironmentProxy.GetCredentialsFromString`)
+- Added `System.Runtime.InteropServices` project reference (required by `SecureString` used internally by `NetworkCredential`)
+- Added XML doc `<remarks>` on the `Address` property and all constructors that accept an address (both `Uri?` and `string?` overloads) documenting the automatic credential extraction behavior
+
+Both paths now work equivalently:
+```csharp
+// Credentials extracted from URI automatically
+handler.Proxy = new WebProxy(""******host:1080"");
+
+// Also works via the Address setter
+var proxy = new WebProxy();
+proxy.Address = new Uri(""******host:1080"");
+// proxy.Credentials is now set
+
+// Explicit credentials still take precedence
+handler.Proxy = new WebProxy(""******host:1080"");
+handler.Proxy.Credentials = new NetworkCredential(""other"", ""creds""); // wins
+```
+
+23…",2499,src/libraries/System.Runtime/tests/PerformanceTests/FileStreamBufferingBenchmark/FileStreamBufferingBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:23+08:00,1,1,deepseek-flash,1
+deepseek,34,3323891981,7783,Z3Prover/z3,https://github.com/Z3Prover/z3/pull/7783,Copilot,closed_unmerged,Add basic mod sign axiom to fix simple divisibility problem,"This PR addresses a divergence issue in Z3 where simple divisibility problems involving absolute values fail to terminate, while CVC5 solves them instantly.
+
+## Problem
+
+Z3 diverges on the following simple divisibility problem:
+
+```smt
+(set-logic ALL)
+(declare-fun x () Int)
+(declare-fun y () Int)
+
+; if y is 0, then so is x. Otherwise y divides x. Assert that, and prove the same for (abs y)
+(assert      (ite (= y 0) (= x 0) (= (mod x      y)  0)))
+(assert (not (ite (= y 0) (= x 0) (= (mod x (abs y)) 0))))
+
+(check-sat)
+```
+
+The assertion should be `unsat` since if `y` divides `x`, then `abs(y)` should also divide `x`. However, Z3 fails to terminate while CVC5 proves this instantly.
+
+## Root Cause
+
+The issue occurs because `abs(y)` gets rewritten to `ite(y >= 0, y, -y)` by Z3's arithmetic rewriter. This creates a complex reasoning scenario where Z3 needs to prove that `(mod x y) = 0` implies `(mod x (ite (>= y 0) y (-y))) = 0`, but lacks the necessary axioms to establish this equivalence.
+
+## Solution
+
+Added the fundamental mod sign axiom to both arithmetic solver implementations:
+
+**Basic mod sign axiom**: `(mod x y) = (mod x -y)` when `y ≠ 0`
+
+This establishes that modulus is invariant under sign change of the divisor, which is the core mathematical property needed to reason about divisibility with absolute values.
+
+The axiom is implemented in:
+- `src/sat/smt/arith_axioms.cpp` - for the SAT-based arithmetic solver
+- `src/smt/theory_arith_core.h` - for the legacy arithmetic sol…",2403,src/test/optional_benchmark.cpp,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:23+08:00,1,1,deepseek-flash,1
+deepseek,35,4068962860,44678,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/44678,OpenAI_Codex,open,ollama: honor explicit params.num_ctx overrides,"## Summary
+
+- Problem: native Ollama runs always send `options.num_ctx` from `model.contextWindow`, so `agents.defaults.models[""ollama/<model>""].params.num_ctx` never takes effect.
+- Why it matters: users explicitly configuring a smaller Ollama context still get the discovered GGUF context length, which can inflate KV cache usage and latency.
+- What changed: native Ollama requests now honor payload mutations, and the extra-param wrapper injects configured `num_ctx` for native `ollama` models.
+- What did NOT change (scope boundary): this PR does not change model discovery, stored model metadata, or the OpenAI-compatible Ollama adapter path.
+
+## Change Type (select all)
+
+- [x] Bug fix
+- [ ] Feature
+- [ ] Refactor
+- [ ] Docs
+- [ ] Security hardening
+- [ ] Chore/infra
+
+## Scope (select all touched areas)
+
+- [ ] Gateway / orchestration
+- [ ] Skills / tool execution
+- [ ] Auth / tokens
+- [ ] Memory / storage
+- [x] Integrations
+- [ ] API / contracts
+- [ ] UI / DX
+- [ ] CI/CD / infra
+
+## Linked Issue/PR
+
+- Closes #44550
+- Related #44550
+
+## User-visible / Behavior Changes
+
+Native Ollama runs now prefer `agents.defaults.models[""ollama/<model>""].params.num_ctx` over the discovered `contextWindow` when building `/api/chat` requests.
+
+## Security Impact (required)
+
+- New permissions/capabilities? (`Yes/No`) No
+- Secrets/tokens handling changed? (`Yes/No`) No
+- New/changed network calls? (`Yes/No`) No
+- Command/tool execution surface changed? (`Yes/No`) No
+- Data access scope changed? (`Y…",2499,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:24+08:00,1,1,deepseek-flash,1
+deepseek,36,3252596861,11961,mochilang/mochi,https://github.com/mochilang/mochi/pull/11961,OpenAI_Codex,closed_unmerged,Improve Prolog transpiler constant folding,"## Summary
+- enable constant folding for `str()` calls
+- better emitting for `str()` expressions
+- fold string concatenation
+- update generated Rosetta outputs and checklist
+
+## Testing
+- `go test ./transpiler/x/pl -run Rosetta -tags slow -count=1` *(fails: unsupported features)*
+
+------
+https://chatgpt.com/codex/tasks/task_e_687f7319182c83208de8db41999758f1",360,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:25+08:00,1,1,deepseek-flash,1
+deepseek,37,4156175740,2033,OpenRakis/Spice86,https://github.com/OpenRakis/Spice86/pull/2033,Copilot,merged,"Reduce video threads: replace System.Timers.Timer with DispatcherTimer, remove SemaphoreSlim","### Description of Changes
+
+Per the [profiling report](https://github.com/OpenRakis/Spice86/wiki/Spice86-video-performance-vs-dosbox-staging), 65% of CPU time was spent in synchronization primitives (`SemaphoreSlim.Wait`, `Monitor.Wait`, `Dispatcher.Post`) from crossing 3 thread boundaries per frame.
+
+**Thread model before:** `Timer thread → SemaphoreSlim → Bitmap.Lock → RenderScreen → Dispatcher.Post(InvalidateBitmap)`
+
+**Thread model after:** `DispatcherTimer → Bitmap.Lock → RenderScreen → InvalidateBitmap` (single UI thread, zero sync overhead)
+
+Changes (3 files, +26 −69):
+
+- **`MainWindowViewModel.cs`** — Replace `System.Timers.Timer` with Avalonia `DispatcherTimer` (`DispatcherPriority.Render`). Remove `SemaphoreSlim` and `Dispatcher.Post` for `InvalidateBitmap` — both `DrawScreen()` and `SetResolution()` now run on the UI thread.
+- **`HeadlessGui.cs`** — Remove `SemaphoreSlim`. `Renderer.Render()` is already thread-safe via `Interlocked` triple-buffering. Simplify disposal.
+- **`VgaCard.cs`** — Remove busy-wait loop in `EnsureGuiResolutionMatchesHardware()`. The `while` spin would deadlock now that `DrawScreen` runs on the UI thread (same thread as `SetResolution`'s `Dispatcher.Post` target). Skip the frame instead; next tick picks it up.
+
+### Rationale behind Changes
+
+DOSBox-staging runs emulation + VGA + rendering in a single cooperative loop with ~0.06% total CPU. Spice86 was consuming ~44× more CPU, with the dominant cost being kernel context switches from thread sy…",2500,src/Spice86.MicroBenchmarkTemplate/BreakpointCheckBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/HasActiveBreakpointsBenchmark.cs | tests/Spice86.Tests/BreakpointPerformanceBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/MandelbrotPerformanceBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/MixerChannelIterationBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:26+08:00,1,1,deepseek-flash,1
+deepseek,38,3143603400,1646,quarylabs/sqruff,https://github.com/quarylabs/sqruff/pull/1646,OpenAI_Codex,closed_unmerged,Switch to mimalloc,"## Summary
+- swap `jemallocator` for `mimalloc`
+
+## Testing
+- `cargo check --workspace`
+- `cargo test --workspace` *(fails: Virtual environment not found)*
+
+------
+https://chatgpt.com/codex/tasks/task_e_684c10c320b8832e9eff39e7652df76e",235,crates/lib/benches/depth_map.rs | crates/lib/benches/fix.rs | crates/lib/benches/parsing.rs | crates/lib/benches/shims/global_alloc_overwrite.rs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:27+08:00,1,1,deepseek-flash,1
+deepseek,39,3099825876,12057,neondatabase/neon,https://github.com/neondatabase/neon/pull/12057,Devin,merged,storcon: skip offline nodes in get_top_tenant_shards,"## Summary
+
+The optimiser background loop could get delayed a lot by waiting for timeouts trying to talk to offline nodes.
+
+Fixes: #12056
+
+## Solution
+
+- Skip offline nodes in `get_top_tenant_shards`
+
+Link to Devin run: https://app.devin.ai/sessions/065afd6756734d33bbd4d012428c4b6e
+Requested by: John Spray (john@neon.tech)",335,test_runner/performance/test_physical_replication.py | pageserver/benches/bench_ingest.rs | storage_broker/benches/rps.rs | test_runner/performance/pageserver/interactive/test_many_small_tenants.py | test_runner/performance/pageserver/pagebench/test_large_slru_basebackup.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:28+08:00,1,1,deepseek-flash,1
+deepseek,40,4061493536,872,rmusser01/tldw_server,https://github.com/rmusser01/tldw_server/pull/872,OpenAI_Codex,merged,feat(chat): reduce chat request bursts with lazy hydration,"## Summary
+- add a shared chat-surface coordinator to gate optional chat and sidepanel resources behind explicit engagement
+- split server history into overview and search modes, defer MCP and audio probes, and stop implicit provider refreshes from the send path
+- scope persisted chat snapshots by server and auth context and add request-budget regression coverage for initial mount and first send
+
+## Test Plan
+- ./node_modules/.bin/vitest run src/components/Common/ChatSidebar/__tests__/ChatSidebar.lazy-history.test.tsx src/components/Common/ChatSidebar/__tests__/ServerChatList.reliability.test.tsx src/components/Common/__tests__/ChatSidebar.coordinator.test.tsx src/components/Sidepanel/Chat/__tests__/Sidebar.coordinator.test.tsx src/hooks/__tests__/useServerChatHistory.test.ts src/store/__tests__/chat-surface-coordinator.test.ts src/services/tldw/__tests__/TldwModels.test.ts src/utils/__tests__/chat-model-validation.test.ts src/components/Option/Playground/__tests__/Playground.request-budget.test.tsx src/components/Option/Playground/__tests__/PlaygroundForm.image-refine.integration.test.tsx src/components/Option/Playground/__tests__/Playground.coordinator.integration.test.tsx src/components/Option/Playground/__tests__/Playground.search.integration.test.tsx src/hooks/__tests__/useServerChatLoader.test.ts src/hooks/__tests__/useTldwAudioStatus.test.tsx src/hooks/__tests__/useMcpTools.gating.test.tsx src/hooks/playground/__tests__/useMcpToolsControl.test.tsx src/services/__tests_…",1914,tldw_Server_API/tests/Docs/test_benchmark_guide_discoverability.py,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:29+08:00,1,1,deepseek-flash,1
+deepseek,41,3780078188,988,SkBlaz/py3plex,https://github.com/SkBlaz/py3plex/pull/988,Copilot,merged,Add query provenance tracking to DSL v2 and legacy DSL,"Query results now include execution provenance for reproducibility, debugging, and performance analysis. Every `QueryResult` (DSL v2) and result dict (legacy) contains `meta[""provenance""]` with AST hash, timing breakdown, network fingerprint, and execution metadata.
+
+## Changes
+
+**Core Infrastructure** (`py3plex/dsl/provenance.py`)
+- `ProvenanceRecord` dataclass with stable schema: engine, version, timestamp, network fingerprint, query AST hash, performance timings, backend info, warnings
+- Stable AST fingerprinting via canonical serialization (excludes object IDs, timestamps)
+- Network fingerprinting: node/edge/layer counts, layer names
+- `ProvenanceBuilder` for incremental construction during execution
+
+**DSL v2 Instrumentation** (`py3plex/dsl/executor.py`)
+- Stage-level timing in `execute_ast()` and `_execute_select()`: bind_parameters, get_items, filter_layers, filter_where, compute, group_aggregate, limit, materialize
+- Populates `QueryResult.meta[""provenance""]` with complete metadata
+- `ProvenanceBuilder` passed through execution pipeline
+
+**Legacy DSL Instrumentation** (`py3plex/dsl_legacy.py`)
+- Provenance tracking in `execute_query()` with same structure as v2
+- Tracks parse time and execution time separately
+- Stores raw query string and computed hash
+
+**Documentation** (`AGENTS.md`)
+- Updated Result Dictionary Structure section with provenance schema
+- Example payloads and access patterns
+- Backward compatibility guarantees
+
+**Tests** (`tests/test_dsl_provenance.py…",2500,tests/test_visualization_benchmark.py | tests/test_benchmark_budget_fairness.py | tests/test_benchmark_dsl_basic.py | tests/test_benchmark_integration.py | gui/ci/api-tests/test_performance_optimizations.py,performance,deepseek-flash,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:30+08:00,0,0,deepseek-flash,0
+deepseek,42,3951227455,489,zeroclaw-labs/zeroclaw,https://github.com/zeroclaw-labs/zeroclaw/pull/489,Claude_Code,merged,fix(build): reduce codegen-units for low-memory devices (fixes #395),"## Summary
+Fixed OOM (out-of-memory) compilation failures on low-memory devices like Raspberry Pi 3 (1GB RAM) by reducing `codegen-units` from 8 to 1 in the release profile.
+
+## Problem
+On devices with limited RAM (e.g., Raspberry Pi 3 with 1GB), the release build would fail with SIGKILL during compilation because the parallel codegen with 8 units consumed too much memory.
+
+```
+error: could not compile `zeroclaw` (lib)
+...
+(signal: 9, SIGKILL: kill)
+```
+
+## Solution
+Reduced `codegen-units` from 8 to 1 in `[profile.release]`. This serializes compilation and significantly reduces memory usage during the build process.
+
+### Trade-offs
+- ✅ Enables compilation on low-memory devices (1GB RAM)
+- ❌ Compilation is slower (sequential vs parallel)
+- ✅ Binary size unchanged
+- ✅ Runtime performance unchanged
+
+## Testing
+- [x] All library tests pass (1 pre-existing flaky test unrelated to this change)
+- [x] Release build completes successfully
+- [x] Binary size unchanged (~6.3MB)
+
+## Related Issue
+Fixes #395
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",1066,benches/agent_benchmarks.rs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:31+08:00,1,1,deepseek-flash,1
+deepseek,43,3537445661,328,jstime/jstime,https://github.com/jstime/jstime/pull/328,Copilot,merged,Optimize fetch performance with ureq 3.1 upgrade and connection pooling,"## Problem
+
+Fetch operations were slow due to the lack of explicit connection pooling and an outdated HTTP client library. Each fetch request would establish a new TCP connection and perform TLS negotiation, adding significant overhead (150-400ms per request for typical internet latencies).
+
+## Solution
+
+This PR optimizes fetch performance through two key improvements:
+
+### 1. Upgraded ureq from 2.10 to 3.1.2
+
+The upgrade provides:
+- Reduced memory overhead and improved response handling
+- Better connection management under the hood
+- Uses the standard `http` crate types for improved interoperability
+- Numerous performance optimizations and bug fixes from the 3.x series
+
+### 2. Implemented HTTP Connection Pooling
+
+Added an `Agent` instance to `IsolateState` that is shared across all fetch requests within an isolate. This enables connection reuse, eliminating the need to re-establish TCP connections and perform TLS negotiation for subsequent requests to the same host.
+
+**Key implementation details:**
+- Configured the Agent with `http_status_as_error(false)` to align with Fetch API specification (4xx/5xx responses are not errors)
+- Agent is created once per isolate and reused for all fetch operations
+- Updated `execute_fetch()` to use the Agent instead of module-level functions
+
+## Performance Impact
+
+**Expected improvements:**
+- First request to a host: Similar performance (connection establishment still required)
+- Subsequent requests to the same host: **20-50% faster**
+- Sce…",2500,core/benches/runtime_bench.rs | core/benches/crypto_bench.rs | core/benches/module_cache_bench.rs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:32+08:00,1,1,deepseek-flash,1
+deepseek,44,3238483606,348,ruvnet/ruflo,https://github.com/ruvnet/ruflo/pull/348,Claude_Code,closed_unmerged,🔧 Fix Memory Backend Configuration Bug (Issue #347),"## 🔧 Fix Memory Backend Configuration Bug (Issue #347)
+
+### 🐛 **Problem Fixed**
+
+**Critical Bug**: `MemoryError: Unknown memory backend: undefined` preventing SystemIntegration initialization
+
+**Root Cause**: MemoryManager constructor called without required parameters in `src/integration/system-integration.ts:150`
+
+### 💥 **Impact Before Fix**
+- ❌ **System Integration Failure**: Claude Flow couldn't start properly  
+- ❌ **Fatal Crash**: Memory initialization blocked all downstream components
+- ❌ **No Persistent Memory**: System had no working memory capabilities
+- ❌ **Poor Developer Experience**: Unclear error message for debugging
+
+## ✅ **Comprehensive Solution**
+
+### 🎯 **Technical Fix**
+
+**Before (Broken):**
+```typescript
+// Line 150 - Missing required parameters
+this.memoryManager = new MemoryManager(); // ❌ Crash: undefined config
+```
+
+**After (Fixed):**
+```typescript
+// Create default memory configuration
+const memoryConfig = {
+  backend: 'sqlite' as const,
+  cacheSizeMB: 50,
+  syncInterval: 30000, // 30 seconds
+  conflictResolution: 'last-write' as const,
+  retentionDays: 30,
+  sqlitePath: './claude-flow-memory.db'
+};
+
+// Create required dependencies  
+const memoryLogger = new Logger(
+  { level: 'info', format: 'text', destination: 'console' },
+  { component: 'MemoryManager' }
+);
+const eventBus = new EventBus();
+
+// Proper initialization with all required parameters
+this.memoryManager = new MemoryManager(memoryConfig, eventBus, memoryLogger);
+```
+
+### 🏗️ **Configuration…",2499,benchmark/run_swe_bench.py | src/__tests__/benchmarks/performance.bench.ts | benchmark/test_simple_run.py | benchmark/tests/unit/test_benchmark_engine.py | benchmark/tests/unit/test_comprehensive_models.py,performance,deepseek-flash,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:33+08:00,0,0,deepseek-flash,0
+deepseek,45,3634411671,10614,fern-api/fern,https://github.com/fern-api/fern/pull/10614,Devin,merged,fix(seed): improve git status performance by ignoring build artifacts,"## Description
+
+Refs https://buildwithfern.slack.com/archives/C06UVH9HKRC/p1763396696097979
+
+Fixes slow `git status` performance (12+ seconds) caused by untracked build artifacts in the seed directory. This PR adds comprehensive .gitignore patterns for seed build artifacts and removes 63 accidentally committed build cache files.
+
+Link to Devin run: https://app.devin.ai/sessions/1b0dd342276c4cb681f9c2ceb02a8dd8
+Requested by: kenny@buildwithfern.com
+
+## Changes Made
+
+- Added targeted .gitignore patterns for seed build artifacts and caches:
+  - `seed/**/.gradle/` - Gradle build cache
+  - `seed/**/build/` - Build output directories
+  - `seed/**/bin/` and `seed/**/obj/` - C# build artifacts
+  - `seed/**/target/` - Rust/Java build artifacts
+  - `seed/**/__pycache__/`, `seed/**/.pytest_cache/`, `seed/**/.mypy_cache/`, `seed/**/.ruff_cache/` - Python caches
+  - `seed/**/*.egg-info/` - Python package metadata
+- Removed 63 accidentally committed .gradle and build files from seed/java-sdk/ and seed/java-model/ directories
+  - These files were introduced in commit d2656c4507 (C# mock server testing PR)
+  - Files include Gradle cache, build outputs, and Spotless formatted files
+
+## Testing
+
+- [x] Verified .gitignore patterns work correctly using `git check-ignore`
+- [x] Confirmed git status performance improved (1.3s on clean working tree)
+- [x] Lint checks passed (`pnpm run check`)
+- [x] Pre-commit hooks passed
+
+## Review Checklist
+
+**Critical items to verify:**
+- [ ] Confirm the .gitign…",2160,generators/typescript/utils/core-utilities/tests/unit/schemas/benchmarks/serialization.bench.ts,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:34+08:00,1,1,deepseek-flash,1
+deepseek,46,3559973852,3564,1c-syntax/bsl-language-server,https://github.com/1c-syntax/bsl-language-server/pull/3564,Copilot,merged,Skip push workflows when PR exists for branch (except master/develop),"Prevents duplicate workflow executions when a branch push is immediately followed by a PR creation from that branch, while ensuring critical branches always run their workflows.
+
+## Changes
+
+Added `check-pr-exists` job to all workflows triggered by both `push` and `pull_request` events:
+
+- `pre-qa.yml`
+- `gradle.yml` (Java CI)
+- `codeql-analysis.yml`
+- `benchmark.yml`
+- `javadoc.yml`
+- `codesee-arch-diagram.yml`
+
+Created `.github/scripts/check-pr-exists.sh` - a reusable shell script that:
+- Uses GitHub CLI to query for open PRs from the current branch
+- Performs the API check on `push` events for non-protected branches
+- **Always returns `has_pr=false` for `master` and `develop` branches** to ensure they always execute
+- Returns `has_pr=true` if an open PR exists for other branches, `false` otherwise
+
+The `check-pr-exists` job in each workflow:
+- Checks out the repository to access the script
+- Calls the script with event name, branch name, and repository parameters
+- Outputs the script's result for use by dependent jobs
+
+Main workflow jobs (build/analyse/Benchmark/codesee) are updated to:
+- Depend on the `check-pr-exists` job
+- Skip execution when `has_pr=true` (i.e., when a push occurs on a feature branch with an existing PR)
+- Continue normally for all `pull_request` events and pushes to `master`/`develop` branches
+
+**Behavior:**
+- **Master and develop branches**: Always execute workflows on push, regardless of PR existence
+- **Feature branches with open PRs**: Skip push-t…",2500,src/jmh/java/com/github/_1c_syntax/bsl/languageserver/IncrementalTextChangeBenchmark.java,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:35+08:00,1,1,deepseek-flash,1
+deepseek,47,4047397666,41374,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/41374,OpenAI_Codex,open,fix(browser): prevent AX refs from causing relay click timeouts,"## Summary
+- Default agent `browser` tool snapshots to `format: ""ai""` when `snapshotFormat` is not explicitly provided.
+- Add fail-fast guard for `axN` refs in Playwright interaction path with an actionable error message.
+- Update tests for the new default and AX ref guard behavior.
+
+## Problem observed
+In LINE/Telegram relay flows using `profile=my-chrome` (extension relay), the agent was repeatedly failing on Sora interactions with this sequence:
+1. `act kind=press` called without `key` -> `key is required`
+2. subsequent clicks targeted AX refs like `ax70`
+3. Playwright waited on `locator('aria-ref=ax70')` and timed out repeatedly
+4. user-facing result escalated to generic browser `timed out` guidance
+
+This happens because AX-tree refs (`axN`) are not actionable in `click/type/act`, but they were being used in automation turns.
+
+## Why this fix
+- Using AI snapshots by default in the agent tool keeps refs actionable for follow-up interactions (`eN`).
+- The new fail-fast guard avoids long timeout loops when `axN` refs are accidentally passed, and tells the agent exactly how to recover (take AI snapshot and use `eN`).
+
+## Scope / compatibility
+- No schema/config changes.
+- Explicit `snapshotFormat: ""aria""` still works for read-only inspection use cases.
+- Existing automation gains safer defaults with minimal behavior change.
+
+## Validation
+- Updated unit tests:
+  - `src/agents/tools/browser-tool.test.ts`
+  - `src/browser/pw-session.test.ts`
+- Local test execution is not availa…",1593,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:35+08:00,1,1,deepseek-flash,1
+deepseek,48,3188608115,4181,mochilang/mochi,https://github.com/mochilang/mochi/pull/4181,OpenAI_Codex,merged,Update VM constant folding for cast,"## Summary
+- enhance compile-time constant folding to handle `as` cast expressions
+- regenerate tpch q9 IR after optimization changes
+
+## Testing
+- `go test -tags slow ./tests/vm -run TestVM_TPCH/q9 -update`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_6862916300c08320a800fe129dbf5964",288,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:36+08:00,1,1,deepseek-flash,1
+deepseek,49,3587882995,18031,aptos-labs/aptos-core,https://github.com/aptos-labs/aptos-core/pull/18031,Cursor,closed_unmerged,Optimize localnet data service for production performance,"## Description
+This PR optimizes the `localnet_data_service` for production performance and makes the transaction channel size configurable.
+
+Key changes include:
+*   **Enabled Multi-threaded Processing**: The `localnet_data_service` now utilizes the configured `processor_task_count` instead of being hardcoded to a single thread, allowing parallel processing of transactions.
+*   **Configurable Transaction Channel Size**: The `TRANSACTION_CHANNEL_SIZE` is now configurable via `IndexerGrpcConfig.transaction_channel_size`, with the default value increased from 35 to 100 for improved throughput. This change is applied to both `localnet_data_service` and `fullnode_data_service`.
+*   **Improved Error Handling**: Replaced `panic!` with `Status::internal` for graceful error handling in `localnet_data_service`.
+*   **Updated Documentation**: Removed performance warnings from `localnet_data_service` documentation, reflecting its production readiness.
+
+These improvements align the `localnet_data_service` with the performance characteristics of the `fullnode_data_service`, enabling better utilization of multi-core CPUs and enhanced throughput.
+
+## How Has This Been Tested?
+- Configuration changes are backward compatible with sensible defaults.
+- Existing unit and integration tests are expected to pass.
+- Performance testing (manual or automated) would verify the benefits of multi-threaded processing and increased channel size.
+
+## Key Areas to Review
+- **Configuration Integration**: Ensu…",2500,network/quic-like-udp/benches/transport_bench.rs | network/qnuc/benches/transport_bench.rs | crates/aptos-dkg/benches/pvss.rs | crates/aptos-crypto/benches/ed25519.rs | crates/aptos-crypto/benches/ristretto255.rs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:37+08:00,1,1,deepseek-flash,1
+deepseek,50,4113954378,499,PlayFab/thundernetes,https://github.com/PlayFab/thundernetes/pull/499,Copilot,merged,Add performance metrics to controllers,"Controllers lacked timing metrics for reconciliation operations.
+
+### New Prometheus histograms
+
+- **`thundernetes_gameserver_reconcile_duration_seconds`** — GameServer controller reconcile latency
+- **`thundernetes_gameserverbuild_reconcile_duration_seconds`** (`BuildName`) — GameServerBuild controller reconcile latency
+
+All use `prometheus.DefBuckets` and register via `promauto.With(metrics.Registry)`, consistent with existing metrics.
+
+### Instrumentation points
+
+- `GameServerReconciler.Reconcile` — `defer` at method entry
+- `GameServerBuildReconciler.Reconcile` — `defer` after fetching the GSB (so `BuildName` label is available)
+
+Per-operation creation/deletion duration metrics were intentionally omitted since individual K8s API calls are very fast and those values would be close to zero. The reconciliation duration histograms already capture the full picture including all batch creation/deletion time.
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>Add metrics to controllers </issue_title>
+> <issue_description>We should add performance metrics to controllers. Like how much time it took to reconcile, to create/delete X number of GameServers etc</issue_description>
+> 
+> ## Comments on the Issue (you are @copilot in this section)
+> 
+> <comments>
+> </comments>
+> 
+
+
+</details>
+
+
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+- Fixes PlayFab/…",1838,pkg/operator/controllers/gameserverqueue_benchmark_test.go | pkg/operator/controllers/port_registry_benchmark_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:38+08:00,1,1,deepseek-flash,1
+deepseek,51,4157907067,13509,web-infra-dev/rspack,https://github.com/web-infra-dev/rspack/pull/13509,OpenAI_Codex,closed_unmerged,perf(javascript): reduce side effects optimization overhead,"## Summary
+- avoid collecting per-module incoming connections into temporary Vecs when scanning side-effect-free modules
+- avoid cloning the full sideEffectsOptimizeArtifact before applying the first optimization round
+- share the follow-up optimization collection path between the initial and iterative passes
+
+## Benchmark
+- case: `rspack-bench-repo/cases/all`
+- command: `node packages/rspack-cli/bin/rspack.js build -c rspack.config.js` with local profiling binding via `RSPACK_BINDING`
+- before: `3.18s`, `2.23s`
+- after: `3.06s`, `1.97s`, `2.05s`
+
+## Test Plan
+- cargo fmt --all --check
+- cargo lint
+- pnpm run test:rs
+- __TESTING_RIMRAF_NODE_VERSION__=v14.13.0 pnpm run test:unit",686,xtask/benchmark/benches/benches.rs | xtask/benchmark/benches/groups/compilation_stages.rs | tests/bench/module-graph-api.bench.ts | xtask/benchmark/benches/groups/build_chunk_graph.rs | xtask/benchmark/benches/groups/module_graph_api.rs,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:39+08:00,1,1,deepseek-flash,1
+deepseek,52,3218294345,7202,mochilang/mochi,https://github.com/mochilang/mochi/pull/7202,OpenAI_Codex,merged,Improve Kotlin compilation,"## Summary
+- generate runnable Kotlin for `group_by_having.mochi`
+- update Kotlin machine README
+
+## Testing
+- `go test ./compiler/x/kotlin -run TestKotlinPrograms/append_builtin -tags slow -count=1`
+- `go test ./compiler/x/kotlin -run TestKotlinPrograms/group_by_having -tags slow -count=1`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_686f6c1f732c832083d4d5ead3f09a5f",372,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:40+08:00,0,0,deepseek-flash,0
+deepseek,53,3787588261,4202,graphql-java/graphql-java,https://github.com/graphql-java/graphql-java/pull/4202,Copilot,open,Fix detection of indirect cyclical directive references,"GraphQL spec prohibits directives from referencing each other via applied directives. Direct self-reference (A → A) was detected correctly, but indirect cycles (A → B → A or A → B → C → A) caused `StackOverflowError` during schema generation.
+
+### Changes
+
+- **`SchemaTypeDirectivesChecker`**: Added DFS-based cycle detection that traverses directive dependencies via applied directives on arguments. Uses canonical cycle keys to report each cycle once.
+- **`DirectiveIllegalReferenceError`**: Added constructor for cycle path error messages showing the full cycle (e.g., `foo -> bar -> foo`).
+- **Tests**: Added unit and integration tests for two-way cycles, three-way cycles, and non-cyclic references.
+
+### Example
+
+```graphql
+# Previously caused StackOverflowError, now throws SchemaProblem
+directive @foo(x: Int @bar(y: 1)) on FIELD_DEFINITION | ARGUMENT_DEFINITION
+directive @bar(y: Int @foo(x: 2)) on FIELD_DEFINITION | ARGUMENT_DEFINITION
+
+type Query { field: String @foo(x: 10) }
+```
+
+Error message: `'foo' forms a directive cycle via: foo -> bar -> foo`
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>Improper handling of cyclical directive defs (spec issue)</issue_title>
+> <issue_description>**Describe the bug**
+> 
+> The spec prohibits the definitions of directives to reference each other directly or indirectly via applied directives.  GraphQL J…",2500,src/jmh/java/benchmark/BuildSchemaBenchmark.java | src/jmh/java/benchmark/CreateSchemaBenchmark.java | src/jmh/java/benchmark/ExecutionBenchmark.java | src/jmh/java/benchmark/IntrospectionBenchmark.java | src/jmh/java/benchmark/OverlappingFieldValidationBenchmark.java,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:40+08:00,1,1,deepseek-flash,1
+deepseek,54,3443231439,1135,frostwire/frostwire,https://github.com/frostwire/frostwire/pull/1135,Copilot,merged,[android] Fix Android JobScheduler alarm limit exceeded crashes by configuring WorkManager,"Resolves crashes caused by hitting Android's 500 concurrent alarm limit with the error:
+
+```
+Fatal Exception: java.lang.IllegalStateException
+JobScheduler 100 job limit exceeded. In JobScheduler there are 32 jobs from WorkManager. 
+There are 6 jobs tracked by WorkManager's database; the Configuration limit is 20.
+```
+
+## Problem Analysis
+
+The FrostWire Android app was creating excessive WorkManager jobs due to:
+
+1. **Duplicate daemon creation** - Both `MainApplication` and `EngineForegroundService` were independently creating `NotificationUpdateDaemon` instances
+2. **Exponential job growth** - `NotificationWorker` was creating new `NotificationUpdateDaemon` instances every 15 minutes, leading to exponential work scheduling
+3. **No job cleanup** - WorkManager jobs weren't being cancelled when services shut down
+4. **No throttling** - Rapid re-scheduling of identical work was possible
+5. **Default WorkManager limits** - Using the default scheduler limit of 100 jobs
+
+## Solution
+
+### 1. Custom WorkManager Configuration
+
+Added a custom `Configuration.Provider` to `MainApplication` that reduces the maximum scheduler limit from 100 to 20 jobs:
+
+```java
+@Override
+public Configuration getWorkManagerConfiguration() {
+    return new Configuration.Builder()
+            .setMaxSchedulerLimit(20) // Reduced from default 100
+            .setMinimumLoggingLevel(BuildConfig.DEBUG ? android.util.Log.DEBUG : android.util.Log.ERROR)
+            .build();
+}
+```
+
+### 2. Eliminated Duplicate Job C…",2491,common/src/test/java/com/frostwire/util/StringSanitizersBenchmark.java | common/src/test/java/com/frostwire/search/PerformersHelperPerformanceTest.java | common/src/test/java/com/frostwire/search/SearchManagerPerformanceTest.java | common/src/test/java/com/frostwire/search/LevenshteinBenchmark.java,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:41+08:00,1,1,deepseek-flash,1
+deepseek,55,3777531092,733,evenfurther/pathfinding,https://github.com/evenfurther/pathfinding/pull/733,Copilot,open,Evaluate ahash vs rustc-hash performance for pathfinding algorithms,"This PR investigates whether replacing rustc-hash with ahash would improve performance for pathfinding algorithms, as requested in the original issue.
+
+## Investigation Results
+
+After comprehensive IAI callgrind performance benchmarking, the results show that **rustc-hash consistently outperforms ahash** across all algorithms tested:
+
+### Kuhn-Munkres Performance Comparison (size_32)
+- **rustc-hash**: 342,045 instructions, 473,482 estimated cycles
+- **ahash**: 350,410 instructions, 489,718 estimated cycles
+- **Result**: rustc-hash is ~2.4% faster
+
+Similar performance advantages for rustc-hash were observed across all test sizes (32, 64, 128) and other algorithms (Dijkstra, BFS, DFS, etc.).
+
+## Conclusion
+
+Based on the IAI benchmark results, **no changes are being made** to the codebase. The repository will continue using rustc-hash as it provides optimal performance for the pathfinding algorithms in this library.
+
+## Testing
+
+- ✅ All unit tests pass
+- ✅ All integration tests pass  
+- ✅ All doc tests pass
+- ✅ IAI callgrind benchmarks run successfully
+- ✅ Performance validated: rustc-hash superior to ahash
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>Using aHash instead of std HashMap in dijkstra algorithm?</issue_title>
+> <issue_description>Hi, thank you for the fantastic crate!
+> 
+> Is it possible to use `aHash` instead of the std HashM…",1978,benches/algos.rs | benches/iai_kuhn_munkres.rs | benches/iai_separate_components.rs | benches/kuhn_munkres.rs | benches/separate_components.rs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:42+08:00,1,1,deepseek-flash,1
+deepseek,56,4071320835,39796,tenstorrent/tt-metal,https://github.com/tenstorrent/tt-metal/pull/39796,Copilot,merged,Implement Parallel and Sequential fusion infrastructure,"### Ticket
+#37081
+
+### Problem description
+Fusing multiple ops requires writing bespoke program factories per use case. Even launching two independent ops on disjoint core sets demands manual CB allocation, sync setup, and kernel wiring. This PR introduces `Parallel` and `Sequential` — experimental composable constructs that automatically fuse any set of `ProgramDescriptor` objects into a single dispatch.
+
+![Op fusion topology and core grid mapping](https://github.com/user-attachments/assets/74dbcd46-5dba-444b-9c0b-ac10023b169d)
+
+### What's changed
+
+- **`models.experimental.ops.descriptors.fusion`** — new module implementing:
+  - Tree-based topology builder (`graph.py`) resolving `Sequential`/`Parallel` nesting into a DAG
+  - CB allocation and remapping across fused stages (`cb_allocator.py`)
+  - Barrier/sync codegen for inter-stage coordination (`codegen/barrier.py`, `codegen/source_gen.py`)
+  - Merged `ProgramDescriptor` construction and build cache keyed on structural hashes (`fusion.py`)
+
+- **Program factory opt-ins** — `create_descriptor()` added to:
+  - `SliceTileProgramFactory`
+  - `MatmulMultiCoreReuseOptimizedProgramFactory`
+  - `LayerNormMultiCoreProgramFactory` / `LayerNormShardedProgramFactory`
+  - Sharded LayerNorm kernels updated to use named compile-time CB args enabling CB remapping
+
+- **TTNN bindings** — extended Python/C++ bindings for descriptor-based matmul/slice construction, named compile-time args, `ProgramDescriptor` hashing, and `GlobalCB` helpers
+
+- …",2500,models/experimental/tt_dit/tests/models/flux1/test_performance_flux1.py | models/experimental/tt_dit/tests/models/qwenimage/test_performance_qwenimage.py | models/experimental/tt_dit/tests/models/wan2_2/test_performance_wan.py | tests/ttnn/benchmark/cpp/matmul/test_matmul_benchmark.cpp | tests/ttnn/tracy/test_perf_op_report.py,performance,deepseek-flash,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:43+08:00,0,0,deepseek-flash,0
+deepseek,57,3277858730,15128,mochilang/mochi,https://github.com/mochilang/mochi/pull/15128,OpenAI_Codex,merged,Fix Java transpiler closure handling,"## Summary
+- improve detection of mutated variables captured by closures in the Java transpiler
+- regenerate Java code and outputs for Rosetta programs starting at index 400
+- update Rosetta status documentation
+
+## Testing
+- `MOCHI_ROSETTA_ONLY=fibonacci-sequence-3 go test -tags slow ./transpiler/x/java -run Rosetta -count=1`
+- `UPDATE=1 MOCHI_ROSETTA_ONLY=fasta-format go test -tags slow ./transpiler/x/java -run Rosetta -count=1`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_688a2f6de43c832087d37a5f65d3d2a8",515,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,deepseek-flash,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:44+08:00,0,0,deepseek-flash,0
+deepseek,58,3267314311,1489,marin-community/marin,https://github.com/marin-community/marin/pull/1489,OpenAI_Codex,closed_unmerged,Fix inference OOM by streaming dataset,"## Summary
+- avoid loading entire dataset in memory when running classification inference
+- stream input shards in batches and write results incrementally
+
+## Testing
+- `pytest tests/processing/tokenize -q`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_68866679275483318b55e211a2a91eee",287,lib/levanter/scripts/bench/bench_mamba3_mimo_xla.py | lib/levanter/scripts/bench/bench_mamba3_xla.py | lib/dupekit/tests/bench/test_batch_tuning.py | lib/dupekit/tests/bench/test_dedupe.py | lib/dupekit/tests/bench/test_hashing.py,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:44+08:00,1,1,deepseek-flash,1
+deepseek,59,3991179263,81,cyw0ng95/sqlvibe,https://github.com/cyw0ng95/sqlvibe/pull/81,Copilot,merged,feat: v0.10.0 — Real bytecode execution engine,"Replaces the AST-walking `interface{}`-register VM with a compact, fully-typed bytecode pipeline. Public SQL API is unchanged; only the CG → VM internals are redesigned.
+
+## Core data types
+
+- **`internal/VM/value.go`** — `VmVal`: 32-byte discriminated union (`TagNull/Int/Float/Text/Blob/Bool`). `VmNull()`, `VmInt()`, `VmFloat()` are zero-alloc. `ToInterface()` / `FromInterface()` used only at result-projection boundaries.
+- **`internal/VM/instr.go`** — `Instr`: exactly 16 bytes (`Op uint16 + Fl uint16 + A/B/C int32`). Four instructions per 64-byte cache line (4.5× denser than legacy `~72-byte` `Instruction`). `InstrFlagTypedInt/Float` enable compile-time type fast paths.
+
+## Opcode set & program builder
+
+- **`internal/VM/bc_opcodes.go`** — 36 `BcOpCode uint16` constants + `BcOpName` map.
+- **`internal/VM/bytecode_prog.go`** — `BytecodeBuilder`: `Emit`, label `AllocLabel/FixupLabel`, constant pool `AddConst`, register allocator `AllocReg`, `Build → BytecodeProg`.
+
+## Bytecode VM
+
+- **`internal/VM/bytecode_vm.go`** + **`bytecode_handlers.go`** — `BytecodeVM` with `[NumBcOpcodes]BcOpHandler` dispatch table (no switch). Handlers cover arithmetic, comparisons, NULL propagation, cursor scan loop (`BcRewind/BcNext/BcColumn`), aggregates (`BcAggInit/Step/Final`), and scalar calls.
+
+## Bytecode compiler
+
+- **`internal/CG/bytecode_compiler.go`** + **`bytecode_expr.go`** — `BytecodeCompiler` emits `BytecodeProg` for SELECT (literals, `FROM` table, `WHERE`), INSERT, UPDATE, DELETE. Bina…",2500,internal/VM/bench_test.go | internal/TS/Benchmark/benchmark_test.go | internal/TS/Benchmark/benchmark_v0.9.6_test.go | internal/TS/Benchmark/benchmark_v0.8.3_test.go | internal/TS/Benchmark/benchmark_v0.9.16_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:45+08:00,1,1,deepseek-flash,1
+deepseek,60,3871303603,12574,github/gh-aw,https://github.com/github/gh-aw/pull/12574,Copilot,closed_unmerged,Parallelize setup operations with engine-agnostic installation,"Agent job setup runs AWF binary install (0.8s), CLI install (3.1s), and Docker downloads (8.8-11.4s) sequentially. These operations are independent and network-bound.
+
+## Changes
+
+**Engine-agnostic parallel installation coordinator** (`actions/setup/sh/install_parallel_setup.sh`):
+- Runs operations as background jobs with `wait` synchronization
+- Preserves individual exit codes for proper error handling
+- Accepts generic `--cli-script`, `--cli-npm`, or `--cli-download` flags instead of engine-specific flags
+- Installation URLs and methods provided by compiler (not hardcoded)
+
+**Parallel installation detection** (`pkg/workflow/parallel_installation.go`):
+- `CLIInstallInfo` structure defines installation method (script/npm/download), URLs, and verify commands
+- `ShouldUseParallelInstallation()` - enables when 2+ independent operations exist
+- `GetParallelInstallConfig()` - extracts installation metadata from engine configuration
+- `generateParallelInstallationStep()` - emits workflow step with engine-specific parameters
+
+**Engine installation changes**:
+- All engines (Copilot, Claude, Codex) skip individual installation steps when parallel is used
+- Copilot uses installer script method with URL from engine config
+- Claude and Codex use npm method with package names from engine config
+- Installation metadata deferred to single parallel step
+
+**Workflow compiler integration**:
+- Inserts parallel installation after engine setup when 2+ operations exist
+- Skips Docker download step…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:46+08:00,1,1,deepseek-flash,1
+deepseek,61,3327835343,19198,mochilang/mochi,https://github.com/mochilang/mochi/pull/19198,OpenAI_Codex,merged,swift: split complex expressions for compiler,"## Summary
+- avoid redundant `Double` casts around arithmetic binary expressions
+- break very long binary expressions into temporary variables for the Swift compiler
+- regenerate Swift algorithm outputs and benches
+
+## Testing
+- `MOCHI_ALGORITHMS_INDEX=506 go test ./transpiler/x/swift -run TestSwiftTranspiler_Algorithms_Golden -tags=slow -count=1`
+- `MOCHI_ALGORITHMS_INDEX=611 go test ./transpiler/x/swift -run TestSwiftTranspiler_Algorithms_Golden -tags=slow -count=1`
+- `MOCHI_ALGORITHMS_INDEX=612 go test ./transpiler/x/swift -run TestSwiftTranspiler_Algorithms_Golden -tags=slow -count=1`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_68a135d3a8bc83209490c7188ba3aad3",676,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:47+08:00,1,1,deepseek-flash,1
+deepseek,62,3949946290,18772,aptos-labs/aptos-core,https://github.com/aptos-labs/aptos-core/pull/18772,Claude_Code,open,[storage] Add delete_range API to SchemaBatch,"Wraps RocksDB's `DeleteRange` (`[begin, end)` semantics) through the
+`WriteBatch` trait, `SchemaBatch`, and `NativeBatch`, so we might be able to use
+efficient range deletions instead of deleting keys one by one.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",269,network/quic-like-udp/benches/transport_bench.rs | network/qnuc/benches/transport_bench.rs | crates/aptos-dkg/benches/pvss.rs | crates/aptos-crypto/benches/ed25519.rs | crates/aptos-crypto/benches/ristretto255.rs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:48+08:00,1,1,deepseek-flash,1
+deepseek,63,3727245174,432,OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager,https://github.com/OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager/pull/432,Google_Jules,closed_unmerged,Implement Trust-on-First-Use caching strategy,"Implemented the requested ""Trust-on-First-Use"" caching strategy. This significantly reduces IO by skipping `stat` calls on original files when a cache file exists. Cache validity is now managed via explicit invalidation rather than timestamp comparison. Filenames for cache files no longer include the timestamp, making them stable across file modification times unless invalidated. Tests were updated to match this new behavior.
+
+---
+*PR created automatically by Jules for task [15980824043150742221](https://jules.google.com/task/15980824043150742221) started by @OliverZhaohaibin*",583,tests/test_performance_sorting.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:49+08:00,1,1,deepseek-flash,1
+deepseek,64,4088824635,19459,stackrox/stackrox,https://github.com/stackrox/stackrox/pull/19459,Claude_Code,merged,ROX-33626: Add Prometheus metrics to alert manager,"## Description
+
+<!--
+A detailed explanation of the changes in your PR. Feel free to remove this
+section if the title of your PR is sufficiently descriptive. To learn more
+about contributing to this project, check ""*.md"" files under:
+    https://github.com/stackrox/stackrox/tree/master/.github
+-->
+
+Add instrumentation to AlertAndNotify and mergeManyAlerts to collect
+production data on alert processing performance before optimizing.
+
+Metrics added:
+- alert_and_notify_duration_ms: end-to-end duration histogram
+- alert_and_notify_incoming_count: incoming alerts per call
+- merge_many_alerts_duration_ms: merge duration histogram
+- merge_many_alerts_previous_count: previous alerts fetched from DB
+- alert_outcome_total: counter vec by outcome (new/updated/resolved)
+
+Partially generated by AI.
+
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+## User-facing documentation
+
+- [ ] [CHANGELOG.md](https://github.com/stackrox/stackrox/blob/master/CHANGELOG.md) is updated **OR** update is not needed
+- [ ] [documentation PR](https://spaces.redhat.com/display/StackRox/Submitting+a+User+Documentation+Pull+Request) is created and is linked above **OR** is not needed
+
+## Testing and quality
+
+- [ ] the change is production ready: the change is [GA](https://github.com/stackrox/stackrox/blob/master/PR_GA.md), or otherwise the functionality is gated by a [feature flag](https://github.com/stackrox/stackrox/blob/master/pkg/features/README.md)
+- [ ] CI r…",2500,central/processindicator_no_serialized/store/postgres/bench_test.go | central/processindicator_jsonb/store/postgres/bench_test.go,performance,deepseek-flash,performance,non-performance,,deepseek-recheck,2026-11-14T16:43:50+08:00,0,0,deepseek-flash,0
+deepseek,65,4023608268,1934,OpenRakis/Spice86,https://github.com/OpenRakis/Spice86/pull/1934,Copilot,closed_unmerged,Fix SB PCM playback at wrong speed on sample rate changes,"### Description of Changes
+
+When the Sound Blaster sample rate changes mid-playback (e.g., Lands of Lore switching between 11111 Hz and 22050 Hz for different VOC effects), stale frames in the async output queue were resampled at the new rate, causing ~2x speed playback — high-pitched, very short sounds.
+
+Two changes:
+
+- **Flush output queue on rate change** (`SoundBlaster.SetChannelRateHz`): Clears stale frames produced at the old rate before configuring the new resampling chain. DOSBox staging doesn't need this because its queue is near-empty (~0–22 frames) due to synchronous mixing; Spice86's async queue held 200–400 frames (20–40ms).
+
+- **Use actual mixer blocksize in `SoundChannel.FramesPerBlock`**: Was hardcoded to 1024 (`// would need to get from mixer`), now receives the real blocksize (typically 480) from the mixer via `SetMixerBlocksize()`. Matches DOSBox staging's `GetFramesPerBlock()` which uses `mixer.blocksize`. This correctly sizes the output queue (~223 frames instead of ~474).
+
+### Rationale behind Changes
+
+Architectural mismatch between DOSBox staging's synchronous mixer and Spice86's async queue-based mixer. The queue decouples producer (SB DMA on CPU thread) from consumer (mixer thread). When the sample rate changes, frames already in the queue are at the old rate but get resampled with the new rate's ZOH step — e.g., 11111 Hz frames processed as 22050 Hz play at 2x speed. The oversized queue (due to hardcoded blocksize) amplified the problem by buffering …",2014,src/Spice86.MicroBenchmarkTemplate/BreakpointCheckBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/HasActiveBreakpointsBenchmark.cs | tests/Spice86.Tests/BreakpointPerformanceBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/MandelbrotPerformanceBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/MixerChannelIterationBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:50+08:00,1,1,deepseek-flash,1
+deepseek,66,3310525609,18449,mochilang/mochi,https://github.com/mochilang/mochi/pull/18449,OpenAI_Codex,merged,Transpile more algorithms to Rust,"## Summary
+- Handle postfix operands in `compileExpr` and infer numeric types more accurately
+- Avoid unnecessary clones and `mut` declarations during Rust code emission
+- Regenerate Rust code and outputs for algorithms 500-549 with benchmarking and update progress table
+
+## Testing
+- `MOCHI_ALG_INDEX=548 MOCHI_BENCHMARK=1 go test ./transpiler/x/rs -tags=slow -run TestRsTranspiler_Algorithms_Golden -update-algorithms-rs`
+- `go test ./transpiler/x/rs` *(fails: build constraints exclude all Go files)*
+
+------
+https://chatgpt.com/codex/tasks/task_e_6899d484ad44832085e6f766dfc8e9e1",584,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:51+08:00,1,1,deepseek-flash,1
+deepseek,67,3989251967,18343,github/gh-aw,https://github.com/github/gh-aw/pull/18343,Copilot,merged,Release MCP inspector sub-contexts promptly after each operation,"`connectStdioMCPServer` and `connectHTTPMCPServer` created `WithTimeout` sub-contexts for each sequential MCP operation (`ListTools`, `ListResources`) but cancelled them via `defer`, holding timer resources until function return rather than releasing them immediately after each operation completed.
+
+## Changes
+
+- **`connectStdioMCPServer`** and **`connectHTTPMCPServer`**: replaced `defer cancel()` with an immediate `cancel()` after each sequential MCP operation
+
+```go
+// Before — timer held until function return
+listToolsCtx, cancel := context.WithTimeout(ctx, MCPOperationTimeout)
+defer cancel()
+toolsResult, err := session.ListTools(listToolsCtx, ...)
+
+// After — timer released as soon as operation completes
+listToolsCtx, cancel := context.WithTimeout(ctx, MCPOperationTimeout)
+toolsResult, err := session.ListTools(listToolsCtx, ...)
+cancel()
+```
+
+The `connectCtx` used for `client.Connect()` retains `defer cancel()` since it isn't sequential and doesn't benefit from early release.
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>[plan] Release MCP inspector sub-contexts promptly after each operation</issue_title>
+> <issue_description>## Objective
+> 
+> In `pkg/cli/mcp_inspect_mcp.go`, call `cancel()` immediately after each sequential MCP operation (ListTools, ListResources, ListPrompts) instead of deferring, to release context resources promp…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:52+08:00,1,1,deepseek-flash,1
+deepseek,68,3858554237,4501,MontrealAI/AGI-Alpha-Agent-v0,https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/4501,OpenAI_Codex,merged,[alpha_factory] Stream coverage XML output to avoid MemoryError,"### Motivation
+- Generating coverage XML with minidom pretty-printing consumed large amounts of memory and caused pytest/coverage to crash with MemoryError when producing the XML report on CI.  
+
+### Description
+- Replace the coverage XML generation path with a streaming report writer to write the coverage DOM directly to the output stream instead of producing a huge in-memory pretty-printed string.  
+- Install the streaming behavior early in test startup by patching `coverage.xmlreport.XmlReporter.report` from `pytest` bootstrap code.  
+- Change made in `tests/conftest.py` to implement the streaming `XmlReporter.report` replacement.
+
+### Testing
+- Ran `python alpha_factory_v1/scripts/preflight.py` which reported missing system Docker/docker-compose (environment limitation, not code-related).  
+- Ran `python check_env.py --auto-install` and `python scripts/check_python_deps.py` which completed successfully.  
+- Ran the full test suite with coverage: `pytest --cov --cov-report=xml:artifacts/coverage.xml --cov-fail-under=80 --junitxml=artifacts/test-reports/pytest.xml`, producing `815 passed, 95 skipped, 5 xfailed, 26 warnings` and total coverage `80.16%` (coverage XML written to `artifacts/coverage.xml`).  
+- Ran `pre-commit run --files tests/conftest.py` which passed (hooks reformatted the file and subsequent lint checks passed).
+
+------
+[Codex Task](https://chatgpt.com/codex/tasks/task_e_697809574a008333af3b7b440921ccf5)",1445,scripts/run_replay_bench.py,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:53+08:00,1,1,deepseek-flash,1
+deepseek,69,3720600465,12248,MudBlazor/MudBlazor,https://github.com/MudBlazor/MudBlazor/pull/12248,Copilot,merged,ParameterState: Optimize architecture for O(1) lookups and reduced allocations,"## Description
+
+Architectural optimizations to ParameterState framework addressing hot-path performance bottlenecks identified through analysis: multi-scope parameter lookups, LINQ allocations on every render, and unnecessary handler detection for display-only components.
+
+### Key Changes
+
+**Flattened parameter lookups (2-3x faster for inherited components)**
+- Replaced O(scopes) iteration with lazy-initialized flattened `FrozenDictionary<string, IParameterComponentLifeCycle>`
+- `GetState()` now O(1) regardless of inheritance depth
+- Uses `StringComparer.Ordinal` for case-sensitive parameter names
+- `GetEnumerator()` optimized to reuse flattened dictionary when available (checks `IsValueCreated` first), avoiding `SelectMany` enumeration overhead while preserving lazy initialization
+
+**Eliminated LINQ allocations in `SetParametersAsync` (10-20% faster re-renders)**
+- Replaced `SelectMany().Where().Select().ToHashSet()` with manual iteration in both `ParameterContainer` and `ParameterScopeContainer`
+- Lazy-allocates `List<>` only when handlers exist (~75% less garbage)
+- Preserves duplicate detection logic without HashSet overhead
+- Created `ParameterChangeHandlerUtility` class to share common logic between both classes
+
+**Fast path for display-only components (25-30% faster)**
+- Caches handler count (`_handlerCount`) to skip detection when zero
+- Early return before handler enumeration for read-only components
+
+**Reduced cognitive complexity**
+- Extracted helper methods into `…",2500,src/MudBlazor.Benchmarks/IdentifierBenchmark.cs | src/MudBlazor.Benchmarks/BeforeAfterComparisonBenchmark.cs | src/MudBlazor.Benchmarks/DelegateInvocationBenchmark.cs | src/MudBlazor.Benchmarks/ParameterStateBasicOperationsBenchmark.cs | src/MudBlazor.Benchmarks/ParameterStateComparerBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:53+08:00,1,1,deepseek-flash,1
+deepseek,70,4105117171,37626,vllm-project/vllm,https://github.com/vllm-project/vllm/pull/37626,Claude_Code,open,Replace VLLM_MAX_TOKENS_PER_EXPERT_FP4_MOE env var with max_num_batched_tokens,"## Summary
+- Removes the `VLLM_MAX_TOKENS_PER_EXPERT_FP4_MOE` environment variable (default 163,840) which was used to size the NVFP4 MoE blockscale output buffer.
+- Replaces it with `max_num_batched_tokens` from the scheduler config, using the formula `mnbt * topk + 127 * num_experts` to account for CUTLASS 128-row alignment padding per expert.
+- This dramatically reduces memory allocation for the blockscale buffer. For example, with DeepSeek-R1 (256 experts, topk=8, mnbt=8192): ~98K rows vs the old ~1.3M rows.
+
+The previous env var defaulted to the model's max context length (163,840), which was unnecessarily large. The blockscale buffer needs to account for:
+1. The maximum number of routed tokens: `max_num_batched_tokens * topk`
+2. Per-expert 128-alignment padding (CUTLASS swizzle constraint): worst case is 127 padding rows per expert when each expert's token count has a remainder of 1
+
+## Test plan
+- [ ] Existing `tests/kernels/moe/test_nvfp4_moe.py` tests should pass (batch sizes ≤ 224, well within default 2048)
+- [ ] Verify no remaining references to `VLLM_MAX_TOKENS_PER_EXPERT_FP4_MOE`
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-authored-by: Claude Opus 4.6 <noreply@anthropic.com>",1230,benchmarks/fused_kernels/silu_mul_block_quant_benchmark.py | tests/benchmarks/test_random_dataset.py | benchmarks/kernels/bench_block_fp8_gemm.py | benchmarks/kernels/bench_per_token_quant_fp8.py | benchmarks/multi_turn/bench_dataset.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:54+08:00,1,1,deepseek-flash,1
+deepseek,71,3830088505,581,OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager,https://github.com/OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager/pull/581,Copilot,closed_unmerged,Add comprehensive architecture analysis and refactoring documentation,"Analyzed codebase architecture (49K LOC, 218 files), identified technical debt and performance bottlenecks, and produced detailed refactoring roadmap with implementation strategy.
+
+## Deliverables
+
+- **`ARCHITECTURE_ANALYSIS_AND_REFACTORING.md`** (86KB, 2,278 lines)
+  - Current architecture analysis: layered design, 43 controllers, MVC pattern
+  - Technical debt classification: controller proliferation, `AssetListModel` overload (400+ LOC), path handling complexity
+  - Performance bottlenecks: 15min scan time for 100K files, 8s blocking UI, 200ms/thumbnail
+  - Target architecture: MVVM + DDD, Use Case pattern, repository interfaces, event bus, DI container
+  - 6-phase roadmap (19-25 weeks) with pseudocode and migration strategies
+
+- **`REFACTORING_SUMMARY_ZH.md`** (7.7KB)
+  - Executive summary in Chinese for quick reference
+  - Problem statements with current vs target metrics
+  - Implementation timeline and risk mitigation
+
+- **`ARCHITECTURE_DIAGRAMS.md`** (17KB)
+  - 9 Mermaid diagrams: architecture comparison, data flow, DI flow, controller simplification (43→15), Gantt chart
+
+- **`README_ARCHITECTURE.md`** (9.5KB)
+  - Navigation guide with recommended reading paths
+  - FAQ for quick problem lookup
+
+## Key Findings
+
+**Critical Issues:**
+- Controller explosion: 43 controllers with overlapping responsibilities, `MainController` initializes 15+ sub-controllers
+- `AssetListModel` mixed concerns: loading + caching + state + adapter + view (400 LOC → target 150 LOC via separation…",2500,tests/test_performance_sorting.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:55+08:00,1,1,deepseek-flash,1
+deepseek,72,4047133769,8905,Z3Prover/z3,https://github.com/Z3Prover/z3/pull/8905,Copilot,closed_unmerged,Fix assertion violation and solution loss in NLA optimization,"Two bugs causing Z3's optimizer to crash (debug) or find fewer Pareto solutions than expected for non-linear problems like BNH.
+
+## Changes
+
+- **`src/smt/theory_lra.cpp`** — `lp().restore_x()` was called in the NLA branch of `maximize()` without a prior `backup_x()` when the problem has no integers (`has_int() == false`). This left `m_r_x` empty after restore, causing an out-of-bounds access in `r_x(j)`. Fix: guard `backup_x()` on `has_int() || m_nla` instead of `has_int()` alone.
+
+  ```cpp
+  // Before
+  if (has_int()) {
+      lp().backup_x();
+  }
+
+  // After
+  if (has_int() || m_nla) {
+      lp().backup_x();
+  }
+  ```
+
+- **`src/opt/opt_solver.cpp`** — Reverts the push/pop wrapping added around each objective in `maximize_objectives1()` (commit c0583b828). That approach popped LP/NLA state that subsequent objectives depended on, causing multi-objective solves to lose solutions. The underlying issue it targeted (`FC_CONTINUE` from `check_nla` being misclassified as `UNBOUNDED`) was correctly fixed separately in `theory_lra.cpp` by commit `6ec40153c`.
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>z3-solver==4.16.0 finds less solutions for BNH problem than z3-solver==4.8.12</issue_title>
+> <issue_description>[Binh and Korn (BNH) Multi-Objective Optimization Problem](https://pymoo.org/problems/multi/bnh.html)
+> 
+> **Reproduction:**
+> ```bash…",2500,src/test/optional_benchmark.cpp,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:56+08:00,1,1,deepseek-flash,1
+deepseek,73,3899212128,3080,BoundaryML/baml,https://github.com/BoundaryML/baml/pull/3080,Cursor,merged,Rust CI cache problem,"# Pull Request Template
+
+Thanks for taking the time to fill out this pull request!
+
+## Issue Reference
+Please link to any related issues
+- [ ] This PR fixes/closes # (This PR addresses the Rust cache miss issue discussed in the conversation, referencing a similar issue: https://github.com/Swatinem/rust-cache/issues/9)
+
+## Changes
+Please describe the changes proposed in this pull request
+
+This PR fixes a persistent Rust cache miss issue in CI workflows by:
+1.  **Reordering CI steps**: The `Swatinem/rust-cache@v2` action now runs *after* the Rust toolchain is installed via `rustup show`. This ensures the cache key is generated based on the project's `rust-toolchain.toml` version, not the GitHub runner's default Rust version.
+2.  **Adding `shared-key`**: Configured `shared-key` for `rust-cache` in various jobs (e.g., `linux-cargo`, `macos-cargo`, `windows-cargo`, `linux-wasm`, `linux-msrv`) to improve cache hit rates across similar CI runs.
+
+## Testing
+Please describe how you tested these changes
+
+- [ ] Unit tests added/updated
+- [x] Manual testing performed (Internal diagnostics and verification of workflow file changes)
+- [ ] Tested in [environment] (Validation will occur via subsequent CI runs)
+
+## Screenshots
+If applicable, add screenshots to help explain your changes
+
+[Add screenshots here...]
+
+## PR Checklist
+Please ensure you've completed these items
+
+- [x] I have read and followed the contributing guidelines
+- [x] My code follows the style guidelines of this project
+- [x…",2500,baml_language/crates/baml_vm/benches/fib.rs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:56+08:00,1,1,deepseek-flash,1
+deepseek,74,3128867544,214,mochilang/mochi,https://github.com/mochilang/mochi/pull/214,OpenAI_Codex,merged,Add memoization for pure functions,"## Summary
+- memoize pure function calls in the interpreter to avoid re-execution
+
+## Testing
+- `make test`
+
+------
+https://chatgpt.com/codex/tasks/task_e_684634ec7918832090120fbac1f9e1ae",187,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:57+08:00,1,1,deepseek-flash,1
+deepseek,75,4165556153,4252,marin-community/marin,https://github.com/marin-community/marin/pull/4252,OpenAI_Codex,open,[RL] Add GPU smoke probes and resource-aware config,"Make the Iris RL config resource-aware so rollout and trainer workers can target GPUs, use GPU-safe trainer defaults, and launch region-local GCS-backed smoke probes without Hugging Face bootstrap. Keep GPU inflight updates disabled for now and add coverage for the new config paths.",283,lib/levanter/scripts/bench/bench_mamba3_mimo_xla.py | lib/levanter/scripts/bench/bench_mamba3_xla.py | lib/dupekit/tests/bench/test_batch_tuning.py | lib/dupekit/tests/bench/test_dedupe.py | lib/dupekit/tests/bench/test_hashing.py,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:43:58+08:00,1,1,deepseek-flash,1
+deepseek,76,3587029830,5133,rocicorp/mono,https://github.com/rocicorp/mono/pull/5133,Copilot,closed_unmerged,Update js.yml to use linux-arm64-8-cores runner,"Updates all jobs in `js.yml` to use ARM64 GitHub-hosted runners for potential CI speedup.
+
+## Changes
+
+- **`.github/workflows/js.yml`**: Changed `runs-on: ubuntu-latest` to `runs-on: linux-arm64-8-cores` for all 7 jobs (syncpack, verify-deps, format, lint, check-types, test shards, test-pg)
+
+## Performance Baseline
+
+Current performance on `ubuntu-latest` (run #19072816253):
+- Total: ~6.5 min
+- Test jobs: 3-5 min each (longest pole)
+- Type check: 1m 13s
+- Lint/format: 30-40s
+
+Expected improvement with 8 ARM64 cores: faster execution primarily in npm/bun install, TypeScript compilation, and parallel test execution. ARM64 runners typically offer better cost-performance ratio compared to x64 runners.
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> Can you make the js.yml actions use ""Ubuntu-24-x64-16-Cores"" runner?
+> 
+> and can you compare the performance between this and the default runner?
+
+
+</details>
+
+
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💡 You can make Copilot smarter by setting up custom instructions, customizing its development environment and configuring Model Context Protocol (MCP) servers. Learn more [Copilot coding agent tips](https://gh.io/copilot-coding-agent-tips) in the docs.",1263,packages/replicache/src/size-of-value.bench.ts | packages/zql-benchmarks/src/planner-cost.bench.ts | packages/zero-client/src/client/zero.bench.ts | packages/zql-benchmarks/src/chinook-manual-cases.bench.ts | packages/zql-benchmarks/src/planner-hydration.bench.ts,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:59+08:00,1,1,deepseek-flash,1
+deepseek,77,3902551967,20563,PrefectHQ/prefect,https://github.com/PrefectHQ/prefect/pull/20563,Devin,merged,Add UUID-based randomization to CLI transfer test files,"Update test files in `tests/cli/transfer/` to use UUID-based randomized resource names instead of hardcoded names. This allows these tests to run without clearing the database between tests, improving test suite performance.
+
+## Changes
+
+Replaced hardcoded resource names with UUID-randomized names in:
+- `test_automations.py` - automation names
+- `test_blocks.py` - block type names, slugs, and block document names
+- `test_deployments.py` - deployment names
+- `test_work_pools.py` - work pool names
+- `test_work_queues.py` - work queue names and work pool names
+
+Added `""tests/cli/transfer""` to `EXCLUDE_FROM_CLEAR_DB_AUTO_MARK` in `tests/conftest.py` so these tests no longer have `clear_db` automatically applied.
+
+**Note**: `test_concurrency_limits.py` and `test_dag.py` were not modified as they already use UUID-based names or use mock objects that don't interact with the database.
+
+## Items for human review
+- In `test_blocks.py`, the BlockType `name` and `slug` fields are generated with separate `uuid.uuid4()` calls, so they won't match each other. Verify this is acceptable for these test scenarios.
+- In `test_work_queues.py`, where the same work pool name is referenced in both the object and an assertion, a `work_pool_name` variable is used. Other files generate UUIDs inline since names are only set once and not re-referenced.
+
+---
+
+Link to Devin run: https://app.devin.ai/sessions/9c961fab6fd340e4a677b900195bbf13
+Requested by: @desertaxle
+
+### Checklist
+
+- [ ] This pull request …",1991,src/integrations/prefect-dbt/benches/bench_orchestrator.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:43:59+08:00,1,1,deepseek-flash,1
+deepseek,78,3421928486,846,github/gh-aw,https://github.com/github/gh-aw/pull/846,Copilot,merged,feat: only upload docs build artifacts on main branch deployment,"## Problem
+
+The docs GitHub Action workflow was uploading build artifacts on every branch and pull request, even when deployment would never occur. This resulted in unnecessary storage usage and resource consumption, as artifacts were being created for feature branches where the `deploy` job would be skipped.
+
+## Solution
+
+Added a conditional check to the ""Upload build artifacts"" step to only upload when deployment will actually happen. The condition matches exactly what the `deploy` job uses:
+
+```yaml
+- name: Upload build artifacts
+  if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+  uses: actions/upload-pages-artifact@v3
+  with:
+    path: ./docs/dist
+```
+
+## Benefits
+
+- **Resource Optimization**: Eliminates unnecessary artifact uploads on feature branches and PRs
+- **Storage Efficiency**: Reduces GitHub Actions artifact storage consumption  
+- **Workflow Consistency**: Upload and deploy conditions are now perfectly aligned
+- **No Breaking Changes**: Documentation still builds and validates on all branches for testing purposes
+
+## Testing
+
+- Validated workflow syntax with actionlint
+- Verified all existing tests continue to pass
+- Confirmed CLI functionality remains intact
+- Completed full development validation sequence
+
+The workflow will continue to build documentation on all branches for validation, but will only upload the artifact when it will be deployed to GitHub Pages.
+
+> [!WARNING]
+>
+> <details>
+…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:00+08:00,1,1,deepseek-flash,1
+deepseek,79,3146327522,25061,microsoft/onnxruntime,https://github.com/microsoft/onnxruntime/pull/25061,Copilot,closed_unmerged,[WIP] Improve DFT implementation,"## DFT Implementation Improvements - COMPLETED
+
+### ✅ All Optimizations Implemented and Validated
+
+#### 1. **Core Algorithm Optimizations**
+- [x] **`next_power_of_2` optimization**: 1.87x speedup using bit manipulation
+- [x] **Threading integration**: 7 parallel execution paths added
+- [x] **Memory efficiency**: Optimized buffer management and cache usage
+- [x] **Numerical stability**: Maintained precision with type-safe conversions
+
+#### 2. **Threading Architecture**
+- [x] **Smart thresholding**: Automatic sequential vs parallel decision making
+- [x] **Cost-based execution**: Thread overhead avoided for small workloads  
+- [x] **Multi-algorithm support**: Both Radix-2 FFT and Bluestein's enhanced
+- [x] **Thread safety**: Safe parallel access to shared data structures
+
+#### 3. **Performance Characteristics**
+**Small sizes (< 256 elements):**
+- Sequential execution (no threading overhead)
+- Immediate benefit from bit manipulation optimizations
+
+**Large sizes (> 256 elements):**
+- Up to 4x theoretical speedup on multi-core systems
+- Validated threading thresholds prevent overhead
+- Scalable performance with available CPU cores
+
+#### 4. **Implementation Quality**
+- [x] **Backward compatibility**: Zero API changes, existing code unaffected
+- [x] **Cross-platform**: Uses ORT ThreadPool for portability
+- [x] **Robust fallbacks**: Graceful degradation without thread pool
+- [x] **Comprehensive testing**: Added large-size and edge-case validation
+
+#### 5. **Deliverables**
+**Code Chang…",2500,onnxruntime/test/mlas/bench/bench_sconv.cpp | onnxruntime/test/python/transformers/test_gpt2_benchmark.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:01+08:00,1,1,deepseek-flash,1
+deepseek,80,3729829536,6504,github/gh-aw,https://github.com/github/gh-aw/pull/6504,Copilot,merged,"Add lazy mention resolution with collaborator filtering, assignee support, and 50 mention limit","## Plan: Improve Mention Escaping (@...) in Safe Outputs
+
+- [x] Explore repository structure and understand mention escaping code
+- [x] Review and understand current implementation in `compute_text.cjs` and `sanitize_content.cjs`
+- [x] Add logging to document which mentions are allowed
+- [x] Add team member check - allow mentions of team members in repository
+- [x] Add bot detection - do NOT allow bot mentions
+- [x] Add tests for team member and bot filtering
+- [x] Update issue-triage-agent.md workflow to mention author
+- [x] Run tests and validate changes
+- [x] All changes complete and tested
+- [x] Restrict team members to maintainers only (maintain or admin access)
+- [x] Refactor to lazy mention resolution with optimistic caching
+- [x] Move mention resolution logic to dedicated `resolve_mentions.cjs` file
+- [x] Implement 50 mention limit
+- [x] Query recent collaborators (first 30) for optimistic resolution
+- [x] Query individual users lazily for mentions not in cache
+- [x] Allow any repository member regardless of permissions (exclude bots only)
+- [x] Fix bundling of resolve_mentions.cjs
+- [x] Recompile all workflow lock files with bundled code
+- [x] Add assignees (non-bots) to known aliases
+- [x] Update smoke-copilot workflow prompt to mention PR author and assignees
+
+## Summary
+
+Successfully implemented lazy mention resolution with performance optimizations, registered with bundler, recompiled all workflows, and added assignee support:
+
+### Changes Made:
+1. **Created `res…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:02+08:00,1,1,deepseek-flash,1
+deepseek,81,3981126474,6862,Azure/azure-dev,https://github.com/Azure/azure-dev/pull/6862,Copilot,merged,Fix preflight validation errors misclassified as `service.arm.400` instead of `service.arm.validate.failed`,"ARM preflight validation errors for standard deployments were routed through a code path that returned a raw `*azcore.ResponseError`, bypassing `createDeploymentError`. This caused telemetry to classify them as `service.arm.400` rather than `service.arm.validate.failed`, and produced degraded error output compared to LRO-path errors.
+
+**Root cause**: Both `BeginValidate` (Path 1) and `PollUntilDone` (Path 2) can return errors, but only Path 2 was wrapped with `createDeploymentError`. Standard deployments commonly receive HTTP 400 directly from the ARM validate API (which the SDK's LRO poller rejects), so most failures hit Path 1.
+
+**Fix**: Apply `createDeploymentError` to both error paths in all four preflight validate methods:
+
+```go
+// Before (Path 1 — raw ResponseError, misclassified in telemetry)
+if err != nil {
+    return fmt.Errorf(""validating deployment to subscription:\n\nValidation Error Details:\n%w"", err)
+}
+
+// After (Path 1 — wrapped, consistent with Path 2)
+if err != nil {
+    return fmt.Errorf(
+        ""validating deployment to subscription: %w"",
+        createDeploymentError(err, DeploymentOperationValidate),
+    )
+}
+```
+
+**Affected methods** (both `standard_deployments.go` and `stack_deployments.go`):
+- `ValidatePreflightToSubscription`
+- `ValidatePreflightToResourceGroup`
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>Pre…",2500,cli/azd/pkg/containerapps/container_app_benchmark_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:03+08:00,1,1,deepseek-flash,1
+deepseek,82,4028717715,36287,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/36287,OpenAI_Codex,closed_unmerged,perf(media): avoid second-pass chunk conversion in response reader,## Summary\n- convert streamed chunks to `Buffer` once during read instead of converting in a second pass\n- pass the `Buffer[]` directly to `Buffer.concat` with the tracked total size\n- add focused tests for ordered chunk concatenation and overflow-triggered stream cancellation\n\n## Why\n`readResponseWithLimit` sits on the media fetch path. The previous implementation performed an extra full pass over chunks and temporary allocations right before concat.\n\n## Validation\n- `pnpm vitest run src/media/read-response-with-limit.test.ts src/media/fetch.test.ts`,566,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:04+08:00,1,1,deepseek-flash,1
+deepseek,83,3188609697,4184,mochilang/mochi,https://github.com/mochilang/mochi/pull/4184,OpenAI_Codex,merged,Add empty list/map constant reuse,"## Summary
+- enhance `constKey` to reuse empty list and map constants
+- regenerate TPCH q4 outputs
+
+## Testing
+- `go test ./...`
+- `go test -tags slow ./...` *(fails: cobol compiler tests)*
+
+------
+https://chatgpt.com/codex/tasks/task_e_6862915878048320bfc1714df0d1f042",269,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:44:05+08:00,1,1,deepseek-flash,1
+deepseek,84,3726521294,430,OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager,https://github.com/OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager/pull/430,Google_Jules,merged,Enforce unified 512x512 thumbnail size and add LRU cache,"Enforce unified 512x512 thumbnail size and add LRU cache
+
+- Modified `ThumbnailLoader` to ignore requested size and always generate/cache 512x512 thumbnails.
+- Implemented LRU (Least Recently Used) cache eviction using `OrderedDict` with a limit of 500 items to manage memory usage.
+- Updated unit tests to verify fixed size generation and LRU eviction behavior.
+
+---
+*PR created automatically by Jules for task [8450007538412317877](https://jules.google.com/task/8450007538412317877) started by @OliverZhaohaibin*",514,tests/test_performance_sorting.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:05+08:00,1,1,deepseek-flash,1
+deepseek,85,3340909457,10860,projectcalico/calico,https://github.com/projectcalico/calico/pull/10860,Copilot,closed_unmerged,Replace .go-pkg-cache directory bind mounts with Docker volume and fix permissions,"This PR migrates the Go package cache from host directory bind mounts to a Docker volume, addressing performance and reliability issues with the current approach, and fixes permission issues when the go-build container switches user ID.
+
+## Changes Made
+
+### Docker Commands Updated
+- **Main Makefile**: Replaced `-v $(CURDIR)/.go-pkg-cache:/go-cache:rw` with `--mount type=volume,source=go-pkg-cache,target=/go-cache`
+- **API Makefile**: Replaced `-v $(CURDIR)/../.go-pkg-cache:/go-cache:rw` with `--mount type=volume,source=go-pkg-cache,target=/go-cache`
+- **lib.Makefile**: Replaced `-v $(REPO_ROOT)/.go-pkg-cache:/go-cache:rw` with `--mount type=volume,source=go-pkg-cache,target=/go-cache`
+- Uses new-style `--mount` syntax as requested instead of legacy `-v` option
+
+### Docker Volume Permissions Fix
+Added permission initialization to all DOCKER_RUN definitions to address the issue where go-build containers switch user ID:
+```bash
+docker volume create go-pkg-cache >/dev/null 2>&1 || true
+docker run --rm --mount type=volume,source=go-pkg-cache,target=/go-cache alpine sh -c 'chown -R $(LOCAL_USER_ID):$(LOCAL_USER_ID) /go-cache' 2>/dev/null || true
+```
+
+This ensures the Docker volume is owned by the correct user ID before the go-build container attempts to write to it, preventing ""permission denied"" errors like:
+```
+failed to initialize build cache at /go-cache: mkdir /go-cache/00: permission denied
+```
+
+### Directory Management
+- Removed `mkdir -p ./.go-pkg-cache` and `mkdir -p ../.…",2500,felix/calc/calc_graph_bench_test.go | felix/bpf/proxy/proxy_bench_test.go | goldmane/pkg/storage/add_flow_bench_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:06+08:00,1,1,deepseek-flash,1
+deepseek,86,3972807884,2488,nexi-lab/nexus,https://github.com/nexi-lab/nexus/pull/2488,Claude_Code,merged,chore: sync develop → main (remove CLAUDE.md from tracking) (#2156),"* feat(#1503): harden ObjectStoreABC adapter — validation, tests, performance (#1793)
+
+* feat(#1503): harden ObjectStoreABC adapter — validation, tests, performance
+
+- Add _validate_hash() with regex validation for SHA-256 content hashes
+- Add __repr__ and read-only backend property to BackendObjectStore
+- Wrap batch_read with hash validation and error handling
+- Add parallel batch_read_content to BaseBlobConnector (ThreadPoolExecutor)
+- Refactor backends/__init__.py: registry dict + importlib loop (DRY)
+- Expand unit tests from 16 → 65 (edge cases, error paths, context propagation)
+- Add 7 integration tests (full stack: LocalBackend → adapter → ObjectStoreABC)
+- Add 3 adapter overhead benchmarks (write, read, exists < 100μs)
+
+* chore: fix pre-existing ruff lint errors on develop
+
+- Remove unused ThreadPoolExecutor import (a2a/stores/database.py)
+- Remove unused Any and ReBACTupleModel imports (server/auth/user_helpers.py)
+- Fix unsorted imports (workflows/engine.py)
+
+* fix: remove stale noqa comment on ConsistencyMode import in rebac manager
+
+The ConsistencyMode import is actively used in the file (lines 351, 359, 1480),
+so the # noqa: F401 backward-compat comment was incorrect and caused CI lint failure.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+* fix: sort imports in test_async_namespace_manager (ruff I001)
+
+Merge two separate `from nexus.rebac.namespace_manager import ...`
+statements into a single import line to satisfy ruff I001.
+
+Co-Authored-By: Claude O…",2500,tests/benchmarks/bench_write_observer.py | tests/benchmarks/bench_factory_boot.py | tests/benchmarks/test_service_delegation.py | tests/e2e/self_contained/test_performance_tuning_e2e.py | tests/unit/core/test_performance_tuning.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:07+08:00,1,1,deepseek-flash,1
+deepseek,87,3806638582,207,github/gh-aw-mcpg,https://github.com/github/gh-aw-mcpg/pull/207,Copilot,merged,Refactor secret sanitization logic into dedicated package,"Secret sanitization logic was duplicated across `markdown_logger.go` and `jsonl_logger.go` (57 lines), creating tight coupling where JSONLLogger depended on MarkdownLogger's internal functions.
+
+## Changes
+
+**New package `internal/logger/sanitize`:**
+- Centralized 10 secret detection regex patterns (GitHub PATs, JWT tokens, API keys, etc.)
+- `SanitizeString()` - string-based redaction with prefix preservation
+- `SanitizeJSON()` - JSON payload sanitization with compact single-line output
+- 13 test cases covering all patterns, nested structures, and edge cases
+
+**Updated loggers:**
+- `markdown_logger.go` - removed pattern definitions, calls `sanitize.SanitizeString()`
+- `jsonl_logger.go` - removed sanitization logic, calls `sanitize.SanitizeJSON()`
+- `rpc_logger.go` - updated to use `sanitize.SanitizeString()`
+
+**Before:**
+```go
+// jsonl_logger.go line 93
+sanitized := sanitizeSecrets(string(payloadBytes))  // Depends on markdown_logger
+```
+
+**After:**
+```go
+// jsonl_logger.go line 6
+import ""github.com/githubnext/gh-aw-mcpg/internal/logger/sanitize""
+
+// jsonl_logger.go line 93
+sanitized := sanitize.SanitizeString(string(payloadBytes))
+```
+
+Wrapper functions kept in original loggers for backward compatibility but marked as deprecated.
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+
+----
+
+*This section details on the original issue you should resolve*
+
+<issue_title>[duplicate-code] Secret Sanitization Logic Duplication (Medium Severity)</…",2490,internal/middleware/jqschema_bench_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:08+08:00,1,1,deepseek-flash,1
+deepseek,88,3831498884,123365,dotnet/runtime,https://github.com/dotnet/runtime/pull/123365,Copilot,merged,Fix IndexOfAnyInRange inconsistent behavior with invalid ranges across vectorized/scalar paths,"## Description
+
+`IndexOfAnyInRange` and related APIs return inconsistent results for invalid ranges (where `highInclusive < lowInclusive`) depending on whether hardware intrinsics are enabled. The vectorized path computes `highInclusive - lowInclusive`, which wraps to a large positive value for unsigned types, causing incorrect matches.
+
+```csharp
+ReadOnlySpan<byte> data = [50];
+int result = data.IndexOfAnyInRange((byte)200, (byte)100);
+// Returns 0 with intrinsics enabled (incorrect)
+// Returns -1 with intrinsics disabled (correct)
+```
+
+## Changes
+
+- **MemoryExtensions.cs**: Added early validation in the 4 public entry points to detect `highInclusive < lowInclusive` before any path selection:
+  - `IndexOfAnyInRange<T>` - Returns -1 (no value matches invalid range)
+  - `IndexOfAnyExceptInRange<T>` - Returns -1 for empty spans, 0 for non-empty spans (all values outside invalid range)
+  - `LastIndexOfAnyInRange<T>` - Returns -1 (no value matches invalid range)
+  - `LastIndexOfAnyExceptInRange<T>` - Returns -1 for empty spans, span.Length - 1 for non-empty spans (all values outside invalid range)
+  
+  All checks use `lowInclusive.CompareTo(highInclusive) > 0` to work correctly with all IComparable types, and use `span.IsEmpty` for better readability. This approach centralizes validation at the public API boundary, eliminating the need for duplicate checks across 6 internal helper methods.
+
+- **IndexOfAnyInRange.cs**: Added comprehensive tests covering invalid ranges for all supp…",2500,src/libraries/System.Runtime/tests/PerformanceTests/FileStreamBufferingBenchmark/FileStreamBufferingBenchmark.cs,performance,deepseek-flash,performance,non-performance,,deepseek-recheck,2026-11-14T16:44:08+08:00,0,0,deepseek-flash,0
+deepseek,89,3752514128,320,netcorepal/netcorepal-cloud-framework,https://github.com/netcorepal/netcorepal-cloud-framework/pull/320,Copilot,merged,Split CI test execution by framework using matrix strategy and optimize workflow dependencies,"Split `dotnet test` execution in CI workflows to run independently across net8.0, net9.0, and net10.0 using GitHub Actions matrix strategy for better visibility into framework-specific failures. Optimized workflow structure to ensure proper job dependencies and eliminate unnecessary builds in PR checks.
+
+## Changes
+
+- **`NetCorePal.SourceGenerator.UnitTests.csproj`**: Changed from single `TargetFramework` (net9.0) to multi-targeting `TargetFrameworks` (net8.0;net9.0;net10.0) to align with other test projects
+
+- **`.github/workflows/pr.yml`**: 
+  - Simplified to only include test job with matrix strategy
+  - Removed build job (including docker build) to streamline PR checks
+  - Added explicit `contents: read` permissions to test job
+
+- **`.github/workflows/dotnet.yml`**: 
+  - Restructured into 3 separate jobs: `build`, `test`, and `pack-and-push`
+  - Test job runs with matrix strategy across frameworks
+  - Pack and Push operations moved to separate `pack-and-push` job with `needs: [build, test]` dependency
+  - Ensures package creation only happens after both build and all tests pass
+  - Removed `--settings .runsettings` parameter from test commands
+  - Added explicit `contents: read` permissions to test and pack-and-push jobs
+
+## Result
+
+**PR workflow** runs only tests in parallel across all three framework versions for faster feedback.
+
+**Preview build workflow** ensures proper job ordering:
+1. Build and test run independently in parallel
+2. Pack and push only execute after b…",2500,test/NetCorePal.Extensions.Performance.Tests/Database/RepositoryBenchmark.cs | test/NetCorePal.Extensions.Performance.Tests/Domain/AggregateRootBenchmark.cs | test/NetCorePal.Extensions.Performance.Tests/Framework/DependencyInjectionBenchmark.cs | test/NetCorePal.Extensions.Performance.Tests/Framework/EntityIdBenchmark.cs | test/NetCorePal.Extensions.Performance.Tests/Framework/JsonSerializationBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:09+08:00,1,1,deepseek-flash,1
+deepseek,90,3309548309,18421,mochilang/mochi,https://github.com/mochilang/mochi/pull/18421,OpenAI_Codex,merged,rust transpiler: support collection prints and unit returns,"## Summary
+- teach Rust backend to format vectors and maps when printing
+- fix unit return handling and insert temps for mutable calls
+- transpile and benchmark 50 additional algorithms starting at index 960
+
+## Testing
+- `MOCHI_ALG_INDEX=960 MOCHI_BENCHMARK=1 go test -run Algorithm -tags=slow ./transpiler/x/rs -update-algorithms-rs`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_6899c4d9cf10832098baec7f7f16b2c3",416,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:10+08:00,1,1,deepseek-flash,1
+deepseek,91,3847170050,11489,github/gh-aw,https://github.com/github/gh-aw/pull/11489,Copilot,merged,Fix daily-cli-performance workflow by adding go-make import,"The Daily CLI Performance workflow failed to run benchmarks due to missing Go toolchain. Rather than adding explicit setup steps, this uses the existing `shared/go-make.md` import to expose Go and Make commands through safe-inputs.
+
+## Changes
+
+- **Added `shared/go-make.md` import** to workflow frontmatter
+  - Provides `safeinputs-go` and `safeinputs-make` tools to the Copilot agent
+  - Tools wrap Go and Make commands with proper MCP integration
+  
+- **Updated benchmark execution instructions** to use safe-input tools
+  - Changed from direct bash (`make bench 2>&1 | tee`) to tool invocation pattern
+  - Agent now uses: `safeinputs-make` with args: `""bench""`
+
+## Example
+
+The agent instructions now specify:
+
+```markdown
+**Step 2**: Run benchmarks using safeinputs-make
+
+Use the **safeinputs-make** tool with args: ""bench"" to run the benchmark suite.
+
+This will execute `make bench` which runs Go benchmarks and saves results to `bench_results.txt`.
+```
+
+The compiled workflow includes safe-input tool definitions for both `go` and `make` with shell script handlers that execute in the workflow environment.
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>[performance] Daily CLI Performance workflow missing Go toolchain setup</issue_title>
+> <issue_description>### Summary
+> 
+> The Daily CLI Performance workflow (`.github/workflows/daily-cli-performanc…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:11+08:00,1,1,deepseek-flash,1
+deepseek,92,3959336638,1906,OpenRakis/Spice86,https://github.com/OpenRakis/Spice86/pull/1906,Copilot,closed_unmerged,"OPL: Add AdLib Gold audio capture tests, real-game Dune CD test, .NET Metrics instrumentation, and DOSBox staging comparison for initial silence investigation","### Description of Changes
+
+Adds SDL-level audio capture infrastructure, comprehensive integration tests, a real-game Dune CD integration test, .NET `System.Diagnostics.Metrics` instrumentation of the OPL audio thread, and a detailed DOSBox staging performance comparison to exercise the OPL3Gold and OPL3 rendering pipelines and diagnose the AdLib Gold initial silence issue (~6 seconds of inaudible music). All production code in the VM namespace (`EmulatedClock.cs`, `CyclesClock.cs`), `State.cs`, and all other non-OPL production files are identical to the base branch `fix/pcm`. The only production code change is adding metrics instrumentation to `Opl.cs` via `System.Diagnostics.Metrics`.
+
+**Audio capture infrastructure:**
+
+- **`CapturingAudioPlayer`** — New `AudioPlayer` subclass that records all mixer `WriteData` output into memory with realistic backpressure (sleeps for the duration of the audio block being played, matching `DummyAudioPlayer` behavior). Includes `SaveToWav()` method for exporting captured audio as 48kHz stereo float WAV files for manual inspection. Located in `Spice86.Audio/Backend/Audio/DummyAudio/`.
+- **Internal `Mixer` constructor** — Accepts a custom `AudioPlayer` for test injection, with `InternalsVisibleTo` entries for `Spice86` and `Spice86.Tests`.
+- **`Spice86Creator`** — Updated to accept optional `AudioPlayer` and `exeArgs` parameters for test injection and game command-line argument passing through the DI chain.
+- **`Spice86DependencyInjection`** …",2500,src/Spice86.MicroBenchmarkTemplate/BreakpointCheckBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/HasActiveBreakpointsBenchmark.cs | tests/Spice86.Tests/BreakpointPerformanceBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/MandelbrotPerformanceBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/MixerChannelIterationBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:12+08:00,1,1,deepseek-flash,1
+deepseek,93,3732396188,1650,OpenRakis/Spice86,https://github.com/OpenRakis/Spice86/pull/1650,Copilot,merged,Implement Speex buffer-level resampling integration (Phase 3.2),"### Description of Changes
+
+Completed Phase 3.2 of the DOSBox audio architecture port: integrated Speex resampler into the audio sample processing pipeline for high-quality rate conversion.
+
+**MixerChannel.cs** (+116 lines):
+- Modified `Mix()` to conditionally apply Speex resampling when initialized and rate conversion needed
+- Implemented `SpeexResampleBuffer()` for buffer-level resampling with stereo channel separation
+- Added error handling with graceful fallback to pass-through on failure
+
+**Implementation:**
+```csharp
+// Mix() now detects Speex availability and applies buffer-level resampling
+if (_speexResampler?.IsInitialized == true && _sampleRateHz != _mixerSampleRateHz) {
+    // Collect samples, then resample entire buffer
+    _handler(inputFramesNeeded);
+    SpeexResampleBuffer(framesRequested);
+}
+```
+
+The resampler extracts L/R channels into separate float arrays, processes each through `ProcessFloat()`, rebuilds AudioFrames, and adjusts output to match target frame count.
+
+**Documentation updates:**
+- AUDIO_PORT_PLAN.md: Updated to 74% completion, marked Phase 3.2 complete
+- docs/audio/NEXT_STEPS.md: Updated metrics, identified Phase 4/5 blockers (DOSBox source required)
+- docs/audio/SPEEX_INTEGRATION.md: Reflected integration completion
+- docs/audio/SESSION_SUMMARY.md: Comprehensive session report (NEW)
+
+### Rationale behind Changes
+
+Phase 3.1 provided P/Invoke infrastructure but processed samples one-by-one. Speex requires batch processing for efficiency and qua…",2499,src/Spice86.MicroBenchmarkTemplate/BreakpointCheckBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/HasActiveBreakpointsBenchmark.cs | tests/Spice86.Tests/BreakpointPerformanceBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/MandelbrotPerformanceBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/MixerChannelIterationBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:13+08:00,1,1,deepseek-flash,1
+deepseek,94,3529515149,148,SkBlaz/py3plex,https://github.com/SkBlaz/py3plex/pull/148,Copilot,merged,Add performance benchmark tests for core multilayer data structures,"## Summary
+
+This PR implements comprehensive performance benchmark tests for py3plex's core multilayer data structures. The benchmarks track runtime performance to detect regressions and provide baseline metrics for optimization efforts.
+
+## Changes
+
+### New Performance Benchmark Tests
+
+Added `tests/test_performance_core.py` with 17 benchmark tests covering:
+
+- **Network Creation**: Initialization overhead and parameter handling
+- **Node/Edge Operations**: Iteration, addition, and basic graph operations
+- **Layer Operations**: Multilayer-specific functionality like `get_layers()` and `split_to_layers()`
+- **Network Queries**: Statistics, entity counts, and neighbor lookups
+- **Transformations**: Conversions to sparse matrix and JSON formats
+- **Scalability**: Verification of linear scaling behavior with network size and layer count
+- **Multiplex Networks**: Coupling edge handling and filtering
+
+Tests use three network sizes (small: 100 nodes, medium: 1000 nodes, large: 2000+ nodes) to measure performance across realistic workloads.
+
+### New CI Workflow
+
+Added `.github/workflows/benchmarks.yml` that:
+- Runs automatically on push/PR to main branches
+- Executes all benchmark tests using pytest-benchmark
+- Generates JSON reports saved as artifacts (90-day retention)
+- Creates benchmark summary in GitHub Actions output
+- Can be manually triggered via workflow dispatch
+- Includes proper security permissions
+
+### Documentation
+
+- Added benchmark badge to README showing CI status
+- A…",2500,tests/test_visualization_benchmark.py | tests/test_benchmark_budget_fairness.py | tests/test_benchmark_dsl_basic.py | tests/test_benchmark_integration.py | gui/ci/api-tests/test_performance_optimizations.py,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:14+08:00,1,1,deepseek-flash,1
+deepseek,95,3857956541,1947,devantler-tech/ksail,https://github.com/devantler-tech/ksail/pull/1947,Copilot,merged,fix(chat): prevent mode toggling during streaming to eliminate race condition,"Mode could be toggled mid-stream, causing tool execution enforcement to check a different mode than when the message was submitted. A message sent in Plan mode could execute tools if Tab was pressed during streaming.
+
+## Changes
+
+- **Block mode toggle during streaming**: Added `isStreaming` guard to `handleToggleMode()`, consistent with model picker, session picker, new chat, and history controls
+- **Fix struct tag formatting**: Removed excess whitespace in `pkg/apis/cluster/v1alpha1/options.go` to satisfy golines linter
+
+```go
+func (m *Model) handleToggleMode() (tea.Model, tea.Cmd) {
+    // Prevent mode mismatch between submission and tool execution
+    if m.isStreaming {
+        return m, nil
+    }
+    // ... toggle logic
+}
+```
+
+Mode is now effectively locked when a message is submitted, ensuring tool enforcement matches user intent throughout the turn.
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💡 You can make Copilot smarter by setting up custom instructions, customizing its development environment and configuring Model Context Protocol (MCP) servers. Learn more [Copilot coding agent tips](https://gh.io/copilot-coding-agent-tips) in the docs.",1167,pkg/client/docker/engine_bench_test.go | pkg/client/docker/registry_bench_test.go | pkg/client/kubectl/client_bench_test.go | pkg/cli/parallel/executor_benchmark_test.go | pkg/client/argocd/manager_bench_test.go,performance,deepseek-flash,performance,non-performance,,deepseek-recheck,2026-11-14T16:44:14+08:00,0,0,deepseek-flash,0
+deepseek,96,3199812992,62558,dotnet/aspnetcore,https://github.com/dotnet/aspnetcore/pull/62558,Copilot,merged,[Blazor] Remove sourcemap link comments from production bundles for blazor.web.js and blazor.webassembly.js,"This change modifies the Rollup configuration to generate sourcemap files without including sourcemap link comments in production bundles for `blazor.web.js` and `blazor.webassembly.js`.
+
+## Changes Made
+
+- Modified `src/Components/Web.JS/rollup.config.mjs` to use `sourcemap: 'hidden'` for production builds of blazor.web.js and blazor.webassembly.js
+- This generates `.map` files but omits the `//# sourceMappingURL=` comments from the bundle
+- Preserves existing behavior for other bundles:
+  - `blazor.server.js` still gets sourcemap link comments (`sourcemap: true`)
+  - `blazor.webview.js` still gets inline sourcemaps (`sourcemap: 'inline'`)
+  - All development builds continue to include sourcemap link comments
+
+## Behavior
+
+**Before:**
+```javascript
+// Production blazor.web.js would end with:
+console.log('Blazor initialized');
+//# sourceMappingURL=blazor.web.js.map
+```
+
+**After:**
+```javascript
+// Production blazor.web.js now ends with:
+console.log('Blazor initialized');
+// No sourcemap link comment
+```
+
+The sourcemap files (`blazor.web.js.map`, `blazor.webassembly.js.map`) are still generated and contain full debugging information. Developers can manually load these sourcemaps in browser dev tools when needed.
+
+## Benefits
+
+- Reduces production bundle size by eliminating sourcemap URL comments
+- Maintains debugging capability through manually loadable sourcemap files
+- Aligns with security best practices by not exposing sourcemap URLs in production
+- Consistent with the rela…",2499,src/Http/Http/perf/Microbenchmarks/ValidatableTypesBenchmark.cs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:15+08:00,1,1,deepseek-flash,1
+deepseek,97,3580528111,413,jstime/jstime,https://github.com/jstime/jstime/pull/413,Copilot,merged,Optimize crypto.getRandomValues with buffered RNG and getrandom (up to 5.96x faster),"- [x] Analyze current crypto.getRandomValues performance bottleneck
+- [x] Implement buffered RNG to reduce syscall overhead
+- [x] Add thread-local buffer (64KB) for fast random data access
+- [x] Test performance improvements (1.5-3.3x speedup)
+- [x] Run existing tests to ensure correctness (all tests pass)
+- [x] Update documentation
+- [x] Address code review feedback - use explicit scoping
+- [x] Switch to getrandom for better performance
+- [x] Increase buffer size to 64KB to match Node.js
+- [x] Fix formatting issue
+
+## Summary
+
+Optimized `crypto.getRandomValues()` by implementing a buffered random number generator that uses getrandom directly with a 64KB buffer, achieving performance competitive with Node.js.
+
+### Latest Fix
+- Fixed cargo fmt issue by removing extra blank line in crypto_impl.rs
+
+### Performance Comparison vs Node.js
+
+| Operation | jstime | Node.js | Result |
+|-----------|--------|---------|--------|
+| randomUUID | 4829 ops/ms | 780 ops/ms | **6.2x faster** ✅ |
+| getRandomValues(16b) | 1482 ops/ms | 313 ops/ms | **4.7x faster** ✅ |
+| getRandomValues(1KB) | 285 ops/ms | 317 ops/ms | 0.90x (11% slower) |
+
+jstime is now **highly competitive** with Node.js:
+- Significantly faster for randomUUID and small buffers
+- Within 11% of Node.js for 1KB buffers (285 vs 317 ops/ms)
+- 21% improvement over baseline (236 → 285 ops/ms)
+
+All 41 crypto tests pass.
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> Crypto is still quite …",1821,core/benches/runtime_bench.rs | core/benches/crypto_bench.rs | core/benches/module_cache_bench.rs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:16+08:00,1,1,deepseek-flash,1
+deepseek,98,3093415329,1783,huggingface/tokenizers,https://github.com/huggingface/tokenizers/pull/1783,OpenAI_Codex,open,Add Truncate pre-tokenizer,"Will add bench to test if more efficient, how much more",55,tokenizers/benches/added_vocab_deserialize.rs | tokenizers/benches/llama3.rs | bindings/python/benches/test_deserialize.py | tokenizers/benches/bert_benchmark.rs | tokenizers/benches/bpe_benchmark.rs,performance,,performance,performance,,deepseek-recheck,2026-11-14T16:44:17+08:00,1,1,deepseek-flash,1
+deepseek,99,3824175865,3145,fastrepl/char,https://github.com/fastrepl/char/pull/3145,Devin,closed_unmerged,feat: implement progressive loading for session persister,"## Summary
+
+Implements progressive loading for the TinyBase session persister to reduce app initialization time. Instead of loading all sessions at once (which was causing ~7 second delays), sessions are now loaded in batches of 50, with each batch applied to the store incrementally.
+
+Key changes:
+- Added `ProgressiveBatchCallback` type and optional `loadAllProgressive` config to `MultiTableDirConfig`
+- Implemented `loadAllSessionDataProgressive` that scans for session IDs first, then loads in batches
+- Each batch is applied to the store via `applyChanges()` without deletion marking
+- Deletion marking (`markAll()`) is deferred until the complete dataset is loaded to avoid incorrectly marking unloaded sessions as deleted
+
+## Review & Testing Checklist for Human
+
+- [ ] **Critical: Verify deletion marker behavior** - Test that sessions are NOT incorrectly deleted during progressive loading. The deletion marking is deferred until all batches complete, but this is the riskiest part of the change.
+- [ ] **Test app startup with real data** - Verify that the first batch of sessions appears quickly (<1s target) and remaining sessions load in background
+- [ ] **Verify all sessions load correctly** - After progressive loading completes, confirm all sessions are present and accessible
+- [ ] **Review type assertion safety** - Line 125 in multi-table-dir.ts uses `as Changes<Schemas>` - verify this is safe given `toPersistedChanges` creates `[tables, {}, 1]` format
+
+**Recommended test plan:…",2155,crates/denoise/benches/denoise_bench.rs | crates/aec/benches/aec_bench.rs | crates/cactus/benches/vad.rs | apps/desktop/src/store/tinybase/persister.bench.ts,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:18+08:00,1,1,deepseek-flash,1
+deepseek,100,3093387507,1782,huggingface/tokenizers,https://github.com/huggingface/tokenizers/pull/1782,OpenAI_Codex,closed_unmerged,Add benchmark for deserializing large added vocab +  optimizations,,0,tokenizers/benches/added_vocab_deserialize.rs | tokenizers/benches/llama3.rs | bindings/python/benches/test_deserialize.py | tokenizers/benches/bert_benchmark.rs | tokenizers/benches/bpe_benchmark.rs,performance,deepseek-flash,performance,performance,,deepseek-recheck,2026-11-14T16:44:19+08:00,1,1,deepseek-flash,1

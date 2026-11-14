@@ -1,0 +1,2507 @@
+sample_set,sample_index,pr_id,number,repo,html_url,agent,outcome,title,body_preview,body_chars,perf_files,original_verdict,original_model,original_raw,recheck_verdict,recheck_notes,recheck_by,recheck_at
+human,1,3348797511,2367,asynkron/protoactor-dotnet,https://github.com/asynkron/protoactor-dotnet/pull/2367,OpenAI_Codex,merged,Fix Gossip composite consensus test timing,"## Summary
+- Re-enable composite gossip consensus test
+- Wait for topology consensus instead of fixed delays
+
+## Testing
+- `dotnet test tests/Proto.Actor.Tests/Proto.Actor.Tests.csproj -c Release`
+- `dotnet test tests/Proto.Remote.Tests/Proto.Remote.Tests.csproj -c Release`
+- `dotnet test tests/Proto.Cluster.Tests/Proto.Cluster.Tests.csproj -c Release`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_68aa21e9272c8328910ae288e90f4205",435,benchmarks/ClusterMicroBenchmarks/ConcurrentSpawnBenchmark.cs | benchmarks/ClusterMicroBenchmarks/InProcessClusterBatchRequestBenchmark.cs | benchmarks/ClusterMicroBenchmarks/InProcessClusterRequestBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,2,3999193630,1064,readmeio/oas,https://github.com/readmeio/oas/pull/1064,Cursor,merged,perf(parser): dereferencing benchmarks,"Add performance benchmarks for dereferencing in `packages/parser` and `packages/oas`.
+
+These benchmarks establish a baseline for dereferencing performance across various schema sizes and usage patterns, enabling data-driven optimization decisions and preventing regressions as outlined in the performance improvement plan. Additionally, `AGENTS.md` was created to document environment-specific setup details and common issues.
+
+---
+<p><a href=""https://cursor.com/agents/bc-323ba17e-f0ec-46b5-a651-ae4222967fc6""><picture><source media=""(prefers-color-scheme: dark)"" srcset=""https://cursor.com/assets/images/open-in-web-dark.png""><source media=""(prefers-color-scheme: light)"" srcset=""https://cursor.com/assets/images/open-in-web-light.png""><img alt=""Open in Web"" width=""114"" height=""28"" src=""https://cursor.com/assets/images/open-in-web-dark.png""></picture></a>&nbsp;<a href=""https://cursor.com/background-agent?bcId=bc-323ba17e-f0ec-46b5-a651-ae4222967fc6""><picture><source media=""(prefers-color-scheme: dark)"" srcset=""https://cursor.com/assets/images/open-in-cursor-dark.png""><source media=""(prefers-color-scheme: light)"" srcset=""https://cursor.com/assets/images/open-in-cursor-light.png""><img alt=""Open in Cursor"" width=""131"" height=""28"" src=""https://cursor.com/assets/images/open-in-cursor-dark.png""></picture></a>&nbsp;</p>",1326,packages/oas/test/bench/dereference.bench.ts | packages/parser/test/bench/dereference.bench.ts | packages/oas/test/benchmarks/dereference.bench.ts | packages/parser/test/benchmarks/bundle.bench.ts | packages/parser/test/benchmarks/dereference.bench.ts,performance,deepseek-flash,performance,performance,建立 dereferencing 性能基准，属性能相关工作,human,2026-11-14T17:45:32+08:00
+human,3,3597335229,135,OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager,https://github.com/OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager/pull/135,OpenAI_Codex,merged,Refactor edit workflow to reuse shared GL viewer,"## Summary
+- add an EditViewerHost wrapper so the edit UI can reuse the GLImageViewer without re-uploading textures
+- update the edit and player controllers to hand the shared viewer back and forth during mode switches
+- instantiate a single GLImageViewer in the main window and inject it into both the detail and edit layouts
+
+## Testing
+- pytest
+
+------
+https://chatgpt.com/codex/tasks/task_e_690cf6bb22d0832f80c8d0ccf8a768c0",427,tests/test_performance_sorting.py,performance,,performance,non-performance,重构编辑工作流复用 GL viewer，无性能主张,human,2026-11-14T17:45:32+08:00
+human,4,3736604775,462,OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager,https://github.com/OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager/pull/462,Copilot,closed_unmerged,Optimize All Photos loading with cursor-based SQL pagination,"- [x] Analyze the current implementation of All Photos loading
+- [x] Implement cursor-based pagination in IndexStore for database queries
+- [x] Update AssetLoaderWorker to use cursor-based pagination
+- [x] Add tests for the new pagination functionality
+- [x] Run code review and address feedback
+- [x] Run CodeQL security scan (no issues found)
+- [x] Further optimize with fast-path for first batch:
+  - Skip file existence checks (trust DB records)
+  - Skip location resolution via geocoding
+  - Skip micro thumbnail decoding
+  - Defer COUNT query
+  - Increase first page size to 200
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 请你用一切方法，尽最大可能优化打开all photos的速度，可以通过cursor方式进行分页加载，目前对于大型basic library，打开all photo的速度是不可接受的
+
+
+</details>
+
+
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💬 We'd love your input! Share your thoughts on Copilot coding agent in our [2 minute survey](https://gh.io/copilot-coding-agent-survey).",1012,tests/test_performance_sorting.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,5,2910071529,1042,Cap-go/capgo,https://github.com/Cap-go/capgo/pull/1042,Devin,closed_unmerged,fix: display API key start and linkages to orgs/apps,"# API Key Display Enhancement with Performance Optimizations
+
+Fixes #1006 - Cannot see what API keys are linked to what organizations and apps
+
+## Improvements
+
+This PR enhances the API Keys section with the following improvements:
+
+1. **API Key Display**: Shows the first 5 and last 5 characters of each API key for visual identification while maintaining security
+2. **Organization & App Linkages**: Displays badges for linked organizations and apps with proper color coding
+3. **Responsive Design**: Ensures proper layout on both mobile and desktop with appropriate spacing and wrapping
+
+## Performance Optimizations
+
+The implementation includes several performance optimizations:
+
+1. **Computed Properties**: Uses Vue computed properties for memoized helper functions to avoid repeated lookups
+2. **Parallel Fetching**: Fetches organization and app names in parallel using Promise.all
+3. **Efficient Caching**: Only fetches uncached organization and app IDs to minimize database queries
+4. **Set for Unique IDs**: Uses Set for collecting unique IDs before database queries
+
+## Testing
+
+- Tested on both mobile and desktop screen sizes
+- Verified that API keys display correctly with proper truncation
+- Confirmed that organization and app badges render properly
+
+Link to Devin run: https://app.devin.ai/sessions/d9e9530a39d34a04b47f78347b3f89c5
+
+Requested by: Cap-go",1370,benches/cloudflare-utils.bench.ts | benches/device-comparison.bench.ts | benches/password-policy.bench.ts,performance,deepseek-flash,performance,non-performance,展示 API key / org 关联，功能修复,human,2026-11-14T17:45:32+08:00
+human,6,4078836567,47533,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/47533,OpenAI_Codex,merged,CLI: respect full timeout for loopback gateway probes,"## Summary
+
+Describe the problem and fix in 2–5 bullets:
+
+- Problem: `openclaw gateway probe --timeout <ms>` advertised an overall budget, but local loopback probes were silently hard-capped to 800ms.
+- Why it matters: on slower local/containerized setups this produced false ""Reachable: no"" / timeout results while other gateway commands (`logs`, `gateway call health`) still worked.
+- What changed: local loopback probes now use the caller's full requested budget; remote and SSH probe caps stay unchanged.
+- What did NOT change (scope boundary): this PR does not change gateway auth, handshake semantics, or remote probe budgeting.
+
+## Change Type (select all)
+
+- [x] Bug fix
+- [ ] Feature
+- [ ] Refactor
+- [ ] Docs
+- [ ] Security hardening
+- [ ] Chore/infra
+
+## Scope (select all touched areas)
+
+- [x] Gateway / orchestration
+- [ ] Skills / tool execution
+- [ ] Auth / tokens
+- [ ] Memory / storage
+- [ ] Integrations
+- [ ] API / contracts
+- [x] UI / DX
+- [ ] CI/CD / infra
+
+## Linked Issue/PR
+
+- Related #46130
+- This PR does not directly fix #46130; it fixes a separate loopback `gateway probe` false-negative uncovered while investigating that issue.
+
+## User-visible / Behavior Changes
+
+`openclaw gateway probe --timeout <ms>` now lets local loopback probes use the full caller-provided budget instead of silently capping them at 800ms.
+
+## Security Impact (required)
+
+- New permissions/capabilities? (`Yes/No`) No
+- Secrets/tokens handling changed? (`Yes/No`) No
+- New/changed network calls?…",2500,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,7,3314785338,13031,oxc-project/oxc,https://github.com/oxc-project/oxc/pull/13031,Copilot,closed_unmerged,refactor(transformer): Move TransformCtx into TraverseCtx state to eliminate RefCells,"## Problem
+
+The transformer currently uses `TransformCtx` which contains shared state between all transforms, stored as immutable references `&'ctx TransformCtx<'a>` in each transformer. This design forces all mutable state to be wrapped in `RefCell`s (e.g., the shared `VarDeclarations` stack), which adds runtime overhead and makes the code less ergonomic.
+
+## Solution
+
+This PR implements the architectural change proposed in #11742 by moving all fields from `TransformCtx` into `TransformState`, which becomes the generic parameter `T` of `TraverseCtx<'a, T>`. Since `TraverseCtx` is passed as `&mut TraverseCtx<'a, T>` to every visitor method, transformers now have mutable access to shared state through `ctx.state`, eliminating the need for `RefCell` wrappers.
+
+## Key Changes
+
+### Architecture
+- **Moved all fields** from `TransformCtx` to `TransformState` (errors, helper_loader, module_imports, var_declarations, etc.)
+- **Updated type alias**: `TraverseCtx<'a> = oxc_traverse::TraverseCtx<'a, TransformState<'a>>`
+- **Removed `TransformCtx`** entirely from the codebase
+
+### Access Pattern Change
+- **Before**: `self.ctx.module_imports.add_import(...)` (immutable access requiring RefCell)
+- **After**: `ctx.state.module_imports.add_import(...)` (mutable access, no RefCell needed)
+
+### Transformer Structure
+- **Before**: Transformers held `ctx: &'ctx TransformCtx<'a>` references
+- **After**: Transformers access state through `ctx.state` in visitor methods
+- **Updated 50+ transformer s…",2500,tasks/benchmark/benches/lexer.rs | tasks/benchmark/benches/minifier.rs | crates/oxc_parser/benches/lexer_performance.rs | napi/parser/bench.bench.js,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,8,3700664031,560,vercel/workflow,https://github.com/vercel/workflow/pull/560,Claude_Code,merged,fix: compare benchmarks against PR base branch instead of main,"- Use github.event.pull_request.base.ref instead of hardcoded main
+- Remove search_artifacts: true to ensure most recent baseline is used
+- For stacked PRs, this compares against the parent PR's baseline
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>",315,packages/core/e2e/bench.bench.ts,performance,deepseek-flash,performance,performance,修正 benchmark 对比基线，性能评测流水线,human,2026-11-14T17:45:32+08:00
+human,9,4030402056,36668,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/36668,OpenAI_Codex,closed_unmerged,perf(telegram): memoize sticker cache disk loads,"## Summary
+- memoize sticker-cache load results to avoid disk reads on every lookup
+- reload cache when the cache file timestamp changes or when the file is removed
+- add a focused test asserting repeated lookups trigger only one cache file read
+
+## Why
+Sticker cache lookups can run frequently. Reading and parsing the cache file on each call adds avoidable sync I/O overhead.
+
+## Risk
+Low. Existing tests still pass and the new regression test covers the new memoized read behavior.",484,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,10,3328084309,19285,mochilang/mochi,https://github.com/mochilang/mochi/pull/19285,OpenAI_Codex,merged,go transpiler: fold pow10 to reduce float error,"## Summary
+- fold `pow10` constants in binary expressions to avoid runtime precision loss in Go transpiler
+- regenerate Go algorithm outputs and checklist
+
+## Testing
+- `MOCHI_ALGORITHMS_INDEX=763 go test -tags=slow ./transpiler/x/go -run TestGoTranspiler_Algorithms_Golden -count=1 -update` *(fails: capture_area failed)*
+
+------
+https://chatgpt.com/codex/tasks/task_e_68a17e08c1cc8320b0944a55b103d16e",402,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,deepseek-flash,performance,non-performance,fold pow10 降低浮点误差，正确性而非加速,human,2026-11-14T17:45:32+08:00
+human,11,3185047320,2708,MontrealAI/AGI-Alpha-Agent-v0,https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/2708,OpenAI_Codex,merged,[alpha_factory] open gallery links in new tab,"## Summary
+- open demo links in new tab
+- load preview images lazily for faster gallery rendering
+
+## Testing
+- `python scripts/check_python_deps.py` *(fails: Missing packages: numpy, yaml, pandas)*
+- `python check_env.py --auto-install`
+- `pytest -q` *(fails: 44 errors during collection)*
+
+------
+https://chatgpt.com/codex/tasks/task_e_685ffc463f408333a5dae308b8441862",370,scripts/run_replay_bench.py,performance,,performance,non-performance,画廊链接新标签打开，UI 功能,human,2026-11-14T17:45:32+08:00
+human,12,3202723163,5053,mochilang/mochi,https://github.com/mochilang/mochi/pull/5053,OpenAI_Codex,merged,Improve Clojure type inference,"## Summary
+- expand helper functions with `isNumber`
+- prefer native functions for membership tests
+- inline numeric min/max/avg/sum in Clojure backend
+
+## Testing
+- `go test ./...`
+- `go test ./compile/x/clj -tags slow` *(fails: clojure not installed)*
+
+------
+https://chatgpt.com/codex/tasks/task_e_6867d0c998b08320b04119ff3adfc601",333,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,non-performance,Clojure 类型推断，无性能主张,human,2026-11-14T17:45:32+08:00
+human,13,3778106615,2772,fastrepl/char,https://github.com/fastrepl/char/pull/2772,Devin,closed_unmerged,feat(persister): add per-path content hashing to reduce unnecessary file writes,"## Summary
+
+Adds per-path content hashing to TinyBase persisters to skip file writes when content hasn't changed. This addresses the concern that persisters were triggering file system events (via the notify plugin) on every `.save()` even when nothing actually changed.
+
+**Changes:**
+- New `hash-cache.ts` module with FNV-1a hashing (~10-50μs per file)
+- Modified `writeJsonFiles`, `createSessionDirPersister`, and `createSingleTablePersister` to check hash before writing
+- Added test mock for hash-cache to maintain test isolation
+
+**Expected improvement:** Significant reduction in unnecessary file writes during autosave cycles.
+
+## Review & Testing Checklist for Human
+
+- [ ] **Verify notify event reduction**: Run the app, make some changes, then let it idle. Confirm that file system events are not being triggered repeatedly when nothing changes.
+- [ ] **Test MD export still works**: The hash is computed on JSON content before MD conversion. Verify that enhanced notes and memos still export correctly to markdown files.
+- [ ] **Check first-save behavior**: On app restart, all files should be written once (cache is empty). Verify this doesn't cause issues.
+
+**Recommended test plan:**
+1. Start the app and create a session with some notes
+2. Monitor file system events (e.g., `fswatch` or similar)
+3. Let the app idle for a few autosave cycles
+4. Confirm no repeated writes to unchanged files
+5. Make a change and verify the file is written
+
+### Notes
+
+- `updateFileHash` and `removeFile…",1817,crates/denoise/benches/denoise_bench.rs | crates/aec/benches/aec_bench.rs | crates/cactus/benches/vad.rs | apps/desktop/src/store/tinybase/persister.bench.ts,performance,deepseek-flash,performance,performance,页面 404；缓存正文为 hashing 减少无意义写盘,human,2026-11-14T17:45:32+08:00
+human,14,3130877815,1934,MontrealAI/AGI-Alpha-Agent-v0,https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/1934,OpenAI_Codex,merged,[alpha_factory] Fix A2ABus publish lock timing,"## Summary
+- ensure `A2ABus.publish` invokes callbacks outside the lock
+
+## Testing
+- `python scripts/check_python_deps.py` *(fails: Missing packages)*
+- `python check_env.py --auto-install` *(fails: Timed out installing baseline requirements)*
+- `pytest -q tests/test_world_model_demo.py` *(fails: Timed out installing baseline requirements)*
+- `pre-commit run --files alpha_factory_v1/demos/alpha_asi_world_model/alpha_asi_world_model_demo.py` *(fails: mypy errors and proto verification issues)*
+
+------
+https://chatgpt.com/codex/tasks/task_e_684709b729a48333af748f9a6f18fea7",578,scripts/run_replay_bench.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,15,3801441406,705,SOVEREIGN-NET/The-Sovereign-Network,https://github.com/SOVEREIGN-NET/The-Sovereign-Network/pull/705,Copilot,merged,Standardize sled insert API usage to avoid unnecessary allocation,"Addresses code review feedback on PR #702 identifying inconsistent usage of `db.insert()` in the nonce cache implementation.
+
+## Changes
+- **lib-network/src/handshake/nonce_cache.rs:617**: Replace `.to_bytes().to_vec()` with `&expected_epoch.to_bytes()`
+
+The original code unnecessarily allocated a vector before insertion:
+
+```rust
+// Before: unnecessary allocation
+db.insert(Self::META_EPOCH_KEY.as_bytes(), expected_epoch.to_bytes().to_vec())
+
+// After: direct reference
+db.insert(Self::META_EPOCH_KEY.as_bytes(), &expected_epoch.to_bytes())
+```
+
+This aligns with the existing pattern at line 1225 in the same file and leverages sled's `impl AsRef<[u8]>` parameter type.
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💬 We'd love your input! Share your thoughts on Copilot coding agent in our [2 minute survey](https://gh.io/copilot-coding-agent-survey).",857,lib-crypto/benches/crypto_benchmarks.rs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,16,3991427248,1851,zeroclaw-labs/zeroclaw,https://github.com/zeroclaw-labs/zeroclaw/pull/1851,Claude_Code,closed_unmerged,perf(agent): reduce string clones in run_tool_call_loop,"## Summary
+Reduces string clones and allocations in `run_tool_call_loop` by hoisting loop-invariant allocations outside the agent turn loop.
+
+**Problem:** Each agent turn was re-allocating the same strings (`""assistant""`, `""user""`) and repeatedly cloning provider/model strings.
+
+**Why it matters:** Under high load, these allocations compound unnecessarily. Hoisting them reduces per-turn allocation overhead.
+
+**What changed:** 
+- Hoisted `""assistant""` and `""user""` string literals to `lazy_static!`
+- Replaced `.clone()` on provider/model with `Cow::Borrowed` where possible
+- Preserved all existing behavior — pure memory optimization
+
+## Linked Issue
+Linear: `CDV-XXX` (to be assigned by maintainer)
+
+## Validation Evidence (required)
+**Commands run:**
+- `cargo fmt --all -- --check` ✓
+- `cargo clippy --all-targets -- -D warnings` ✓  
+- `cargo test --locked` ✓ (3061 passed, 0 failed)
+
+**Test summary:** All tests pass. No public API changes; all modifications internal to function body.
+
+## Security Impact (required)
+**New permissions/capabilities:** No
+**New external calls:** No
+**Secrets handling:** N/A
+**Filesystem access:** No change
+**Assessment:** LOW risk — pure refactor, no behavior change
+
+## Privacy and Data Hygiene (required)
+**Personal data involved:** No
+**Redaction needed:** N/A
+**Test fixtures:** Neutral/project-scoped
+**Status:** COMPLIANT
+
+## Rollback Plan (required)
+**Fast rollback:** `git revert 5a5503e4`
+**Feature flags:** N/A
+**Failure symptoms:** Increased memor…",1652,benches/agent_benchmarks.rs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,17,3412019180,803,github/gh-aw,https://github.com/github/gh-aw/pull/803,Copilot,merged,Fix compiler to only generate task job when required for checks,"## Problem
+
+The compiler was generating task jobs redundantly due to duplicate permission checks in two different places:
+
+1. `isTaskJobNeeded()` called `needsPermissionChecks()` internally
+2. `buildJobs()` also called `needsPermissionChecksWithFrontmatter()` separately
+3. The task job was created if either condition returned true: `if c.isTaskJobNeeded(data) || needsPermissionCheck`
+
+This meant permission checks were effectively being evaluated twice, and the task job might be generated when it shouldn't be according to the consolidated logic.
+
+## Solution
+
+**Consolidated permission check logic** by modifying `isTaskJobNeeded()` to accept the pre-calculated `needsPermissionCheck` parameter instead of calculating it internally:
+
+```go
+// Before: Called needsPermissionChecks() internally
+func (c *Compiler) isTaskJobNeeded(data *WorkflowData) bool {
+    return data.Command != """" || data.NeedsTextOutput || data.If != """" || c.needsPermissionChecks(data)
+}
+
+// After: Accepts pre-calculated permission check result
+func (c *Compiler) isTaskJobNeeded(data *WorkflowData, needsPermissionCheck bool) bool {
+    return data.Command != """" || data.NeedsTextOutput || data.If != """" || needsPermissionCheck
+}
+```
+
+**Simplified the condition** in `buildJobs()` from:
+```go
+if c.isTaskJobNeeded(data) || needsPermissionCheck {
+```
+
+To:
+```go
+if c.isTaskJobNeeded(data, needsPermissionCheck) {
+```
+
+## Impact
+
+The task job is now only generated when actually required:
+
+- ✅ **Safe workflows** with `wor…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,18,3792794316,1759,OpenRakis/Spice86,https://github.com/OpenRakis/Spice86/pull/1759,Copilot,merged,Fix critical channel feature deviations from DOSBox Staging audio implementation,"### Description of Changes
+
+Fixed incomplete channel feature sets in OPL3 and PcSpeaker audio devices to achieve complete architectural parity with DOSBox Staging (commit 1fe14998).
+
+**OPL3 Channel Features** (`Opl3Fm.cs`)
+- Added missing features: `Sleep`, `FadeOut`, `NoiseGate`, `ReverbSend`, `ChorusSend`
+- Enables effect routing (reverb/chorus) and CPU-efficient sleep/wake mechanism
+- Mirrors DOSBox `opl.cpp:825-834`
+
+**PcSpeaker Channel Features** (`PcSpeaker.cs`)
+- Added missing features: `Sleep`, `ChorusSend`, `ReverbSend`, `Synthesizer`
+- Enables effect routing and sleep/wake mechanism
+- Mirrors DOSBox `pcspeaker_discrete.cpp:455-465`
+
+**SoundBlaster Channel Features**
+- Verified correct: `ReverbSend`, `ChorusSend`, `DigitalAudio`, `Sleep`, `Stereo`
+- No changes required
+
+**Before:**
+```csharp
+// OPL3 - missing effect sends and sleep capability
+HashSet<ChannelFeature> features = { ChannelFeature.Stereo, ChannelFeature.Synthesizer };
+```
+
+**After:**
+```csharp
+// OPL3 - complete feature set matching DOSBox
+HashSet<ChannelFeature> features = {
+    ChannelFeature.Sleep,          // CPU efficiency when inactive
+    ChannelFeature.FadeOut,        // Smooth stop
+    ChannelFeature.NoiseGate,      // Residual noise removal
+    ChannelFeature.ReverbSend,     // Effect routing
+    ChannelFeature.ChorusSend,     // Effect routing
+    ChannelFeature.Synthesizer,
+    ChannelFeature.Stereo
+};
+```
+
+### Rationale behind Changes
+
+Channel features control critical audio subsystem behavi…",2500,src/Spice86.MicroBenchmarkTemplate/BreakpointCheckBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/HasActiveBreakpointsBenchmark.cs | tests/Spice86.Tests/BreakpointPerformanceBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/MandelbrotPerformanceBenchmark.cs | src/Spice86.MicroBenchmarkTemplate/MixerChannelIterationBenchmark.cs,performance,deepseek-flash,performance,non-performance,DOSBox 音频功能对齐，非性能优化,human,2026-11-14T17:45:32+08:00
+human,19,3630676729,227,doobidoo/mcp-memory-service,https://github.com/doobidoo/mcp-memory-service/pull/227,Claude_Code,merged,"perf: Global caching for 411,457x MCP performance improvement","## Summary
+Implement global caching for MCP server to eliminate initialization overhead on subsequent tool calls, achieving a **411,457x performance improvement** on cache hits.
+
+## Performance Impact
+
+### Before (v8.25.2)
+- MCP Tools: ~1,810ms per call
+- HTTP API: ~479ms (fastest method)
+- Direct Python: ~1,793ms
+
+### After (v8.26.0) 🎉
+- **MCP Tools (cached): ~0.01ms** ← NEW FASTEST
+- MCP Tools (uncached): ~2,485ms (first call only)
+- HTTP API: ~479ms
+- Direct Python: ~1,793ms
+
+### Metrics
+- **Performance Improvement**: 99.9996% reduction in latency
+- **Speedup Factor**: 411,457x faster on cache hits
+- **Cache Hit Rate**: 90%+ in normal usage
+- **MCP vs HTTP**: 41x faster than HTTP API after warm-up
+
+## Implementation Details
+
+### Global Cache Structures
+- `_STORAGE_CACHE`: Dict caching storage instances by ""{backend}:{path}""
+- `_MEMORY_SERVICE_CACHE`: Dict caching MemoryService instances by storage ID
+- `_CACHE_LOCK`: asyncio.Lock for thread-safe concurrent access
+- `_CACHE_STATS`: Tracking hits/misses and initialization times
+
+### Files Modified
+1. **src/mcp_memory_service/server.py** - Production MCP server
+   - Module-level cache structures (lines 349-384)
+   - Cache check in `_ensure_storage_initialized()` (lines 637-844)
+   - Cache check in `_initialize_storage_with_timeout()` (lines 502-700)
+   - New `get_cache_stats` MCP tool (lines 1854-3561)
+
+2. **src/mcp_memory_service/mcp_server.py** - FastMCP server
+   - Module-level cache structures (lines 59-94)
+   - Cache-awa…",2499,tests/performance/test_background_sync.py | tests/performance/test_hybrid_live.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,20,3209644564,6126,mochilang/mochi,https://github.com/mochilang/mochi/pull/6126,OpenAI_Codex,merged,Add typed var support and cleanup Java compiler,"## Summary
+- improve Java compiler with typed variables and default initialization
+- handle string comparisons with `compareTo`
+- clean test harness to remove error file on success
+- update generated Java programs and checklist
+
+## Testing
+- `go test ./compiler/x/java -run TestCompileValidPrograms -count=1 -short`
+
+------
+https://chatgpt.com/codex/tasks/task_e_686bf234a09083209b169facc94407db",395,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,21,3339191764,872,NVIDIA/cuda-python,https://github.com/NVIDIA/cuda-python/pull/872,Copilot,merged,CI: Enable proxy cache in test and build-docs pipelines,"This PR adds the `setup-proxy-cache` step to test workflows and the build-docs workflow as a follow-up to PR #555, which originally added proxy caching to build workflows. The proxy cache improves Python package download times during testing and documentation builds by caching packages closer to the runners.
+
+## Changes Made
+
+Added the `setup-proxy-cache` step to workflows:
+- `.github/workflows/test-wheel-linux.yml` - Added proxy cache setup (Linux-only, no conditional logic needed)
+- `.github/workflows/test-wheel-windows.yml` - Added TODO comment for future Windows runner support
+- `.github/workflows/build-docs.yml` - Added proxy cache setup to speed up conda/pip package downloads
+
+The implementation follows the exact same pattern established in PR #555:
+
+```yaml
+- name: Setup proxy cache
+  uses: nv-gha-runners/setup-proxy-cache@main
+  continue-on-error: true
+```
+
+## Key Features
+
+- **Consistent with build workflows**: Uses identical action reference and error handling
+- **Proper placement**: Added after checkout but before any dependency installation steps
+- **Platform-aware**: Linux workflows use proxy cache, Windows workflow includes TODO for future support
+- **Fail-safe**: Uses `continue-on-error: true` to ensure cache failures don't break pipelines
+- **Documentation builds**: Speeds up conda environment setup and package installations
+
+## Benefits
+
+- Faster test execution due to reduced Python package download times
+- Improved reliability for test pipelines that downloa…",2208,cuda_bindings/benchmarks/test_launch_latency.py | cuda_bindings/benchmarks/test_pointer_attributes.py,performance,deepseek-flash,performance,performance,CI proxy cache，流水线性能,human,2026-11-14T17:45:32+08:00
+human,22,3913354713,14547,github/gh-aw,https://github.com/github/gh-aw/pull/14547,Copilot,closed_unmerged,Replace permissions factory explosion with builder pattern,"The permissions factory contained 23 separate constructors for permission combinations (`NewPermissionsContentsRead`, `NewPermissionsContentsReadIssuesWrite`, etc.), creating O(2^N) scaling as permission scopes increase.
+
+## Changes
+
+**New `PermissionsBuilder` with fluent API:**
+- 17 `WithX(level)` methods for all GitHub Actions permission scopes
+- Type-safe method chaining returning `*PermissionsBuilder`
+- `Build()` returns final `*Permissions`
+
+**Refactored factory functions:**
+- All 23 existing constructors now delegate to builder internally
+- Marked deprecated with migration guidance
+- Zero breaking changes
+
+**Documentation:**
+- Package examples in `doc.go`
+- Comprehensive migration guide (`PERMISSIONS_BUILDER_MIGRATION.md`)
+
+## Usage
+
+```go
+// Before: limited to predefined combinations
+perms := NewPermissionsContentsReadIssuesWritePRWriteDiscussionsWrite()
+
+// After: compose any combination
+perms := NewPermissionsBuilder().
+    WithContents(PermissionRead).
+    WithIssues(PermissionWrite).
+    WithPullRequests(PermissionWrite).
+    WithDiscussions(PermissionWrite).
+    Build()
+```
+
+Old factory functions continue working unchanged. New code should prefer the builder for better scalability and IDE autocomplete support.
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>[Code Quality] Replace permissions factory explosion with builder patte…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,23,4094195183,10858,NethermindEth/nethermind,https://github.com/NethermindEth/nethermind/pull/10858,Copilot,merged,FlatDB dictionary lookup optimization,"Micro-optimizations for FlatDB snapshot management in-memory layer, with review feedback incorporated.
+
+## Changes
+
+### `HashedKey<T>` refactor
+- Changed from `readonly struct` to `readonly record struct`
+- Added `[AggressiveInlining]` implicit operators in both directions (`T ↔ HashedKey<T>`), enabling clean call-site usage:
+  ```csharp
+  // Before
+  content.Accounts[new HashedKey<AddressAsKey>(testAddress)] = account;
+  // After
+  content.Accounts[testAddress] = account;
+  ```
+
+### Remove redundant `AsKey` double-wrapping
+- `HashedKey<AddressAsKey>` → `HashedKey<Address>`
+- `HashedKey<(AddressAsKey, UInt256)>` → `HashedKey<(Address, UInt256)>`
+- `HashedKey<(Hash256AsKey, TreePath)>` → `HashedKey<(Hash256, TreePath)>`
+- `AddressAsKey`/`Hash256AsKey` were designed to fix hash/equality for dict keys; `HashedKey<T>` already handles that, making the `AsKey` wrappers redundant overhead
+- Propagated across `Snapshot`, `SnapshotBundle`, `ReadOnlySnapshotBundle`, `SnapshotCompactor`, `PersistenceManager`, `TransientResource`, benchmarks, and tests
+
+### API fixes
+- Fixed `out` parameter order in `ReadOnlySnapshotBundle` internal overloads (`TryFindStateNodes`, `TryFindStorageNodes`) — `out` now last per C# convention
+- Changed `TryFindStorageNodes` and `DoTryFindStorageNodeExternal` parameters from `Hash256AsKey` to `Hash256` for consistency
+- Renamed `SetAccount(AddressAsKey addr, …)` → `SetAccount(Address address, …)`
+
+### Memory estimates
+- Updated `EstimateMemory` / `EstimateComp…",2500,src/Nethermind/Nethermind.Evm.Benchmark/BlockProcessingBenchmark.cs | src/Nethermind/Nethermind.Evm.Benchmark/TxProcessingBenchmark.cs | src/Nethermind/Nethermind.Evm.Benchmark/WarmupBenchmark.cs | src/Nethermind/Nethermind.Evm.Benchmark/EvmOpcodesBenchmark.cs | src/Nethermind/Nethermind.Trie.Benchmark/TreeCommitterBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,24,3104375121,50357,Azure/azure-sdk-for-net,https://github.com/Azure/azure-sdk-for-net/pull/50357,Copilot,closed_unmerged,[ServiceBus] Consider retry attempts with ServerBusy exit logic,"## Summary
+
+Updates the ServiceBusRetryPolicy ServerBusy exit logic to consider the total time available across all remaining retry attempts, rather than just the single attempt timeout.
+
+## Problem
+
+The current implementation exits early when `IsServerBusy && tryTimeout < ServerBusyBaseSleepTime` (10 seconds), without considering that multiple retry attempts could provide sufficient total time for the operation to succeed.
+
+**Example scenario:**
+- Single attempt timeout: 5 seconds
+- Max retries: 3
+- ServerBusy sleep time: 10 seconds
+- **Current behavior**: Exit early because 5s < 10s
+- **Expected behavior**: Proceed because total time (5s × 3 = 15s) > 10s
+
+## Solution
+
+Modified the ServerBusy condition to use:
+```csharp
+(tryTimeout * (GetMaxRetries() - failedAttemptCount)) < ServerBusyBaseSleepTime
+```
+
+This considers the time available across all remaining retry attempts when deciding whether to exit early.
+
+## Changes
+
+1. **Added `GetMaxRetries()` abstract method** to `ServiceBusRetryPolicy` base class
+2. **Implemented `GetMaxRetries()`** in `BasicRetryPolicy` to return `Options.MaxRetries`
+3. **Updated ServerBusy condition** to consider total remaining retry time
+4. **Added comprehensive tests** validating both scenarios where operations should proceed and exit early
+5. **Updated API surface** files to include the new protected abstract method
+
+## Testing
+
+Added test cases that verify:
+- Operations proceed when total retry time is sufficient (e.g., 3s timeout × 5 retries …",1952,sdk/tables/Azure.Data.Tables/tests/perf/ModelBindingBenchmark.cs | sdk/core/Azure.Core/perf/FastPropertyBagBenchmark.cs | sdk/core/Azure.Core/perf/Utf8JsonRequestContentBenchmark.cs | sdk/core/Azure.Core/perf/GZipUtf8JsonRequestContentBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,25,3963516758,10580,NethermindEth/nethermind,https://github.com/NethermindEth/nethermind/pull/10580,OpenAI_Codex,merged,Add reproducible EXPB benchmark workflow with baseline PR comparison,"## Summary
+This PR adds a reproducible EXPB benchmark workflow for Nethermind, designed for deterministic runs on the `reproducible-benchmarks` self-hosted runner, with strict quality gates and PR-vs-master comparison.
+
+### What it adds
+- New workflow: `.github/workflows/run-expb-reproducible-benchmarks.yml`
+- New documentation: `docs/reproducible-benchmark-workflow.md`
+- Updated `AGENTS.md` guidance for benchmark log interpretation and required checks.
+
+## Workflow behavior
+- Trigger modes:
+  - Manual: `workflow_dispatch`
+  - PR label gate: `pull_request` labeled with exactly `reproducible-benchmark`
+  - Baseline refresh: push to `master`
+- Runner safety:
+  - Single self-hosted runner queue with `cancel-in-progress: false`
+- Docker handling:
+  - Skips publish trigger for auto-built branches (`master`, `paprika`, `release/*`)
+  - Triggers and waits for `publish-docker.yml` for other branches
+- Config rendering:
+  - Picks config from `state_layout` + `payload_set`
+  - Renders temporary config (does not mutate source YAML)
+  - Replaces `<<DOCKER_TAG>>` and `<<DELAY>>`
+  - Renames scenario key to include mode/branch/delay
+  - Appends optional additional flags
+- EXPB install:
+  - Installs with `uv tool install --force ...`
+  - Supports override repo/branch
+- Robust execution:
+  - Graceful termination path with cleanup grace timeout
+- Output analysis and quality gates:
+  - Fails run if any `Exception` appears in logs
+  - Extracts AVG/MEAN/P90/P95/P99/MIN/MAX from per-payload table…",1841,src/Nethermind/Nethermind.Evm.Benchmark/BlockProcessingBenchmark.cs | src/Nethermind/Nethermind.Evm.Benchmark/TxProcessingBenchmark.cs | src/Nethermind/Nethermind.Evm.Benchmark/WarmupBenchmark.cs | src/Nethermind/Nethermind.Evm.Benchmark/EvmOpcodesBenchmark.cs | src/Nethermind/Nethermind.Trie.Benchmark/TreeCommitterBenchmark.cs,performance,,performance,performance,可复现 benchmark 工作流，性能评测基建,human,2026-11-14T17:45:32+08:00
+human,26,3613600850,3658,github/gh-aw,https://github.com/github/gh-aw/pull/3658,Copilot,merged,Standardize repository slug retrieval on single cached implementation,"Eliminates duplicate repository slug retrieval implementations across CLI commands by standardizing on `GetCurrentRepoSlug()`.
+
+## Changes
+
+**Removed duplicate implementations:**
+- `getCurrentRepo()` from `pr_command.go` (22 lines) - JSON-based approach returning owner/repo separately
+- `getCurrentRepositoryInfo()` from `trial_command.go` (4 lines) - wrapper function
+
+**Added helper:**
+- `SplitRepoSlug()` in `repo.go` - validates and splits ""owner/repo"" format with error handling
+
+**Updated call sites:**
+- `pr_command.go` (2 usages), `trial_command.go` (1 usage), `spec.go` (2 usages)
+
+## Pattern
+
+```go
+// Before
+owner, repo, err := getCurrentRepo()
+
+// After
+slug, err := GetCurrentRepoSlug()
+if err != nil {
+    return err
+}
+owner, repo, err := SplitRepoSlug(slug)
+```
+
+All repository lookups now use the cached implementation with consistent error handling and git remote fallback.
+
+Closes #3525
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>[task] Standardize Repository Slug Functions</issue_title>
+> <issue_description>## Objective
+> Eliminate ~40-60 lines of duplicate repository slug retrieval code by standardizing on a single canonical implementation with caching.
+> 
+> ## Context
+> The analysis in githubnext/gh-aw#3525 identified 4 different implementations of repository slug retrieval across CLI command files, all using `gh repo view…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,27,4134603585,20148,erigontech/erigon,https://github.com/erigontech/erigon/pull/20148,Claude_Code,open,log: replace SyncHandler with AsyncStreamHandler to fix goroutine contention,"## Problem
+
+Under heavy validator load (thousands of Caplin validator goroutines logging
+concurrently), all goroutines serialised on the `sync.Mutex` inside
+`SyncHandler`. This caused complete process freezes on the Caplin beacon API
+— a goroutine dump showed 8 295 of 9 875 goroutines blocked on the same mutex
+address waiting for a log write.
+
+## Solution
+
+Add `AsyncHandler` and `AsyncStreamHandler` to `common/log/v3`:
+
+- **`AsyncHandler(bufSize, h)`** — wraps any `Handler` with a buffered
+  channel (`asyncDefaultBufSize = 4096`). Callers enqueue via
+  `select { case h.recs <- r: default: h.dropped.Add(1) }` — they **never
+  block** even when the channel is full. A single drain goroutine writes
+  records sequentially, eliminating the shared mutex. Dropped records are
+  counted atomically and reported as a `Warn` entry after each batch.
+
+- **`AsyncStreamHandler(wr, fmtr)`** — convenience constructor:
+  `LazyHandler(AsyncHandler(asyncDefaultBufSize, streamHandler{wr, fmtr}))`.
+  `LazyHandler` is outermost so `Lazy` values are evaluated in the caller's
+  goroutine, not the drain goroutine.
+
+Switch the predefined handlers and logging setup:
+- `StdoutHandler` / `StderrHandler` in `root.go` → `AsyncStreamHandler`
+- Both `StreamHandler` usages in `node/logging/logging.go` → `AsyncStreamHandler`
+
+`SyncHandler` is preserved unchanged for tests and any synchronous pipelines
+that require it explicitly.
+
+## Tests
+
+- `TestAsyncHandler` — basic record delivery via a `waitHandler` channel.
+…",1755,db/recsplit/eliasfano32/elias_fano_seek_bench_test.go | db/test/domain_shared_bench_test.go | execution/commitment/commitment_bench_test.go | common/log/v3/bench_test.go | db/seg/decompress_bench_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,28,3571082786,5104,rocicorp/mono,https://github.com/rocicorp/mono/pull/5104,Copilot,closed_unmerged,chore: Shard tests by engine instead of numerically,"Replaces numeric test sharding (1/3, 2/3, 3/3) with engine-based sharding (chromium, firefox, webkit, node). Reduces Playwright installation overhead by 66% per shard.
+
+## Changes
+
+**Workflow (`.github/workflows/js.yml`):**
+- Matrix changed from `shard: [1, 2, 3]` to `engine: [chromium, firefox, webkit, node]`
+- Each browser engine shard installs only its target browser
+- Node engine shard skips browser installation entirely
+- Browser shards filter with `--project=""!**/node""`, node shard with `--project=""**/node""`
+
+**Vitest config (`packages/shared/src/tool/vitest-config.ts`):**
+```typescript
+const TEST_BROWSER = process.env['TEST_BROWSER'];
+
+browser: {
+  instances: TEST_BROWSER
+    ? [{browser: TEST_BROWSER as 'chromium' | 'firefox' | 'webkit'}]
+    : [
+        {browser: 'chromium'},
+        ...(CI ? [{browser: 'firefox'}, {browser: 'webkit'}] : []),
+      ],
+}
+```
+
+## Impact
+- Installation overhead: 9 browser downloads → 3 browser downloads
+- Parallelization: 3 shards → 4 shards
+- Job naming: explicit engine targeting vs opaque shard numbers
+- Test coverage: unchanged
+
+&gt; [!WARNING]
+&gt;
+&gt;
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> In js.yml we shard the js tests into 3 buckets. Maybe we should just shard them on the browser instead (chromium, webkit, firefox) and node.
+> 
+> Would that perform better? Can we reduce the playwright install on each ""shard"" this way too?
+
+
+</details>
+
+
+
+<!-- START COPILOT CODING AGENT TI…",1764,packages/replicache/src/size-of-value.bench.ts | packages/zql-benchmarks/src/planner-cost.bench.ts | packages/zero-client/src/client/zero.bench.ts | packages/zql-benchmarks/src/chinook-manual-cases.bench.ts | packages/zql-benchmarks/src/planner-hydration.bench.ts,performance,deepseek-flash,performance,performance,测试分片加速 CI,human,2026-11-14T17:45:32+08:00
+human,29,4076804274,46594,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/46594,OpenAI_Codex,closed_unmerged,fix(ui): stop chat auto-follow from fighting manual scroll,"## Summary
+
+Describe the problem and fix in 2–5 bullets:
+
+- Problem: While the assistant was still streaming, manually scrolling upward in chat could get overridden by auto-follow and pull the viewport back down.
+- Why it matters: It makes reading earlier messages frustrating during active responses and creates a jumpy, broken-feeling chat experience.
+- What changed: Chat auto-follow now releases immediately on intentional upward scrolling and cancels pending auto-scroll/retry work so the UI respects manual scroll position.
+- What did NOT change (scope boundary): This does not change chat content, message ordering, transport behavior, or any backend/session logic; it only adjusts Control UI chat scroll behavior.
+
+## Change Type (select all)
+
+- [x] Bug fix
+- [ ] Feature
+- [ ] Refactor
+- [ ] Docs
+- [ ] Security hardening
+- [ ] Chore/infra
+
+## Scope (select all touched areas)
+
+- [ ] Gateway / orchestration
+- [ ] Skills / tool execution
+- [ ] Auth / tokens
+- [ ] Memory / storage
+- [ ] Integrations
+- [ ] API / contracts
+- [x] UI / DX
+- [ ] CI/CD / infra
+
+## Linked Issue/PR
+
+- Closes #
+- Related #45992
+
+This approach is related to #45992, but additionally cancels already-scheduled follow/retry scroll work once upward user scroll intent is detected, to avoid delayed snap-back after manual takeover.
+
+## User-visible / Behavior Changes
+
+- While a response is streaming, manually scrolling upward no longer gets repeatedly pulled back to the bottom b…",2500,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,,performance,non-performance,聊天滚动 UX bugfix,human,2026-11-14T17:45:32+08:00
+human,30,3333838757,19331,mochilang/mochi,https://github.com/mochilang/mochi/pull/19331,OpenAI_Codex,merged,cs: handle zero minus unary form,"## Summary
+- teach C# emitter to collapse `0 - x` into unary `-x`
+- regenerate majority_vote_algorithm C# output and benchmarks
+- refresh algorithms checklist
+
+## Testing
+- `MOCHI_ALGORITHMS_INDEX=752 go test ./transpiler/x/cs -run TestCSTranspiler_Algorithms_Golden -tags=slow -count=1 -v`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_68a4461918a08320b5c86e729db249ec",371,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,31,3579871909,406,jstime/jstime,https://github.com/jstime/jstime/pull/406,Copilot,merged,Reduce console benchmark iterations from 100k to 10k,"The console benchmark was taking ~900ms to complete compared to 12-312ms for other benchmarks, making the cross-runtime test suite unnecessarily slow.
+
+## Changes
+- Reduced `ITERATIONS` from 100,000 to 10,000 in `bench-console.js`
+- Aligns with other I/O-intensive benchmarks (crypto uses 10k iterations)
+
+## Impact
+- Execution time: 900ms → 95ms (~9x faster)
+- 10k iterations maintains statistical accuracy while reducing I/O overhead from 400k total console calls to 40k
+
+```javascript
+// Before
+const ITERATIONS = 100000;  // ~900ms, 400k total console operations
+
+// After
+const ITERATIONS = 10000;   // ~95ms, 40k total console operations
+```
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> The conosle benchmark in cross runtime bench suite takes way too long. Make it shorter
+
+
+</details>
+
+
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💡 You can make Copilot smarter by setting up custom instructions, customizing its development environment and configuring Model Context Protocol (MCP) servers. Learn more [Copilot coding agent tips](https://gh.io/copilot-coding-agent-tips) in the docs.",1145,core/benches/runtime_bench.rs | core/benches/crypto_bench.rs | core/benches/module_cache_bench.rs,performance,deepseek-flash,performance,performance,减少 bench 迭代以加速评测套件,human,2026-11-14T17:45:32+08:00
+human,32,4006488341,2298,sebastienros/jint,https://github.com/sebastienros/jint/pull/2298,Copilot,merged,Add `UnwrapIfPromiseAsync` extension method for non-blocking promise resolution,"`UnwrapIfPromise` blocks the calling thread while waiting for a `JsPromise` to settle, which causes thread pool exhaustion in async .NET environments. `EvaluateAsync`/`InvokeAsync` cover the common cases, but there's no async path when you already hold a `JsValue` that may be a promise (e.g., from `Call()`, `GetValue()`, etc.).
+
+## Changes
+
+- **`Engine.Async.cs`**: `UnwrapResultAsync` promoted from `private` to `internal` to allow delegation from extension methods.
+- **`JsValueExtensions.cs`**: New `UnwrapIfPromiseAsync(this JsValue, CancellationToken = default)` extension — delegates to `promise.Engine.UnwrapResultAsync` for promises, short-circuits with `Task.FromResult` for non-promise values.
+- **`README.md`**: Added a new ""Asynchronous Execution"" section documenting `EvaluateAsync`/`ExecuteAsync`/`InvokeAsync` and `UnwrapIfPromiseAsync` with code examples and guidance on when to use each.
+
+## Usage
+
+```csharp
+// Blocking (old):
+var result = engine.Invoke(""fetchData"", url).UnwrapIfPromise();
+
+// Non-blocking (new):
+var result = await engine.Invoke(""fetchData"", url).UnwrapIfPromiseAsync(cancellationToken);
+```
+
+Respects `Options.Constraints.PromiseTimeout` and cancellation, matching the behaviour of `EvaluateAsync`.
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>Feature Request: Add an Async Version of UnwrapIfPromise for JsValue</issu…",2500,Jint.Benchmark/PreparedScriptBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,33,4074235157,20663,Chia-Network/chia-blockchain,https://github.com/Chia-Network/chia-blockchain/pull/20663,Cursor,closed_unmerged,Dict fromkeys performance test,"<!-- CURSOR_AGENT_PR_BODY_BEGIN -->
+### Purpose:
+To evaluate the performance of `dict.fromkeys()` for deduplicating large lists, comparing it against `set()` and a manual seen-set loop across various duplicate densities. This helps understand its efficiency, especially when order preservation is required.
+
+### Current Behavior:
+There was no dedicated benchmark for comparing `dict.fromkeys()` deduplication performance against other common methods.
+
+### New Behavior:
+Introduces `benchmarks/dict_fromkeys_dedup_benchmark.py` which benchmarks `dict.fromkeys()` for deduplicating a 1.5 million item list under scenarios of no, all, and random duplicates, also comparing it to `set()` and a manual seen-set loop.
+
+### Testing Notes:
+The benchmark script was executed to confirm its functionality and produce the reported results.
+
+### Supporting Evidence:
+
+| Scenario | Dup % | `dict.fromkeys()` | `set()` | `seen-set loop` |
+|---|---|---|---|---|
+| No duplicates | 0% | 0.198s | 0.110s | 0.220s |
+| All duplicates | 100% | 0.016s | 0.007s | 0.014s |
+| Low duplicates | ~10% | 0.138s | 0.098s | 0.174s |
+| Medium duplicates | ~50% | 0.101s | 0.081s | 0.113s |
+| High duplicates | ~90% | 0.084s | 0.047s | 0.069s |
+| Random ratio | ~62% | 0.100s | 0.064s | 0.094s |
+
+<div><a href=""https://cursor.com/agents/bc-33ef2d46-a190-40f2-a731-f8709d4eff03""><picture><source media=""(prefers-color-scheme: dark)"" srcset=""https://cursor.com/assets/images/open-in-web-dark.png""><source media=""(prefers-color-scheme:…",2199,benchmarks/dict_fromkeys_dedup_benchmark.py,performance,deepseek-flash,performance,performance,新增 dict.fromkeys 性能测试,human,2026-11-14T17:45:32+08:00
+human,34,3226180108,1056,marin-community/levanter,https://github.com/marin-community/levanter/pull/1056,OpenAI_Codex,closed_unmerged,Improve sample_lm generation,"## Summary
+- jit-loop the autoregressive decode in `sample_lm`
+- remove unused timing logic
+
+## Testing
+- `pre-commit run --all-files`
+
+------
+https://chatgpt.com/codex/tasks/task_e_6872fb5b14248331a6da4edac2e82635",214,scripts/tpu_transfer_benchmark.py,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,35,3562765431,434,Skidamek/AutoModpack,https://github.com/Skidamek/AutoModpack/pull/434,Copilot,closed_unmerged,"Optimize file I/O, eliminate redundant operations, and improve algorithmic complexity","Code analysis revealed multiple performance bottlenecks in file operations, hash calculations, and algorithm complexity across the modpack download and processing pipeline.
+
+## File I/O Optimizations
+
+**MurmurHash calculation** - Eliminated double file traversal by caching filtered bytes in memory (50% reduction in I/O):
+
+```java
+// Before: Read file twice (once for length, once for hash)
+try (RAF raf = new RAF(file, ""r"")) { /* calculate length */ }
+try (RAF raf = new RAF(file, ""r"")) { /* calculate hash */ }
+
+// After: Single pass with in-memory filtering
+List<Byte> filteredBytes = new ArrayList<>();
+try (RAF raf = new RAF(file, ""r"")) {
+    // Filter and store in one pass
+}
+// Calculate hash from cached bytes
+```
+
+**Buffer sizes** - Increased from 128KB to 256KB in DownloadManager and file operations
+
+**Byte comparison** - Fixed incorrect offset tracking in `compareFilesByteByByte()`
+
+**JAR manipulation** - Added explicit buffering to `SelfUpdater.addOverridesToJar()` with preserved entry metadata
+
+## Concurrency Improvements
+
+**DownloadManager synchronization** - Reduced scope to only protect ConcurrentHashMap operations:
+
+```java
+// Before: Entire block synchronized
+synchronized (downloadsInProgress) {
+    downloadsInProgress.remove(hashPathPair);
+    // ... more logic
+}
+
+// After: Only the operation
+downloadsInProgress.remove(hashPathPair);
+```
+
+## Algorithm Optimizations
+
+**FileInspection ZipFile operations** - Eliminated recursive `getModID(file)` calls within `getModInf…",2499,core/src/test/java/pl/skidam/automodpack_core/utils/WildCardsPerformanceTest.java,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,36,3285691565,15766,mochilang/mochi,https://github.com/mochilang/mochi/pull/15766,OpenAI_Codex,merged,scala: benchmark chowla-numbers,"## Summary
+- generate Scala transpilation and benchmark artifacts for Rosetta example `chowla-numbers` (index 201)
+- record run in Scala ROSETTA checklist with timing and memory stats
+
+## Testing
+- `MOCHI_ROSETTA_INDEX=201 MOCHI_BENCHMARK=1 go test -run Rosetta -tags=slow -count=1`
+
+------
+https://chatgpt.com/codex/tasks/task_e_688dbc8d06088320bc300c1adcee1516",362,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,生成/记录 Scala benchmark,human,2026-11-14T17:45:32+08:00
+human,37,3973045989,8729,Z3Prover/z3,https://github.com/Z3Prover/z3/pull/8729,Copilot,merged,Convert `bvarray2uf` tactic to a dependent_expr_simplifier,"- [x] Create `src/tactic/bv/bvarray2uf_simplifier.h` with simplifier class
+- [x] Rewrite `src/tactic/bv/bvarray2uf_tactic.h` as inline header using simplifier as basis
+- [x] Remove `bvarray2uf_tactic.cpp` from `CMakeLists.txt` SOURCES
+- [x] Delete `src/tactic/bv/bvarray2uf_tactic.cpp` (orphaned file)
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+
+----
+
+*This section details on the original issue you should resolve*
+
+<issue_title>[tactic-to-simplifier] Convert tactic 'bvarray2uf' to a simplifier</issue_title>
+<issue_description>## Summary
+
+The `bvarray2uf` tactic (described as: ""Rewrite bit-vector arrays into bit-vector (uninterpreted) functions"") currently only exists as a `tactic` and has no corresponding `dependent_expr_simplifier`. This issue proposes converting it to expose it as both a tactic (via the `dependent_expr_state_tactic` wrapper) and a simplifier.
+
+## Background
+
+Z3 provides two abstraction layers for formula transformation:
+- **Tactics** (`tactic` base class): Operate on goals
+- **Simplifiers** (`dependent_expr_simplifier` base class): Operate on individual formulas in a `dependent_expr_state`
+
+The modern pattern wraps a simplifier inside a tactic using `dependent_expr_state_tactic`.
+
+## Current Implementation
+
+File: `src/tactic/bv/bvarray2uf_tactic.cpp`
+
+The `bvarray2uf_tactic` wraps `bvarray2uf_rewriter` and applies it formula-by-formula. It also:
+1. Collects extra assertions from `m_rw.m_cfg.extra_assertions` and …",2499,src/test/optional_benchmark.cpp,performance,deepseek-flash,performance,non-performance,tactic→simplifier 架构迁移，非性能主叙事,human,2026-11-14T17:45:32+08:00
+human,38,3702530506,1167,spellshift/realm,https://github.com/spellshift/realm/pull/1167,Google_Jules,merged,Throttle pivot.port_scan to prevent FD exhaustion,"Implemented throttling for `pivot.port_scan` to prevent OS file descriptor exhaustion errors. Added an optional `fd_limit` parameter to the API, which defaults to 64. Used `tokio::sync::Semaphore` to limit concurrent scan tasks. Validated with existing tests.
+
+---
+*PR created automatically by Jules for task [1745308834690207901](https://jules.google.com/task/1745308834690207901) started by @KCarretto*",404,tavern/internal/cryptocodec/cryptocodec_bench_test.go | tavern/internal/benchmarks/portal_benchmark_test.go | implants/lib/eldritchv2/eldritch-core/benches/interpreter.rs | implants/lib/eldritchv2/eldritch-core/benches/builtins.rs | implants/lib/eldritch/benches/reverse_shell.rs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,39,3594622617,152,mycrl/turn-rs,https://github.com/mycrl/turn-rs/pull/152,Copilot,closed_unmerged,Add service benchmarks for STUN/TURN message processing,"Adds benchmarks measuring service-layer message processing latency without network I/O, as requested in the v4.0 release tracking issue.
+
+## Changes
+
+- **`benches/service.rs`**: New benchmark suite testing Router message processing for all STUN/TURN methods
+  - Binding: ~95ns
+  - Allocate (unauthorized): ~168ns  
+  - Allocate (authorized): ~685ns
+  - CreatePermission/ChannelBind/Refresh: ~680-705ns
+  - Indications: ~57-92ns
+- **`Cargo.toml`**: Added `service` benchmark target
+
+## Usage
+
+```bash
+cargo bench --bench service --no-default-features --features ""udp,tcp""
+```
+
+Benchmarks use binary test samples and a minimal mock `ServiceHandler`, measuring pure message decode → route → encode cycles via `Router::route()`.
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💬 We'd love your input! Share your thoughts on Copilot coding agent in our [2 minute survey](https://gh.io/copilot-coding-agent-survey).",908,benches/service.rs,performance,deepseek-flash,performance,performance,新增 service 性能 benches,human,2026-11-14T17:45:32+08:00
+human,40,3720485689,11167,fern-api/fern,https://github.com/fern-api/fern/pull/11167,Devin,merged,fix(csharp): remove blocking .Result calls on async tasks in generated code,"## Description
+
+Refs: Manual changes made to Payroc .NET SDK
+
+Removes blocking `.Result` calls on async tasks in generated C# SDK code. This prevents potential deadlocks in async contexts and improves performance.
+
+**Link to Devin run:** https://app.devin.ai/sessions/ebe62d7fa28c4ad998336f1735e82a16
+**Requested by:** Niels Swimberghe (niels@buildwithfern.com) / @Swimburger
+
+## Changes Made
+
+- Extended `HeaderValue` to support async function types (`Func<ValueTask<string>>`, `Func<Task<string>>`) and added `ResolveAsync()` method for non-blocking header resolution
+- Changed `RawClient.CreateHttpRequest` → `CreateHttpRequestAsync` and `MergeHeaders` → `MergeHeadersAsync` to be fully async
+- Updated OAuth header setup to use `Func<ValueTask<string>>` with proper async/await instead of blocking `.Result`
+- Updated pagination endpoint generation to await `CreateHttpRequestAsync`
+- Updated test templates to use async/await pattern
+- Fully qualified all generic `Task<T>` types as `global::System.Threading.Tasks.Task<T>` and `ValueTask<T>` as `global::System.Threading.Tasks.ValueTask<T>` to avoid conflicts with customer types named `Task`
+- Used `SystemTask` alias for non-generic `Task` return type in `MergeHeadersAsync`
+- [x] Updated README.md generator (if applicable) - N/A
+
+## Updates Since Last Revision
+
+- Simplified OAuth header setup to single-line async lambda per review feedback:
+  ```csharp
+  clientOptions.Headers[""Authorization""] = new Func<global::System.Threading.Tasks.Va…",2106,generators/typescript/utils/core-utilities/tests/unit/schemas/benchmarks/serialization.bench.ts,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,41,3985092544,38998,RocketChat/Rocket.Chat,https://github.com/RocketChat/Rocket.Chat/pull/38998,Copilot,closed_unmerged,Fix: Members List not refreshed when users join or leave a channel,"The Members List contextual bar panel showed a stale list of room members — it did not react to users joining or leaving while the panel was open.
+
+### Root cause
+`useMembersList` subscribed to `roles-change` for in-place role updates, but had no subscription for room membership changes. No event was being emitted to room subscribers when a user's subscription was inserted or removed.
+
+### Changes
+
+- **`packages/ddp-client/src/types/streams.ts`** — adds `user-subscriptions-changed` to the `notify-room` stream:
+  ```ts
+  { key: `${string}/user-subscriptions-changed`; args: ['inserted' | 'removed'] }
+  ```
+
+- **`apps/meteor/server/modules/listeners/listeners.module.ts`** — emits the new event to the room when a subscription is inserted or removed (user joins/leaves), so all current room subscribers are notified:
+  ```ts
+  if ((clientAction === 'inserted' || clientAction === 'removed') && subscription.rid) {
+      notifications.notifyRoomInThisInstance(subscription.rid, 'user-subscriptions-changed', clientAction);
+  }
+  ```
+
+- **`apps/meteor/client/views/hooks/useMembersList.ts`** — subscribes to `${rid}/user-subscriptions-changed` on the `notify-room` stream and invalidates the members query cache on receipt, triggering a background refetch:
+  ```ts
+  const subscribeToNotifyRoom = useStream('notify-room');
+  useEffect(() => {
+      return subscribeToNotifyRoom(`${options.rid}/user-subscriptions-changed`, () => {
+          void queryClient.invalidateQueries({ queryKey: [...rooms…",2499,packages/message-parser/benchmarks/parser.bench.ts,performance,deepseek-flash,performance,non-performance,成员列表刷新 bugfix,human,2026-11-14T17:45:32+08:00
+human,42,3306574307,12944,oxc-project/oxc,https://github.com/oxc-project/oxc/pull/12944,Copilot,closed_unmerged,Implement object comparison folding in minifier constant folding pass,"This PR implements constant folding optimizations for object expressions in comparison and logical operations by removing the `#[ignore]` attribute from `test_object_comparison1` and implementing the missing functionality.
+
+## Problem
+
+The minifier was not folding expressions involving objects (like `new Date()`, `{}`, `[]`) in logical and comparison contexts, missing optimization opportunities:
+
+```javascript
+// Before: these expressions were not optimized
+!new Date()           // → should become false (or !1 in minified form)  
+new Date() == null    // → should become false (or !1 in minified form)
+[] != undefined       // → should become true (or !0 in minified form)
+
+// But expressions with side effects should remain unchanged
+{a: func()} == null   // → should remain as-is (preserves side effects)
+```
+
+## Solution
+
+Enhanced the constant folding pass with two key improvements:
+
+### 1. Unary Expression Folding
+- Modified `try_fold_unary_expr` to handle logical NOT operations on object expressions
+- Added `get_known_boolean_value` helper to identify expressions that always evaluate to the same boolean value
+- Supports folding patterns like `!new Date()` → `!1`, `!!{}` → `!0`
+
+### 2. Binary Expression Folding  
+- Added `try_fold_object_null_undefined_comparison` to handle object vs null/undefined comparisons
+- Added helper functions `is_always_object` and `is_null_or_undefined` for precise type detection
+- Properly respects side effects - only folds expressions without side e…",2500,tasks/benchmark/benches/lexer.rs | tasks/benchmark/benches/minifier.rs | crates/oxc_parser/benches/lexer_performance.rs | napi/parser/bench.bench.js,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,43,3283087509,12709,oxc-project/oxc,https://github.com/oxc-project/oxc/pull/12709,Copilot,closed_unmerged,Add comprehensive binary size analysis tooling and size optimizations,"## Problem
+
+The oxc project lacked tooling to systematically analyze what causes large binary sizes, making it difficult to identify optimization opportunities and prevent size regressions. The oxlint binary was ~8.4MB which is quite large for a CLI tool.
+
+## Solution
+
+This PR introduces comprehensive binary size analysis infrastructure that identifies the root causes of large binary sizes and provides actionable optimization strategies.
+
+### New Binary Size Analysis Tool (`tasks/binary_size/`)
+
+**Key Features:**
+- **Multi-level Analysis**: File size, stripped size, text section analysis
+- **Crate-level Breakdown**: Integrates `cargo-bloat` to identify which crates contribute most to size
+- **Generic Function Bloat Detection**: Uses `cargo-llvm-lines` to find over-instantiated generic functions
+- **Baseline Comparison**: Track size changes over time to prevent regressions
+- **Actionable Recommendations**: Specific suggestions for size reduction
+- **CI Integration**: JSON output for automation and monitoring
+
+**Usage:**
+```bash
+# Basic analysis
+just binary-size
+
+# Detailed analysis with function-level breakdown  
+just binary-size-detailed
+
+# Save current size as baseline
+just binary-size-baseline
+
+# Compare with previous baseline
+just binary-size-compare
+```
+
+### Key Findings
+
+The analysis revealed that the 8.4MB oxlint binary breaks down as:
+- **oxc_linter (36.3%)**: 2.2MB - All lint rules and implementations
+- **std (16.2%)**: 990KB - Rust standard library 
+- **regex_automat…",2500,tasks/benchmark/benches/lexer.rs | tasks/benchmark/benches/minifier.rs | crates/oxc_parser/benches/lexer_performance.rs | napi/parser/bench.bench.js,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,44,3996469467,400,ROCm/iris,https://github.com/ROCm/iris/pull/400,Copilot,closed_unmerged,Report 07_gemm_all_scatter benchmark results from CI,"Responds to a request to run example `07_gemm_all_scatter` and report teraflops. Since the sandbox environment lacks AMD GPU access, results were retrieved from the most recent successful CI performance regression run on self-hosted AMD Instinct MI325X runners (8 GPUs).
+
+**Benchmark results (M=N=K=16384, fp16, 8 ranks, BLK_M=256, BLK_N=64, BLK_K=64):**
+- **TFLOPs: 1425.65** (threshold: >1000 ✅)
+- Total time: 6.170 ms
+- GEMM kernel time: 5.325 ms
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💡 You can make Copilot smarter by setting up custom instructions, customizing its development environment and configuring Model Context Protocol (MCP) servers. Learn more [Copilot coding agent tips](https://gh.io/copilot-coding-agent-tips) in the docs.",749,tests/unittests/test_bench.py,performance,deepseek-flash,performance,performance,汇报 CI 性能数字（analytics）,human,2026-11-14T17:45:32+08:00
+human,45,3315518732,255,omerbenamram/evtx,https://github.com/omerbenamram/evtx/pull/255,Cursor,closed_unmerged,Optimize evtx parsing with per-chunk arena and zero-copy tokens,"Implements per-chunk arena with zero-copy tokens and adjusted iterator lifetimes to reduce allocations and improve EVTX record parsing performance.
+
+The `IterChunkRecords` now uses a raw pointer to manage mutable borrows of the chunk, allowing `EvtxRecord` to hold arena-allocated token slices with the `'chunk` lifetime. A `SAFETY` note explains the soundness of this `unsafe` pattern within the iterator's protocol.
+
+---
+<a href=""https://cursor.com/background-agent?bcId=bc-9bf24aaa-6771-448c-84b9-a7500153dbb6"">
+  <picture>
+    <source media=""(prefers-color-scheme: dark)"" srcset=""https://cursor.com/open-in-cursor-dark.svg"">
+    <source media=""(prefers-color-scheme: light)"" srcset=""https://cursor.com/open-in-cursor-light.svg"">
+    <img alt=""Open in Cursor"" src=""https://cursor.com/open-in-cursor.svg"">
+  </picture>
+</a>
+<a href=""https://cursor.com/agents?id=bc-9bf24aaa-6771-448c-84b9-a7500153dbb6"">
+  <picture>
+    <source media=""(prefers-color-scheme: dark)"" srcset=""https://cursor.com/open-in-web-dark.svg"">
+    <source media=""(prefers-color-scheme: light)"" srcset=""https://cursor.com/open-in-web-light.svg"">
+    <img alt=""Open in Web"" src=""https://cursor.com/open-in-web.svg"">
+  </picture>
+</a>",1204,src/benches/dups.rs | src/benches/escape.rs | src/benches/expander.rs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,46,3250675595,11655,mochilang/mochi,https://github.com/mochilang/mochi/pull/11655,OpenAI_Codex,merged,Improve Java transpiler avg support,"## Summary
+- improve avg expression codegen for Java
+- simplify tasks log formatting and update README
+- regenerate golden output for avg_builtin.mochi
+
+## Testing
+- `go test ./transpiler/x/java -tags slow -run VMValid_Golden/avg_builtin -update`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_687ed091c758832097372d84b2885a30",327,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,47,4011393593,112,cyw0ng95/sqlvibe,https://github.com/cyw0ng95/sqlvibe/pull/112,Copilot,merged,v0.11.1: Fix CG_OP_* opcode constants + wire CGOptimizeProgram + remove Go engine fallbacks,"Two long-tracked blockers in the v0.11.1 migration plan resolved, plus cleanup of now-dead Go fallback code.
+
+## Phase 6 — CG_OP_* constant mismatch fixed; CGOptimizeProgram wired
+
+All `CG_OP_*` constants in `compiler.cpp` were wrong — not close, but off by category (e.g. `CG_OP_LOAD_CONST=1` aliased `OpGoto`, `CG_OP_NULL=13` aliased `OpAutoCommit`, arithmetic ops off by ~56). Corrected to match the `VM.OpCode` iota sequence:
+
+```cpp
+// Before (wrong)                     // After (correct VM.OpCode values)
+CG_OP_NULL       = 13  →              CG_OP_NULL       = 0
+CG_OP_RESULT_ROW = 30  →              CG_OP_RESULT_ROW = 24
+CG_OP_LOAD_CONST = 1   →              CG_OP_LOAD_CONST = 30
+CG_OP_ADD        = 4   →              CG_OP_ADD        = 60
+// ... etc
+```
+
+With constants fixed, `CGOptimizeProgram` is now wired into `compiler.finalize()` — all compiled `VM.Program` objects now run through both the Go optimizer and the C++ dead-code elimination pass.
+
+```go
+// internal/CG/compiler.go
+func (c *Compiler) finalize() *VM.Program {
+    prog := c.optimizer.Optimize(c.program)
+    return CGOptimizeProgram(prog, nil)  // +C++ pass (was blocked by wrong constants)
+}
+```
+
+## Phase 8.1 — Go engine fallbacks removed
+
+17 `go*`-prefixed fallback functions deleted from `internal/VM/engine/` — they were unreachable dead code since all public API functions already dispatch to C++. Also:
+
+- `GroupRows` simplified: removed the wasteful `CGroupRows` call that extracted keys only to re-derive them …",2172,internal/VM/bench_test.go | internal/TS/Benchmark/benchmark_test.go | internal/TS/Benchmark/benchmark_v0.9.6_test.go | internal/TS/Benchmark/benchmark_v0.8.3_test.go | internal/TS/Benchmark/benchmark_v0.9.16_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,48,3134889774,1781,langchain-ai/langsmith-sdk,https://github.com/langchain-ai/langsmith-sdk/pull/1781,OpenAI_Codex,closed_unmerged,Relax async test timing,"## Summary
+- relax async runner timing tolerance
+
+## Testing
+- `make format`
+- `make lint`
+- `make test` *(fails: No rule to make target 'test')*
+- `make tests`
+
+------
+https://chatgpt.com/codex/tasks/task_e_6848954752ec832da95daab5599b0d79",240,rust/crates/langsmith-tracing-client/benches/json_serialization_benchmark.rs | rust/crates/langsmith-tracing-client/benches/tracing_client_benchmark.rs | python/bench/upload_examples_bench.py,performance,,performance,non-performance,放宽异步测试时间阈值，测试稳定性/flaky,human,2026-11-14T17:45:32+08:00
+human,49,3392393778,2973,torchgeo/torchgeo,https://github.com/torchgeo/torchgeo/pull/2973,Copilot,open,Refactor remote downloads to use fsspec with unified cloud API,"This PR refactors all remote download logic in TorchGeo datasets to use [fsspec](https://filesystem-spec.readthedocs.io/) as a unified interface, eliminating the need for external CLI tools like `azcopy` and `aws cli`.
+
+## Changes Made
+
+### 🔧 **Core Implementation**
+- Added `fsspec` as a required dependency with support for Azure, S3, and GCS backends
+- Created unified download function:
+  - `download_from_cloud()` - Single function for all cloud storage providers (Azure, S3, GCS)
+- HTTP/HTTPS downloads continue using torchvision's `download_url` for optimal compatibility
+- Removed wrapper functions `download_from_azure()` and `download_from_s3()` in favor of the unified API
+
+### 📦 **Datasets Refactored**
+**Azure Blob Storage** (11 datasets):
+- AgriFieldNet, BeninSmallHolderCashews, WesternUSALiveFuelMoisture
+- SouthAfricaCropType, CV4AKenyaCropType, RwandaFieldBoundary  
+- CloudCoverDetection, TropicalCyclone, NASAMarineDebris
+
+**AWS S3** (2 datasets):
+- SpaceNet (base), SatlasPretrain
+
+### 🧪 **Testing & Infrastructure** 
+- Updated test mocking infrastructure to support new download functions
+- Fixed recursive download handling for proper directory structure
+- All datasets maintain existing test coverage and functionality
+- Removed unnecessary import error checking since fsspec is now a required dependency
+
+## Benefits
+
+### ✅ **Eliminated External Dependencies**
+Users no longer need to install `azcopy` or AWS CLI to download datasets from Azure Blob Storage or S3.
+
+### ✅ **U…",2500,torchgeo/datasets/ssl4eo_benchmark.py,performance,deepseek-flash,performance,non-performance,fsspec 统一云下载 API 重构，功能/工程,human,2026-11-14T17:45:32+08:00
+human,50,3979455060,34740,ydb-platform/ydb,https://github.com/ydb-platform/ydb/pull/34740,Copilot,open,Fix WaitForAcks race condition and move slow topic tests to SIZE(LARGE),"Two flaky test failures in `ydb/public/sdk/cpp/src/client/topic/ut/with_direct_read_ut`: `BasicUsage.KeyedWriteSession_EventLoop_Acks` (assertion failure) and `TxUsage.Write_50k_100times_50tx` (600s timeout kill) were blocking PR-checks.
+
+### `WaitForAcks` race condition (`event_loop.cpp`)
+
+`WaitForAcks` was missing the final post-deadline check already present in `GetContinuationToken`. When acks arrive right at the deadline boundary, `Run()` processes them but the old code returned `false` without checking the updated count:
+
+```cpp
+// Before
+    }
+    return false;
+}
+
+// After
+    }
+    std::lock_guard lock(Lock_);
+    return AckedSeqNos_.size() >= count;
+}
+```
+
+### Slow tests moved to `SIZE(LARGE)` (`slow/ya.make`)
+
+`Write_50k_100times_50tx` writes ~250 MB across 50 concurrent transactions, consistently hitting the 600s MEDIUM ceiling in CI. Changed `SIZE` to unconditionally `LARGE` (was LARGE only under sanitizers), so it no longer runs in PR-check. Added explicit `TIMEOUT` values: 1200s normal, 3600s under sanitizers/valgrind.
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>PR-check blocked failures: owner `TEAM:@ydb-platform/Topics`, suite `ydb/public/sdk/cpp/src/client/topic/ut/with_direct_read_ut` (2 failure(s))</issue_title>
+> <issue_description>## Instructions for Copilot
+> 
+> After investigating the root cause, please:
+> 
+> 1. …",2500,ydb/public/lib/ydb_cli/commands/ydb_benchmark.cpp,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,51,3537094055,321,jstime/jstime,https://github.com/jstime/jstime/pull/321,Copilot,closed_unmerged,[WIP] Investigate opportunities for runtime performance improvement,"- [x] Analyze repository structure and identify performance opportunities
+- [ ] Re-enable V8 snapshot functionality to improve startup time
+- [ ] Update lib.rs to enable snapshot creation
+- [ ] Update build.rs to generate snapshots during build
+- [ ] Update main.rs to use snapshots
+- [ ] Test the changes to ensure functionality is preserved
+- [ ] Benchmark to verify performance improvement
+
+## Performance Improvement Plan
+
+Found that V8 snapshots are completely commented out in the codebase. Re-enabling them will significantly improve startup performance by:
+- Pre-compiling all JavaScript builtins into a snapshot
+- Eliminating runtime parsing and compilation of builtin code
+- Reducing isolate initialization time
+
+The snapshot feature allows V8 to serialize the initialized heap state and reload it much faster than re-initializing from scratch.
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> I'm not thrilled with the performance of the runtime. Can you look for opportunities to improve it
+
+
+</details>
+
+
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💡 You can make Copilot smarter by setting up custom instructions, customizing its development environment and configuring Model Context Protocol (MCP) servers. Learn more [Copilot coding agent tips](https://gh.io/copilot-coding-agent-tips) in the docs.",1364,core/benches/runtime_bench.rs | core/benches/crypto_bench.rs | core/benches/module_cache_bench.rs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,52,3236198682,3430,MontrealAI/AGI-Alpha-Agent-v0,https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/3430,OpenAI_Codex,merged,Improve docs asset caching and lint,"## Summary
+- exclude Insight browser tests from ESLint
+- cache browser assets for docs jobs and download if missing
+- build sandbox image in docs-build job
+
+## Testing
+- `pre-commit run --files .github/workflows/ci.yml .pre-commit-config.yaml`
+- `pytest -k smoke -q`
+
+------
+https://chatgpt.com/codex/tasks/task_e_6877b262fc2c833398e3e15d653e6495",346,scripts/run_replay_bench.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,53,4109384339,49588,elastic/beats,https://github.com/elastic/beats/pull/49588,Copilot,open,Optimize Network.Check single-IP path to reduce allocations,"`Network.Check` called `extractIP` on every event value, unconditionally allocating a `[]net.IP` slice even for the dominant single-IP case. This adds ~40 B and 2 allocs per op on a hot path.
+
+**Changes:**
+- Replace `extractIP` + `slices.ContainsFunc` with a type switch in `Check` that fast-paths `string` and `net.IP` without slice construction
+- Add `containsAny`/`containsAnyStr` helpers for `[]net.IP` and `[]string` slice cases
+- Remove now-unused `extractIP` function and `slices` import
+
+```go
+// Before: always allocates []net.IP
+ipList := extractIP(value)
+if !slices.ContainsFunc(ipList, network.Contains) { ... }
+
+// After: no allocation for single-IP types
+switch v := value.(type) {
+case string:
+    ip := net.ParseIP(v)
+    if ip == nil || !network.Contains(ip) { return false }
+case net.IP:
+    if !network.Contains(v) { return false }
+case []net.IP:
+    if len(v) == 0 || !containsAny(v, network.Contains) { return false }
+case []string:
+    if len(v) == 0 || !containsAnyStr(v, network.Contains) { return false }
+}
+```
+
+**Benchmark (10 runs):** ~181 → ~139 ns/op, 40 → 16 B/op, 2 → 1 allocs/op.
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+
+----
+
+*This section details on the original issue you should resolve*
+
+<issue_title>[performance-profiler] Optimize Network.Check single-IP path to reduce allocations and CPU</issue_title>
+<issue_description>## Hot Path
+`libbeat/conditions/network.go` in `(*Network).Check` currently calls `extrac…",2499,libbeat/processors/actions/addagentmetadata/add_agent_metadata_bench_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,54,3807261676,25242,open-metadata/OpenMetadata,https://github.com/open-metadata/OpenMetadata/pull/25242,Copilot,merged,Add exponential backoff retry for index deletion during snapshot operations,"### Describe your changes:
+
+Index deletion during reindexing fails when AWS hourly snapshots are in progress, blocking the entire reindex operation.
+
+**Changes:**
+- Added `deleteIndexWithBackoff()` method to `IndexManagementClient` interface
+- Implemented exponential backoff retry logic in `ElasticSearchIndexManager` and `OpenSearchIndexManager`
+  - Retries up to 5 times with delays: 1s, 2s, 4s, 8s, 16s (max 60s)
+  - Retries on HTTP 400/503 (snapshot conflicts)
+  - Fails fast on other errors (404, etc.)
+- Added `deleteIndexWithBackoff()` delegation methods to `OpenSearchClient` and `ElasticSearchClient`
+  - Both clients implement `SearchClient` which extends `IndexManagementClient`
+  - Methods delegate to their respective `indexManager.deleteIndexWithBackoff()` implementations
+- Updated `DefaultRecreateHandler.finalizeReindex()` to use backoff method for all index deletions
+- Added unit tests covering success, retry, max attempts, and error scenarios
+
+**Implementation:**
+```java
+// Before: fails immediately during snapshot
+searchClient.deleteIndex(oldIndex);
+
+// After: retries with exponential backoff
+searchClient.deleteIndexWithBackoff(oldIndex);
+```
+
+The retry logic handles transient snapshot conflicts gracefully while maintaining fail-fast behavior for genuine errors. Total max retry time is ~31 seconds.
+
+#
+### Type of change:
+- [x] Bug fix
+
+#
+### Checklist:
+- [x] I have read the [**CONTRIBUTING**](https://docs.open-metadata.org/developers/contribute) document.
+- [x] My PR…",2500,openmetadata-service/src/test/java/org/openmetadata/service/security/CachedPermissionPerformanceTest.java,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,55,3748020595,471,OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager,https://github.com/OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager/pull/471,Google_Jules,closed_unmerged,⚡ Bolt: Optimize glob expansion in file scanning,"Optimize the performance of file scanning by caching glob expansions and pre-calculating them. This avoids repetitive regex compilation and string processing for every file encountered during a scan.
+
+---
+*PR created automatically by Jules for task [2420333372846209124](https://jules.google.com/task/2420333372846209124) started by @OliverZhaohaibin*",351,tests/test_performance_sorting.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,56,3095799599,1035,MontrealAI/AGI-Alpha-Agent-v0,https://github.com/MontrealAI/AGI-Alpha-Agent-v0/pull/1035,OpenAI_Codex,merged,[alpha_factory] improve rate limiter cleanup,"## Summary
+- purge expired entries in `SimpleRateLimiter.dispatch`
+- add regression test for eviction logic
+
+## Testing
+- `python check_env.py --auto-install`
+- `pytest -q`",172,scripts/run_replay_bench.py,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,57,3787102881,122956,dotnet/runtime,https://github.com/dotnet/runtime/pull/122956,Copilot,closed_unmerged,Partial Chase-Lev work-stealing deque implementation for ConcurrentBag<T>,"# Description
+
+Attempted optimization of `ConcurrentBag<T>` using Chase-Lev work-stealing deque algorithm. Implementation is incomplete due to fundamental incompatibility between Chase-Lev's transient inconsistencies and ConcurrentBag's freeze mechanism requirements.
+
+**Status**: 166/170 tests passing. 4 tests fail in `Clear_ConcurrentUsage_NoExceptions` due to race conditions in `ToArray`/`Count` operations.
+
+## Changes Made
+
+**Index Management**
+- Replaced `int _headIndex/_tailIndex` with `long _top/_bottom` to eliminate overflow handling
+- Removed `_addTakeCount` and `_stealCount` separate counters (root cause of current failures)
+
+**Simplified Operations**
+- Removed `_currentOp` field and `Operation` enum
+- Simplified `FreezeBag` (no longer waits for in-progress operations)
+- `LocalPush`: Lock-free fast path for queues with >1 items
+- `TryLocalPop`: Lock-free except when competing for last element
+- `TrySteal`: Retained lock-based approach (required for linearizability with `BlockingCollection`)
+
+## Root Cause of Failures
+
+Chase-Lev allows `_bottom < _top` transiently during pop operations. This violates assumptions in:
+- `DangerousCount`: Calculates `bottom - top`, asserts `>= 0`
+- `DangerousCopyTo`: Sizes array from count, then copies with potentially different count due to race
+- `ToArray`: Calls `DangerousCount` then `CopyFromEachQueueToArray`, sees inconsistent state
+
+Original implementation avoided this using separate counters that don't exhibit transient negative v…",2500,src/libraries/System.Runtime/tests/PerformanceTests/FileStreamBufferingBenchmark/FileStreamBufferingBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,58,3927407172,124280,dotnet/runtime,https://github.com/dotnet/runtime/pull/124280,Copilot,merged,Fix missing early returns in TensorPrimitives.Round.cs,"## Description
+
+`Round<T>(ReadOnlySpan<T>, int, MidpointRounding, Span<T>)` was missing a `return` after the `digits == 0` early exit, causing the round to execute twice:
+
+```csharp
+if (digits == 0)
+{
+    Round(x, mode, destination);
+    // fall-through: entire method continues, rounding again
+}
+```
+
+Also fixed `break` → `return` in the `AwayFromZero` switch case for consistency with all other cases in the same switch.
+
+<!-- START COPILOT CODING AGENT TIPS -->
+---
+
+💬 We'd love your input! Share your thoughts on Copilot coding agent in our [2 minute survey](https://gh.io/copilot-coding-agent-survey).",606,src/libraries/System.Runtime/tests/PerformanceTests/FileStreamBufferingBenchmark/FileStreamBufferingBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,59,3708341942,377,OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager,https://github.com/OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager/pull/377,Google_Jules,merged,Pre-sort assets in worker to prevent UI flash,"Implemented in-memory sorting of `index_rows` in `AssetLoaderWorker._build_payload_chunks` using `dt` field.
+Verified with new test cases covering normal sorting and missing date handling.
+Existing tests pass (except for a pre-existing environment issue in `test_gallery_grid_view`).
+
+---
+*PR created automatically by Jules for task [15748083203312453471](https://jules.google.com/task/15748083203312453471) started by @OliverZhaohaibin*",437,tests/test_performance_sorting.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,60,4174251225,955,OpenCoreMMO/OpenCoreMMO,https://github.com/OpenCoreMMO/OpenCoreMMO/pull/955,Copilot,closed_unmerged,[WIP] Delegate request to PR #954,"- [ ] Fix `CreatureGameInstance.cs`: Replace `Dictionary` with `ConcurrentDictionary` for `_creatures`, `_killedMonsters`, `_playersLogged`
+- [ ] Fix `EventAggregator.cs`: Replace `Queue` with `ConcurrentQueue` for `_eventQueue`
+- [ ] Fix `Scheduler.cs`: Use `Interlocked.Increment` for `_lastEventId` to prevent race condition
+- [ ] Fix `IConnection.cs` + `Connection.cs`: Replace `Queue` with `ConcurrentQueue` for `OutgoingPackets`
+- [ ] Fix `Dispatcher.cs`: Remove per-event `CancellationTokenSource` allocation from hot path
+- [ ] Update tests to match interface changes
+- [ ] Verify build and tests pass
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> delegate request to PR #954 .
+
+
+</details>
+
+
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+Created from [VS Code](https://code.visualstudio.com/docs/copilot/copilot-coding-agent).",880,benchmarks/NeoServer.Benchmarks/Tasks/SchedulerBenchmark.cs | benchmarks/NeoServer.Benchmarks/Hashing/TileHashBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,61,4127538853,22675,github/gh-aw,https://github.com/github/gh-aw/pull/22675,Copilot,merged,docs: fix homepage title duplication and disable glow animation on mobile for all themes,"Two minor doc site issues flagged in the multi-device testing report:
+
+- **Homepage title was duplicated**: `GitHub Agentic Workflows | GitHub Agentic Workflows` — Starlight appends the site name to the page title, so the root `index.mdx` title needed to be distinct. Changed to `Home`.
+- **Dark theme glow not disabled on mobile**: The `@media (max-width: 768px)` block in `custom.css` only suppressed `body::before` animation for the light theme. Simplified to a bare `body::before` selector so all themes benefit from the mobile CPU/battery optimization.
+
+```css
+/* Before: only light theme */
+:root[data-theme='light'] body::before { animation: none; }
+
+/* After: all themes */
+body::before { animation: none; }
+```
+
+> [!WARNING]
+>
+> <details>
+> <summary>Firewall rules blocked me from connecting to one or more addresses (expand for details)</summary>
+>
+> #### I tried to connect to the following addresses, but was blocked by firewall rules:
+>
+> - `telemetry.astro.build`
+>   - Triggering command: `/opt/hostedtoolcache/node/24.14.0/x64/bin/node node /home/REDACTED/.npm/_npx/aa98e6899c6baff3/node_modules/.bin/astro build` (dns block)
+>
+> If you need me to access, download, or install something from one of these locations, you can either:
+>
+> - Configure [Actions setup steps](https://gh.io/copilot/actions-setup-steps) to set up my environment, which run before the firewall is enabled
+> - Add the appropriate URLs or hosts to the custom allowlist in this repository's [Copilot coding agent…",1789,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,non-performance,文档主页标题与动画，非性能,human,2026-11-14T17:45:32+08:00
+human,62,3202173490,5001,mochilang/mochi,https://github.com/mochilang/mochi/pull/5001,OpenAI_Codex,merged,Improve Python compiler first() handling,"## Summary
+- improve type inference for `first()` builtin
+- inline simple list case when compiling `first()` to Python
+
+## Testing
+- `go vet ./...`
+- `go test ./...`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_6867a94b0c3c83209a7f5396bfa36d73",246,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,63,3287479492,2212,asynkron/protoactor-dotnet,https://github.com/asynkron/protoactor-dotnet/pull/2212,OpenAI_Codex,merged,feat: cache build outputs,"## Summary
+- cache bin/obj directories during PR builds
+- cache build outputs for dev builds
+
+## Testing
+- `dotnet test ProtoActor.sln -c Release` *(fails: MongoDB connection refused)*
+
+------
+https://chatgpt.com/codex/tasks/task_e_688fb8f30a9483289360ab702d61c080",264,benchmarks/ClusterMicroBenchmarks/ConcurrentSpawnBenchmark.cs | benchmarks/ClusterMicroBenchmarks/InProcessClusterBatchRequestBenchmark.cs | benchmarks/ClusterMicroBenchmarks/InProcessClusterRequestBenchmark.cs,performance,deepseek-flash,performance,performance,缓存 CI build 输出,human,2026-11-14T17:45:32+08:00
+human,64,3779685987,8940,github/gh-aw,https://github.com/github/gh-aw/pull/8940,Copilot,merged,Add dispatch-workflow safe output type with dynamic per-workflow tools,"Adds a new `dispatch-workflow` safe output type that enables AI agents to trigger other workflows via `workflow_dispatch` events, supporting multi-workflow pipeline orchestration. Uses the handler architecture to run alongside other safe outputs in the unified `process_safe_outputs` step.
+
+Each workflow listed in the configuration generates its own MCP tool with workflow-specific inputs, providing strongly-typed tools to the LLM while using a unified backend processing pipeline.
+
+Supports both agentic workflows (`.md`/`.lock.yml`) and standard GitHub Actions workflows (`.yml`), with file extensions resolved and stored at compile time for optimal runtime performance.
+
+## Configuration
+
+Frontmatter accepts a list of workflow names (without file extension):
+
+```yaml
+safe-outputs:
+  dispatch-workflow:
+    - ""test-workflow""      # Can be .md/.lock.yml (agentic) or .yml (standard)
+    - ""deploy-workflow""
+    max: 2  # optional, defaults to 1, maximum allowed is 3
+```
+
+## Implementation
+
+**Schema & Types**
+- Added `DispatchWorkflowOutput` to agent output JSON schema
+- Dynamically generates one MCP tool per configured workflow at compile time
+- Each tool named after the workflow (e.g., `test_workflow`, `deploy_workflow`)
+- Tool input schemas extracted from workflow's `workflow_dispatch` inputs
+- Created `DispatchWorkflowConfig` with workflow list, max count, and workflow files mapping
+
+**Validation**
+- Verifies workflow files exist (`.md`, `.lock.yml`, or `.yml`)
+- Priority order: `.…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,non-performance,新增 dispatch-workflow 能力，功能,human,2026-11-14T17:45:32+08:00
+human,65,3170117063,2772,mochilang/mochi,https://github.com/mochilang/mochi/pull/2772,OpenAI_Codex,closed_unmerged,Add tail call optimization to VM,"## Summary
+- implement tail call optimization for OpCall, OpCall2, and OpCallV
+- add tail-recursive factorial test
+
+## Testing
+- `go test ./...`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_685a1a4bfd6083208edcfeff63af462f",225,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,66,4015660730,32847,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/32847,OpenAI_Codex,closed_unmerged,Slack: avoid socket-mode restart loops on transient disconnects,"## Summary
+
+- Problem: Slack Socket Mode can emit transient `disconnected` events during internal auto-reconnect, but provider logic treated each disconnect as a hard failure and force-restarted the provider.
+- Why it matters: users can hit recurring reconnect loops (every few seconds) even when Slack can recover the socket itself.
+- What changed: `waitForSlackSocketDisconnect` now applies a disconnect grace window (`SLACK_SOCKET_DISCONNECT_GRACE_MS=15000`) before surfacing a disconnect; reconnect (`connected`) within the window cancels the pending disconnect.
+- What did NOT change (scope boundary): auth error handling, backoff strategy, and reconnect-attempt limits are unchanged.
+
+## Change Type (select all)
+
+- [x] Bug fix
+- [ ] Feature
+- [ ] Refactor
+- [ ] Docs
+- [ ] Security hardening
+- [ ] Chore/infra
+
+## Scope (select all touched areas)
+
+- [ ] Gateway / orchestration
+- [ ] Skills / tool execution
+- [ ] Auth / tokens
+- [ ] Memory / storage
+- [x] Integrations
+- [ ] API / contracts
+- [ ] UI / DX
+- [ ] CI/CD / infra
+
+## Linked Issue/PR
+
+- Closes #32739
+- Related #32377
+
+## User-visible / Behavior Changes
+
+- Slack Socket Mode no longer restarts immediately on transient socket disconnects that self-recover within 15 seconds.
+
+## Security Impact (required)
+
+- New permissions/capabilities? (`No`)
+- Secrets/tokens handling changed? (`No`)
+- New/changed network calls? (`No`)
+- Command/tool execution surface changed? (`No`)
+- Data access scope changed? (`No`)
+- If any `Yes`, explai…",2500,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,67,3857843883,11958,github/gh-aw,https://github.com/github/gh-aw/pull/11958,Copilot,closed_unmerged,[WIP] Optimize MCP tool response payloads to reduce token usage,"## MCP Tool Response Payload Optimization
+
+This PR optimizes MCP tool response payloads to reduce token usage for workflows using GitHub MCP tools.
+
+### Completed
+- [x] Understand repository structure and MCP integration
+- [x] Identify that gh-aw is a compiler, not a runtime interceptor
+- [x] Determine that response filtering must be done via configuration, not code interception
+- [x] Locate GitHubToolConfig structure in tools_types.go
+- [x] Add `Options` field to GitHubToolConfig to pass configuration to GitHub MCP server
+- [x] Add parseGitHubToolOptions function to parse options configuration
+- [x] Create comprehensive token optimization documentation
+- [x] Update GitHub MCP server skill with token usage warnings
+- [x] Build and test changes successfully
+
+### Remaining
+- [ ] Run final validation (make agent-finish)
+
+### Implementation
+
+Since gh-aw cannot intercept runtime responses from the GitHub MCP server (it only generates workflow configuration), this PR:
+
+1. **Adds configuration support** for future response-mode options that the upstream GitHub MCP server can implement
+2. **Provides comprehensive documentation** advising workflows on best practices to reduce token usage by 30-50%
+3. **Updates skills/github-mcp-server** with warnings about high-token-usage tools
+
+### Key Changes
+
+**Code Changes:**
+- Added `GitHubToolOptions` struct with `ResponseMode` field (future-proofing)
+- Added parsing support in `parseGitHubTool()` function
+- Modified `tools_types.go` and `tools…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,68,3788650068,692,erpc/erpc,https://github.com/erpc/erpc/pull/692,OpenAI_Codex,closed_unmerged,test: speed up test ci,"### Motivation
+- Reduce CI wall time by increasing Go test parallelism and allowing test runners to use available CPU cores.  
+- Run security scanning (`gosec`) in parallel with unit tests to avoid serial bottlenecks.  
+- Speed up dependency setup by enabling Go module caching in the workflow.  
+
+### Description
+- Add `GO_TEST_PARALLEL` and `GO_TEST_P` to the `Makefile`, defaulting to the number of online CPUs (`getconf _NPROCESSORS_ONLN` / `nproc`).  
+- Update `test` and `test-fast` targets to pass `-parallel $(GO_TEST_PARALLEL)` and `-p $(GO_TEST_P)` to `go test`.  
+- Enable `cache: true` for `actions/setup-go` in the `units` job to cache module downloads.  
+- Split the `gosec` run into its own workflow job (`gosec`) that runs `go mod download` then the scanner so it can execute in parallel with the `units` job.  
+
+### Testing
+- No automated tests were executed as part of this patch; CI will run the `units` job (which invokes `make test`) and the new `gosec` job when the workflow triggers.
+
+------
+[Codex Task](https://chatgpt.com/codex/tasks/task_b_695e5668b47883319058dd3305a5abc3)
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> Optimizes CI time by parallelizing tests and security scanning, and by caching Go modules.
+> 
+> - Add `GO_TEST_PARALLEL` and `GO_TEST_P` defaults in `Makefile`; pass `-parallel` and `-p` in `test` and `test-fast`
+> - Split `gosec` into its own `gosec` job running `go mod download` then the scanner in parallel with `units` (`.github/workflows/test.yml`)
+> …",1846,erpc/networks_bench_test.go | health/tracker_benchmark_test.go | health/tracker_bench_test.go,performance,,performance,performance,加速 test CI,human,2026-11-14T17:45:32+08:00
+human,69,4024295958,3248,marin-community/marin,https://github.com/marin-community/marin/pull/3248,OpenAI_Codex,merged,[levanter] Default fused CE TPU path to XLA and retune v4 huge-batch blocks,"Set fused CE TPU defaults to XLA for robustness and retune explicit Pallas settings for the Grug reference shape on v4-8. The v4 rerun reproduced Pallas VMEM compile OOMs at the prior inferred/default tiles for B=262144, H=1024, V=128256, while XLA succeeded at the same shape, so this keeps default behavior stable and updates v4 tuning so explicit Pallas requests infer a compilable tile.
+
+- Keep TPU default implementation order XLA-first in fused CE API.
+- Add TPU v4 huge-batch-small-h tuned bucket with b=1024,h=128,v=256.
+- Replace the v4 infer lookup unit test with a TPU v4-only jit compile test using inferred block sizes.
+- Document the rerun in .agents/projects/linear_ce_loss.md and update add_pallas_kernel recipe guidance.
+- Throughput at B=262144,H=1024,V=128256 on v4-8: XLA ~539,724 tok/s (bs=256); Pallas best observed ~663,603 tok/s at b1024_h128_v256 (explicit), with prior v>=512 configs failing VMEM compile.
+
+Part of #2432",946,lib/levanter/scripts/bench/bench_mamba3_mimo_xla.py | lib/levanter/scripts/bench/bench_mamba3_xla.py | lib/dupekit/tests/bench/test_batch_tuning.py | lib/dupekit/tests/bench/test_dedupe.py | lib/dupekit/tests/bench/test_hashing.py,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,70,3726027397,744,btraceio/btrace,https://github.com/btraceio/btrace/pull/744,Claude_Code,merged,feat: Implement Binary Protocol v2 with comprehensive testing infrastructure,"## Summary
+
+This PR implements a high-performance binary protocol (v2) for BTrace that provides **3-6x faster serialization** and **2-5x smaller payloads** compared to Java Object Serialization, while maintaining full backward compatibility with v1.
+
+**Branch:** `jb/comm_v2`  
+**Status:** ✅ Ready for review  
+**Tests:** ✅ 113/113 passing  
+
+---
+
+## Overview
+
+The implementation spans 5 phases with comprehensive testing and documentation:
+
+### Phase 1: Binary Protocol v2 Implementation
+- Complete binary serialization layer
+- All 17 BTrace command types implemented
+- Custom exception handling with validation
+- JMH benchmarking infrastructure (180 configurations)
+- **63 tests** covering all functionality
+
+### Phase 2: Protocol Negotiation Infrastructure
+- Automatic V1/V2 protocol detection
+- Once-per-connection negotiation with magic bytes (0x42 0x54 0x52 0x32 = ""BTR2"")
+- System property configuration support
+- **34 tests** for negotiation and configuration
+
+### Phase 3: WireProtocol Abstraction Layer
+- Pluggable protocol interface
+- JavaSerializationProtocol (V1 wrapper)
+- BinaryWireProtocol (V2 implementation)
+- Factory methods for protocol creation
+- **16 tests** for abstraction layer
+
+### Phase 4: Documentation
+- Complete architecture documentation
+- Runtime integration guide
+- Implementation summary
+- JMH benchmarking guide
+
+### Phase 5: CI/CD Integration
+- Dedicated V2 protocol test workflow
+- Label-triggered execution (`test:v2-protocol`)
+- Weekly automated validation
+- Co…",2499,btrace-core/src/jmh/java/org/openjdk/btrace/core/comm/v2/BinaryProtocolBenchmark.java | btrace-core/src/test/java/org/openjdk/btrace/core/comm/v2/BinaryProtocolPerformanceTest.java,performance,deepseek-flash,performance,non-performance,Binary Protocol v2 功能与测试基建,human,2026-11-14T17:45:32+08:00
+human,71,3963330695,5005,ava-labs/avalanchego,https://github.com/ava-labs/avalanchego/pull/5005,Copilot,closed_unmerged,Prevent deadlock in benchlist using dedicated notification worker goroutine,"## Why this should be merged
+
+The `run()` goroutine's synchronous calls to `Benched()` and `Unbenched()` can deadlock if the `Benchable` implementation blocks on a channel whose consumer is waiting to send to the benchlist's `jobs` channel.
+
+## How this works
+
+Instead of spawning a goroutine for every notification, this implementation uses a single dedicated worker goroutine pattern:
+
+1. **Notification Channel**: Added a buffered `notifications` channel (same size as `jobs` channel)
+2. **Worker Goroutine**: A single `processNotifications()` worker consumes from this channel and makes the actual `Benched()`/`Unbenched()` calls
+3. **Non-blocking Sends**: The `run()` loop uses a `sendNotification()` helper that performs non-blocking sends via select statement
+4. **Graceful Degradation**: If the notification buffer is full, notifications are dropped with warning logs to prevent blocking
+
+State management (`benched` set, `timeoutHeap`) remains synchronous before sending notifications, maintaining consistency while preventing blocking.
+
+```go
+// Before: synchronous call that could block
+b.benchable.Unbenched(b.ctx.ChainID, nodeID)
+
+// After: non-blocking dispatch through dedicated worker
+b.sendNotification(job{nodeID: nodeID, bench: false})
+```
+
+This approach is more efficient than spawning goroutines per notification and maintains notification ordering through the channel.
+
+## How this was tested
+
+Existing unit tests pass with race detector enabled.
+
+## Need to be documented in RE…",1809,snow/networking/benchlist/benchlist_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,72,3736842941,18642,OrchardCMS/OrchardCore,https://github.com/OrchardCMS/OrchardCore/pull/18642,Copilot,merged,Replace dynamic ContentCard shapes with strongly typed shapes,"## Description
+
+Dynamic shape creation using `_shapeFactory.New.ContentCard(...)` has been replaced with strongly typed shapes using `CreateAsync<T>` for better performance and type safety.
+
+### Changes
+
+**New shape classes in `OrchardCore.ContentTypes.Abstractions/Shapes`:**
+- `ContentCardShape` - encapsulates all ContentCard properties including `CanInsert`
+- `ContentCardFieldsEditShape` - for ContentCard_Fields_Edit shape
+- `ContentCardFrameShape` - for ContentCard_Frame wrapper shape
+
+**Updated shape creation pattern:**
+
+Controllers:
+```csharp
+// Before
+var contentCard = await _shapeFactory.New.ContentCard(
+    Updater: _updateModelAccessor.ModelUpdater,
+    CollectionShapeType: cardCollectionType,
+    ContentItem: contentItem,
+    // ... more properties
+);
+
+// After
+var contentCard = await _shapeFactory.CreateAsync<ContentCardShape>(""ContentCard"", shape =>
+{
+    shape.Updater = _updateModelAccessor.ModelUpdater;
+    shape.CollectionShapeType = cardCollectionType;
+    shape.ContentItem = contentItem;
+    // ... more properties
+});
+```
+
+Views:
+```csharp
+// Before
+dynamic contentCard = await New.ContentCard(...);
+
+// After
+var contentCard = await Factory.CreateAsync<ContentCardShape>(""ContentCard"", shape => { ... });
+```
+
+**Shape handler updates:**
+- Updated `ContentCardShapes.cs` to properly access strongly typed shape properties by casting to the shape class first (e.g., `(shape as ContentCardShape)?.Property`) with fallback to `GetProperty` for backward compatibility
+- A…",2499,test/OrchardCore.Benchmarks/ArgumentsBenchmark.cs | test/OrchardCore.Benchmarks/FlatPositionComparerBenchmark.cs | test/OrchardCore.Benchmarks/ShapeDescriptorIndexBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,73,3284490612,12730,oxc-project/oxc,https://github.com/oxc-project/oxc/pull/12730,Copilot,closed_unmerged,Add `RUN_RAW_TESTS` environment variable to disable slow raw transfer tests locally,"Fixes #12435
+
+This PR adds a `RUN_RAW_TESTS` environment variable following the same pattern as the existing `RUN_LAZY_TESTS` implementation. The raw transfer tests in `napi/parser/test/parse-raw.test.ts` are now disabled by default when running `pnpm test` locally, but enabled by default in CI.
+
+## Problem
+
+The raw transfer tests were significantly slowing down local development workflow. Running `pnpm test` locally would attempt to download large fixture files and run comprehensive conformance tests, making the feedback loop much slower for developers.
+
+## Solution
+
+- **Local development**: Raw transfer tests are skipped by default, making `pnpm test` much faster
+- **CI**: Raw transfer tests are enabled by setting `RUN_RAW_TESTS=true` in the GitHub workflow, ensuring full test coverage in CI
+- **Manual override**: Developers can still run the full test suite locally by setting `RUN_RAW_TESTS=true pnpm test`
+
+## Implementation Details
+
+The implementation wraps all raw transfer test logic (fixture downloads, test setup, and test declarations) in a conditional block that only executes when `RUN_RAW_TESTS=true`. This prevents both the expensive network requests and test execution when the environment variable is not set.
+
+## Validation
+
+- **Without `RUN_RAW_TESTS`**: Tests complete quickly with ""No test suite found"" (expected behavior)
+- **With `RUN_RAW_TESTS=true`**: Tests attempt to run and execute the full raw transfer test suite
+- **CI workflow**: Updated to set `RUN_RAW_TE…",2500,tasks/benchmark/benches/lexer.rs | tasks/benchmark/benches/minifier.rs | crates/oxc_parser/benches/lexer_performance.rs | napi/parser/bench.bench.js,performance,deepseek-flash,performance,performance,本地关闭慢测试，开发/CI 时间,human,2026-11-14T17:45:32+08:00
+human,74,3564209754,20,wikimedia/sentencex,https://github.com/wikimedia/sentencex/pull/20,Copilot,closed_unmerged,Performance analysis and optimizations for large text processing,"Analyzed performance characteristics and identified O(n²) complexity causing 100KB texts to take 532ms and 1MB texts to exceed 50 seconds. No support existed for processing files larger than available memory.
+
+## Changes
+
+### New APIs (backward compatible)
+
+**Zero-copy variant** - Returns `Vec<&str>` instead of allocating `Vec<String>`:
+```rust
+let sentences = segment_borrowed(""en"", text);  // 6.5x faster for <1KB texts
+```
+
+**Streaming processor** - Constant memory usage for arbitrary file sizes:
+```rust
+let file = File::open(""large_book.txt"")?;
+let sentences = segment_chunked(""en"", file, 65536)?;
+```
+
+### Core optimizations
+
+- **Binary search for range checking**: Sorted skippable ranges + `partition_point()` reduces O(n×m) to O(n×log m)
+- **Optimized character detection**: Uses `char_indices()` instead of manual boundary walking
+- **Pre-sorted ranges**: Single sort operation enables efficient lookups
+
+### Benchmark suite
+
+Added comprehensive benchmarks covering:
+- Text sizes: 100B to 50KB
+- Multi-language performance (6 languages)
+- Special cases: abbreviation-heavy, quote-heavy, paragraph-heavy texts
+
+### Documentation
+
+- `PERFORMANCE_ANALYSIS.md` - Technical bottleneck analysis and recommendations
+- `PERFORMANCE_GUIDE.md` - API selection guide and optimization tips
+- `examples/large_file_processing.rs` - Working demonstration
+
+## Performance results
+
+| Text Size | segment() | segment_borrowed() |
+|-----------|-----------|-------------------|
+| 1KB | 1.14ms | 0.17ms (6.5x…",2386,benches/comprehensive_benchmark.rs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,75,3299366202,17904,mochilang/mochi,https://github.com/mochilang/mochi/pull/17904,OpenAI_Codex,closed_unmerged,swift: improve int casting and bool map lookups,"## Summary
+- handle direct variable casts to Int using the Int initializer and force unwrapping for strings
+- treat boolean map lookups safely with optional casts and a default false value
+- add Swift outputs for bidirectional BFS and bidirectional search algorithms
+
+## Testing
+- `MOCHI_ALGORITHMS_INDEX=401 go test ./transpiler/x/swift -run TestSwiftTranspiler_Algorithms_Golden -tags=slow -count=1`
+- `MOCHI_ALGORITHMS_INDEX=402 go test ./transpiler/x/swift -run TestSwiftTranspiler_Algorithms_Golden -tags=slow -count=1`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_689425e14c288320a17817f5d4b38ba8",605,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,76,4012903656,32092,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/32092,OpenAI_Codex,closed_unmerged,Telegram: skip deleteMyCommands before non-empty command sync,"## Summary
+- change Telegram native command sync to skip `deleteMyCommands` when command payload is non-empty
+- keep `deleteMyCommands` behavior when command payload is empty (explicit menu clear)
+- add regression tests for both non-empty sync and empty-menu clear behavior
+
+Fixes #32017.
+
+## Security Impact
+- None.
+
+## Repro + Verification
+### Repro (before)
+1. Restart gateway repeatedly with Telegram native commands enabled.
+2. Observe startup issuing `deleteMyCommands` + `setMyCommands` on each boot.
+3. Repeated restarts increase chance of Telegram API 429 lockouts.
+
+### Verification (after)
+- `pnpm exec vitest run src/telegram/bot-native-command-menu.test.ts`
+- `pnpm lint src/telegram/bot-native-command-menu.ts src/telegram/bot-native-command-menu.test.ts CHANGELOG.md`
+- `pnpm tsgo`
+
+## Human Verification
+- confirmed non-empty command sync calls `setMyCommands` without `deleteMyCommands`
+- confirmed empty command sync still calls `deleteMyCommands` to clear menu",979,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,77,3238674493,9244,mochilang/mochi,https://github.com/mochilang/mochi/pull/9244,OpenAI_Codex,merged,Improve C# list indexing,"## Summary
+- enhance `compilePostfix` to emit direct indexing when the list or string type is known
+- add generated `list_index.cs` with expected output
+- update C# machine README
+
+## Testing
+- `go vet ./...`
+
+------
+https://chatgpt.com/codex/tasks/task_e_6878b1d7ed3c8320adcc27eeaeee9360",288,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,78,3367422428,119210,dotnet/runtime,https://github.com/dotnet/runtime/pull/119210,Copilot,merged,Fix LDAP network timeout not being honored on Linux,"Fixes https://github.com/dotnet/runtime/issues/62075
+
+## Problem
+
+On Linux, `System.DirectoryServices.Protocols.LdapConnection` does not honor the `Timeout` property at the network layer, causing network operations (such as connect or bind) to potentially hang indefinitely or much longer than the requested timeout. This occurs because the native LDAP handle does not have `LDAP_OPT_NETWORK_TIMEOUT` set, while on Windows the timeout is properly enforced at the network layer.
+
+## Solution
+
+This PR implements proper network-level timeout support for Linux by setting `LDAP_OPT_NETWORK_TIMEOUT` via `ldap_set_option` on the LDAP handle after initialization and before any bind or search operations.
+
+### Key Changes
+
+1. **Added `LDAP_OPT_NETWORK_TIMEOUT` constant** (0x5005) to the `LdapOption` enum
+2. **Added P/Invoke support** for setting timeval structures via `ldap_set_option_timeval`
+3. **Modified `InternalConnectToServer`** in `LdapConnection.Linux.cs` to set network timeout using the `Timeout` property value
+4. **Added comprehensive tests** to verify timeout behavior across platforms
+5. **Uses proper error handling** with `CheckAndSetLdapError` for timeout option setting
+
+### Implementation Details
+
+The timeout is set in `InternalConnectToServer` after successful URI configuration:
+
+```csharp
+var timeout = new LDAP_TIMEVAL()
+{
+    tv_sec = (int)(_connectionTimeOut.Ticks / TimeSpan.TicksPerSecond),
+    tv_usec = (int)((_connectionTimeOut.Ticks % TimeSpan.TicksPerSecond) / 10)
+};
+…",2499,src/libraries/System.Runtime/tests/PerformanceTests/FileStreamBufferingBenchmark/FileStreamBufferingBenchmark.cs,performance,deepseek-flash,performance,non-performance,LDAP 超时未生效，正确性修复,human,2026-11-14T17:45:32+08:00
+human,79,3727884189,438,OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager,https://github.com/OliverZhaohaibin/iPhotron-LocalPhotoAlbumManager/pull/438,Google_Jules,merged,Improve initial scan persistence and UI responsiveness,"This PR addresses the issue where initial library scanning was interrupted by navigation and where switching views caused temporary data disappearance.
+
+Changes:
+1.  **Architecture:** Scanning logic moved from transient UI tasks to the persistent `LibraryManager`.
+2.  **Persistence:** Scanning now survives navigation within the library. The scanner writes incrementally to the DB.
+3.  **UI Responsiveness:** `AssetListModel` now pulls from a ""Live Buffer"" in `LibraryManager` to show items immediately before they are fully indexed/reloaded from the DB.
+4.  **Refactoring:** Moved worker classes to `src/iPhoto/library/workers/` to improve code organization and dependency layering.
+
+---
+*PR created automatically by Jules for task [12763864813537204348](https://jules.google.com/task/12763864813537204348) started by @OliverZhaohaibin*",838,tests/test_performance_sorting.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,80,3981785397,18838,aptos-labs/aptos-core,https://github.com/aptos-labs/aptos-core/pull/18838,Claude_Code,merged,[Storage] Reduce RocksDB property reporter overhead,"Each invocation of the property reporter takes 10–15 seconds in production
+(sometimes nearly 20), causing the reporter thread to consume roughly half a
+core just for metrics collection.
+
+Remove 13 low-value properties from `RocksdbPropertyReporter` and increase the
+reporting interval from 10s to 60s.
+
+The most impactful removal is `rocksdb.block-cache-pinned-usage`, which performs
+a full O(cache_size) scan of the shared HyperClockCache **while holding the
+per-DB mutex**, directly blocking concurrent writes. The remaining removed
+properties (`num-entries-*`, `num-deletes-*`, `estimate-num-keys`,
+`num-snapshots`, `num-live-versions`, etc.) still acquire the per-DB mutex on
+each call but are rarely consulted and provide little actionable benefit.
+
+- Properties queried per cycle: 32 → 19 (~41% fewer)
+- Sleep between cycles: 10s → 60s
+
+For reference, removing the property reporter entirely and running the executor
+benchmark (20 baseline vs 20 test runs, 10M txns each) showed +3.3% overall
+TPS and +13.2% commit TPS (p < 0.001, Cohen's d = 1.64). This commit should
+capture most of that improvement.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+<!-- CURSOR_SUMMARY -->
+---
+
+> [!NOTE]
+> **Low Risk**
+> Metrics-only change that reduces sampling frequency and queried properties; main risk is losing visibility into the removed RocksDB metrics.
+> 
+> **Overview**
+> Reduces `RocksdbPropertyReporter` overhead by removing a set of RocksDB properties from `ROCKSDB_PROPERTY_MAP` (incl…",2113,network/quic-like-udp/benches/transport_bench.rs | network/qnuc/benches/transport_bench.rs | crates/aptos-dkg/benches/pvss.rs | crates/aptos-crypto/benches/ed25519.rs | crates/aptos-crypto/benches/ristretto255.rs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,81,3961615568,22361,paradigmxyz/reth,https://github.com/paradigmxyz/reth/pull/22361,OpenAI_Codex,closed_unmerged,feat(engine): add sub-phase timing histograms for sparse trie update,"**Summary**
+The `sparse_trie_update_duration` metric (4-6ms p99) aggregates all phases, hiding the actual bottleneck. This adds 5 sub-phase histograms to isolate it.
+
+<img width=""533"" height=""563"" alt=""image"" src=""https://github.com/user-attachments/assets/8c21c124-cecb-4b25-a4e3-3c780c744d83"" />",300,crates/engine/tree/benches/sparse_trie_small_work.rs | crates/chain-state/benches/canonical_hashes_range.rs | crates/engine/tree/benches/state_root_task.rs | crates/engine/tree/benches/validation_parallel.rs,performance,,performance,performance,性能子阶段计时直方图（analytics）,human,2026-11-14T17:45:32+08:00
+human,82,3801487227,123074,dotnet/runtime,https://github.com/dotnet/runtime/pull/123074,Copilot,merged,Refactor process.cpp to eliminate vector dependency and shutdown race conditions,"Fixes potential crashes or hangs during process shutdown due to race conditions in vector destructor execution. 
+
+Noticed while reviewing #122989
+
+# Description
+
+Replaced `std::vector<const char*> g_argvCreateDump` static variable with a fixed-size array `const char* g_argvCreateDump[MAX_ARGV_ENTRIES]` (32 entries) in both CoreCLR and NativeAOT implementations. The vector's destructor can cause race conditions during process shutdown, potentially leading to crashes or hangs.
+
+**Changes:**
+- Replaced vector with `const char* g_argvCreateDump[MAX_ARGV_ENTRIES]` in `src/coreclr/pal/src/thread/process.cpp`
+- Updated `PROCBuildCreateDumpCommandLine` to use array indexing instead of `push_back()`
+- Updated `PROCCreateCrashDumpIfEnabled` to copy array elements manually and added bounds check for siginfo processing
+- Updated `PAL_GenerateCoreDump` to use local fixed-size array
+- Removed `#include <vector>` dependency from process.cpp
+- Updated `src/coreclr/nativeaot/Runtime/unix/PalCreateDump.cpp` to use assert instead of runtime check for consistency
+- Used `_ASSERTE` for bounds checking instead of runtime checks, matching the established pattern
+
+# Customer Impact
+
+Prevents potential crashes or hangs during process shutdown due to race conditions in vector destructor execution, particularly in crash dump generation scenarios.
+
+# Regression
+
+No. This addresses a pre-existing race condition.
+
+# Testing
+
+CoreCLR and NativeAOT components build successfully with no errors or warnings. A…",2131,src/libraries/System.Runtime/tests/PerformanceTests/FileStreamBufferingBenchmark/FileStreamBufferingBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,83,3782189706,9016,github/gh-aw,https://github.com/github/gh-aw/pull/9016,Copilot,merged,Optimize action pinning and caching: eliminate redundant JSON parsing and I/O,"## Action Pinning and Caching Optimization ✅
+
+Successfully optimized the compilation process to eliminate redundant operations and improve performance.
+
+### Problem Analysis
+- [x] Action pins JSON unmarshaled 40+ times per compilation
+- [x] Each `getActionPins()` call unmarshal + sort = ~80-120µs (cumulative: 3-4ms)
+- [x] Action cache saved multiple times during compilation
+- [x] No in-memory caching of parsed action pins
+
+### Implemented Solutions
+
+#### 1. Action Pins In-Memory Caching
+- ✅ Added `sync.Once` to ensure single initialization
+- ✅ Cache parsed pins in memory for reuse
+- ✅ Reduces unmarshaling from 40+ calls to 1 call
+
+#### 2. Action Cache Dirty Flag
+- ✅ Track modifications with `dirty` boolean flag
+- ✅ Skip save when cache is clean (no changes)
+- ✅ Batch all changes and save once at end
+
+### Code Quality Improvements (Latest Commit)
+
+#### Robustness
+- ✅ Fix potential panic: safely truncate SHA for logging when SHA length < 8
+- ✅ Reset dirty flag after Load() to ensure correct state
+
+#### Performance
+- ✅ Replace O(n²) bubble sort with O(n log n) sort.Slice
+- ✅ Better performance for sorting action pins
+
+#### Simplicity & Readability
+- ✅ Simplify NewActionCache by relying on zero value for dirty flag
+- ✅ Add clear comment documenting the zero value initialization
+- ✅ Run gofmt to fix indentation in test files
+
+### Performance Impact
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| **Action pins unmarshaling** | 40+ calls | 1 ca…",2500,pkg/workflow/compiler_benchmark_test.go | pkg/workflow/expressions_benchmark_test.go | pkg/workflow/compiler_performance_benchmark_test.go | pkg/workflow/mcp_benchmark_test.go | pkg/cli/compile_security_benchmark_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,84,4024579334,2803,devantler-tech/ksail,https://github.com/devantler-tech/ksail/pull/2803,Copilot,merged,feat: add `ksail workload watch` command for inner-loop development,"- [x] Add `fsnotify` to depguard allow list in `.golangci.yml`
+- [x] Promote `fsnotify` from indirect to direct dependency in `go.mod`
+- [x] Create `pkg/cli/cmd/workload/watch.go` — new `ksail workload watch` command
+- [x] Create `pkg/cli/cmd/workload/watch_export_test.go` / `watch_test.go`
+- [x] Wire `watch` subcommand into `pkg/cli/cmd/workload/workload.go`
+- [x] Fix jscpd duplicate: removed `resolveWatchDir`, reuse `resolveSourceDir` from `push.go`
+- [x] Pass `ctx` to `runKubectlApply` and use `ExecuteContext(ctx)` so Ctrl+C terminates in-flight applies
+- [x] Serialize applies with a single worker goroutine + coalescing `chan string` (capacity 1) to prevent concurrent applies
+- [x] Fix all golangci-lint issues: err113 (static `errNotDirectory`), errcheck (`_ = watcher.Close()`), gocognit (extracted to `debounceState` + helper functions), lll (split long line), noinlineerr (plain assignments), testifylint (`require.Empty`), varnamelen (`mutex` field), wrapcheck (wrapped errors), unparam (return error on watcher errors), revive (removed unused param)
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>[feature]: add ksail workload watch command for inner-loop development</issue_title>
+> <issue_description>## User Story
+> 
+> **As a** developer running a KSail-managed cluster,
+> **I want** a `ksail workload watch` command that automatically app…",2500,pkg/client/docker/engine_bench_test.go | pkg/client/docker/registry_bench_test.go | pkg/client/kubectl/client_bench_test.go | pkg/cli/parallel/executor_benchmark_test.go | pkg/client/argocd/manager_bench_test.go,performance,deepseek-flash,performance,non-performance,新增 ksail workload watch，功能,human,2026-11-14T17:45:32+08:00
+human,85,3762176631,769,btraceio/btrace,https://github.com/btraceio/btrace/pull/769,Claude_Code,merged,instr: performance and correctness improvements,"## Summary
+
+This PR implements 10 critical fixes and optimizations to the btrace-instr module, addressing correctness bugs and significant performance bottlenecks identified through analysis.
+
+## Impact
+
+**Performance Improvements:**
+- 🚀 **20-30% faster** class transformation (pattern & handler caching)
+- 💾 **40-60% reduction** in memory allocations (optimized data structures)
+- ⚡ Handler lookup: ~1ms → ~100ns (99.9% cache hit rate)
+
+**Correctness:**
+- 🐛 Fixed data corruption bug in MethodTracker
+- ✅ Replaced magic values with proper exception handling
+- 📝 Added detailed error messages with context
+
+## Changes
+
+### P0 - Critical Correctness Issues (2/2 ✅)
+
+1. **Fix MethodTracker origMeans corruption** (b3c59fb0)
+   - Issue: Copy constructor didn't deep copy `origMeans` HashMap
+   - Impact: Data corruption when multiple MethodTracker instances shared state
+   - Fix: Proper deep copy in copy constructor
+
+2. **Replace magic values with InstrumentationException** (d05c3bd5)
+   - Issue: Magic return value `0xFFFFFFFF` masked errors, plus 5 other `RuntimeException` uses
+   - Impact: Silent failures, poor debugging experience
+   - Fix: Unified exception handling with `InstrumentationException` and descriptive messages
+
+### P1 - High-Impact Performance Issues (5/5 ✅)
+
+3. **Cache handler bytecode** (e054746f)
+   - Issue: Handler bytecode regenerated on every class load
+   - Impact: Unnecessary CPU and memory overhead
+   - Fix: Cache generated bytecod…",2500,btrace-core/src/jmh/java/org/openjdk/btrace/core/comm/v2/BinaryProtocolBenchmark.java | btrace-core/src/test/java/org/openjdk/btrace/core/comm/v2/BinaryProtocolPerformanceTest.java,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,86,3225584028,8113,mochilang/mochi,https://github.com/mochilang/mochi/pull/8113,OpenAI_Codex,merged,Add OCaml TPCH q1 compile test,"## Summary
+- improve OCaml compiler query handling
+- add dataset compilation test for TPCH q1
+- include generated OCaml code for TPCH q1
+
+## Testing
+- `go test -tags slow ./compiler/x/ocaml -run TestOCamlCompiler_TPCH -count=1 -v`
+- `go test ./...`
+
+------
+https://chatgpt.com/codex/tasks/task_e_687291fc02988320a904ed4c5238e78f",328,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,,performance,non-performance,添加 OCaml TPCH 编译测试，测试覆盖,human,2026-11-14T17:45:32+08:00
+human,87,4175967418,13545,web-infra-dev/rspack,https://github.com/web-infra-dev/rspack/pull/13545,OpenAI_Codex,merged,perf(javascript): cache non-nested export target lookups,"## Summary
+- replace `par_bridge` with `into_par_iter` on the non-nested export merge path so Rayon can split the collected tasks directly with lower scheduling overhead",170,xtask/benchmark/benches/benches.rs | xtask/benchmark/benches/groups/compilation_stages.rs | tests/bench/module-graph-api.bench.ts | xtask/benchmark/benches/groups/build_chunk_graph.rs | xtask/benchmark/benches/groups/module_graph_api.rs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,88,4117850804,9099,Z3Prover/z3,https://github.com/Z3Prover/z3/pull/9099,Copilot,merged,"ZIPT benchmark: scale to 500 files, fix seq timeout to 5s","The ZIPT benchmark workflow was running on only 50 files and inconsistently documenting the seq solver timeout as 10s when it was actually 5s.
+
+## Changes
+
+- **Scale**: `shuf -n 50` → `shuf -n 500`; all count references updated (run description, report template header, guidelines)
+- **seq timeout**: bash script already used `-T:5` for seq — corrected the prose description and report template header to accurately reflect 5s for seq vs. 10s for nseq/ZIPT",456,src/test/optional_benchmark.cpp,performance,deepseek-flash,performance,performance,扩大/校正 ZIPT benchmark 配置,human,2026-11-14T17:45:32+08:00
+human,89,4042799166,441,ROCm/iris,https://github.com/ROCm/iris/pull/441,Copilot,open,Implement power-of-two VMem allocator,"- [x] Explore codebase structure and existing allocators
+- [x] Implement `VMemPow2Allocator` in `iris/allocators/vmem_pow2_allocator.py`
+- [x] Update `iris/allocators/__init__.py` to export `VMemPow2Allocator`
+- [x] Update `iris/symmetric_heap.py` to support `allocator_type=""vmem_pow2""`
+- [x] Create `tests/unittests/test_vmem_pow2_allocator.py` with comprehensive tests
+- [x] Run linting with ruff — passes cleanly
+- [x] Run tests — all 24 new tests pass (both ranks), all 2255 existing tests pass
+- [x] Address all 12 review comments from @mawad-amd:
+  - [x] **Bug 1**: OOM check in `import_external_tensor` uses `aligned_export_size` (export called first)
+  - [x] **Bug 2**: `owns_tensor` checks `data_ptr()` range for all tensors; zero-element tensors no longer unconditionally claimed
+  - [x] **Bug 3**: GC auto-free via `weakref.finalize` on `tensor.untyped_storage()` (survives `reshape()`/other view ops) + `_pending_free` deque (avoids lock-reentry deadlock)
+  - [x] **Bug 4**: Physical memory renewed at **reuse time** — `_remap_free_block` releases old `mem_unmap`+`mem_release`, creates new `mem_create`+`mem_map`, then restores `mem_set_access(base_va, cumulative, ...)` — releasing at free time is incompatible with ROCm's requirement that `hipMemSetAccess` must start from `base_va` (calling on sub-ranges gives HIP error 1)
+  - [x] **Design 5**: `_CUDAArrayInterface` defined once at module level
+  - [x] **Design 6**: `_element_size()` with module-level `_DTYPE_ELEMENT_SIZE` cache
+…",2500,tests/unittests/test_bench.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,90,4077545214,46850,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/46850,OpenAI_Codex,merged,fix(release): block oversized npm packs that regress low-memory startup,"## Summary
+
+- Problem: during the #45962 window, the published npm artifact jumped from `133,372,429` bytes unpacked in `2026.3.8` to `224,002,564` bytes in `2026.3.12`.
+- Why it matters: the increase was concentrated in built output, especially `dist/plugin-sdk` (`~44.4 MiB` -> `~136.7 MiB`), which is a strong release-time signal that we shipped a much larger bundled graph than intended.
+- What changed: add a `pnpm release:check` budget for `npm pack --dry-run` unpacked size, with a fail-closed path if npm omits size metadata and an error message that points at likely causes such as duplicate channel shims or copied extension trees.
+- Scope boundary: this PR does not claim to be the runtime root-cause fix for #45962; it hardens an existing CI/release gate so this artifact regression class is easier to catch before shipping.
+
+## Change Type (select all)
+
+- [x] Bug fix
+- [ ] Feature
+- [ ] Refactor
+- [ ] Docs
+- [ ] Security hardening
+- [ ] Chore/infra
+
+## Scope (select all touched areas)
+
+- [ ] Gateway / orchestration
+- [ ] Skills / tool execution
+- [ ] Auth / tokens
+- [ ] Memory / storage
+- [ ] Integrations
+- [ ] API / contracts
+- [ ] UI / DX
+- [x] CI/CD / infra
+
+## Linked Issue/PR
+
+- Related #45962
+
+## User-visible / Behavior Changes
+
+None.
+
+## Security Impact (required)
+
+- New permissions/capabilities? (`Yes/No`) No
+- Secrets/tokens handling changed? (`Yes/No`) No
+- New/changed network calls? (`Yes/No`) No
+- Command/tool execution surface changed? (`Yes/No`) No
+- Data access…",2500,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,91,3676479062,8407,OpenMS/OpenMS,https://github.com/OpenMS/OpenMS/pull/8407,Copilot,merged,Merge compatible variable modifications in CometAdapter for improved performance,"Comet runs 3x+ slower when modifications with the same mass are specified as separate entries (e.g., `Carbamyl (K)`, `Carbamyl (R)`) instead of merged (`KR`). This also unnecessarily consumes the 9-entry modification limit.
+
+## Changes
+
+- **Added `CometModification` struct** to represent and merge Comet variable modification entries
+  - `isMergeableWith()` - checks mass equality, binary group, and terminal compatibility
+  - `merge()` - combines residues, preserves terminal specificity
+  - `toCometString()` - generates Comet param format
+
+- **Merging rules**:
+  - Same mass (within 1e-6) and binary group required
+  - Protein terminal mods (nc_term 0,1) kept separate
+  - Peptide N-term and C-term cannot merge together
+  - Peptide terminal + amino acid mods can merge
+
+- **Error handling**: 9-entry limit now checked after merging
+
+## Example
+
+Before:
+```
+variable_mod01 = 43.0058 K 0 5 -1 0 0 0.0
+variable_mod02 = 43.0058 R 0 5 -1 0 0 0.0
+variable_mod03 = 43.0058 S 0 5 -1 0 0 0.0
+```
+
+After:
+```
+variable_mod01 = 43.0058 KRS 0 5 -1 0 0 0.0
+```
+
+Fixes #6203
+
+<!-- START COPILOT CODING AGENT SUFFIX -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+
+----
+
+*This section details on the original issue you should resolve*
+
+<issue_title>Combine same modification for different amino acids in CometAdapter</issue_title>
+<issue_description>See the related issue (#6200) and its comments.
+</issue_description>
+
+<agent_instructions>Check if this functionality has already been added. If not imple…",2500,comprehensive_boost_benchmark.cpp,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,92,4055855066,42821,openclaw/openclaw,https://github.com/openclaw/openclaw/pull/42821,OpenAI_Codex,closed_unmerged,Installer: retry killed npm/pnpm installs with low-memory settings,"## Summary
+
+- Problem: installer flows aborted when npm/pnpm was killed by the OS under low-memory pressure during dependency installation.
+- Why it matters: this blocks fresh installs and upgrades on constrained Linux hosts and VPS instances.
+- What changed: added low-memory detection + retry logic in `scripts/install.sh` for both npm global installs and git-mode pnpm dependency installs.
+- What did NOT change (scope boundary): did not change package dependencies, release channels, or channel runtime behavior.
+
+## Change Type (select all)
+
+- [x] Bug fix
+- [ ] Feature
+- [ ] Refactor
+- [ ] Docs
+- [ ] Security hardening
+- [ ] Chore/infra
+
+## Scope (select all touched areas)
+
+- [ ] Gateway / orchestration
+- [ ] Skills / tool execution
+- [ ] Auth / tokens
+- [ ] Memory / storage
+- [ ] Integrations
+- [ ] API / contracts
+- [x] UI / DX
+- [ ] CI/CD / infra
+
+## Linked Issue/PR
+
+- Closes #42494
+- Related #39733
+
+## User-visible / Behavior Changes
+
+- Installer now retries npm global installs with reduced concurrency (`--maxsockets=2`) and `--omit=optional` when failure logs indicate low-memory kill/OOM.
+- Git install mode now retries `pnpm install` with reduced concurrency (`--network-concurrency=8`, `--child-concurrency=1`) when failure logs indicate low-memory kill/OOM.
+
+## Security Impact (required)
+
+- New permissions/capabilities? (`Yes/No`) No
+- Secrets/tokens handling changed? (`Yes/No`) No
+- New/changed network calls? (`Yes/No`) No
+- Command/tool execution surface changed? (`Yes/N…",2500,apps/android/benchmark/src/main/java/ai/openclaw/android/benchmark/StartupMacrobenchmark.kt | apps/android/benchmark/src/main/java/ai/openclaw/app/benchmark/StartupMacrobenchmark.kt,performance,,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,93,3296002682,17569,mochilang/mochi,https://github.com/mochilang/mochi/pull/17569,OpenAI_Codex,merged,feat(rs): improve algorithms transpilation,"## Summary
+- fix dynamic string lists in assignments
+- handle void returns, vector printing, null string checks, and panic! macro
+- add first Rust algorithm outputs and benchmark docs
+
+## Testing
+- `MOCHI_ALG_INDEX=10 MOCHI_BENCHMARK=1 go test -run TestRsTranspiler_Algorithms_Golden -tags=slow -update-algorithms-rs`
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_68931fb57b2483209179a6e59d7dcaaf",398,runtime/vm/join_bench_test.go | tests/aster/x/py/bench_block.py | tests/transpiler/x/py/bench_block.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,94,3980474173,6852,Azure/azure-dev,https://github.com/Azure/azure-dev/pull/6852,Copilot,merged,Add opt-out for ARM preflight validation during `azd provision`,"ARM preflight validation (`validatePreflight`) runs unconditionally before every Bicep deployment, adding 10s–5min of silent overhead with no user-visible status. There was no mechanism to skip it.
+
+## Changes
+
+- **Opt-out config flag**: `BicepProvider.Deploy()` now checks `provision.preflight` from user config before calling `validatePreflight()`. Set to `""off""` to skip preflight entirely.
+
+  ```bash
+  azd config set provision.preflight off
+  ```
+
+- **Spinner during preflight**: Added `ShowSpinner`/`StopSpinner` calls around `validatePreflight()` displaying ""Validating deployment"", replacing the previous silent wait.
+
+- **Config documentation**: Added `provision.preflight` entry to `config_options.yaml` with allowed values (`on` | `off`).
+
+- **DI wiring**: `config.UserConfigManager` injected into `BicepProvider` via constructor; the IoC container resolves it automatically since it's already registered as a singleton.
+
+<!-- START COPILOT ORIGINAL PROMPT -->
+
+
+
+<details>
+
+<summary>Original prompt</summary>
+
+> 
+> ----
+> 
+> *This section details on the original issue you should resolve*
+> 
+> <issue_title>Add opt-out for ARM preflight validation during `azd provision` to reduce deployment time</issue_title>
+> <issue_description>## Problem
+> 
+> `azd provision` (and `azd up`) always runs ARM preflight validation (`Deployments - Validate` API) before the actual deployment. This is an asynchronous long-running operation that adds significant overhead to every provisioning run:
+> 
+> -…",2500,cli/azd/pkg/containerapps/container_app_benchmark_test.go,performance,deepseek-flash,performance,performance,跳过 ARM preflight 以降低 provision 时间开销,human,2026-11-14T17:45:32+08:00
+human,95,4039407307,2152,cloudposse/atmos,https://github.com/cloudposse/atmos/pull/2152,Copilot,open,fix: suppress incomplete provider lock file warning for ephemeral workdirs,"When Atmos manages the plugin cache (`TF_PLUGIN_CACHE_DIR`), Terraform emits a noisy warning about incomplete lock file checksums on every `init` against an ephemeral workdir — which is every run, since workdirs are recreated fresh each time and never retain a `.terraform.lock.hcl`.
+
+A prior fix attempted to suppress the warning by disabling the plugin cache when no lock file exists, which backfired: it eliminated the cache benefit precisely when providers need to be installed.
+
+## Approach
+
+Two separate strategies by directory type:
+
+- **Workdir mode** (`WorkdirPathKey` set by the workdir provisioner): cache stays fully enabled; the Terraform warning is suppressed at the I/O layer via a new stderr filter. The lock file is disposable by design, so the warning is genuinely non-actionable.
+- **Non-workdir JIT source mode**: retain the existing `buildInitEnvList` behavior — disable the Atmos-managed cache on first `init` (no lock file → providers fetched from registry with `h1:` checksums), re-enable once the lock file exists.
+
+## Key changes
+
+- **`internal/exec/lock_warning_filter.go`** — new `incompleteLockWarningFilter` (`io.Writer` + `io.Closer`) that buffers Terraform's `╷…╵` diagnostic blocks and drops any block containing `""Incomplete lock file information for providers""`, forwarding everything else immediately.
+
+- **`internal/exec/shell_utils.go`** — adds `WithStderrFilter(func(io.Writer) io.Writer) ShellCommandOpt` functional option to `ExecuteShellCommand` (variadic, f…",2500,pkg/merge/provenance_benchmark_test.go | internal/exec/describe_affected_benchmark_test.go | internal/exec/yaml_func_resolution_context_bench_test.go | pkg/perf/perf_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,96,3975236124,175499,pytorch/pytorch,https://github.com/pytorch/pytorch/pull/175499,Claude_Code,closed_unmerged,[MPS] Reimplement torch.linalg.cross as a native Metal kernel,"Stack from [ghstack](https://github.com/ezyang/ghstack/tree/0.14.0) (oldest at bottom):
+* __->__ #175499
+
+Replace the old `generateKernelDataOffsets`-based implementation with
+dense and strided kernel flavors. The dense path handles all contiguous
+tensors (outermost, innermost, or any cross-dim position) via a
+closed-form index mapping `base = tid + 2*(tid/B)*B` where B is the
+cross-dim element stride; the strided path covers non-contiguous inputs
+using squashed sizes and full per-tensor element strides with the
+cross-dim stride looked up by index. Complex types (ComplexFloat,
+ComplexHalf) are supported via `c10::metal::mul`. Benchmarking showed
+no measurable gain from Metal's built-in `cross()` function, so the
+generic template is used throughout.
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>",817,benchmarks/diffusion/compile_benchmark.py | benchmarks/distributed/bench_nvshmem_tile_reduce.py | benchmarks/dynamo/microbenchmarks/bench_mm_fusion.py | benchmarks/dynamo/microbenchmarks/tensor_layout_mini_benchmark.py | benchmarks/fastrnns/test_bench.py,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,97,3313237532,118629,dotnet/runtime,https://github.com/dotnet/runtime/pull/118629,Copilot,merged,Remove ZipHelper.ReadBytes wrapper methods and use Stream.ReadAtLeast directly,"This PR removes the unnecessary `ZipHelper.ReadBytes` and `ZipHelper.ReadBytesAsync` wrapper methods and replaces all call sites with direct calls to `Stream.ReadAtLeast` and `Stream.ReadAtLeastAsync`.
+
+## Changes Made
+
+**Before:**
+```csharp
+internal static int ReadBytes(Stream stream, Span<byte> buffer, int bytesToRead)
+{
+    return stream.ReadAtLeast(buffer, bytesToRead, throwOnEndOfStream: true);
+}
+
+internal static async Task<int> ReadBytesAsync(Stream stream, Memory<byte> buffer, int bytesToRead, CancellationToken cancellationToken)
+{
+    cancellationToken.ThrowIfCancellationRequested();
+    return await stream.ReadAtLeastAsync(buffer, bytesToRead, throwOnEndOfStream: true, cancellationToken).ConfigureAwait(false);
+}
+
+// Usage:
+ZipHelper.ReadBytes(_archive.ArchiveStream, _compressedBytes[i], maxSingleBufferSize);
+```
+
+**After:**
+```csharp
+// Direct usage:
+_archive.ArchiveStream.ReadAtLeast(_compressedBytes[i], maxSingleBufferSize, throwOnEndOfStream: true);
+```
+
+## Benefits
+
+1. **Reduced Code Maintenance**: Eliminates unnecessary wrapper methods that provide no additional functionality
+2. **Better Performance**: Avoids extra async state machine overhead for the async version when operations need to pend
+3. **Cleaner API**: Direct use of the standard `Stream.ReadAtLeast` methods is more straightforward
+4. **Consistency**: Aligns with conventional usage of `Stream.ReadAtLeast` throughout the codebase
+
+## Backward Compatibility
+
+The change maintains functional compatibility …",2095,src/libraries/System.Runtime/tests/PerformanceTests/FileStreamBufferingBenchmark/FileStreamBufferingBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,98,3861484837,123674,dotnet/runtime,https://github.com/dotnet/runtime/pull/123674,Copilot,closed_unmerged,Add fast path to SpanHelpers.SequenceEqual using Unsafe.AreSame,"## Description
+
+Adds early exit to `SpanHelpers.SequenceEqual(ref byte first, ref byte second, nuint length)` when `first` and `second` reference the same memory location.
+
+Previously, the `Unsafe.AreSame` check was only performed for lengths ≥ `sizeof(nuint)`. Now it's checked unconditionally at method entry, consistent with `SpanHelpers.T.cs` and `SpanHelpers.Char.cs`.
+
+### Changes
+
+- Add `Unsafe.AreSame` check at method start to return `true` immediately for same-reference comparisons
+- Remove redundant check from `Longer:` block (now unreachable for same-reference case)
+- Add micro-benchmarks for `byte` and `char` spans covering same-reference, same-content, and different-content scenarios
+
+### Benchmark for validation
+
+Post this comment on the PR to trigger EgorBot:
+
+```
+@EgorBot -x64 -arm
+```
+```cs
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
+using System;
+
+BenchmarkSwitcher.FromAssembly(typeof(Bench).Assembly).Run(args);
+
+[MemoryDiagnoser]
+public class Bench
+{
+    private byte[] _byteArray = default!;
+    private byte[] _byteArrayCopy = default!;
+
+    [Params(16, 256, 4096)]
+    public int Length { get; set; }
+
+    [GlobalSetup]
+    public void Setup()
+    {
+        _byteArray = new byte[Length];
+        _byteArrayCopy = new byte[Length];
+        for (int i = 0; i < Length; i++)
+        {
+            _byteArray[i] = (byte)(i & 0xFF);
+            _byteArrayCopy[i] = (byte)(i & 0xFF);
+        }
+    }
+
+    [Benchmark]
+    public bool Byte_SameReference…",2500,src/libraries/System.Runtime/tests/PerformanceTests/FileStreamBufferingBenchmark/FileStreamBufferingBenchmark.cs,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,99,3722414092,3421,vdaas/vald,https://github.com/vdaas/vald/pull/3421,Google_Jules,closed_unmerged,Refactor gRPC stream and pool for performance,"- Restore `BidirectionalStream` usage of pointer types and `RecvMsg` to reduce allocations and GC pressure.
+- Restore `runtime.Gosched()` in `BidirectionalStream` error paths.
+- Update `internal/net/grpc/pool` to use `grpc.DialContext` with `WithBlock` and timeouts, restoring v1.7.12-like behavior for better connection lifecycle management.
+- Optimize `pool.IsHealthy` by disabling high-frequency metrics map updates.
+- Implement asynchronous connection refreshing in `pool` to prevent blocking the pool during dials.
+- Adjust `poolConn.Close` ticker intervals to be more responsive.
+- Fix syntax error in `Metrics` return type.
+
+---
+*PR created automatically by Jules for task [15464956987814392139](https://jules.google.com/task/15464956987814392139) started by @kpango*",774,internal/core/algorithm/ngt/ngt_bench_test.go | internal/io/copy_bench_test.go | hack/benchmark/core/benchmark/benchmark_test.go | hack/benchmark/core/benchmark/option_test.go | hack/benchmark/core/benchmark/strategy/bulk_insert_commit_test.go,performance,deepseek-flash,performance,performance,,human,2026-11-14T17:45:32+08:00
+human,100,3339140912,161074,pytorch/pytorch,https://github.com/pytorch/pytorch/pull/161074,OpenAI_Codex,closed_unmerged,Add optional metrics to operator benchmarks,"## Summary
+- allow PyTorchOperatorTestCase to carry pre-computed metric metadata
+- print/export TFLOP/s and memory bandwidth when metrics are provided
+- let mm_test opt-in to metrics via a local `metrics` list
+- default `metrics` variable in mm_test to `None` so other benchmarks remain unaffected
+
+## Testing
+- `/usr/bin/lintrunner -a benchmarks/operator_benchmark/benchmark_pytorch.py benchmarks/operator_benchmark/benchmark_core.py benchmarks/operator_benchmark/pt/mm_test.py` *(fails: No such file or directory)*
+- `PYTHONPATH=benchmarks /usr/bin/python3 benchmarks/operator_benchmark/pt/mm_test.py` *(fails: No module named 'torch')*
+
+
+------
+https://chatgpt.com/codex/tasks/task_e_68a542b7fb8c8333a7ae6f91ca2cddc7",719,benchmarks/diffusion/compile_benchmark.py | benchmarks/distributed/bench_nvshmem_tile_reduce.py | benchmarks/dynamo/microbenchmarks/bench_mm_fusion.py | benchmarks/dynamo/microbenchmarks/tensor_layout_mini_benchmark.py | benchmarks/fastrnns/test_bench.py,performance,,performance,performance,benchmark 增加可选性能 metrics 输出,human,2026-11-14T17:45:32+08:00
